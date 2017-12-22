@@ -1,0 +1,7 @@
+# Basic
+
+Hello, world!
+
+```.jsx
+<h1>Hello, world!</h1>
+```
