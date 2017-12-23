@@ -18,17 +18,25 @@ const fs = require('fs')
 const md = require('@compositor/markdown')
 
 const doc = fs.readFileSync('file.md', 'utf8')
-const scope = require('./ui/library')
+const components = require('./ui/library')
 
 const reactComponents = md(doc, {
-  scope,
+  components,
   mdComponents: {
-    h1: scope.H1
+    h1: components.H1
   }
 })
 
 console.log(reactComponents)
 ```
+
+## Related
+
+- @compositor/styleguide
+- unified
+- remark
+- remark-react
+- react-live
 
 ## License
 
@@ -41,11 +49,3 @@ MIT
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-## Related
-
-- @compositor/styleguide
-- unified
-- remark
-- remark-react
-- react-live
