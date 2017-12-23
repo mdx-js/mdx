@@ -9,6 +9,7 @@ import isLiveEditor from './lib/is-live-editor'
 import LiveEditor from './lib/LiveEditor'
 
 const markdown = (md, options = {}) => {
+  const mdComponents = options.mdComponents || {}
   const components = options.components || {}
   const theme = options.theme || {}
 
@@ -26,7 +27,7 @@ const markdown = (md, options = {}) => {
   }
 
   const transform = node => {
-    const component = components[node.tagName] || node.tagName
+    const component = mdComponents[node.tagName] || node.tagName
 
     return createElement(component, node.properties, node.children)
   }
