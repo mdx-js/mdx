@@ -1,15 +1,45 @@
-'use strict'
+import unified from 'unified'
+import parse from 'remark-parse'
+import toHast from 'mdast-util-to-hast'
+import toHyper from 'hast-to-hyperscript'
 
-const unified = require('unified')
-const parse = require('remark-parse')
-const toHAST = require('mdast-util-to-hast')
+import { createElement } from 'react'
 
-module.exports = (md, options = {}) => {
+import isLiveEditor from './lib/is-live-editor'
+import LiveEditor from './lib/LiveEditor'
+
+const markdown = (md, options = {}) => {
+  const components = options.components || {}
+  const theme = options.theme || {}
+
+  const transformLiveEditor = (node, components) => {
+    const children = node.children || []
+    const code = (children[0] || {}).value || ''
+
+    const props = Object.assign({}, node.properties, {
+      components,
+      theme,
+      code
+    })
+
+    return createElement(LiveEditor, props, code)
+  }
+
+  const transform = node => {
+    const component = components[node.tagName] || node.tagName
+
+    return createElement(component, node.properties, node.children)
+  }
+
+  const compile = node => isLiveEditor(node)
+    ? transformLiveEditor(node, components)
+    : transform(node)
+
   const tree = unified()
     .use(parse)
     .parse(md)
 
-  const hast = toHAST(tree)
-
-  return hast
+  return toHast(tree).children.map(compile)
 }
+
+module.exports = markdown
