@@ -2,7 +2,7 @@
   "name": "@compositor/markdown",
   "description": "Styleguide and React friendly markdown rendering based on Remark",
   "author": "Compositor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "files": [
     "index.js",
