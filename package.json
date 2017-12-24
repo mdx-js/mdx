@@ -27,9 +27,7 @@
     "mdast-util-to-hast": "^3.0.0",
     "react": "^16.2.0",
     "react-live": "^1.7.1",
-    "remark": "^8.0.0",
-    "remark-parse": "^4.0.0",
-    "unified": "^6.1.6"
+    "remark": "^8.0.0"
   },
   "devDependencies": {
     "ava": "^0.24.0",
