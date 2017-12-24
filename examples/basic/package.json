@@ -12,5 +12,7 @@
   "devDependencies": {
     "@compositor/x0": "^3.0.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@compositor/markdown": "0.0.4"
+  }
 }

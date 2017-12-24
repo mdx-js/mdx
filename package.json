@@ -5,11 +5,11 @@
   "version": "0.0.4",
   "main": "dist/index.js",
   "files": [
-    "dist/index.js"
+    "dist"
   ],
   "scripts": {
     "test": "ava -v",
-    "prepublish": "babel index.js -d dist"
+    "prepare": "babel src -d dist"
   },
   "repository": "c8r/@compositor/markdown",
   "keywords": [
