@@ -13,6 +13,6 @@
     "@compositor/x0": "^3.0.2"
   },
   "dependencies": {
-    "@compositor/markdown": "0.0.4"
+    "@compositor/markdown": "0.0.5"
   }
 }
