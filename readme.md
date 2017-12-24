@@ -13,26 +13,35 @@ npm install --save @compositor/markdown
 
 ## Usage
 
+The library accepts a markdown string, and an options object.
+
 ```js
 const fs = require('fs')
 const md = require('@compositor/markdown')
 
 const doc = fs.readFileSync('file.md', 'utf8')
-const components = require('./ui/library')
+const library = require('./ui/library')
 
 const reactComponents = md(doc, {
-  components,
-  mdComponents: {
-    h1: components.H1
+  components: {
+    h1: components.H1,
+    p: components.Text,
+    code: components.Code
   }
 })
-
-console.log(reactComponents)
 ```
+
+#### Options
+
+| Name | Default | Description |
+| ---- | ------- | ----------- |
+| `components` | `{}` | Object containing html element to component mapping |
+| `LiveEditor` | `LiveEditor` | Override the default editor component |
 
 ## Related
 
 - @compositor/styleguide
+- markdown
 - unified
 - remark
 - remark-react
