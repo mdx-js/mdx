@@ -2,8 +2,8 @@
 
 Styleguide and React friendly markdown rendering based on Remark.
 
-`@compositor/markdown` allows you to write documentation in markdown and expose a live code editor/renderer for React components.
-Additionally, you can pass React components that map to to their corresponding html components.
+`@compositor/markdown` allows you to write documentation in markdown and expose a live code editor/renderer for JSX.
+Additionally, you can pass React components that map to to their corresponding html elements.
 
 ## Installation
 

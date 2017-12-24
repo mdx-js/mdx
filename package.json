@@ -3,13 +3,13 @@
   "description": "Styleguide and React friendly markdown rendering based on Remark",
   "author": "Compositor",
   "version": "0.0.3",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": [
-    "index.js",
-    "lib"
+    "dist/index.js"
   ],
   "scripts": {
-    "test": "ava -v"
+    "test": "ava -v",
+    "prepublish": "babel index.js -d dist"
   },
   "repository": "c8r/@compositor/markdown",
   "keywords": [
