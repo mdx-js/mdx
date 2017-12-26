@@ -36,7 +36,7 @@ const reactComponents = md(doc, {
 | Name | Default | Description |
 | ---- | ------- | ----------- |
 | `components` | `{}` | Object containing html element to component mapping |
-| `LiveEditor` | `LiveEditor` | Override the default editor component |
+| `LiveEditor` | [`src/lib/LiveEditor`](https://github.com/c8r/markdown/blob/master/src/lib/LiveEditor.js) | Override the default editor component |
 
 ## Related
 
