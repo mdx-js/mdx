@@ -6,7 +6,7 @@ import { createElement } from 'react'
 import isLiveEditor from './is-live-editor'
 import LiveEditor from './LiveEditor'
 
-module.exports = function transformer (options) {
+export default function transformer (options) {
   const mdComponents = options.mdComponents || {}
   const components = options.components || {}
   const theme = options.theme || {}

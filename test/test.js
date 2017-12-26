@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const test = require('ava')
 
-const markdown = require('../')
+const markdown = require('../src')
 
 test('it handles basic markdown with .jsx code block', t => {
   testFixture(t, 'basic')

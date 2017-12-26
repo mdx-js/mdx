@@ -21,3 +21,7 @@ The following is a live editor code block:
 ```.jsx
 <h1>Hello, world!</h1>
 ```
+
+./test/fixtures/example.md
+
+By bye
