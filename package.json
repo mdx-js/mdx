@@ -24,10 +24,12 @@
     "glamor": "^2.20.40",
     "glamorous": "^4.11.2",
     "hast-to-hyperscript": "^4.0.0",
+    "is-url": "^1.2.2",
     "mdast-util-to-hast": "^3.0.0",
     "react": "^16.2.0",
     "react-live": "^1.7.1",
     "remark": "^8.0.0",
+    "remark-toc": "^5.0.0",
     "unist-util-visit": "^1.3.0"
   },
   "devDependencies": {
