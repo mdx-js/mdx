@@ -16,7 +16,7 @@ By specifying a code block's language to be `.jsx`, a live code editor will be r
 ```md
 ```.jsx
 <Hello>World</Hello>
-```
+\```
 ```
 
 #### File transclusion
