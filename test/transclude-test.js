@@ -7,8 +7,6 @@ const transclude = require('../src/lib/transclude')
 test('it transcludes a md file', t => {
   const md = fs.readFileSync('test/fixtures/basic.md', 'utf8')
 
-  console.log(md)
-
   const result = remark().use(transclude).processSync(md)
 
   t.snapshot(result)
