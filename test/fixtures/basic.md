@@ -24,4 +24,6 @@ The following is a live editor code block:
 
 ./test/fixtures/example.md
 
+./unsupported/file.type
+
 By bye
