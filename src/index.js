@@ -1,13 +1,11 @@
 import remark from 'remark'
-import toHast from 'mdast-util-to-hast'
-import toHyper from 'hast-to-hyperscript'
-
-import { createElement } from 'react'
 
 import transformer from './lib/transformer'
+import transclude from './lib/transclude'
 
 module.exports = (md, options = {}) =>
   remark()
+    .use(transclude, options)
     .use(transformer, options)
     .processSync(md)
     .contents
