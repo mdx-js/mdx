@@ -25,7 +25,11 @@ module.exports = function transformer (options) {
       code
     })
 
-    return createElement(LiveEditor, editorProps, code)
+    return createElement(
+      options.LiveEditor || LiveEditor,
+      editorProps,
+      code
+    )
   }
 
   const transform = node =>
