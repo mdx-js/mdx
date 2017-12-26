@@ -21,7 +21,7 @@ By specifying a code block's language to be `.jsx`, a live code editor will be r
 
 #### File transclusion
 
-You can also reference content from a shared, relative file and it will be included in the rendered output:
+You can reference content from a shared, relative file and it will be included in the rendered output:
 
 ```md
 # Hello, world!
@@ -35,6 +35,20 @@ You can also reference content from a shared, relative file and it will be inclu
 - `html`
 - `jsx`
 - `txt`
+
+#### Images
+
+Embedding images is easier to remember, you can link a url or relative file path.
+
+```md
+#### A url
+
+https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
+
+#### A relative path
+
+./my-image.png
+```
 
 ## Installation
 

@@ -2,6 +2,8 @@
 
 This is an example markdown doc.
 
+https://compositor.io/images/iso-hero.jpg
+
 ## Installation
 
 ```sh
