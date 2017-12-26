@@ -1,9 +1,42 @@
 # markdown
 
-Styleguide and React friendly markdown rendering based on Remark.
+Styleguide and React friendly markdown rendering based on Remark with a few added features.
 
-`@compositor/markdown` allows you to write documentation in markdown and expose a live code editor/renderer for JSX.
+`@compositor/markdown` allows you to expose a live code editor/renderer for JSX and file transclusion.
 Additionally, you can pass React components that map to to their corresponding html elements.
+
+### Syntax
+
+In addition to the Markdown spec, there are a few added niceties that you can leverage.
+
+#### Live code editor
+
+By specifying a code block's language to be `.jsx`, a live code editor will be rendered.
+
+```md
+\`\`\`.jsx
+<Hello>World</Hello>
+\`\`\`
+```
+
+#### File transclusion
+
+You can also reference content from a shared, relative file and it will be included in the rendered output:
+
+```md
+# Hello, world!
+
+./license.md
+```
+
+##### Supported file types
+
+- `md`
+- `html`
+- `jsx`
+- `txt`
+- `png`
+- `svg`
 
 ## Installation
 
@@ -46,10 +79,6 @@ const reactComponents = md(doc, {
 - remark
 - remark-react
 - react-live
-
-## License
-
-MIT
 
 ## Contributing
 
