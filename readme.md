@@ -82,6 +82,8 @@ const reactComponents = md(doc, {
 | ---- | ------- | ----------- |
 | `components` | `{}` | Object containing html element to component mapping |
 | `LiveEditor` | [`src/lib/LiveEditor`](https://github.com/c8r/markdown/blob/master/src/lib/LiveEditor.js) | Override the default editor component |
+| `toc` | `false` | Generate a [table of contents](https://github.com/remarkjs/remark-toc) |
+| `plugins` | `[]` | Additional remark plugins |
 
 ## Related
 
@@ -91,6 +93,8 @@ const reactComponents = md(doc, {
 - remark
 - remark-react
 - react-live
+- remark-toc
+- remark-emoji
 
 ## Contributing
 
