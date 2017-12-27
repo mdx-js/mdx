@@ -1,4 +1,4 @@
-# markdown
+# @compositor/markdown
 
 Styleguide and React friendly markdown rendering based on Remark with a few added features.
 
@@ -103,6 +103,8 @@ const reactComponents = md(doc, {
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+***
 
 [Made by Compositor](https://compositor.io/)
 |
