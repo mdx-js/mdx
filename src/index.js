@@ -10,7 +10,12 @@ module.exports = (md, options = {}) => {
   const plugins = options.plugins || []
 
   const fn = remark()
-    .use(transclude, options)
+
+  if (!options.hasOwnProperty('transclude') || options.transclude) {
+    fn.use(transclude, options)
+  }
+
+  fn
     .use(images, options)
     .use(emoji, options)
 
