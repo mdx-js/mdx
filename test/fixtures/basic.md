@@ -1,4 +1,4 @@
-# Hello, world
+# Hello, world :+1:
 
 This is an example markdown doc.
 
