@@ -50,6 +50,12 @@ https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
 ./my-image.png
 ```
 
+##### Supported file types
+
+- `png`
+- `svg`
+- `jpg`
+
 ## Installation
 
 ```sh
