@@ -11,7 +11,7 @@ In addition to the Markdown spec, there are a few added niceties that you can le
 
 #### Live code editor
 
-By specifying a code block's language to be `.jsx`, a live code editor will be rendered.
+By specifying a code block's language to be `.jsx` or `.html` a live code editor will be rendered.
 
 ```md
 ```.jsx
