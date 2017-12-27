@@ -1,5 +1,6 @@
 import remark from 'remark'
 import toc from 'remark-toc'
+import emoji from 'remark-emoji'
 
 import transformer from './lib/transformer'
 import transclude from './lib/transclude'
@@ -11,6 +12,7 @@ module.exports = (md, options = {}) => {
   const fn = remark()
     .use(transclude, options)
     .use(images, options)
+    .use(emoji, options)
 
   plugins.forEach(p => fn.use(p, options))
 
