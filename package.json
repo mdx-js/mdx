@@ -21,6 +21,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "classnamify": "^1.0.1",
     "glamor": "^2.20.40",
     "glamorous": "^4.11.2",
     "hast-to-hyperscript": "^4.0.0",

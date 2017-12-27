@@ -32,17 +32,11 @@ export default function transformer (options) {
     )
   }
 
-  const transform = node =>
+  this.Compiler = node =>
     toHyper(h, {
       type: 'element',
       tagName: 'div',
       properties: {},
       children: toHast(node).children
     })
-
-  const compiler = node => isLiveEditor(node)
-    ? transformLiveEditor(node, components)
-    : transform(node)
-
-  this.Compiler = compiler
 }
