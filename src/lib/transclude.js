@@ -14,12 +14,24 @@ export default () => (tree, file) =>
 
     const index = tree.children.indexOf(parent)
 
-    const transcludedFile = path.join(file.cwd, node.value)
-    const content = fs.readFileSync(transcludedFile, 'utf8')
+    if (index === -1) {
+      return
+    }
 
-    tree.children = [].concat(
-      tree.children.slice(0, index),
-      parse(content).children,
-      tree.children.slice(index + 1)
-    )
+    const transcludedFile = path.join(file.cwd, node.value)
+
+    let content = null
+    try {
+      content = fs.readFileSync(transcludedFile, 'utf8')
+    } catch (e) {
+      console.log(`Error transcluding ${transcludedFile}`)
+    }
+
+    if (content) {
+      tree.children = [].concat(
+        tree.children.slice(0, index),
+        parse(content).children,
+        tree.children.slice(index + 1)
+      )
+    }
   })
