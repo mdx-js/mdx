@@ -1,7 +1,15 @@
-import { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
+
 import md from './'
 
-class Markdown extends Component {
-
-
-}
+export default ({
+  text = '',
+  components = {},
+  scope = {},
+  ...options
+}) => md(text, {
+  scope,
+  components,
+  ...options
+})
