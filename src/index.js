@@ -2,11 +2,14 @@ import remark from 'remark'
 import toc from 'remark-toc'
 import emoji from 'remark-emoji'
 
+import Markdown from './Component'
 import transformer from './lib/transformer'
 import transclude from './lib/transclude'
 import images from './lib/images'
 
-module.exports = (md, options = {}) => {
+export { Markdown }
+
+export default (md, options = {}) => {
   const plugins = options.plugins || []
 
   const fn = remark()

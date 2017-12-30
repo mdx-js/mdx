@@ -87,6 +87,16 @@ npm install --save @compositor/markdown
 
 ## Usage
 
+### Component
+
+```jsx
+import { Markdown } from '@compositor/markdown'
+
+export default <Markdown text='# Hello, world!' />
+```
+
+### Core library usage
+
 The library accepts a markdown string, and an options object.
 
 ```js
