@@ -88,6 +88,7 @@ const reactComponents = md(doc, {
 | ---- | ------- | ----------- |
 | `components` | `{}` | Object containing html element to component mapping |
 | `LiveEditor` | [`src/lib/LiveEditor`](https://github.com/c8r/markdown/blob/master/src/lib/LiveEditor.js) | Override the default editor component |
+| `scope` | `{}` | Object containing components available in the live editor |
 | `toc` | `false` | Generate a [table of contents](https://github.com/remarkjs/remark-toc) |
 | `plugins` | `[]` | Additional remark plugins |
 | `transclude` | `true` | Opt out of file transclusion |
