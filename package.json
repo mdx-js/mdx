@@ -27,7 +27,6 @@
     "hast-to-hyperscript": "^4.0.0",
     "is-url": "^1.2.2",
     "mdast-util-to-hast": "^3.0.0",
-    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-live": "^1.7.1",
     "remark": "^8.0.0",
