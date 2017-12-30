@@ -1,13 +1,36 @@
-# @compositor/markdown
+# markdown
 
-Styleguide and React friendly markdown rendering based on Remark with a few added features.
+A fully-featured markdown parser and renderer for ambitious projects.
+Compiles to React for React-based apps or static site generation.
+Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`remark-react`](https://github.com/mapbox/remark-react).
 
-`@compositor/markdown` allows you to expose a live code editor/renderer for JSX and file transclusion.
-Additionally, you can pass React components that map to to their corresponding html elements.
+## Features
+
+- Fast
+- Live JSX and HTML editors (Styleguide ready)
+- [Pluggable](https://github.com/remarkjs/remark/blob/master/doc/plugins.md)
+- React component rendering
+- Standalone library for use without React
+- File transclusion
+- Simpler image syntax
+- Optional table of contents
+- GitHub style emojis
+
+### Not using React?
+
+`@compositor/markdown` also exports the core library which you can use in other node projects.
+
+```js
+import markdown from '@compositor/markdown'
+
+markdown('# Hello, world!', { react: false })
+```
+
+_Note:_ This won't include the React-based live code editor for JSX/HTML.
 
 ### Syntax
 
-In addition to the Markdown spec, there are a few added niceties that you can leverage.
+In addition supporting the full Markdown spec, this project adds syntactic niceties and plugin options.
 
 #### Live code editor
 
