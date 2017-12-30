@@ -118,14 +118,13 @@ const reactComponents = md(doc, {
 
 ## Related
 
-- @compositor/styleguide
-- markdown
-- unified
-- remark
-- remark-react
-- react-live
-- remark-toc
-- remark-emoji
+- [markdown](https://daringfireball.net/projects/markdown/syntax)
+- [unified](https://github.com/unifiedjs/unified)
+- [remark](http://remark.js.org/)
+- [remark-react](https://github.com/mapbox/remark-react)
+- [react-live](https://react-live.philpl.com/)
+- [remark-toc](https://github.com/remarkjs/remark-toc)
+- [remark-emoji](https://github.com/rhysd/remark-emoji)
 
 ## Contributing
 
