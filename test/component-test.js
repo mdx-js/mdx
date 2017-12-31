@@ -1,10 +1,10 @@
-const fs = require('fs')
-const test = require('ava')
-const React = require('react')
-const remark = require('remark')
-const { renderToString } = require('react-dom/server')
+import fs from 'fs'
+import test from 'ava'
+import React from 'react'
+import remark from 'remark'
+import { renderToString } from 'react-dom/server'
 
-const Markdown = require('../src/Component').default
+import { Markdown } from '../src'
 
 test('renders the component as markdown', t => {
   const md = fs.readFileSync('test/fixtures/basic.md', 'utf8')

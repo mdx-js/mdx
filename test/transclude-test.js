@@ -1,8 +1,8 @@
-const fs = require('fs')
-const test = require('ava')
-const remark = require('remark')
+import fs from 'fs'
+import path from 'path'
+import test from 'ava'
 
-const markdown = require('../src/')
+import { md as markdown } from '../src'
 
 test('it transcludes an md file', t => {
   const md = fs.readFileSync('test/fixtures/basic.md', 'utf8')
