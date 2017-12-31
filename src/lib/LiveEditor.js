@@ -36,6 +36,7 @@ export default ({
     <LiveProvider
       code={code}
       scope={scope}
+      mountStylesheet={false}
       transformCode={newCode => transformCode(newCode, theme, lang)}
       {...props}
     >
