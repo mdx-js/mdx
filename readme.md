@@ -21,9 +21,9 @@ Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`rem
 `@compositor/markdown` also exports the core library which you can use in other node projects.
 
 ```js
-import markdown from '@compositor/markdown'
+import { md } from '@compositor/markdown'
 
-markdown('# Hello, world!', { react: false })
+md('# Hello, world!', { skipReact: true })
 ```
 
 _Note:_ This won't include the React-based live code editor for JSX/HTML.
@@ -101,7 +101,7 @@ The library accepts a markdown string, and an options object.
 
 ```js
 const fs = require('fs')
-const md = require('@compositor/markdown')
+const { md } = require('@compositor/markdown')
 
 const doc = fs.readFileSync('file.md', 'utf8')
 const library = require('./ui/library')

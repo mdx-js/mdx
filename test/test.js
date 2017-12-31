@@ -1,8 +1,8 @@
-const fs = require('fs')
-const path = require('path')
-const test = require('ava')
+import fs from 'fs'
+import path from 'path'
+import test from 'ava'
 
-const markdown = require('../src')
+import { md as markdown } from '../src'
 
 test('it handles basic markdown with .jsx code block', t => {
   testFixture(t, 'basic')

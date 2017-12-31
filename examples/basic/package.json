@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@compositor/x0": "^3.0.2"
+    "@compositor/x0": "^3.0.4"
   },
   "dependencies": {
-    "@compositor/markdown": "0.0.5"
+    "@compositor/markdown": "0.0.11"
   }
 }

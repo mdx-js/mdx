@@ -1,15 +1,14 @@
 import remark from 'remark'
 import toc from 'remark-toc'
+import html from 'remark-html'
 import emoji from 'remark-emoji'
 
 import Markdown from './Component'
-import transformer from './lib/transformer'
+import transformer from './lib/react-transformer'
 import transclude from './lib/transclude'
 import images from './lib/images'
 
-export { Markdown }
-
-export default (md, options = {}) => {
+const md = (text, options = {}) => {
   const plugins = options.plugins || []
 
   const fn = remark()
@@ -28,8 +27,19 @@ export default (md, options = {}) => {
     fn.use(toc, options)
   }
 
+  if (options.skipReact) {
+    fn.use(html, options)
+  } else {
+    fn.use(transformer, options)
+  }
+
   return fn
-    .use(transformer, options)
-    .processSync(md)
+    .processSync(text)
     .contents
 }
+
+export {
+  md,
+  Markdown
+}
+
