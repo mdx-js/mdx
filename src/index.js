@@ -6,6 +6,7 @@ import emoji from 'remark-emoji'
 import Markdown from './Component'
 import transformer from './lib/react-transformer'
 import transclude from './lib/transclude'
+import relativize from './lib/relativize'
 import images from './lib/images'
 
 const md = (text, options = {}) => {
@@ -18,6 +19,7 @@ const md = (text, options = {}) => {
   }
 
   fn
+    .use(relativize, options)
     .use(images, options)
     .use(emoji, options)
 
