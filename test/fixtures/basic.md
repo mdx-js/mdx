@@ -4,6 +4,8 @@ This is an example markdown doc.
 
 https://compositor.io/images/iso-hero.jpg
 
+[link](linked-file.md)
+
 ## Installation
 
 ```sh
