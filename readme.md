@@ -4,6 +4,8 @@ A fully-featured markdown parser and renderer for ambitious projects.
 Compiles to React for React-based apps or static site generation.
 Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`remark-react`](https://github.com/mapbox/remark-react).
 
+`@compositor/markdown` provides a few added features that improve the Markdown spec, including file transclusion and an optional image syntax.
+
 ## Features
 
 - Fast
@@ -125,6 +127,7 @@ const reactComponents = md(doc, {
 | `toc` | `false` | Generate a [table of contents](https://github.com/remarkjs/remark-toc) |
 | `plugins` | `[]` | Additional remark plugins |
 | `transclude` | `true` | Opt out of file transclusion |
+| `skipReact` | `false` | Opt out of React component rendering |
 
 ## Related
 
