@@ -134,6 +134,7 @@ const reactComponents = md(doc, {
 - [react-live](https://react-live.philpl.com/)
 - [remark-toc](https://github.com/remarkjs/remark-toc)
 - [remark-emoji](https://github.com/rhysd/remark-emoji)
+- [IA Markdown Content Blocks](https://github.com/iainc/Markdown-Content-Blocks)
 
 ## Contributing
 
