@@ -11,10 +11,16 @@ export default function transformer (options) {
   const scope = options.scope || {}
   const theme = options.theme || {}
 
-  const h = (name, props = {}, children) =>
-    isLiveEditor(props)
-      ? liveEditorComponent(props, children)
-      : createElement(components[name] || name, props, children)
+  const h = (name, props = {}, children = []) => {
+      const child = children[0]
+      if (child && isLiveEditor(child.props || {})) {
+        name = 'paragraph'
+      }
+
+      return isLiveEditor(props)
+        ? liveEditorComponent(props, children)
+        : createElement(components[name] || name, props, children)
+    }
 
   const liveEditorComponent = (props, children) => {
     const code = children[0] || ''

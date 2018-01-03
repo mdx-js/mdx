@@ -44,4 +44,3 @@ export {
   md,
   Markdown
 }
-
