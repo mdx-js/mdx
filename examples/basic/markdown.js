@@ -23,5 +23,7 @@ The following is a live editor code block:
 <h1>Hello, world!</h1>
 \`\`\`
 
+https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png
+
 ./other.md
 `
