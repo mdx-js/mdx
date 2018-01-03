@@ -12,6 +12,10 @@ https://compositor.io/images/iso-hero.jpg
 npm i -g foo
 ```
 
+```!jsx
+<h1 children='Hi' />
+```
+
 ## Usage
 
 ```

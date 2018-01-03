@@ -9,6 +9,10 @@ This is an example markdown doc.
 npm i -g foo
 \`\`\`
 
+\`\`\`!jsx
+<h1 children='hi' />
+\`\`\`
+
 ## Usage
 
 \`\`\`
