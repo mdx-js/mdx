@@ -57,9 +57,9 @@ You can reference content from a shared, relative file and it will be included i
 ##### Supported file types
 
 - `md`
-- `html`
-- `jsx`
-- `txt`
+- `html` (coming soon)
+- `jsx` (coming soon)
+- `txt` (coming soon)
 
 #### Images
 
@@ -69,10 +69,6 @@ Embedding images is easier to remember, you can link a url or relative file path
 #### A url
 
 https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
-
-#### A relative path
-
-./my-image.png
 ```
 
 ##### Supported file types
