@@ -44,6 +44,16 @@ By specifying a code block's language to be `.jsx` or `.html` a live code editor
 \```
 ```
 
+#### JSX rendering
+
+Components that are provided in scope can also be rendered in a code block when the language is specified to be `!jsx`.
+
+```ms
+```!jsx
+<Box color='blue'>Hello, world</Box>
+\```
+```
+
 #### File transclusion
 
 You can reference content from a shared, relative file and it will be included in the rendered output:
