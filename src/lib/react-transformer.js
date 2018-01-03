@@ -5,7 +5,9 @@ import isVoid from 'is-void-element'
 import { createElement } from 'react'
 
 import isLiveEditor from './is-live-editor'
+import shouldRender from './should-render'
 import LiveEditor from './LiveEditor'
+import Render from './Render'
 
 export default function transformer (options) {
   const components = options.components || {}
@@ -17,17 +19,22 @@ export default function transformer (options) {
         return createElement(components[name] || name, props)
       }
 
-      const child = children[0]
-      if (child && isLiveEditor(child.props || {})) {
+      const child = children[0] || {}
+      const childProps = child.props || {}
+      if (isLiveEditor(childProps) || shouldRender(childProps)) {
         name = 'div'
       }
 
-      return isLiveEditor(props)
-        ? liveEditorComponent(props, children)
-        : createElement(components[name] || name, props, children)
+      if (isLiveEditor(props) || shouldRender(props)) {
+        return isLiveEditor(props)
+          ? liveEditorComponent(props, children)
+          : renderComponent(props, children)
+      } else {
+        return createElement(components[name] || name, props, children)
+      }
     }
 
-  const liveEditorComponent = (props, children) => {
+  const liveEditorComponent = (props, children = []) => {
     const code = children[0] || ''
 
     const editorProps = Object.assign({}, props, {
@@ -38,6 +45,22 @@ export default function transformer (options) {
 
     return createElement(
       options.LiveEditor || LiveEditor,
+      editorProps,
+      code
+    )
+  }
+
+  const renderComponent = (props, children) => {
+    const code = children[0] || ''
+
+    const editorProps = Object.assign({}, props, {
+      components: scope,
+      theme,
+      code
+    })
+
+    return createElement(
+      Render,
       editorProps,
       code
     )
