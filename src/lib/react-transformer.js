@@ -1,5 +1,6 @@
 import toHast from 'mdast-util-to-hast'
 import toHyper from 'hast-to-hyperscript'
+import isVoid from 'is-void-element'
 
 import { createElement } from 'react'
 
@@ -11,10 +12,20 @@ export default function transformer (options) {
   const scope = options.scope || {}
   const theme = options.theme || {}
 
-  const h = (name, props = {}, children) =>
-    isLiveEditor(props)
-      ? liveEditorComponent(props, children)
-      : createElement(components[name] || name, props, children)
+  const h = (name, props = {}, children = []) => {
+      if (isVoid(name)) {
+        return createElement(components[name] || name, props)
+      }
+
+      const child = children[0]
+      if (child && isLiveEditor(child.props || {})) {
+        name = 'div'
+      }
+
+      return isLiveEditor(props)
+        ? liveEditorComponent(props, children)
+        : createElement(components[name] || name, props, children)
+    }
 
   const liveEditorComponent = (props, children) => {
     const code = children[0] || ''
