@@ -1,6 +1,7 @@
 import remark from 'remark'
 import toc from 'remark-toc'
 import html from 'remark-html'
+import slug from 'remark-slug'
 import emoji from 'remark-emoji'
 
 import Markdown from './Component'
@@ -19,6 +20,7 @@ const md = (text, options = {}) => {
   }
 
   fn
+    .use(slug, options)
     .use(relativize, options)
     .use(images, options)
     .use(emoji, options)
