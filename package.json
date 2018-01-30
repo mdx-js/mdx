@@ -22,8 +22,6 @@
   "license": "MIT",
   "dependencies": {
     "classnamify": "^1.0.1",
-    "glamor": "^2.20.40",
-    "glamorous": "^4.11.2",
     "hast-to-hyperscript": "^4.0.0",
     "is-url": "^1.2.2",
     "is-void-element": "^1.0.0",
@@ -35,6 +33,7 @@
     "remark-html": "^7.0.0",
     "remark-slug": "^5.0.0",
     "remark-toc": "^5.0.0",
+    "styled-components": "^3.1.4",
     "unist-util-visit": "^1.3.0"
   },
   "devDependencies": {

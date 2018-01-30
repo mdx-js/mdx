@@ -1,7 +1,7 @@
 import React from 'react'
 import classnamify from 'classnamify'
 
-import { ThemeProvider } from 'glamorous'
+import { ThemeProvider } from 'styled-components'
 
 import {
   LiveProvider,
