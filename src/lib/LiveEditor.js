@@ -20,12 +20,13 @@ const transformCode = (code, theme, lang = 'jsx') => `
 
 export default ({
   components,
+  scope,
   theme,
   code,
   className,
   ...props
 })  => {
-  const scope = Object.assign({}, components, {
+  const fullScope = Object.assign({}, scope, {
     ThemeProvider,
     theme
   })
@@ -35,7 +36,7 @@ export default ({
   return (
     <LiveProvider
       code={code}
-      scope={scope}
+      scope={fullScope}
       mountStylesheet={false}
       transformCode={newCode => transformCode(newCode, theme, lang)}
       {...props}
