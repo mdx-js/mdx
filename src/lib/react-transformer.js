@@ -38,7 +38,8 @@ export default function transformer (options) {
     const code = children[0] || ''
 
     const editorProps = Object.assign({}, props, {
-      components: scope,
+      components,
+      scope,
       theme,
       code
     })
@@ -54,7 +55,8 @@ export default function transformer (options) {
     const code = children[0] || ''
 
     const editorProps = Object.assign({}, props, {
-      components: scope,
+      components,
+      scope,
       theme,
       code
     })

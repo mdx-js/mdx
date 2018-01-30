@@ -26,7 +26,7 @@ export default ({
   className,
   ...props
 })  => {
-  const fullScope = Object.assign({}, scope, {
+  const fullScope = Object.assign({}, components, scope, {
     ThemeProvider,
     theme
   })
