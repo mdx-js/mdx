@@ -1,4 +1,4 @@
-# markdown
+# Markdown
 
 A fully-featured markdown parser and renderer for ambitious projects.
 Compiles to React for React-based apps or static site generation.
