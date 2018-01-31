@@ -134,6 +134,7 @@ const reactComponents = md(doc, {
 | `plugins` | `[]` | Additional remark plugins |
 | `transclude` | `true` | Opt out of file transclusion |
 | `skipReact` | `false` | Opt out of React component rendering |
+| `props` | `undefined` | Apply default properties to components in html element mapping |
 
 ## Related
 

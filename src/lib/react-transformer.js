@@ -13,6 +13,14 @@ export default function transformer (options) {
   const components = options.components || {}
   const scope = options.scope || {}
   const theme = options.theme || {}
+  const props = options.props || {}
+
+  Object.keys(components).forEach(name => {
+    const component = components[name]
+    component.defaultProps = component.defaultProps
+      ? Object.assign({}, props[name] || {}, component.defaultProps)
+      : props[name]
+  })
 
   const h = (name, props = {}, children = []) => {
       if (isVoid(name)) {
