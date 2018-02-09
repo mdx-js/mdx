@@ -146,6 +146,7 @@ const reactComponents = md(doc, {
 - [remark-toc](https://github.com/remarkjs/remark-toc)
 - [remark-emoji](https://github.com/rhysd/remark-emoji)
 - [IA Markdown Content Blocks](https://github.com/iainc/Markdown-Content-Blocks)
+- [.mdx proposal](https://spectrum.chat/thread/1021be59-2738-4511-aceb-c66921050b9a)
 
 ## Contributing
 
