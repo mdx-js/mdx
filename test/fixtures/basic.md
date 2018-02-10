@@ -28,6 +28,9 @@ export default props => <Foo {...props} />
 The following is a live editor code block:
 
 ```.jsx
+---
+liveEditor: true
+---
 <h1>Hello, world!</h1>
 ```
 
