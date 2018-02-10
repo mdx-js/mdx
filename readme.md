@@ -60,7 +60,6 @@ import Other from './other.mdx'
 
 # Hello, world!
 
-```md
 ```.jsx
 <Other />
 ```
