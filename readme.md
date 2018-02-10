@@ -119,7 +119,7 @@ const reactComponents = md(doc, {
     h1: ui.H1,
     p: ui.Text,
     code: ui.Code,
-    Video: ui.video
+    Video: ui.Video
   }
 })
 ```
