@@ -7,4 +7,8 @@ export default options => (tree, file) =>
     if (!/^\s*</.test(node.value)) {
       return
     }
+
+    // TODO: walk all opening tags and match with closing
+    // and combine into a single `html` node for HAST
+    // transformation
   })
