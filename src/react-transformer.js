@@ -3,6 +3,7 @@ import toHyper from 'hast-to-hyperscript'
 import isVoid from 'is-void-element'
 
 import { createElement } from 'react'
+import { safeLoad as yaml } from 'js-yaml'
 
 import JSXCodeBlock from './JSXCodeBlock'
 
@@ -40,6 +41,7 @@ export default function transformer (options) {
     const code = children[0] || ''
 
     const editorProps = Object.assign({}, props, {
+      frontmatter: this.frontmatter,
       components,
       theme,
       code
@@ -52,11 +54,24 @@ export default function transformer (options) {
     )
   }
 
-  this.Compiler = node =>
-    toHyper(h, {
+  const parseFrontmatter = node => {
+    const frontmatter = node.children.find(s => s.type === 'yaml')
+
+    try {
+      this.frontmatter = yaml(frontmatter ? frontmatter.value : '')
+    } catch (e) {
+      console.error('Error parsing frontmatter')
+    }
+  }
+
+  this.Compiler = node => {
+    parseFrontmatter(node)
+
+    return toHyper(h, {
       type: 'element',
       tagName: 'div',
       properties: {},
       children: toHast(node).children
     })
+  }
 }

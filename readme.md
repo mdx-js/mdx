@@ -4,7 +4,7 @@ A fully-featured markdown parser and renderer for ambitious projects.
 Compiles to React for React-based apps or static site generation.
 Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`remark-react`](https://github.com/mapbox/remark-react)/[`mdxc`](https://github.com/jamesknelson/mdxc).
 
-`@compositor/markdown` provides a few added features that improve the Markdown spec, including component imports, inline JSX, frontmatter and an optional image syntax.
+`@compositor/markdown` provides a few added features that improve the Markdown spec, including component imports, inline JSX, frontmatter, and an optional image syntax.
 
 ## Features
 
@@ -12,6 +12,7 @@ Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`rem
 - [Pluggable](https://github.com/remarkjs/remark/blob/master/doc/plugins.md)
 - React component imports/rendering
 - Standalone library for use without React
+- Frontmatter support
 - Live editor for jsx
 - File transclusion
 - Simpler image syntax

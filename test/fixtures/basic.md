@@ -1,3 +1,6 @@
+---
+my: frontmatter
+---
 import Foo from './Foo'
 # Hello, world :+1:
 
