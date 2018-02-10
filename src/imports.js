@@ -1,9 +1,7 @@
-import fs from 'fs'
 import path from 'path'
 import isUrl from 'is-url'
 import visit from 'unist-util-visit'
 import parseImports from 'parse-es6-imports'
-import { parse } from 'remark'
 
 import { isImport } from './util'
 

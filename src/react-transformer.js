@@ -22,6 +22,9 @@ export default function transformer (options) {
   })
 
   const h = (name, props = {}, children = []) => {
+      console.log(name)
+      console.log(children)
+      console.log(props)
       if (isVoid(name)) {
         return createElement(components[name] || name, props)
       }
@@ -66,6 +69,9 @@ export default function transformer (options) {
 
   this.Compiler = node => {
     parseFrontmatter(node)
+
+    console.log(JSON.stringify(node, null, 2))
+    console.log(JSON.stringify(toHast(node).children, null, 2))
 
     return toHyper(h, {
       type: 'element',

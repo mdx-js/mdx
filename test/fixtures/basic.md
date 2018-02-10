@@ -16,6 +16,14 @@ https://compositor.io/images/iso-hero.jpg
 npm i -g foo
 ```
 
+<block>
+<span>Hi</span>
+</block>
+
+<Foo bar='baz'>
+Hi
+</Foo>
+
 ```!jsx
 <h1 children='Hi' />
 ```
