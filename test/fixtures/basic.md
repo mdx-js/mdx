@@ -1,3 +1,7 @@
+---
+my: frontmatter
+---
+import Foo from './Foo'
 # Hello, world :+1:
 
 This is an example markdown doc.
@@ -27,6 +31,9 @@ export default props => <Foo {...props} />
 The following is a live editor code block:
 
 ```.jsx
+---
+liveEditor: true
+---
 <h1>Hello, world!</h1>
 ```
 

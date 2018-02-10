@@ -1,5 +1,6 @@
 import React from 'react'
 import classnamify from 'classnamify'
+import matter from 'gray-matter'
 
 import { ThemeProvider } from 'styled-components'
 
@@ -24,25 +25,28 @@ export default ({
   theme,
   code,
   className,
+  frontmatter,
   ...props
 })  => {
   const fullScope = Object.assign({}, components, scope, {
+    ...frontmatter,
     ThemeProvider,
     theme
   })
 
   const lang = (className[0] || '').split(/-\./)[1] || 'jsx'
+  const parsedCode = matter(code)
 
   return (
     <LiveProvider
-      code={code}
+      code={parsedCode.content}
       scope={fullScope}
       mountStylesheet={false}
       transformCode={newCode => transformCode(newCode, theme, lang)}
       {...props}
     >
       <LivePreview />
-      <LiveEditor />
+      {parsedCode.data.liveEditor ? <LiveEditor /> : null}
       <LiveError />
     </LiveProvider>
   )

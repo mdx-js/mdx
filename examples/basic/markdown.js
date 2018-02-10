@@ -1,4 +1,5 @@
 export default `
+import foo from 'bar'
 # Hello, world
 
 This is an example markdown doc.
@@ -24,6 +25,9 @@ export default props => <Foo {...props} />
 The following is a live editor code block:
 
 \`\`\`.jsx
+---
+liveEditor: true
+---
 <h1>Hello, world!</h1>
 \`\`\`
 

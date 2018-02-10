@@ -3,15 +3,14 @@ import toHyper from 'hast-to-hyperscript'
 import isVoid from 'is-void-element'
 
 import { createElement } from 'react'
+import { safeLoad as yaml } from 'js-yaml'
 
-import isLiveEditor from './is-live-editor'
-import shouldRender from './should-render'
-import LiveEditor from './LiveEditor'
-import Render from './Render'
+import JSXCodeBlock from './JSXCodeBlock'
+
+import { isJSXCodeBlock } from './util'
 
 export default function transformer (options) {
   const components = options.components || {}
-  const scope = options.scope || {}
   const theme = options.theme || {}
   const props = options.props || {}
 
@@ -29,58 +28,50 @@ export default function transformer (options) {
 
       const child = children[0] || {}
       const childProps = child.props || {}
-      if (isLiveEditor(childProps) || shouldRender(childProps)) {
+      if (isJSXCodeBlock(childProps)) {
         name = 'div'
       }
 
-      if (isLiveEditor(props) || shouldRender(props)) {
-        return isLiveEditor(props)
-          ? liveEditorComponent(props, children)
-          : renderComponent(props, children)
-      } else {
-        return createElement(components[name] || name, props, children)
-      }
+      return isJSXCodeBlock(props)
+        ? jsxComponent(props, children)
+        : createElement(components[name] || name, props, children)
     }
 
-  const liveEditorComponent = (props, children = []) => {
+  const jsxComponent = (props, children = []) => {
     const code = children[0] || ''
 
     const editorProps = Object.assign({}, props, {
+      frontmatter: this.frontmatter,
       components,
-      scope,
       theme,
       code
     })
 
     return createElement(
-      options.LiveEditor || LiveEditor,
+      JSXCodeBlock,
       editorProps,
       code
     )
   }
 
-  const renderComponent = (props, children) => {
-    const code = children[0] || ''
+  const parseFrontmatter = node => {
+    const frontmatter = node.children.find(s => s.type === 'yaml')
 
-    const editorProps = Object.assign({}, props, {
-      components,
-      scope,
-      theme,
-      code
-    })
-
-    return createElement(
-      Render,
-      editorProps,
-      code
-    )
+    try {
+      this.frontmatter = yaml(frontmatter ? frontmatter.value : '')
+    } catch (e) {
+      console.error('Error parsing frontmatter')
+    }
   }
 
-  this.Compiler = node =>
-    toHyper(h, {
+  this.Compiler = node => {
+    parseFrontmatter(node)
+
+    return toHyper(h, {
       type: 'element',
       tagName: 'div',
       properties: {},
       children: toHast(node).children
     })
+  }
 }

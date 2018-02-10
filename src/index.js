@@ -3,12 +3,14 @@ import toc from 'remark-toc'
 import html from 'remark-html'
 import slug from 'remark-slug'
 import emoji from 'remark-emoji'
+import matter from 'remark-frontmatter'
 
 import Markdown from './Component'
-import transformer from './lib/react-transformer'
-import transclude from './lib/transclude'
-import relativize from './lib/relativize'
-import images from './lib/images'
+import transformer from './react-transformer'
+import transclude from './transclude'
+import relativize from './relativize'
+import imports from './imports'
+import images from './images'
 
 const md = (text, options = {}) => {
   const plugins = options.plugins || []
@@ -20,6 +22,8 @@ const md = (text, options = {}) => {
   }
 
   fn
+    .use(matter, { type: 'yaml', marker: '-' })
+    .use(imports, options)
     .use(slug, options)
     .use(relativize, options)
     .use(images, options)

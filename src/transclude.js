@@ -3,8 +3,10 @@ import path from 'path'
 import visit from 'unist-util-visit'
 import { parse } from 'remark'
 
-import isTranscludable from './is-transcludable'
-import isRelativeFile from './is-relative-file'
+import {
+  isTranscludable,
+  isRelativeFile
+} from './util'
 
 export default () => (tree, file) =>
   visit(tree, 'text', (node, _i, parent) => {

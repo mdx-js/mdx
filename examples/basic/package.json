@@ -1,18 +1,9 @@
 {
   "name": "basic",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "dev": "x0 dev Index.js"
+    "start": "x0 dev Index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@compositor/x0": "^3.0.4"
-  },
-  "dependencies": {
-    "@compositor/markdown": "0.0.11"
   }
 }
