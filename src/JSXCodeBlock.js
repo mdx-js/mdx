@@ -21,14 +21,13 @@ const transformCode = (code, theme, lang = 'jsx') => `
 
 export default ({
   components,
-  scope,
-  theme,
+  theme = {},
   code,
   className,
   frontmatter,
   ...props
 })  => {
-  const fullScope = Object.assign({}, components, scope, {
+  const fullScope = Object.assign({}, components, {
     ...frontmatter,
     ThemeProvider,
     theme
