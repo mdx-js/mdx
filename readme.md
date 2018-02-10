@@ -6,6 +6,10 @@ Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`rem
 
 `@compositor/markdown` provides a few added features that improve the Markdown spec, including component imports, inline JSX, frontmatter, and an optional image syntax.
 
+```sh
+npm install --save @compositor/markdown
+```
+
 ## Features
 
 - Fast
@@ -18,16 +22,6 @@ Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`rem
 - Simpler image syntax
 - Optional table of contents
 - GitHub style emojis
-
-### Not using React?
-
-`@compositor/markdown` also exports the core library which you can use in other node projects.
-
-```js
-import { md } from '@compositor/markdown'
-
-md('# Hello, world!', { skipReact: true })
-```
 
 ### Syntax
 
@@ -87,10 +81,14 @@ https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
 - `svg`
 - `jpg`
 
-## Installation
+## Not using React?
 
-```sh
-npm install --save @compositor/markdown
+`@compositor/markdown` also exports the core library which you can use in other node projects.
+
+```js
+import { md } from '@compositor/markdown'
+
+md('# Hello, world!', { skipReact: true })
 ```
 
 ## Usage
