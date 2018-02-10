@@ -2,17 +2,17 @@
 
 A fully-featured markdown parser and renderer for ambitious projects.
 Compiles to React for React-based apps or static site generation.
-Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`remark-react`](https://github.com/mapbox/remark-react).
+Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`remark-react`](https://github.com/mapbox/remark-react)/[`mdxc`](https://github.com/jamesknelson/mdxc).
 
-`@compositor/markdown` provides a few added features that improve the Markdown spec, including file transclusion and an optional image syntax.
+`@compositor/markdown` provides a few added features that improve the Markdown spec, including component imports, inline JSX, frontmatter and an optional image syntax.
 
 ## Features
 
 - Fast
-- Live JSX and HTML editors (Styleguide ready)
 - [Pluggable](https://github.com/remarkjs/remark/blob/master/doc/plugins.md)
-- React component rendering
+- React component imports/rendering
 - Standalone library for use without React
+- Live editor for jsx
 - File transclusion
 - Simpler image syntax
 - Optional table of contents
@@ -28,48 +28,47 @@ import { md } from '@compositor/markdown'
 md('# Hello, world!', { skipReact: true })
 ```
 
-_Note:_ This won't include the React-based live code editor for JSX/HTML.
-
 ### Syntax
 
 In addition supporting the full Markdown spec, this project adds syntactic niceties and plugin options.
 
-#### Live code editor
+#### JSX rendering
 
-By specifying a code block's language to be `.jsx` or `.html` a live code editor will be rendered.
+By specifying a code block's language to be `.jsx` React will be rendered.
+This allows you to tie into syntax highlighting for most text editors.
 
 ```md
 ```.jsx
 <Hello>World</Hello>
-\```
 ```
 
-#### JSX rendering
-
-Components that are provided in scope can also be rendered in a code block when the language is specified to be `!jsx`.
-
-```ms
-```!jsx
-<Box color='blue'>Hello, world</Box>
-\```
+```md
+```.jsx
+---
+liveEditor: true
+---
+<Hello>World</Hello>
 ```
+
+##### Frontmatter options
+
+| Name | Default | Description |
+| ---- | ------- | ----------- |
+| `liveEditor` | `false` | Turn `.jsx` code block into a [live editor](https://github.com/FormidableLabs/react-live) |
 
 #### File transclusion
 
-You can reference content from a shared, relative file and it will be included in the rendered output:
+Since you can import any `.mdx` file as a Markdown component, you can transclude files by importing
 
 ```md
+import Other from './other.mdx'
+
 # Hello, world!
 
-./license.md
+```md
+```.jsx
+<Other />
 ```
-
-##### Supported file types
-
-- `md`
-- `html` (coming soon)
-- `jsx` (coming soon)
-- `txt` (coming soon)
 
 #### Images
 
@@ -112,13 +111,14 @@ const fs = require('fs')
 const { md } = require('@compositor/markdown')
 
 const doc = fs.readFileSync('file.md', 'utf8')
-const library = require('./ui/library')
+const ui = require('./ui')
 
 const reactComponents = md(doc, {
   components: {
-    h1: components.H1,
-    p: components.Text,
-    code: components.Code
+    h1: ui.H1,
+    p: ui.Text,
+    code: ui.Code,
+    Video: ui.video
   }
 })
 ```
@@ -127,14 +127,10 @@ const reactComponents = md(doc, {
 
 | Name | Default | Description |
 | ---- | ------- | ----------- |
-| `components` | `{}` | Object containing html element to component mapping |
-| `LiveEditor` | [`src/lib/LiveEditor`](https://github.com/c8r/markdown/blob/master/src/lib/LiveEditor.js) | Override the default editor component |
-| `scope` | `{}` | Object containing components available in the live editor |
+| `components` | `{}` | Object containing html element to component mapping and any other components to provide to the global scope |
 | `toc` | `false` | Generate a [table of contents](https://github.com/remarkjs/remark-toc) |
 | `plugins` | `[]` | Additional remark plugins |
-| `transclude` | `true` | Opt out of file transclusion |
 | `skipReact` | `false` | Opt out of React component rendering |
-| `props` | `undefined` | Apply default properties to components in html element mapping |
 
 ## Related
 

@@ -1,12 +1,7 @@
 export const arr = a => Array.isArray(a) ? a : [a]
 
-export const EDITOR_CLASSNAME_REGEX = /language-\.(jsx|html)/
-export const isLiveEditor = ({ className = [] }) =>
-  !!arr(className).find(c => EDITOR_CLASSNAME_REGEX.test(c))
-
-// TODO: Nuke me for inline support
-export const RENDER_CLASSNAME_REGEX = /language-\!jsx/
-export const shouldRender = ({ className = [] }) =>
+export const EDITOR_CLASSNAME_REGEX = /language-\.jsx/
+export const isJSXCodeBlock = ({ className = [] }) =>
   !!arr(className).find(c => EDITOR_CLASSNAME_REGEX.test(c))
 
 export const RELATIVE_REGEX = /^\./

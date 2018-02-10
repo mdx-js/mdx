@@ -22,6 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "classnamify": "^1.0.1",
+    "gray-matter": "^3.1.1",
     "hast-to-hyperscript": "^4.0.0",
     "is-url": "^1.2.2",
     "is-void-element": "^1.0.0",

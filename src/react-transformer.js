@@ -4,17 +4,12 @@ import isVoid from 'is-void-element'
 
 import { createElement } from 'react'
 
-import LiveEditor from './LiveEditor'
-import Render from './Render'
+import JSXCodeBlock from './JSXCodeBlock'
 
-import {
-  isLiveEditor,
-  shouldRender
-} from './util'
+import { isJSXCodeBlock } from './util'
 
 export default function transformer (options) {
   const components = options.components || {}
-  const scope = options.scope || {}
   const theme = options.theme || {}
   const props = options.props || {}
 
@@ -32,48 +27,26 @@ export default function transformer (options) {
 
       const child = children[0] || {}
       const childProps = child.props || {}
-      if (isLiveEditor(childProps) || shouldRender(childProps)) {
+      if (isJSXCodeBlock(childProps)) {
         name = 'div'
       }
 
-      if (isLiveEditor(props) || shouldRender(props)) {
-        return isLiveEditor(props)
-          ? liveEditorComponent(props, children)
-          : renderComponent(props, children)
-      } else {
-        return createElement(components[name] || name, props, children)
-      }
+      return isJSXCodeBlock(props)
+        ? jsxComponent(props, children)
+        : createElement(components[name] || name, props, children)
     }
 
-  const liveEditorComponent = (props, children = []) => {
+  const jsxComponent = (props, children = []) => {
     const code = children[0] || ''
 
     const editorProps = Object.assign({}, props, {
       components,
-      scope,
       theme,
       code
     })
 
     return createElement(
-      options.LiveEditor || LiveEditor,
-      editorProps,
-      code
-    )
-  }
-
-  const renderComponent = (props, children) => {
-    const code = children[0] || ''
-
-    const editorProps = Object.assign({}, props, {
-      components,
-      scope,
-      theme,
-      code
-    })
-
-    return createElement(
-      Render,
+      JSXCodeBlock,
       editorProps,
       code
     )
