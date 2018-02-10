@@ -4,8 +4,10 @@ import isUrl from 'is-url'
 import visit from 'unist-util-visit'
 import { parse } from 'remark'
 
-import isTranscludableImg from './is-transcludable-image'
-import isRelativeFile from './is-relative-file'
+import {
+  isTranscludableImg,
+  isRelativeFile
+} from './util'
 
 export default () => (tree, file) =>
   visit(tree, 'text', (node, _i, parent) => {

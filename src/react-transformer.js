@@ -4,10 +4,13 @@ import isVoid from 'is-void-element'
 
 import { createElement } from 'react'
 
-import isLiveEditor from './is-live-editor'
-import shouldRender from './should-render'
 import LiveEditor from './LiveEditor'
 import Render from './Render'
+
+import {
+  isLiveEditor,
+  shouldRender
+} from './util'
 
 export default function transformer (options) {
   const components = options.components || {}

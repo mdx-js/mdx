@@ -142,6 +142,7 @@ const reactComponents = md(doc, {
 - [unified](https://github.com/unifiedjs/unified)
 - [remark](http://remark.js.org/)
 - [remark-react](https://github.com/mapbox/remark-react)
+- [mdxc](https://github.com/jamesknelson/mdxc)
 - [react-live](https://react-live.philpl.com/)
 - [remark-toc](https://github.com/remarkjs/remark-toc)
 - [remark-emoji](https://github.com/rhysd/remark-emoji)
