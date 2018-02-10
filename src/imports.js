@@ -2,24 +2,23 @@ import fs from 'fs'
 import path from 'path'
 import isUrl from 'is-url'
 import visit from 'unist-util-visit'
+import parseImports from 'parse-es6-imports'
 import { parse } from 'remark'
 
-import {
-  isTranscludableImg,
-  isRelativeFile
-} from './util'
+import { isImport } from './util'
 
-export default () => (tree, file) =>
-  visit(tree, 'text', (node, _i, parent) => {
-    if (!isTranscludableImg(node.value)) {
+export default options => (tree, file) =>
+  visit(tree, 'text', (node, i, parent) => {
+    if (!isImport(node.value)) {
       return
     }
 
-    if (!isRelativeFile(node.value) && !isUrl(node.value)) {
-      return
-    }
+    const siblings = parent.children
+    parent.children = siblings
+      .splice(0, i)
+      .concat(
+        siblings.slice(i + 1, siblings.length)
+      )
 
-    node.type = 'image'
-    node.url = node.value
-    delete node.value
+    file.data.imports = parseImports(node.value)
   })

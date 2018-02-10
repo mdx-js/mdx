@@ -1,4 +1,5 @@
 export default `
+import foo from 'bar'
 # Hello, world
 
 This is an example markdown doc.

@@ -8,6 +8,7 @@ import Markdown from './Component'
 import transformer from './react-transformer'
 import transclude from './transclude'
 import relativize from './relativize'
+import imports from './imports'
 import images from './images'
 
 const md = (text, options = {}) => {
@@ -20,6 +21,7 @@ const md = (text, options = {}) => {
   }
 
   fn
+    .use(imports, options)
     .use(slug, options)
     .use(relativize, options)
     .use(images, options)

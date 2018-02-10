@@ -1,3 +1,4 @@
+import Foo from './Foo'
 # Hello, world :+1:
 
 This is an example markdown doc.
