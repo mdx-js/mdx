@@ -1,4 +1,3 @@
-export default `
 import foo from 'bar'
 
 # Hello, world
@@ -11,18 +10,17 @@ import foo from 'bar'
 
 Here's some mid paragraph <h1>jsx</h1>
 
-\`\`\`.jsx
+```.jsx
 <Foo>hi</Foo>
-\`\`\`
+```
 
 The following is a live editor code block:
 
-\`\`\`.jsx
+```.jsx
 ---
 liveEditor: true
 ---
 <h1>Hello, world!</h1>
-\`\`\`
+```
 
 https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png
-`
