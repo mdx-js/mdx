@@ -8,8 +8,10 @@
     "dist"
   ],
   "scripts": {
-    "test": "ava -v",
-    "prepare": "babel src -d dist"
+    "build": "babel src -d dist",
+    "clean": "rm -rf dist",
+    "prepare": "npm run clean && npm run build",
+    "test": "ava -v"
   },
   "repository": "c8r/markdown",
   "keywords": [

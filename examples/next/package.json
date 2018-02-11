@@ -5,7 +5,7 @@
     "start": "next"
   },
   "dependencies": {
-    "@compositor/markdown": "0.0.23-1",
+    "@compositor/markdown": "0.0.23-2",
     "next": "^5.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
