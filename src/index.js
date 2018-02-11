@@ -57,27 +57,31 @@ const md = (text, options = {}) => {
   return renderer(renderFn)(hast, options)
 }
 
-const metadata = (text, options = {}) => parser(text, options).data
-const importScope = (text, options = {}) =>
-  metadata(text, options)
-    .imports
-    .reduce((acc, curr) => {
-      const imports = curr
-        .parsed
-        .reduce((a, c) => {
-          const i = c.namedImports.map(n => n.value)
-          if (c.defaultImport) i.push(c.defaultImport)
-          if (c.starImport) i.push(c.starImport)
+const metadata = (text, options = {}) => {
+  const data = parser(text, options).data
 
-          return a.concat(i)
-        }, [])
+  return Object.assign({}, data, {
+    importScope: importScope(data.imports)
+  })
+}
 
-      return acc.concat(imports)
-    }, [])
+const importScope = (imports = []) =>
+  imports.reduce((acc, curr) => {
+    const scopedImports = curr
+      .parsed
+      .reduce((a, c) => {
+        const i = c.namedImports.map(n => n.value)
+        if (c.defaultImport) i.push(c.defaultImport)
+        if (c.starImport) i.push(c.starImport)
+
+        return a.concat(i)
+      }, [])
+
+    return acc.concat(scopedImports)
+  }, [])
 
 export {
   md,
-  importScope,
   metadata,
   Markdown
 }
