@@ -1,6 +1,3 @@
-import React from 'react'
-import { render } from 'react-dom'
-
 import Document from '../md/markdown.md'
 
 const H1 = props => <h1 style={{ color: 'tomato' }} {...props} />
