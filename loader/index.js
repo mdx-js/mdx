@@ -1,5 +1,6 @@
 const { getOptions } = require('loader-utils')
 const validateOptions = require('schema-utils')
+const { metadata } = require('@compositor/markdown')
 
 const schema = {
   type: 'object',
@@ -13,15 +14,24 @@ module.exports = function (content) {
   const options = getOptions(this)
   //validateOptions(schema, options)
 
+  const data = metadata(content)
+  const imports = data.imports.map(i => i.raw).join('\n')
+  const importScope = `{ ${data.importScope.join(', ')} }`
   const escapedContent = content.replace(/`/g, '\\`')
 
   const code = `
   import React from 'react'
   import { Markdown } from '@compositor/markdown'
 
-  export default props =>
+  ${imports}
+
+  export default ({
+    components = {},
+    ...props
+  }) =>
     <Markdown
       {...props}
+      components={Object.assign({}, components, ${importScope})}
       text={\`${escapedContent}\`}
     />
   `

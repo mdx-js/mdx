@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@compositor/markdown": "0.0.23-4",
+    "@compositor/markdown": "0.0.23-5",
     "ava": "^0.24.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
