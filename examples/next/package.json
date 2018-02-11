@@ -11,6 +11,7 @@
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "@compositor/markdown-loader": "0.0.2"
+    "@compositor/markdown-loader": "0.0.2",
+    "webpack": "^3.11.0"
   }
 }
