@@ -5,12 +5,12 @@
     "start": "next"
   },
   "dependencies": {
-    "@compositor/markdown": "0.0.23-2",
+    "@compositor/markdown": "0.0.23-5",
     "next": "^5.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "@compositor/markdown-loader": "0.0.1"
+    "@compositor/markdown-loader": "0.0.2"
   }
 }

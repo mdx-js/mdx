@@ -1,11 +1,8 @@
-import * as ui from './ui'
 import Other from './other.md'
 
 # Hello, world
 
-<Foo>
-  Bar
-</Foo>
+<Other />
 
 <Foo children='Bar' />
 
