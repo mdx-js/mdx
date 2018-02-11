@@ -1,9 +1,0 @@
-{
-  "name": "basic",
-  "scripts": {
-    "start": "x0 dev Index.js"
-  },
-  "dependencies": {
-    "@compositor/markdown": "0.0.22-0"
-  }
-}
