@@ -1,5 +1,5 @@
 {
-  "name": "@compositor/md-loader",
+  "name": "@compositor/markdown-loader",
   "description": "Loader for @compositor/markdown",
   "author": "Compositor",
   "version": "0.0.1",

@@ -42,14 +42,10 @@ const md = (text, options = {}) => {
     fn.use(toc, options)
   }
 
-  if (options.skipReact) {
-    fn.use(html, options)
-  } else {
-    fn
-      .use(toHast, options)
-      .use(unnest, options)
-      .use(jsx, options)
-  }
+  fn
+    .use(toHast, options)
+    .use(unnest, options)
+    .use(jsx, options)
 
   const hast = fn
     .processSync(text)

@@ -25,11 +25,21 @@ npm install --save @compositor/markdown
 - Optional table of contents
 - GitHub style emojis
 
-### Syntax
+## Syntax
 
 In addition supporting the full Markdown spec, this project adds syntactic niceties and plugin options.
 
 #### JSX rendering
+
+JSX can be rendered in specific code blocks or inline:
+
+```jsx
+import { Video } from './my-components'
+
+# Hello, world!
+
+<Video />
+```
 
 By specifying a code block's language to be `.jsx` React will be rendered.
 This allows you to tie into syntax highlighting for most text editors.
@@ -38,6 +48,8 @@ This allows you to tie into syntax highlighting for most text editors.
 ```.jsx
 <Hello>World</Hello>
 ```
+
+Code blocks also have a few options available via frontmatter:
 
 ```md
 ```.jsx
@@ -55,15 +67,17 @@ liveEditor: true
 
 #### File transclusion
 
-Since you can import any `.mdx` file as a Markdown component, you can transclude files by importing
+Since you can import any `.md` file as a Markdown component, you can transclude files by importing.
 
 ```md
-import Other from './other.mdx'
+import Other from './other.md'
 
 # Hello, world!
 
 <Other />
 ```
+
+__Note:__ This requires configuring the [`markdown-loader`](loader/readme.md).
 
 #### Images
 
@@ -81,27 +95,30 @@ https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
 - `svg`
 - `jpg`
 
-## Not using React?
-
-`@compositor/markdown` also exports the core library which you can use in other node projects.
-
-```js
-import { md } from '@compositor/markdown'
-
-md('# Hello, world!', { skipReact: true })
-```
-
 ## Usage
 
-### Component
+### Import with loader
+
+```jsx
+import { Layout } from './ui'
+import Document from './docs/getting-started.md'
+
+export default () =>
+  <Layout>
+    <Document />
+  </Layout>
+```
+
+#### Component
 
 ```jsx
 import { Markdown } from '@compositor/markdown'
 
-export default <Markdown text='# Hello, world!' />
+export default () =>
+  <Markdown text='# Hello, world!' />
 ```
 
-### Core library usage
+#### Core library usage
 
 The library accepts a markdown string, and an options object.
 
@@ -117,7 +134,7 @@ const reactComponents = md(doc, {
     h1: ui.H1,
     p: ui.Text,
     code: ui.Code,
-    Video: ui.Video
+    ...ui
   }
 })
 ```
@@ -129,7 +146,6 @@ const reactComponents = md(doc, {
 | `components` | `{}` | Object containing html element to component mapping and any other components to provide to the global scope |
 | `toc` | `false` | Generate a [table of contents](https://github.com/remarkjs/remark-toc) |
 | `plugins` | `[]` | Additional remark plugins |
-| `skipReact` | `false` | Opt out of React component rendering |
 
 ## Related
 

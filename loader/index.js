@@ -4,9 +4,7 @@ const validateOptions = require('schema-utils')
 const schema = {
   type: 'object',
   properties: {
-    foo: {
-      type: 'string'
-    }
+    // TODO
   }
 }
 
