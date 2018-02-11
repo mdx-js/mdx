@@ -1,7 +1,9 @@
 ---
 my: frontmatter
 ---
-import Foo from './Foo'
+
+import { Foo } from './Fixture'
+
 # Hello, world :+1:
 
 This is an example markdown doc.

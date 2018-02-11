@@ -1,33 +1,40 @@
-import remark from 'remark'
+import React from 'react'
+import unified from 'unified'
+import parse from 'remark-parse'
+import stringify from 'remark-stringify'
 import toc from 'remark-toc'
 import html from 'remark-html'
 import slug from 'remark-slug'
 import emoji from 'remark-emoji'
 import matter from 'remark-frontmatter'
+import squeeze from 'remark-squeeze-paragraphs'
+import toHast from '@dumpster/remark-custom-element-to-hast'
+import renderer from '@dumpster/hast-react-renderer'
 
 import Markdown from './Component'
+import jsx from './jsx'
 import transformer from './react-transformer'
-import transclude from './transclude'
 import relativize from './relativize'
 import imports from './imports'
 import images from './images'
+import unnest from './unnest-custom-elements'
 
 const md = (text, options = {}) => {
   const plugins = options.plugins || []
+  const components = options.components || {}
 
-  const fn = remark()
+  options.componentWhitelist = Object.keys(components)
 
-  if (!options.hasOwnProperty('transclude') || options.transclude) {
-    fn.use(transclude, options)
-  }
-
-  fn
+  const fn = unified()
+    .use(parse)
+    .use(stringify)
     .use(matter, { type: 'yaml', marker: '-' })
     .use(imports, options)
     .use(slug, options)
     .use(relativize, options)
     .use(images, options)
     .use(emoji, options)
+    .use(squeeze, options)
 
   plugins.forEach(p => fn.use(p, options))
 
@@ -35,15 +42,16 @@ const md = (text, options = {}) => {
     fn.use(toc, options)
   }
 
-  if (options.skipReact) {
-    fn.use(html, options)
-  } else {
-    fn.use(transformer, options)
-  }
+  fn
+    .use(toHast, options)
+    .use(unnest, options)
+    .use(jsx, options)
 
-  return fn
+  const hast = fn
     .processSync(text)
     .contents
+
+  return renderer(React)(hast, options)
 }
 
 export {

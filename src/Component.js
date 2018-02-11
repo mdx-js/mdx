@@ -6,10 +6,12 @@ import { md } from './'
 export default ({
   text = '',
   components = {},
-  scope = {},
   ...options
-}) => md(text, {
-  scope,
-  components,
-  ...options
-})
+}) => {
+  const Document = md(text, {
+    components,
+    ...options
+  })
+
+  return <Document />
+}

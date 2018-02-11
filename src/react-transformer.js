@@ -9,7 +9,7 @@ import JSXCodeBlock from './JSXCodeBlock'
 
 import { isJSXCodeBlock } from './util'
 
-export default function transformer (options) {
+export default function transformer (node, options) {
   const components = options.components || {}
   const theme = options.theme || {}
   const props = options.props || {}
@@ -67,11 +67,8 @@ export default function transformer (options) {
   this.Compiler = node => {
     parseFrontmatter(node)
 
-    return toHyper(h, {
-      type: 'element',
-      tagName: 'div',
-      properties: {},
-      children: toHast(node).children
-    })
+    console.log(node)
+
+    return node
   }
 }
