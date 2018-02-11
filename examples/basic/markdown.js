@@ -4,8 +4,10 @@ import foo from 'bar'
 # Hello, world
 
 <Foo>
-  <h1 children='hi' />
+  Bar
 </Foo>
+
+<Foo children='Bar' />
 
 Here's some mid paragraph <h1>jsx</h1>
 

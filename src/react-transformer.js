@@ -9,7 +9,7 @@ import JSXCodeBlock from './JSXCodeBlock'
 
 import { isJSXCodeBlock } from './util'
 
-export default function transformer (options) {
+export default function transformer (node, options) {
   const components = options.components || {}
   const theme = options.theme || {}
   const props = options.props || {}
@@ -22,7 +22,6 @@ export default function transformer (options) {
   })
 
   const h = (name, props = {}, children = []) => {
-    console.log(name, props, children)
       if (isVoid(name)) {
         return createElement(components[name] || name, props)
       }
@@ -70,20 +69,6 @@ export default function transformer (options) {
 
     console.log(node)
 
-    return toHyper(h, {
-      type: 'element',
-      tagName: 'div',
-      properties: {},
-      children: toHast(node, {
-        allowDangerousHTML: true,
-        handlers: {
-          html: (h, node, parent) => {
-            console.log(parent)
-            parent.type = 'element'
-            parent.tagName = 'React.Fragment'
-          }
-        }
-      }).children
-    })
+    return node
   }
 }

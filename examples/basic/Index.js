@@ -9,7 +9,6 @@ const Box = props => <div style={{ border: 'thin solid purple' }} {...props} />
 export default () =>
   <Markdown
     text={content}
-    transclude={false}
     components={{
       h1: H1,
       Foo: H1,
