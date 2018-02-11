@@ -1,6 +1,3 @@
----
-my: frontmatter
----
 import Foo from './Foo'
 import * as ui from './ui'
 import { Other, Components } from 'foobar'
