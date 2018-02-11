@@ -1,25 +1,16 @@
 export default `
 import foo from 'bar'
+
 # Hello, world
 
-This is an example markdown doc.
+<Foo>
+  <h1 children='hi' />
+</Foo>
 
-## Installation
+Here's some mid paragraph <h1>jsx</h1>
 
-\`\`\`sh
-npm i -g foo
-\`\`\`
-
-\`\`\`!jsx
-<h1 children='hi' />
-\`\`\`
-
-## Usage
-
-\`\`\`
-import Foo from 'bar'
-
-export default props => <Foo {...props} />
+\`\`\`.jsx
+<Foo>hi</Foo>
 \`\`\`
 
 The following is a live editor code block:
@@ -32,6 +23,4 @@ liveEditor: true
 \`\`\`
 
 https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png
-
-./other.md
 `

@@ -19,7 +19,7 @@ const md = (text, options = {}) => {
   const plugins = options.plugins || []
 
   const fn = unified()
-    .use(parse, { blocks: ['block'] })
+    .use(parse)
     .use(stringify)
 
   if (!options.hasOwnProperty('transclude') || options.transclude) {

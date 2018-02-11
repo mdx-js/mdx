@@ -22,9 +22,7 @@ export default function transformer (options) {
   })
 
   const h = (name, props = {}, children = []) => {
-      console.log(name)
-      console.log(children)
-      console.log(props)
+    console.log(name, props, children)
       if (isVoid(name)) {
         return createElement(components[name] || name, props)
       }
@@ -70,14 +68,22 @@ export default function transformer (options) {
   this.Compiler = node => {
     parseFrontmatter(node)
 
-    console.log(JSON.stringify(node, null, 2))
-    console.log(JSON.stringify(toHast(node).children, null, 2))
+    console.log(node)
 
     return toHyper(h, {
       type: 'element',
       tagName: 'div',
       properties: {},
-      children: toHast(node).children
+      children: toHast(node, {
+        allowDangerousHTML: true,
+        handlers: {
+          html: (h, node, parent) => {
+            console.log(parent)
+            parent.type = 'element'
+            parent.tagName = 'React.Fragment'
+          }
+        }
+      }).children
     })
   }
 }

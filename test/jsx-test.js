@@ -6,12 +6,15 @@ import { md as markdown } from '../src'
 
 test('it turns simple inlined jsx into a single element', t => {
   const md = `
-<Foo bar='baz'>
+<Foo>
   Stuff
-
-
-  And more stuff
 </Foo>
+
+## hi
+
+<pre>
+things
+</pre>
 `
 
   const result = markdown(md)

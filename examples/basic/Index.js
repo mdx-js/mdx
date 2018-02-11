@@ -11,9 +11,8 @@ export default () =>
     text={content}
     transclude={false}
     components={{
-      h1: H1
-    }}
-    scope={{
+      h1: H1,
+      Foo: H1,
       Box
     }}
   />
