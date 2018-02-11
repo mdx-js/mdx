@@ -40,4 +40,4 @@ module: {
 
 [Made by Compositor](https://compositor.io/)
 |
-[MIT License](license)
+[MIT License](../license)
