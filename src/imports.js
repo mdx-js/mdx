@@ -1,5 +1,4 @@
 import path from 'path'
-import isUrl from 'is-url'
 import visit from 'unist-util-visit'
 import parseImports from 'parse-es6-imports'
 

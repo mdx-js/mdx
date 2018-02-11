@@ -6,7 +6,7 @@ A fully-featured markdown parser and renderer for ambitious projects.
 Compiles to React for React-based apps or static site generation.
 Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`remark-react`](https://github.com/mapbox/remark-react)/[`mdxc`](https://github.com/jamesknelson/mdxc).
 
-`@compositor/markdown` provides a few added features that improve the Markdown spec, including component imports, inline JSX, frontmatter, and an optional image syntax.
+`@compositor/markdown` provides a few added features that improve the Markdown spec, including component imports, inline JSX, and an optional image syntax.
 
 ```sh
 npm install --save @compositor/markdown
@@ -16,68 +16,69 @@ npm install --save @compositor/markdown
 
 - Fast
 - [Pluggable](https://github.com/remarkjs/remark/blob/master/doc/plugins.md)
+- Element to component mapping
 - React component imports/rendering
-- Standalone library for use without React
-- Frontmatter support
-- Live editor for jsx
-- File transclusion
 - Simpler image syntax
-- Optional table of contents
+- Table of contents support
 - GitHub style emojis
+- Standalone webpack loader for `import Docs from './readme.md'` support
+
+## Component customization
+
+You can pass in components for any `html` element that the markdown compiles to.
+This allows you to use your existing components and use CSS-in-JS like `styled-components`.
+
+```jsx
+import React from 'react'
+import { Markdown } from '@compositor/markdown'
+
+const Heading = props =>
+  <h1
+    style={{ color: 'tomato' }}
+    {...props}
+  />
+
+export default () =>
+  <Markdown
+    text='# Hello, world!'
+    components={{ h1 }}
+  />
+```
 
 ## Syntax
 
 In addition supporting the full Markdown spec, this project adds syntactic niceties and plugin options.
 
-#### JSX rendering
+#### Render components
 
-JSX can be rendered in specific code blocks or inline:
+Similarly to JSX, components can be rendered after an import.
 
-```jsx
-import { Video } from './my-components'
+```md
+import Graph from './components/graph'
+
+## Here's a graph
+
+<Graph />
+```
+
+#### Compose markdown files
+
+If you have markdown that's repeated throughout multiple documents, make them standalone, importing them into the desired documents when needed.
+
+```md
+import License from './docs/license.md'
+import Contributing from './docs/contributing.md'
 
 # Hello, world!
 
-<Video />
+This is an example markdown document.
+
+<License />
+
+***
+
+<Contributing />
 ```
-
-By specifying a code block's language to be `.jsx` React will be rendered.
-This allows you to tie into syntax highlighting for most text editors.
-
-```md
-```.jsx
-<Hello>World</Hello>
-```
-
-Code blocks also have a few options available via frontmatter:
-
-```md
-```.jsx
----
-liveEditor: true
----
-<Hello>World</Hello>
-```
-
-##### Frontmatter options
-
-| Name | Default | Description |
-| ---- | ------- | ----------- |
-| `liveEditor` | `false` | Turn `.jsx` code block into a [live editor](https://github.com/FormidableLabs/react-live) |
-
-#### File transclusion
-
-Since you can import any `.md` file as a Markdown component, you can transclude files by importing.
-
-```md
-import Other from './other.md'
-
-# Hello, world!
-
-<Other />
-```
-
-__Note:__ This requires configuring the [`markdown-loader`](loader/readme.md).
 
 #### Images
 
@@ -97,10 +98,13 @@ https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
 
 ## Usage
 
+You can use this library in a few different ways depending on what makes most sense for your project.
+
 ### Import with loader
 
 ```jsx
 import { Layout } from './ui'
+
 import Document from './docs/getting-started.md'
 
 export default () =>
@@ -155,7 +159,6 @@ const reactComponents = md(doc, {
 - [remark-jsx](https://github.com/fazouane-marouane/remark-jsx)
 - [remark-react](https://github.com/mapbox/remark-react)
 - [mdxc](https://github.com/jamesknelson/mdxc)
-- [react-live](https://react-live.philpl.com/)
 - [remark-toc](https://github.com/remarkjs/remark-toc)
 - [remark-emoji](https://github.com/rhysd/remark-emoji)
 - [IA Markdown Content Blocks](https://github.com/iainc/Markdown-Content-Blocks)

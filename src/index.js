@@ -6,14 +6,11 @@ import toc from 'remark-toc'
 import html from 'remark-html'
 import slug from 'remark-slug'
 import emoji from 'remark-emoji'
-import matter from 'remark-frontmatter'
 import squeeze from 'remark-squeeze-paragraphs'
 import toHast from '@dumpster/remark-custom-element-to-hast'
 import renderer from '@dumpster/hast-react-renderer'
 
 import Markdown from './Component'
-import jsx from './jsx'
-import transformer from './react-transformer'
 import relativize from './relativize'
 import imports from './imports'
 import images from './images'
@@ -28,7 +25,6 @@ const parser = (text, options = {}) => {
   const fn = unified()
     .use(parse)
     .use(stringify)
-    .use(matter, { type: 'yaml', marker: '-' })
     .use(imports, options)
     .use(slug, options)
     .use(relativize, options)
@@ -45,7 +41,6 @@ const parser = (text, options = {}) => {
   fn
     .use(toHast, options)
     .use(unnest, options)
-    .use(jsx, options)
 
   return fn.processSync(text)
 }
