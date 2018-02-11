@@ -19,7 +19,7 @@ module.exports = function (content) {
 
   const code = `
   import React from 'react'
-  import { Markdown } from '../../dist/index.js'
+  import { Markdown } from '@compositor/markdown'
 
   export default props =>
     <Markdown

@@ -5,26 +5,25 @@
   "version": "0.0.23-0",
   "main": "dist/index.js",
   "files": [
-    "dist",
-    "webpack"
+    "dist"
   ],
   "scripts": {
     "test": "ava -v",
     "prepare": "babel src -d dist"
   },
-  "repository": "c8r/@compositor/markdown",
+  "repository": "c8r/markdown",
   "keywords": [
     "react",
     "react-live",
     "markdown",
     "remark",
-    "styleguid"
+    "mdx",
+    "styleguide"
   ],
   "license": "MIT",
   "dependencies": {
     "@dumpster/hast-react-renderer": "^0.7.0",
     "@dumpster/remark-custom-element-to-hast": "^0.7.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "classnamify": "^1.0.1",
     "gray-matter": "^3.1.1",
     "hast-to-hyperscript": "^4.0.0",
@@ -51,6 +50,7 @@
   "devDependencies": {
     "ava": "^0.24.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
