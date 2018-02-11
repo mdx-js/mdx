@@ -2,6 +2,9 @@
 my: frontmatter
 ---
 import Foo from './Foo'
+import * as ui from './ui'
+import { Other, Components } from 'foobar'
+
 # Hello, world :+1:
 
 This is an example markdown doc.

@@ -13,5 +13,5 @@ export const isTranscludable = name => TRANSCLUDABLE_REGEX.test(name)
 export const TRANSCLUDABLE_IMG_REGEX = /\.(png|jpg|jpeg|svg)$/
 export const isTranscludableImg = name => TRANSCLUDABLE_IMG_REGEX.test(name)
 
-export const IMPORT_REGEX = /\import/
+export const IMPORT_REGEX = /^import/
 export const isImport = text => IMPORT_REGEX.test(text)

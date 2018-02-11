@@ -5,7 +5,9 @@ import parseImports from 'parse-es6-imports'
 
 import { isImport } from './util'
 
-export default options => (tree, file) =>
+export default options => (tree, file) => {
+  file.data.imports = []
+
   visit(tree, 'text', (node, i, parent) => {
     if (!isImport(node.value)) {
       return
@@ -18,5 +20,9 @@ export default options => (tree, file) =>
         siblings.slice(i + 1, siblings.length)
       )
 
-    file.data.imports = parseImports(node.value)
+    file.data.imports.push({
+      raw: node.value,
+      parsed: parseImports(node.value)
+    })
   })
+}

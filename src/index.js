@@ -19,7 +19,7 @@ import imports from './imports'
 import images from './images'
 import unnest from './unnest-custom-elements'
 
-const md = (text, options = {}) => {
+const parser = (text, options = {}) => {
   const plugins = options.plugins || []
   const components = options.components || {}
 
@@ -47,14 +47,37 @@ const md = (text, options = {}) => {
     .use(unnest, options)
     .use(jsx, options)
 
-  const hast = fn
-    .processSync(text)
-    .contents
-
-  return renderer(React)(hast, options)
+  return fn.processSync(text)
 }
+
+const md = (text, options = {}) => {
+  const renderFn = options.render || React
+  const hast = parser(text, options).contents
+
+  return renderer(renderFn)(hast, options)
+}
+
+const metadata = (text, options = {}) => parser(text, options).data
+const importScope = (text, options = {}) =>
+  metadata(text, options)
+    .imports
+    .reduce((acc, curr) => {
+      const imports = curr
+        .parsed
+        .reduce((a, c) => {
+          const i = c.namedImports.map(n => n.value)
+          if (c.defaultImport) i.push(c.defaultImport)
+          if (c.starImport) i.push(c.starImport)
+
+          return a.concat(i)
+        }, [])
+
+      return acc.concat(imports)
+    }, [])
 
 export {
   md,
+  importScope,
+  metadata,
   Markdown
 }
