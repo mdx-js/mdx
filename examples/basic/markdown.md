@@ -1,4 +1,5 @@
-import foo from 'bar'
+import * as ui from './ui'
+import Other from './other.md'
 
 # Hello, world
 

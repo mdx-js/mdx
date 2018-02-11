@@ -1,3 +1,3 @@
 # Basic
 
-A basic example using the `Markdown` component.
+A basic example using imports and custom components.
