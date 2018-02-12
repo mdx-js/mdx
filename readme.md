@@ -2,6 +2,11 @@
 
 __Please note this repo is in active development. Things are likely to change. Use at your own risk <3.__
 
+It's currently tracking an evolving spec defined by:
+
+- [MDX](MDX_SPECIFICATION.md)
+- [MDXAST](MDXAST_SPECIFICATION.md)
+
 A fully-featured markdown parser and renderer for ambitious projects.
 Compiles to React for React-based apps or static site generation.
 Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`remark-react`](https://github.com/mapbox/remark-react)/[`mdxc`](https://github.com/jamesknelson/mdxc).
