@@ -1,4 +1,6 @@
-# `.mdx` - Markdown + JSX Specification [DRAFT]
+# `.mdx` - Markdown + JSX Specification [PROPOSAL]
+
+https://spectrum.chat/?t=1021be59-2738-4511-aceb-c66921050b9a
 
 A superset of the [CommonMark](http://commonmark.org) specification that adds JSX syntax and `imports`.
 
