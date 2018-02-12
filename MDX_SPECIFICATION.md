@@ -2,6 +2,9 @@
 
 A superset of the [CommonMark](http://commonmark.org) specification that adds JSX syntax and `imports`.
 
+This will require a multi step AST implementation, first starting with [MDAST](https://github.com/syntax-tree/mdast) => [HAST](https://github.com/syntax-tree/hast).
+This will allow us to tie into both markdown plugins and hyperscript plugins, but can be something completely opaque to end users.
+
 ## Imports
 
 ES2015 [`import` syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) is supported.
@@ -47,6 +50,29 @@ import { Hero } from './ui'
 #### Escaping
 
 If you'd like to start a line with the `<` token, you may escape with `\<`.
+
+## Element to component mapping
+
+After processing in the MDAST phase it's often desirable to map React components to their HTML element equivalents.
+This will be applied at the HAST phase.
+
+Can be passed as props, or potentiall context provider, but that's implementation specific.
+
+```jsx
+import React from 'react'
+import * as ui from './ui'
+
+import Doc from './readme.md'
+
+export default () =>
+  <Doc
+    components={{
+      h1: ui.Heading,
+      p: ui.Text,
+      code: ui.Code
+    }}
+  />
+```
 
 ## Formatting/linting
 
