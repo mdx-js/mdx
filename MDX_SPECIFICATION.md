@@ -7,7 +7,6 @@ A superset of the [CommonMark](http://commonmark.org) specification that adds JS
 ## Imports
 
 ES2015 [`import` syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) is supported.
-Any 
 
 ```md
 import Component, { And, Another } from './src'
