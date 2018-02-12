@@ -45,6 +45,22 @@ export default () =>
   />
 ```
 
+### Using the `ComponentsProvider`
+
+If you'd like to pass your default markdown components to all `.md` imports in your app you can use the `ComponentsProvider`:
+
+```jsx
+import React from 'react'
+import { ComponentsProvider } from '@compositor/markdown'
+
+import { Heading as h1 } from './ui'
+
+export default () =>
+  <ComponentsProvider components={{ h1 }}>
+    <Markdown text='# Hello, world!' />
+  </ComponentsProvider>
+```
+
 ## Syntax
 
 In addition supporting the full Markdown spec, this project adds syntactic niceties and plugin options.

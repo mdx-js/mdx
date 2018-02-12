@@ -10,7 +10,8 @@ import squeeze from 'remark-squeeze-paragraphs'
 import toHast from '@dumpster/remark-custom-element-to-hast'
 import renderer from '@dumpster/hast-react-renderer'
 
-import Markdown from './Component'
+import Markdown from './Markdown'
+import ComponentsProvider from './Provider'
 import relativize from './relativize'
 import imports from './imports'
 import images from './images'
@@ -21,6 +22,10 @@ const parser = (text, options = {}) => {
   const components = options.components || {}
 
   options.componentWhitelist = Object.keys(components)
+
+  if (!options.hasOwnProperty('unsafe')) {
+    options.unsafe = true
+  }
 
   const fn = unified()
     .use(parse)
@@ -78,5 +83,6 @@ const importScope = (imports = []) =>
 export {
   md,
   metadata,
-  Markdown
+  Markdown,
+  ComponentsProvider
 }
