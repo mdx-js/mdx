@@ -6,15 +6,17 @@ import { renderToString } from 'react-dom/server'
 
 import {
   Markdown,
-  ComponentsProvider
+  ComponentsProvider,
+  withIdLink
 } from '../src'
 
-const Heading = ({ color = 'tomato', children, ...props }) =>
+const Heading = withIdLink(({ color = 'tomato', children, ...props }) =>
   <h1
     style={{ color }}
     children={`# ${children}`}
     {...props}
   />
+)
 
 test('renders the component as markdown', t => {
   const md = fs.readFileSync('test/fixtures/basic.md', 'utf8')

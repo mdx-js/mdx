@@ -12,6 +12,8 @@ import renderer from '@dumpster/hast-react-renderer'
 
 import Markdown from './Markdown'
 import ComponentsProvider from './Provider'
+import withIdLink from './withIdLink'
+
 import relativize from './relativize'
 import imports from './imports'
 import images from './images'
@@ -84,5 +86,6 @@ export {
   md,
   metadata,
   Markdown,
-  ComponentsProvider
+  ComponentsProvider,
+  withIdLink
 }
