@@ -42,6 +42,7 @@ import { Hero } from './ui'
   
     multiline string
   `}
+/>
 ```
 
 #### Escaping
