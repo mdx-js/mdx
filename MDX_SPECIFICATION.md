@@ -19,11 +19,29 @@ If you'd like to start a paragraph with the `import` token, you may escape with 
 
 ## Inline JSX
 
+### From within a paragraph
+
 ```md
 import { Text } from './ui'
 
 This is a paragraph with <Text.span color='red'>Inline JSX</Text.span>
 ```
+
+### Standalone
+
+```jsx
+import { Logo } from './ui'
+
+# Hello, world
+
+<Logo />
+
+And here's a paragraph
+```
+
+#### Escaping
+
+If you'd like to start a line with the `<` token, you may escape with `\<`.
 
 ## JSX blocks
 
@@ -46,10 +64,6 @@ import { Hero } from './ui'
   `}
 />
 ```
-
-#### Escaping
-
-If you'd like to start a line with the `<` token, you may escape with `\<`.
 
 ## Element to component mapping
 
