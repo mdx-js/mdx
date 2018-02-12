@@ -1,6 +1,7 @@
 # `.mdx` - Markdown + JSX Specification [PROPOSAL]
 
-https://spectrum.chat/?t=1021be59-2738-4511-aceb-c66921050b9a
+- [`.mdx` proposal](https://spectrum.chat/?t=1021be59-2738-4511-aceb-c66921050b9a)
+- [MDXAST proposal](https://github.com/syntax-tree/ideas/issues/3)
 
 A superset of the [CommonMark](http://commonmark.org) specification that adds JSX syntax and `imports`.
 
@@ -38,9 +39,9 @@ import { Hero } from './ui'
   title='Some Title'
   description={`
     I'm
-  
+
     a
-  
+
     multiline string
   `}
 />

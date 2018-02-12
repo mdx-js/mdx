@@ -215,6 +215,7 @@ export default md =>
 - [remark-emoji](https://github.com/rhysd/remark-emoji)
 - [IA Markdown Content Blocks](https://github.com/iainc/Markdown-Content-Blocks)
 - [.mdx proposal](https://spectrum.chat/thread/1021be59-2738-4511-aceb-c66921050b9a)
+- [MDXAST proposal](https://github.com/syntax-tree/ideas/issues/3)
 
 ## Contributing
 
