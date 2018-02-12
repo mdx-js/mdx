@@ -1,9 +1,6 @@
-# `.mdx` - Markdown + JSX Specification
+# `.mdx` - Markdown + JSX Specification [DRAFT]
 
 A superset of the [CommonMark](http://commonmark.org) specification that adds JSX syntax and `imports`.
-
-This will require a multi step AST implementation, first starting with [MDAST](https://github.com/syntax-tree/mdast) => [HAST](https://github.com/syntax-tree/hast).
-This will allow us to tie into both markdown plugins and hyperscript plugins, but can be something completely opaque to end users.
 
 ## Imports
 
@@ -53,10 +50,13 @@ If you'd like to start a line with the `<` token, you may escape with `\<`.
 
 ## Element to component mapping
 
-After processing in the MDAST phase it's often desirable to map React components to their HTML element equivalents.
-This will be applied at the HAST phase.
+It'd often be desirable to map React components to their HTML element equivalents, adding more flexibility to many usages of React that might not want a plain HTML element as the output.
+This is useful for component-centric projects using CSS-in-JS and other similar projects.
 
-Can be passed as props, or potentiall context provider, but that's implementation specific.
+This will require a multi step AST implementation, first starting with [MDAST](https://github.com/syntax-tree/mdast) => [HAST](https://github.com/syntax-tree/hast).
+This will allow us to tie into both markdown plugins and hyperscript plugins, but can be something completely opaque to end users.
+
+Can be passed as props, or potentially a context provider, but that's implementation specific.
 
 ```jsx
 import React from 'react'
