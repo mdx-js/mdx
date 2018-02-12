@@ -1,5 +1,7 @@
 # `.mdx` - Markdown + JSX Specification [PROPOSAL]
 
+Please feel free to add any thoughts/criticisms/ideas to https://github.com/c8r/markdown/issues/50.
+
 - [`.mdx` proposal](https://spectrum.chat/?t=1021be59-2738-4511-aceb-c66921050b9a)
 - [MDXAST proposal](https://github.com/syntax-tree/ideas/issues/3)
 
