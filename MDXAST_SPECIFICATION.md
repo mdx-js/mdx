@@ -7,6 +7,21 @@ These are nothing more than preliminary thoughts on how an abstract syntax tree 
 Having a formalized AST will allow for easy integration with linters, syntax highlighters, and code formatters.
 This will also ensure that parsing is properly handled before transforming to JSX/Hyperscript/React/etc and potentially leveraging existing plugin ecosystems (like remark) or creating a new ecosystem altogether.
 
+## How is this different than MDAST/HAST?
+
+The AST is nearly identical to MDAST but with a few added node types (`jsx`, `element`, `import`) and the removal of `html` (since all tag embeds, including inline are now `jsx`).
+One node type is the `ElementNode` from the HAST specification for the `element` type.
+
+This will also differ a bit in parsing because the remark parser is built to handle particular html element types, whereas JSX support will require the ability to parse _any_ tag, and those that self close.
+
+The `jsx` and `import` node types are defined below.
+
+#### :lightbulb:
+
+Since we could potentially know the components ahead of time, we might be able to tie directly into the remark parser with a bit of parser changes.
+This might allow us to handle the first stage of document parsing with an intermediary between MDAST and HAST.
+
+
 ## AST Definition
 
 Please note that nearly all of this AST definition was cut and pasted from [mdast](https://github.com/syntax-tree/mdast) with a newly defined [`JSX`](#jsx), [`ElementNode`](#elementnode) and [`import`](#import) node type sections in place of `HTML`.
