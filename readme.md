@@ -167,6 +167,42 @@ const reactComponents = md(doc, {
 | `toc` | `false` | Generate a [table of contents](https://github.com/remarkjs/remark-toc) |
 | `plugins` | `[]` | Additional remark plugins |
 
+## Additional niceties
+
+### `withIdLink`
+
+This libray also provides a hoc for linkifying elements with an `id`.
+This is useful for adding a link to headers.
+
+The following will turn linkify any `h1` contained in the markdown:
+
+```jsx
+import React from 'react'
+
+import {
+  Markdown,
+  ComponentsProvider,
+  withIdLink
+} from '../src'
+
+const Heading = withIdLink(({
+  color = 'tomato',
+  children,
+  ...props
+}) =>
+  <h1
+    style={{ color }}
+    children={`# ${children}`}
+    {...props}
+  />
+)
+
+export default md =>
+  <ComponentsProvider components={{ h1: Heading }}>
+    <Markdown text={md} />
+  </ComponentsProvider>
+```
+
 ## Related
 
 - [markdown](https://daringfireball.net/projects/markdown/syntax)
