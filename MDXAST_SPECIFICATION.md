@@ -1,5 +1,7 @@
 # MDX Abstract Syntax Tree
 
+Please feel free to add any thoughts/criticisms/ideas to https://github.com/c8r/markdown/issues/50.
+
 These are nothing more than preliminary thoughts on how an abstract syntax tree (AST) might be structured of the `.mdx` specification.
 
 ## Why?
