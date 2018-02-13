@@ -9,15 +9,11 @@ A superset of the [CommonMark](http://commonmark.org) specification that adds JS
 
 ## Imports
 
-ES2015 [`import` syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) is supported.
+ES2015 [`import` syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) is supported. They are optional and must be the first declarations in an MDX file
 
 ```md
 import Component, { And, Another } from './src'
 ```
-
-#### Escaping
-
-If you'd like to start a paragraph with the `import` token, you may escape with `\import`.
 
 ## Inline JSX
 
@@ -69,6 +65,31 @@ export default () =>
       code: ui.Code
     }}
   />
+```
+
+## Expected elements
+
+Any non-HTML element must be declared to the parser. This is used to determine blocks of JSX and ignores any non-conforming elements. For example, if the parser is told to expect `['Video', 'Logo']`:
+
+```jsx
+import OtherThing from './ui'
+
+
+These elements are parsed as JSX blocks:
+
+<OtherThing />
+
+<span>hi</span>
+
+<Video />
+
+<Logo />
+
+But these aren't:
+
+<Span>hi</Span>
+
+<SomethingElse />
 ```
 
 ## Formatting/linting
