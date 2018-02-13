@@ -45,28 +45,6 @@ And here's a paragraph
 
 If you'd like to start a line with the `<` token, you may escape with `\<`.
 
-## JSX blocks
-
-Any `.jsx` code block will also be parsed as JSX.
-
-```md
-import { Hero } from './ui'
-
-# Hello, world!
-
-```.jsx
-<Hero
-  title='Some Title'
-  description={`
-    I'm
-
-    a
-
-    multiline string
-  `}
-/>
-```
-
 ## Element to component mapping
 
 It'd often be desirable to map React components to their HTML element equivalents, adding more flexibility to many usages of React that might not want a plain HTML element as the output.
