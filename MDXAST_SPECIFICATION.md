@@ -11,7 +11,9 @@ This will also ensure that parsing is properly handled before transforming to JS
 
 ## How is this different than MDAST/HAST?
 
-The AST is nearly identical to MDAST but with a few added node types (`jsx`, `element`, `import`) and the removal of `html` (since all tag embeds, including inline are now `jsx`).
+Firstly, the most important difference is that there isn't much of one. An MDX document that contains no JSX is a valid MDAST.
+
+The MDXAST is nearly identical to MDAST but with a few added node types (`jsx`, `element`, `import`) and the removal of `html` (since all tag embeds, including inline are now `jsx`).
 One node type is the `ElementNode` from the HAST specification for the `element` type.
 
 This will also differ a bit in parsing because the remark parser is built to handle particular html element types, whereas JSX support will require the ability to parse _any_ tag, and those that self close.
