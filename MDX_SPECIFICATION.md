@@ -30,7 +30,7 @@ This is a paragraph with <Text.span color='red'>Inline JSX</Text.span>
 ```jsx
 import { Logo } from './ui'
 
-# Hello, world
+# Hello, world!
 
 <Logo />
 
@@ -40,6 +40,29 @@ And here's a paragraph
 #### Escaping
 
 If you'd like to start a line with the `<` token, you may escape with `\<`.
+
+### Embedding markdown
+
+There's a special `<markdown>` tag which opens up markdown parsing.
+
+```jsx
+import { List } from './ui'
+
+# Hello, world!
+
+<List>
+  <markdown>
+    * here
+    * are
+    * list
+    * items
+  </markdown>
+</List>
+```
+
+#### Escaping
+
+If you'd like to use `<markdown>` as text in your JSX you can escape it with `\</markdown>`.
 
 ## Element to component mapping
 
