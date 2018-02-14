@@ -9,12 +9,35 @@ const getImports = require('./get-imports')
 const parseImports = require('./parse-imports')
 const parseJSX = require('./parse-jsx')
 
+const fromBabelAST = node => {
+  if (node.type === 'JSXText') {
+    return {
+      type: 'text',
+      value: node.value
+    }
+  } else if (node.type === 'JSXElement') {
+    return {
+      type: 'element',
+      tagName: node.openingElement.name.name,
+      properties: node.openingElement.attributes.reduce((acc, curr) => {
+        const name = curr.name.name
+        const value = curr.value.value
+
+        return Object.assign(acc, { [name]: value })
+      }, {}),
+      children: node.children.map(fromBabelAST).filter(Boolean)
+    }
+  } else {
+    return
+  }
+}
+
 const jsx = options => tree =>
   visit(tree, 'html', (node, i, parent) => {
     try {
-      const ast = parseJSX(node.value)
+      const ast = parseJSX(node.value).program.body[0].expression
       node.type = 'jsx'
-      //console.log(JSON.stringify(ast, null, 2))
+      node.children = fromBabelAST(ast)
     } catch (e) {
       const position = [
         node.position.start.line,

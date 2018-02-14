@@ -7,8 +7,8 @@ import {
 
 I'm an awesome paragraph.
 
-<Foo>
- <Bar />
+<Foo bg='red'>
+  <Bar />
 </Foo>
 
 \imports can be escaped too!
