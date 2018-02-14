@@ -9,15 +9,30 @@ const blocks = require('remark-parse/lib/block-elements.json')
 
 const jsx = options => tree =>
   visit(tree, 'html', (node, i, parent) => {
-    const ast = babylon.parse(node.value, {
-      sourceType: 'module',
-      plugins: [
-        'jsx'
-      ]
-    })
+    try {
+      const ast = babylon.parse(node.value, {
+        sourceType: 'module',
+        plugins: [
+          'jsx'
+        ]
+      })
 
-    node.type = 'jsx'
-    console.log(ast)
+      node.type = 'jsx'
+      console.log(JSON.stringify(ast, null, 2))
+    } catch (e) {
+      const position = [
+        node.position.start.line,
+        node.position.start.column
+      ].join(':')
+
+      throw new Error(
+        [
+          `[${position}]: Syntax Error - Could not parse JSX block`,
+          node.value,
+          ''
+        ].join('\n\n')
+      )
+    }
   })
 
 module.exports = (mdx, options = {}) => {

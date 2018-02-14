@@ -1,21 +1,19 @@
-import {
-        Foo,
-Bar, Baz } from    './ui'
+import { Foo, Bar } from './ui'
 
 # Hello, world!
 
-
-   I'm a paragraph
+I'm an awesome paragraph.
 
 <Foo>
  <Bar />
 </Foo>
 
+### Shopping list
 
-And I'm another      paragraph
+- Apples
+- Bananas
+- Oranges
 
 ***
 
-- here's
-* a
-- list
+:heart: :heart: :heart:
