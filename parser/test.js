@@ -9,6 +9,12 @@ test('it parses a file', t => {
 
   //console.log(JSON.stringify(result, null, 2))
 
+  t.pass()
+})
+
+test('it parses imports', t => {
+  const result = parse(fixture)
+
   t.snapshot(result)
 })
 

@@ -1,24 +1,20 @@
 const unified = require('unified')
-const babylon = require('babylon')
 const remark = require('remark-parse')
 const rehype = require('remark-rehype')
 const html = require('rehype-stringify')
 const visit = require('unist-util-visit')
-
 const blocks = require('remark-parse/lib/block-elements.json')
+
+const getImports = require('./get-imports')
+const parseImports = require('./parse-imports')
+const parseJSX = require('./parse-jsx')
 
 const jsx = options => tree =>
   visit(tree, 'html', (node, i, parent) => {
     try {
-      const ast = babylon.parse(node.value, {
-        sourceType: 'module',
-        plugins: [
-          'jsx'
-        ]
-      })
-
+      const ast = parseJSX(node.value)
       node.type = 'jsx'
-      console.log(JSON.stringify(ast, null, 2))
+      //console.log(JSON.stringify(ast, null, 2))
     } catch (e) {
       const position = [
         node.position.start.line,
@@ -37,10 +33,17 @@ const jsx = options => tree =>
 
 module.exports = (mdx, options = {}) => {
   options.components = options.components || {}
-  options.blocks = Object.keys(options.components).concat(blocks)
+
+  // TODO: Need to figure out a better way to handle imports
+  // parsing. As implemented it parses the whole thing :(
+  options.blocks = Object
+    .keys(options.components)
+    .concat(getImports(mdx).scope)
+    .concat(blocks)
 
   const fn = unified()
     .use(remark, options)
+    .use(parseImports, options)
     .use(jsx, options)
     .use(rehype)
     .use(html)
