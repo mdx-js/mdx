@@ -9,23 +9,38 @@ const getImports = require('./get-imports')
 const parseImports = require('./parse-imports')
 const parseJSX = require('./parse-jsx')
 
-const fromBabelAST = node => {
+const MARKDOWN_REOPEN = 'markdown'
+
+const gatherText = node => {
+  const children = (node.children || []).map(gatherText)
+  return [node.value]
+    .concat(children)
+    .join('')
+}
+
+const fromBabelAST = (node, options) => {
   if (node.type === 'JSXText') {
     return {
       type: 'text',
       value: node.value
     }
   } else if (node.type === 'JSXElement') {
+    const tagName = node.openingElement.name.name
+
+    if (tagName === MARKDOWN_REOPEN) {
+      return parse(gatherText(node, options))
+    }
+
     return {
+      tagName,
       type: 'element',
-      tagName: node.openingElement.name.name,
       properties: node.openingElement.attributes.reduce((acc, curr) => {
         const name = curr.name.name
         const value = curr.value.value
 
         return Object.assign(acc, { [name]: value })
       }, {}),
-      children: node.children.map(fromBabelAST).filter(Boolean)
+      children: node.children.map(c => fromBabelAST(c, options)).filter(Boolean)
     }
   } else {
     return
@@ -37,7 +52,8 @@ const jsx = options => tree =>
     try {
       const ast = parseJSX(node.value).program.body[0].expression
       node.type = 'jsx'
-      node.children = fromBabelAST(ast)
+      node.children = fromBabelAST(ast, options)
+      //console.log(JSON.stringify(node, null, 2))
     } catch (e) {
       const position = [
         node.position.start.line,
@@ -54,7 +70,7 @@ const jsx = options => tree =>
     }
   })
 
-module.exports = (mdx, options = {}) => {
+const parse = (mdx, options = {}) => {
   options.components = options.components || {}
 
   // TODO: Need to figure out a better way to handle imports
@@ -73,3 +89,5 @@ module.exports = (mdx, options = {}) => {
 
   return fn.processSync(mdx)
 }
+
+module.exports = parse
