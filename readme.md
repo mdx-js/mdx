@@ -74,7 +74,7 @@ In addition supporting the full Markdown spec, this project adds syntactic nicet
 
 Similarly to JSX, components can be rendered after an import.
 
-```md
+```jsx
 import Graph from './components/graph'
 
 ## Here's a graph
@@ -86,7 +86,7 @@ import Graph from './components/graph'
 
 If you have markdown that's repeated throughout multiple documents, make them standalone, importing them into the desired documents when needed.
 
-```md
+```jsx
 import License from './docs/license.md'
 import Contributing from './docs/contributing.md'
 
@@ -107,6 +107,8 @@ Embedding images is easier to remember, you can link a url or relative file path
 
 ```md
 #### A url
+
+Below will render an image:
 
 https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
 ```
