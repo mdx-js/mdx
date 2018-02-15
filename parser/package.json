@@ -27,6 +27,7 @@
     "babylon": "^6.18.0",
     "rehype-stringify": "^3.0.0",
     "remark": "^9.0.0",
+    "remark-frontmatter": "^1.2.0",
     "remark-parse": "^5.0.0",
     "remark-rehype": "^3.0.0",
     "unified": "^6.1.6",
