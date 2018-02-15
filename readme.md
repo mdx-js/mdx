@@ -1,4 +1,4 @@
-# Markdown
+# Markdown [![Build Status][build-badge]][build]
 
 __Please note this repo is in active development. Things are likely to change. Use at your own risk <3.__
 
@@ -237,3 +237,6 @@ export default md =>
 [Made by Compositor](https://compositor.io/)
 |
 [MIT License](license)
+
+[build-badge]: https://img.shields.io/travis/c8r/markdown/master.svg?style=flat-square
+[build]: https://travis-ci.org/c8r/markdown
