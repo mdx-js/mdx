@@ -10,8 +10,6 @@ const getImports = require('./get-imports')
 const parseImports = require('./parse-imports')
 const parseJSX = require('./parse-jsx')
 
-const MARKDOWN_REOPEN = 'markdown'
-
 const gatherText = node => {
   const children = (node.children || []).map(gatherText)
   return [node.value]
@@ -27,10 +25,6 @@ const fromBabelAST = (node, options) => {
     }
   } else if (node.type === 'JSXElement') {
     const tagName = node.openingElement.name.name
-
-    if (tagName === MARKDOWN_REOPEN) {
-      return parse(gatherText(node, options))
-    }
 
     return {
       tagName,

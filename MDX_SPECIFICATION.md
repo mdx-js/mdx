@@ -1,4 +1,4 @@
-# `.mdx` - Markdown + JSX Specification [PROPOSAL]
+# MDX: Markdown + JSX Specification [PROPOSAL]
 
 Please feel free to add any thoughts/criticisms/ideas to https://github.com/c8r/markdown/issues/50.
 
@@ -43,26 +43,45 @@ If you'd like to start a line with the `<` token, you may escape with `\<`.
 
 ### Embedding markdown
 
-There's a special `<markdown>` tag which opens up markdown parsing.
+Rather than introducing a special syntax for Markdown from within JSX, this functionality can be achieved in two ways:
+
+#### Using a `Markdown` component directly
 
 ```jsx
+import { Markdown } from '@compositor/markdown'
 import { List } from './ui'
 
 # Hello, world!
 
 <List>
-  <markdown>
-    * here
-    * are
-    * list
-    * items
+  <Markdown
+    text={`
+      * here
+      * are
+      * list
+      * items
+  `}
+  />
   </markdown>
 </List>
 ```
 
-#### Escaping
+#### Or transclusion via an `import`
 
-If you'd like to use `<markdown>` as text in your JSX you can escape it with `\</markdown>`.
+```jsx
+import GroceryList from './grocery-list.mdx'
+import { List } from './ui'
+
+# Grocery List
+
+<List>
+  <GroceryList />
+</List>
+```
+
+#### Why?
+
+This is something we will reconsider in the future, but it makes parsing substantially more complex and seems to mix concerns.
 
 ## Element to component mapping
 
