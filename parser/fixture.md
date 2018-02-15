@@ -1,3 +1,7 @@
+---
+hello: frontmatter
+---
+
 import {
   Foo,
   Bar

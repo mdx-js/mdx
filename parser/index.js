@@ -1,6 +1,7 @@
 const unified = require('unified')
 const remark = require('remark-parse')
 const rehype = require('remark-rehype')
+const matter = require('remark-frontmatter')
 const html = require('rehype-stringify')
 const visit = require('unist-util-visit')
 const blocks = require('remark-parse/lib/block-elements.json')
@@ -82,6 +83,7 @@ const parse = (mdx, options = {}) => {
 
   const fn = unified()
     .use(remark, options)
+    .use(matter, { type: 'yaml', marker: '-' })
     .use(parseImports, options)
     .use(jsx, options)
     .use(rehype)
