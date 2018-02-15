@@ -13,9 +13,7 @@ I'm an awesome paragraph.
 
 <Foo bg='red'>
   <Bar />
-  <markdown>
-## Hello
-  </markdown>
+  {props.hello}
 </Foo>
 
 \imports can be escaped too!
