@@ -20,7 +20,9 @@
     "loader"
   ],
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "schema-utils": "^0.4.5"
+  },
   "devDependencies": {
     "@compositor/markdown": "0.0.23",
     "ava": "^0.25.0",
