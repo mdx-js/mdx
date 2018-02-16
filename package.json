@@ -11,7 +11,7 @@
     "build": "babel src -d dist",
     "clean": "rm -rf dist",
     "prepare": "npm run clean && npm run build",
-    "test": "node scripts/test && ava -v"
+    "test": "node scripts/test"
   },
   "repository": "c8r/markdown",
   "keywords": [
