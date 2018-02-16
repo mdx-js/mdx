@@ -1,15 +1,13 @@
-import Other from './other.md'
+---
+hello: there
+---
 
 # Hello, world
 
-<Other />
+<Foo children={hello} />
 
-<Foo children='Bar' />
+<Markdown text='# Hello, world!' />
 
-Here's some mid paragraph <h1>jsx</h1>
-
-```.jsx
-<Foo>hi</Foo>
-```
+Here's a paragraph
 
 https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png

@@ -5,13 +5,14 @@
     "start": "next"
   },
   "dependencies": {
-    "@compositor/markdown": "0.0.24",
+    "@compositor/markdown": "0.0.25-0",
+    "babel-preset-stage-0": "^6.24.1",
     "next": "^5.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "@compositor/markdown-loader": "0.0.6",
+    "@compositor/markdown-loader": "0.0.7",
     "webpack": "^3.11.0"
   }
 }
