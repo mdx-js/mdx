@@ -1,0 +1,31 @@
+{
+  "name": "to-element",
+  "description": "JSX string renderer utility",
+  "author": "Compositor",
+  "version": "0.0.1",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "ava -v"
+  },
+  "repository": "c8r/markdown",
+  "keywords": [
+    "react",
+    "jsx",
+    "mdx"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-standalone": "^6.26.0"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "react": "^16.2.0"
+  },
+  "peerDependencies": {
+    "react": "^0.14.x || ^15.x || ^16.x"
+  }
+}

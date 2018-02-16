@@ -1,4 +1,5 @@
 module.exports = [
   'loader',
-  'to-mdxast'
+  'to-mdxast',
+  'to-element'
 ]
