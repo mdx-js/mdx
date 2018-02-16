@@ -21,7 +21,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "schema-utils": "^0.4.5"
+    "schema-utils": "^0.4.5",
+    "to-mdxast": "0.0.1"
   },
   "devDependencies": {
     "@compositor/markdown": "0.0.23",
