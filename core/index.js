@@ -10,7 +10,6 @@ const toHAST = require('mdast-util-to-hast')
 const toHyper = require('hast-to-hyperscript')
 const toElement = require('to-element')
 const yaml = require('js-yaml')
-const u = require('unist-builder')
 
 const { getImports } = require('to-mdxast')
 const { createElement } = require('react')

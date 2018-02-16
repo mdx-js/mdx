@@ -11,6 +11,7 @@ test('it parses and renders to react', t => {
     Foo: props => createElement('div', props),
     Bar: props => createElement('span', props)
   }
+
   const result = mdx(fixture, {
     components
   })
