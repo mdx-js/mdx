@@ -1,6 +1,7 @@
 const { parse } = require('remark')
 const select = require('unist-util-select')
 const parseImports = require('parse-es6-imports')
+const blocks = require('remark-parse/lib/block-elements.json')
 
 const IMPORT_SELECTOR = 'paragraph > text:first-child[value^="import"]'
 
@@ -31,8 +32,11 @@ module.exports = mdx => {
       }
     })
 
+  const scope = importScope(imports)
+
   return {
     imports,
-    scope: importScope(imports)
+    scope,
+    blocks: blocks.concat(scope)
   }
 }
