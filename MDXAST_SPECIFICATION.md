@@ -2,7 +2,7 @@
 
 Please feel free to add any thoughts/criticisms/ideas to [c8r/markdown#50](https://github.com/c8r/markdown/issues/50) or [syntax-tree/ideas#3](https://github.com/syntax-tree/ideas/issues/3).
 
-These are nothing more than preliminary thoughts on how an abstract syntax tree (AST) might be structured of the `.mdx` specification.
+These are nothing more than preliminary thoughts on how an abstract syntax tree (AST) might be structured of the MDX specification.
 
 ## Why?
 
@@ -11,7 +11,7 @@ This will also ensure that parsing is properly handled before transforming to JS
 
 ## How is this different than MDAST/HAST?
 
-Firstly, the most important difference is that there isn't much of one. An MDX document that contains no JSX is a valid MDAST.
+Firstly, the most important difference is that there isn't much of one. An MDX document that contains no JSX or imports is a valid MDAST.
 
 The MDXAST is nearly identical to MDAST but with a two added node types (`jsx`, `import`) and the removal of `html` (since all tag embeds, including inline are now `jsx`).
 The `import` type is used to provide the necessary block elements to the remark html block parser and for the execution context/implementation.
@@ -29,8 +29,7 @@ The `jsx` and `import` node types are defined below.
 *   [AST](#ast)
     *   [JSX](#jsx)
     *   [Import](#import)
-
-For all other node types, please see [mdast](https://github.com/syntax-tree/mdast).
+    *   [MDAST Nodes](https://github.com/syntax-tree/mdast)
 
 ## AST
 
@@ -59,28 +58,13 @@ Yields:
 ```json
 {
   "type": "jsx",
-  "value": "<Heading hi='there'>\n  Hello, world!\n</Heading>",
-  "children": [
-    {
-      "type": "element",
-      "tagName": "Heading",
-      "properties": {
-        "hi": "there"
-      },
-      "children": [
-        {
-          "type": "text",
-          "value": "\n  Hello, world!\n"
-        }
-      ]
-    }
-  ]
+  "value": "<Heading hi='there'>\n  Hello, world!\n</Heading>"
 }
 ```
 
 ### `Import`
 
-`import` ([`Textnode`](#textnode)) contains the raw import as a string and a parsed representation of the import itself.
+`import` ([`Textnode`](#textnode)) contains the raw import as a string.
 
 ```idl
 interface JSX <: Text {
@@ -88,7 +72,7 @@ interface JSX <: Text {
 }
 ```
 
-For example, the following mdx:
+For example, the following MDX:
 
 ```md
 import * as ui from './ui'
