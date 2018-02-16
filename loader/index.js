@@ -29,7 +29,7 @@ module.exports = function (content) {
   }) =>
     <Markdown
       {...props}
-      components={Object.assign({}, components, ${scope})}
+      components={Object.assign({}, components, { ${scope.join(', ')} })}
       text={\`${escapedContent}\`}
     />
   `
