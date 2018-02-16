@@ -1,4 +1,5 @@
 const visit = require('unist-util-visit')
+const getImports = require('./get-imports')
 
 const IMPORT_REGEX = /^import/
 const ESCAPED_IMPORT_REGEX = /^\\import/
@@ -11,16 +12,25 @@ const unescape = node => {
   }
 }
 
-module.exports = options => (tree, file) =>
-  visit(tree, 'text', (node, i, parent) => {
+const imports = tree =>
+  visit(tree, 'text', (node, _i, parent) => {
     if (!isImport(node.value)) {
       return unescape(node)
     }
 
-    const siblings = parent.children
-    parent.children = siblings
-      .splice(0, i)
-      .concat(
-        siblings.slice(i + 1, siblings.length)
-      )
+    parent.type = 'import'
+    parent.value = node.value
+    delete parent.children
   })
+
+const jsx = tree =>
+  visit(tree, 'html', node => node.type = 'jsx')
+
+module.exports = options => tree => {
+  imports(tree)
+  jsx(tree)
+
+  return tree
+}
+
+module.exports.getImports = getImports

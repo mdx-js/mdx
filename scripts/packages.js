@@ -1,4 +1,4 @@
 module.exports = [
   'loader',
-  'parser'
+  'to-mdxast'
 ]
