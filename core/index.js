@@ -14,6 +14,11 @@ const yaml = require('js-yaml')
 const { getImports } = require('to-mdxast')
 const { createElement } = require('react')
 
+const toTextNode = value => ({
+  type: 'text',
+  value
+})
+
 const jsx = (scope, components) => (h, node) => {
   const element = toElement(node.value, scope)
   const props = element.props
@@ -23,10 +28,7 @@ const jsx = (scope, components) => (h, node) => {
   if (Array.isArray(props.children)) {
     const children = props.children.map(c => {
       if (typeof c === 'string') {
-        return {
-          type: 'text',
-          value: c
-        }
+        return toTextNode(c)
       }
 
       const name = c.type && c.type.name
@@ -42,7 +44,11 @@ const jsx = (scope, components) => (h, node) => {
     return h(node, 'div', props, children)
   }
 
-  return h(node, 'React.Fragment', props)
+  const children = typeof props.children === 'string'
+    ? [toTextNode(props.children)]
+    : props.children
+
+  return h(node, 'div', props, children)
 }
 
 function renderer (options) {
@@ -71,7 +77,12 @@ function renderer (options) {
       }
     })
 
-    return toHyper(createElement, hast)
+    return toHyper(el, {
+      type: 'element',
+      tagName: 'div',
+      properties: {},
+      children: hast.children
+    })
   }
 }
 
