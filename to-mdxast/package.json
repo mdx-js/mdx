@@ -2,7 +2,7 @@
   "name": "to-mdxast",
   "description": "Transforms MDAST to MDXAST",
   "author": "John Otander",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "files": [
     "index.js",
