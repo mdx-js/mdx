@@ -1,8 +1,8 @@
 {
   "name": "@compositor/markdown",
-  "description": "Styleguide and React friendly markdown rendering based on Remark",
+  "description": "A fully-featured Markdown/MDX React component for ambitious projects",
   "author": "Compositor",
-  "version": "0.0.24",
+  "version": "0.0.25-0",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -18,25 +18,22 @@
     "react",
     "markdown",
     "remark",
-    "mdx",
-    "styleguide"
+    "mdx"
   ],
   "license": "MIT",
   "dependencies": {
-    "@compositor/mdx": "0.0.1",
+    "@compositor/mdx": "0.0.3",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
-    "ava": "^0.24.0",
+    "ava": "^0.25.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
-    "parse-es6-imports": "^1.0.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "remark": "^9.0.0"
+    "react-dom": "^16.2.0"
   },
   "peerDependencies": {
     "react": "^0.14.x || ^15.x || ^16.x"

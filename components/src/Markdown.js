@@ -1,5 +1,5 @@
 import React from 'react'
-import mdx from 'c8r/mdx'
+import mdx from '@compositor/mdx'
 import PropTypes from 'prop-types'
 
 const Markdown = ({
