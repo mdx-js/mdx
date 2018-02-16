@@ -1,7 +1,6 @@
 import React from 'react'
+import mdx from '@compositor/mdx'
 import PropTypes from 'prop-types'
-
-import { md } from './'
 
 const Markdown = ({
   text = '',
@@ -11,7 +10,7 @@ const Markdown = ({
   const contextComponents = context.components || {}
   const allComponents = Object.assign({}, components, contextComponents)
 
-  const Document = md(text, {
+  const Document = mdx(text, {
     components: allComponents,
     ...options
   })

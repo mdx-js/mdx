@@ -1,7 +1,6 @@
 import fs from 'fs'
 import test from 'ava'
 import React from 'react'
-import remark from 'remark'
 import { renderToString } from 'react-dom/server'
 
 import {
