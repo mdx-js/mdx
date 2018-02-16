@@ -42,7 +42,7 @@ const jsx = (scope, components) => (h, node) => {
     return h(node, 'div', props, children)
   }
 
-  return h(node, 'React.Fragment', props)
+  return h(node, 'div', props, props.children)
 }
 
 function renderer (options) {
@@ -71,7 +71,12 @@ function renderer (options) {
       }
     })
 
-    return toHyper(createElement, hast)
+    return toHyper(el, {
+      type: 'element',
+      tagName: 'div',
+      properties: {},
+      children: hast.children
+    })
   }
 }
 

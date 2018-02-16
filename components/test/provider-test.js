@@ -18,11 +18,9 @@ const Heading = withIdLink(({ color = 'tomato', children, ...props }) =>
 )
 
 test('renders the component as markdown', t => {
-  const md = fs.readFileSync('test/fixtures/basic.md', 'utf8')
-
   const result = renderToString(
     <ComponentsProvider components={{ h1: Heading }}>
-      <Markdown text={md} />
+      <Markdown text='# Hello, world!' />
     </ComponentsProvider>
   )
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import mdx from '@compositor/mdx'
+import mdx from 'c8r/mdx'
 import PropTypes from 'prop-types'
 
 const Markdown = ({
@@ -10,12 +10,10 @@ const Markdown = ({
   const contextComponents = context.components || {}
   const allComponents = Object.assign({}, components, contextComponents)
 
-  const Document = mdx(text, {
+  return mdx(text, {
     components: allComponents,
     ...options
   })
-
-  return <Document />
 }
 
 Markdown.contextTypes = {
