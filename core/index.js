@@ -39,10 +39,12 @@ function renderer (options) {
 
     const hast = toHAST(node, {
       handlers: {
+        // Remove imports from output
+        import: () => {},
+        // Coerce the JSX node into a node structure that toHyper
+        // will accept. This will later be passed on to toElement
+        // for node rendering within the given scope.
         jsx: (h, node) => {
-          // Coerce the JSX node into a node structure that toHyper
-          // will accept. This will later be passed on to toElement
-          // for node rendering within the given scope.
           return Object.assign({}, node, {
             type: 'element',
             tagName: 'jsx',

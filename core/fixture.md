@@ -2,6 +2,8 @@
 hello: frontmatter
 ---
 
+import { Baz } from './Fixture'
+
 # Hello, world!
 
 I'm an awesome paragraph.
