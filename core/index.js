@@ -14,49 +14,15 @@ const yaml = require('js-yaml')
 const { getImports } = require('to-mdxast')
 const { createElement } = require('react')
 
-const toTextNode = value => ({
-  type: 'text',
-  value
-})
-
-const jsx = (scope, components) => (h, node) => {
-  const element = toElement(node.value, scope)
-  const props = element.props
-
-  node.element = element
-
-  if (Array.isArray(props.children)) {
-    const children = props.children.map(c => {
-      if (typeof c === 'string') {
-        return toTextNode(c)
-      }
-
-      const name = c.type && c.type.name
-
-      return h(
-        node,
-        components[name] || name,
-        c.props,
-        c.props.children
-      )
-    })
-
-    return h(node, 'div', props, children)
-  }
-
-  const children = typeof props.children === 'string'
-    ? [toTextNode(props.children)]
-    : props.children
-
-  return h(node, 'div', props, children)
-}
-
 function renderer (options) {
   const components = options.components
 
-  const el = (name, props = {}, children) => {
-    const component = components[name] || name
+  const el = scope => (name, props = {}, children) => {
+    if (name === 'jsx') {
+      return toElement(children[0], scope)
+    }
 
+    const component = components[name] || name
     return createElement(component, props, children)
   }
 
@@ -73,11 +39,23 @@ function renderer (options) {
 
     const hast = toHAST(node, {
       handlers: {
-        jsx: jsx(scope, components)
+        jsx: (h, node) => {
+          // Coerce the JSX node into a node structure that toHyper
+          // will accept. This will later be passed on to toElement
+          // for node rendering within the given scope.
+          return Object.assign({}, node, {
+            type: 'element',
+            tagName: 'jsx',
+            children: [{
+              type: 'text',
+              value: node.value
+            }]
+          })
+        }
       }
     })
 
-    return toHyper(el, {
+    return toHyper(el(scope), {
       type: 'element',
       tagName: 'div',
       properties: {},

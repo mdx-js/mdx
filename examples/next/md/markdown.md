@@ -2,11 +2,13 @@
 hello: there
 ---
 
+import Other from './other.md'
+
 # Hello, world
 
 <Foo children={hello} />
 
-<Markdown text='# Hello, world!' />
+<Other />
 
 Here's a paragraph
 
