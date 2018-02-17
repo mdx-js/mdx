@@ -2,7 +2,7 @@
   "name": "@compositor/mdx",
   "description": "Parse MDX and render to React",
   "author": "John Otander",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "files": [
     "index.js"
