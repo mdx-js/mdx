@@ -2,13 +2,14 @@
 hello: frontmatter
 ---
 
-import { Baz } from './Fixture'
+import { Baz   } from './Fixture'
 
-# Hello, world!
+Hello, world!
+=============
 
 I'm an awesome paragraph.
 
 <Foo bg='red'>
   <Bar>hi</Bar>
-  {hello}
+    {hello}
 </Foo>
