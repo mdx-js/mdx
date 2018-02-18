@@ -66,8 +66,10 @@ function renderer (options) {
   }
 }
 
-module.exports = (mdx, options = {}) => {
+module.exports = function (mdx, options = {}) {
   options.components = options.components || {}
+  const plugins = options.plugins || []
+  const compilers = options.compilers || []
 
   const { blocks } = getImports(mdx)
   options.blocks = blocks.concat(Object.keys(options.components))
@@ -78,7 +80,12 @@ module.exports = (mdx, options = {}) => {
     .use(matter, { type: 'yaml', marker: '-' })
     .use(squeeze, options)
     .use(toMDXAST, options)
-    .use(renderer, options)
+
+  plugins.forEach(plugins => fn.use(plugins, options))
+
+  fn.use(options.renderer || renderer, options)
+
+  compilers.forEach(compiler => fn.use(compiler, options))
 
   return fn.processSync(mdx).contents
 }

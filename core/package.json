@@ -5,8 +5,12 @@
   "version": "0.0.5",
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "fmt.js"
   ],
+  "bin": {
+    "mdxfmt": "fmt.js"
+  },
   "scripts": {
     "example": "node example",
     "test": "ava -v"
@@ -27,11 +31,13 @@
     "js-yaml": "^3.10.0",
     "mdast-util-to-hast": "^3.0.0",
     "parse-es6-imports": "^1.0.1",
+    "prettier": "^1.10.2",
     "react": "^16.2.0",
     "remark": "^9.0.0",
     "remark-emoji": "^2.0.1",
     "remark-frontmatter": "^1.2.0",
     "remark-squeeze-paragraphs": "^3.0.1",
+    "remark-stringify": "^5.0.0",
     "remark-toc": "^5.0.0",
     "to-element": "0.0.1",
     "to-mdxast": "0.0.2",
