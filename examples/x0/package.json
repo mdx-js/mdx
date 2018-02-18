@@ -1,0 +1,12 @@
+{
+  "name": "x0",
+  "scripts": {
+    "start": "x0 dev App.js --config x0.config.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@compositor/markdown": "0.0.25",
+    "@compositor/markdown-loader": "0.0.7",
+    "@compositor/x0": "^3.2.0"
+  }
+}
