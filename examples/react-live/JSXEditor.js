@@ -8,11 +8,18 @@ import {
   LiveError
 } from 'react-live'
 
+import * as Rebass from 'rebass'
+
 const isDotJSX = (cx = '') => /language-\.jsx/.test(cx)
 
 const JSXEditor = (props, context) => {
   const { children, className } = props
   const { components } = context
+
+  // react-live doesn't like the `default` token in scope
+  delete Rebass.default
+
+  const scope = Object.assign({}, Rebass, components)
 
   if (!isDotJSX(className)) {
     return (
@@ -25,8 +32,9 @@ const JSXEditor = (props, context) => {
 
   return (
     <LiveProvider
-      scope={components}
+      scope={scope}
       code={children.join('')}
+      transform={code => `<Provider><React.Fragment>${code}</React.Fragment></Provider>`}
     >
       <LivePreview />
       <LiveEditor />
