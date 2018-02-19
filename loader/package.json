@@ -22,10 +22,10 @@
   "license": "MIT",
   "dependencies": {
     "schema-utils": "^0.4.5",
-    "to-mdxast": "0.0.1"
+    "to-mdxast": "^0.0.2"
   },
   "devDependencies": {
-    "@compositor/markdown": "0.0.23",
+    "@compositor/markdown": "^0.0.25",
     "ava": "^0.25.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
