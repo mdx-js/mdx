@@ -2,7 +2,7 @@
   "name": "@compositor/markdown-loader",
   "description": "Loader for @compositor/markdown",
   "author": "Compositor",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "index.js",
   "files": [
     "index.js"
