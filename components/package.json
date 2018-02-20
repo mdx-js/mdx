@@ -2,7 +2,7 @@
   "name": "@compositor/markdown",
   "description": "A fully-featured Markdown/MDX React component for ambitious projects",
   "author": "Compositor",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -22,7 +22,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@compositor/mdx": "^0.0.4",
+    "@compositor/mdx": "^0.0.7",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
