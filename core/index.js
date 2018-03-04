@@ -37,24 +37,41 @@ function renderer (options) {
       props: options.props || {}
     })
 
-    const hast = toHAST(node, {
-      handlers: {
-        // Remove imports from output
-        import: () => {},
-        // Coerce the JSX node into a node structure that toHyper
-        // will accept. This will later be passed on to toElement
-        // for node rendering within the given scope.
-        jsx: (h, node) => {
-          return Object.assign({}, node, {
-            type: 'element',
-            tagName: 'jsx',
-            children: [{
-              type: 'text',
-              value: node.value
-            }]
-          })
-        }
+    const handlers = {
+      // Remove imports from output
+      import: () => {},       
+      // Coerce the JSX node into a node structure that toHyper
+      // will accept. This will later be passed on to toElement
+      // for node rendering within the given scope.
+      jsx: (h, node) => {
+        return Object.assign({}, node, {
+          type: 'element',
+          tagName: 'jsx',
+          children: [{
+            type: 'text',
+            value: node.value
+          }]
+        })
       }
+    }
+
+    // `inlineCode` gets passed as `code` by the HAST transform.
+    // This makes sure `inlineCode` is used when it's defined by the user
+    if(components.inlineCode) {
+      handlers.inlineCode = (h, node) => {
+        return Object.assign({}, node, {
+          type: 'element',
+          tagName: 'inlineCode',
+          children: [{
+            type: 'text',
+            value: node.value
+          }]
+        })
+      }
+    }
+
+    const hast = toHAST(node, {
+      handlers
     })
 
     return toHyper(el(scope), {
