@@ -1,0 +1,25 @@
+{
+  "name": "remark-images",
+  "description": "Improved syntax for images in markdown",
+  "author": "John Otander",
+  "version": "0.1.0",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "repository": "c8r/markdown",
+  "keywords": [
+    "react",
+    "markdown",
+    "remark",
+    "mdxast",
+    "mdx",
+    "util",
+    "image"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "is-url": "^1.2.2",
+    "unist-util-visit": "^1.3.0"
+  }
+}
