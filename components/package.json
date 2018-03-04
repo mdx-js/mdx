@@ -22,8 +22,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@compositor/mdx": "^0.0.7",
-    "prop-types": "^15.6.0"
+    "@compositor/mdx": "^0.0.8",
+    "prop-types": "^15.6.1"
   },
   "devDependencies": {
     "ava": "^0.25.0",
