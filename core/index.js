@@ -3,6 +3,7 @@ const toMDAST = require('remark-parse')
 const emoji = require('remark-emoji')
 const squeeze = require('remark-squeeze-paragraphs')
 const toc = require('remark-toc')
+const images = require('remark-images')
 const matter = require('remark-frontmatter')
 const visit = require('unist-util-visit')
 const toMDXAST = require('to-mdxast')
@@ -39,7 +40,7 @@ function renderer (options) {
 
     const handlers = {
       // Remove imports from output
-      import: () => {},       
+      import: () => {},
       // Coerce the JSX node into a node structure that toHyper
       // will accept. This will later be passed on to toElement
       // for node rendering within the given scope.
@@ -95,6 +96,7 @@ module.exports = function (mdx, options = {}) {
     .use(toMDAST, options)
     .use(emoji, options)
     .use(matter, { type: 'yaml', marker: '-' })
+    .use(images, options)
     .use(squeeze, options)
     .use(toMDXAST, options)
 
