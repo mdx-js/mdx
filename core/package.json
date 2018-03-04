@@ -35,7 +35,7 @@
     "react": "^16.2.0",
     "remark-emoji": "^2.0.1",
     "remark-frontmatter": "^1.2.0",
-    "remark-images": "^0.1.0",
+    "remark-images": "^0.1.1",
     "remark-parse": "^5.0.0",
     "remark-squeeze-paragraphs": "^3.0.1",
     "remark-stringify": "^5.0.0",
