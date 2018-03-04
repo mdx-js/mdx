@@ -2,27 +2,27 @@
 # yarn lockfile v1
 
 
-"@compositor/markdown-loader@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@compositor/markdown-loader/-/markdown-loader-0.0.10.tgz#3771c1547d5a480a6c6b277c8da2316fe8cdf535"
+"@compositor/markdown-loader@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@compositor/markdown-loader/-/markdown-loader-0.1.0.tgz#40c25b87d6abf1d0267c150d7ff1000d24fd0b73"
   dependencies:
     babel-preset-env "^1.6.1"
     babel-preset-react "^6.24.1"
     babel-preset-stage-0 "^6.24.1"
     remark "^9.0.0"
     schema-utils "^0.4.5"
-    to-mdxast "^0.0.2"
+    to-mdxast "^0.1.0"
 
-"@compositor/markdown@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@compositor/markdown/-/markdown-0.0.25.tgz#cdcc7502351060d5c22ba68ea861d1fb9ee4798f"
+"@compositor/markdown@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@compositor/markdown/-/markdown-0.1.0.tgz#c93161c59b4832ca1292d145fd5339a40d67cd58"
   dependencies:
-    "@compositor/mdx" "^0.0.4"
-    prop-types "^15.6.0"
+    "@compositor/mdx" "^0.1.0"
+    prop-types "^15.6.1"
 
-"@compositor/mdx@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@compositor/mdx/-/mdx-0.0.4.tgz#c020cd177a74c93a360f91c8779180204e49616a"
+"@compositor/mdx@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@compositor/mdx/-/mdx-0.1.0.tgz#471f318a490b6f26f481b1896bfb298a6e95de1c"
   dependencies:
     babel-plugin-transform-react-jsx "^6.24.1"
     babel-standalone "^6.26.0"
@@ -30,14 +30,16 @@
     js-yaml "^3.10.0"
     mdast-util-to-hast "^3.0.0"
     parse-es6-imports "^1.0.1"
+    prettier "^1.11.1"
     react "^16.2.0"
-    remark "^9.0.0"
     remark-emoji "^2.0.1"
     remark-frontmatter "^1.2.0"
+    remark-parse "^5.0.0"
     remark-squeeze-paragraphs "^3.0.1"
+    remark-stringify "^5.0.0"
     remark-toc "^5.0.0"
     to-element "0.0.1"
-    to-mdxast "0.0.2"
+    to-mdxast "^0.1.0"
     unified "^6.1.6"
     unist-util-visit "^1.3.0"
 
@@ -3620,6 +3622,10 @@ prepend-http@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
 
+prettier@^1.11.1:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.11.1.tgz#61e43fc4cd44e68f2b0dfc2c38cd4bb0fccdcc75"
+
 private@^0.1.6, private@^0.1.7:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
@@ -3661,7 +3667,7 @@ prop-types@15.6.0:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-prop-types@^15.6.0:
+prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -4544,9 +4550,9 @@ to-fast-properties@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.3.tgz#b83571fa4d8c25b82e231b06e3a3055de4ca1a47"
 
-to-mdxast@0.0.2, to-mdxast@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/to-mdxast/-/to-mdxast-0.0.2.tgz#3f8dec59403716689d13b03b5f5c00b1467be77c"
+to-mdxast@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/to-mdxast/-/to-mdxast-0.1.0.tgz#27980403036faa7d606e1aedb3f9ea586820a3b4"
   dependencies:
     parse-es6-imports "^1.0.1"
     remark "^9.0.0"
