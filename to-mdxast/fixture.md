@@ -7,6 +7,9 @@ import {
   Bar
 } from './ui'
 
+import Baz from './ui/baz'
+import FooBar from './ui/foo-bar'
+
 # Hello, world!
 
 I'm an awesome paragraph.
