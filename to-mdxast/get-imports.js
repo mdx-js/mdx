@@ -23,7 +23,7 @@ const importScope = (imports = []) =>
 module.exports = mdx => {
   const imports = select(parse(mdx), IMPORT_SELECTOR)
     .map(i => {
-      const squeezed = i.value.replace(/\s+/g, ' ')
+      const squeezed = i.value.replace(/\s+/g, ' ').split(' import').join('\nimport')
       const parsed = parseImports(squeezed)
 
       return {
