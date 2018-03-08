@@ -5,27 +5,14 @@ const squeeze = require('remark-squeeze-paragraphs')
 const toc = require('remark-toc')
 const images = require('remark-images')
 const matter = require('remark-frontmatter')
-const visit = require('unist-util-visit')
 const toMDXAST = require('to-mdxast')
 const toHAST = require('mdast-util-to-hast')
 const toHyper = require('hast-to-hyperscript')
-const toElement = require('to-element')
 const yaml = require('js-yaml')
-
-const { getImports } = require('to-mdxast')
-const { createElement } = require('react')
+const hyperscript = require('hyperscript')
 
 function renderer (options) {
   const components = options.components
-
-  const el = scope => (name, props = {}, children) => {
-    if (name === 'jsx') {
-      return toElement(children[0], scope)
-    }
-
-    const component = components[name] || name
-    return createElement(component, props, children)
-  }
 
   const parseFrontmatter = node => {
     const frontmatterNode = node.children.find(n => n.type === 'yaml')
@@ -39,19 +26,19 @@ function renderer (options) {
     })
 
     const handlers = {
+      yaml() {},
       // Remove imports from output
-      import: () => {},
+      import(h, node) {
+        return Object.assign({}, node, {
+          type: 'import'
+        })
+      },
       // Coerce the JSX node into a node structure that toHyper
       // will accept. This will later be passed on to toElement
       // for node rendering within the given scope.
-      jsx: (h, node) => {
+      jsx(h, node) {
         return Object.assign({}, node, {
-          type: 'element',
-          tagName: 'jsx',
-          children: [{
-            type: 'text',
-            value: node.value
-          }]
+          type: 'text'
         })
       }
     }
@@ -75,12 +62,33 @@ function renderer (options) {
       handlers
     })
 
-    return toHyper(el(scope), {
-      type: 'element',
-      tagName: 'div',
-      properties: {},
-      children: hast.children
-    })
+    const walk = (node) => {
+      let children = ''
+
+      if(node.type === 'root') {
+        const importNodes = node.children.filter((node) => node.type === 'import').map(walk).join('\n')
+        const otherNodes = node.children.filter((node) => node.type !== 'import').map(walk).join('')
+        return importNodes + '\n' + `export default () => <Tag name="wrapper">${otherNodes}</Tag>`
+      }
+
+      // recursively walk through children
+      if(node.children) {
+        children = node.children.map(walk).join('')
+      }
+
+      if(node.type === 'element') {
+        console.log(node)
+        
+        return `<Tag name="${node.tagName}" props={${JSON.stringify(node.properties)}}>${children}</Tag>`
+      }
+
+      if(node.type === 'text' || node.type === 'import') {
+        return node.value
+      }
+    }
+
+    const result = walk(hast)
+    return result
   }
 }
 
@@ -88,9 +96,6 @@ module.exports = function (mdx, options = {}) {
   options.components = options.components || {}
   const plugins = options.plugins || []
   const compilers = options.compilers || []
-
-  const { blocks } = getImports(mdx)
-  options.blocks = blocks.concat(Object.keys(options.components))
 
   const fn = unified()
     .use(toMDAST, options)

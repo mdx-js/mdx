@@ -2,10 +2,13 @@
 hello: frontmatter
 ---
 
-import { Baz   } from './Fixture'
+import { Baz } from './Fixture'
+import { Buz } from './Fixture'
 
-Hello, world!
-=============
+import { Foo } from './Fixture'
+
+# Hello, world!
+
 
 I'm an awesome paragraph.
 
@@ -17,3 +20,15 @@ I'm an awesome paragraph.
 https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png
 
 https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno
+
+```
+test codeblock
+```
+
+```js
+module.exports = 'test'
+```
+
+```sh
+npm i -g foo
+```

@@ -1,5 +1,4 @@
 const visit = require('unist-util-visit')
-const getImports = require('./get-imports')
 
 const IMPORT_REGEX = /^import/
 const ESCAPED_IMPORT_REGEX = /^\\import/
@@ -12,19 +11,38 @@ const unescape = node => {
   }
 }
 
-const imports = tree =>
-  visit(tree, 'text', (node, _i, parent) => {
-    if (!isImport(node.value)) {
-      return unescape(node)
+const imports = tree => {
+  return visit(tree, 'paragraph', (node, _i, parent) => {
+    // `import` must be defined at the top level to be a real import
+    if(parent.type !== 'root') {
+      return node
     }
 
-    parent.type = 'import'
-    parent.value = node.value
-    delete parent.children
-  })
+    // Paragraphs only have text in 1 node
+    if(node.children.length !== 1) {
+      return node
+    }
 
-const jsx = tree =>
-  visit(tree, 'html', node => node.type = 'jsx')
+    // Get the text from the text node
+    const {value} = node.children[0]
+
+    // Check if the value starts with `import`
+    if(!isImport(value)) {
+      return node
+    }
+
+    // Sets type to `import` in the AST
+    node.type = 'import'
+    node.value = value
+    delete node.children
+
+    return node
+  })
+}
+  
+
+// turns `html` nodes into `jsx` nodes
+const jsx = tree => visit(tree, 'html', node => node.type = 'jsx')
 
 module.exports = options => tree => {
   imports(tree)
@@ -32,5 +50,3 @@ module.exports = options => tree => {
 
   return tree
 }
-
-module.exports.getImports = getImports
