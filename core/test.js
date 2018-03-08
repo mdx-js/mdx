@@ -16,6 +16,5 @@ test('it parses and renders to react', t => {
     components
   })
 
-  // console.log(result)
-  t.is(true, true)
+  t.snapshot(result)
 })
