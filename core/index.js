@@ -74,7 +74,10 @@ function renderer (options) {
         children = node.children.map(walk).join('')
       }
 
-      if(node.type === 'element') {        
+      if(node.type === 'element') {
+        if(node.tagName === 'code') {
+          children = '{`' + children + '`}'
+        }
         return `<Tag name="${node.tagName}" props={${JSON.stringify(node.properties)}}>${children}</Tag>`
       }
 
