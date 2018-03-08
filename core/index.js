@@ -7,9 +7,7 @@ const images = require('remark-images')
 const matter = require('remark-frontmatter')
 const toMDXAST = require('to-mdxast')
 const toHAST = require('mdast-util-to-hast')
-const toHyper = require('hast-to-hyperscript')
 const yaml = require('js-yaml')
-const hyperscript = require('hyperscript')
 
 function renderer (options) {
   const components = options.components
@@ -33,7 +31,7 @@ function renderer (options) {
           type: 'import'
         })
       },
-      // Coerce the JSX node into a node structure that toHyper
+      // Coerce the JSX node into a node structure that `walk`
       // will accept. This will later be passed on to toElement
       // for node rendering within the given scope.
       jsx(h, node) {

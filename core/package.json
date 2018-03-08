@@ -27,8 +27,6 @@
   "dependencies": {
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-standalone": "^6.26.0",
-    "hast-to-hyperscript": "^4.0.0",
-    "hyperscript": "^2.0.2",
     "js-yaml": "^3.10.0",
     "mdast-util-to-hast": "^3.0.0",
     "parse-es6-imports": "^1.0.1",
