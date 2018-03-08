@@ -13,10 +13,8 @@ module.exports = function (content) {
   const callback = this.async()
   const options = getOptions(this)
   //validateOptions(schema, options)
-
-  const escapedContent = content.replace(/`/g, '\\`')
   
-  const result = mdx(escapedContent)
+  const result = mdx(content)
 
   const code = `
   import React from 'react'
