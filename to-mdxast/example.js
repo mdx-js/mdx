@@ -2,7 +2,6 @@ const unified = require('unified')
 const remark = require('remark-parse')
 const inspect = require('unist-util-inspect')
 
-const getImports = require('./get-imports')
 const toMDXAST = require('./')()
 
 const MDX = `
@@ -13,9 +12,7 @@ import { Foo } from 'bar'
 <Foo />
 `
 
-const options = {
-  blocks: getImports(MDX).blocks
-}
+const options = {}
 
 const tree = unified()
   .use(remark, options)
