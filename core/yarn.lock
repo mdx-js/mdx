@@ -1163,12 +1163,6 @@ fast-diff@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.1.2.tgz#4b62c42b8e03de3f848460b639079920695d0154"
 
-fault@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/fault/-/fault-1.0.1.tgz#de8d350dfd48be24b5dc1b02867e0871b9135092"
-  dependencies:
-    format "^0.2.2"
-
 fbjs@^0.8.16:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
@@ -1247,10 +1241,6 @@ form-data@~2.1.1:
     asynckit "^0.4.0"
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
-
-format@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -2618,13 +2608,6 @@ remark-emoji@^2.0.1:
   dependencies:
     node-emoji "^1.4.1"
     unist-util-visit "^1.1.0"
-
-remark-frontmatter@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/remark-frontmatter/-/remark-frontmatter-1.2.0.tgz#67905d178c0fe531ed12c57b98759f101fc2c1b5"
-  dependencies:
-    fault "^1.0.1"
-    xtend "^4.0.1"
 
 remark-images@^0.1.1:
   version "0.1.1"

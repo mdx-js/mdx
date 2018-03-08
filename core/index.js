@@ -4,25 +4,13 @@ const emoji = require('remark-emoji')
 const squeeze = require('remark-squeeze-paragraphs')
 const toc = require('remark-toc')
 const images = require('remark-images')
-const matter = require('remark-frontmatter')
 const toMDXAST = require('to-mdxast')
 const toHAST = require('mdast-util-to-hast')
-const yaml = require('js-yaml')
 
 function renderer (options) {
   const components = options.components
 
-  const parseFrontmatter = node => {
-    const frontmatterNode = node.children.find(n => n.type === 'yaml')
-    return frontmatterNode ? yaml.safeLoad(frontmatterNode.value) : {}
-  }
-
   this.Compiler = node => {
-    const frontmatter = parseFrontmatter(node)
-    const scope = Object.assign({}, components, frontmatter, {
-      props: options.props || {}
-    })
-
     const handlers = {
       yaml() {},
       // Remove imports from output
@@ -99,7 +87,6 @@ module.exports = function (mdx, options = {}) {
   const fn = unified()
     .use(toMDAST, options)
     .use(emoji, options)
-    .use(matter, { type: 'yaml', marker: '-' })
     .use(images, options)
     .use(squeeze, options)
     .use(toMDXAST, options)
