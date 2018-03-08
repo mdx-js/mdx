@@ -74,9 +74,7 @@ function renderer (options) {
         children = node.children.map(walk).join('')
       }
 
-      if(node.type === 'element') {
-        console.log(node)
-        
+      if(node.type === 'element') {        
         return `<Tag name="${node.tagName}" props={${JSON.stringify(node.properties)}}>${children}</Tag>`
       }
 
