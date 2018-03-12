@@ -58,7 +58,7 @@ function renderer (options) {
 
       if(node.type === 'element') {
         if(node.tagName === 'code') {
-          children = '{`' + children + '`}'
+          children = '{`' + children.replace(/`/g, '\\`') + '`}'
         }
         return `<Tag name="${node.tagName}" components={components} props={${JSON.stringify(node.properties)}}>${children}</Tag>`
       }
