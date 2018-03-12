@@ -2,7 +2,7 @@
   "name": "remark-images",
   "description": "Improved syntax for images in markdown",
   "author": "John Otander",
-  "version": "0.1.1",
+  "version": "0.3.0",
   "main": "index.js",
   "files": [
     "index.js"
