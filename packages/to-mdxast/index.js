@@ -15,9 +15,10 @@ const modules = tree => {
     // Get the text from the text node
     const {value} = node.children[0] || ''
 
-    // Exports can have urls which remark-parse will turn into a child link
+    // Sets type to `export` in the AST if it's an export
     if(isExport(value)) {
       node.type = 'export'
+      // Exports can have urls which remark-parse will turn into a child link node.
       node.value = node.children.map(n => n.value || n.url).join(' ')
       delete node.children
       return node
