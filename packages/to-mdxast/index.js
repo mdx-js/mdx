@@ -12,13 +12,21 @@ const modules = tree => {
       return node
     }
 
-    // Paragraphs only have text in 1 node
-    if(node.children.length !== 1) {
+    // Get the text from the text node
+    const {value} = node.children[0] || ''
+
+    // Exports can have urls which remark-parse will turn into a child link
+    if(isExport(value)) {
+      node.type = 'export'
+      node.value = node.children.map(n => n.value || n.url).join(' ')
+      delete node.children
       return node
     }
 
-    // Get the text from the text node
-    const {value} = node.children[0]
+    // Import paragraphs only have text in 1 node
+    if(node.children.length !== 1) {
+      return node
+    }
 
     // Sets type to `import` in the AST if it's an import
     if(isImport(value)) {
@@ -28,17 +36,10 @@ const modules = tree => {
       return node
     }
 
-    if(isExport(value)) {
-      node.type = 'export'
-      node.value = value
-      delete node.children
-      return node
-    }
-
     return node
   })
 }
-  
+
 
 // turns `html` nodes into `jsx` nodes
 const jsx = tree => visit(tree, 'html', node => node.type = 'jsx')
