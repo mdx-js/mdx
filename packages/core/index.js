@@ -50,7 +50,7 @@ function renderer (options) {
         const importNodes = node.children.filter((node) => node.type === 'import').map(walk).join('\n')
         const exportNodes = node.children.filter((node) => node.type === 'export').map(walk).join('\n')
         const otherNodes = node.children.filter((node) => node.type !== 'import' && node.type !== 'export').map(walk).join('')
-        return importNodes + '\n' + exportNodes + '\n' + `export default ({components}) => <Tag name="wrapper">${otherNodes}</Tag>`
+        return importNodes + '\n' + exportNodes + '\n' + `export default ({components}) => <MDXTag name="wrapper">${otherNodes}</MDXTag>`
       }
 
       // recursively walk through children
