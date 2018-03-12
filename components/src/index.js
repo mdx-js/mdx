@@ -1,9 +1,5 @@
-import Markdown from './Markdown'
-import ComponentsProvider from './Provider'
-import withIdLink from './withIdLink'
+import MDXTag from './mdx-tag'
 
 export {
-  Markdown,
-  ComponentsProvider,
-  withIdLink
+  MDXTag
 }

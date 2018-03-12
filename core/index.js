@@ -4,62 +4,15 @@ const emoji = require('remark-emoji')
 const squeeze = require('remark-squeeze-paragraphs')
 const toc = require('remark-toc')
 const images = require('remark-images')
-const matter = require('remark-frontmatter')
-const visit = require('unist-util-visit')
 const toMDXAST = require('to-mdxast')
 const toHAST = require('mdast-util-to-hast')
-const toHyper = require('hast-to-hyperscript')
-const toElement = require('to-element')
-const yaml = require('js-yaml')
-
-const { getImports } = require('to-mdxast')
-const { createElement } = require('react')
 
 function renderer (options) {
-  const components = options.components
-
-  const el = scope => (name, props = {}, children) => {
-    if (name === 'jsx') {
-      return toElement(children[0], scope)
-    }
-
-    const component = components[name] || name
-    return createElement(component, props, children)
-  }
-
-  const parseFrontmatter = node => {
-    const frontmatterNode = node.children.find(n => n.type === 'yaml')
-    return frontmatterNode ? yaml.safeLoad(frontmatterNode.value) : {}
-  }
-
   this.Compiler = node => {
-    const frontmatter = parseFrontmatter(node)
-    const scope = Object.assign({}, components, frontmatter, {
-      props: options.props || {}
-    })
-
     const handlers = {
-      // Remove imports from output
-      import: () => {},
-      // Coerce the JSX node into a node structure that toHyper
-      // will accept. This will later be passed on to toElement
-      // for node rendering within the given scope.
-      jsx: (h, node) => {
-        return Object.assign({}, node, {
-          type: 'element',
-          tagName: 'jsx',
-          children: [{
-            type: 'text',
-            value: node.value
-          }]
-        })
-      }
-    }
-
-    // `inlineCode` gets passed as `code` by the HAST transform.
-    // This makes sure `inlineCode` is used when it's defined by the user
-    if(components.inlineCode) {
-      handlers.inlineCode = (h, node) => {
+      // `inlineCode` gets passed as `code` by the HAST transform.
+      // This makes sure it ends up being `inlineCode`
+      inlineCode(h, node) {
         return Object.assign({}, node, {
           type: 'element',
           tagName: 'inlineCode',
@@ -68,6 +21,21 @@ function renderer (options) {
             value: node.value
           }]
         })
+      },
+      import(h, node) {
+        return Object.assign({}, node, {
+          type: 'import'
+        })
+      },
+      export(h, node) {
+        return Object.assign({}, node, {
+          type: 'export'
+        })
+      },
+      jsx(h, node) {
+        return Object.assign({}, node, {
+          type: 'jsx'
+        })
       }
     }
 
@@ -75,27 +43,49 @@ function renderer (options) {
       handlers
     })
 
-    return toHyper(el(scope), {
-      type: 'element',
-      tagName: 'div',
-      properties: {},
-      children: hast.children
-    })
+    const walk = (node) => {
+      let children = ''
+
+      if(node.type === 'root') {
+        const importNodes = node.children.filter((node) => node.type === 'import').map(walk).join('\n')
+        const exportNodes = node.children.filter((node) => node.type === 'export').map(walk).join('\n')
+        const otherNodes = node.children.filter((node) => node.type !== 'import' && node.type !== 'export').map(walk).join('')
+        return importNodes + '\n' + exportNodes + '\n' + `export default ({components}) => <Tag name="wrapper">${otherNodes}</Tag>`
+      }
+
+      // recursively walk through children
+      if(node.children) {
+        children = node.children.map(walk).join('')
+      }
+
+      if(node.type === 'element') {
+        // This makes sure codeblocks can hold code and backticks
+        if(node.tagName === 'code') {
+          children = '{`' + children.replace(/`/g, '\\`') + '`}'
+        }
+
+        return `<MDXTag name="${node.tagName}" components={components} props={${JSON.stringify(node.properties)}}>${children}</MDXTag>`
+      }
+
+      if(node.type === 'text' || node.type === 'import' || node.type === 'export' || node.type === 'jsx') {
+        return node.value
+      }
+    }
+
+    const result = walk(hast)
+    return result
   }
 }
 
 module.exports = function (mdx, options = {}) {
   options.components = options.components || {}
+  options.blocks = ['[a-z]+(\\.){0,1}[a-z]']
   const plugins = options.plugins || []
   const compilers = options.compilers || []
-
-  const { blocks } = getImports(mdx)
-  options.blocks = blocks.concat(Object.keys(options.components))
 
   const fn = unified()
     .use(toMDAST, options)
     .use(emoji, options)
-    .use(matter, { type: 'yaml', marker: '-' })
     .use(images, options)
     .use(squeeze, options)
     .use(toMDXAST, options)

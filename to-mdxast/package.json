@@ -5,8 +5,7 @@
   "version": "0.1.0",
   "main": "index.js",
   "files": [
-    "index.js",
-    "get-imports.js"
+    "index.js"
   ],
   "scripts": {
     "example": "node example",

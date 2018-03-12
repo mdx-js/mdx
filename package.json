@@ -1,6 +1,5 @@
 {
   "private": true,
-  "name": "@compositor/markdown",
   "scripts": {
     "test": "node scripts/test"
   },

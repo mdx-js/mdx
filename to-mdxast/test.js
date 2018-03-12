@@ -8,15 +8,12 @@ const html = require('rehype-stringify')
 const blocks = require('remark-parse/lib/block-elements.json')
 
 const toMdx = require('./')
-const getImports = require('./get-imports')
 
 const fixture = fs.readFileSync('fixture.md', 'utf8')
 
 const parseFixture = str => {
-  const imports = getImports(str)
-
   const options = {
-    blocks: blocks.concat(imports.scope),
+    blocks: blocks,
     matter: {
       type: 'yaml',
       marker: '-'
@@ -35,12 +32,6 @@ const parseFixture = str => {
 
 test('it parses a file', t => {
   const result = parseFixture(fixture)
-
-  t.snapshot(result)
-})
-
-test('it retrieves imports', t => {
-  const result = getImports(fixture)
 
   t.snapshot(result)
 })
