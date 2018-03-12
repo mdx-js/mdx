@@ -64,7 +64,7 @@ function renderer (options) {
           children = '{`' + children.replace(/`/g, '\\`') + '`}'
         }
 
-        return `<Tag name="${node.tagName}" components={components} props={${JSON.stringify(node.properties)}}>${children}</Tag>`
+        return `<MDXTag name="${node.tagName}" components={components} props={${JSON.stringify(node.properties)}}>${children}</MDXTag>`
       }
 
       if(node.type === 'text' || node.type === 'import' || node.type === 'export' || node.type === 'jsx') {

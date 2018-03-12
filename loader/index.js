@@ -18,7 +18,7 @@ module.exports = function (content) {
 
   const code = `
   import React from 'react'
-  import { Tag } from '@compositor/markdown'
+  import { MDXTag } from '@compositor/markdown'
   ${result}
   `
 

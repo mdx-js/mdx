@@ -1,7 +1,5 @@
-import withIdLink from './withIdLink'
-import Tag from './Tag'
+import MDXTag from './mdx-tag'
 
 export {
-  Tag,
-  withIdLink
+  MDXTag
 }
