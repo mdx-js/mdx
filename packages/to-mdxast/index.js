@@ -4,6 +4,15 @@ const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
 const isImport = text => IMPORT_REGEX.test(text)
 const isExport = text => EXPORT_REGEX.test(text)
+const restringify = node => {
+  if (node.type === 'link') {
+    return node.url
+  } else if (node.type === 'linkReference') {
+    return `[${node.children.map(n => n.value)}]`
+  } else {
+    return node.value
+  }
+}
 
 const modules = tree => {
   return visit(tree, 'paragraph', (node, _i, parent) => {
@@ -19,7 +28,7 @@ const modules = tree => {
     if(isExport(value)) {
       node.type = 'export'
       // Exports can have urls which remark-parse will turn into a child link node.
-      node.value = node.children.map(n => n.value || n.url).join(' ')
+      node.value = node.children.map(restringify).join(' ')
       delete node.children
       return node
     }
