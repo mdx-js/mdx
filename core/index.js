@@ -33,7 +33,7 @@ function renderer (options) {
       // for node rendering within the given scope.
       jsx(h, node) {
         return Object.assign({}, node, {
-          type: 'text'
+          type: 'jsx'
         })
       }
     }
@@ -63,6 +63,10 @@ function renderer (options) {
         return `<Tag name="${node.tagName}" components={components} props={${JSON.stringify(node.properties)}}>${children}</Tag>`
       }
 
+      if(node.type === 'jsx') {
+        return node.value
+      }
+
       if(node.type === 'text' || node.type === 'import') {
         return node.value
       }
@@ -75,6 +79,7 @@ function renderer (options) {
 
 module.exports = function (mdx, options = {}) {
   options.components = options.components || {}
+  options.blocks = ['[a-z]+(\\.){0,1}[a-z]']
   const plugins = options.plugins || []
   const compilers = options.compilers || []
 
