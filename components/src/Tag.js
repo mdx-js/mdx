@@ -6,8 +6,8 @@ const defaults = {
   wrapper: 'div'
 }
 
-export default () => {
-  const {name, props, children, components = {}} = this.props
+export default (props) => {
+  const { name, props: childProps, children, components = {} } = props
   const Component = components[name] || defaults[name] || name
-  return <Component {...props}>{children}</Component>
+  return <Component {...childProps}>{children}</Component>
 }
