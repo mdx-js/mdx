@@ -48,7 +48,7 @@ function renderer (options) {
       if(node.type === 'root') {
         const importNodes = node.children.filter((node) => node.type === 'import').map(walk).join('\n')
         const otherNodes = node.children.filter((node) => node.type !== 'import').map(walk).join('')
-        return importNodes + '\n' + `export default () => <Tag name="wrapper">${otherNodes}</Tag>`
+        return importNodes + '\n' + `export default ({components}) => <Tag name="wrapper">${otherNodes}</Tag>`
       }
 
       // recursively walk through children
@@ -60,7 +60,7 @@ function renderer (options) {
         if(node.tagName === 'code') {
           children = '{`' + children + '`}'
         }
-        return `<Tag name="${node.tagName}" props={${JSON.stringify(node.properties)}}>${children}</Tag>`
+        return `<Tag name="${node.tagName}" components={components} props={${JSON.stringify(node.properties)}}>${children}</Tag>`
       }
 
       if(node.type === 'text' || node.type === 'import') {
