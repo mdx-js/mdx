@@ -11,7 +11,7 @@ function renderer (options) {
   this.Compiler = node => {
     const handlers = {
       // `inlineCode` gets passed as `code` by the HAST transform.
-      // This makes sure `inlineCode` is used when it's defined by the user
+      // This makes sure it ends up being `inlineCode`
       inlineCode(h, node) {
         return Object.assign({}, node, {
           type: 'element',
@@ -22,15 +22,16 @@ function renderer (options) {
           }]
         })
       },
-      // Remove imports from output
       import(h, node) {
         return Object.assign({}, node, {
           type: 'import'
         })
       },
-      // Coerce the JSX node into a node structure that `walk`
-      // will accept. This will later be passed on to toElement
-      // for node rendering within the given scope.
+      export(h, node) {
+        return Object.assign({}, node, {
+          type: 'export'
+        })
+      },
       jsx(h, node) {
         return Object.assign({}, node, {
           type: 'jsx'
@@ -47,8 +48,9 @@ function renderer (options) {
 
       if(node.type === 'root') {
         const importNodes = node.children.filter((node) => node.type === 'import').map(walk).join('\n')
-        const otherNodes = node.children.filter((node) => node.type !== 'import').map(walk).join('')
-        return importNodes + '\n' + `export default ({components}) => <Tag name="wrapper">${otherNodes}</Tag>`
+        const exportNodes = node.children.filter((node) => node.type === 'export').map(walk).join('\n')
+        const otherNodes = node.children.filter((node) => node.type !== 'import' && node.type !== 'export').map(walk).join('')
+        return importNodes + '\n' + exportNodes + '\n' + `export default ({components}) => <Tag name="wrapper">${otherNodes}</Tag>`
       }
 
       // recursively walk through children
@@ -57,17 +59,15 @@ function renderer (options) {
       }
 
       if(node.type === 'element') {
+        // This makes sure codeblocks can hold code and backticks
         if(node.tagName === 'code') {
           children = '{`' + children.replace(/`/g, '\\`') + '`}'
         }
+
         return `<Tag name="${node.tagName}" components={components} props={${JSON.stringify(node.properties)}}>${children}</Tag>`
       }
 
-      if(node.type === 'jsx') {
-        return node.value
-      }
-
-      if(node.type === 'text' || node.type === 'import') {
+      if(node.type === 'text' || node.type === 'import' || node.type === 'export' || node.type === 'jsx') {
         return node.value
       }
     }
