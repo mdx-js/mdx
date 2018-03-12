@@ -8,11 +8,20 @@ const toMDXAST = require('to-mdxast')
 const toHAST = require('mdast-util-to-hast')
 
 function renderer (options) {
-  const components = options.components
-
   this.Compiler = node => {
     const handlers = {
-      yaml() {},
+      // `inlineCode` gets passed as `code` by the HAST transform.
+      // This makes sure `inlineCode` is used when it's defined by the user
+      inlineCode(h, node) {
+        return Object.assign({}, node, {
+          type: 'element',
+          tagName: 'inlineCode',
+          children: [{
+            type: 'text',
+            value: node.value
+          }]
+        })
+      },
       // Remove imports from output
       import(h, node) {
         return Object.assign({}, node, {
@@ -25,21 +34,6 @@ function renderer (options) {
       jsx(h, node) {
         return Object.assign({}, node, {
           type: 'text'
-        })
-      }
-    }
-
-    // `inlineCode` gets passed as `code` by the HAST transform.
-    // This makes sure `inlineCode` is used when it's defined by the user
-    if(components.inlineCode) {
-      handlers.inlineCode = (h, node) => {
-        return Object.assign({}, node, {
-          type: 'element',
-          tagName: 'inlineCode',
-          children: [{
-            type: 'text',
-            value: node.value
-          }]
         })
       }
     }

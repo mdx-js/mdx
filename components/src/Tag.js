@@ -1,6 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+const defaults = {
+  inlineCode: 'code',
+  wrapper: 'div'
+}
+
 class Tag extends React.Component {
   static contextTypes = {
     components: PropTypes.Object
@@ -8,7 +13,7 @@ class Tag extends React.Component {
   render() {
     const {components = {}} = this.context
     const {name, props, children} = this.props
-    const Component = components[name] || name === 'wrapper' ? 'div' : name
+    const Component = components[name] || defaults[name] || name
     return <Component {...props}>{children}</Component>
   }
 }
