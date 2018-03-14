@@ -61,7 +61,7 @@ function renderer (options) {
       if(node.type === 'element') {
         // This makes sure codeblocks can hold code and backticks
         if(node.tagName === 'code') {
-          children = '{`' + children.replace(/`/g, '\\`') + '`}'
+          children = '{`' + children.replace(/`/g, '\\`').replace(/\$/, '\\$') + '`}'
         }
 
         return `<MDXTag name="${node.tagName}" components={components} props={${JSON.stringify(node.properties)}}>${children}</MDXTag>`
