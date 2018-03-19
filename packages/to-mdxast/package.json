@@ -8,10 +8,9 @@
     "index.js"
   ],
   "scripts": {
-    "example": "node example",
     "test": "ava -v"
   },
-  "repository": "c8r/markdown",
+  "repository": "mdx-js/mdx",
   "keywords": [
     "react",
     "markdown",
@@ -22,9 +21,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "parse-es6-imports": "^1.0.1",
-    "remark": "^9.0.0",
-    "unist-util-select": "^1.5.0",
     "unist-util-visit": "^1.3.0"
   },
   "devDependencies": {

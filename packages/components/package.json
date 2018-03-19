@@ -10,10 +10,10 @@
   "scripts": {
     "build": "babel src -d dist",
     "clean": "rm -rf dist",
-    "prepare": "npm run clean && npm run build",
+    "prepublish": "npm run clean && npm run build",
     "test": "ava -v"
   },
-  "repository": "c8r/markdown",
+  "repository": "mdx-js/mdx",
   "keywords": [
     "react",
     "markdown",
@@ -22,7 +22,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@compositor/mdx": "^0.3.3",
     "prop-types": "^15.6.1"
   },
   "devDependencies": {
