@@ -2,7 +2,7 @@
   "name": "@compositor/markdown",
   "description": "A fully-featured Markdown/MDX React component for ambitious projects",
   "author": "Compositor",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "main": "dist/index.js",
   "files": [
     "dist"

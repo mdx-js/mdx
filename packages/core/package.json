@@ -2,7 +2,7 @@
   "name": "@compositor/mdx",
   "description": "Parse MDX to JSX",
   "author": "John Otander",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "main": "index.js",
   "files": [
     "index.js"
