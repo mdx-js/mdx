@@ -14,7 +14,7 @@ module.exports = function (content) {
   const options = getOptions(this)
   //validateOptions(schema, options)
   
-  const result = mdx(content)
+  const result = mdx(content, options || {})
 
   const code = `
   import React from 'react'

@@ -10,7 +10,7 @@
   "scripts": {
     "test": "ava -v"
   },
-  "repository": "c8r/markdown",
+  "repository": "mdx-js/mdx",
   "keywords": [
     "react",
     "markdown",
@@ -33,11 +33,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "memory-fs": "^0.4.1",
-    "react-dom": "^16.2.0",
     "webpack": "^4.1.0"
-  },
-  "peerDependencies": {
-    "@compositor/markdown": "^0.3.4"
   },
   "ava": {
     "require": [
