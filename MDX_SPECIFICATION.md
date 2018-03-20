@@ -11,8 +11,18 @@ A superset of the [CommonMark](http://commonmark.org) specification that adds JS
 
 ES2015 [`import` syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) is supported. They are optional and must be the first declarations in an MDX file
 
-```md
+```js
 import Component, { And, Another } from './src'
+```
+
+## Exports
+
+ES2015 [`export` syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) is supported. This works similarly to traditional markdown frontmatter where you can specify things like layout and authors.
+
+```js
+import { Fred, Ann } from '../data/authors.json'
+
+export { authors: { Fred, Ann } }
 ```
 
 ## Inline JSX
@@ -41,32 +51,8 @@ And here's a paragraph
 
 If you'd like to start a line with the `<` token, you may escape with `\<`.
 
-### Embedding markdown
 
-Rather than introducing a special syntax for Markdown from within JSX, this functionality can be achieved in two ways:
-
-#### Using a `Markdown` component directly
-
-```jsx
-import { Markdown } from '@compositor/markdown'
-import { List } from './ui'
-
-# Hello, world!
-
-<List>
-  <Markdown
-    text={`
-      * here
-      * are
-      * list
-      * items
-  `}
-  />
-  </markdown>
-</List>
-```
-
-#### Or transclusion via an `import`
+#### Transclusion via an `import`
 
 ```jsx
 import GroceryList from './grocery-list.mdx'
@@ -78,10 +64,6 @@ import { List } from './ui'
   <GroceryList />
 </List>
 ```
-
-#### Why?
-
-This is something we will reconsider in the future, but it makes parsing substantially more complex and seems to mix concerns.
 
 ## Element to component mapping
 
@@ -107,31 +89,6 @@ export default () =>
       code: ui.Code
     }}
   />
-```
-
-## Expected elements
-
-Any non-HTML element must be declared to the parser. This is used to determine blocks of JSX and ignores any non-conforming elements. For example, if the parser is told to expect `['Video', 'Logo']`:
-
-```jsx
-import OtherThing from './ui'
-
-
-These elements are parsed as JSX blocks:
-
-<OtherThing />
-
-<span>hi</span>
-
-<Video />
-
-<Logo />
-
-But these aren't:
-
-<Span>hi</Span>
-
-<SomethingElse />
 ```
 
 ## Formatting/linting
