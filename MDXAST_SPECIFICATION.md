@@ -13,9 +13,10 @@ This will also ensure that parsing is properly handled before transforming to JS
 
 Firstly, the most important difference is that there isn't much of one. An MDX document that contains no JSX or imports is a valid MDAST.
 
-The MDXAST is nearly identical to MDAST but with a two added node types (`jsx`, `import`) and the removal of `html` (since all tag embeds, including inline are now `jsx`).
+The MDXAST is nearly identical to MDAST but with three added node types (`jsx`, `import`, `export`) and the removal of `html` (since all tag embeds, including inline are now `jsx`).
 The `import` type is used to provide the necessary block elements to the remark html block parser and for the execution context/implementation.
 For example, a [webpack loader](https://github.com/c8r/markdown/tree/master/loader) might want to transform an MDX import by appending those imports.
+`export` is used to emit data from MDX, similarly to traditional markdown frontmatter.
 The `jsx` node would most likely be passed to Babel to create functions.
 
 This will also differ a bit in parsing because the remark parser is built to handle particular html element types, whereas JSX support will require the ability to parse _any_ tag, and those that self close.
@@ -29,6 +30,7 @@ The `jsx` and `import` node types are defined below.
 *   [AST](#ast)
     *   [JSX](#jsx)
     *   [Import](#import)
+    *   [Export](#export)
     *   [MDAST Nodes](https://github.com/syntax-tree/mdast)
 
 ## AST
@@ -75,21 +77,29 @@ interface JSX <: Text {
 For example, the following MDX:
 
 ```md
-import * as ui from './ui'
+import Video from '../components/Video'
 ```
 
 Yields:
 
 ```json
 {
-  "type": "jsx",
-  "value": "import * as ui from './ui'",
-  "imports": [
-    {
-      "type": "star",
-      "name": "ui",
-      "from": "./ui"
-    }
-  ]
+  "type": "import",
+  "value": "import Video from '../components/Video'"
 }
+```
+### `Export`
+
+`export` ([`Textnode`](#textnode)) contains the raw export as a string.
+
+```idl
+interface JSX <: Text {
+  type: "export";
+}
+```
+
+For example, the following MDX:
+
+```md
+export { foo: 'bar' }
 ```
