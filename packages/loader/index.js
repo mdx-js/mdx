@@ -1,19 +1,10 @@
 const { getOptions } = require('loader-utils')
-const validateOptions = require('schema-utils')
 const mdx = require('@compositor/mdx')
-
-const schema = {
-  type: 'object',
-  properties: {
-    // TODO
-  }
-}
 
 module.exports = function (content) {
   const callback = this.async()
   const options = getOptions(this)
-  //validateOptions(schema, options)
-  
+
   const result = mdx(content, options || {})
 
   const code = `
@@ -21,6 +12,8 @@ module.exports = function (content) {
   import { MDXTag } from '@compositor/markdown'
   ${result}
   `
+
+  console.log(code)
 
   return callback(null, code)
 }
