@@ -1,11 +1,11 @@
-# markdown-loader
+# loader
 
-Markdown loader for use with [`c8r/markdown`](https://github.com/c8r/markdown).
+Webpack loader for use with [MDX](https://github.com/mdx-js/mdx).
 
 ## Installation
 
 ```sh
-npm i -D @compositor/markdown-loader
+npm i -D @mdx-js/loader
 ```
 
 ## Usage
@@ -18,10 +18,10 @@ module: {
   rules: [
     // ...
     {
-      test: /\.md?$/,
+      test: /\.md$/,
       use: [
         'babel-loader',
-        '@compositor/markdown-loader'
+        '@mdx-js/loader'
       ]
     }
   ]
