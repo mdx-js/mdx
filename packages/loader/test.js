@@ -23,6 +23,7 @@ const testFixture = (fixture, options = {}) => {
             options: {
               presets: [
                 "env",
+                "es2015",
                 "stage-0",
                 "react"
               ],

@@ -13,5 +13,7 @@ module.exports = function (content) {
   ${result}
   `
 
+  console.log(code)
+
   return callback(null, code)
 }

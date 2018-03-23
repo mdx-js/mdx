@@ -1,50 +1,17 @@
----
-my: frontmatter
----
-
 import { Foo } from './Fixture'
 
+export const meta = {
+  exported: 'data'
+}
 
-This is an example markdown doc.
+# Hello, world!
 
 https://compositor.io/images/iso-hero.jpg
 
-[link](linked-file.md)
+<Foo bar='baz'>Hi</Foo>
 
-## Installation
+## Grocery list
 
-
-```sh
-npm i -g foo
-```
-
-<block>
-<span>Hi</span>
-</block>
-
-<Foo bar='baz'>
-Hi
-</Foo>
-
-```!jsx
-<h1 children='Hi' />
-```
-
-
-```
-import Foo from 'bar'
-
-export default props => <Foo {...props} />
-```
-
-The following is a live editor code block:
-
-```jsx
-<h1>Hello, world!</h1>
-```
-
-./test/fixtures/example.md
-
-./unsupported/file.type
-
-By bye
+- apples
+- bananas
+- oranges
