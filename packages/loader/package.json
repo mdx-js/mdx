@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/loader",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "license": "MIT",
   "repository": "mdx-js/mdx",
   "description": "Loader for MDX",
