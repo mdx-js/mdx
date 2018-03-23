@@ -1,13 +1,12 @@
 {
-  "name": "@compositor/markdown-loader",
-  "description": "Loader for @compositor/markdown",
-  "author": "Compositor",
+  "name": "@mdx-js/loader",
   "version": "0.3.5",
-  "main": "index.js",
+  "license": "MIT",
+  "repository": "mdx-js/mdx",
+  "description": "Loader for MDX",
   "files": [
     "index.js"
   ],
-  "repository": "mdx-js/mdx",
   "keywords": [
     "react",
     "markdown",
@@ -15,6 +14,5 @@
     "styleguide",
     "webpack",
     "loader"
-  ],
-  "license": "MIT"
+  ]
 }
