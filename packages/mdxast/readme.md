@@ -1,11 +1,11 @@
-# to-mdxast
+# @mdx-js/mdxast
 
 Transforms MDAST to MDXAST.
 
 ## Installation
 
 ```sh
-npm i -S mdast-util-to-mdxast
+npm i -S @mdx-js/mdxast
 ```
 
 ## Usage
@@ -14,8 +14,7 @@ npm i -S mdast-util-to-mdxast
 const unified = require('unified')
 const remark = require('remark-parse')
 const inspect = require('unist-util-inspect')
-const toMAST = require('to-mdast')
-const { getImports } = require('to-mdast')
+const toMDXAST = require('@mdx-js/mdxast')
 
 const MDX = `
 import { Foo } from 'bar'
@@ -25,15 +24,8 @@ import { Foo } from 'bar'
 <Foo />
 `
 
-// Import scope must be passed to the remark
-// parser for block parsing
-const options = {
-  blocks: getImports(MDX).blocks
-}
-
 const tree = unified()
-  .use(remark, options)
-  .use(toMDXAST, options)
+  .use(remark)
   .parse(MDX)
 
 const mdxast = toMDXAST(options)(tree)

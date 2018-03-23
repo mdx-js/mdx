@@ -1,3 +1,3 @@
-# mdx-js/tag
+# @mdx-js/tag
 
 https://github.com/mdx-js/mdx
