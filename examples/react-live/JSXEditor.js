@@ -1,12 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {
-  LiveProvider,
-  LivePreview,
-  LiveEditor,
-  LiveError
-} from 'react-live'
+import { LiveProvider, LivePreview, LiveEditor, LiveError } from 'react-live'
 
 import * as Rebass from 'rebass'
 
@@ -22,19 +17,16 @@ const JSXEditor = (props, context) => {
   const scope = Object.assign({}, Rebass, components)
 
   if (!isDotJSX(className)) {
-    return (
-      <pre
-        style={{ color: 'red' }}
-        {...props}
-      />
-    )
+    return <pre style={{ color: 'red' }} {...props} />
   }
 
   return (
     <LiveProvider
       scope={scope}
       code={children.join('')}
-      transform={code => `<Provider><React.Fragment>${code}</React.Fragment></Provider>`}
+      transform={code =>
+        `<Provider><React.Fragment>${code}</React.Fragment></Provider>`
+      }
     >
       <LivePreview />
       <LiveEditor />

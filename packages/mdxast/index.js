@@ -17,15 +17,15 @@ const restringify = node => {
 const modules = tree => {
   return visit(tree, 'paragraph', (node, _i, parent) => {
     // `import` must be defined at the top level to be a real import
-    if(parent.type !== 'root') {
+    if (parent.type !== 'root') {
       return node
     }
 
     // Get the text from the text node
-    const {value} = node.children[0] || ''
+    const { value } = node.children[0] || ''
 
     // Sets type to `export` in the AST if it's an export
-    if(isExport(value)) {
+    if (isExport(value)) {
       node.type = 'export'
       // Exports can have urls which remark-parse will turn into a child link node.
       node.value = node.children.map(restringify).join(' ')
@@ -34,12 +34,12 @@ const modules = tree => {
     }
 
     // Import paragraphs only have text in 1 node
-    if(node.children.length !== 1) {
+    if (node.children.length !== 1) {
       return node
     }
 
     // Sets type to `import` in the AST if it's an import
-    if(isImport(value)) {
+    if (isImport(value)) {
       node.type = 'import'
       node.value = value
       delete node.children
@@ -50,9 +50,8 @@ const modules = tree => {
   })
 }
 
-
 // turns `html` nodes into `jsx` nodes
-const jsx = tree => visit(tree, 'html', node => node.type = 'jsx')
+const jsx = tree => visit(tree, 'html', node => (node.type = 'jsx'))
 
 module.exports = options => tree => {
   modules(tree)

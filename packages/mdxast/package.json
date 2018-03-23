@@ -1,16 +1,15 @@
 {
-  "name": "to-mdxast",
-  "description": "Transforms MDAST to MDXAST",
-  "author": "John Otander",
+  "name": "@mdx-js/mdxast",
   "version": "0.3.5",
-  "main": "index.js",
+  "license": "MIT",
+  "repository": "mdx-js/mdx",
+  "description": "Transforms MDAST to MDXAST",
   "files": [
     "index.js"
   ],
   "scripts": {
     "test": "ava -v"
   },
-  "repository": "mdx-js/mdx",
   "keywords": [
     "react",
     "markdown",
@@ -19,7 +18,6 @@
     "mdx",
     "util"
   ],
-  "license": "MIT",
   "dependencies": {
     "unist-util-visit": "^1.3.0"
   },

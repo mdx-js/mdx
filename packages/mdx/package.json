@@ -1,16 +1,15 @@
 {
-  "name": "@compositor/mdx",
-  "description": "Parse MDX to JSX",
-  "author": "John Otander",
+  "name": "@mdx-js/mdx",
   "version": "0.3.5",
-  "main": "index.js",
+  "license": "MIT",
+  "repository": "mdx-js/mdx",
+  "description": "Parse MDX and transpile to JSX",
   "files": [
     "index.js"
   ],
   "scripts": {
     "test": "ava -v"
   },
-  "repository": "mdx-js/mdx",
   "keywords": [
     "react",
     "markdown",
@@ -18,7 +17,6 @@
     "mdxast",
     "mdx"
   ],
-  "license": "MIT",
   "dependencies": {
     "mdast-util-to-hast": "^3.0.0",
     "remark-emoji": "^2.0.1",

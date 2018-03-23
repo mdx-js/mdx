@@ -6,7 +6,7 @@ const images = require('remark-images')
 const toMDXAST = require('to-mdxast')
 const toHAST = require('mdast-util-to-hast')
 
-function renderer (options) {
+function renderer(options) {
   this.Compiler = node => {
     const handlers = {
       // `inlineCode` gets passed as `code` by the HAST transform.
@@ -15,10 +15,12 @@ function renderer (options) {
         return Object.assign({}, node, {
           type: 'element',
           tagName: 'inlineCode',
-          children: [{
-            type: 'text',
-            value: node.value
-          }]
+          children: [
+            {
+              type: 'text',
+              value: node.value
+            }
+          ]
         })
       },
       import(h, node) {
@@ -42,31 +44,56 @@ function renderer (options) {
       handlers
     })
 
-    const walk = (node) => {
+    const walk = node => {
       let children = ''
 
-      if(node.type === 'root') {
-        const importNodes = node.children.filter((node) => node.type === 'import').map(walk).join('\n')
-        const exportNodes = node.children.filter((node) => node.type === 'export').map(walk).join('\n')
-        const otherNodes = node.children.filter((node) => node.type !== 'import' && node.type !== 'export').map(walk).join('')
-        return importNodes + '\n' + exportNodes + '\n' + `export default ({components}) => <MDXTag name="wrapper">${otherNodes}</MDXTag>`
+      if (node.type === 'root') {
+        const importNodes = node.children
+          .filter(node => node.type === 'import')
+          .map(walk)
+          .join('\n')
+        const exportNodes = node.children
+          .filter(node => node.type === 'export')
+          .map(walk)
+          .join('\n')
+        const otherNodes = node.children
+          .filter(node => node.type !== 'import' && node.type !== 'export')
+          .map(walk)
+          .join('')
+        return (
+          importNodes +
+          '\n' +
+          exportNodes +
+          '\n' +
+          `export default ({components}) => <MDXTag name="wrapper">${otherNodes}</MDXTag>`
+        )
       }
 
       // recursively walk through children
-      if(node.children) {
+      if (node.children) {
         children = node.children.map(walk).join('')
       }
 
-      if(node.type === 'element') {
+      if (node.type === 'element') {
         // This makes sure codeblocks can hold code and backticks
-        if(node.tagName === 'code') {
-          children = '{`' + children.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
+        if (node.tagName === 'code') {
+          children =
+            '{`' + children.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
         }
 
-        return `<MDXTag name="${node.tagName}" components={components} props={${JSON.stringify(node.properties)}}>${children}</MDXTag>`
+        return `<MDXTag name="${
+          node.tagName
+        }" components={components} props={${JSON.stringify(
+          node.properties
+        )}}>${children}</MDXTag>`
       }
 
-      if(node.type === 'text' || node.type === 'import' || node.type === 'export' || node.type === 'jsx') {
+      if (
+        node.type === 'text' ||
+        node.type === 'import' ||
+        node.type === 'export' ||
+        node.type === 'jsx'
+      ) {
         return node.value
       }
     }
@@ -76,7 +103,7 @@ function renderer (options) {
   }
 }
 
-module.exports = function (mdx, options = {}) {
+module.exports = function(mdx, options = {}) {
   options.blocks = options.blocks || ['[a-z]+(\\.){0,1}[a-z]']
   const plugins = options.plugins || []
   const compilers = options.compilers || []
