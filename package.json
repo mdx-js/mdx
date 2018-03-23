@@ -1,17 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "format": "prettier --no-semi --single-quote --write {examples,packages}/**/*.js"
   },
-  "repository": "c8r/markdown",
+  "repository": "mdx-js/mdx",
   "license": "MIT",
   "devDependencies": {
-    "lerna": "^2.5.1"
-  },
-  "ava": {
-    "require": [
-      "babel-register"
-    ],
-    "babel": "inherit"
+    "lerna": "^2.5.1",
+    "prettier": "^1.11.1"
   }
 }

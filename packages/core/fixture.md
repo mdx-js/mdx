@@ -1,7 +1,3 @@
----
-hello: frontmatter
----
-
 import { Baz } from './Fixture'
 import { Buz } from './Fixture'
 

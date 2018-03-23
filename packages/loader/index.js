@@ -1,7 +1,7 @@
 const { getOptions } = require('loader-utils')
 const mdx = require('@compositor/mdx')
 
-module.exports = function (content) {
+module.exports = function(content) {
   const callback = this.async()
   const options = getOptions(this)
 
