@@ -172,19 +172,5 @@ const reactComponents = md(doc, {
 - [.mdx proposal](https://spectrum.chat/thread/1021be59-2738-4511-aceb-c66921050b9a)
 - [MDXAST proposal](https://github.com/syntax-tree/ideas/issues/3)
 
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
-
-***
-
-[Made by Compositor](https://compositor.io/)
-|
-[MIT License](license)
-
 [build-badge]: https://img.shields.io/travis/c8r/markdown/master.svg?style=flat-square
 [build]: https://travis-ci.org/c8r/markdown
