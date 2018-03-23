@@ -1,5 +1,5 @@
 {
-  "name": "to-mdxast",
+  "name": "@mdx-js/mdxast",
   "description": "Transforms MDAST to MDXAST",
   "author": "John Otander",
   "version": "0.3.5",

@@ -1,4 +1,4 @@
-# Markdown [![Build Status][build-badge]][build]
+# MDX [![Build Status][build-badge]][build]
 
 __Please note this repo is in active development. Things are likely to change. Use at your own risk <3.__
 
@@ -7,26 +7,27 @@ It's currently tracking an evolving spec defined by:
 - [MDX](MDX_SPECIFICATION.md)
 - [MDXAST](MDXAST_SPECIFICATION.md)
 
-A fully-featured markdown parser and renderer for ambitious projects.
-Compiles to React for React-based apps or static site generation.
+---
+
+A fully-featured MDX parser and renderer for ambitious projects.
+Compiles to JSX for React-based apps or static site generation.
 Built with [`remark`](https://github.com/remarkjs/remark) and adapted from [`remark-react`](https://github.com/mapbox/remark-react)/[`mdxc`](https://github.com/jamesknelson/mdxc).
 
-`@compositor/markdown` provides a few added features that improve the Markdown spec, including component imports, inline JSX, and an optional image syntax.
+MDX provides a few added features that improve the Markdown spec, including component imports, object exporting, inline JSX, and an optional image syntax.
 
 ```sh
-npm install --save @compositor/markdown
+npm install --save @mdx-js/mdx
 ```
 
 ## Features
 
 - Fast
 - [Pluggable](https://github.com/remarkjs/remark/blob/master/doc/plugins.md)
-- Element to component mapping
-- React component imports/rendering
+- Element to React component mapping
+- React component `import`/`export`
 - Simpler image syntax
-- Table of contents support
+- Webpack loader
 - GitHub style emojis
-- Standalone webpack loader for `import Docs from './readme.md'` support
 
 ## Component customization
 
@@ -48,22 +49,6 @@ export default () =>
     text='# Hello, world!'
     components={{ h1 }}
   />
-```
-
-### Using the `ComponentsProvider`
-
-If you'd like to pass your default markdown components to all `.md` imports in your app you can use the `ComponentsProvider`:
-
-```jsx
-import React from 'react'
-import { ComponentsProvider } from '@compositor/markdown'
-
-import { Heading as h1 } from './ui'
-
-export default () =>
-  <ComponentsProvider components={{ h1 }}>
-    <Markdown text='# Hello, world!' />
-  </ComponentsProvider>
 ```
 
 ## Syntax
@@ -103,7 +88,7 @@ This is an example markdown document.
 
 #### Images
 
-Embedding images is easier to remember, you can link a url or relative file path.
+Embedding images is easier to remember, you can simply link a url.
 
 ```md
 #### A url
@@ -171,44 +156,7 @@ const reactComponents = md(doc, {
 | Name | Default | Description |
 | ---- | ------- | ----------- |
 | `components` | `{}` | Object containing html element to component mapping and any other components to provide to the global scope |
-| `toc` | `false` | Generate a [table of contents](https://github.com/remarkjs/remark-toc) |
 | `plugins` | `[]` | Additional remark plugins |
-
-## Additional niceties
-
-### `withIdLink`
-
-This libray also provides a hoc for linkifying elements with an `id`.
-This is useful for adding a link to headers.
-
-The following will turn linkify any `h1` contained in the markdown:
-
-```jsx
-import React from 'react'
-
-import {
-  Markdown,
-  ComponentsProvider,
-  withIdLink
-} from '../src'
-
-const Heading = withIdLink(({
-  color = 'tomato',
-  children,
-  ...props
-}) =>
-  <h1
-    style={{ color }}
-    children={`# ${children}`}
-    {...props}
-  />
-)
-
-export default md =>
-  <ComponentsProvider components={{ h1: Heading }}>
-    <Markdown text={md} />
-  </ComponentsProvider>
-```
 
 ## Related
 
