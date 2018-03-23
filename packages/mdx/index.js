@@ -3,8 +3,8 @@ const toMDAST = require('remark-parse')
 const emoji = require('remark-emoji')
 const squeeze = require('remark-squeeze-paragraphs')
 const images = require('remark-images')
-const toMDXAST = require('to-mdxast')
 const toHAST = require('mdast-util-to-hast')
+const toMDXAST = require('@mdx-js/mdxast')
 
 function renderer(options) {
   this.Compiler = node => {
