@@ -1,5 +1,5 @@
 const { getOptions } = require('loader-utils')
-const mdx = require('@compositor/mdx')
+const mdx = require('@mdx-js/mdx')
 
 module.exports = function(content) {
   const callback = this.async()
@@ -9,7 +9,7 @@ module.exports = function(content) {
 
   const code = `
   import React from 'react'
-  import { MDXTag } from '@compositor/markdown'
+  import { MDXTag } from '@mdx-js/tag'
   ${result}
   `
 
