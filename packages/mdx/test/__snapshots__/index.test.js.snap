@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should output an MDXTag with type="p" 1`] = `
+"
+
+export default ({components}) => <MDXTag name=\\"wrapper\\"><MDXTag name=\\"p\\" components={components} props={{}}>Hello World</MDXTag></MDXTag>"
+`;
