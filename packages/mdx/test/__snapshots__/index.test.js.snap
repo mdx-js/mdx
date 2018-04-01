@@ -1,7 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should output an MDXTag with type="p" 1`] = `
+exports[`Should compile fine to snapshot 1`] = `
 "
 
 export default ({components}) => <MDXTag name=\\"wrapper\\"><MDXTag name=\\"p\\" components={components} props={{}}>Hello World</MDXTag></MDXTag>"
+`;
+
+exports[`Should compile sample blogpost to snapshot 1`] = `
+"import { Baz } from './Fixture'
+import { Buz } from './Fixture'
+
+export default ({components}) => <MDXTag name=\\"wrapper\\">
+<MDXTag name=\\"h1\\" components={components} props={{}}>Hello, world!</MDXTag>
+<MDXTag name=\\"p\\" components={components} props={{}}>I'm an awesome paragraph.</MDXTag>
+<Foo bg='red'>
+  <Bar>hi</Bar>
+    {hello}
+</Foo>
+<MDXTag name=\\"p\\" components={components} props={{}}><MDXTag name=\\"a\\" components={components} props={{\\"href\\":\\"https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png\\"}}><MDXTag name=\\"img\\" components={components} props={{\\"src\\":\\"https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png\\"}}></MDXTag></MDXTag></MDXTag>
+<MDXTag name=\\"p\\" components={components} props={{}}><MDXTag name=\\"a\\" components={components} props={{\\"href\\":\\"https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno\\"}}>https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno</MDXTag></MDXTag>
+<MDXTag name=\\"pre\\" components={components} props={{}}><MDXTag name=\\"code\\" components={components} props={{}}>{\`test codeblock
+\`}</MDXTag></MDXTag>
+<MDXTag name=\\"pre\\" components={components} props={{}}><MDXTag name=\\"code\\" components={components} props={{\\"className\\":[\\"language-js\\"]}}>{\`module.exports = 'test'
+\`}</MDXTag></MDXTag>
+<MDXTag name=\\"pre\\" components={components} props={{}}><MDXTag name=\\"code\\" components={components} props={{\\"className\\":[\\"language-sh\\"]}}>{\`npm i -g foo
+\`}</MDXTag></MDXTag></MDXTag>"
 `;

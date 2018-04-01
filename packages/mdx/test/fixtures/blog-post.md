@@ -1,8 +1,6 @@
 import { Baz } from './Fixture'
 import { Buz } from './Fixture'
 
-import { Foo } from './Fixture'
-
 # Hello, world!
 
 
