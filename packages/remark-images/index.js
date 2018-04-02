@@ -1,7 +1,7 @@
 const isUrl = require('is-url')
 const visit = require('unist-util-visit')
 
-const isImgUrl = str => /\.(svg|png|jpg|jpeg)/.test(str)
+const isImgUrl = str => /\.(svg|png|jpg|jpeg)$/.test(str)
 
 module.exports = () => (tree, file) =>
   visit(tree, 'text', node => {
