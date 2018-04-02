@@ -3,31 +3,56 @@ const mdx = require('../index')
 const mdxHastToJsx = require('../mdx-hast-to-jsx')
 const fs = require('fs')
 const path = require('path')
+const { selectAll } = require('hast-util-select')
+const requestImageSize = require('request-image-size')
 
-it('Should output parseable javascript (jsx)', () => {
-  const code = mdx('Hello World')
+const fixtureBlogPost = fs.readFileSync(path.join(__dirname, './fixtures/blog-post.md'))
+
+it('Should output parseable JSX', async () => {
+  const code = await mdx('Hello World')
   babel.parse(code, {
     plugins: ["@babel/plugin-syntax-jsx"]
   })
 })
 
-it('Should compile fine to snapshot', () => {
-  const code = mdx('Hello World')
-  expect(code).toMatchSnapshot()  
+it('Should compile to snapshot', async () => {
+  const code = await mdx('Hello World')
+  expect(code).toMatchSnapshot()
 })
 
-it('Should compile sample blogpost to snapshot', () => {
-  const fixtureBlogPost = fs.readFileSync(path.join(__dirname,'./fixtures/blog-post.md'))
-  const code = mdx(fixtureBlogPost)
-  expect(code).toMatchSnapshot()  
+it('Should compile sample blog post to snapshot', async () => {
+  const code = await mdx(fixtureBlogPost)
+  expect(code).toMatchSnapshot()
 })
 
 it('Should render blockquote correctly', () => {
-  const fn = mdx.createMdxAstCompiler()
-  fn.use(function () {
+  mdx
+    .createMdxAstCompiler()
+    .use(testResult)
+    .processSync('> test\n\n> `test`')
+
+  function testResult () {
     this.Compiler = (tree) => {
-      console.log(mdxHastToJsx.toJSX(tree.children[0]))
+      const result = mdxHastToJsx.toJSX(tree.children[0])
+      expect(result).toMatchSnapshot()
     }
+  }
+})
+
+test('Should await and render async plugins', async () => {
+  const result = await mdx(fixtureBlogPost, {
+    hastPlugins: [
+      () => tree => {
+        const imgPx = selectAll('img', tree).map(async node => {
+          const size = await requestImageSize(node.properties.src)
+          node.properties.width = size.width
+          node.properties.height = size.height
+        })
+
+        return Promise.all(imgPx).then(() => tree)
+      }
+    ]
   })
-  const result = fn.processSync('> test\n\n> `test`').contents
+
+  expect(result).toMatchSnapshot()
 })

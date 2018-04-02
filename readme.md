@@ -162,6 +162,13 @@ Supported file types:
 - `svg`
 - `jpg`
 
+## Options
+
+Name | Type | Required | Description
+---- | ---- | -------- | -----------
+`mdPlugins` | Array[] | `false` | Array of remark plugins to manipulate the MDXAST
+`hastPlugins` | Array[] | `false` | Array of rehype plugins to manipulate the MDXHAST
+
 ## Related
 
 [See the related projects in the MDX specification](https://github.com/mdx-js/specification#related)
