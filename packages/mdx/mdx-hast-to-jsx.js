@@ -1,4 +1,4 @@
-function toJSX(node) {
+function toJSX(node, parentNode = {}) {
   let children = ''
 
   if (node.type === 'root') {
@@ -20,17 +20,17 @@ function toJSX(node) {
     }
 
     return (
-      importNodes.map(toJSX).join('\n') +
+      importNodes.map((childNode) => toJSX(childNode, node)).join('\n') +
       '\n' +
-      exportNodes.map(toJSX).join('\n') +
+      exportNodes.map((childNode) => toJSX(childNode, node)).join('\n') +
       '\n' +
-      `export default ({components}) => <MDXTag name="wrapper">${jsxNodes.map(toJSX).join('')}</MDXTag>`
-    )    
+      `export default ({components}) => <MDXTag name="wrapper">${jsxNodes.map((childNode) => toJSX(childNode, node)).join('')}</MDXTag>`
+    )
   }
 
   // recursively walk through children
   if (node.children) {
-    children = node.children.map(toJSX).join('')
+    children = node.children.map((childNode) => toJSX(childNode, node)).join('')
   }
 
   if (node.type === 'element') {
@@ -40,11 +40,16 @@ function toJSX(node) {
         '{`' + children.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
     }
 
+    let props = ''
+    if(Object.keys(node.properties).length > 0) {
+      props = JSON.stringify(
+        node.properties
+      )
+    }
+    
     return `<MDXTag name="${
       node.tagName
-    }" components={components} props={${JSON.stringify(
-      node.properties
-    )}}>${children}</MDXTag>`
+    }" components={components}${parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''}${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
   }
 
   if (
@@ -57,4 +62,13 @@ function toJSX(node) {
   }
 }
 
-module.exports = toJSX
+function compile() {
+  this.Compiler = (tree) => {
+    return toJSX(tree)
+  }
+}
+
+module.exports = compile
+exports = compile
+exports.toJSX = toJSX
+exports.default = compile

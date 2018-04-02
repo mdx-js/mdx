@@ -1,8 +1,7 @@
 const toHAST = require('mdast-util-to-hast')
-const hastToJsx = require('./hast-to-jsx')
 
-module.exports = function mdxToJsx(options) {
-  this.Compiler = node => {
+module.exports = function mdxAstToMdxHast() {
+  return (tree, file) => {
     const handlers = {
       // `inlineCode` gets passed as `code` by the HAST transform.
       // This makes sure it ends up being `inlineCode`
@@ -10,6 +9,7 @@ module.exports = function mdxToJsx(options) {
         return Object.assign({}, node, {
           type: 'element',
           tagName: 'inlineCode',
+          properties: {},
           children: [
             {
               type: 'text',
@@ -35,10 +35,11 @@ module.exports = function mdxToJsx(options) {
       }
     }
 
-    const hast = toHAST(node, {
+    const hast = toHAST(tree, {
       handlers
     })
 
-    return hastToJsx(hast)
+    return hast
   }
 }
+

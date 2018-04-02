@@ -7,7 +7,7 @@ const defaults = {
 }
 
 export default (props) => {
-  const { name, props: childProps, children, components = {} } = props
-  const Component = components[name] || defaults[name] || name
+  const { name, parentName, props: childProps = {}, children, components = {} } = props
+  const Component = components[name] || components[`${parentName}.${name}}`] || defaults[name] || name
   return <Component {...childProps}>{children}</Component>
 }
