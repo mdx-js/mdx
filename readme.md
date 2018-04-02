@@ -86,7 +86,7 @@ import Graph from './components/graph'
 <Graph />
 ```
 
-### Markdown file transclusion
+#### Markdown file transclusion
 
 You can transclude Markdown files by importing one `.md` file into another:
 
@@ -101,6 +101,22 @@ import Contributing from './docs/contributing.md'
 ---
 
 <Contributing />
+```
+
+### Exports
+
+You can use exports to export metadata like layout or authors.
+It's a mechanism for an imported MDX file to communicate with its parent.
+It works similarly to frontmatter, but uses ES2015 syntax.
+
+```js
+import { fred, sue } from '../data/authors'
+import Layout from '../components/with-blog-layout'
+
+export {
+  authors: [fred, sue],
+  layout: Layout
+}
 ```
 
 ### Component customization
