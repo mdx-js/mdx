@@ -2,7 +2,7 @@
 
 MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.
 It combines the readability of Markdown with the expressivity of JSX.
-The best of both worlds. :globe:
+The best of both worlds. :globe_with_meridians:
 
 [See the MDX specification](https://github.com/mdx-js/specification)
 
