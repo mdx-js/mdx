@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "@mdx-js/mdxast": "^0.4.0",
+    "@mdx-js/tag": "^0.4.0",
     "mdast-util-to-hast": "^3.0.0",
     "remark-images": "^0.4.0",
     "remark-parse": "^5.0.0",
