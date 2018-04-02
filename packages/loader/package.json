@@ -14,5 +14,8 @@
     "styleguide",
     "webpack",
     "loader"
-  ]
+  ],
+  "dependencies": {
+    "@mdx-js/tag": "^0.4.0"
+  }
 }
