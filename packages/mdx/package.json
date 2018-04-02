@@ -29,6 +29,8 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.42",
     "@babel/plugin-syntax-jsx": "^7.0.0-beta.42",
-    "jest": "^22.4.3"
+    "hast-util-select": "^1.0.1",
+    "jest": "^22.4.3",
+    "request-image-size": "^2.1.0"
   }
 }
