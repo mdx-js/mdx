@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "0.7.0-0",
+  "version": "0.7.0-1",
   "license": "MIT",
   "repository": "mdx-js/mdx",
   "description": "Parse MDX and transpile to JSX",
@@ -18,9 +18,9 @@
     "mdx"
   ],
   "dependencies": {
-    "@mdx-js/mdxast": "^0.7.0-0",
+    "@mdx-js/mdxast": "^0.7.0-1",
     "mdast-util-to-hast": "^3.0.0",
-    "remark-images": "^0.7.0-0",
+    "remark-images": "^0.7.0-1",
     "remark-parse": "^5.0.0",
     "remark-squeeze-paragraphs": "^3.0.1",
     "unified": "^6.1.6",
