@@ -13,21 +13,25 @@ it('Should output parseable javascript (jsx)', () => {
 
 it('Should compile fine to snapshot', () => {
   const code = mdx('Hello World')
-  expect(code).toMatchSnapshot()  
+  expect(code).toMatchSnapshot()
 })
 
 it('Should compile sample blogpost to snapshot', () => {
   const fixtureBlogPost = fs.readFileSync(path.join(__dirname,'./fixtures/blog-post.md'))
   const code = mdx(fixtureBlogPost)
-  expect(code).toMatchSnapshot()  
+  expect(code).toMatchSnapshot()
 })
 
 it('Should render blockquote correctly', () => {
-  const fn = mdx.createMdxAstCompiler()
-  fn.use(function () {
+  mdx
+    .createMdxAstCompiler()
+    .use(testResult)
+    .processSync('> test\n\n> `test`')
+
+  function testResult () {
     this.Compiler = (tree) => {
-      console.log(mdxHastToJsx.toJSX(tree.children[0]))
+      const result = mdxHastToJsx.toJSX(tree.children[0])
+      expect(result).toMatchSnapshot()
     }
-  })
-  const result = fn.processSync('> test\n\n> `test`').contents
+  }
 })
