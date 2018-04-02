@@ -1,12 +1,6 @@
----
-hello: there
----
-
 import Other from './other.md'
 
 # Hello, world
-
-<Foo children={hello} />
 
 <Other />
 
