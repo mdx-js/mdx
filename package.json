@@ -3,7 +3,8 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
-    "format": "prettier --no-semi --single-quote --write {examples,packages}/**/*.js"
+    "format": "prettier --no-semi --single-quote --write {examples,packages}/**/*.js",
+    "prepare": "lerna bootstrap && lerna link --force-local"
   },
   "repository": "mdx-js/mdx",
   "license": "MIT",
