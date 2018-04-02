@@ -7,9 +7,9 @@ const matter = require('remark-frontmatter')
 const html = require('rehype-stringify')
 const blocks = require('remark-parse/lib/block-elements.json')
 
-const toMdx = require('./')
+const toMdx = require('..')
 
-const fixture = fs.readFileSync('fixture.md', 'utf8')
+const fixture = fs.readFileSync('test/fixture.md', 'utf8')
 
 const parseFixture = str => {
   const options = {
