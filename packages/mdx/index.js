@@ -18,9 +18,7 @@ function createMdxAstCompiler(options = {}) {
 
   mdPlugins.forEach(plugin => fn.use(plugin, options))
 
-  fn
-    .use(toMDXAST, options)
-    .use(mdxAstToMdxHast, options)
+  fn.use(toMDXAST, options).use(mdxAstToMdxHast, options)
 
   return fn
 }
@@ -31,7 +29,9 @@ async function compile(mdx, options = {}) {
   // api change isn't breaking until v1.
   const hastPlugins = options.hastPlugins || options.plugins || []
   if (options.plugins) {
-    console.log('MDX DEPRECATION: options.plugins is no longer supported please see the latest plugin api docs')
+    console.log(
+      'MDX DEPRECATION: options.plugins is no longer supported please see the latest plugin api docs'
+    )
     console.log('https://github.com/mdx-js/mdx#options')
   }
 
