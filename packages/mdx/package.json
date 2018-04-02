@@ -5,7 +5,9 @@
   "repository": "mdx-js/mdx",
   "description": "Parse MDX and transpile to JSX",
   "files": [
-    "index.js"
+    "index.js",
+    "mdx-ast-to-mdx-hast.js",
+    "mdx-hast-to-jsx.js"
   ],
   "scripts": {
     "test": "jest"
