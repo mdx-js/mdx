@@ -5,13 +5,13 @@ function toJSX(node, parentNode = {}) {
     const importNodes = []
     const exportNodes = []
     const jsxNodes = []
-    for(const childNode of node.children) {
-      if(childNode.type === 'import') {
+    for (const childNode of node.children) {
+      if (childNode.type === 'import') {
         importNodes.push(childNode)
         continue
       }
 
-      if(childNode.type === 'export') {
+      if (childNode.type === 'export') {
         exportNodes.push(childNode)
         continue
       }
@@ -20,17 +20,19 @@ function toJSX(node, parentNode = {}) {
     }
 
     return (
-      importNodes.map((childNode) => toJSX(childNode, node)).join('\n') +
+      importNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
-      exportNodes.map((childNode) => toJSX(childNode, node)).join('\n') +
+      exportNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
-      `export default ({components}) => <MDXTag name="wrapper">${jsxNodes.map((childNode) => toJSX(childNode, node)).join('')}</MDXTag>`
+      `export default ({components}) => <MDXTag name="wrapper">${jsxNodes
+        .map(childNode => toJSX(childNode, node))
+        .join('')}</MDXTag>`
     )
   }
 
   // recursively walk through children
   if (node.children) {
-    children = node.children.map((childNode) => toJSX(childNode, node)).join('')
+    children = node.children.map(childNode => toJSX(childNode, node)).join('')
   }
 
   if (node.type === 'element') {
@@ -41,15 +43,13 @@ function toJSX(node, parentNode = {}) {
     }
 
     let props = ''
-    if(Object.keys(node.properties).length > 0) {
-      props = JSON.stringify(
-        node.properties
-      )
+    if (Object.keys(node.properties).length > 0) {
+      props = JSON.stringify(node.properties)
     }
-    
-    return `<MDXTag name="${
-      node.tagName
-    }" components={components}${parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''}${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
+
+    return `<MDXTag name="${node.tagName}" components={components}${
+      parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''
+    }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
   }
 
   if (
@@ -63,7 +63,7 @@ function toJSX(node, parentNode = {}) {
 }
 
 function compile() {
-  this.Compiler = (tree) => {
+  this.Compiler = tree => {
     return toJSX(tree)
   }
 }
