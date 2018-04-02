@@ -42,4 +42,3 @@ module.exports = function mdxAstToMdxHast() {
     return hast
   }
 }
-
