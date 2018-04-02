@@ -180,5 +180,5 @@ Name | Type | Required | Description
 - Guillermo Rauch ([@rauchg](https://twitter.com/rauchg)) – [ZEIT](https://zeit.co)
 - Brent Jackson ([@jxnblk](https://twitter.com/jxnblk)) - [Compositor](https://compositor.io)
 
-[build-badge]: https://img.shields.io/travis/c8r/markdown/master.svg?style=flat-square
-[build]: https://travis-ci.org/c8r/markdown
+[build-badge]: https://img.shields.io/travis/mdx-js/mdx/master.svg?style=flat-square
+[build]: https://travis-ci.org/mdx-js/mdx
