@@ -1,7 +1,3 @@
 import React from 'react'
 
-export default props =>
-  <span
-    {...props}
-    style={{ color: 'blue' }}
-  />
+export default props => <span {...props} style={{ color: 'blue' }} />

@@ -6,12 +6,14 @@ const path = require('path')
 const { selectAll } = require('hast-util-select')
 const requestImageSize = require('request-image-size')
 
-const fixtureBlogPost = fs.readFileSync(path.join(__dirname, './fixtures/blog-post.md'))
+const fixtureBlogPost = fs.readFileSync(
+  path.join(__dirname, './fixtures/blog-post.md')
+)
 
 it('Should output parseable JSX', async () => {
   const code = await mdx('Hello World')
   babel.parse(code, {
-    plugins: ["@babel/plugin-syntax-jsx"]
+    plugins: ['@babel/plugin-syntax-jsx']
   })
 })
 
@@ -31,8 +33,8 @@ it('Should render blockquote correctly', () => {
     .use(testResult)
     .processSync('> test\n\n> `test`')
 
-  function testResult () {
-    this.Compiler = (tree) => {
+  function testResult() {
+    this.Compiler = tree => {
       const result = mdxHastToJsx.toJSX(tree.children[0])
       expect(result).toMatchSnapshot()
     }
