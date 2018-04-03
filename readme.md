@@ -1,4 +1,5 @@
-# MDX [![Build Status][build-badge]][build]
+# MDX
+[![Build Status](https://travis-ci.org/mdx-js/mdx.svg?branch=master)](https://travis-ci.org/mdx-js/mdx)
 
 MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.
 It combines the readability of Markdown with the expressivity of JSX.
@@ -179,6 +180,3 @@ Name | Type | Required | Description
 - Tim Neutkens ([@timneutkens](https://github.com/timneutkens)) – [ZEIT](https://zeit.co)
 - Guillermo Rauch ([@rauchg](https://twitter.com/rauchg)) – [ZEIT](https://zeit.co)
 - Brent Jackson ([@jxnblk](https://twitter.com/jxnblk)) - [Compositor](https://compositor.io)
-
-[build-badge]: https://img.shields.io/travis/mdx-js/mdx/master.svg?style=flat-square
-[build]: https://travis-ci.org/mdx-js/mdx
