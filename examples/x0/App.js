@@ -1,15 +1,23 @@
 import React from 'react'
+import Markdown from './Markdown'
 
-import { ComponentsProvider } from '@compositor/markdown'
+const components = {
+  h1: props => <h1 style={{ color: 'tomato' }} {...props} />
+}
 
-import Doc from './readme.md'
+const scope = {
+  name: 'world!',
+  Box: props => <div style={{ border: 'thin solid tomato' }} {...props} />
+}
+
+const mdx = `
+# Hello, {name}
+
+<Box>
+  <h4>!!!!!</h4>
+</Box>
+`
 
 export default () => (
-  <ComponentsProvider
-    components={{
-      h1: props => <h1 style={{ color: 'tomato' }} {...props} />
-    }}
-  >
-    <Doc />
-  </ComponentsProvider>
+  <Markdown components={components} children={mdx} {...scope} />
 )
