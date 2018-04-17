@@ -30,8 +30,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
   },
   "peerDependencies": {
     "react": "^0.14.x || ^15.x || ^16.x"
