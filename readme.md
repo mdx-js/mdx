@@ -25,6 +25,8 @@ npm install --save @mdx-js/mdx
 npm install --save-dev @mdx-js/loader
 ```
 
+> Note: mdx requires a version of node that is >= `v8.5`
+
 ### Configuring with webpack
 
 You'll need to specify the `@mdx-js/loader` webpack loader and follow it with the `babel-loader`:
