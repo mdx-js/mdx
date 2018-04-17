@@ -1,5 +1,4 @@
 const fs = require('fs')
-const test = require('ava')
 const unified = require('unified')
 const remark = require('remark-parse')
 const rehype = require('remark-rehype')
@@ -30,8 +29,8 @@ const parseFixture = str => {
   return parser.processSync(str).contents
 }
 
-test('it parses a file', t => {
+test('it parses a file', () => {
   const result = parseFixture(fixture)
 
-  t.snapshot(result)
+  expect(result).toMatchSnapshot()
 })

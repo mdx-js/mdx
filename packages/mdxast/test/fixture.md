@@ -19,14 +19,12 @@ I'm an awesome paragraph.
   {props.hello}
 </Foo>
 
-\imports can be escaped too!
+### An inline image
+
+https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
 
 ### Shopping list
 
 - Apples
 - Bananas
 - Oranges
-
-***
-
-:heart: :heart: :heart:

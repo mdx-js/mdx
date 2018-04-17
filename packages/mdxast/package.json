@@ -8,7 +8,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "ava -v"
+    "test": "jest"
   },
   "keywords": [
     "react",
@@ -22,7 +22,7 @@
     "unist-util-visit": "^1.3.0"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
+    "jest": "^22.4.3",
     "rehype-stringify": "^3.0.0",
     "remark-frontmatter": "^1.2.0",
     "remark-parse": "^5.0.0",
