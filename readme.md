@@ -116,7 +116,7 @@ It works similarly to frontmatter, but uses ES2015 syntax.
 import { fred, sue } from '../data/authors'
 import Layout from '../components/with-blog-layout'
 
-export {
+export const meta = {
   authors: [fred, sue],
   layout: Layout
 }
