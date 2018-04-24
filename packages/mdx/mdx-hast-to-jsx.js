@@ -37,7 +37,7 @@ function toJSX(node, parentNode = {}) {
 
   if (node.type === 'element') {
     // This makes sure codeblocks can hold code and backticks
-    if (node.tagName === 'code') {
+    if (node.tagName === 'code' || node.tagName === 'inlineCode') {
       children =
         '{`' + children.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
     }

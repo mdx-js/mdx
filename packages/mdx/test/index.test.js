@@ -41,6 +41,11 @@ it('Should render blockquote correctly', () => {
   }
 })
 
+it('Should render HTML inside inlineCode correctly', async () => {
+  const result = await mdx('`<div>`')
+  expect(result.includes('<MDXTag name="inlineCode" components={components} parentName="p">{`<div>`}</MDXTag>')).toBeTruthy()
+})
+
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     hastPlugins: [
