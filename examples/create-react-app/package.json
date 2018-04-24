@@ -1,0 +1,18 @@
+{
+  "name": "codesandbox-mdx",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@mdx-js/loader": "^0.7.0",
+    "@mdx-js/mdx": "^0.7.1",
+    "react": "^16.3.2",
+    "react-app-rewired": "^1.5.0",
+    "react-dom": "^16.3.2",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom"
+  }
+}
