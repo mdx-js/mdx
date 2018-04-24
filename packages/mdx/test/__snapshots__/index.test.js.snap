@@ -51,6 +51,6 @@ export default ({components}) => <MDXTag name=\\"wrapper\\"><MDXTag name=\\"p\\"
 exports[`Should render blockquote correctly 1`] = `
 "<MDXTag name=\\"blockquote\\" components={components}>
 <MDXTag name=\\"p\\" components={components} parentName=\\"blockquote\\">test</MDXTag>
-<MDXTag name=\\"p\\" components={components} parentName=\\"blockquote\\"><MDXTag name=\\"inlineCode\\" components={components} parentName=\\"p\\">test</MDXTag></MDXTag>
+<MDXTag name=\\"p\\" components={components} parentName=\\"blockquote\\"><MDXTag name=\\"inlineCode\\" components={components} parentName=\\"p\\">{\`test\`}</MDXTag></MDXTag>
 </MDXTag>"
 `;
