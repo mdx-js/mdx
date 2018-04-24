@@ -5,8 +5,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@compositor/x0": "^3.2.0",
-    "@mdx-js/loader": "^0.7.0",
-    "@mdx-js/mdx": "^0.7.1"
+    "@compositor/x0": "^4.0.2",
+    "@mdx-js/loader": "^0.7.3",
+    "@mdx-js/mdx": "^0.7.3"
   }
 }
