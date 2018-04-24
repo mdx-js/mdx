@@ -3,7 +3,7 @@ module.exports = {
     rules: [
       {
         test: /\.md?$/,
-        use: ['babel-loader', '@compositor/markdown-loader']
+        use: ['babel-loader', '@mdx-js/loader']
       }
     ]
   }

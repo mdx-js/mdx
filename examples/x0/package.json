@@ -5,8 +5,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@compositor/markdown": "0.0.25",
-    "@compositor/markdown-loader": "0.0.7",
-    "@compositor/x0": "^3.2.0"
+    "@compositor/x0": "^3.2.0",
+    "@mdx-js/loader": "^0.7.0",
+    "@mdx-js/mdx": "^0.7.1"
   }
 }
