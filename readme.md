@@ -16,7 +16,6 @@ The best of both worlds. :globe_with_meridians:
 - React component `import`/`export`
 - Simpler image syntax
 - Webpack loader
-- GitHub style emojis
 
 ## Installation
 
