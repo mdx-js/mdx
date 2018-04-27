@@ -148,7 +148,7 @@ export default () =>
 
 #### Images
 
-Embedding images is easier to remember, you can simply link a url.
+Embedding images is easier to remember, you can simply link a url or uri.
 
 ```md
 #### A url
@@ -157,6 +157,13 @@ Below will render an image:
 
 https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
 ```
+
+Supported urls / uris:
+
+- `http://example.com/image.jpg`
+- `/image.jpg`
+- `./image.jpg`
+- `../image.jpg`
 
 Supported file types:
 
