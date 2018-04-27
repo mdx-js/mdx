@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/loader",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "license": "MIT",
   "repository": "mdx-js/mdx",
   "description": "Loader for MDX",
@@ -22,7 +22,7 @@
     "@mdx-js/tag": "^0.7.2"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^0.7.3",
+    "@mdx-js/mdx": "^0.7.4",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
