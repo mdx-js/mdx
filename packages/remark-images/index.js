@@ -1,7 +1,7 @@
 const isUrl = require('is-url')
 const visit = require('unist-util-visit')
 
-const isImgExt = str => /\.(svg|png|jpg|jpeg)$/.test(str)
+const isImgExt = str => /\.(svg|png|jpg|jpeg|gif)$/.test(str)
 const isAbsolutePath = str => str.startsWith('/')
 const isRelativePath = str => str.startsWith('./') || str.startsWith('../')
 const isImgPath = str => isAbsolutePath(str) || isRelativePath(str)
