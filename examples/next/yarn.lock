@@ -2,33 +2,32 @@
 # yarn lockfile v1
 
 
-"@mdx-js/loader@^0.7.0-2":
-  version "0.7.0-2"
-  resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-0.7.0-2.tgz#67bba7599d7383563532e8e17b019559b36ff771"
+"@mdx-js/loader@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-0.8.0.tgz#75a239bfa4dae01e7152b0d51587da63ad1560fd"
   dependencies:
-    "@mdx-js/tag" "^0.7.0-2"
+    "@mdx-js/tag" "^0.7.2"
 
-"@mdx-js/mdx@^0.7.0-2":
-  version "0.7.0-2"
-  resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-0.7.0-2.tgz#60a43f9b8af8f1711a0bcaa5ffa33598ca74d76c"
+"@mdx-js/mdx@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-0.8.0.tgz#a9fde68032d8538cc0b5373e60a30af50524e88a"
   dependencies:
-    "@mdx-js/mdxast" "^0.7.0-2"
+    "@mdx-js/mdxast" "^0.7.2"
     mdast-util-to-hast "^3.0.0"
-    remark-images "^0.7.0-2"
     remark-parse "^5.0.0"
     remark-squeeze-paragraphs "^3.0.1"
     unified "^6.1.6"
     unist-util-visit "^1.3.0"
 
-"@mdx-js/mdxast@^0.7.0-2":
-  version "0.7.0-2"
-  resolved "https://registry.yarnpkg.com/@mdx-js/mdxast/-/mdxast-0.7.0-2.tgz#81996c7da44cafc0a2fe4bcb0329abd9f3a4d1bd"
+"@mdx-js/mdxast@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@mdx-js/mdxast/-/mdxast-0.7.2.tgz#588e3ad617465ca4b67a50c0079f222fb2d65614"
   dependencies:
     unist-util-visit "^1.3.0"
 
-"@mdx-js/tag@^0.7.0-2":
-  version "0.7.0-2"
-  resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.7.0-2.tgz#a4c2377c12abc5d789a90036b449228f748c0a26"
+"@mdx-js/tag@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.7.2.tgz#a18d76644089b4a9bb6d489d205cb065051b7c9a"
   dependencies:
     prop-types "^15.6.1"
 
@@ -3407,9 +3406,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.3.0:
-  version "16.3.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.0.tgz#b318e52184188ecb5c3e81117420cca40618643e"
+react-dom@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -3426,9 +3425,9 @@ react-hot-loader@4.0.0:
     prop-types "^15.6.0"
     shallowequal "^1.0.2"
 
-react@^16.3.0:
-  version "16.3.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.3.0.tgz#fc5a01c68f91e9b38e92cf83f7b795ebdca8ddff"
+react@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -3540,9 +3539,9 @@ regjsparser@^0.1.4:
   dependencies:
     jsesc "~0.5.0"
 
-remark-images@^0.7.0-2:
-  version "0.7.0-2"
-  resolved "https://registry.yarnpkg.com/remark-images/-/remark-images-0.7.0-2.tgz#45b3e7a710c5216e903792470a0046d26c9189b7"
+remark-images@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/remark-images/-/remark-images-0.8.0.tgz#bdcbce57a22f10f78a6f11de7f485ca2fa68dabe"
   dependencies:
     is-url "^1.2.2"
     unist-util-visit "^1.3.0"
