@@ -1,7 +1,6 @@
 const unified = require('unified')
 const toMDAST = require('remark-parse')
 const squeeze = require('remark-squeeze-paragraphs')
-const images = require('remark-images')
 const toMDXAST = require('@mdx-js/mdxast')
 const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
@@ -13,7 +12,6 @@ function createMdxAstCompiler(options = {}) {
 
   const fn = unified()
     .use(toMDAST, options)
-    .use(images, options)
     .use(squeeze, options)
 
   mdPlugins.forEach(plugin => fn.use(plugin, options))
