@@ -1,4 +1,5 @@
-# MDX
+![Logo](./.github/repo.png)
+
 [![Build Status](https://travis-ci.org/mdx-js/mdx.svg?branch=master)](https://travis-ci.org/mdx-js/mdx)
 
 MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.
