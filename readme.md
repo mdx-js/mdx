@@ -147,34 +147,11 @@ export default () =>
   />
 ```
 
-#### Images
+## Plugins
 
-Embedding images is easier to remember, you can simply link a url or uri.
+Since MDX uses the [remark](https://github.com/remarkjs/remark)/[rehype](https://github.com/rehypejs/rehype) ecosystems, you can use plugins to modify the AST at different stages of the transpilation process.
 
-```md
-#### A url
-
-Below will render an image:
-
-https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
-```
-
-Supported urls / uris:
-
-- `http://example.com/image.jpg`
-- `/image.jpg`
-- `./image.jpg`
-- `../image.jpg`
-
-Supported file types:
-
-- `png`
-- `svg`
-- `jpg`
-- `jpeg`
-- `gif`
-
-## Options
+### Options
 
 Name | Type | Required | Description
 ---- | ---- | -------- | -----------

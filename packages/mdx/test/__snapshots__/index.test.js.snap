@@ -11,8 +11,6 @@ export default ({components}) => <MDXTag name=\\"wrapper\\">
   <Bar>hi</Bar>
     {hello}
 </Foo>
-<MDXTag name=\\"p\\" components={components}><MDXTag name=\\"a\\" components={components} parentName=\\"p\\" props={{\\"href\\":\\"https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png\\"}}><MDXTag name=\\"img\\" components={components} parentName=\\"a\\" props={{\\"src\\":\\"https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png\\",\\"width\\":440,\\"height\\":440}}></MDXTag></MDXTag></MDXTag>
-<MDXTag name=\\"p\\" components={components}><MDXTag name=\\"a\\" components={components} parentName=\\"p\\" props={{\\"href\\":\\"https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno\\"}}>https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno</MDXTag></MDXTag>
 <MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\">{\`test codeblock
 \`}</MDXTag></MDXTag>
 <MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":[\\"language-js\\"]}}>{\`module.exports = 'test'
@@ -32,8 +30,6 @@ export default ({components}) => <MDXTag name=\\"wrapper\\">
   <Bar>hi</Bar>
     {hello}
 </Foo>
-<MDXTag name=\\"p\\" components={components}><MDXTag name=\\"a\\" components={components} parentName=\\"p\\" props={{\\"href\\":\\"https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png\\"}}><MDXTag name=\\"img\\" components={components} parentName=\\"a\\" props={{\\"src\\":\\"https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png\\"}}></MDXTag></MDXTag></MDXTag>
-<MDXTag name=\\"p\\" components={components}><MDXTag name=\\"a\\" components={components} parentName=\\"p\\" props={{\\"href\\":\\"https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno\\"}}>https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno</MDXTag></MDXTag>
 <MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\">{\`test codeblock
 \`}</MDXTag></MDXTag>
 <MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":[\\"language-js\\"]}}>{\`module.exports = 'test'
