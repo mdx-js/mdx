@@ -171,6 +171,8 @@ Supported file types:
 - `png`
 - `svg`
 - `jpg`
+- `jpeg`
+- `gif`
 
 ## Options
 
