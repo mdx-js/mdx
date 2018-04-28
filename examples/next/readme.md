@@ -3,6 +3,6 @@
 A basic example using imports and custom components.
 
 ```sh
-npm i
-npm run dev
+yarn
+yarn run dev
 ```

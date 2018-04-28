@@ -6,7 +6,7 @@ const isAbsolutePath = str => str.startsWith('/')
 const isRelativePath = str => str.startsWith('./') || str.startsWith('../')
 const isImgPath = str => isAbsolutePath(str) || isRelativePath(str)
 
-module.exports = () => (tree) =>
+module.exports = () => tree =>
   visit(tree, 'text', node => {
     const text = node.value ? node.value.trim() : ''
 

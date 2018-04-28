@@ -1,9 +1,19 @@
+const images = require('remark-images')
+
 module.exports = {
-  pagesExtensions: ['js', 'jsx', 'md'],
+  pagesExtensions: ['js', 'jsx', 'md', 'mdx'],
   webpack: (config, { defaultLoaders }) => {
     config.module.rules.push({
       test: /\.md$/,
-      use: [defaultLoaders.babel, '@mdx-js/loader']
+      use: [
+        defaultLoaders.babel,
+        {
+          loader: '@mdx-js/loader',
+          options: {
+            mdPlugins: [images]
+          }
+        }
+      ]
     })
 
     return config

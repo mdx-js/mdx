@@ -151,6 +151,8 @@ export default () =>
 
 Since MDX uses the [remark](https://github.com/remarkjs/remark)/[rehype](https://github.com/rehypejs/rehype) ecosystems, you can use plugins to modify the AST at different stages of the transpilation process.
 
+If you look at the [next example](https://github.com/mdx-js/mdx/blob/master/examples/next/next.config.js#L3), it shows you to pass plugins as options to the [MDX loader](https://github.com/mdx-js/mdx/tree/master/packages/loader).
+
 ### Options
 
 Name | Type | Required | Description
