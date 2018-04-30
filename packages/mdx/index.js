@@ -21,34 +21,44 @@ function createMdxAstCompiler(options = {}) {
   return fn
 }
 
-async function compile(mdx, options = {}) {
-  // TODO: v1 change
-  // For now let's also default old plugins key to hastPlugins so this
-  // api change isn't breaking until v1.
-  const hastPlugins = options.hastPlugins || options.plugins || []
-  if (options.plugins) {
-    console.log(
-      'MDX DEPRECATION: options.plugins is no longer supported please see the latest plugin api docs'
-    )
-    console.log('https://github.com/mdx-js/mdx#options')
-  }
-
+function applyHastPluginsAndCompilers(fn, options = {}) {
+  const hastPlugins = options.hastPlugins || []
   const compilers = options.compilers || []
-
-  const fn = createMdxAstCompiler(options)
 
   hastPlugins.forEach(plugin => fn.use(plugin, options))
 
   fn.use(mdxHastToJsx, options)
 
   compilers.forEach(compiler => fn.use(compiler, options))
+}
 
-  const { contents } = await fn.process(mdx)
+function createCompiler(options) {
+  const compiler = createMdxAstCompiler(options)
+  applyHastPluginsAndCompilers(compiler, options)
+
+  return compiler
+}
+
+function sync(mdx, options) {
+  const compiler = createCompiler(options)
+
+  const { contents } = compiler.processSync(mdx)
 
   return contents
 }
 
+async function compile(mdx, options) {
+  const compiler = createCompiler(options)
+
+  const { contents } = await compiler.process(mdx)
+
+  return contents
+}
+
+compile.sync = sync
+
 module.exports = compile
 exports = compile
+exports.sync = sync
 exports.createMdxAstCompiler = createMdxAstCompiler
 exports.default = compile

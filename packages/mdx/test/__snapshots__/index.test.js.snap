@@ -44,6 +44,25 @@ exports[`Should compile to snapshot 1`] = `
 export default ({components}) => <MDXTag name=\\"wrapper\\"><MDXTag name=\\"p\\" components={components}>Hello World</MDXTag></MDXTag>"
 `;
 
+exports[`Should expose a sync compiler 1`] = `
+"import { Baz } from './Fixture'
+import { Buz } from './Fixture'
+
+export default ({components}) => <MDXTag name=\\"wrapper\\">
+<MDXTag name=\\"h1\\" components={components}>Hello, world!</MDXTag>
+<MDXTag name=\\"p\\" components={components}>I'm an awesome paragraph.</MDXTag>
+<Foo bg='red'>
+  <Bar>hi</Bar>
+    {hello}
+</Foo>
+<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\">{\`test codeblock
+\`}</MDXTag></MDXTag>
+<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":[\\"language-js\\"]}}>{\`module.exports = 'test'
+\`}</MDXTag></MDXTag>
+<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":[\\"language-sh\\"]}}>{\`npm i -g foo
+\`}</MDXTag></MDXTag></MDXTag>"
+`;
+
 exports[`Should render blockquote correctly 1`] = `
 "<MDXTag name=\\"blockquote\\" components={components}>
 <MDXTag name=\\"p\\" components={components} parentName=\\"blockquote\\">test</MDXTag>

@@ -67,3 +67,9 @@ test('Should await and render async plugins', async () => {
 
   expect(result).toMatchSnapshot()
 })
+
+test('Should expose a sync compiler', async () => {
+  const result = mdx.sync(fixtureBlogPost)
+
+  expect(result).toMatchSnapshot()
+})

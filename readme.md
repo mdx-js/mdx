@@ -160,6 +160,14 @@ Name | Type | Required | Description
 `mdPlugins` | Array[] | `false` | Array of remark plugins to manipulate the MDXAST
 `hastPlugins` | Array[] | `false` | Array of rehype plugins to manipulate the MDXHAST
 
+## Sync API
+
+If you're using the MDX library directly, you might want to process an MDX string synchronously.
+
+```js
+const jsx = mdx.sync('# Hello, world!')
+```
+
 ## Related
 
 [See the related projects in the MDX specification](https://github.com/mdx-js/specification#related)
