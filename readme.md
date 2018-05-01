@@ -135,7 +135,8 @@ import Hello from '../hello.md'
 import {
   Text,
   Heading,
-  Code
+  Code,
+  InlineCode
 } from '../ui'
 
 export default () =>
@@ -143,7 +144,8 @@ export default () =>
     components={{
       h1: Heading,
       p: Text,
-      code: Code
+      code: Code,
+      inlineCode: InlineCode
     }}
   />
 ```
