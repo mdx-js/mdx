@@ -28,28 +28,18 @@ it('Should output parseable JSX when using < or >', async () => {
   })
 })
 
-it('Should compile to snapshot', async () => {
-  const code = await mdx('Hello World')
-  expect(code).toMatchSnapshot()
-})
-
-it('Should compile sample blog post to snapshot', async () => {
+it('Should compile sample blog post', async () => {
   const code = await mdx(fixtureBlogPost)
-  expect(code).toMatchSnapshot()
+  babel.parse(code, {
+    plugins: ['@babel/plugin-syntax-jsx']
+  })
 })
 
-it('Should render blockquote correctly', () => {
-  mdx
-    .createMdxAstCompiler()
-    .use(testResult)
-    .processSync('> test\n\n> `test`')
-
-  function testResult() {
-    this.Compiler = tree => {
-      const result = mdxHastToJsx.toJSX(tree.children[0])
-      expect(result).toMatchSnapshot()
-    }
-  }
+it('Should render blockquote correctly', async () => {
+  const code = await mdx('> test\n\n> `test`')
+  babel.parse(code, {
+    plugins: ['@babel/plugin-syntax-jsx']
+  })
 })
 
 it('Should render HTML inside inlineCode correctly', async () => {
