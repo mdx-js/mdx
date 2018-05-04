@@ -3,7 +3,7 @@ const mdx = require('../index')
 const mdxHastToJsx = require('../mdx-hast-to-jsx')
 const fs = require('fs')
 const path = require('path')
-const { selectAll } = require('hast-util-select')
+const { select } = require('hast-util-select')
 const requestImageSize = require('request-image-size')
 
 const fixtureBlogPost = fs.readFileSync(
@@ -64,23 +64,22 @@ it('Should render HTML inside inlineCode correctly', async () => {
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     hastPlugins: [
-      () => tree => {
-        const imgPx = selectAll('img', tree).map(async node => {
-          const size = await requestImageSize(node.properties.src)
-          node.properties.width = size.width
-          node.properties.height = size.height
-        })
-
-        return Promise.all(imgPx).then(() => tree)
+      (options) => tree => {        
+        // Returning a promise here will suffice for the test
+        return (async () => {
+          const headingNode = select('h1', tree)
+          const textNode = headingNode.children[0]
+          textNode.value = textNode.value.toUpperCase()
+        })()
       }
     ]
   })
 
-  expect(result).toMatchSnapshot()
+  expect(result).toMatch(/HELLO, WORLD!/)
 })
 
 test('Should expose a sync compiler', async () => {
   const result = mdx.sync(fixtureBlogPost)
 
-  expect(result).toMatchSnapshot()
+  expect(result).toMatch(/Hello, world!/)
 })
