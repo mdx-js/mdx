@@ -1,5 +1,3 @@
-const isCodeNode = node => node.tagName === 'code' || node.tagName === 'inlineCode'
-
 function toJSX(node, parentNode = {}) {
   let children = ''
 
@@ -37,17 +35,7 @@ function toJSX(node, parentNode = {}) {
     children = node.children.map(childNode => toJSX(childNode, node)).join('')
   }
 
-  if (node.type === 'text' && !isCodeNode(parentNode)) {
-    node.value = node.value.replace(/</, '&lt;').replace(/>/, '&gt;')
-  }
-
   if (node.type === 'element') {
-    // This makes sure codeblocks can hold code and backticks
-    if (isCodeNode(node)) {
-      children =
-        '{`' + children.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
-    }
-
     let props = ''
     if (Object.keys(node.properties).length > 0) {
       props = JSON.stringify(node.properties)
@@ -58,8 +46,12 @@ function toJSX(node, parentNode = {}) {
     }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
   }
 
+  // Wraps all text nodes inside template string, so that we don't run into escaping issues.
+  if(node.type === 'text') {
+    return '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
+  }
+
   if (
-    node.type === 'text' ||
     node.type === 'import' ||
     node.type === 'export' ||
     node.type === 'jsx'

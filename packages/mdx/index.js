@@ -21,22 +21,28 @@ function createMdxAstCompiler(options = {}) {
   return fn
 }
 
-function applyHastPluginsAndCompilers(fn, options = {}) {
+function applyHastPluginsAndCompilers(compiler, options = {}) {
   const hastPlugins = options.hastPlugins || []
   const compilers = options.compilers || []
 
-  hastPlugins.forEach(plugin => fn.use(plugin, options))
+  for(const hastPlugin of hastPlugins) {
+    compiler.use(hastPlugin, options)
+  }
 
-  fn.use(mdxHastToJsx, options)
+  compiler.use(mdxHastToJsx, options)
 
-  compilers.forEach(compiler => fn.use(compiler, options))
+  for(const compilerPlugin of compilers) {
+    compiler.use(compilerPlugin, options)
+  }
+
+  return compiler
 }
 
 function createCompiler(options) {
   const compiler = createMdxAstCompiler(options)
-  applyHastPluginsAndCompilers(compiler, options)
+  const compilerWithPlugins = applyHastPluginsAndCompilers(compiler, options)
 
-  return compiler
+  return compilerWithPlugins
 }
 
 function sync(mdx, options) {
