@@ -1,8 +1,12 @@
 import Other from './other.md'
 
-# Hello, world
+# Hello, world `awesome`
 
+<Other components={components} />
+
+```jsx
 <Other />
+```
 
 Here's a paragraph
 

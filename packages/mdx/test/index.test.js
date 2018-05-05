@@ -20,7 +20,7 @@ it('Should output parseable JSX', async () => {
 it('Should output parseable JSX when using < or >', async () => {
   const code = await mdx(`
   # Hello, MDX
-    
+
   I <3 Markdown and JSX
   `)
   babel.parse(code, {
