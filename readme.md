@@ -22,8 +22,7 @@ The best of both worlds. :globe_with_meridians:
 ## Installation
 
 ```sh
-npm install --save @mdx-js/mdx
-npm install --save-dev @mdx-js/loader
+npm install --save-dev @mdx-js/loader @mdx-js/mdx
 ```
 
 > Note: mdx requires a version of node that is >= `v8.5`
