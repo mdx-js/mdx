@@ -1,5 +1,3 @@
-const isCodeNode = node => node.tagName === 'code' || node.tagName === 'inlineCode'
-
 function toJSX(node, parentNode = {}) {
   let children = ''
 
@@ -35,10 +33,6 @@ function toJSX(node, parentNode = {}) {
   // recursively walk through children
   if (node.children) {
     children = node.children.map(childNode => toJSX(childNode, node)).join('')
-  }
-
-  if (node.type === 'text' && !isCodeNode(parentNode)) {
-    node.value = node.value.replace(/</, '&lt;').replace(/>/, '&gt;')
   }
 
   if (node.type === 'element') {
