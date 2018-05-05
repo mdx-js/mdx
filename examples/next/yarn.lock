@@ -4022,15 +4022,14 @@ unicode-property-aliases-ecmascript@^1.0.3:
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-1.0.3.tgz#ac3522583b9e630580f916635333e00c5ead690d"
 
 unified@^6.1.6:
-  version "6.1.6"
-  resolved "https://registry.yarnpkg.com/unified/-/unified-6.1.6.tgz#5ea7f807a0898f1f8acdeefe5f25faa010cc42b1"
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/unified/-/unified-6.2.0.tgz#7fbd630f719126d67d40c644b7e3f617035f6dba"
   dependencies:
     bail "^1.0.0"
     extend "^3.0.0"
     is-plain-obj "^1.1.0"
     trough "^1.0.0"
     vfile "^2.0.0"
-    x-is-function "^1.0.4"
     x-is-string "^0.1.0"
 
 union-value@^1.0.0:
@@ -4088,7 +4087,13 @@ unist-util-stringify-position@^1.0.0, unist-util-stringify-position@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/unist-util-stringify-position/-/unist-util-stringify-position-1.1.2.tgz#3f37fcf351279dcbca7480ab5889bb8a832ee1c6"
 
-unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.3.0:
+unist-util-visit@^1.0.0, unist-util-visit@^1.1.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.3.1.tgz#c019ac9337a62486be58531bc27e7499ae7d55c7"
+  dependencies:
+    unist-util-is "^2.1.1"
+
+unist-util-visit@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.3.0.tgz#41ca7c82981fd1ce6c762aac397fc24e35711444"
   dependencies:
@@ -4157,12 +4162,12 @@ validate-npm-package-license@^3.0.1:
     spdx-expression-parse "^3.0.0"
 
 vfile-location@^2.0.0:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/vfile-location/-/vfile-location-2.0.2.tgz#d3675c59c877498e492b4756ff65e4af1a752255"
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/vfile-location/-/vfile-location-2.0.3.tgz#083ba80e50968e8d420be49dd1ea9a992131df77"
 
 vfile-message@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vfile-message/-/vfile-message-1.0.0.tgz#a6adb0474ea400fa25d929f1d673abea6a17e359"
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vfile-message/-/vfile-message-1.0.1.tgz#51a2ccd8a6b97a7980bb34efb9ebde9632e93677"
   dependencies:
     unist-util-stringify-position "^1.1.1"
 
@@ -4303,10 +4308,6 @@ write-file-webpack-plugin@4.2.0:
     lodash "^4.5.1"
     mkdirp "^0.5.1"
     moment "^2.11.2"
-
-x-is-function@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/x-is-function/-/x-is-function-1.0.4.tgz#5d294dc3d268cbdd062580e0c5df77a391d1fa1e"
 
 x-is-string@^0.1.0:
   version "0.1.0"
