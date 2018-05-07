@@ -51,6 +51,19 @@ it('Should render HTML inside inlineCode correctly', async () => {
   ).toBeTruthy()
 })
 
+it('Should render markdown headers after JSX correctly', async () => {
+  const result = await mdx(`
+<Foo>
+  # Foo
+
+</Foo>
+  `)
+
+  expect(
+    result.includes('h1')
+  ).toBeTruthy()
+})
+
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     hastPlugins: [
