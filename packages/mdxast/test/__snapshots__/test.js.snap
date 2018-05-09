@@ -2,8 +2,8 @@
 
 exports[`it parses a file 1`] = `
 "import {
-  Foo,
-  Bar
+Foo,
+Bar
 } from './ui'
 import Baz from './ui/baz'
 import FooBar from './ui/foo-bar'
@@ -21,4 +21,43 @@ import FooBar from './ui/foo-bar'
 <li>Bananas</li>
 <li>Oranges</li>
 </ul>"
+`;
+
+exports[`using render props component 1`] = `
+"import { Foo } from './Foo'
+import { Bar } from './Bar'
+<h1>Some test</h1>
+&#x3C;Foo>
+  {() => (
+    &#x3C;div>helo&#x3C;/div>
+  )}
+&#x3C;/Foo>
+&#x3C;Bar>
+  &#x3C;Foo>
+    {() => {
+      const message = 'helo'
+  return (
+    &#x3C;div>{message}&#x3C;/div>
+  )
+}}
+  &#x3C;/Foo>
+&#x3C;/Bar>
+&#x3C;Bar>
+  &#x3C;Foo>
+    {() => {
+      const message = 'helo'
+  return (
+    &#x3C;Foo>
+      {() => {
+        const name = 'john'
+
+        return (
+          &#x3C;div>{message} {john}&#x3C;/div>
+        )
+      }}
+    &#x3C;/Foo>
+  )
+}}
+  &#x3C;/Foo>
+&#x3C;/Bar>"
 `;

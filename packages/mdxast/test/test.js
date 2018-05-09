@@ -8,15 +8,18 @@ const blocks = require('remark-parse/lib/block-elements.json')
 
 const toMdx = require('..')
 
-const fixture = fs.readFileSync('test/fixture.md', 'utf8')
+const fixture = {
+  basic: fs.readFileSync('test/fixtures/basic.md', 'utf8'),
+  renderProps: fs.readFileSync('test/fixtures/render-props.md', 'utf8'),
+}
 
 const parseFixture = str => {
   const options = {
     blocks: blocks,
     matter: {
       type: 'yaml',
-      marker: '-'
-    }
+      marker: '-',
+    },
   }
 
   const parser = unified()
@@ -30,7 +33,11 @@ const parseFixture = str => {
 }
 
 test('it parses a file', () => {
-  const result = parseFixture(fixture)
+  const result = parseFixture(fixture.basic)
+  expect(result).toMatchSnapshot()
+})
 
+test('using render props component', () => {
+  const result = parseFixture(fixture.renderProps)
   expect(result).toMatchSnapshot()
 })

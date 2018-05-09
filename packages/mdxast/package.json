@@ -19,6 +19,7 @@
     "util"
   ],
   "dependencies": {
+    "unist-util-remove": "^1.0.0",
     "unist-util-visit": "^1.3.0"
   },
   "devDependencies": {
