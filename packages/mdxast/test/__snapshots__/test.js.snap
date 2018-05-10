@@ -59,5 +59,8 @@ import { Bar } from './Bar'
   )
 }}
   &#x3C;/Foo>
-&#x3C;/Bar>"
+&#x3C;/Bar>
+&#x3C;Foo>
+# helo world
+&#x3C;/Foo>"
 `;

@@ -40,3 +40,8 @@ import { Bar } from './Bar'
     }}
   </Foo>
 </Bar>
+
+<Foo>
+# helo world
+
+</Foo>
