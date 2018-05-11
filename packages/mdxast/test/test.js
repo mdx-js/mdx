@@ -5,6 +5,7 @@ const rehype = require('remark-rehype')
 const matter = require('remark-frontmatter')
 const html = require('rehype-stringify')
 const blocks = require('remark-parse/lib/block-elements.json')
+const babel = require('@babel/core')
 
 const toMdx = require('..')
 
@@ -15,7 +16,7 @@ const fixture = {
 
 const parseFixture = str => {
   const options = {
-    blocks: blocks,
+    blocks,
     matter: {
       type: 'yaml',
       marker: '-',
@@ -37,7 +38,9 @@ test('it parses a file', () => {
   expect(result).toMatchSnapshot()
 })
 
-test('using render props component', () => {
-  const result = parseFixture(fixture.renderProps)
-  expect(result).toMatchSnapshot()
+test('using render props', () => {
+  const code = parseFixture(fixture.renderProps).replace(/&#x3C;/g, '<')
+  babel.parse(code, {
+    plugins: ['@babel/plugin-syntax-jsx'],
+  })
 })

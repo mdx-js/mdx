@@ -23,6 +23,8 @@
     "unist-util-visit": "^1.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/plugin-syntax-jsx": "^7.0.0-beta.46",
     "jest": "^22.4.3",
     "rehype-stringify": "^3.0.0",
     "remark-frontmatter": "^1.2.0",

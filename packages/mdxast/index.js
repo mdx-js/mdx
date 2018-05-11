@@ -68,7 +68,7 @@ const valuesFromNodes = tree => (first, last) => {
       const found = tree.children[i]
 
       if (found.children && found.children.length > 0) {
-        values.push(...found.children.map(child => child.value))
+        values.push(...found.children.reverse().map(child => child.value))
       }
 
       if (found.value && found.value.length > 0) {
@@ -80,6 +80,10 @@ const valuesFromNodes = tree => (first, last) => {
   }
 
   return values
+}
+
+const removeLastBreak = value => {
+  return value.endsWith('\n') ? value.substring(0, value.length - 1) : value
 }
 
 const mergeNodeWithoutCloseTag = (tree, node, idx) => {
@@ -110,7 +114,10 @@ const mergeNodeWithoutCloseTag = (tree, node, idx) => {
   const mergeUntilCloseTag = valuesFromNodes(tree)
   const values = mergeUntilCloseTag(idx, tagCloseIdx)
 
-  node.value = values.reverse().join('\n')
+  node.value = values
+    .reverse()
+    .map(removeLastBreak)
+    .join('\n')
 }
 
 // turns `html` nodes into `jsx` nodes
