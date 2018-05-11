@@ -63,20 +63,18 @@ const componentName = value => {
 const valuesFromNodes = tree => (first, last) => {
   const values = []
 
-  if (first !== last) {
-    for (let i = last; i >= first; i--) {
-      const found = tree.children[i]
+  for (let i = last; i >= first; i--) {
+    const found = tree.children[i]
 
-      if (found.children && found.children.length > 0) {
-        values.push(...found.children.reverse().map(child => child.value))
-      }
-
-      if (found.value && found.value.length > 0) {
-        values.push(found.value)
-      }
-
-      if (i !== first) remove(tree, found)
+    if (found.children && found.children.length > 0) {
+      values.push(...found.children.reverse().map(child => child.value))
     }
+
+    if (found.value && found.value.length > 0) {
+      values.push(found.value)
+    }
+
+    if (i !== first) remove(tree, found)
   }
 
   return values
@@ -110,14 +108,16 @@ const mergeNodeWithoutCloseTag = (tree, node, idx) => {
     return hasJustCloseTag(value)
   })
 
-  // merge all values from node open tag until node with the close tag
-  const mergeUntilCloseTag = valuesFromNodes(tree)
-  const values = mergeUntilCloseTag(idx, tagCloseIdx)
+  if (tagCloseIdx > -1 && tagCloseIdx !== idx) {
+    // merge all values from node open tag until node with the close tag
+    const mergeUntilCloseTag = valuesFromNodes(tree)
+    const values = mergeUntilCloseTag(idx, tagCloseIdx)
 
-  node.value = values
-    .reverse()
-    .map(removeLastBreak)
-    .join('\n')
+    node.value = values
+      .reverse()
+      .map(removeLastBreak)
+      .join('\n')
+  }
 }
 
 // turns `html` nodes into `jsx` nodes

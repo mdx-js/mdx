@@ -44,3 +44,8 @@ test('using render props', () => {
     plugins: ['@babel/plugin-syntax-jsx'],
   })
 })
+
+test('using just open tag', () => {
+  const code = parseFixture(`<Foo />`)
+  expect(code).toBe('&#x3C;Foo />')
+})
