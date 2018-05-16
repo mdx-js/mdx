@@ -1,6 +1,7 @@
 ![Logo](./.github/repo.png)
 
 [![Build Status](https://travis-ci.org/mdx-js/mdx.svg?branch=master)](https://travis-ci.org/mdx-js/mdx)
+[![Install Size](https://packagephobia.now.sh/badge?p=@mdx-js/mdx)](https://packagephobia.now.sh/result?p=@mdx-js/mdx)
 [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/mdx)
 
 MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.
