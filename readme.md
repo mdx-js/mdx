@@ -162,6 +162,65 @@ Name | Type | Required | Description
 `mdPlugins` | Array[] | `false` | Array of remark plugins to manipulate the MDXAST
 `hastPlugins` | Array[] | `false` | Array of rehype plugins to manipulate the MDXHAST
 
+#### Specifying plugins
+
+Plugins need to be passed to the MDX loader via webpack options.
+
+```js
+const images = require('remark-images')
+const emoji = require('remark-emoji')
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.mdx?$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: '@mdx-js/loader',
+            options: {
+              mdPlugins: [images, emoji]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+##### Next.js
+
+If you're using Next.js, you can specify options in your `next.config.js`.
+
+```js
+const images = require('remark-images')
+const emoji = require('remark-emoji')
+
+module.exports = {
+  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+  webpack: (config, { defaultLoaders }) => {
+    config.module.rules.push({
+      test: /\.md$/,
+      use: [
+        defaultLoaders.babel,
+        {
+          loader: '@mdx-js/loader',
+          options: {
+            mdPlugins: [images, emoji]
+          }
+        }
+      ]
+    })
+
+    return config
+  }
+}
+```
+
 ## Sync API
 
 If you're using the MDX library directly, you might want to process an MDX string synchronously.

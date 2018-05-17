@@ -1,4 +1,5 @@
 const images = require('remark-images')
+const emoji = require('remark-emoji')
 
 module.exports = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
@@ -10,7 +11,7 @@ module.exports = {
         {
           loader: '@mdx-js/loader',
           options: {
-            mdPlugins: [images]
+            mdPlugins: [images, emoji]
           }
         }
       ]
