@@ -11,6 +11,7 @@
     "next": "^6.0.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "remark-emoji": "^2.0.1",
     "remark-images": "^0.8.1"
   },
   "devDependencies": {

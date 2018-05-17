@@ -1,6 +1,6 @@
 import Other from './other.md'
 
-# Hello, world `awesome`
+# Hello, world `awesome` :smile_cat:
 
 <Other components={components} />
 
