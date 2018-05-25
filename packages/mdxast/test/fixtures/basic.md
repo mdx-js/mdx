@@ -3,8 +3,8 @@ hello: frontmatter
 ---
 
 import {
-  Foo,
-  Bar
+Foo,
+Bar
 } from './ui'
 
 import Baz from './ui/baz'
@@ -25,6 +25,6 @@ https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
 
 ### Shopping list
 
-- Apples
-- Bananas
-- Oranges
+* Apples
+* Bananas
+* Oranges

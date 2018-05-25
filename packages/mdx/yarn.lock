@@ -130,12 +130,6 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@mdx-js/mdxast@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@mdx-js/mdxast/-/mdxast-0.7.2.tgz#588e3ad617465ca4b67a50c0079f222fb2d65614"
-  dependencies:
-    unist-util-visit "^1.3.0"
-
 abab@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"

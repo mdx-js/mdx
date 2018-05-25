@@ -2,8 +2,8 @@
 
 exports[`it parses a file 1`] = `
 "import {
-  Foo,
-  Bar
+Foo,
+Bar
 } from './ui'
 import Baz from './ui/baz'
 import FooBar from './ui/foo-bar'
