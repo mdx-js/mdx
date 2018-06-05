@@ -19,7 +19,7 @@ exports.default = function (_ref) {
   var components = _ref.components;
   return _react2.default.createElement(
     _tag.MDXTag,
-    { name: 'wrapper' },
+    { name: 'wrapper', components: components },
     _react2.default.createElement(
       _tag.MDXTag,
       { name: 'h1', components: components },
