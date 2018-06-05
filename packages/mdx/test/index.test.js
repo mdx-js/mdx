@@ -51,6 +51,16 @@ it('Should render HTML inside inlineCode correctly', async () => {
   ).toBeTruthy()
 })
 
+it('Should add the "components" prop to the wrapper', async () => {
+  const jsx = await mdx('# Hello World')
+  const { code } = babel.transform(jsx, {
+    plugins: ['@babel/plugin-syntax-jsx']
+  })
+  expect(jsx).toEqual(
+    expect.stringContaining('<MDXTag name="wrapper" components={components}')
+  )
+})
+
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     hastPlugins: [
