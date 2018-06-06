@@ -12,7 +12,7 @@
     "build": "babel src -d dist",
     "clean": "rm -rf dist",
     "prepublish": "npm run clean && npm run build",
-    "test": "ava -v"
+    "test": "jest"
   },
   "keywords": [
     "react",
@@ -24,22 +24,16 @@
     "prop-types": "^15.6.1"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
+    "jest": "^23.1.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
   "peerDependencies": {
     "react": "^0.14.x || ^15.x || ^16.x"
-  },
-  "ava": {
-    "require": [
-      "babel-register"
-    ],
-    "babel": "inherit"
   }
 }

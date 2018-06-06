@@ -30,7 +30,5 @@ const parseFixture = str => {
 }
 
 test('it parses a file', () => {
-  const result = parseFixture(fixture)
-
-  expect(result).toMatchSnapshot()
+  parseFixture(fixture)
 })

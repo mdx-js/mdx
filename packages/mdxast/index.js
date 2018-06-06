@@ -2,8 +2,10 @@ const visit = require('unist-util-visit')
 
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
+const EXPORT_DEFAULT_REGEX = /^export default/
 const isImport = text => IMPORT_REGEX.test(text)
 const isExport = text => EXPORT_REGEX.test(text)
+const isExportDefault = text => EXPORT_DEFAULT_REGEX.test(text)
 const restringify = node => {
   if (node.type === 'link') {
     return node.url
@@ -27,6 +29,7 @@ const modules = tree => {
     // Sets type to `export` in the AST if it's an export
     if (isExport(value)) {
       node.type = 'export'
+      node.default = isExportDefault(value)
       // Exports can have urls which remark-parse will turn into a child link node.
       node.value = node.children.map(restringify).join(' ')
       delete node.children

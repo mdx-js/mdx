@@ -12,12 +12,20 @@ export default props => {
     parentName,
     props: childProps = {},
     children,
-    components = {}
+    components = {},
+    Layout
   } = props
   const Component =
     components[`${parentName}.${name}`] ||
     components[name] ||
     defaults[name] ||
     name
+
+  if(Layout) {
+    return <Layout components={components}>
+      <Component {...childProps}>{children}</Component>
+    </Layout>
+  }
+
   return <Component {...childProps}>{children}</Component>
 }

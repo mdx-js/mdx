@@ -5,6 +5,7 @@ function toJSX(node, parentNode = {}) {
     const importNodes = []
     const exportNodes = []
     const jsxNodes = []
+    let layout
     for (const childNode of node.children) {
       if (childNode.type === 'import') {
         importNodes.push(childNode)
@@ -12,6 +13,11 @@ function toJSX(node, parentNode = {}) {
       }
 
       if (childNode.type === 'export') {
+        if(childNode.default) {
+          layout = childNode.value.replace(/^export default /, '')
+          continue
+        }
+
         exportNodes.push(childNode)
         continue
       }
@@ -24,7 +30,7 @@ function toJSX(node, parentNode = {}) {
       '\n' +
       exportNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
-      `export default ({components}) => <MDXTag name="wrapper">${jsxNodes
+      `export default ({components}) => <MDXTag name="wrapper" ${layout ? `Layout={${layout}}` : ''} components={components}>${jsxNodes
         .map(childNode => toJSX(childNode, node))
         .join('')}</MDXTag>`
     )
