@@ -584,34 +584,52 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@mdx-js/loader@^0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-0.8.1.tgz#9e8b4d9406a4c2cd05fe364b01774ad02d28aca8"
+"@mdx-js/loader@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-0.10.0.tgz#16bad42fe2dba1c36e199bfc89c751afe734f856"
+  dependencies:
+    "@mdx-js/tag" "^0.10.0"
+
+"@mdx-js/loader@^0.7.0":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-0.7.4.tgz#d673e628b4d9ffcafaa8f8079468d6fc87ac1a7b"
   dependencies:
     "@mdx-js/tag" "^0.7.2"
 
-"@mdx-js/mdx@^0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-0.8.1.tgz#911cb6359525245a4305dfb3cc993b040ad854c8"
+"@mdx-js/mdx@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-0.10.0.tgz#f24012e7fe1a8dbe3505399b0b07dda09ca48212"
   dependencies:
-    "@mdx-js/mdxast" "^0.7.2"
+    "@mdx-js/mdxast" "^0.10.0"
     mdast-util-to-hast "^3.0.0"
     remark-parse "^5.0.0"
     remark-squeeze-paragraphs "^3.0.1"
     unified "^6.1.6"
     unist-util-visit "^1.3.0"
 
-"@mdx-js/mdxast@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@mdx-js/mdxast/-/mdxast-0.7.2.tgz#588e3ad617465ca4b67a50c0079f222fb2d65614"
+"@mdx-js/mdxast@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@mdx-js/mdxast/-/mdxast-0.10.0.tgz#5d8dfdf96290151487dc07fb42031f3f47b8671e"
   dependencies:
     unist-util-visit "^1.3.0"
+
+"@mdx-js/tag@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.10.0.tgz#4d95853fdfbeb4c07cbfaa9cc32ab798454fdfb0"
+  dependencies:
+    prop-types "^15.6.1"
 
 "@mdx-js/tag@^0.7.2":
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.7.2.tgz#a18d76644089b4a9bb6d489d205cb065051b7c9a"
   dependencies:
     prop-types "^15.6.1"
+
+"@zeit/next-mdx@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@zeit/next-mdx/-/next-mdx-1.1.0.tgz#32753243504e475b110e1ad07ff92c9b31366b04"
+  dependencies:
+    "@mdx-js/loader" "^0.7.0"
 
 abbrev@1:
   version "1.1.1"
@@ -2710,9 +2728,9 @@ next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
-next@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/next/-/next-6.0.0.tgz#700489ff9d93c36f3ade0b474d08b9b0dd9ef7b3"
+next@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/next/-/next-6.0.3.tgz#b759fde2ec4864f92116cee4fcd805aaf285136c"
   dependencies:
     "@babel/core" "7.0.0-beta.42"
     "@babel/plugin-proposal-class-properties" "7.0.0-beta.42"
@@ -2748,16 +2766,17 @@ next@^6.0.0:
     path-to-regexp "2.1.0"
     prop-types "15.6.0"
     prop-types-exact "1.1.1"
-    react-hot-loader "4.1.1"
+    react-hot-loader "4.1.3"
     recursive-copy "2.0.6"
     resolve "1.5.0"
     send "0.16.1"
+    source-map "0.5.7"
     strip-ansi "3.0.1"
     styled-jsx "2.2.6"
     touch "3.1.0"
     uglifyjs-webpack-plugin "1.1.6"
     unfetch "3.0.0"
-    update-check "1.3.2"
+    update-check "1.4.0"
     url "0.11.0"
     uuid "3.1.0"
     walk "2.3.9"
@@ -3255,33 +3274,33 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.3.2:
-  version "16.3.2"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
+react-dom@^16.4.0:
+  version "16.4.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.0.tgz#099f067dd5827ce36a29eaf9a6cdc7cbf6216b1e"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-hot-loader@4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.1.1.tgz#693499a6414b6dc6880287e254322a9d3155e944"
+react-hot-loader@4.1.3:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.1.3.tgz#b4ceca7961cc08451f8199a24a5753a749edd9ce"
   dependencies:
     fast-levenshtein "^2.0.6"
     global "^4.3.0"
     hoist-non-react-statics "^2.5.0"
     prop-types "^15.6.1"
-    react-lifecycles-compat "^2.0.0"
+    react-lifecycles-compat "^3.0.2"
     shallowequal "^1.0.2"
 
-react-lifecycles-compat@^2.0.0:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-2.0.2.tgz#00a23160eec17a43b94dd74f95d44a1a2c3c5ec1"
+react-lifecycles-compat@^3.0.2:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
-react@^16.3.2:
-  version "16.3.2"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
+react@^16.4.0:
+  version "16.4.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.0.tgz#402c2db83335336fba1962c08b98c6272617d585"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -3678,13 +3697,13 @@ source-map-url@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/source-map-url/-/source-map-url-0.4.0.tgz#3e935d7ddd73631b97659956d55128e87b5084a3"
 
+source-map@0.5.7, source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
+
 source-map@0.6.1, source-map@^0.6.1, source-map@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
-
-source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1:
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
 spdx-correct@^3.0.0:
   version "3.0.0"
@@ -4127,9 +4146,9 @@ upath@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.0.5.tgz#02cab9ecebe95bbec6d5fc2566325725ab6d1a73"
 
-update-check@1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/update-check/-/update-check-1.3.2.tgz#460f9e9ab24820367f3edbeb4d4142d9936ff171"
+update-check@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/update-check/-/update-check-1.4.0.tgz#800235ba1bd1ace324e646eb055799a09aed8b28"
   dependencies:
     registry-auth-token "3.3.2"
     registry-url "3.1.0"

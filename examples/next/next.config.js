@@ -5,7 +5,7 @@ module.exports = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   webpack: (config, { defaultLoaders }) => {
     config.module.rules.push({
-      test: /\.md$/,
+      test: /\.mdx?$/,
       use: [
         defaultLoaders.babel,
         {
