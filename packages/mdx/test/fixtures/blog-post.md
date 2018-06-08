@@ -22,3 +22,5 @@ module.exports = 'test'
 ```sh
 npm i -g foo
 ```
+
+export default ({children}) => <div>{children}</div>
