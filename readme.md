@@ -113,6 +113,7 @@ It's a mechanism for an imported MDX file to communicate with its parent.
 It works similarly to frontmatter, but uses ES2015 syntax.
 
 ```js
+// posts/mdx.md
 import { fred, sue } from '../data/authors'
 import Layout from '../components/with-blog-layout'
 
@@ -120,6 +121,25 @@ export const meta = {
   authors: [fred, sue],
   layout: Layout
 }
+
+# Post about MDX
+
+MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.
+```
+
+```jsx
+// index.js
+import React from 'react'
+import Mdx, { meta } from 'posts/mdx.md'
+
+const { authors, layout } = meta
+
+export default () => (
+  <layout>
+    <Mdx />
+    By: {authors.map(author => author.name)}
+  </layout>
+)
 ```
 
 ### Component customization
