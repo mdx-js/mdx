@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { withMDXComponents } from './mdx-provider'
+
 const defaults = {
   inlineCode: 'code',
   wrapper: 'div'
 }
 
-export default props => {
+const MDXTag = props => {
   const {
     name,
     parentName,
@@ -21,7 +23,7 @@ export default props => {
     defaults[name] ||
     name
 
-  if(Layout) {
+  if (Layout) {
     return <Layout components={components}>
       <Component {...childProps}>{children}</Component>
     </Layout>
@@ -29,3 +31,5 @@ export default props => {
 
   return <Component {...childProps}>{children}</Component>
 }
+
+export default withMDXComponents(MDXTag)
