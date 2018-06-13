@@ -1,3 +1,2 @@
-import MDXTag from './mdx-tag'
-
-export { MDXTag }
+export { default as MDXTag } from './mdx-tag'
+export { default as MDXProvider } from './mdx-provider'

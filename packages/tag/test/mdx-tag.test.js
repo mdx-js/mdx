@@ -19,7 +19,7 @@ it('Should render the layout component', async () => {
   const components = { h1: H1 }
   const result = renderToString(
     <MDXTag Layout={Layout} name="wrapper" components={components}>
-      <MDXTag name="h1" components={{ h1: H1 }} />     
+      <MDXTag name="h1" components={{ h1: H1 }} />
     </MDXTag>
   )
 

@@ -113,9 +113,9 @@ It's a mechanism for an imported MDX file to communicate with its parent.
 It works similarly to frontmatter, but uses ES2015 syntax.
 
 ```js
-// posts/mdx.md
+// posts/post.mdx
 import { fred, sue } from '../data/authors'
-import Layout from '../components/with-blog-layout'
+import Layout from '../components/blog-layout'
 
 export const meta = {
   authors: [fred, sue],
@@ -130,7 +130,7 @@ MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.
 ```jsx
 // index.js
 import React from 'react'
-import Mdx, { meta } from 'posts/mdx.md'
+import Mdx, { meta } from 'posts/post.mdx'
 
 const { authors, layout } = meta
 
@@ -140,6 +140,30 @@ export default () => (
     By: {authors.map(author => author.name)}
   </layout>
 )
+```
+
+#### `export default`
+
+The ES default export is used to provide a layout component which will wrap the transpiled JSX.
+
+You can export it as a function:
+
+```jsx
+import Layout from './Layout'
+
+export default () => <Layout some='metadata' />
+
+# Hello, world!
+```
+
+Or directly as a component:
+
+```jsx
+import Layout from './Layout'
+
+export default Layout
+
+# Hello, world!
 ```
 
 ### Component customization
@@ -167,6 +191,22 @@ export default () =>
       inlineCode: InlineCode
     }}
   />
+```
+
+### MDXProvider
+
+If you're using an app layout that wraps your JSX, you can use the `MDXProvider` to only pass your components in one place:
+
+```jsx
+import React from 'react'
+import { MDXProvider } from '@mdx-js/tag'
+
+import * as components from './markdown-components'
+
+export default props =>
+  <MDXProvider components={components}>
+    <main {...props} />
+  </MDXProvider>
 ```
 
 ## Plugins
