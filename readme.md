@@ -151,7 +151,7 @@ You can export it as a function:
 ```jsx
 import Layout from './Layout'
 
-export default () => <Layout some='metadata' />
+export default ({children}) => <Layout some='metadata' >{children}</Layout>
 
 # Hello, world!
 ```
