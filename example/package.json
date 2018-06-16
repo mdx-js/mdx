@@ -1,0 +1,16 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html --no-cache"
+  },
+  "dependencies": {
+    "@mdx-js/tag": "0.11.0",
+    "parcel-bundler": "1.9.0",
+    "parcel-plugin-mdx": "./..",
+    "react": "16.4.1",
+    "react-dom": "16.4.1"
+  }
+}

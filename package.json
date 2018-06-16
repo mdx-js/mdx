@@ -1,0 +1,20 @@
+{
+  "name": "@matthamlin/parcel-plugin-mdx",
+  "version": "1.1.0",
+  "main": "index.js",
+  "author": "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me/)",
+  "license": "MIT",
+  "dependencies": {
+    "@mdx-js/mdx": "0.10.1",
+    "parcel-bundler": "1.9.0",
+    "react": "^16.0.0",
+    "react-dom": "16.4.1"
+  },
+  "devDependencies": {
+    "mocha": "5.2.0",
+    "parcel-assert-bundle-tree": "1.0.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
