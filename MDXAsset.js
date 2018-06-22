@@ -10,15 +10,10 @@ class MDXAsset extends Asset {
 
   async generate() {
     let config = await this.getConfig([
-      '.mdxconfigrc',
+      '.mdxrc',
       'mdx.config.js',
       'package.json',
-    ])
-    if (config.mdx) {
-      config = config.mdx
-    } else {
-      config = {}
-    }
+    ], {packageKey: 'mdx'})
     let compiled = await mdx(this.contents, config)
     let fullCode = `
 import React from 'react';
