@@ -1,6 +1,10 @@
 import { Baz } from './Fixture'
 import { Buz } from './Fixture'
 
+export const foo = {
+  hi: `Fudge ${Baz.displayName || 'Baz'}`
+}
+
 # Hello, world!
 
 
