@@ -7,6 +7,9 @@ module.exports = async function(content) {
 
   const result = await mdx(content, options || {})
 
+  if(typeof (options || {}).process !== "undefined" && typeof (options || {}).process == "function")
+      return callback(null, options.process(result))
+
   const code = `
   import React from 'react'
   import { MDXTag } from '@mdx-js/tag'
