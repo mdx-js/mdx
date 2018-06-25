@@ -8,7 +8,7 @@ const mdxHastToJsx = require('./mdx-hast-to-jsx')
 function createMdxAstCompiler(options = {}) {
   const mdPlugins = options.mdPlugins || []
 
-  options.blocks = options.blocks || ['[a-z]+(\\.){0,1}[a-z]']
+  options.blocks = options.blocks || ['[a-z\\.]+(\\.){0,1}[a-z\\.]']
 
   const fn = unified()
     .use(toMDAST, options)
