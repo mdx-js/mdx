@@ -51,10 +51,20 @@ it('Should render HTML inside inlineCode correctly', async () => {
   ).toBeTruthy()
 })
 
+it('Should recognize components as propertiess', async () => {
+  const result = await mdx('# Hello\n\n<MDX.Foo />')
+
+  expect(
+    result.includes(
+      '<MDXTag name="h1" components={components}>{`Hello`}</MDXTag>{`\n`}<MDX.Foo />'
+    )
+  ).toBeTruthy()
+})
+
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     hastPlugins: [
-      (options) => tree => {        
+      (options) => tree => {
         // Returning a promise here will suffice for the test
         return (async () => {
           const headingNode = select('h1', tree)
