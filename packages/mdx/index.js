@@ -17,8 +17,6 @@ const DEFAULT_OPTIONS = {
 function createMdxAstCompiler(options) {
   const mdPlugins = options.mdPlugins
 
-  options.blocks = options.blocks
-
   const fn = unified()
     .use(toMDAST, options)
     .use(squeeze, options)
