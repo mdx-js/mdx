@@ -78,6 +78,22 @@ test('Should await and render async plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
+test('Should parse and render footnotes', async () => {
+  const result = await mdx('This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote')
+
+  expect(
+    result.includes(
+      '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
+    )
+  )
+
+  expect(
+    result.includes(
+      '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
+    )
+  )
+})
+
 test('Should expose a sync compiler', async () => {
   const result = mdx.sync(fixtureBlogPost)
 
