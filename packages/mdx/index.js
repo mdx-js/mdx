@@ -1,8 +1,16 @@
 const unified = require('unified')
 const toMDAST = require('remark-parse')
 const squeeze = require('remark-squeeze-paragraphs')
+const toMDXAST = require('./md-ast-to-mdx-ast')
 const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
+
+const {
+  isImport,
+  isExport,
+  isExportDefault,
+  BLOCKS_REGEX
+} = require('./util')
 
 const DEFAULT_OPTIONS = {
   footnotes: true,
@@ -12,58 +20,33 @@ const DEFAULT_OPTIONS = {
   blocks: [BLOCKS_REGEX]
 }
 
-const BLOCKS_REGEX = '[a-z\\.]+(\\.){0,1}[a-z\\.]'
-const IMPORT_REGEX = /^import/
-const EXPORT_REGEX = /^export/
-const EXPORT_DEFAULT_REGEX = /^export default/
-const isImport = text => IMPORT_REGEX.test(text)
-const isExport = text => EXPORT_REGEX.test(text)
-const isExportDefault = text => EXPORT_DEFAULT_REGEX.test(text)
+const EMPTY_NEWLINE = '\n\n'
 
-const locateImport = (value, fromIndex) =>
-  fromIndex !== 1 || !isImport(value) ? -1 : 1
+const tokenizeEsSyntax = (eat, value) => {
+  const index = value.indexOf(EMPTY_NEWLINE)
+  const subvalue = value.slice(0, index)
 
-function tokenizeImports(eat, value) {
-  if (isImport(value)) {
-    return eat(value)({ type: 'html', value })
-  }
-}
-
-tokenizeImports.locator = locateImport
-tokenizeImports.notInBlock = true
-tokenizeImports.notInLink = true
-tokenizeImports.notInList = true
-
-const locateExport = (value, fromIndex) =>
-  fromIndex !== 1 || !isExport(value) ? -1 : 1
-
-function tokenizeExports(eat, value, silent) {
-  if (isExport(value)) {
-    return eat(value)({
-      type: 'html',
-      default: isExportDefault(value),
-      value
+  if (isExport(subvalue) || isImport(subvalue)) {
+    return eat(subvalue)({
+      type: isExport(subvalue) ? 'export' : 'import',
+      default: isExportDefault(subvalue),
+      value: subvalue
     })
-
-    return ret
   }
 }
 
-tokenizeExports.locator = locateExport
-tokenizeExports.notInBlock = true
-tokenizeExports.notInLink = true
-tokenizeExports.notInList = true
+tokenizeEsSyntax.locator = (value, fromIndex) => {
+  return isExport(value) || isImport(value) ? -1 : 1
+}
 
 function esSyntax() {
   var Parser = this.Parser
-  var tokenizers = Parser.prototype.inlineTokenizers
-  var methods = Parser.prototype.inlineMethods
+  var tokenizers = Parser.prototype.blockTokenizers
+  var methods = Parser.prototype.blockMethods
 
-  tokenizers.imports = tokenizeImports
-  tokenizers.exports = tokenizeExports
+  tokenizers.esSyntax = tokenizeEsSyntax
 
-  methods.splice(methods.indexOf('text'), 0, 'imports')
-  methods.splice(methods.indexOf('text'), 0, 'exports')
+  methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
 }
 
 function createMdxAstCompiler(options) {
@@ -76,7 +59,7 @@ function createMdxAstCompiler(options) {
 
   mdPlugins.forEach(plugin => fn.use(plugin, options))
 
-  fn.use(mdxAstToMdxHast, options)
+  fn.use(toMDXAST, options).use(mdxAstToMdxHast, options)
 
   return fn
 }

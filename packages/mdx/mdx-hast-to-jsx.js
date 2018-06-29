@@ -57,7 +57,7 @@ function toJSX(node, parentNode = {}) {
     if (Object.keys(node.properties).length > 0) {
       props = JSON.stringify(node.properties)
     }
-    
+
     return `<MDXTag name="${node.tagName}" components={components}${
       parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''
     }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`

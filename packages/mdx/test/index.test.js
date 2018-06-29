@@ -131,7 +131,5 @@ test('Should parse and render footnotes', async () => {
 test('Should expose a sync compiler', async () => {
   const result = mdx.sync(fixtureBlogPost)
 
-  console.log(result)
-
   expect(result).toMatch(/Hello, world!/)
 })
