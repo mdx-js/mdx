@@ -1,0 +1,30 @@
+{
+  "name": "@mdx-js/runtime",
+  "description": "Parse and render MDX in a runtime environment",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "John Otander",
+  "main": "dist",
+  "scripts": {
+    "test": "jest",
+    "prepare": "babel src -d dist"
+  },
+  "keywords": [
+    "mdx",
+    "react"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "jest": "^23.2.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^0.12.0",
+    "@mdx-js/tag": "^0.11.0",
+    "buble": "^0.19.3"
+  }
+}
