@@ -10,7 +10,7 @@
     "react": "^16.0.0",
     "react-dom": "16.4.1"
   },
-  "devDependencies": {
+  "devDependencies": {    
     "mocha": "5.2.0",
     "parcel-assert-bundle-tree": "1.0.0"
   },
