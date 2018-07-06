@@ -21,6 +21,7 @@
     "mdx"
   ],
   "dependencies": {
+    "create-react-context": "^0.2.2",
     "prop-types": "^15.6.1"
   },
   "devDependencies": {

@@ -1,7 +1,8 @@
 import React from 'react'
+import createReactContext from 'create-react-context'
 import PropTypes from 'prop-types'
 
-const { Provider, Consumer } = React.createContext({})
+const { Provider, Consumer } = createReactContext({})
 
 export const withMDXComponents = Component => ({ components, ...props }) => (
   <Consumer>
