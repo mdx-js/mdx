@@ -57,9 +57,9 @@ function toJSX(node, parentNode = {}) {
     }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
   }
 
-  // Wraps all text nodes inside template string, so that we don't run into escaping issues.
+  // Wraps all text nodes except new lines inside template string, so that we don't run into escaping issues.
   if(node.type === 'text') {
-    return '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
+    return node.value === '\n' ? node.value : '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
   }
 
   if (

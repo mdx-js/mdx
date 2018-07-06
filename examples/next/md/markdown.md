@@ -11,3 +11,9 @@ import Other from './other.md'
 Here's a paragraph
 
 https://c8r.imgix.net/028ab8c85da415103cb3b1eb/johno.png
+
+Here's a table
+
+| Test | Table |
+| :--- | :---- |
+| Col1 | Col2  |

@@ -51,14 +51,22 @@ it('Should render HTML inside inlineCode correctly', async () => {
   ).toBeTruthy()
 })
 
-it('Should recognize components as propertiess', async () => {
-  const result = await mdx('# Hello\n\n<MDX.Foo />')
-
+it('Should recognize components as properties', async () => {
+  const result = await mdx('# Hello\n\n<MDX.Foo />')  
   expect(
     result.includes(
-      '<MDXTag name="h1" components={components}>{`Hello`}</MDXTag>{`\n`}<MDX.Foo />'
+      '<MDXTag name="h1" components={components}>{`Hello`}</MDXTag>\n<MDX.Foo />'
     )
   ).toBeTruthy()
+})
+
+it('Should render elements without wrapping blank new lines', async () => {
+  const result = await mdx(`
+  | Test | Table |
+  | :--- | :---- |
+  | Col1 | Col2  |`)    
+    
+  expect(result.includes('{`\n`}')).toBe(false)
 })
 
 test('Should await and render async plugins', async () => {

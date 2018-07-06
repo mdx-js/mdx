@@ -23,4 +23,8 @@ module.exports = 'test'
 npm i -g foo
 ```
 
+| Test | Table |
+| :--- | :---- |
+| Col1 | Col2  |
+
 export default ({children}) => <div>{children}</div>
