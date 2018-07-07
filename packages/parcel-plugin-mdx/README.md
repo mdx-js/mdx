@@ -6,11 +6,11 @@ This is an experimental parcel plugin for [MDX Support](https://github.com/mdx-j
 
 1.  Install:
 
-`npm i @matthamlin/parcel-plugin-mdx --save-dev`
+`npm i @mdx-js/parcel-plugin-mdx --save-dev`
 
 or
 
-`yarn add -D @matthamlin/parcel-plugin-mdx`
+`yarn add -D @mdx-js/parcel-plugin-mdx`
 
 2.  Write code!
 
