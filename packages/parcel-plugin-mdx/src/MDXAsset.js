@@ -9,13 +9,12 @@ class MDXAsset extends Asset {
   }
 
   async generate() {
-    let config = await this.getConfig([
-      '.mdxrc',
-      'mdx.config.js',
-      'package.json',
-    ], {packageKey: 'mdx'})
-    let compiled = await mdx(this.contents, config)
-    let fullCode = `
+    const config = await this.getConfig(
+      ['.mdxrc', 'mdx.config.js', 'package.json'],
+      { packageKey: 'mdx' }
+    )
+    const compiled = await mdx(this.contents, config)
+    const fullCode = `
 import React from 'react';
 import { MDXTag } from '@mdx-js/tag';
 ${compiled}
@@ -24,8 +23,8 @@ ${compiled}
       {
         type: 'js',
         value: fullCode,
-        sourceMap: undefined,
-      },
+        sourceMap: undefined
+      }
     ]
   }
 }

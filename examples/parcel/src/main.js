@@ -8,5 +8,5 @@ render(
     <p>There should be mdx content below:</p>
     <Content />
   </div>,
-  document.querySelector('#demo'),
+  document.querySelector('#demo')
 )
