@@ -3,3 +3,4 @@ package-lock.json
 dist
 bundle.js
 .next
+*-error.log
