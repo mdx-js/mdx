@@ -3,6 +3,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "docs": "x0 docs",
+    "docs:build": "x0 build docs -d dist",
     "test": "lerna run test",
     "format": "prettier --no-semi --single-quote --write '{examples,packages}/**/*.js'",
     "prepare": "lerna bootstrap && lerna link --force-local"
@@ -15,6 +16,7 @@
     "prettier": "^1.13.7"
   },
   "dependencies": {
-    "@rebass/mdx": "^1.0.0-1"
+    "@rebass/mdx": "^1.0.0-1",
+    "styled-components": "^3.3.3"
   }
 }
