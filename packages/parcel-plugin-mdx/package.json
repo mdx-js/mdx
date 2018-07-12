@@ -1,12 +1,12 @@
 {
   "name": "@mdx-js/parcel-plugin-mdx",
-  "version": "0.13.1-1",
+  "version": "0.14.0",
   "main": "src/index.js",
   "author": "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me/)",
   "license": "MIT",
   "repository": "mdx-js/mdx",
   "dependencies": {
-    "@mdx-js/mdx": "^0.13.1-1",
+    "@mdx-js/mdx": "^0.14.0",
     "parcel-bundler": "^1.4.1"
   },
   "peerDependencies": {
@@ -14,7 +14,7 @@
     "react": "^0.14.x || ^15.x || ^16.x"
   },
   "devDependencies": {
-    "jest": "^23.3.0",        
+    "jest": "^23.3.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
