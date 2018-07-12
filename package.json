@@ -10,7 +10,7 @@
   "repository": "mdx-js/mdx",
   "license": "MIT",
   "devDependencies": {
-    "@compositor/x0": "^6.0.1",
+    "@compositor/x0": "^6.0.2",
     "lerna": "^2.11.0",
     "prettier": "^1.13.7"
   },

@@ -32,6 +32,7 @@ These projects define the syntax which MDX blends together (MD and JSX).
 - [Remark](http://remark.js.org)
 - [Unified](https://github.com/unifiedjs/unified)
 - [Webpack](https://webpack.js.org)
+- [Parcel](https://parceljs.com)
 
 ### Libraries
 

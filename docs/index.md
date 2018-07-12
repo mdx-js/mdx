@@ -1,6 +1,7 @@
-# Introduction
+# MDX
 
-MDX combines the power of [Markdown][md] with the power of [JSX][jsx].
+MDX combines the power of [Markdown][md] with the expressivity of [JSX][jsx].
+This makes writing long form content and using components a blast.
 In essence, it's full-fledged JSX in Markdown.
 
 ## Why?
@@ -9,7 +10,15 @@ Before MDX, the benefits of writing Markdown were lost when integrating with JSX
 Implementations were often template string-based which required lots of escaping and other cumbersome syntax.
 
 MDX seeks to make writing with Markdown _and_ JSX simpler while still being more expressive.
-The possibilities are endless when you combine components (that can even by dynamic or load data) with the simplicity of Markdown for long-form content.
+The possibilities are endless when you combine components (they can even by dynamic or load data) with the simplicity of Markdown for long-form content.
+
+## Try it
+
+```.mdx
+# Hello, world!
+
+<Donut />
+```
 
 ## Features
 
@@ -20,10 +29,11 @@ The possibilities are endless when you combine components (that can even by dyna
 - React component `import`/`export`
 - Customizable layouts
 - Webpack loader
+- Parcel plugin
+- Next.js plugin
 
 ## What's next?
 
-- Parcel bundling
 - Editor support
 - Linting support
 - Prettier support
