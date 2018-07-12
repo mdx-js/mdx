@@ -84,7 +84,7 @@ You'll need to install the `@mdx-js/parcel-plugin-mdx` plugin to transpile MDX.
     <summary><b>Examples</b></summary>
     <ul>
       <li>
-        <a href="./examples/parcel"><code>next.js</code></a>
+        <a href="./examples/parcel"><code>Parcel</code></a>
       </li>
     </ul>
   </details>
