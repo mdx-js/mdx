@@ -27,7 +27,7 @@ npm install --save-dev @mdx-js/loader @mdx-js/mdx
 
 > Note: mdx requires a version of node that is >= `v8.5`
 
-### Configuring with webpack
+### Configuring with Webpack
 
 You'll need to specify the `@mdx-js/loader` webpack loader and follow it with the `babel-loader`:
 
@@ -53,6 +53,38 @@ module.exports = {
       </li>
       <li>
         <a href="./examples/x0"><code>x0</code></a>
+      </li>
+    </ul>
+  </details>
+</p>
+
+### Configuring with Parcel
+
+You'll need to install the `@mdx-js/parcel-plugin-mdx` plugin to transpile MDX.
+
+```js
+{
+  "scripts": {
+    "start": "parcel index.html --no-cache"
+  },
+  "dependencies": {
+    "react": "16.4.1",
+    "react-dom": "16.4.1",
+    "@mdx-js/tag": "@mdx-js/tag"
+  },
+  "devDependencies": {
+    "@mdx-js/parcel-plugin-mdx": "@mdx-js/parcel-plugin-mdx",
+    "parcel-bundler": "1.9.0"
+  }
+}
+```
+
+<p>
+  <details>
+    <summary><b>Examples</b></summary>
+    <ul>
+      <li>
+        <a href="./examples/parcel"><code>next.js</code></a>
       </li>
     </ul>
   </details>
