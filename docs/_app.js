@@ -1,5 +1,6 @@
 import React from 'react'
 import RebassMDX from '@rebass/mdx'
+import * as Rebass from 'rebass'
 import sortBy from 'lodash.sortby'
 import { Link } from 'react-router-dom'
 import { SidebarLayout as Layout } from '@compositor/x0/components'
@@ -7,12 +8,29 @@ import { Flex, Box, Container } from 'rebass'
 
 const navOrder = [
   'index',
-  'introduction',
+  'syntax',
   'getting-started',
+    'webpack',
+    'parcel',
+    'next',
+    'create-react-app',
+    'gatsby',
+    'x0',
+  'plugins',
+    'ast',
+    'markdown',
+    'hyperscript',
+  'about',
   'specification'
 ]
 
-const pageNames = { index: 'Home' }
+const pageNames = {
+  index: 'Home',
+  next: 'Next.js',
+  ast: 'AST',
+  'getting-started': 'Getting Started',
+  'create-react-app': 'Create React App'
+}
 
 const sortRoutes = routes => [
   ...sortBy([...routes], a => {
@@ -33,17 +51,11 @@ export default class App extends React.Component {
   }
 
   render () {
-    const {
-      routes,
-      route,
-      children,
-    } = this.props
-    const { layout } = (route && route.props) || {}
-
+    const { routes } = this.props
     const nav = sortRoutes(routes)
 
     return (
-      <RebassMDX>
+      <RebassMDX components={Rebass}>
         <Layout
           {...this.props}
           routes={nav}
