@@ -100,7 +100,7 @@ test('Should parse and render footnotes', async () => {
       '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
     )
   )
-})
+}, 10000)
 
 test('Should expose a sync compiler', async () => {
   const result = mdx.sync(fixtureBlogPost)
