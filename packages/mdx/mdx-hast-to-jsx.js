@@ -22,6 +22,12 @@ function toJSX(node, parentNode = {}) {
         continue
       }
 
+      if (childNode.type === 'jsx') {
+        childNode.value = childNode.value
+          .replace('<!--', '{/*')
+          .replace('-->', '*/}')
+      }
+
       jsxNodes.push(childNode)
     }
 

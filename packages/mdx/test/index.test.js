@@ -51,6 +51,32 @@ it('Should render HTML inside inlineCode correctly', async () => {
   ).toBeTruthy()
 })
 
+it('Should support comments', async () => {
+  const result = await mdx(`
+A paragraph
+<!-- a Markdown comment -->
+\`\`\`md
+<!-- a code block Markdown comment -->
+\`\`\`
+<div>
+  {/* a nested JSX comment */}
+  <!-- a nested Markdown comment -->
+</div>
+  `)
+  expect(result.includes(
+    '{/* a Markdown comment */}'
+  )).toBeTruthy()
+  expect(result.includes(
+    '<!-- a code block Markdown comment -->'
+  )).toBeTruthy()
+  expect(result.includes(
+    '{/* a nested JSX comment */}'
+  )).toBeTruthy()
+  expect(result.includes(
+    '{/* a nested Markdown comment */}'
+  )).toBeTruthy()
+})
+
 it('Should recognize components as properties', async () => {
   const result = await mdx('# Hello\n\n<MDX.Foo />')  
   expect(

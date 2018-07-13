@@ -6,9 +6,13 @@ import { Buz } from './Fixture'
 
 I'm an awesome paragraph.
 
+<!-- I'm a comment -->
+
 <Foo bg='red'>
   <Bar>hi</Bar>
     {hello}
+    {/* another commment */}
+    <!-- one more comment -->
 </Foo>
 
 ```
