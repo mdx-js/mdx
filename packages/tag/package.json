@@ -22,6 +22,7 @@
   ],
   "dependencies": {
     "create-react-context": "^0.2.2",
+    "hoist-non-react-statics": "^2.5.5",
     "prop-types": "^15.6.1"
   },
   "devDependencies": {
