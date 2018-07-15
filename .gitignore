@@ -4,3 +4,4 @@ dist
 bundle.js
 .next
 *-error.log
+*-debug.log
