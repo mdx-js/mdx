@@ -18,15 +18,40 @@ const mdx = `
 <Foo />
 `
 
-it('renders MDX with the proper components', () => {
-  const result = render(
-    <MDX
-      components={components}
-      scope={scope}
-      children={mdx}
-    />
-  )
+const mdxLayout = `
+# Hello, world
 
-  expect(result).toMatch(/style="color:tomato"/)
-  expect(result).toMatch(/Foobarbaz/)
+<Foo />
+
+export default ({ children, id }) => <div id={id}>{children}</div>
+`
+
+describe('renders MDX with the proper components', () => {
+  it('default layout', () => {
+    const result = render(
+      <MDX
+        components={components}
+        scope={scope}
+        children={mdx}
+      />
+    )
+
+    expect(result).toMatch(/style="color:tomato"/)
+    expect(result).toMatch(/Foobarbaz/)
+  })
+
+  it('custom layout', () => {
+    const result = render(
+      <MDX
+        components={components}
+        scope={scope}
+        children={mdxLayout}
+        id="layout"
+      />
+    )
+
+    expect(result).toMatch(/style="color:tomato"/)
+    expect(result).toMatch(/Foobarbaz/)
+    expect(result).toMatch(/id="layout"/)
+  })
 })

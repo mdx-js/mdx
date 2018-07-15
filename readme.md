@@ -210,6 +210,25 @@ export default Layout
 # Hello, world!
 ```
 
+Any additional props passed to the imported MDX component will be passed to its default export:
+
+```jsx
+// index.js
+import Mdx from './posts/post.mdx'
+
+export default () => (
+  <Mdx someProp="value" />
+)
+```
+```js
+// posts/post.mdx
+import Layout from '../components/blog-layout'
+
+# Hello, world!
+
+export default ({ children, someProp }) => <Layout someProp={someProp}>{children}</Layout>
+```
+
 ### Component customization
 
 You can pass in components for any `html` element that Markdown compiles to.

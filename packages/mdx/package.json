@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.44",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.44",
     "@babel/plugin-syntax-jsx": "^7.0.0-beta.44",
     "hast-util-select": "^1.0.1",
     "jest": "^22.4.3",

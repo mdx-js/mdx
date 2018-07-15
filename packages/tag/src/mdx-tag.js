@@ -16,7 +16,8 @@ class MDXTag extends Component {
       props: childProps = {},
       children,
       components = {},
-      Layout
+      Layout,
+      layoutProps
     } = this.props
 
     const Component =
@@ -28,7 +29,7 @@ class MDXTag extends Component {
     if (Layout) {
       hoistStatics(this, Layout)
 
-      return <Layout components={components}>
+      return <Layout components={components} {...layoutProps}>
         <Component {...childProps}>{children}</Component>
       </Layout>
     }
