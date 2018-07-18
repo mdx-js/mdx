@@ -73,7 +73,7 @@ You'll need to install the `@mdx-js/parcel-plugin-mdx` plugin to transpile MDX.
     "@mdx-js/tag": "@mdx-js/tag"
   },
   "devDependencies": {
-    "@mdx-js/parcel-plugin-mdx": "@mdx-js/parcel-plugin-mdx",
+    "@mdx-js/parcel-plugin-mdx": "latest",
     "parcel-bundler": "1.9.0"
   }
 }
