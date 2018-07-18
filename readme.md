@@ -70,10 +70,10 @@ You'll need to install the `@mdx-js/parcel-plugin-mdx` plugin to transpile MDX.
   "dependencies": {
     "react": "16.4.1",
     "react-dom": "16.4.1",
-    "@mdx-js/tag": "@mdx-js/tag"
+    "@mdx-js/tag": "latest"
   },
   "devDependencies": {
-    "@mdx-js/parcel-plugin-mdx": "@mdx-js/parcel-plugin-mdx",
+    "@mdx-js/parcel-plugin-mdx": "latest",
     "parcel-bundler": "1.9.0"
   }
 }
