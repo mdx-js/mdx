@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import hoistStatics from 'hoist-non-react-statics'
 
 import { withMDXComponents } from './mdx-provider'
 
@@ -8,28 +8,33 @@ const defaults = {
   wrapper: 'div'
 }
 
-const MDXTag = props => {
-  const {
-    name,
-    parentName,
-    props: childProps = {},
-    children,
-    components = {},
-    Layout
-  } = props
-  const Component =
-    components[`${parentName}.${name}`] ||
-    components[name] ||
-    defaults[name] ||
-    name
+class MDXTag extends Component {
+  render () {
+    const {
+      name,
+      parentName,
+      props: childProps = {},
+      children,
+      components = {},
+      Layout
+    } = this.props
 
-  if (Layout) {
-    return <Layout components={components}>
-      <Component {...childProps}>{children}</Component>
-    </Layout>
+    const Component =
+      components[`${parentName}.${name}`] ||
+      components[name] ||
+      defaults[name] ||
+      name
+
+    if (Layout) {
+      hoistStatics(this, Layout)
+
+      return <Layout components={components}>
+        <Component {...childProps}>{children}</Component>
+      </Layout>
+    }
+
+    return <Component {...childProps}>{children}</Component>
   }
-
-  return <Component {...childProps}>{children}</Component>
 }
 
 export default withMDXComponents(MDXTag)
