@@ -7,9 +7,9 @@
     "start": "parcel index.html --no-cache"
   },
   "dependencies": {
+    "@mdx-js/tag": "^0.14.1-0",
     "react": "16.4.1",
-    "react-dom": "16.4.1",
-    "@mdx-js/tag": "latest"
+    "react-dom": "16.4.1"
   },
   "devDependencies": {
     "@mdx-js/parcel-plugin-mdx": "latest",
