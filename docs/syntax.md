@@ -1,8 +1,15 @@
 # Syntax
 
+MDX syntax can be boiled down to being JSX in Markdown.
+It's a superset of Markdown syntax that also support importing, exporting, and JSX blocks.
+
 ## Markdown
 
+[Markdown syntax][md] is fully supported.
+
 ## JSX
+
+[JSX syntax][jsx] is fully supported, JSX blocks are opened by starting a line with the `<` character.
 
 ## Imports
 
@@ -92,3 +99,6 @@ export default Layout
 
 # Hello, world!
 ```
+
+[md]: https://daringfireball.net/projects/markdown/syntax
+[jsx]: https://reactjs.org/docs/introducing-jsx.html
