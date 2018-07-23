@@ -12,7 +12,6 @@ I'm an awesome paragraph.
 
 <Foo bg='red'>
   <Bar />
-
   {props.hello}
 </Foo>
 
