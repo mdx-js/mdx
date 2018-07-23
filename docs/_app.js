@@ -8,7 +8,7 @@ import { Flex, Box, Container, Pre } from 'rebass'
 import { SidebarLayout as Layout, ScopeProvider, LiveEditor, LivePreview } from '@compositor/x0/components'
 
 const Editor = props => {
-  const lang = props.className.replace(/^language\-/, '')
+  const lang = (props.className || '').replace(/^language\-/, '')
   const type = lang.charAt(0)
   const code = React.Children.toArray(props.children).join('\n')
 
