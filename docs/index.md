@@ -17,7 +17,11 @@ The possibilities are endless when you combine components (that can even be dyna
 ```.mdx
 # Hello, world!
 
+Here's an example of the [Rebass][] Donut rendered inside an MDX document.
+
 <Donut />
+
+[Rebass]: https://jxnblk.com/rebass
 ```
 
 ## Features
