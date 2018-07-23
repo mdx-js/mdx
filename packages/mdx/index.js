@@ -9,7 +9,8 @@ const {
   isImport,
   isExport,
   isExportDefault,
-  BLOCKS_REGEX
+  BLOCKS_REGEX,
+  EMPTY_NEWLINE
 } = require('./util')
 
 const DEFAULT_OPTIONS = {
@@ -19,8 +20,6 @@ const DEFAULT_OPTIONS = {
   compilers: [],
   blocks: [BLOCKS_REGEX]
 }
-
-const EMPTY_NEWLINE = '\n\n'
 
 const tokenizeEsSyntax = (eat, value) => {
   const index = value.indexOf(EMPTY_NEWLINE)
