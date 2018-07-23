@@ -3,7 +3,8 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "docs": "x0 docs",
-    "docs:build": "x0 build docs -d dist",
+    "docs:build": "x0 build docs",
+    "docs:deploy": "npm run docs:build && now dist --static",
     "test": "lerna run test",
     "format": "prettier --no-semi --single-quote --write '{examples,packages}/**/*.js'",
     "prepare": "lerna bootstrap && lerna link --force-local"
@@ -11,7 +12,7 @@
   "repository": "mdx-js/mdx",
   "license": "MIT",
   "devDependencies": {
-    "@compositor/x0": "^6.0.2",
+    "@compositor/x0": "^6.0.3",
     "lerna": "^2.11.0",
     "prettier": "^1.13.7"
   },

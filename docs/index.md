@@ -1,8 +1,14 @@
 # MDX
 
 MDX combines the power of [Markdown][md] with the expressivity of [JSX][jsx].
-This makes writing long form content and using components a blast.
+This makes writing long-form content with components a blast.
 It's JSX in Markdown.
+
+__:heart: Powerful__: MDX makes it effortless to import and render components in your React/JSX-based projects.
+
+__:computer: Component-based__: Use existing JSX components inside your MDX, and import MDX files as plain components.
+
+__:fire: Blazingly blazing fast__: MDX has no runtime, all compilation occurs during the build stage.
 
 ## Why?
 
@@ -13,6 +19,8 @@ MDX seeks to make writing with Markdown _and_ JSX simpler while being more expre
 The possibilities are endless when you combine components (that can even be dynamic or load data) with the simplicity of Markdown for long-form content.
 
 ## Try it
+
+
 
 ```.mdx
 # Hello, world!
@@ -41,7 +49,8 @@ Here's an example of the [Rebass][] Donut rendered inside an MDX document.
 - Editor support
 - Linting support
 - Prettier support
-- Further improved parsing
+- Gatsby support
+- Improved parsing
 
 [md]: http://commonmark.org/
 [jsx]: https://facebook.github.io/jsx/
