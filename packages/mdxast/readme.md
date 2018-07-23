@@ -1,4 +1,8 @@
-# @mdx-js/mdxast
+# [Deprecated] @mdx-js/mdxast
+
+**This library has been pulled into `@mdx-js/mdx` and is no longer maintained.**
+
+---
 
 Transforms MDAST to MDXAST.
 
