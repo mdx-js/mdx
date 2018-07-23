@@ -45,6 +45,7 @@ const scope = { ...createScope(), ...Rebass, code: Editor, pre: ({ children }) =
 const navOrder = [
   'index',
   'syntax',
+  'components',
   'getting-started',
     'webpack',
     'parcel',
@@ -61,7 +62,7 @@ const navOrder = [
 ]
 
 const pageNames = {
-  index: 'Home',
+  index: 'Introduction',
   next: 'Next.js',
   ast: 'AST',
   'getting-started': 'Getting Started',
