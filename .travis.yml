@@ -7,16 +7,17 @@ git:
 cache:
   directories:
     - node_modules
+script: npm t && npm run docs:build
 before_deploy: npm install now --no-save
 deploy:
   - provider: script
-    script: npm run docs:build && now dist --token $NOW_TOKEN
+    script: now dist --token $NOW_TOKEN
     skip_cleanup: true
     on:
       all_branches: true
       master: false
   - provider: script
-    script: npm run docs:build && now dist --token $NOW_TOKEN && now alias --token $NOW_TOKEN
+    script: now dist --token $NOW_TOKEN && now alias --token $NOW_TOKEN
     skip_cleanup: true
     on:
       master: true
