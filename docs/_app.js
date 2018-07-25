@@ -54,11 +54,12 @@ const navOrder = [
     'gatsby',
     'x0',
   'plugins',
-    'ast',
     'markdown',
     'hyperscript',
-  'about',
-  'specification'
+  'advanced',
+    'ast',
+    'specification',
+  'about'
 ]
 
 const pageNames = {
