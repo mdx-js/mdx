@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 import { Flex, Box, Container, Pre } from 'rebass'
 import { SidebarLayout as Layout, ScopeProvider, LiveEditor, LivePreview } from '@compositor/x0/components'
 
+const Logo = () => <img src="https://mdx-logo.now.sh" width="80" />
+
 const Editor = props => {
   const lang = (props.className || '').replace(/^language\-/, '')
   const type = lang.charAt(0)
@@ -97,6 +99,7 @@ export default class App extends React.Component {
         <ScopeProvider scope={scope}>
           <Layout
             {...this.props}
+            logo={<Logo />}
             routes={nav}
           />
         </ScopeProvider>
