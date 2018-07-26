@@ -15,10 +15,10 @@ it('Should render the desired component', async () => {
 })
 
 it('Should render the layout component', async () => {
-  const Layout = ({children}) => <div id="layout">{children}</div>
+  const Layout = ({children, id}) => <div id={id}>{children}</div>
   const components = { h1: H1 }
   const result = renderToString(
-    <MDXTag Layout={Layout} name="wrapper" components={components}>
+    <MDXTag Layout={Layout} name="wrapper" components={components} layoutProps={{ id: 'layout' }}>
       <MDXTag name="h1" components={{ h1: H1 }} />
     </MDXTag>
   )

@@ -11,7 +11,10 @@ const fixtureBlogPost = fs.readFileSync(
 )
 
 const parse = code => babel.parse(code, {
-  plugins: ['@babel/plugin-syntax-jsx']
+  plugins: [
+    '@babel/plugin-syntax-jsx',
+    '@babel/plugin-proposal-object-rest-spread'
+  ]
 })
 
 it('Should output parseable JSX', async () => {
@@ -79,7 +82,7 @@ A paragraph
 })
 
 it('Should recognize components as properties', async () => {
-  const result = await mdx('# Hello\n\n<MDX.Foo />')  
+  const result = await mdx('# Hello\n\n<MDX.Foo />')
   expect(
     result.includes(
       '<MDXTag name="h1" components={components}>{`Hello`}</MDXTag>\n<MDX.Foo />'
@@ -91,8 +94,8 @@ it('Should render elements without wrapping blank new lines', async () => {
   const result = await mdx(`
   | Test | Table |
   | :--- | :---- |
-  | Col1 | Col2  |`)    
-    
+  | Col1 | Col2  |`)
+
   expect(result.includes('{`\n`}')).toBe(false)
 })
 

@@ -62,6 +62,10 @@
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.0.0-beta.44.tgz#9f590bc3ae6daa8a10b853233baa3e25d263751d"
 
+"@babel/helper-plugin-utils@7.0.0-beta.54":
+  version "7.0.0-beta.54"
+  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.0.0-beta.54.tgz#61d2a9a0f9a3e31838a458debb9eebd7bdd249b4"
+
 "@babel/helper-split-export-declaration@7.0.0-beta.44":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.0.0-beta.44.tgz#c0b351735e0fbcb3822c8ad8db4e583b05ebd9dc"
@@ -92,11 +96,24 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@babel/plugin-proposal-object-rest-spread@^7.0.0-beta.54":
+  version "7.0.0-beta.54"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-object-rest-spread/-/plugin-proposal-object-rest-spread-7.0.0-beta.54.tgz#5481269a020dd0d38715a8094fed015d30ef4c2a"
+  dependencies:
+    "@babel/helper-plugin-utils" "7.0.0-beta.54"
+    "@babel/plugin-syntax-object-rest-spread" "7.0.0-beta.54"
+
 "@babel/plugin-syntax-jsx@^7.0.0-beta.44":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-jsx/-/plugin-syntax-jsx-7.0.0-beta.44.tgz#b3475f0e6ea797634f0ba823273d76e93727e52f"
   dependencies:
     "@babel/helper-plugin-utils" "7.0.0-beta.44"
+
+"@babel/plugin-syntax-object-rest-spread@7.0.0-beta.54":
+  version "7.0.0-beta.54"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-object-rest-spread/-/plugin-syntax-object-rest-spread-7.0.0-beta.54.tgz#e0f445612081ab573e2535adbabc7b710d17940c"
+  dependencies:
+    "@babel/helper-plugin-utils" "7.0.0-beta.54"
 
 "@babel/template@7.0.0-beta.44":
   version "7.0.0-beta.44"
