@@ -56,7 +56,14 @@ function createMdxAstCompiler(options) {
     .use(esSyntax)
     .use(squeeze, options)
 
-  mdPlugins.forEach(plugin => fn.use(plugin, options))
+  mdPlugins.forEach(plugin => {
+    // handle [plugin, pluginOptions] syntax
+    if (Array.isArray(plugin) && plugin.length > 1) {
+      fn.use(plugin[0], plugin[1])
+    } else {
+      fn.use(plugin, options)
+    }
+  })
 
   fn.use(toMDXAST, options).use(mdxAstToMdxHast, options)
 
@@ -67,9 +74,14 @@ function applyHastPluginsAndCompilers(compiler, options) {
   const hastPlugins = options.hastPlugins
   const compilers = options.compilers
 
-  for(const hastPlugin of hastPlugins) {
-    compiler.use(hastPlugin, options)
-  }
+  hastPlugins.forEach(plugin => {
+    // handle [plugin, pluginOptions] syntax
+    if (Array.isArray(plugin) && plugin.length > 1) {
+      compiler.use(plugin[0], plugin[1])
+    } else {
+      compiler.use(plugin, options)
+    }
+  })
 
   compiler.use(mdxHastToJsx, options)
 
