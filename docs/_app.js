@@ -3,46 +3,11 @@ import RebassMDX from '@rebass/mdx'
 import createScope from '@rebass/markdown'
 import * as Rebass from 'rebass'
 import sortBy from 'lodash.sortby'
-import { Link } from 'react-router-dom'
-import { Flex, Box, Container, Pre } from 'rebass'
-import { SidebarLayout as Layout, ScopeProvider, LiveEditor, LivePreview } from '@compositor/x0/components'
+import { SidebarLayout, ScopeProvider } from '@compositor/x0/components'
 
-const Logo = () => <img src="https://mdx-logo.now.sh" width="80" />
+import { LiveEditor, Logo } from './_ui'
 
-const Editor = props => {
-  const lang = (props.className || '').replace(/^language\-/, '')
-  const type = lang.charAt(0)
-  const code = React.Children.toArray(props.children).join('\n')
-
-  switch (type) {
-    case '.':
-      return (
-        <LiveEditor
-          mdx={lang === '.mdx'}
-          code={code}
-        />
-      )
-    case '!':
-      return (
-        <LivePreview
-          mdx={lang === '!mdx'}
-          code={code}
-        />
-      )
-    default:
-      return (
-        <Pre
-          p={3}
-          mt={4}
-          mb={4}
-          bg='gray'
-          children={props.children}
-        />
-      )
-  }
-}
-
-const scope = { ...createScope(), ...Rebass, code: Editor, pre: ({ children }) => children }
+const scope = { ...createScope(), ...Rebass, code: LiveEditor, pre: ({ children }) => children }
 
 const navOrder = [
   'index',
@@ -99,7 +64,7 @@ export default class App extends React.Component {
     return (
       <RebassMDX>
         <ScopeProvider scope={scope}>
-          <Layout
+          <SidebarLayout
             {...this.props}
             logo={<Logo />}
             routes={nav}
