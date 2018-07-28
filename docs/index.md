@@ -1,3 +1,5 @@
+import { Border, Blockquote, BlockLink } from 'rebass'
+
 # MDX
 
 MDX enables you to seamlessly use JSX in your Markdown documents.
@@ -8,6 +10,11 @@ __:heart: Powerful__: MDX makes it effortless to import and render components in
 __:computer: Component-based__: Use existing JSX components inside your MDX, and import MDX files as plain components.
 
 __:fire: Blazingly blazing fast__: MDX has no runtime, all compilation occurs during the build stage.
+
+> “It's extremely useful for using design system components to render markdown
+and weaving interactive components in with existing markdown.”
+>
+> — [@chrisbiscardi](https://twitter.com/chrisbiscardi/status/1022304288326864896)
 
 ## Why?
 

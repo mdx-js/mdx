@@ -1,6 +1,7 @@
 # Projects using MDX
 
 - [ok-mdx][]: Browser-based MDX editor
+- [docz][]: Documentation framework
 
 ## Sites using MDX
 
@@ -8,5 +9,6 @@
 - [Compositor][compositor]
 
 [ok-mdx]: https://github.com/jxnblk/ok-mdx
+[docz]: https://www.docz.site/
 [zeit-docs]: https://github.com/zeit/docs
 [compositor]: https://compositor.io
