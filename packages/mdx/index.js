@@ -85,7 +85,7 @@ function applyHastPluginsAndCompilers(compiler, options) {
 
   compiler.use(mdxHastToJsx, options)
 
-  for(const compilerPlugin of compilers) {
+  for (const compilerPlugin of compilers) {
     compiler.use(compilerPlugin, options)
   }
 

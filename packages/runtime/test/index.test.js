@@ -5,7 +5,7 @@ import { MDXProvider } from '@mdx-js/tag'
 import MDX from '../src'
 
 const components = {
-  h1: props => <h1 style={{ color: 'tomato'}} {...props} />
+  h1: props => <h1 style={{ color: 'tomato' }} {...props} />
 }
 
 const scope = {
@@ -29,11 +29,7 @@ export default ({ children, id }) => <div id={id}>{children}</div>
 describe('renders MDX with the proper components', () => {
   it('default layout', () => {
     const result = render(
-      <MDX
-        components={components}
-        scope={scope}
-        children={mdx}
-      />
+      <MDX components={components} scope={scope} children={mdx} />
     )
 
     expect(result).toMatch(/style="color:tomato"/)

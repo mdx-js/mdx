@@ -7,7 +7,7 @@ import { MDXTag, MDXProvider } from '../src'
 const H1 = props => <h1 style={{ color: 'tomato' }} {...props} />
 
 it('Should allow components to be passed via context', async () => {
-  const Layout = ({children}) => <div id="layout">{children}</div>
+  const Layout = ({ children }) => <div id="layout">{children}</div>
   const components = { h1: H1 }
   const result = renderToString(
     <MDXProvider components={components}>
@@ -25,7 +25,7 @@ it('Should allow components to be passed via context', async () => {
 })
 
 it('Should allow context components to be overridden', async () => {
-  const Layout = ({children}) => <div id="layout">{children}</div>
+  const Layout = ({ children }) => <div id="layout">{children}</div>
   const components = { h1: H1 }
   const result = renderToString(
     <MDXProvider components={{}}>
