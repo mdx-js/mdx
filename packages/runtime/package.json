@@ -26,5 +26,8 @@
     "@mdx-js/mdx": "^0.15.0-1",
     "@mdx-js/tag": "^0.15.0-1",
     "buble": "^0.19.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
