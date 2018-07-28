@@ -1,4 +1,10 @@
+import { Message } from 'rebass'
+
 # Webpack
+
+<Message>
+  This docs page is a WIP
+</Message>
 
 ## Basic Setup
 

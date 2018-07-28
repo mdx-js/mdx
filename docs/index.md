@@ -31,7 +31,7 @@ The possibilities are endless when you combine components (that can even be dyna
 
 Here's an example of the [Rebass][] Donut rendered inside an MDX document.
 
-<Donut />
+<Donut value={2/3} />
 
 [Rebass]: https://jxnblk.com/rebass
 ```

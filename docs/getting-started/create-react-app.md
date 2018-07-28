@@ -1,4 +1,10 @@
+import { Message } from 'rebass'
+
 # Create React App
+
+<Message>
+  This docs page is a WIP
+</Message>
 
 With Create React App you will need to use [`create-react-app-rewired`][cra-rewired] and add a `config-overrides.js`.
 

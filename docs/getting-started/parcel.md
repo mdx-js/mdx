@@ -1,4 +1,10 @@
+import { Message } from 'rebass'
+
 # Parcel
+
+<Message>
+  This docs page is a WIP
+</Message>
 
 You'll need to install the `@mdx-js/parcel-plugin-mdx` plugin to transpile MDX.
 

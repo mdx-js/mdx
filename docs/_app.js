@@ -26,6 +26,7 @@ const navOrder = [
     'writing-a-plugin',
     'custom-loader',
     'specification',
+    'runtime',
   'projects',
   'about'
 ]
@@ -36,7 +37,8 @@ const pageNames = {
   ast: 'AST',
   projects: 'Projects Using MDX',
   'getting-started': 'Getting Started',
-  'create-react-app': 'Create React App'
+  'create-react-app': 'Create React App',
+  'writing-a-plugin': 'Writing a Plugin'
 }
 
 const sortRoutes = routes => [
