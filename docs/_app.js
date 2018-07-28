@@ -26,6 +26,7 @@ const navOrder = [
     'writing-a-plugin',
     'custom-loader',
     'specification',
+    'sync-api',
     'runtime',
   'projects',
   'about'
@@ -38,7 +39,8 @@ const pageNames = {
   projects: 'Projects Using MDX',
   'getting-started': 'Getting Started',
   'create-react-app': 'Create React App',
-  'writing-a-plugin': 'Writing a Plugin'
+  'writing-a-plugin': 'Writing a Plugin',
+  'sync-api': 'Sync API'
 }
 
 const sortRoutes = routes => [
