@@ -46,8 +46,6 @@ const scope = { ...createScope(), ...Rebass, code: Editor, pre: ({ children }) =
 
 const navOrder = [
   'index',
-  'syntax',
-  'components',
   'getting-started',
     'webpack',
     'parcel',
@@ -55,12 +53,15 @@ const navOrder = [
     'create-react-app',
     'gatsby',
     'x0',
+  'syntax',
+  'components',
   'plugins',
-    'markdown',
-    'hyperscript',
   'advanced',
     'ast',
+    'writing-a-plugin',
+    'custom-loader',
     'specification',
+  'projects',
   'about'
 ]
 
@@ -68,6 +69,7 @@ const pageNames = {
   index: 'Introduction',
   next: 'Next.js',
   ast: 'AST',
+  projects: 'Projects Using MDX',
   'getting-started': 'Getting Started',
   'create-react-app': 'Create React App'
 }

@@ -1,6 +1,6 @@
 # Gatsby
 
-In order to use MDX with [Gatsby][gatsby] you can use the [gatsby-mdx][gatsby-mdx] package.
+In order to use MDX with [Gatsby][gatsby] you can use the [gatsby-mdx][] package.
 
 First scaffold a new Gatsby 2.0 or greater site and install the `gatsby-mdx` plugin.
 

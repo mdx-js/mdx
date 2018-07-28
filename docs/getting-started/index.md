@@ -3,38 +3,23 @@ import { Text } from 'rebass'
 # Getting Started
 
 ```
-npm install --save-dev @mdx-js/mdx
+npm init mdx
 ```
 
 <Text color="darkgray" mt={-3} mb={4}>
   Note: MDX requires a version of node that is >= v8.5 and React 16.0+
 </Text>
 
-- [Webpack](./webpack)
-- [Parcel](./parcel)
-- [Next](./next)
-- [Create React App](./create-react-app)
-- [Gatsby](./gatsby)
-- [x0](./x0)
+## Projects, libraries and frameworks
 
-## Basic Setup
+If you're already working with a particular tool, you can try out MDX with the following commands:
 
-MDX provides a loader that needs to be used in tandem with the [babel-loader][babel-loader].
-
-For webpack projects you can define the following `webpack.config.js`:
-
-```js
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.mdx?$/,
-        use: ['babel-loader', '@mdx-js/loader']
-      }
-    ]
-  }
-}
-```
+- `npm init mdx` [`webpack`](./webpack)
+- `npm init mdx` [`parcel`](./parcel)
+- `npm init mdx` [`next`](./next)
+- `npm init mdx` [`create-react-app`](./create-react-app)
+- `npm init mdx` [`gatsby`](./gatsby)
+- `npm init mdx` [`x0`](./x0)
 
 ## Provider
 
@@ -64,14 +49,3 @@ export default props =>
     <main {...props} />
   </MDXProvider>
 ```
-
-### Other
-
-If the tool or framework you use is missing, check the [examples][] directory or file an issue/PR.
-
-[examples]: https://github.com/mdx-js/mdx/tree/master/examples
-[babel-loader]: https://github.com/babel/babel-loader
-[next]: https://github.com/zeit/next.js
-[next-mdx]: https://github.com/zeit/next-plugins/tree/master/packages/next-mdx
-[gatsby]: https://gatsbyjs.org
-[gatsby-transformer]: https://github.com/avigoldman/avigoldman.com/tree/master/plugins/gatsby-transformer-mdx

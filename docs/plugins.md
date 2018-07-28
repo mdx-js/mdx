@@ -18,12 +18,11 @@ The MDX transpilation flow consists of six steps, ultimately resulting in JSX th
 Name | Type | Required | Description
 ---- | ---- | -------- | -----------
 `mdPlugins` | Array[] | `false` | Array of remark plugins to manipulate the MDAST
-`mdastPlugins` | Array[] | `false` | Array of mdx plugins to manipulate the MDXAST
 `hastPlugins` | Array[] | `false` | Array of rehype plugins to manipulate the MDXHAST
 
 #### Specifying plugins
 
-Plugins need to be passed to the MDX loader via webpack options.
+Plugins need to be passed to MDX core library, this is often as options to your loader:
 
 ```js
 const images = require('remark-images')
@@ -51,10 +50,33 @@ module.exports = {
 }
 ```
 
+Though if you're using MDX directly, they can be passed like so:
 
-## Installation
+```js
+const fs = require('fs')
+const mdx = require('@mdx-js/mdx')
+const images = require('remark-images')
+const emoji = require('remark-emoji')
 
-## Usage
+const mdxText = fs.readFileSync('hello.mdx', 'utf8')
+const jsx = mdx.sync(mdxText, {
+  mdPlugins: [images, emoji]
+})
+```
+
+#### Plugin options
+
+If a plugin needs specific options, use the `[plugin, pluginOptions]` syntax.
+
+```js
+mdx.sync(mdxText, {
+  mdPlugins: [
+    images,
+    [emoji, { padSpaceAfter: true }]
+})
+```
+
+The following example ensures that `padSpaceAfter` is only passed as options to the `emoji` plugin.
 
 [remark]: https://github.com/remarkjs/remark
 [rehype]: https://github.com/rehypejs/rehype
