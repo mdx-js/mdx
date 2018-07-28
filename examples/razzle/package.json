@@ -1,0 +1,18 @@
+{
+  "name": "razzle",
+  "scripts": {
+    "start": "razzle start",
+    "build": "razzle build",
+    "test": "razzle test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js"
+  },
+  "dependencies": {
+    "@mdx-js/tag": "^0.14.1",
+    "express": "^4.15.2",
+    "razzle": "^2.2.0",
+    "razzle-plugin-mdx": "^2.2.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "devDependencies": {}
+}
