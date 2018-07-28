@@ -6,16 +6,14 @@ const { Provider, Consumer } = createReactContext({})
 
 export const withMDXComponents = Component => ({ components, ...props }) => (
   <Consumer>
-    {contextComponents =>
+    {contextComponents => (
       <Component components={components || contextComponents} {...props} />
-    }
+    )}
   </Consumer>
 )
 
 const MDXProvider = ({ components, children }) => (
-  <Provider value={components}>
-    {children}
-  </Provider>
+  <Provider value={components}>{children}</Provider>
 )
 
 MDXProvider.propTypes = {

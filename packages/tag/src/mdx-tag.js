@@ -9,7 +9,7 @@ const defaults = {
 }
 
 class MDXTag extends Component {
-  render () {
+  render() {
     const {
       name,
       parentName,
@@ -29,9 +29,11 @@ class MDXTag extends Component {
     if (Layout) {
       hoistStatics(this, Layout)
 
-      return <Layout components={components} {...layoutProps}>
-        <Component {...childProps}>{children}</Component>
-      </Layout>
+      return (
+        <Layout components={components} {...layoutProps}>
+          <Component {...childProps}>{children}</Component>
+        </Layout>
+      )
     }
 
     return <Component {...childProps}>{children}</Component>

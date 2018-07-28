@@ -10,12 +10,13 @@ const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
 )
 
-const parse = code => babel.parse(code, {
-  plugins: [
-    '@babel/plugin-syntax-jsx',
-    '@babel/plugin-proposal-object-rest-spread'
-  ]
-})
+const parse = code =>
+  babel.parse(code, {
+    plugins: [
+      '@babel/plugin-syntax-jsx',
+      '@babel/plugin-proposal-object-rest-spread'
+    ]
+  })
 
 it('Should output parseable JSX', async () => {
   const result = await mdx('Hello World')
@@ -67,18 +68,10 @@ A paragraph
   <!-- a nested Markdown comment -->
 </div>
   `)
-  expect(result.includes(
-    '{/* a Markdown comment */}'
-  )).toBeTruthy()
-  expect(result.includes(
-    '<!-- a code block Markdown comment -->'
-  )).toBeTruthy()
-  expect(result.includes(
-    '{/* a nested JSX comment */}'
-  )).toBeTruthy()
-  expect(result.includes(
-    '{/* a nested Markdown comment */}'
-  )).toBeTruthy()
+  expect(result.includes('{/* a Markdown comment */}')).toBeTruthy()
+  expect(result.includes('<!-- a code block Markdown comment -->')).toBeTruthy()
+  expect(result.includes('{/* a nested JSX comment */}')).toBeTruthy()
+  expect(result.includes('{/* a nested Markdown comment */}')).toBeTruthy()
 })
 
 it('Should recognize components as properties', async () => {
@@ -115,21 +108,27 @@ test('Should await and render async plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
-test('Should parse and render footnotes', async () => {
-  const result = await mdx('This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote')
-
-  expect(
-    result.includes(
-      '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
+test(
+  'Should parse and render footnotes',
+  async () => {
+    const result = await mdx(
+      'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
     )
-  )
 
-  expect(
-    result.includes(
-      '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
+    expect(
+      result.includes(
+        '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
+      )
     )
-  )
-}, 10000)
+
+    expect(
+      result.includes(
+        '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
+      )
+    )
+  },
+  10000
+)
 
 test('Should expose a sync compiler', async () => {
   const result = mdx.sync(fixtureBlogPost)
