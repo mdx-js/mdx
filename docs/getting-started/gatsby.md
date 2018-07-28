@@ -10,7 +10,7 @@ cd gatsby-site
 yarn add gatsby-mdx @mdx-js/mdx
 ```
 
-then add `gatsby-mdx` to your `gatsby-config.js` in the `plugins` section.
+Then add `gatsby-mdx` to your `gatsby-config.js` in the `plugins` section.
 
 ```javascript
 module.exports = {
