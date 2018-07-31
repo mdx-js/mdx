@@ -11,6 +11,7 @@ const scope = { ...createScope(), ...Rebass, code: LiveEditor, pre: ({ children 
 
 const navOrder = [
   'index',
+  'syntax',
   'getting-started',
     'webpack',
     'parcel',
@@ -18,7 +19,7 @@ const navOrder = [
     'create-react-app',
     'gatsby',
     'x0',
-  'syntax',
+    'typescript',
   'plugins',
   'advanced',
     'ast',
@@ -28,6 +29,7 @@ const navOrder = [
     'specification',
     'sync-api',
     'runtime',
+    'contributing',
   'projects',
   'about'
 ]

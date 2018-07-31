@@ -24,18 +24,6 @@ Implementations were often template string-based which required lots of escaping
 MDX seeks to make writing with Markdown _and_ JSX simpler while being more expressive.
 The possibilities are endless when you combine components (that can even be dynamic or load data) with the simplicity of Markdown for long-form content.
 
-## Try it
-
-```.mdx
-# Hello, world!
-
-Here's an example of the [Rebass][] Donut rendered inside an MDX document.
-
-<Donut value={2/3} />
-
-[Rebass]: https://jxnblk.com/rebass
-```
-
 ## Features
 
 - Fast
@@ -47,6 +35,19 @@ Here's an example of the [Rebass][] Donut rendered inside an MDX document.
 - Webpack loader
 - Parcel plugin
 - Next.js plugin
+- Gatsby plugin
+
+## Try it
+
+```.mdx
+# Hello, world!
+
+Here's an example of the [Rebass][] Donut rendered inside an MDX document.
+
+<Donut value={2/3} />
+
+[Rebass]: https://jxnblk.com/rebass
+```
 
 [md]: http://commonmark.org/
 [jsx]: https://facebook.github.io/jsx/
