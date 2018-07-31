@@ -25,8 +25,6 @@ Implementations were often template string-based which required lots of escaping
 MDX seeks to make writing with Markdown _and_ JSX simpler while being more expressive.
 The possibilities are endless when you combine components (that can even be dynamic or load data) with the simplicity of Markdown for long-form content.
 
-## Features
-
 - Fast
 - No runtime compilation
 - [Pluggable][remark-plugins]
