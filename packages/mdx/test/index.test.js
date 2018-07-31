@@ -74,6 +74,16 @@ A paragraph
   expect(result.includes('{/* a nested Markdown comment */}')).toBeTruthy()
 })
 
+it('Should not include export wrapper if skipExport is true', async () => {
+  const result = await mdx('> test\n\n> `test`', { skipExport: true })
+
+  expect(
+    result.includes(
+      'export default ({components, ...props}) =>'
+    )
+  ).toBeFalsy()
+})
+
 it('Should recognize components as properties', async () => {
   const result = await mdx('# Hello\n\n<MDX.Foo />')
   expect(
