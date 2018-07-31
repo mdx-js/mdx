@@ -284,6 +284,7 @@ Name | Type | Required | Description
 ---- | ---- | -------- | -----------
 `mdPlugins` | Array[] | `false` | Array of remark plugins to manipulate the MDXAST
 `hastPlugins` | Array[] | `false` | Array of rehype plugins to manipulate the MDXHAST
+`skipExport` | Boolean | `false` | Skip `export default` wrapper on transpiled JSX
 
 #### Specifying plugins
 

@@ -1,4 +1,4 @@
-function toJSX(node, parentNode = {}) {
+function toJSX(node, parentNode = {}, options = {}) {
   let children = ''
 
   if (node.type === 'root') {
@@ -36,7 +36,8 @@ function toJSX(node, parentNode = {}) {
       '\n' +
       exportNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
-      `export default ({components, ...props}) => <MDXTag name="wrapper" ${
+      (options.skipExport ? '' : 'export default ({components, ...props}) => ') +
+      `<MDXTag name="wrapper" ${
         layout ? `Layout={${layout}} layoutProps={props}` : ''
       } components={components}>${jsxNodes
         .map(childNode => toJSX(childNode, node))
@@ -77,9 +78,9 @@ function toJSX(node, parentNode = {}) {
   }
 }
 
-function compile() {
+function compile(options = {}) {
   this.Compiler = tree => {
-    return toJSX(tree)
+    return toJSX(tree, {}, options)
   }
 }
 
