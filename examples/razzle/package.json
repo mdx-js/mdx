@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "mdx-razzle",
   "scripts": {
     "start": "razzle start",

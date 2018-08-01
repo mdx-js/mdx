@@ -9,7 +9,6 @@
   "dependencies": {
     "@mdx-js/loader": "^0.15.0-2",
     "@mdx-js/mdx": "^0.15.0-2",
-    "@mdx-js/tag": "^0.15.0-2",
     "@rebass/markdown": "^1.0.0-1",
     "@zeit/next-mdx": "^1.1.0",
     "next": "^6.1.1",
