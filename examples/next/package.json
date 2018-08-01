@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "basic",
+  "name": "mdx-next",
   "scripts": {
     "dev": "next",
     "build": "next build",

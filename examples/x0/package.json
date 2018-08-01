@@ -1,12 +1,12 @@
 {
   "name": "x0",
   "scripts": {
-    "start": "x0 dev App.js --config x0.config.js"
+    "start": "x0 pages"
   },
   "license": "MIT",
   "dependencies": {
-    "@compositor/x0": "^4.0.2",
-    "@mdx-js/loader": "^0.7.3",
-    "@mdx-js/mdx": "^0.7.3"
+    "@compositor/x0": "^6.0.3",
+    "@rebass/markdown": "^1.0.0-1",
+    "styled-components": "^3.3.3"
   }
 }

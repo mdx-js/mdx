@@ -1,5 +1,5 @@
 {
-  "name": "razzle",
+  "name": "mdx-razzle",
   "scripts": {
     "start": "razzle start",
     "build": "razzle build",
