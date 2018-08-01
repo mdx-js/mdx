@@ -1,3 +1,7 @@
-# Hello
+import { Donut } from 'rebass'
 
-world!
+# :wave: Hello, world!
+
+This is MDX!
+
+<Donut value={1/3} />
