@@ -2,14 +2,12 @@ const { getBabelLoader } = require('react-app-rewired')
 module.exports = (config, env) => {
   const babelLoader = getBabelLoader(config.module.rules)
   config.module.rules.map(rule => {
-    // This ma
     if (typeof rule.test !== 'undefined' || typeof rule.oneOf === 'undefined') {
       return rule
     }
 
     rule.oneOf.unshift({
-      test: /\.mdx$/,
-      // include: babelLoader.include,
+      test: /\.mdx?$/,
       use: [
         {
           loader: babelLoader.loader,

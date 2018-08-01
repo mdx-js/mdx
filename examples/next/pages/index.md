@@ -3,7 +3,7 @@ import { Donut } from 'rebass'
 
 export default Layout
 
-# Hello, world!
+# :wave: Hello, world!
 
 This is MDX!
 

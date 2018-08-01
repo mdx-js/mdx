@@ -5,6 +5,8 @@
   "dependencies": {
     "@mdx-js/loader": "^0.7.0",
     "@mdx-js/mdx": "^0.7.1",
+    "@mdx-js/tag": "^0.15.0-2",
+    "@rebass/markdown": "^1.0.0-1",
     "react": "^16.3.2",
     "react-app-rewired": "^1.5.0",
     "react-dom": "^16.3.2",
