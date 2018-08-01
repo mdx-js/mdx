@@ -1,8 +1,6 @@
 {
-  "name": "example-parcel",
-  "version": "0.13.1-1",
-  "license": "MIT",
   "private": true,
+  "name": "mdx-parcel",
   "scripts": {
     "start": "parcel index.html --no-cache"
   },
@@ -12,7 +10,8 @@
     "react-dom": "16.4.1"
   },
   "devDependencies": {
-    "@mdx-js/parcel-plugin-mdx": "latest",
+    "@mdx-js/parcel-plugin-mdx": "^0.15.0-2",
+    "babel-preset-react-app": "^3.1.2",
     "parcel-bundler": "1.9.0"
   }
 }

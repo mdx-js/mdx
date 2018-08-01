@@ -1,11 +1,4 @@
 import React from 'react'
+import { Container } from 'rebass'
 
-export default props => (
-  <main
-    {...props}
-    style={{
-      maxWidth: '30em',
-      margin: 'auto'
-    }}
-  />
-)
+export default props => <Container {...props} />

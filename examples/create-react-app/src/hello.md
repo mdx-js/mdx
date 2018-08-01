@@ -1,6 +1,6 @@
 import { Donut } from 'rebass'
 
-# :wave: Hello, world!
+# Hello, world!
 
 This is MDX!
 

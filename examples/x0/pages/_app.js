@@ -1,16 +1,13 @@
 import React from 'react'
 import { MDXProvider } from '@mdx-js/tag'
-import { Container, Provider as RebassProvider } from 'rebass'
+import { Provider as RebassProvider } from 'rebass'
 import createComponents from '@rebass/markdown'
 
-import Doc from './example.md'
-
-export default () => (
+export default ({ Component, pageProps }) => (
   <MDXProvider components={createComponents()}>
     <RebassProvider>
-      <Container>
-        <Doc />
-      </Container>
+      <Component {...pageProps} />
     </RebassProvider>
   </MDXProvider>
 )
+

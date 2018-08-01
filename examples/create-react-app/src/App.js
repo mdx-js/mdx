@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
-import Test from './test.mdx'
+import { MDXProvider } from '@mdx-js/tag'
+import { Container, Provider as RebassProvider } from 'rebass'
+import createComponents from '@rebass/markdown'
 
-console.log(Test)
+import Hello from './hello.md'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Test />
-      </div>
+      <MDXProvider components={createComponents()}>
+        <RebassProvider>
+          <Container>
+            <Hello />
+          </Container>
+        </RebassProvider>
+      </MDXProvider>
     )
   }
 }

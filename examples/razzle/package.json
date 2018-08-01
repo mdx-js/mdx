@@ -1,5 +1,6 @@
 {
-  "name": "razzle",
+  "private": true,
+  "name": "mdx-razzle",
   "scripts": {
     "start": "razzle start",
     "build": "razzle build",
@@ -8,11 +9,11 @@
   },
   "dependencies": {
     "@mdx-js/tag": "^0.14.1",
+    "@rebass/markdown": "^1.0.0-1",
     "express": "^4.15.2",
     "razzle": "^2.2.0",
     "razzle-plugin-mdx": "^2.2.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
-  },
-  "devDependencies": {}
+  }
 }
