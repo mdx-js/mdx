@@ -19,6 +19,8 @@ The best of both worlds. :globe_with_meridians:
 - Simpler image syntax
 - Webpack loader
 
+> [Watch some of these features in action](https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u)
+
 ## Installation
 
 ```sh
