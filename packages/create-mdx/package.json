@@ -1,0 +1,16 @@
+{
+  "name": "create-mdx",
+  "description": "Initialize an MDX project",
+  "version": "0.15.0-1",
+  "license": "MIT",
+  "author": "John Otander",
+  "bin": {
+    "create-mdx": "cli.js"
+  },
+  "keywords": [
+    "mdx"
+  ],
+  "dependencies": {
+    "initit": "^1.0.0-2"
+  }
+}
