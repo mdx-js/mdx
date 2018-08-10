@@ -3,7 +3,7 @@ const {
   isExport,
   isExportDefault,
   EMPTY_NEWLINE
-} = require('../util')
+} = require('./util')
 
 const tokenizeEsSyntax = (eat, value) => {
   const index = value.indexOf(EMPTY_NEWLINE)

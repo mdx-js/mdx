@@ -1,12 +1,13 @@
 const unified = require('unified')
 const toMDAST = require('remark-parse')
 const squeeze = require('remark-squeeze-paragraphs')
+
 const toMDXAST = require('./lib/mdast-to-mdxast')
 const mdxAstToMdxHast = require('./lib/mdxast-to-mdxhast')
 const mdxHastToJsx = require('./lib/mdxhast-to-jsx')
 const esSyntax = require('./lib/tokenizer')
 
-const { BLOCKS_REGEX } = require('./util')
+const { BLOCKS_REGEX } = require('./lib/util')
 
 const DEFAULT_OPTIONS = {
   footnotes: true,
