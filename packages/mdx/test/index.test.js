@@ -1,6 +1,6 @@
 const babel = require('@babel/core')
-const mdx = require('../index')
-const mdxHastToJsx = require('../mdx-hast-to-jsx')
+const mdx = require('..')
+const mdxHastToJsx = require('../lib/mdxhast-to-jsx')
 const fs = require('fs')
 const path = require('path')
 const { select } = require('hast-util-select')

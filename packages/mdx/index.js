@@ -1,17 +1,12 @@
 const unified = require('unified')
 const toMDAST = require('remark-parse')
 const squeeze = require('remark-squeeze-paragraphs')
-const toMDXAST = require('./md-ast-to-mdx-ast')
-const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
-const mdxHastToJsx = require('./mdx-hast-to-jsx')
+const toMDXAST = require('./lib/mdast-to-mdxast')
+const mdxAstToMdxHast = require('./lib/mdxast-to-mdxhast')
+const mdxHastToJsx = require('./lib/mdxhast-to-jsx')
+const esSyntax = require('./lib/tokenizer')
 
-const {
-  isImport,
-  isExport,
-  isExportDefault,
-  BLOCKS_REGEX,
-  EMPTY_NEWLINE
-} = require('./util')
+const { BLOCKS_REGEX } = require('./util')
 
 const DEFAULT_OPTIONS = {
   footnotes: true,
@@ -19,33 +14,6 @@ const DEFAULT_OPTIONS = {
   hastPlugins: [],
   compilers: [],
   blocks: [BLOCKS_REGEX]
-}
-
-const tokenizeEsSyntax = (eat, value) => {
-  const index = value.indexOf(EMPTY_NEWLINE)
-  const subvalue = value.slice(0, index)
-
-  if (isExport(subvalue) || isImport(subvalue)) {
-    return eat(subvalue)({
-      type: isExport(subvalue) ? 'export' : 'import',
-      default: isExportDefault(subvalue),
-      value: subvalue
-    })
-  }
-}
-
-tokenizeEsSyntax.locator = (value, fromIndex) => {
-  return isExport(value) || isImport(value) ? -1 : 1
-}
-
-function esSyntax() {
-  var Parser = this.Parser
-  var tokenizers = Parser.prototype.blockTokenizers
-  var methods = Parser.prototype.blockMethods
-
-  tokenizers.esSyntax = tokenizeEsSyntax
-
-  methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
 }
 
 function createMdxAstCompiler(options) {
