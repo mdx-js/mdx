@@ -1,3 +1,8 @@
 # MDX + X0
 
-An example using mdx-js/mdx and c8r/x0.
+```
+npm install
+npm start
+```
+
+[See documentation](https://mdxjs.com/getting-started/x0)

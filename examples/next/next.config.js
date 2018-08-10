@@ -1,22 +1,13 @@
 const images = require('remark-images')
 const emoji = require('remark-emoji')
 
-module.exports = {
-  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
-  webpack: (config, { defaultLoaders }) => {
-    config.module.rules.push({
-      test: /\.mdx?$/,
-      use: [
-        defaultLoaders.babel,
-        {
-          loader: '@mdx-js/loader',
-          options: {
-            mdPlugins: [images, emoji]
-          }
-        }
-      ]
-    })
-
-    return config
+const withMDX = require('@zeit/next-mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    mdPlugins: [images, emoji]
   }
-}
+})
+
+module.exports = withMDX({
+  pageExtensions: ['js', 'jsx', 'md', 'mdx']
+})

@@ -12,6 +12,8 @@ __:computer: Component-based__: Use existing JSX components inside your MDX, and
 
 __:fire: Blazingly blazing fast__: MDX has no runtime, all compilation occurs during the build stage.
 
+> [Watch some of these features in action](https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u)
+
 > “It's extremely useful for using design system components to render markdown
 and weaving interactive components in with existing markdown.”
 >

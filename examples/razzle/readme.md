@@ -1,3 +1,8 @@
-# MDX + razzle
+# MDX + Razzle
 
-An example using mdx-js/mdx and razzle.
+```
+npm install
+npm start
+```
+
+[See documentation](https://mdxjs.com/getting-started/razzle)
