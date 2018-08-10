@@ -1,7 +1,7 @@
 {
   "name": "@mdx-js/tag",
   "license": "MIT",
-  "version": "0.15.0-4",
+  "version": "0.15.0",
   "repository": "mdx-js/mdx",
   "description": "A fully-featured Markdown/MDX React component for ambitious projects",
   "main": "dist/index.js",
