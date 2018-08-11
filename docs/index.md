@@ -37,6 +37,8 @@ The possibilities are endless when you combine components (that can even be dyna
 - Next.js plugin
 - Gatsby plugin
 
+> [Watch some of these features in action](https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u)
+
 ## Try it
 
 ```.mdx
