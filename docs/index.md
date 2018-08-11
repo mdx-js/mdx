@@ -2,12 +2,31 @@ import { Border, Blockquote, BlockLink } from 'rebass'
 
 # MDX
 
-MDX enables you to seamlessly use JSX in your Markdown documents.
-This makes writing long-form content with components a blast.
+### Markdown for the component era.
 
-__:heart: Powerful__: MDX makes it effortless to import and render components in your React/JSX-based projects.
+MDX is a format that lets you seamlessly use JSX in your Markdown documents.
+You can import components, like interactive charts or notifs, and export metadata.
+This makes writing long-form content with components a blast :rocket:.
 
-__:computer: Component-based__: Use existing JSX components inside your MDX, and import MDX files as plain components.
+See it in action
+
+```jsx
+import { Chart } from '../components/chart'
+
+# Here's a chart
+
+The chart is rendered inside our MDX document.
+
+<Chart />
+```
+
+__:heart: Powerful__: MDX blends Markdown and JSX syntax to fit perfectly in React/JSX-based projects.
+
+__:computer: Everything is a component__: Use existing components inside your MDX and import other MDX files as plain components.
+
+__:wrench: Customizable__: Decide which component is rendered for each Markdown element (`{ h1: MyHeading }`).
+
+__:books: Markdown-based__: The simplicity and elegance of Markdown remains, you interleave JSX only when you want to.
 
 __:fire: Blazingly blazing fast__: MDX has no runtime, all compilation occurs during the build stage.
 
