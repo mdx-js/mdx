@@ -18,6 +18,20 @@ npm init mdx
 You can pass in components for any HTML element that Markdown compiles to.
 This allows you to use your existing components and even CSS-in-JS like `styled-components`.
 
+The components object is a mapping between the HTML element and your desired component you'd like to render.
+
+```jsx
+const MyH1 = props => <h1 style={{ color: 'tomato' }} {...props} />
+const MyParagraph = props => <p style={{ fontSize: '18px', lineHeight: 1.6 }} />
+
+const components = {
+  h1: MyH1,
+  p: MyParagraph
+}
+```
+
+#### Example usage
+
 ```jsx
 import React from 'react'
 import Hello from '../hello.md'
@@ -53,7 +67,16 @@ If you're using an app layout that wraps your JSX, you can use the `MDXProvider`
 import React from 'react'
 import { MDXProvider } from '@mdx-js/tag'
 
-import * as components from './markdown-components'
+import { Heading, Text, Pre, Code, Table } from './components'
+
+const components = {
+  h1: Heading.H1,
+  h2: Heading.H2,
+  // ...
+  p: Text,
+  code: Pre,
+  inlineCode: Code
+}
 
 export default props =>
   <MDXProvider components={components}>
