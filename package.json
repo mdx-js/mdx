@@ -2,6 +2,9 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "docs": "x0 docs",
+    "docs:build": "x0 build docs",
+    "docs:deploy": "npm run docs:build && now dist",
     "test": "lerna run test",
     "format": "prettier --no-semi --single-quote --write '{examples,packages}/**/*.js'",
     "prepare": "lerna bootstrap && lerna link --force-local"
@@ -9,7 +12,15 @@
   "repository": "mdx-js/mdx",
   "license": "MIT",
   "devDependencies": {
-    "lerna": "^2.5.1",
-    "prettier": "^1.11.1"
+    "@compositor/x0": "^6.0.3",
+    "lerna": "^2.11.0",
+    "prettier": "^1.13.7"
+  },
+  "dependencies": {
+    "@rebass/mdx": "^1.0.0-1",
+    "styled-components": "^3.3.3"
+  },
+  "x0": {
+    "title": "MDX"
   }
 }
