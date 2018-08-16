@@ -60,7 +60,7 @@ The possibilities are endless when you combine components (that can even be dyna
 ## Getting started
 
 ```
-npx init mdx
+npm init mdx
 ```
 
 - [Documentation](https://mdxjs.com)
