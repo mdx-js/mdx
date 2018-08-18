@@ -25,6 +25,7 @@ const navOrder = [
     'ast',
     'components',
     'writing-a-plugin',
+    'retext-plugins',
     'custom-loader',
     'specification',
     'sync-api',
@@ -42,6 +43,7 @@ const pageNames = {
   'getting-started': 'Getting Started',
   'create-react-app': 'Create React App',
   'writing-a-plugin': 'Writing a Plugin',
+  'retext-plugins': 'Using Retext Plugins',
   'sync-api': 'Sync API'
 }
 
