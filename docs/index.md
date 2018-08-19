@@ -13,11 +13,10 @@ This makes writing long-form content with components a blast :rocket:.
 ```.mdx
 # Hello, world!
 
-Here's an example of the [Rebass][] Donut rendered inside an MDX document.
+Here's an example of the [Rebass](https://jxnblk.com/rebass)
+Donut rendered inside an MDX document.
 
 <Donut value={2/3} />
-
-[Rebass]: https://jxnblk.com/rebass
 ```
 
 __:heart: Powerful__: MDX blends Markdown and JSX syntax to fit perfectly in React/JSX-based projects.

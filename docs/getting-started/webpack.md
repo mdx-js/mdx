@@ -1,16 +1,10 @@
-import { Message } from 'rebass'
-
 # Webpack
-
-<Message>
-  This docs page is a WIP
-</Message>
-
-## Basic Setup
 
 MDX provides a loader that needs to be used in tandem with the [babel-loader][babel-loader].
 
-For webpack projects you can define the following `webpack.config.js`:
+## Basic Setup
+
+For webpack projects you can define the following `webpack.config.js` extension handler for `.md`/`.mdx` files:
 
 ```js
 module.exports = {
@@ -24,3 +18,7 @@ module.exports = {
   }
 }
 ```
+
+It's important to note that the MDX loader is followed by the babel-loader so that the JSX can be transpiled to JavaScript.
+
+[babel-loader]: https://npmjs.com/package/babel-loader
