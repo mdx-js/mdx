@@ -12,7 +12,7 @@ It's important to note that if you have any async plugins, they will be ignored.
 const fs = require('fs')
 const mdx = require('@mdx-js/mdx')
 
-const mdxText = fs.readFileSynx('hello.mdx', 'utf8')
+const mdxText = fs.readFileSync('hello.mdx', 'utf8')
 
 const jsx = mdx.sync(mdxText)
 ```
