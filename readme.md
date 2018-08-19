@@ -71,7 +71,7 @@ npm init mdx
 
 ## Related
 
-[See the related projects in the MDX specification](https://github.com/mdx-js/specification#related)
+See related projects in the [MDX specification](https://github.com/mdx-js/specification#related).
 
 ## Authors
 
