@@ -1,6 +1,6 @@
 # Runtime MDX
 
-> Parse and render MDX in a runtime environment
+Parse and render MDX in a runtime environment
 
 ## :warning: Warning
 
