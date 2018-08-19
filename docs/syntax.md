@@ -1,7 +1,7 @@
 # Syntax
 
 MDX syntax can be boiled down to being JSX in Markdown.
-It's a superset of Markdown syntax that also support importing, exporting, and JSX blocks.
+It's a superset of Markdown syntax that also supports importing, exporting, and JSX blocks.
 
 ### Markdown
 
