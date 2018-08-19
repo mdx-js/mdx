@@ -8,16 +8,15 @@ MDX is a format that lets you seamlessly use JSX in your Markdown documents.
 You can import components, like interactive charts or notifs, and export metadata.
 This makes writing long-form content with components a blast :rocket:.
 
-See it in action
+#### Try it
 
-```jsx
-import { Chart } from '../components/chart'
+```.mdx
+# Hello, world!
 
-# Here's a chart
+Here's an example of the [Rebass](https://jxnblk.com/rebass)
+Donut rendered inside an MDX document.
 
-The chart is rendered inside our MDX document.
-
-<Chart />
+<Donut value={2/3} />
 ```
 
 __:heart: Powerful__: MDX blends Markdown and JSX syntax to fit perfectly in React/JSX-based projects.
@@ -57,18 +56,6 @@ The possibilities are endless when you combine components (that can even be dyna
 - Gatsby plugin
 
 > [Watch some of these features in action](https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u)
-
-## Try it
-
-```.mdx
-# Hello, world!
-
-Here's an example of the [Rebass][] Donut rendered inside an MDX document.
-
-<Donut value={2/3} />
-
-[Rebass]: https://jxnblk.com/rebass
-```
 
 [md]: http://commonmark.org/
 [jsx]: https://facebook.github.io/jsx/

@@ -1,11 +1,12 @@
 # Syntax
 
 MDX syntax can be boiled down to being JSX in Markdown.
-It's a superset of Markdown syntax that also support importing, exporting, and JSX blocks.
+It's a superset of Markdown syntax that also supports importing, exporting, and JSX.
 
 ### Markdown
 
 Standard [Markdown syntax][md] is supported.
+It's recommended to learn about Markdown in their [docs][md].
 
 ### JSX
 

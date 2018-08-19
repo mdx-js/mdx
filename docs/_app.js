@@ -4,7 +4,6 @@ import createScope from '@rebass/markdown'
 import * as Rebass from 'rebass'
 import sortBy from 'lodash.sortby'
 import { SidebarLayout, ScopeProvider } from '@compositor/x0/components'
-
 import { LiveEditor, Logo } from './_ui'
 
 const scope = { ...createScope(), ...Rebass, code: LiveEditor, pre: ({ children }) => children }
