@@ -11,11 +11,7 @@ export default ({ scope = {}, components = {}, children, ...props }) => {
     ...scope
   }
 
-  // We should add this as an output option to mdx core so we don't
-  // need to do hacky regexing.
-  const jsx = mdx
-    .sync(children)
-    .replace(/^(\s)*export default \({components, ...props}\) =>/, '')
+  const jsx = mdx.sync(children, { skipExport: true }).trim()
 
   const { code } = transform(jsx)
 
