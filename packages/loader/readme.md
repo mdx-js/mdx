@@ -27,3 +27,7 @@ module: {
   ]
 }
 ```
+
+## Options
+
+`absolutePath` - use absolute path to `@mdx-js/tag` instead relative 
