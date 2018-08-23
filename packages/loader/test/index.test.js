@@ -27,7 +27,8 @@ const testFixture = (fixture, options = {}) => {
               }
             },
             {
-              loader: path.resolve(__dirname, '..')
+              loader: path.resolve(__dirname, '..'),
+              options
             }
           ]
         }
@@ -51,4 +52,8 @@ const testFixture = (fixture, options = {}) => {
 
 test('it loads markdown and returns a component', async () => {
   await testFixture('fixture.md')
+})
+
+test('it loads markdown with adsolute path to the @mdx-js/tag', async () => {
+  await testFixture('fixture.md', { absolutePath: true })
 })
