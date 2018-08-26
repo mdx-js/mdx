@@ -29,7 +29,7 @@ export default {
       )
     }
     const Component = this.components[this.name] || this.contextComponents[this.name] || this.name;
-    const childProps = {...this.props }
+    const childProps = {...this.props}
     return <Component {...childProps} >{this.$slots.default}</Component>
   }
 }
