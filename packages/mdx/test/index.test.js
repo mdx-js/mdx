@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 const { select } = require('hast-util-select')
 const requestImageSize = require('request-image-size')
+const prism = require('@mapbox/rehype-prism')
 
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
@@ -52,6 +53,17 @@ it('Should render HTML inside inlineCode correctly', async () => {
   expect(result).toContain(
     '<MDXTag name="inlineCode" components={components} parentName="p">{`<div>`}</MDXTag>'
   )
+})
+
+it('Should preserve newlines in code blocks', async () => {
+  const result = await mdx(`
+\`\`\`dockerfile
+# Add main script
+COPY start.sh /home/start.sh
+\`\`\`
+  `, { hastPlugins: [prism] })
+
+  expect(result).toContain('{`# Add main script`}</MDXTag>{`\n`}')
 })
 
 it('Should support comments', async () => {
