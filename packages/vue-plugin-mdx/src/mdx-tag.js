@@ -15,16 +15,21 @@ export default {
       default: () => ({})
     }
   },
+  inject: {
+    contextComponents: {
+      default: {},
+    }
+  },
   render() {
     if (this.Layout) {
       return (
-        <this.Layout {...{ attrs: this.layoutProps, props: { components: this.components } }}>
+        <this.Layout {...{ attrs: this.layoutProps }}>
           {this.$slots.default}
         </this.Layout>
       )
     }
-    const Component = this.components[this.name]
-    const childProps = {...this.props}
-    return <Component {...childProps}>{this.$slots.default}</Component>
+    const Component = this.components[this.name] || this.contextComponents[this.name] || this.name;
+    const childProps = {...this.props }
+    return <Component {...childProps} >{this.$slots.default}</Component>
   }
 }
