@@ -49,11 +49,9 @@ it('Should render blockquote correctly', async () => {
 it('Should render HTML inside inlineCode correctly', async () => {
   const result = await mdx('`<div>`')
 
-  expect(
-    result.includes(
-      '<MDXTag name="inlineCode" components={components} parentName="p">{`<div>`}</MDXTag>'
-    )
-  ).toBeTruthy()
+  expect(result).toContain(
+    '<MDXTag name="inlineCode" components={components} parentName="p">{`<div>`}</MDXTag>'
+  )
 })
 
 it('Should support comments', async () => {
@@ -68,29 +66,23 @@ A paragraph
   <!-- a nested Markdown comment -->
 </div>
   `)
-  expect(result.includes('{/* a Markdown comment */}')).toBeTruthy()
-  expect(result.includes('<!-- a code block Markdown comment -->')).toBeTruthy()
-  expect(result.includes('{/* a nested JSX comment */}')).toBeTruthy()
-  expect(result.includes('{/* a nested Markdown comment */}')).toBeTruthy()
+  expect(result).toContain('{/* a Markdown comment */}')
+  expect(result).toContain('<!-- a code block Markdown comment -->')
+  expect(result).toContain('{/* a nested JSX comment */}')
+  expect(result).toContain('{/* a nested Markdown comment */}')
 })
 
 it('Should not include export wrapper if skipExport is true', async () => {
   const result = await mdx('> test\n\n> `test`', { skipExport: true })
 
-  expect(
-    result.includes(
-      'export default ({components, ...props}) =>'
-    )
-  ).toBeFalsy()
+  expect(result).not.toContain('export default ({components, ...props}) =>')
 })
 
 it('Should recognize components as properties', async () => {
   const result = await mdx('# Hello\n\n<MDX.Foo />')
-  expect(
-    result.includes(
-      '<MDXTag name="h1" components={components}>{`Hello`}</MDXTag>\n<MDX.Foo />'
-    )
-  ).toBeTruthy()
+  expect(result).toContain(
+    '<MDXTag name="h1" components={components}>{`Hello`}</MDXTag>\n<MDX.Foo />'
+  )
 })
 
 it('Should render elements without wrapping blank new lines', async () => {
@@ -99,7 +91,7 @@ it('Should render elements without wrapping blank new lines', async () => {
   | :--- | :---- |
   | Col1 | Col2  |`)
 
-  expect(result.includes('{`\n`}')).toBe(false)
+  expect(result).not.toContain('{`\n`}')
 })
 
 test('Should await and render async plugins', async () => {
@@ -125,16 +117,12 @@ test(
       'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
     )
 
-    expect(
-      result.includes(
-        '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
-      )
+    expect(result).toContain(
+      '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
     )
 
-    expect(
-      result.includes(
-        '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
-      )
+    expect(result).toContain(
+      '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
     )
   },
   10000
