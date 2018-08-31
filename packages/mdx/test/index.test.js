@@ -78,9 +78,7 @@ it('Should not include export wrapper if skipExport is true', async () => {
   const result = await mdx('> test\n\n> `test`', { skipExport: true })
 
   expect(
-    result.includes(
-      'export default ({components, ...props}) =>'
-    )
+    result.includes('export default ({components, ...props}) =>')
   ).toBeFalsy()
 })
 
