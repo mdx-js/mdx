@@ -14,7 +14,7 @@
   "devDependencies": {
     "@compositor/x0": "^6.0.5",
     "lerna": "^2.11.0",
-    "prettier": "^1.13.7"
+    "prettier": "^1.14.2"
   },
   "dependencies": {
     "@rebass/mdx": "^1.0.0-1",

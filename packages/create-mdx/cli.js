@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const init = require('initit')
 
-const [ example = 'next', name = 'next-mdx' ] = process.argv.slice(2, 3)
+const [example = 'next', name = 'next-mdx'] = process.argv.slice(2, 3)
 const template = `mdx-js/mdx/examples/${example}`
 
 init({ name, template })

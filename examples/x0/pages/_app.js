@@ -10,4 +10,3 @@ export default ({ Component, pageProps }) => (
     </RebassProvider>
   </MDXProvider>
 )
-
