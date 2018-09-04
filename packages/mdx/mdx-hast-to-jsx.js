@@ -1,4 +1,9 @@
 function toJSX(node, parentNode = {}, options = {}) {
+  const {
+    // default options
+    skipExport = false,
+    preserveNewlines = false,
+  } = options
   let children = ''
 
   if (node.type === 'root') {
@@ -36,7 +41,7 @@ function toJSX(node, parentNode = {}, options = {}) {
       '\n' +
       exportNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
-      (options.skipExport
+      (skipExport
         ? ''
         : 'export default ({components, ...props}) => ') +
       `<MDXTag name="wrapper" ${
@@ -49,7 +54,14 @@ function toJSX(node, parentNode = {}, options = {}) {
 
   // recursively walk through children
   if (node.children) {
-    children = node.children.map(childNode => toJSX(childNode, node)).join('')
+    children = node.children.map(childNode => {
+      const childOptions = {
+        ...options,
+        // tell all children inside <pre> tags to preserve newlines as text nodes
+        preserveNewlines: preserveNewlines || node.tagName === 'pre',
+      }
+      return toJSX(childNode, node, childOptions)
+    }).join('')
   }
 
   if (node.type === 'element') {
@@ -68,11 +80,14 @@ function toJSX(node, parentNode = {}, options = {}) {
     }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
   }
 
-  // Wraps all text nodes except new lines inside template string, so that we don't run into escaping issues.
+  // Wraps text nodes inside template string, so that we don't run into escaping issues.
   if (node.type === 'text') {
-    return node.value === '\n'
-      ? node.value
-      : '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
+    // Don't wrap newlines unless specifically instructed to by the flag,
+    // to avoid issues like React warnings caused by text nodes in tables.
+    if (node.value === '\n' && !preserveNewlines) {
+      return node.value
+    }
+    return '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
   }
 
   if (node.type === 'import' || node.type === 'export' || node.type === 'jsx') {
