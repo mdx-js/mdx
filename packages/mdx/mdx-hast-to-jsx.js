@@ -36,7 +36,9 @@ function toJSX(node, parentNode = {}, options = {}) {
       '\n' +
       exportNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
-      (options.skipExport ? '' : 'export default ({components, ...props}) => ') +
+      (options.skipExport
+        ? ''
+        : 'export default ({components, ...props}) => ') +
       `<MDXTag name="wrapper" ${
         layout ? `Layout={${layout}} layoutProps={props}` : ''
       } components={components}>${jsxNodes

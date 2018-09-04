@@ -1,5 +1,5 @@
 const path = require('path')
-const index = require('../src');
+const index = require('../src')
 const MDXAsset = require('../src/MDXAsset')
 
 let value
