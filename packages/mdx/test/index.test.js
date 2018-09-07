@@ -122,6 +122,22 @@ test('Should await and render async plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
+test('Should process filepath and pass it to the plugins', async () => {
+  const result = await mdx(fixtureBlogPost, {
+    filepath: 'hello.mdx',
+    hastPlugins: [
+      options => (tree, fileInfo) => {
+        expect(fileInfo.path).toBe('hello.mdx')
+        const headingNode = select('h1', tree)
+        const textNode = headingNode.children[0]
+        textNode.value = textNode.value.toUpperCase()
+      }
+    ]
+  })
+
+  expect(result).toMatch(/HELLO, WORLD!/)
+})
+
 test(
   'Should parse and render footnotes',
   async () => {

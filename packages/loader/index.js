@@ -3,9 +3,9 @@ const mdx = require('@mdx-js/mdx')
 
 module.exports = async function(content) {
   const callback = this.async()
-  const options = getOptions(this)
+  const options = Object.assign({}, getOptions(this), {filepath: this.resourcePath});
 
-  const result = await mdx(content, options || {})
+  const result = await mdx(content, options)
 
   const code = `
   import React from 'react'

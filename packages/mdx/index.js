@@ -103,7 +103,12 @@ function sync(mdx, options) {
   const opts = Object.assign({}, DEFAULT_OPTIONS, options)
   const compiler = createCompiler(opts)
 
-  const { contents } = compiler.processSync(mdx)
+  const fileOpts = { contents: mdx };
+  if (opts.filepath) {
+    fileOpts.path = opts.filepath;
+  }
+
+  const { contents } = compiler.processSync(fileOpts)
 
   return contents
 }
@@ -112,7 +117,12 @@ async function compile(mdx, options = {}) {
   const opts = Object.assign({}, DEFAULT_OPTIONS, options)
   const compiler = createCompiler(opts)
 
-  const { contents } = await compiler.process(mdx)
+  const fileOpts = { contents: mdx };
+  if (opts.filepath) {
+    fileOpts.path = opts.filepath;
+  }
+
+  const { contents } = await compiler.process(fileOpts)
 
   return contents
 }
