@@ -21,16 +21,16 @@ module.exports = function mdxAstToMdxHast() {
         })
       },
       code(h, node) {
-        var value = node.value ? detab(node.value + '\n') : ''
-        var lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/)
-        var props = {}
+        const langRegex = /^[^ \t]+(?=[ \t]|$)/
+        const value = node.value ? detab(node.value + '\n') : ''
+        const lang = node.lang && node.lang.match(langRegex)
+        const props = {}
 
         if (lang) {
           props.className = ['language-' + lang]
         }
 
-        props.metaString =
-          node.lang && node.lang.replace(/^[^ \t]+(?=[ \t]|$)/, '').trim()
+        props.metaString = node.lang && node.lang.replace(langRegex, '').trim()
 
         const meta =
           props.metaString &&
@@ -45,8 +45,7 @@ module.exports = function mdxAstToMdxHast() {
             }
           }, {})
 
-        meta &&
-          Object.entries(meta).forEach(([key, value]) => (props[key] = value))
+        meta && Object.keys(meta).forEach(key => (props[key] = meta[key]))
 
         return h(node.position, 'pre', [
           h(node, 'code', props, [u('text', value)])
