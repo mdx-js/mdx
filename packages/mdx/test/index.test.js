@@ -56,14 +56,32 @@ it('Should render HTML inside inlineCode correctly', async () => {
 })
 
 it('Should preserve newlines in code blocks', async () => {
-  const result = await mdx(`
+  const result = await mdx(
+    `
 \`\`\`dockerfile
 # Add main script
 COPY start.sh /home/start.sh
 \`\`\`
-  `, { hastPlugins: [prism] })
+  `,
+    { hastPlugins: [prism] }
+  )
 
   expect(result).toContain('{`# Add main script`}</MDXTag>{`\n`}')
+})
+
+it('Should preserve infostring in code blocks', async () => {
+  const result = await mdx(
+    `
+\`\`\`dockerfile exec registry=something.com
+# Add main script
+COPY start.sh /home/start.sh
+\`\`\`
+  `
+  )
+
+  expect(result).toContain(
+    `props={{"className":"language-dockerfile","metaString":"exec registry=something.com","exec":true,"registry":"something.com"}}`
+  )
 })
 
 it('Should support comments', async () => {
