@@ -7,7 +7,7 @@ First, scaffold a new Gatsby 2.0 or greater site and install the `gatsby-mdx` pl
 ```shell
 gatsby new gatsby-site https://github.com/gatsbyjs/gatsby-starter-default#v2
 cd gatsby-site
-yarn add gatsby-mdx @mdx-js/mdx
+yarn add gatsby-mdx @mdx-js/mdx @mdx-js/tag
 ```
 
 Then add `gatsby-mdx` to your `gatsby-config.js` in the `plugins` section.
