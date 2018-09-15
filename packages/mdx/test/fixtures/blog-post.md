@@ -20,7 +20,6 @@ I'm an awesome paragraph.
   <Bar>hi</Bar>
     {hello}
     {/* another commment */}
-    <!-- one more comment -->
 </Foo>
 
 ```

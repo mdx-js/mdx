@@ -61,6 +61,11 @@ module.exports = function mdxAstToMdxHast() {
           type: 'export'
         })
       },
+      comment(h, node) {
+        return Object.assign({}, node, {
+          type: 'comment'
+        })
+      },
       jsx(h, node) {
         return Object.assign({}, node, {
           type: 'jsx'
