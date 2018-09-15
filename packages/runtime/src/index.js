@@ -13,7 +13,13 @@ export default ({ scope = {}, components = {}, children, ...props }) => {
 
   const jsx = mdx.sync(children, { skipExport: true }).trim()
 
-  const { code } = transform(jsx)
+  let code = null;
+
+  try {
+    code = transform(jsx).code
+  } catch(error) {
+    console.log(error);
+  }
 
   const keys = Object.keys(fullScope)
   const values = keys.map(key => fullScope[key])
