@@ -1,3 +1,6 @@
+const toStyleObject = require('to-style').object
+const { paramCase } = require('change-case')
+
 function toJSX(node, parentNode = {}, options = {}) {
   const {
     // default options
@@ -5,6 +8,20 @@ function toJSX(node, parentNode = {}, options = {}) {
     preserveNewlines = false,
   } = options
   let children = ''
+
+  if (node.properties != null) {
+    if (typeof node.properties.style === 'string') {
+      node.properties.style = toStyleObject(node.properties.style, { camelize: true })
+    }
+
+    // ariaProperty => aria-property
+    // dataProperty => data-property
+    const paramCaseRe = /^(aria[A-Z])|(data[A-Z])/
+    node.properties = Object.entries(node.properties).reduce((properties, [key, value]) => ({
+      ...properties,
+      [paramCaseRe.test(key) ? paramCase(key) : key]: value,
+    }), {})
+  }
 
   if (node.type === 'root') {
     const importNodes = []

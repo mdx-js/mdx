@@ -6,6 +6,8 @@ const path = require('path')
 const { select } = require('hast-util-select')
 const requestImageSize = require('request-image-size')
 const prism = require('@mapbox/rehype-prism')
+const math = require('remark-math')
+const katex = require('rehype-katex')
 
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
@@ -100,6 +102,31 @@ A paragraph
   expect(result).toContain('<!-- a code block Markdown comment -->')
   expect(result).toContain('{/* a nested JSX comment */}')
   expect(result).toContain('{/* a nested Markdown comment */}')
+})
+
+it('Should convert style strings to camelized objects', async () => {
+  const result = await mdx(`
+$$
+\\sum{1}
+$$
+  `, {
+    mdPlugins: [math],
+    hastPlugins: [katex],
+  })
+  expect(result).not.toContain('"style":"')
+  expect(result).toContain('"style":{')
+})
+
+it('Should convert data-* and aria-* properties to param-case', async () => {
+  const result = await mdx(`
+$$
+\\sum{1}
+$$
+  `, {
+    mdPlugins: [math],
+    hastPlugins: [katex],
+  })
+  expect(result).toContain('"aria-hidden":"true"')
 })
 
 it('Should not include export wrapper if skipExport is true', async () => {
