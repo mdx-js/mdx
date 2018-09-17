@@ -5,3 +5,4 @@ bundle.js
 .next
 *-error.log
 *-debug.log
+.vscode
