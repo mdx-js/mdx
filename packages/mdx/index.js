@@ -23,7 +23,7 @@ const DEFAULT_OPTIONS = {
 
 const tokenizeEsSyntax = (eat, value) => {
   const index = value.indexOf(EMPTY_NEWLINE)
-  const subvalue = value.slice(0, index)
+  const subvalue = index !== -1 ? value.slice(0, index) : value
 
   if (isExport(subvalue) || isImport(subvalue)) {
     return eat(subvalue)({
