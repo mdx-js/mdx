@@ -1,6 +1,6 @@
 {
   "name": "mdx",
-  "alias": "mdxjs.com",
+  "alias": ["mdxjs.com", "www.mdxjs.com"],
   "public": true,
   "type": "static"
 }
