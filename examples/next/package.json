@@ -7,13 +7,13 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^0.15.0-2",
-    "@mdx-js/mdx": "^0.15.0-2",
-    "@rebass/markdown": "^1.0.0-1",
-    "@zeit/next-mdx": "^1.1.0",
-    "next": "^6.1.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "@mdx-js/loader": "^0.15.3",
+    "@mdx-js/mdx": "^0.15.3",
+    "@rebass/markdown": "^1.0.0",
+    "@zeit/next-mdx": "^1.2.0",
+    "next": "^7.0.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "remark-emoji": "^2.0.1",
     "remark-images": "^0.8.1"
   }
