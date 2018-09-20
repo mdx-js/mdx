@@ -44,12 +44,6 @@ function toJSX(node, parentNode = {}, options = {}) {
         continue
       }
 
-      if (childNode.type === 'jsx') {
-        childNode.value = childNode.value
-          .replace('<!--', '{/*')
-          .replace('-->', '*/}')
-      }
-
       jsxNodes.push(childNode)
     }
 
@@ -105,6 +99,12 @@ function toJSX(node, parentNode = {}, options = {}) {
       return node.value
     }
     return '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
+  }
+
+  if (node.type === 'comment') {
+    return node.value
+      .replace('<!--', '{/*')
+      .replace('-->', '*/}')
   }
 
   if (node.type === 'import' || node.type === 'export' || node.type === 'jsx') {

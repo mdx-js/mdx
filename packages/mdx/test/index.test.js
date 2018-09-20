@@ -88,20 +88,39 @@ COPY start.sh /home/start.sh
 
 it('Should support comments', async () => {
   const result = await mdx(`
-A paragraph
 <!-- a Markdown comment -->
+A paragraph
+
+Some text <!-- an inline comment -->
+
 \`\`\`md
-<!-- a code block Markdown comment -->
+<!-- a code block string -->
 \`\`\`
+
 <div>
   {/* a nested JSX comment */}
-  <!-- a nested Markdown comment -->
+  <!-- div content -->
 </div>
+
+<!-- a comment above -->
+- list item
+<!-- a comment below -->
+
+--> should be as-is
+
+<MyComp content={\`
+  <!-- a template literal -->
+\`}
   `)
   expect(result).toContain('{/* a Markdown comment */}')
-  expect(result).toContain('<!-- a code block Markdown comment -->')
+  expect(result).toContain('{/* an inline comment */}')
+  expect(result).toContain('<!-- a code block string -->')
   expect(result).toContain('{/* a nested JSX comment */}')
-  expect(result).toContain('{/* a nested Markdown comment */}')
+  expect(result).toContain('<!-- div content -->')
+  expect(result).toContain('{/* a comment above */}')
+  expect(result).toContain('{/* a comment below */}')
+  expect(result).toContain('--> should be as-is')
+  expect(result).toContain('<!-- a template literal -->')
 })
 
 it('Should convert style strings to camelized objects', async () => {
