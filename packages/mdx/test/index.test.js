@@ -148,6 +148,15 @@ $$
   expect(result).toContain('"aria-hidden":"true"')
 })
 
+it('Should support multiline default export statement', async () => {
+  const result = await mdx(`export default ({ children }) => (
+  <Layout>
+    {children}
+  </Layout>
+)`)
+  expect(() => parse(result)).not.toThrow()
+})
+
 it('Should not include export wrapper if skipExport is true', async () => {
   const result = await mdx('> test\n\n> `test`', { skipExport: true })
 
