@@ -36,8 +36,44 @@ function toJSX(node, parentNode = {}, options = {}) {
 
       if (childNode.type === 'export') {
         if (childNode.default) {
-          layout = childNode.value.replace(/^export default /, '')
+          layout = childNode.value.replace(/^export\s+default\s+/, '')
           continue
+        }
+
+        if (
+          /\bdefault\b/.test(childNode.value) &&
+          !/default\s+as/.test(childNode.value)
+        ) {
+          let example
+
+          if (/\}\s*from\s+/.test(childNode.value)) {
+            example = `
+              For example, instead of:
+
+              export { default } from './Layout'
+
+              use:
+
+              import Layout from './Layout'
+              export default Layout
+            `.trim()
+          } else {
+            example = `
+              For example, instead of:
+
+              export { Layout as default }
+
+              use:
+
+              export default Layout
+            `.trim()
+          }
+
+          throw new Error(`
+            MDX doesn't support using "default" as a named export, use "export default" statement instead.
+
+            ${example}
+          `.trim().replace(/^ +/gm, ''))
         }
 
         exportNodes.push(childNode)

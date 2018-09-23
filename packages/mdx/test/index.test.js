@@ -157,6 +157,13 @@ it('Should support multiline default export statement', async () => {
   expect(() => parse(result)).not.toThrow()
 })
 
+it('Should throw when exporting default via named export', async () => {
+  await expect(mdx(`export { default } from './Layout'`)).rejects.toThrow()
+  await expect(mdx(`export { Layout as default }`)).rejects.toThrow()
+  await expect(mdx(`export { default as MyComp } from './MyComp'`)).resolves
+    .toContain(`export { default as MyComp } from './MyComp'`)
+})
+
 it('Should not include export wrapper if skipExport is true', async () => {
   const result = await mdx('> test\n\n> `test`', { skipExport: true })
 

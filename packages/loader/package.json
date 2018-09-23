@@ -19,7 +19,8 @@
     "loader"
   ],
   "dependencies": {
-    "@mdx-js/tag": "^0.15.0"
+    "@mdx-js/tag": "^0.15.0",
+    "loader-utils": "^1.1.0"
   },
   "devDependencies": {
     "@mdx-js/mdx": "^0.15.3",
