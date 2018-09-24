@@ -5,7 +5,7 @@ Remark plugin to turn image urls into rendered images.
 ## Installation
 
 ```
-npm i -s remark-images
+npm i -S remark-images
 ```
 
 ## Usage
