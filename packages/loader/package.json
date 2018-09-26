@@ -19,11 +19,11 @@
     "loader"
   ],
   "dependencies": {
+    "@mdx-js/mdx": "^0.15.4",
     "@mdx-js/tag": "^0.15.0",
     "loader-utils": "^1.1.0"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^0.15.4",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
