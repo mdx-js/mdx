@@ -4,6 +4,8 @@ import { Avatar } from 'rebass'
 
 MDX is based on the [original `.mdx` proposal](https://spectrum.chat/thread/1021be59-2738-4511-aceb-c66921050b9a) by Guillermo Rauch ([@rauchg](https://twitter.com/rauchg)).
 
+The source code for MDX is available on [GitHub](https://github.com/mdx-js/mdx).
+
 ## Design
 
 [Logo designs](https://github.com/mdx-js/design) were created by [Evil Rabbit](https://twitter.com/evilrabbit_) of [ZEIT](https://zeit.co).
