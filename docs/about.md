@@ -45,6 +45,7 @@ These projects define the syntax which MDX blends together (MD and JSX).
 - [markdown-in-js](https://github.com/threepointone/markdown-in-js)
 - [remark-jsx](https://github.com/fazouane-marouane/remark-jsx)
 - [remark-react](https://github.com/mapbox/remark-react)
+- [eslint-plugin-mdx](https://github.com/azz/eslint-plugin-mdx)
 
 ### Other
 
