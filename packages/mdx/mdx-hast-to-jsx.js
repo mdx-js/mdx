@@ -17,10 +17,11 @@ function toJSX(node, parentNode = {}, options = {}) {
     // ariaProperty => aria-property
     // dataProperty => data-property
     const paramCaseRe = /^(aria[A-Z])|(data[A-Z])/
-    node.properties = Object.entries(node.properties).reduce((properties, [key, value]) => ({
-      ...properties,
-      [paramCaseRe.test(key) ? paramCase(key) : key]: value,
-    }), {})
+    node.properties = Object.entries(node.properties).reduce((properties, [key, value]) => Object.assign(
+      {},
+      properties,
+      { [paramCaseRe.test(key) ? paramCase(key) : key]: value },
+    ), {})
   }
 
   if (node.type === 'root') {
@@ -102,11 +103,10 @@ function toJSX(node, parentNode = {}, options = {}) {
   // recursively walk through children
   if (node.children) {
     children = node.children.map(childNode => {
-      const childOptions = {
-        ...options,
+      const childOptions = Object.assign({}, options, {
         // tell all children inside <pre> tags to preserve newlines as text nodes
         preserveNewlines: preserveNewlines || node.tagName === 'pre',
-      }
+      })
       return toJSX(childNode, node, childOptions)
     }).join('')
   }
