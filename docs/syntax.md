@@ -59,6 +59,38 @@ import Contributing from './docs/contributing.md'
 <Contributing />
 ```
 
+#### Nesting MDX
+
+In certain cases you might want to nest MDX directly in a JSX component, without having to create a separate file:
+
+```jsx
+import Card from './components/Card'
+
+# Hello, world!
+
+<Card>
+
+## This is also MDX!
+
+This will be _nested_ inside the `<Card>` component.
+
+</Card>
+```
+
+The key is to separate the nested MDX with an extra newline, otherwise it will be rendered as plain text:
+
+```jsx
+import Card from './components/Card'
+
+# Hello, world!
+
+<Card>
+This is just plain text, so **this** won't work.
+</Card>
+```
+
+We're open to suggestions for a better API for nested MDX.
+
 ### Exports
 
 You can use exports to export metadata like layout or authors.
