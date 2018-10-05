@@ -65,7 +65,7 @@ npm init mdx
 
 - [Documentation](https://mdxjs.com)
   - [Syntax](https://mdxjs.com/syntax)
-  - [Getting Started](https://mdxjs.com/getting-started)
+  - [Getting Started](https://mdxjs.com/getting-started/)
   - [Plugins](https://mdxjs.com/plugins)
   - [Contributing](https://mdxjs.com/advanced/contributing)
 
