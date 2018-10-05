@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should support nested MDX 1`] = `
+"export default ({ components, ...props }) => (
+  <MDXTag name=\\"wrapper\\" components={components}>
+    <div>
+      <MDXTag name=\\"h2\\" components={components}>{\`Nested Heading\`}</MDXTag>
+      <div attr=\\"value\\">
+        <MDXTag
+          name=\\"h2\\"
+          components={components}
+        >{\`Nested Nested Heading\`}</MDXTag>
+      </div>
+      <div>## Plain text</div>
+    </div>
+    <div />
+    <MDXTag name=\\"p\\" components={components}>
+      {\`Dolor \`}
+      <MDXTag
+        name=\\"strong\\"
+        components={components}
+        parentName=\\"p\\"
+      >{\`sit\`}</MDXTag>
+      {\` amet.
+\`}
+    </MDXTag>
+  </MDXTag>
+);
+"
+`;

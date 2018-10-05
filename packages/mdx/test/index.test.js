@@ -8,6 +8,7 @@ const requestImageSize = require('request-image-size')
 const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
+const prettier = require('prettier')
 
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
@@ -84,6 +85,34 @@ COPY start.sh /home/start.sh
   expect(result).toContain(
     `props={{"className":"language-dockerfile","metaString":"exec registry=something.com","exec":true,"registry":"something.com"}}`
   )
+})
+
+it('Should support nested MDX', async () => {
+  const result = await mdx(`
+<div>
+
+## Nested Heading
+
+<div attr="value">
+
+## Nested Nested Heading
+
+</div>
+
+<div>
+## Plain text
+</div>
+
+</div>
+
+<div />
+
+Dolor **sit** amet.
+  `);
+
+  const formattedResult = prettier.format(result, { parser: 'babylon' })
+
+  expect(formattedResult).toMatchSnapshot()
 })
 
 it('Should support comments', async () => {
