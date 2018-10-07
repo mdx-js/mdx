@@ -51,4 +51,4 @@ const testFixture = (fixture, options = {}) => {
 
 test('it loads markdown and returns a component', async () => {
   await testFixture('fixture.md')
-})
+}, 10000)
