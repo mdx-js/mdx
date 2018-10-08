@@ -3,7 +3,7 @@ import { transform } from 'buble'
 import mdx from '@mdx-js/mdx'
 import { MDXTag } from '@mdx-js/tag'
 
-export default ({ scope = {}, components = {}, children, ...props }) => {
+export default ({ scope = {}, components = {}, mdPlugins = [], hastPlugins = [], children, ...props }) => {
   const fullScope = {
     MDXTag,
     components,
@@ -11,7 +11,11 @@ export default ({ scope = {}, components = {}, children, ...props }) => {
     ...scope
   }
 
-  const jsx = mdx.sync(children, { skipExport: true }).trim()
+  const jsx = mdx.sync(children, {
+    mdPlugins,
+    hastPlugins,
+    skipExport: true,
+  }).trim()
 
   const { code } = transform(jsx)
 

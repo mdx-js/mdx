@@ -1,6 +1,9 @@
 import React from 'react'
 import { renderToString as render } from 'react-dom/server'
 import { MDXProvider } from '@mdx-js/tag'
+import slug from 'remark-slug'
+import autolinkHeadings from 'remark-autolink-headings'
+import addClasses from 'rehype-add-classes'
 
 import MDX from '../src'
 
@@ -50,4 +53,19 @@ describe('renders MDX with the proper components', () => {
     expect(result).toMatch(/Foobarbaz/)
     expect(result).toMatch(/id="layout"/)
   })
+})
+
+it('supports remark and rehype plugins', () => {
+  const result = render(
+    <MDX
+      mdPlugins={[slug, autolinkHeadings]}
+      hastPlugins={[[addClasses, { h1: 'title' }]]}
+      components={components}
+      scope={scope}
+      children={mdx}
+    />
+  )
+
+  expect(result).toContain(`id="hello-world"`)
+  expect(result).toContain('class="title"')
 })
