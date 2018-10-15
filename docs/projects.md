@@ -4,6 +4,7 @@
 - [docz][]: Documentation framework
 - [mdx-deck][]: MDX-based presentation decks
 - [mdx-docs][]: Next-based documentation framework
+- [spectacle-boilerplate-mdx][]: Boilerplate that facilitates using MDX with Spectacle
 
 ## Sites using MDX
 
@@ -21,3 +22,4 @@
 [zeit-docs]: https://github.com/zeit/docs
 [compositor]: https://compositor.io
 [awesome-mdx]: https://github.com/transitive-bullshit/awesome-mdx
+[spectacle-boilerplate-mdx]: https://github.com/FormidableLabs/spectacle-boilerplate-mdx
