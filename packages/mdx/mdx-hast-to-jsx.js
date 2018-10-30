@@ -37,7 +37,9 @@ function toJSX(node, parentNode = {}, options = {}) {
 
       if (childNode.type === 'export') {
         if (childNode.default) {
-          layout = childNode.value.replace(/^export\s+default\s+/, '')
+          layout = childNode.value
+            .replace(/^export\s+default\s+/, '')
+            .replace(/;\s*$/, '')
           continue
         }
 
