@@ -1,6 +1,6 @@
 {
   "name": "remark-images",
-  "version": "0.8.1",
+  "version": "0.15.6",
   "license": "MIT",
   "repository": "mdx-js/mdx",
   "description": "Improved syntax for images in markdown",
