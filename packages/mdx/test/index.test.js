@@ -82,7 +82,7 @@ COPY start.sh /home/start.sh
   )
 
   expect(result).toContain(
-    `props={{"className":"language-dockerfile","exec":true,"registry":"something.com"}}`
+    `props={{"className":"language-dockerfile","metastring":"exec registry=something.com","exec":true,"registry":"something.com"}}`
   )
 })
 
