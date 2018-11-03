@@ -30,11 +30,11 @@ module.exports = function mdxAstToMdxHast() {
           props.className = ['language-' + lang]
         }
         
-        const metaString = node.lang && node.lang.replace(langRegex, '').trim()
+        props.metastring = node.lang && node.lang.replace(langRegex, '').trim()
 
         const meta =
-          metaString &&
-          metaString.split(' ').reduce((acc, cur) => {
+          props.metastring &&
+          props.metastring.split(' ').reduce((acc, cur) => {
             if (cur.split('=').length > 1) {
               const t = cur.split('=')
               acc[t[0]] = t[1]
