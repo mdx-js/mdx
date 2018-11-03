@@ -10827,6 +10827,14 @@ remark-emoji@^2.0.1:
     node-emoji "^1.4.1"
     unist-util-visit "^1.1.0"
 
+remark-images@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/remark-images/-/remark-images-0.8.1.tgz#9c5ebd2f5973c95d21ee342f078e68876cbab580"
+  integrity sha512-1NpiFnIQ7WQIeL+1ofFdrP7NYW+jOShXbjqwertfZMDzFrTrWqY6PmMSWl3imGqPF2AWyMOPkxObe6botEb5Cg==
+  dependencies:
+    is-url "^1.2.2"
+    unist-util-visit "^1.3.0"
+
 remark-math@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-1.0.4.tgz#ced46473075ff99e4678a154a1a3d0dde403a9f2"
