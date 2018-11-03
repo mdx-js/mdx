@@ -23,6 +23,7 @@
   ],
   "dependencies": {
     "change-case": "^3.0.2",
+    "detab": "^2.0.0",
     "mdast-util-to-hast": "^3.0.0",
     "remark-parse": "^5.0.0",
     "remark-squeeze-paragraphs": "^3.0.1",
