@@ -124,27 +124,33 @@ Some text <!-- an inline comment -->
 })
 
 it('Should convert style strings to camelized objects', async () => {
-  const result = await mdx(`
+  const result = await mdx(
+    `
 $$
 \\sum{1}
 $$
-  `, {
-    mdPlugins: [math],
-    hastPlugins: [katex],
-  })
+  `,
+    {
+      mdPlugins: [math],
+      hastPlugins: [katex]
+    }
+  )
   expect(result).not.toContain('"style":"')
   expect(result).toContain('"style":{')
 })
 
 it('Should convert data-* and aria-* properties to param-case', async () => {
-  const result = await mdx(`
+  const result = await mdx(
+    `
 $$
 \\sum{1}
 $$
-  `, {
-    mdPlugins: [math],
-    hastPlugins: [katex],
-  })
+  `,
+    {
+      mdPlugins: [math],
+      hastPlugins: [katex]
+    }
+  )
   expect(result).toContain('"aria-hidden":"true"')
 })
 
@@ -165,8 +171,9 @@ it('Should support semicolons in default export statement', async () => {
 it('Should throw when exporting default via named export', async () => {
   await expect(mdx(`export { default } from './Layout'`)).rejects.toThrow()
   await expect(mdx(`export { Layout as default }`)).rejects.toThrow()
-  await expect(mdx(`export { default as MyComp } from './MyComp'`)).resolves
-    .toContain(`export { default as MyComp } from './MyComp'`)
+  await expect(
+    mdx(`export { default as MyComp } from './MyComp'`)
+  ).resolves.toContain(`export { default as MyComp } from './MyComp'`)
 })
 
 it('Should not include export wrapper if skipExport is true', async () => {

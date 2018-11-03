@@ -8,6 +8,9 @@ before_script:
   # https://github.com/lerna/lerna/issues/1457#issuecomment-399678173
   - yarn lerna exec yarn install
   - yarn lerna link --force-local
+script:
+  - yarn eslint .
+  - yarn test
 cache:
   yarn: true
   directories:

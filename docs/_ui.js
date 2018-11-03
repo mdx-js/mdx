@@ -11,28 +11,10 @@ export const LiveEditor = props => {
 
   switch (type) {
     case '.':
-      return (
-        <Editor
-          mdx={lang === '.mdx'}
-          code={code}
-        />
-      )
+      return <Editor mdx={lang === '.mdx'} code={code} />
     case '!':
-      return (
-        <LivePreview
-          mdx={lang === '!mdx'}
-          code={code}
-        />
-      )
+      return <LivePreview mdx={lang === '!mdx'} code={code} />
     default:
-      return (
-        <Pre
-          p={3}
-          mt={4}
-          mb={4}
-          bg='gray'
-          children={props.children}
-        />
-      )
+      return <Pre p={3} mt={4} mb={4} bg="gray" children={props.children} />
   }
 }

@@ -5,8 +5,7 @@
     "docs": "x0 docs",
     "docs:build": "x0 build docs",
     "docs:deploy": "npm run docs:build && now dist --public && now alias",
-    "test": "lerna run test",
-    "format": "prettier --no-semi --single-quote --write '{examples,packages}/**/*.js'"
+    "test": "lerna run test"
   },
   "repository": "mdx-js/mdx",
   "license": "MIT",
@@ -15,12 +14,32 @@
   ],
   "devDependencies": {
     "@compositor/x0": "^6.0.6-0",
+    "eslint": "^5.8.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.1.3",
     "lerna": "^3.4.0",
+    "lint-staged": "^8.0.4",
     "prettier": "^1.14.2"
   },
   "dependencies": {
     "@rebass/mdx": "^1.0.0-1",
     "styled-components": "^3.3.3"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ]
   },
   "x0": {
     "title": "MDX"

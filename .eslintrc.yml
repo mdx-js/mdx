@@ -1,0 +1,32 @@
+root: true
+
+parserOptions:
+  ecmaVersion: 9
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+
+env:
+  es6: true
+  node: true
+
+plugins:
+  - prettier
+  - import
+
+extends:
+  - plugin:import/errors
+  - prettier
+
+rules:
+  import/no-extraneous-dependencies: error
+  prettier/prettier: error
+
+overrides:
+  -
+    files:
+      - docs/**/*.js
+      - examples/**/*.js
+    rules:
+      import/no-unresolved: off
+      import/no-extraneous-dependencies: off
