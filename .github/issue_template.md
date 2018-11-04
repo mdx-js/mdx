@@ -16,7 +16,7 @@ Tell us how to reproduce this issue.  Please provide a working and simplified ex
 
 ### Expected behaviour
 
-Describe what should happen
+What should happen?
 
 ### Actual behaviour
 
