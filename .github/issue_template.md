@@ -6,7 +6,7 @@ Describe your issue here.  Remember, this is _not_ a place to ask questions.  Fo
 
 *   Name and version of operating system
 *   Names and version of required packages
-*   Version of node and npm, or names and versions of browser
+*   Version of node, npm, yarn, or names and versions of browser
 
 ### Steps to reproduce
 
