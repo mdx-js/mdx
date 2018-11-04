@@ -1,11 +1,11 @@
 # Contributing
 
 Hi!  👋
-We're excited that you’re interested in contributing!
+We’re excited that you’re interested in contributing!
 Take a moment to read the following guidelines.
 And thanks for contributing to **mdx**!  👏👌✨
 
-If you're raising an issue, please understand that people involved with this project often do so for fun,
+If you’re raising an issue, please understand that people involved with this project often do so for fun,
 next to their day job; you are not entitled to free customer service.
 
 ## Table of Contents
@@ -14,7 +14,7 @@ next to their day job; you are not entitled to free customer service.
 *   [Contributions](#contributions)
     *   [Improve documentation](#improve-documentation)
     *   [Improve issues](#improve-issues)
-    *   [Give feedback on issues](#give-feedback-on-issues)
+    *   [Give feedback on issues and pull requests](#give-feedback-on-issues-and-pull-requests)
     *   [Write code](#write-code)
 *   [Submitting an issue](#submitting-an-issue)
 *   [Submitting a pull request](#submitting-a-pull-request)
