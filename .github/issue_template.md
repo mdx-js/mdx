@@ -20,4 +20,4 @@ What should happen?
 
 ### Actual behaviour
 
-Describe what happens instead
+What happens instead?
