@@ -5,7 +5,7 @@ We're excited that you’re interested in contributing!
 Take a moment to read the following guidelines.
 And thanks for contributing to **mdx**!  👏👌✨
 
-Before anything else: people involved with this project often do so for fun,
+If you're raising an issue, please understand that people involved with this project often do so for fun,
 next to their day job; you are not entitled to free customer service.
 
 ## Table of Contents
