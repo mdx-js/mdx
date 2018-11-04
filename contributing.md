@@ -40,7 +40,7 @@ Anything!
 Some issues lack information, aren’t reproducible, or are just incorrect.
 Help make them easier to resolve.
 
-### Give feedback on issues
+### Give feedback on issues and pull requests
 
 We’re always looking for more opinions on discussions in the issue tracker.
 
