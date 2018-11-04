@@ -70,7 +70,7 @@ prevent you from doing unnecessary work.
     community for feedback as soon as possible
 *   New features should be accompanied with tests and documentation
 *   Don’t include unrelated changes
-*   Lint and test before submitting code by running `$ npm test`
+*   Test before submitting code by running `yarn test`
 *   Write a convincing description of why we should land your pull request:
     it’s your job to convince us
 
