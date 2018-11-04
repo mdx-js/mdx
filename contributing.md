@@ -55,7 +55,7 @@ prevent you from doing unnecessary work.
 *   The issue tracker is for issues.  Use chat for support
 *   Search the issue tracker (including closed issues) before opening a new
     issue
-*   Ensure you’re using the latest version of projects
+*   Ensure you’re using the latest version of our packages
 *   Use a clear and descriptive title
 *   Include as much information as possible: steps to reproduce the issue,
     error message, version, operating system, etcetera
