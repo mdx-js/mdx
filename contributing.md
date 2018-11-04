@@ -59,7 +59,7 @@ prevent you from doing unnecessary work.
 *   Use a clear and descriptive title
 *   Include as much information as possible: steps to reproduce the issue,
     error message, version, operating system, etcetera
-*   The more time you put into an issue, the more we will
+*   The more time you put into an issue, the better we will be able to help you
 *   The best issue report is a [failing test][unit-test] proving it
 
 ## Submitting a pull request
