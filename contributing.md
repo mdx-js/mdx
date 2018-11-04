@@ -1,7 +1,7 @@
 # Contributing
 
 Hi!  👋
-Exciting that you’re interested in contributing!
+We're excited that you’re interested in contributing!
 Take a moment to read the following guidelines.
 And thanks for contributing to **mdx**!  👏👌✨
 
