@@ -1,8 +1,6 @@
 import React from 'react'
-import createReactContext from 'create-react-context'
-import PropTypes from 'prop-types'
 
-const { Provider, Consumer } = createReactContext({})
+const { Provider, Consumer } = React.createContext({})
 
 export const withMDXComponents = Component => ({ components, ...props }) => (
   <Consumer>
@@ -15,10 +13,5 @@ export const withMDXComponents = Component => ({ components, ...props }) => (
 const MDXProvider = ({ components, children }) => (
   <Provider value={components}>{children}</Provider>
 )
-
-MDXProvider.propTypes = {
-  components: PropTypes.object.isRequired,
-  children: PropTypes.element.isRequired
-}
 
 export default MDXProvider
