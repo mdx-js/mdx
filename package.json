@@ -6,7 +6,8 @@
     "docs:build": "x0 build docs",
     "docs:deploy": "npm run docs:build && now dist --public && now alias",
     "test": "lerna run test",
-    "format": "prettier --no-semi --single-quote --write '{examples,packages}/**/*.js'"
+    "format": "prettier --no-semi --single-quote --write '{examples,packages}/**/*.js'",
+    "publish": "lerna publish"
   },
   "repository": "mdx-js/mdx",
   "license": "MIT",
