@@ -7,8 +7,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^0.15.3",
-    "@mdx-js/mdx": "^0.15.3",
+    "@mdx-js/loader": "^0.16.0",
+    "@mdx-js/mdx": "^0.16.0",
     "@rebass/markdown": "^1.0.0",
     "@zeit/next-mdx": "^1.2.0",
     "next": "^7.0.0",

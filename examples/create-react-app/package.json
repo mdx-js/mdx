@@ -2,8 +2,8 @@
   "private": true,
   "name": "mdx-create-react-app",
   "dependencies": {
-    "@mdx-js/loader": "^0.15.3",
-    "@mdx-js/mdx": "^0.15.3",
+    "@mdx-js/loader": "^0.16.0",
+    "@mdx-js/mdx": "^0.16.0",
     "@rebass/markdown": "^1.0.0",
     "react": "^16.5.2",
     "react-app-rewired": "^1.6.2",
