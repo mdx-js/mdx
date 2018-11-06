@@ -5,7 +5,7 @@
     "start": "parcel index.html --no-cache"
   },
   "dependencies": {
-    "@mdx-js/tag": "^0.14.1-0",
+    "@mdx-js/tag": "^0.16.0",
     "@rebass/markdown": "^1.0.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -13,7 +13,7 @@
     "styled-components": "^3.4.9"
   },
   "devDependencies": {
-    "@mdx-js/parcel-plugin-mdx": "^0.15.0-2",
+    "@mdx-js/parcel-plugin-mdx": "^0.16.0",
     "babel-core": "^6.26.3",
     "babel-preset-react-app": "^3.1.2",
     "parcel-bundler": "^1.10.0"
