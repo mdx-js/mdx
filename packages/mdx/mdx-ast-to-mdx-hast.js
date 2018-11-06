@@ -29,7 +29,7 @@ module.exports = function mdxAstToMdxHast() {
         if (lang) {
           props.className = ['language-' + lang]
         }
-        
+
         props.metastring = node.lang && node.lang.replace(langRegex, '').trim()
 
         const meta =
