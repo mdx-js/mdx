@@ -40,8 +40,7 @@
     "hast-util-select": "^1.0.1",
     "jest": "^22.4.3",
     "rehype-katex": "^1.1.1",
-    "remark-math": "^1.0.4",
-    "request-image-size": "^2.1.0"
+    "remark-math": "^1.0.4"
   },
   "jest": {
     "testEnvironment": "node"
