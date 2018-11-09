@@ -11,11 +11,12 @@ env:
   node: true
 
 plugins:
-  - prettier
   - import
+  - prettier
 
 extends:
   - plugin:import/errors
+  - xo
   - prettier
 
 rules:

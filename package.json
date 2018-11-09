@@ -17,6 +17,7 @@
     "@compositor/x0": "^6.0.6-0",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.1.0",
+    "eslint-config-xo": "^0.25.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.1.3",
@@ -29,8 +30,12 @@
     "styled-components": "^3.3.3"
   },
   "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "bracketSpacing": false,
     "semi": false,
-    "singleQuote": true
+    "trailingComma": "none"
   },
   "husky": {
     "hooks": {
