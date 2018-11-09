@@ -1,7 +1,7 @@
 import React from 'react'
-import { transform } from 'buble'
+import {transform} from 'buble'
 import mdx from '@mdx-js/mdx'
-import { MDXTag } from '@mdx-js/tag'
+import {MDXTag} from '@mdx-js/tag'
 
 export default ({
   scope = {},
@@ -26,10 +26,11 @@ export default ({
     })
     .trim()
 
-  const { code } = transform(jsx)
+  const {code} = transform(jsx)
 
   const keys = Object.keys(fullScope)
   const values = keys.map(key => fullScope[key])
+  // eslint-disable-next-line no-new-func
   const fn = new Function('_fn', 'React', ...keys, `return ${code}`)
 
   return fn({}, React, ...values)

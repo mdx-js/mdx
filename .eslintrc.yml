@@ -20,14 +20,29 @@ extends:
   - prettier
 
 rules:
+  eqeqeq: off
+  no-eq-null: off
+  no-negated-condition: off
+  no-unused-vars: off
   import/no-extraneous-dependencies: error
   prettier/prettier: error
 
 overrides:
   -
     files:
-      - docs/**/*.js
-      - examples/**/*.js
+      - "**/test/**/*.js"
+      - "**/*.test.js"
+    env:
+      jest: true
+  -
+    files:
+      - "examples/**/*.js"
+    env:
+      browser: true
+  -
+    files:
+      - "docs/**/*.js"
+      - "examples/**/*.js"
     rules:
       import/no-unresolved: off
       import/no-extraneous-dependencies: off

@@ -9,11 +9,11 @@ const isExportDefault = text => EXPORT_DEFAULT_REGEX.test(text)
 const restringify = node => {
   if (node.type === 'link') {
     return node.url
-  } else if (node.type === 'linkReference') {
-    return `[${node.children.map(n => n.value)}]`
-  } else {
-    return node.value
   }
+  if (node.type === 'linkReference') {
+    return `[${node.children.map(n => n.value)}]`
+  }
+  return node.value
 }
 
 const modules = tree => {
@@ -24,7 +24,7 @@ const modules = tree => {
     }
 
     // Get the text from the text node
-    const { value } = node.children[0] || ''
+    const {value} = node.children[0] || ''
 
     // Sets type to `export` in the AST if it's an export
     if (isExport(value)) {
@@ -53,8 +53,11 @@ const modules = tree => {
   })
 }
 
-// turns `html` nodes into `jsx` nodes
-const jsx = tree => visit(tree, 'html', node => (node.type = 'jsx'))
+// Turns `html` nodes into `jsx` nodes
+const jsx = tree =>
+  visit(tree, 'html', node => {
+    node.type = 'jsx'
+  })
 
 module.exports = options => tree => {
   modules(tree)

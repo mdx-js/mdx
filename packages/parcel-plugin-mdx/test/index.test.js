@@ -6,8 +6,8 @@ let value
 
 describe('index', () => {
   it('should add asset types', () => {
-    const bundler = { addAssetType: jest.fn() }
-    const { calls } = bundler.addAssetType.mock
+    const bundler = {addAssetType: jest.fn()}
+    const {calls} = bundler.addAssetType.mock
     const mdxAssetPath = require.resolve('../src/MDXAsset')
 
     index(bundler)
@@ -20,14 +20,14 @@ describe('index', () => {
   })
 })
 
-describe('MDXAsset', async () => {
+describe('MDXAsset', () => {
   beforeEach(async () => {
     const asset = new MDXAsset(path.resolve(__dirname, './Markdown.mdx'), {
       rootDir: __dirname
     })
 
     const processed = await asset.process()
-    const jsx = processed.find(({ type }) => type === 'js')
+    const jsx = processed.find(({type}) => type === 'js')
     value = jsx.value
   })
 

@@ -3,14 +3,14 @@ import RebassMDX from '@rebass/mdx'
 import createScope from '@rebass/markdown'
 import * as Rebass from 'rebass'
 import sortBy from 'lodash.sortby'
-import { SidebarLayout, ScopeProvider } from '@compositor/x0/components'
-import { LiveEditor, Logo } from './_ui'
+import {SidebarLayout, ScopeProvider} from '@compositor/x0/components'
+import {LiveEditor, Logo} from './_ui'
 
 const scope = {
   ...createScope(),
   ...Rebass,
   code: LiveEditor,
-  pre: ({ children }) => children
+  pre: ({children}) => children
 }
 
 /* eslint-disable prettier/prettier */
@@ -69,7 +69,7 @@ const sortRoutes = routes =>
 
 export default class App extends React.Component {
   render() {
-    const { routes } = this.props
+    const {routes} = this.props
     const nav = sortRoutes(routes)
 
     return (

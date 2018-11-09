@@ -1,9 +1,10 @@
 const toStyleObject = require('to-style').object
-const { paramCase } = require('change-case')
+const {paramCase} = require('change-case')
 
+// eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
   const {
-    // default options
+    // Default options
     skipExport = false,
     preserveNewlines = false
   } = options
@@ -16,7 +17,7 @@ function toJSX(node, parentNode = {}, options = {}) {
       })
     }
 
-    // ariaProperty => aria-property
+    // AriaProperty => aria-property
     // dataProperty => data-property
     const paramCaseRe = /^(aria[A-Z])|(data[A-Z])/
     node.properties = Object.entries(node.properties).reduce(
@@ -53,6 +54,7 @@ function toJSX(node, parentNode = {}, options = {}) {
         ) {
           let example
 
+          // eslint-disable-next-line max-depth
           if (/\}\s*from\s+/.test(childNode.value)) {
             example = `
               For example, instead of:
@@ -108,12 +110,12 @@ function toJSX(node, parentNode = {}, options = {}) {
     )
   }
 
-  // recursively walk through children
+  // Recursively walk through children
   if (node.children) {
     children = node.children
       .map(childNode => {
         const childOptions = Object.assign({}, options, {
-          // tell all children inside <pre> tags to preserve newlines as text nodes
+          // Tell all children inside <pre> tags to preserve newlines as text nodes
           preserveNewlines: preserveNewlines || node.tagName === 'pre'
         })
         return toJSX(childNode, node, childOptions)

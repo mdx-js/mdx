@@ -1,4 +1,4 @@
-const { getOptions } = require('loader-utils')
+const {getOptions} = require('loader-utils')
 const mdx = require('@mdx-js/mdx')
 
 module.exports = async function(content) {

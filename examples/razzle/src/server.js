@@ -1,7 +1,7 @@
 import App from './App'
 import React from 'react'
 import express from 'express'
-import { renderToString } from 'react-dom/server'
+import {renderToString} from 'react-dom/server'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 

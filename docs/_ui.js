@@ -1,11 +1,11 @@
 import React from 'react'
-import { Pre, Box, Border } from 'rebass'
-import { LiveEditor as Editor, LivePreview } from '@compositor/x0/components'
+import {Pre, Box, Border} from 'rebass'
+import {LiveEditor as Editor, LivePreview} from '@compositor/x0/components'
 
 export const Logo = () => <img src="https://mdx-logo.now.sh" width="70" />
 
 export const LiveEditor = props => {
-  const lang = (props.className || '').replace(/^language\-/, '')
+  const lang = (props.className || '').replace(/^language-/, '')
   const type = lang.charAt(0)
   const code = React.Children.toArray(props.children).join('\n')
 
