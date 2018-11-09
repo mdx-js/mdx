@@ -6,6 +6,7 @@
     "docs:build": "x0 build docs",
     "docs:deploy": "npm run docs:build && now dist --public && now alias",
     "test": "lerna run test",
+    "format": "eslint . --fix",
     "publish": "lerna publish"
   },
   "repository": "mdx-js/mdx",
