@@ -9,7 +9,6 @@ before_script:
   - yarn lerna exec yarn install
   - yarn lerna link --force-local
 script:
-  - yarn eslint .
   - yarn test
 cache:
   yarn: true
