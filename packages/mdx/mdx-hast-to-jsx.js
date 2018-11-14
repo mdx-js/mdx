@@ -1,27 +1,32 @@
 const toStyleObject = require('to-style').object
-const { paramCase } = require('change-case')
+const {paramCase} = require('change-case')
 
+// eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
   const {
-    // default options
+    // Default options
     skipExport = false,
-    preserveNewlines = false,
+    preserveNewlines = false
   } = options
   let children = ''
 
   if (node.properties != null) {
     if (typeof node.properties.style === 'string') {
-      node.properties.style = toStyleObject(node.properties.style, { camelize: true })
+      node.properties.style = toStyleObject(node.properties.style, {
+        camelize: true
+      })
     }
 
-    // ariaProperty => aria-property
+    // AriaProperty => aria-property
     // dataProperty => data-property
     const paramCaseRe = /^(aria[A-Z])|(data[A-Z])/
-    node.properties = Object.entries(node.properties).reduce((properties, [key, value]) => Object.assign(
-      {},
-      properties,
-      { [paramCaseRe.test(key) ? paramCase(key) : key]: value },
-    ), {})
+    node.properties = Object.entries(node.properties).reduce(
+      (properties, [key, value]) =>
+        Object.assign({}, properties, {
+          [paramCaseRe.test(key) ? paramCase(key) : key]: value
+        }),
+      {}
+    )
   }
 
   if (node.type === 'root') {
@@ -49,6 +54,7 @@ function toJSX(node, parentNode = {}, options = {}) {
         ) {
           let example
 
+          // eslint-disable-next-line max-depth
           if (/\}\s*from\s+/.test(childNode.value)) {
             example = `
               For example, instead of:
@@ -72,11 +78,15 @@ function toJSX(node, parentNode = {}, options = {}) {
             `.trim()
           }
 
-          throw new Error(`
+          throw new Error(
+            `
             MDX doesn't support using "default" as a named export, use "export default" statement instead.
 
             ${example}
-          `.trim().replace(/^ +/gm, ''))
+          `
+              .trim()
+              .replace(/^ +/gm, '')
+          )
         }
 
         exportNodes.push(childNode)
@@ -91,9 +101,7 @@ function toJSX(node, parentNode = {}, options = {}) {
       '\n' +
       exportNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
-      (skipExport
-        ? ''
-        : 'export default ({components, ...props}) => ') +
+      (skipExport ? '' : 'export default ({components, ...props}) => ') +
       `<MDXTag name="wrapper" ${
         layout ? `Layout={${layout}} layoutProps={props}` : ''
       } components={components}>${jsxNodes
@@ -102,15 +110,17 @@ function toJSX(node, parentNode = {}, options = {}) {
     )
   }
 
-  // recursively walk through children
+  // Recursively walk through children
   if (node.children) {
-    children = node.children.map(childNode => {
-      const childOptions = Object.assign({}, options, {
-        // tell all children inside <pre> tags to preserve newlines as text nodes
-        preserveNewlines: preserveNewlines || node.tagName === 'pre',
+    children = node.children
+      .map(childNode => {
+        const childOptions = Object.assign({}, options, {
+          // Tell all children inside <pre> tags to preserve newlines as text nodes
+          preserveNewlines: preserveNewlines || node.tagName === 'pre'
+        })
+        return toJSX(childNode, node, childOptions)
       })
-      return toJSX(childNode, node, childOptions)
-    }).join('')
+      .join('')
   }
 
   if (node.type === 'element') {
@@ -140,9 +150,7 @@ function toJSX(node, parentNode = {}, options = {}) {
   }
 
   if (node.type === 'comment') {
-    return node.value
-      .replace('<!--', '{/*')
-      .replace('-->', '*/}')
+    return node.value.replace('<!--', '{/*').replace('-->', '*/}')
   }
 
   if (node.type === 'import' || node.type === 'export' || node.type === 'jsx') {

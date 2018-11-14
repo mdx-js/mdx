@@ -1,0 +1,48 @@
+root: true
+
+parserOptions:
+  ecmaVersion: 9
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+
+env:
+  es6: true
+  node: true
+
+plugins:
+  - import
+  - prettier
+
+extends:
+  - plugin:import/errors
+  - xo
+  - prettier
+
+rules:
+  eqeqeq: off
+  no-eq-null: off
+  no-negated-condition: off
+  no-unused-vars: off
+  import/no-extraneous-dependencies: error
+  prettier/prettier: error
+
+overrides:
+  -
+    files:
+      - "**/test/**/*.js"
+      - "**/*.test.js"
+    env:
+      jest: true
+  -
+    files:
+      - "examples/**/*.js"
+    env:
+      browser: true
+  -
+    files:
+      - "docs/**/*.js"
+      - "examples/**/*.js"
+    rules:
+      import/no-unresolved: off
+      import/no-extraneous-dependencies: off

@@ -1,6 +1,6 @@
 import React from 'react'
-import { renderToString as render } from 'react-dom/server'
-import { MDXProvider } from '@mdx-js/tag'
+import {renderToString as render} from 'react-dom/server'
+import {MDXProvider} from '@mdx-js/tag'
 import slug from 'remark-slug'
 import autolinkHeadings from 'remark-autolink-headings'
 import addClasses from 'rehype-add-classes'
@@ -8,7 +8,7 @@ import addClasses from 'rehype-add-classes'
 import MDX from '../src'
 
 const components = {
-  h1: props => <h1 style={{ color: 'tomato' }} {...props} />
+  h1: props => <h1 style={{color: 'tomato'}} {...props} />
 }
 
 const scope = {
@@ -59,7 +59,7 @@ it('supports remark and rehype plugins', () => {
   const result = render(
     <MDX
       mdPlugins={[slug, autolinkHeadings]}
-      hastPlugins={[[addClasses, { h1: 'title' }]]}
+      hastPlugins={[[addClasses, {h1: 'title'}]]}
       components={components}
       scope={scope}
       children={mdx}

@@ -1,30 +1,29 @@
-import fs from 'fs'
 import React from 'react'
-import { renderToString } from 'react-dom/server'
+import {renderToString} from 'react-dom/server'
 
-import { MDXTag } from '../src'
+import {MDXTag} from '../src'
 
-const H1 = props => <h1 style={{ color: 'tomato' }} {...props} />
+const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
 
-it('Should render the desired component', async () => {
+it('Should render the desired component', () => {
   const result = renderToString(
-    <MDXTag name="h1" components={{ h1: H1 }} children="Hello, world!" />
+    <MDXTag name="h1" components={{h1: H1}} children="Hello, world!" />
   )
 
   expect(result).toMatch(/style="color:tomato"/)
 })
 
-it('Should render the layout component', async () => {
-  const Layout = ({ children, id }) => <div id={id}>{children}</div>
-  const components = { h1: H1 }
+it('Should render the layout component', () => {
+  const Layout = ({children, id}) => <div id={id}>{children}</div>
+  const components = {h1: H1}
   const result = renderToString(
     <MDXTag
       Layout={Layout}
       name="wrapper"
       components={components}
-      layoutProps={{ id: 'layout' }}
+      layoutProps={{id: 'layout'}}
     >
-      <MDXTag name="h1" components={{ h1: H1 }} />
+      <MDXTag name="h1" components={{h1: H1}} />
     </MDXTag>
   )
 

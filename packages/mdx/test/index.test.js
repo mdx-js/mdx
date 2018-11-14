@@ -3,7 +3,7 @@ const mdx = require('../index')
 const mdxHastToJsx = require('../mdx-hast-to-jsx')
 const fs = require('fs')
 const path = require('path')
-const { select } = require('hast-util-select')
+const {select} = require('hast-util-select')
 const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
@@ -64,7 +64,7 @@ it('Should preserve newlines in code blocks', async () => {
 COPY start.sh /home/start.sh
 \`\`\`
   `,
-    { hastPlugins: [prism] }
+    {hastPlugins: [prism]}
   )
 
   expect(result).toContain('{`# Add main script`}</MDXTag>{`\n`}')
@@ -123,27 +123,33 @@ Some text <!-- an inline comment -->
 })
 
 it('Should convert style strings to camelized objects', async () => {
-  const result = await mdx(`
+  const result = await mdx(
+    `
 $$
 \\sum{1}
 $$
-  `, {
-    mdPlugins: [math],
-    hastPlugins: [katex],
-  })
+  `,
+    {
+      mdPlugins: [math],
+      hastPlugins: [katex]
+    }
+  )
   expect(result).not.toContain('"style":"')
   expect(result).toContain('"style":{')
 })
 
 it('Should convert data-* and aria-* properties to param-case', async () => {
-  const result = await mdx(`
+  const result = await mdx(
+    `
 $$
 \\sum{1}
 $$
-  `, {
-    mdPlugins: [math],
-    hastPlugins: [katex],
-  })
+  `,
+    {
+      mdPlugins: [math],
+      hastPlugins: [katex]
+    }
+  )
   expect(result).toContain('"aria-hidden":"true"')
 })
 
@@ -164,12 +170,13 @@ it('Should support semicolons in default export statement', async () => {
 it('Should throw when exporting default via named export', async () => {
   await expect(mdx(`export { default } from './Layout'`)).rejects.toThrow()
   await expect(mdx(`export { Layout as default }`)).rejects.toThrow()
-  await expect(mdx(`export { default as MyComp } from './MyComp'`)).resolves
-    .toContain(`export { default as MyComp } from './MyComp'`)
+  await expect(
+    mdx(`export { default as MyComp } from './MyComp'`)
+  ).resolves.toContain(`export { default as MyComp } from './MyComp'`)
 })
 
 it('Should not include export wrapper if skipExport is true', async () => {
-  const result = await mdx('> test\n\n> `test`', { skipExport: true })
+  const result = await mdx('> test\n\n> `test`', {skipExport: true})
 
   expect(result).not.toContain('export default ({components, ...props}) =>')
 })
@@ -194,6 +201,7 @@ test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     hastPlugins: [
       options => tree => {
+        // eslint-disable-next-line require-await
         return (async () => {
           const headingNode = select('h1', tree)
           const textNode = headingNode.children[0]
@@ -240,7 +248,7 @@ test(
   10000
 )
 
-test('Should expose a sync compiler', async () => {
+test('Should expose a sync compiler', () => {
   const result = mdx.sync(fixtureBlogPost)
 
   expect(result).toMatch(/Hello, world!/)

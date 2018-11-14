@@ -1,6 +1,6 @@
 import React from 'react'
-import { MDXProvider } from '@mdx-js/tag'
-import { Container, Provider as RebassProvider } from 'rebass'
+import {MDXProvider} from '@mdx-js/tag'
+import {Container, Provider as RebassProvider} from 'rebass'
 import createComponents from '@rebass/markdown'
 
 import Doc from './example.md'

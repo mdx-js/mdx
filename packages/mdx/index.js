@@ -57,7 +57,7 @@ function createMdxAstCompiler(options) {
     .use(squeeze, options)
 
   mdPlugins.forEach(plugin => {
-    // handle [plugin, pluginOptions] syntax
+    // Handle [plugin, pluginOptions] syntax
     if (Array.isArray(plugin) && plugin.length > 1) {
       fn.use(plugin[0], plugin[1])
     } else {
@@ -75,7 +75,7 @@ function applyHastPluginsAndCompilers(compiler, options) {
   const compilers = options.compilers
 
   hastPlugins.forEach(plugin => {
-    // handle [plugin, pluginOptions] syntax
+    // Handle [plugin, pluginOptions] syntax
     if (Array.isArray(plugin) && plugin.length > 1) {
       compiler.use(plugin[0], plugin[1])
     } else {
@@ -103,12 +103,12 @@ function sync(mdx, options) {
   const opts = Object.assign({}, DEFAULT_OPTIONS, options)
   const compiler = createCompiler(opts)
 
-  const fileOpts = { contents: mdx };
+  const fileOpts = {contents: mdx}
   if (opts.filepath) {
-    fileOpts.path = opts.filepath;
+    fileOpts.path = opts.filepath
   }
 
-  const { contents } = compiler.processSync(fileOpts)
+  const {contents} = compiler.processSync(fileOpts)
 
   return contents
 }
@@ -117,12 +117,12 @@ async function compile(mdx, options = {}) {
   const opts = Object.assign({}, DEFAULT_OPTIONS, options)
   const compiler = createCompiler(opts)
 
-  const fileOpts = { contents: mdx };
+  const fileOpts = {contents: mdx}
   if (opts.filepath) {
-    fileOpts.path = opts.filepath;
+    fileOpts.path = opts.filepath
   }
 
-  const { contents } = await compiler.process(fileOpts)
+  const {contents} = await compiler.process(fileOpts)
 
   return contents
 }

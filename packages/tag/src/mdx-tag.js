@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
-import { withMDXComponents } from './mdx-provider'
+import {withMDXComponents} from './mdx-provider'
 
 const defaults = {
   inlineCode: 'code',

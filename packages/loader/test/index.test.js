@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const memoryFs = require('memory-fs')
+const MemoryFs = require('memory-fs')
 
 const testFixture = (fixture, options = {}) => {
   const fileName = `./${fixture}`
@@ -35,7 +35,7 @@ const testFixture = (fixture, options = {}) => {
     }
   })
 
-  compiler.outputFileSystem = new memoryFs()
+  compiler.outputFileSystem = new MemoryFs()
 
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
@@ -49,6 +49,10 @@ const testFixture = (fixture, options = {}) => {
   })
 }
 
-test('it loads markdown and returns a component', async () => {
-  await testFixture('fixture.md')
-}, 10000)
+test(
+  'it loads markdown and returns a component',
+  async () => {
+    await testFixture('fixture.md')
+  },
+  10000
+)

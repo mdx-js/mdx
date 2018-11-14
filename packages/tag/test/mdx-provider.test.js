@@ -1,14 +1,14 @@
 import fs from 'fs'
 import React from 'react'
-import { renderToString } from 'react-dom/server'
+import {renderToString} from 'react-dom/server'
 
-import { MDXTag, MDXProvider } from '../src'
+import {MDXTag, MDXProvider} from '../src'
 
-const H1 = props => <h1 style={{ color: 'tomato' }} {...props} />
+const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
 
-it('Should allow components to be passed via context', async () => {
-  const Layout = ({ children }) => <div id="layout">{children}</div>
-  const components = { h1: H1 }
+it('Should allow components to be passed via context', () => {
+  const Layout = ({children}) => <div id="layout">{children}</div>
+  const components = {h1: H1}
   const result = renderToString(
     <MDXProvider components={components}>
       <MDXTag Layout={Layout} name="wrapper">
@@ -24,9 +24,9 @@ it('Should allow components to be passed via context', async () => {
   expect(result).toMatch(/style="color:tomato"/)
 })
 
-it('Should allow context components to be overridden', async () => {
-  const Layout = ({ children }) => <div id="layout">{children}</div>
-  const components = { h1: H1 }
+it('Should allow context components to be overridden', () => {
+  const Layout = ({children}) => <div id="layout">{children}</div>
+  const components = {h1: H1}
   const result = renderToString(
     <MDXProvider components={{}}>
       <MDXTag name="h1" components={components} />
