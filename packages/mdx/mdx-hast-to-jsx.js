@@ -100,27 +100,24 @@ function toJSX(node, parentNode = {}, options = {}) {
       '\n' +
       exportNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
-      (skipExport
-        ? ''
-        : `export default class MDXContent extends React.Component {
+      `${
+        skipExport ? '' : 'export default'
+      } class MDXContent extends React.Component {
   constructor() {
     this.layout = ${layout}
   }
   render() {
-    const {components, ...props} = this.props;`) +
-      `${skipExport ? '' : 'return '}<MDXTag 
-  name="wrapper" ${
-    layout
-      ? `Layout={${skipExport ? layout : 'this.layout'}} layoutProps={props}`
-      : ''
+    return <MDXTag
+             name="wrapper"
+             ${layout ? `Layout={this.layout} layoutProps={props}` : ''}
+             components={components}>${jsxNodes
+               .map(childNode => toJSX(childNode, node))
+               .join('')}
+           </MDXTag>
   }
-  components={components}>${jsxNodes
-    .map(childNode => toJSX(childNode, node))
-    .join('')}</MDXTag>
-${skipExport ? '' : '}}'}`
+}`
     )
   }
-
   // Recursively walk through children
   if (node.children) {
     children = node.children
