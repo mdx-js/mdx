@@ -7,6 +7,7 @@ const {select} = require('hast-util-select')
 const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
+const prettier = require('prettier')
 
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
@@ -40,6 +41,108 @@ it('Should compile sample blog post', async () => {
   const result = await mdx(fixtureBlogPost)
 
   parse(result)
+})
+
+it('Should match sample blog post snapshot', async () => {
+  const result = await mdx(fixtureBlogPost)
+
+  expect(prettier.format(result, {parser: 'babylon'})).toMatchInlineSnapshot(`
+"import { Baz } from \\"./Fixture\\";
+import { Buz } from \\"./Fixture\\";
+export const foo = {
+  hi: \`Fudge \${Baz.displayName || \\"Baz\\"}\`,
+  authors: [\\"fred\\", \\"sally\\"]
+};
+export default class MDXContent extends React.Component {
+  constructor() {
+    this.layout = ({ children }) => <div>{children}</div>;
+  }
+  render() {
+    return (
+      <MDXTag
+        name=\\"wrapper\\"
+        Layout={this.layout}
+        layoutProps={props}
+        components={components}
+      >
+        <MDXTag name=\\"h1\\" components={components}>{\`Hello, world!\`}</MDXTag>
+        <MDXTag
+          name=\\"p\\"
+          components={components}
+        >{\`I'm an awesome paragraph.\`}</MDXTag>
+        {/* I'm a comment */}
+        <Foo bg=\\"red\\">
+          <Bar>hi</Bar>
+          {hello}
+          {/* another commment */}
+        </Foo>
+        <MDXTag name=\\"pre\\" components={components}>
+          <MDXTag
+            name=\\"code\\"
+            components={components}
+            parentName=\\"pre\\"
+            props={{ metastring: null }}
+          >{\`test codeblock
+\`}</MDXTag>
+        </MDXTag>
+        <MDXTag name=\\"pre\\" components={components}>
+          <MDXTag
+            name=\\"code\\"
+            components={components}
+            parentName=\\"pre\\"
+            props={{ className: \\"language-js\\", metastring: \\"\\" }}
+          >{\`module.exports = 'test'
+\`}</MDXTag>
+        </MDXTag>
+        <MDXTag name=\\"pre\\" components={components}>
+          <MDXTag
+            name=\\"code\\"
+            components={components}
+            parentName=\\"pre\\"
+            props={{ className: \\"language-sh\\", metastring: \\"\\" }}
+          >{\`npm i -g foo
+\`}</MDXTag>
+        </MDXTag>
+        <MDXTag name=\\"table\\" components={components}>
+          <MDXTag name=\\"thead\\" components={components} parentName=\\"table\\">
+            <MDXTag name=\\"tr\\" components={components} parentName=\\"thead\\">
+              <MDXTag
+                name=\\"th\\"
+                components={components}
+                parentName=\\"tr\\"
+                props={{ align: \\"left\\" }}
+              >{\`Test\`}</MDXTag>
+              <MDXTag
+                name=\\"th\\"
+                components={components}
+                parentName=\\"tr\\"
+                props={{ align: \\"left\\" }}
+              >{\`Table\`}</MDXTag>
+            </MDXTag>
+          </MDXTag>
+          <MDXTag name=\\"tbody\\" components={components} parentName=\\"table\\">
+            <MDXTag name=\\"tr\\" components={components} parentName=\\"tbody\\">
+              <MDXTag
+                name=\\"td\\"
+                components={components}
+                parentName=\\"tr\\"
+                props={{ align: \\"left\\" }}
+              >{\`Col1\`}</MDXTag>
+              <MDXTag
+                name=\\"td\\"
+                components={components}
+                parentName=\\"tr\\"
+                props={{ align: \\"left\\" }}
+              >{\`Col2\`}</MDXTag>
+            </MDXTag>
+          </MDXTag>
+        </MDXTag>
+      </MDXTag>
+    );
+  }
+}
+"
+`)
 })
 
 it('Should render blockquote correctly', async () => {
