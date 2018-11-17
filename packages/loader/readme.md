@@ -1,4 +1,4 @@
-# @mdx-js/loader
+# `@mdx-js/loader`
 
 Webpack loader for [MDX](https://github.com/mdx-js/mdx).
 

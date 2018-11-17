@@ -4,13 +4,13 @@ Remark plugin to turn image urls into rendered images.
 
 ## Installation
 
-```
+```shell
 npm i -S remark-images
 ```
 
 ## Usage
 
-```
+```javascript
 const remark = require('remark')
 const images = require('remark-images')
 const html = require('remark-html')
@@ -37,15 +37,15 @@ https://c8r-x0.s3.amazonaws.com/lab-components-macbook.jpg
 
 Supported urls / uris:
 
-- `http://example.com/image.jpg`
-- `/image.jpg`
-- `./image.jpg`
-- `../image.jpg`
+*   `https://example.com/image.jpg`
+*   `/image.jpg`
+*   `./image.jpg`
+*   `../image.jpg`
 
 Supported file types:
 
-- `png`
-- `svg`
-- `jpg`
-- `jpeg`
-- `gif`
+*   `png`
+*   `svg`
+*   `jpg`
+*   `jpeg`
+*   `gif`

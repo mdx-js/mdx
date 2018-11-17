@@ -1,6 +1,6 @@
 # MDX + Parcel
 
-```
+```shell
 npm install
 npm start
 ```

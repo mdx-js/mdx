@@ -5,7 +5,7 @@ import { Text } from 'rebass'
 To get started quickly with an example project you can use `npm init`.
 It will scaffold out a [Next.js][next] app with MDX configured.
 
-```
+```shell
 npm init mdx
 ```
 
@@ -16,9 +16,11 @@ npm init mdx
 ## Components
 
 You can pass in components for any HTML element that Markdown compiles to.
-This allows you to use your existing components and even CSS-in-JS like `styled-components`.
+This allows you to use your existing components and even CSS-in-JS like
+`styled-components`.
 
-The components object is a mapping between the HTML element and your desired component you'd like to render.
+The components object is a mapping between the HTML element and your desired
+component you’d like to render.
 
 ```jsx
 const MyH1 = props => <h1 style={{ color: 'tomato' }} {...props} />
@@ -54,14 +56,16 @@ export default () =>
   />
 ```
 
-With the above, the Heading component will be rendered for any h1, Text for p tags, and so on.
+With the above, the `Heading` component will be rendered for any `h1`, `Text`
+for `p` elements, and so on.
 
-In addition to HTML elements, there's an `inlineCode`.
+In addition to HTML elements, there’s an `inlineCode`.
 This is what remark uses for code elements within paragraphs, tables, etc.
 
 ## MDXProvider
 
-If you're using an app layout that wraps your JSX, you can use the `MDXProvider` to only pass your components in one place:
+If you’re using an app layout that wraps your JSX, you can use the `MDXProvider`
+to only pass your components in one place:
 
 ```jsx
 import React from 'react'
@@ -87,21 +91,23 @@ export default props =>
 This allows you to remove duplicated component imports and passing.
 It will typically go in layout files.
 
-#### How does it work?
+#### How it works
 
 MDXProvider uses React [context][] to provide the component mapping to MDXTag.
 MDXTag knows to use these components when determining which to render.
 
 ## Projects, libraries and frameworks
 
-If you're already working with a particular tool, you can try out MDX with the following commands:
+If you’re already working with a particular tool, you can try out MDX with the
+following commands:
 
-- `npm init mdx` [`webpack`](./webpack)
-- `npm init mdx` [`parcel`](./parcel)
-- `npm init mdx` [`next`](./next)
-- `npm init mdx` [`create-react-app`](./create-react-app)
-- `npm init mdx` [`gatsby`](./gatsby)
-- `npm init mdx` [`x0`](./x0)
+*   `npm init mdx` [`webpack`](./webpack)
+*   `npm init mdx` [`parcel`](./parcel)
+*   `npm init mdx` [`next`](./next)
+*   `npm init mdx` [`create-react-app`](./create-react-app)
+*   `npm init mdx` [`gatsby`](./gatsby)
+*   `npm init mdx` [`x0`](./x0)
 
 [next]: https://github.com/zeit/next.js
+
 [context]: https://reactjs.org/docs/context.html

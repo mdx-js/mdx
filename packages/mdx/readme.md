@@ -1,8 +1,8 @@
-# @mdx-js/mdx
+# `@mdx-js/mdx`
 
 MDX implementation using Remark.
 
-https://github.com/mdx-js/mdx
+<https://github.com/mdx-js/mdx>
 
 ## Installation
 

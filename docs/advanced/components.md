@@ -4,10 +4,12 @@ The MDX core library accepts a string and exports a JSX string.
 
 ## MDXTag
 
-MDXTag is an internal component that MDX uses to map components to an HTML element based on the Markdown syntax.
+MDXTag is an internal component that MDX uses to map components to an HTML
+element based on the Markdown syntax.
+
 Consider the following MDX:
 
-```
+```markdown
 import MyComponent from './my-component'
 
 # Title
@@ -37,5 +39,8 @@ export default ({ components }) => (
 )
 ```
 
-If the component mapping contains a `p` key, that will be used for "Lorem ipsum dolor sit amet.", otherwise a standard `p` tag is rendered (`<p>Lorem ipsum dolor sit amet.</p>`).
-This is what allows you to pull in existing components to style your MDX documents.
+If the component mapping contains a `p` key, that will be used for
+`Lorem ipsum dolor sit amet.`.
+Otherwise a standard `p` tag is rendered (`<p>Lorem ipsum dolor sit amet.</p>`).
+This is what allows you to pull in existing components to style your MDX
+documents.

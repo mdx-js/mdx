@@ -1,8 +1,12 @@
-# Using Retext Plugins
+# Using retext Plugins
 
-[Retext][] plugins are really useful, but MDX can't convert the syntax tree to retext because it wouldn't be possible to convert it back to remark. This means that we can't use retext plugins directly. [remarkjs/remark#224][]
+[retext][] plugins are really useful, but MDX can’t convert the syntax tree to
+retext because it wouldn’t be possible to convert it back to [remark][].
+This means that we can’t use retext plugins directly, see
+[remarkjs/remark#224][] for more info.
 
-Luckily, it's possible to build a custom plugin that visits all text nodes using [unist-util-visit][] and process them using retext:
+Luckily, it’s possible to build a custom plugin that visits all text nodes using
+[`unist-util-visit`][visit] and process them using retext:
 
 ```js
 const visit = require('unist-util-visit')
@@ -35,6 +39,10 @@ mdx.sync(mdxText, {
 })
 ```
 
-[Retext]: https://github.com/retextjs/retext
+[retext]: https://github.com/retextjs/retext
+
+[remark]: https://github.com/remarkjs/remark
+
 [remarkjs/remark#224]: https://github.com/remarkjs/remark/issues/224
-[unist-util-visit]: https://github.com/syntax-tree/unist-util-visit
+
+[visit]: https://github.com/syntax-tree/unist-util-visit

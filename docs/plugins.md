@@ -1,28 +1,31 @@
 # Plugins
 
-Since MDX uses the [remark][]/[rehype][] ecosystems, you can use plugins to modify the AST at different stages of the transpilation process.
+Since MDX uses the [remark][]/[rehype][] ecosystems, you can use plugins to
+modify the AST at different stages of the transpilation process.
 
 ## Transpilation
 
-The MDX transpilation flow consists of six steps, ultimately resulting in JSX that can be used in React/Preact/etc.
+The MDX transpilation flow consists of six steps, ultimately resulting in JSX
+that can be used in React/Preact/etc.
 
-1. __Parse__: Text => MDAST
-1. __Transpile__: MDAST => MDXAST
-1. __Transform__: MDX/Remark plugins applied to AST
-1. __Transpile__: MDXAST => MDXHAST
-1. __Transform__: Hyperscript plugins applied to AST
-1. __Transpile__: MDXHAST => JSX
+1.  **Parse**: Text => MDAST
+2.  **Transpile**: MDAST => MDXAST
+3.  **Transform**: MDX/Remark plugins applied to AST
+4.  **Transpile**: MDXAST => MDXHAST
+5.  **Transform**: Hyperscript plugins applied to AST
+6.  **Transpile**: MDXHAST => JSX
 
 ### Options
 
-Name | Type | Required | Description
----- | ---- | -------- | -----------
-`mdPlugins` | Array[] | `false` | Array of remark plugins to manipulate the MDAST
-`hastPlugins` | Array[] | `false` | Array of rehype plugins to manipulate the MDXHAST
+| Name          | Type     | Required | Description                                       |
+| ------------- | -------- | -------- | ------------------------------------------------- |
+| `mdPlugins`   | Array\[] | `false`  | Array of remark plugins to manipulate the MDAST   |
+| `hastPlugins` | Array\[] | `false`  | Array of rehype plugins to manipulate the MDXHAST |
 
 #### Specifying plugins
 
-Plugins need to be passed to MDX core library, this is often as options to your loader:
+Plugins need to be passed to MDX core library, this is often as options to your
+loader:
 
 ```js
 const images = require('remark-images')
@@ -50,7 +53,7 @@ module.exports = {
 }
 ```
 
-Though if you're using MDX directly, they can be passed like so:
+Though if you’re using MDX directly, they can be passed like so:
 
 ```js
 const fs = require('fs')
@@ -76,7 +79,9 @@ mdx.sync(mdxText, {
 })
 ```
 
-The following example ensures that `padSpaceAfter` is only passed as options to the `emoji` plugin.
+The following example ensures that `padSpaceAfter` is only passed as options to
+the `emoji` plugin.
 
 [remark]: https://github.com/remarkjs/remark
+
 [rehype]: https://github.com/rehypejs/rehype
