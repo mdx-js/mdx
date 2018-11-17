@@ -67,6 +67,10 @@
     "*.js": [
       "eslint --fix",
       "git add"
+    ],
+    "*.md": [
+      "remark . -qfo",
+      "git add"
     ]
   },
   "x0": {
