@@ -69,7 +69,7 @@
       "git add"
     ],
     "*.md": [
-      "remark . -qfo",
+      "remark -qfo",
       "git add"
     ]
   },
