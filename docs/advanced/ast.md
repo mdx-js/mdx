@@ -85,8 +85,8 @@ Yields:
 
 ```json
 {
-  "type": "jsx",
-  "value": "<Heading hi='there'>\n  Hello, world!\n</Heading>"
+  "type": "comment",
+  "value": "<!--hidden-->"
 }
 ```
 
