@@ -1,8 +1,9 @@
 # Next.js
 
-Next.js provides an [official plugin][next-plugin] to simplify MDX importing into your project.
+Next.js provides an [official plugin][next-plugin] to simplify MDX importing
+into your project.
 
-```
+```shell
 npm install --save-dev @zeit/next-mdx
 ```
 

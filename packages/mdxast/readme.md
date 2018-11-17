@@ -1,8 +1,8 @@
-# [Deprecated] @mdx-js/mdxast
+# \[Deprecated] `@mdx-js/mdxast`
 
 **This library has been pulled into `@mdx-js/mdx` and is no longer maintained.**
 
----
+* * *
 
 Transforms MDAST to MDXAST.
 
@@ -39,7 +39,7 @@ console.log(inspect(mdxast))
 
 #### Output
 
-```
+```text
 root[3] (1:1-7:1, 0-53)
 ├─ import: "import { Foo } from 'bar'" (2:1-2:26, 1-26)
 ├─ heading[1] (4:1-4:16, 28-43) [depth=1]

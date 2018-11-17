@@ -1,16 +1,18 @@
 # Syntax
 
 MDX syntax can be boiled down to being JSX in Markdown.
-It's a superset of Markdown syntax that also supports importing, exporting, and JSX.
+It’s a superset of Markdown syntax that also supports importing, exporting, and
+JSX.
 
 ### Markdown
 
 Standard [Markdown syntax][md] is supported.
-It's recommended to learn about Markdown in their [docs][md].
+It’s recommended to learn about Markdown in their [docs][md].
 
 ### JSX
 
-[JSX syntax][jsx] is fully supported, JSX blocks are opened by starting a line with the `<` character.
+[JSX syntax][jsx] is fully supported, JSX blocks are opened by starting a line
+with the `<` character.
 
 ```jsx
 <Box>
@@ -44,7 +46,8 @@ import Palette from './components/palette'
 
 #### Markdown file transclusion
 
-You can [transclude][] Markdown files by importing one `.md` or `.mdx` file into another:
+You can [transclude][] Markdown files by importing one `.md` or `.mdx` file into
+another:
 
 ```jsx
 import License from './license.md'
@@ -62,7 +65,7 @@ import Contributing from './docs/contributing.md'
 ### Exports
 
 You can use exports to export metadata like layout or authors.
-It's a mechanism for an imported MDX file to communicate with its parent.
+It’s a mechanism for an imported MDX file to communicate with its parent.
 It works similarly to frontmatter, but uses ES2015 syntax.
 
 ```js
@@ -97,7 +100,8 @@ export default () => (
 
 #### `export default`
 
-The ES default [export][] is used to provide a layout component which will wrap the transpiled JSX.
+The ES default [export][] is used to provide a layout component which will wrap
+the transpiled JSX.
 
 You can export it as a function:
 
@@ -120,7 +124,11 @@ export default Layout
 ```
 
 [md]: https://daringfireball.net/projects/markdown/syntax
+
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
+
 [import]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/import
+
 [export]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
+
 [transclude]: https://en.wikipedia.org/wiki/Transclusion

@@ -25,8 +25,8 @@ render(<MDXContent />, root);
 
 ### Thanks
 
-I couldn't have written this without the following:
+I couldn’t have written this without the following:
 
-- [MDX](https://github.com/mdx-js/mdx)
-- [Parcel](https://parceljs.org/)
-- [Writing a parcel plugin](https://medium.com/@jasperdemoor/writing-a-parcel-plugin-3936271cbaaa)
+*   [MDX](https://github.com/mdx-js/mdx)
+*   [Parcel](https://parceljs.org/)
+*   [Writing a parcel plugin](https://medium.com/@jasperdemoor/writing-a-parcel-plugin-3936271cbaaa)

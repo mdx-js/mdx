@@ -1,6 +1,6 @@
 # MDX + Razzle
 
-```
+```shell
 npm install
 npm start
 ```

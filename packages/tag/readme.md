@@ -1,3 +1,9 @@
-# @mdx-js/tag
+# `@mdx-js/tag`
 
-https://github.com/mdx-js/mdx
+map components to HTML elements based on the Markdown syntax.
+
+## Installation
+
+```sh
+npm i -S @mdx-js/tag
+```

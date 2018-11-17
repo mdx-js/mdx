@@ -4,12 +4,13 @@ Parse and render MDX in a runtime environment
 
 ## :warning: Warning
 
-This is not the preferred way to use MDX since it introduces a substantial amount of overhead and dramatically increases bundle sizes.
-It should also not be used with user input that isn't sandboxed.
+This is not the preferred way to use MDX since it introduces a substantial
+amount of overhead and dramatically increases bundle sizes.
+It should also not be used with user input that isn’t sandboxed.
 
 ## Installation
 
-```
+```shell
 npm install --save @mdx-js/runtime
 ```
 
@@ -32,4 +33,4 @@ export default () => (
 
 ## Related
 
-- [MDX Docs](https://github.com/mdx-js/mdx)
+*   [MDX Docs](https://github.com/mdx-js/mdx)
