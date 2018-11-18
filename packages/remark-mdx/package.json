@@ -15,8 +15,8 @@
     "mdx"
   ],
   "dependencies": {
-    "remark-parse": "^5.0.0",
-    "unified": "^6.1.6"
+    "remark-parse": "^6.0.0",
+    "unified": "^7.0.0"
   },
   "devDependencies": {},
   "jest": {

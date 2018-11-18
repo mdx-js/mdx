@@ -230,23 +230,19 @@ test('Should process filepath and pass it to the plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
-test(
-  'Should parse and render footnotes',
-  async () => {
-    const result = await mdx(
-      'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
-    )
+test('Should parse and render footnotes', async () => {
+  const result = await mdx(
+    'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
+  )
 
-    expect(result).toContain(
-      '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
-    )
+  expect(result).toContain(
+    '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
+  )
 
-    expect(result).toContain(
-      '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
-    )
-  },
-  10000
-)
+  expect(result).toContain(
+    '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
+  )
+}, 10000)
 
 test('Should expose a sync compiler', () => {
   const result = mdx.sync(fixtureBlogPost)
