@@ -2,23 +2,35 @@
   "private": true,
   "name": "@mdx-js/remark-mdx",
   "version": "0.0.0",
-  "license": "MIT",
-  "repository": "mdx-js/mdx",
   "description": "Support import, export, and JSX in markdown",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
   "files": [
     "index.js"
-  ],
-  "scripts": {},
-  "keywords": [
-    "markdown",
-    "remark",
-    "mdx"
   ],
   "dependencies": {
     "remark-parse": "^6.0.0",
     "unified": "^7.0.0"
   },
   "devDependencies": {},
+  "scripts": {},
   "jest": {
     "testEnvironment": "node"
   }

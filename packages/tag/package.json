@@ -1,24 +1,29 @@
 {
   "name": "@mdx-js/tag",
-  "license": "MIT",
   "version": "0.16.0",
-  "repository": "mdx-js/mdx",
   "description": "A fully-featured Markdown/MDX React component for ambitious projects",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
   "main": "dist/index.js",
   "files": [
     "dist"
-  ],
-  "scripts": {
-    "build": "babel src -d dist",
-    "clean": "rm -rf dist",
-    "prepublish": "npm run clean && npm run build",
-    "test": "jest"
-  },
-  "keywords": [
-    "react",
-    "markdown",
-    "remark",
-    "mdx"
   ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -31,5 +36,11 @@
   },
   "peerDependencies": {
     "react": "^0.14.x || ^15.x || ^16.x"
+  },
+  "scripts": {
+    "build": "babel src -d dist",
+    "clean": "rm -rf dist",
+    "prepublish": "npm run clean && npm run build",
+    "test": "jest"
   }
 }

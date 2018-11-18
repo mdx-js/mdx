@@ -3,7 +3,7 @@
 Hi!  👋
 We’re excited that you’re interested in contributing!
 Take a moment to read the following guidelines.
-And thanks for contributing to **mdx**!  👏👌✨
+And thanks for contributing to **MDX**!  👏👌✨
 
 If you’re raising an issue, please understand that people involved with this
 project often do so for fun, next to their day job; you are not entitled to
@@ -13,6 +13,7 @@ free customer service.
 
 *   [Questions](#questions)
 *   [Contributions](#contributions)
+    *   [Financial support](#financial-support)
     *   [Improve documentation](#improve-documentation)
     *   [Improve issues](#improve-issues)
     *   [Give feedback on issues and pull requests](#give-feedback-on-issues-and-pull-requests)
@@ -29,6 +30,16 @@ Jump in there and lurk, talk to us, and help others.
 ## Contributions
 
 There’s several ways to contribute, not just by writing code.
+
+### Financial support
+
+It’s possible to support us financially by becoming a backer or sponsor of
+unified through [Open Collective][collective].
+With this support, we can pay for project leadership, finance non-coding work,
+or to do fun things for the community like getting stickers for contributors.
+You’ll be helping unified’s maintainers manage and improve existing projects,
+and additionally support our work to develop new and exciting projects, such
+as [micromark][].
 
 ### Improve documentation
 
@@ -85,3 +96,7 @@ prevent you from doing unnecessary work.
 [unit-test]: https://twitter.com/sindresorhus/status/579306280495357953
 
 [chat]: https://spectrum.chat/mdx
+
+[collective]: https://opencollective.com/unified
+
+[micromark]: https://github.com/micromark/micromark

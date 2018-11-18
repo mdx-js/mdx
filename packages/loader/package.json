@@ -1,22 +1,30 @@
 {
   "name": "@mdx-js/loader",
   "version": "0.16.0",
-  "license": "MIT",
-  "repository": "mdx-js/mdx",
   "description": "Loader for MDX",
-  "files": [
-    "index.js"
-  ],
-  "scripts": {
-    "test": "jest"
-  },
+  "license": "MIT",
   "keywords": [
-    "react",
+    "mdx",
     "markdown",
+    "react",
+    "jsx",
     "remark",
     "styleguide",
     "webpack",
     "loader"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
   ],
   "dependencies": {
     "@mdx-js/mdx": "^0.16.0",
@@ -32,6 +40,9 @@
     "memory-fs": "^0.4.1",
     "react": "^16.3.2",
     "webpack": "^4.5.0"
+  },
+  "scripts": {
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node"

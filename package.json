@@ -1,19 +1,13 @@
 {
   "private": true,
-  "scripts": {
-    "bootstrap": "lerna bootstrap && lerna link --force-local",
-    "docs": "x0 docs",
-    "docs:build": "x0 build docs",
-    "docs:deploy": "npm run docs:build && now dist --public && now alias",
-    "test": "remark . -qf && eslint . && lerna run test",
-    "format": "remark . -qfo && eslint . --fix",
-    "publish": "lerna publish"
-  },
-  "repository": "mdx-js/mdx",
   "license": "MIT",
-  "workspaces": [
-    "packages/*"
-  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "dependencies": {
+    "@rebass/mdx": "^1.0.0-1",
+    "styled-components": "^3.3.3"
+  },
   "devDependencies": {
     "@compositor/x0": "^6.0.6-0",
     "eslint": "^5.9.0",
@@ -28,10 +22,18 @@
     "remark-cli": "^6.0.1",
     "remark-preset-wooorm": "^4.0.0"
   },
-  "dependencies": {
-    "@rebass/mdx": "^1.0.0-1",
-    "styled-components": "^3.3.3"
+  "scripts": {
+    "bootstrap": "lerna bootstrap && lerna link --force-local",
+    "docs": "x0 docs",
+    "docs:build": "x0 build docs",
+    "docs:deploy": "npm run docs:build && now dist --public && now alias",
+    "test": "remark . -qf && eslint . && lerna run test",
+    "format": "remark . -qfo && eslint . --fix",
+    "publish": "lerna publish"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "prettier": {
     "tabWidth": 2,
     "useTabs": false,
@@ -69,7 +71,7 @@
       "git add"
     ],
     "*.md": [
-      "remark -qfo",
+      "remark -qf",
       "git add"
     ]
   },

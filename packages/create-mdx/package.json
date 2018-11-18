@@ -1,14 +1,33 @@
 {
   "name": "create-mdx",
-  "description": "Initialize an MDX project",
   "version": "0.16.0",
+  "description": "Initialize an MDX project",
   "license": "MIT",
-  "author": "John Otander",
+  "keywords": [
+    "create",
+    "mdx",
+    "app",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "unified"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
   "bin": {
     "create-mdx": "cli.js"
   },
-  "keywords": [
-    "mdx"
+  "files": [
+    "cli.js"
   ],
   "dependencies": {
     "initit": "^1.0.0-2"

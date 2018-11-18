@@ -1,22 +1,28 @@
 {
   "name": "@mdx-js/mdxast",
   "version": "0.16.0",
-  "license": "MIT",
-  "repository": "mdx-js/mdx",
   "description": "Transforms MDAST to MDXAST",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
   "files": [
     "index.js"
-  ],
-  "scripts": {
-    "test": "jest"
-  },
-  "keywords": [
-    "react",
-    "markdown",
-    "remark",
-    "mdxast",
-    "mdx",
-    "util"
   ],
   "dependencies": {
     "unist-util-visit": "^1.3.0"
@@ -28,5 +34,11 @@
     "remark-rehype": "^3.0.0",
     "unified": "^6.1.6",
     "unist-util-inspect": "^4.1.2"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

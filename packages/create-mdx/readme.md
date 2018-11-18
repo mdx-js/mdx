@@ -1,39 +1,27 @@
-# `@mdx-js/mdx`
+# create-mdx
 
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
-[MDX][] implementation using [remark][].
-
-## Installation
-
-[npm][]:
-
-```sh
-npm i -S @mdx-js/mdx
-```
+Create an [MDX][] project.
 
 ## Usage
 
-```js
-const mdx = require('@mdx-js/mdx')
+Use it directly with [`npm init`][npm]:
 
-const result = await mdx(`
-# Hello, MDX
-
-I <3 Markdown and JSX
-`)
-
-console.log(result)
+```sh
+npm init mdx gatsby "my-new-project"
 ```
 
-Yields:
+## API
 
-```js
-export default ({components, ...props}) => <MDXTag name="wrapper"  components={components}><MDXTag name="h1" components={components}>{`Hello, MDX`}</MDXTag>
-<MDXTag name="p" components={components}>{`I <3 Markdown and JSX`}</MDXTag></MDXTag>
-```
+### `npm init mdx [type=next] [name=next-mdx]`
+
+Create a new [MDX][] project.
+Defaults to the [Next][] example, but `type` can also be `create-react-app`,
+`parcel`, `razzle`, or `x0`.
+Name can be any name but defaults to `next-mdx`.
 
 ## Contribute
 
@@ -65,9 +53,7 @@ abide by its terms.
 
 [coc]: https://github.com/mdx-js/mdx/blob/master/code-of-conduct.md
 
-[mit]: license
-
-[remark]: https://github.com/remarkjs/remark
+[mit]: https://github.com/mdx-js/mdx/blob/master/license
 
 [compositor]: https://compositor.io
 
@@ -75,4 +61,6 @@ abide by its terms.
 
 [mdx]: https://github.com/mdx-js/mdx
 
-[npm]: https://docs.npmjs.com/cli/install
+[npm]: https://docs.npmjs.com/cli/init
+
+[next]: https://github.com/mdx-js/mdx/tree/master/examples/next

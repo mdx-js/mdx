@@ -1,25 +1,32 @@
 {
   "name": "@mdx-js/mdx",
   "version": "0.16.0",
-  "license": "MIT",
-  "repository": "mdx-js/mdx",
   "description": "Parse MDX and transpile to JSX",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
   "files": [
     "index.js",
     "util.js",
     "md-ast-to-mdx-ast.js",
     "mdx-ast-to-mdx-hast.js",
     "mdx-hast-to-jsx.js"
-  ],
-  "scripts": {
-    "test": "jest"
-  },
-  "keywords": [
-    "react",
-    "markdown",
-    "remark",
-    "mdxast",
-    "mdx"
   ],
   "dependencies": {
     "change-case": "^3.0.2",
@@ -41,6 +48,9 @@
     "jest": "^23.0.0",
     "rehype-katex": "^1.1.1",
     "remark-math": "^1.0.4"
+  },
+  "scripts": {
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node"

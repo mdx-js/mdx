@@ -1,18 +1,40 @@
 {
   "name": "@mdx-js/runtime",
-  "description": "Parse and render MDX in a runtime environment",
   "version": "0.16.0",
+  "description": "Parse and render MDX in a runtime environment",
   "license": "MIT",
-  "author": "John Otander",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
   "main": "dist",
   "scripts": {
     "test": "jest",
     "prepare": "babel src -d dist"
   },
-  "keywords": [
-    "mdx",
-    "react"
+  "files": [
+    "dist/",
+    "src/"
   ],
+  "dependencies": {
+    "@mdx-js/mdx": "^0.16.0",
+    "@mdx-js/tag": "^0.16.0",
+    "buble": "^0.19.3"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -25,10 +47,8 @@
     "remark-autolink-headings": "^5.0.0",
     "remark-slug": "^5.1.0"
   },
-  "dependencies": {
-    "@mdx-js/mdx": "^0.16.0",
-    "@mdx-js/tag": "^0.16.0",
-    "buble": "^0.19.3"
+  "scripts": {
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node"
