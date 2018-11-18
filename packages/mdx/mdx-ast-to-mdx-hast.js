@@ -21,7 +21,6 @@ function mdxAstToMdxHast() {
         })
       },
       code(h, node) {
-        const langRegex = /^[^ \t]+(?=[ \t]|$)/
         const value = node.value ? detab(node.value + '\n') : ''
         const lang = node.lang
         const props = {}
