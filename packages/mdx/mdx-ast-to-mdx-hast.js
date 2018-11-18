@@ -21,20 +21,19 @@ function mdxAstToMdxHast() {
         })
       },
       code(h, node) {
-        const langRegex = /^[^ \t]+(?=[ \t]|$)/
         const value = node.value ? detab(node.value + '\n') : ''
-        const lang = node.lang && node.lang.match(langRegex)
+        const lang = node.lang
         const props = {}
 
         if (lang) {
           props.className = ['language-' + lang]
         }
 
-        props.metastring = node.lang && node.lang.replace(langRegex, '').trim()
+        props.metastring = node.meta
 
         const meta =
-          props.metastring &&
-          props.metastring.split(' ').reduce((acc, cur) => {
+          node.meta &&
+          node.meta.split(' ').reduce((acc, cur) => {
             if (cur.split('=').length > 1) {
               const t = cur.split('=')
               acc[t[0]] = t[1]
