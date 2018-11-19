@@ -7,6 +7,7 @@ const {select} = require('hast-util-select')
 const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
+const prettier = require('prettier')
 
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
@@ -40,6 +41,26 @@ it('Should compile sample blog post', async () => {
   const result = await mdx(fixtureBlogPost)
 
   parse(result)
+})
+
+it('Should match sample blog post snapshot', async () => {
+  const result = await mdx(`# Hello World`)
+
+  expect(prettier.format(result, {parser: 'babylon'})).toMatchInlineSnapshot(`
+"export default class MDXContent extends React.Component {
+  constructor() {
+    this.layout = undefined;
+  }
+  render() {
+    return (
+      <MDXTag name=\\"wrapper\\" components={components}>
+        <MDXTag name=\\"h1\\" components={components}>{\`Hello World\`}</MDXTag>
+      </MDXTag>
+    );
+  }
+}
+"
+`)
 })
 
 it('Should render blockquote correctly', async () => {

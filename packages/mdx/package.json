@@ -45,7 +45,8 @@
     "@babel/plugin-syntax-jsx": "^7.0.0",
     "@mapbox/rehype-prism": "^0.3.0",
     "hast-util-select": "^3.0.0",
-    "jest": "^23.0.0",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.2",
     "rehype-katex": "^1.1.1",
     "remark-math": "^1.0.4"
   },
