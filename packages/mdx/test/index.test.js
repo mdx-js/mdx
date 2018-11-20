@@ -17,11 +17,6 @@ const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
 )
 
-const plugins = [
-  '@babel/plugin-syntax-jsx',
-  '@babel/plugin-proposal-object-rest-spread'
-]
-
 const parse = code =>
   babel.parse(code, {
     plugins: [
