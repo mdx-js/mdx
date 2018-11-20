@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@mdx-js/remark-mdx",
-  "version": "0.0.0",
+  "version": "0.16.1",
   "description": "Support import, export, and JSX in markdown",
   "license": "MIT",
   "keywords": [
@@ -29,7 +29,6 @@
     "remark-parse": "^6.0.0",
     "unified": "^7.0.0"
   },
-  "devDependencies": {},
   "scripts": {},
   "jest": {
     "testEnvironment": "node"

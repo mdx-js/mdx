@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/runtime",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "description": "Parse and render MDX in a runtime environment",
   "license": "MIT",
   "keywords": [
@@ -23,16 +23,15 @@
   ],
   "main": "dist",
   "scripts": {
-    "test": "jest",
-    "prepare": "babel src -d dist"
+    "test": "jest"
   },
   "files": [
     "dist/",
     "src/"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^0.16.0",
-    "@mdx-js/tag": "^0.16.0",
+    "@mdx-js/mdx": "^0.16.1",
+    "@mdx-js/tag": "^0.16.1",
     "buble": "^0.19.3"
   },
   "devDependencies": {
@@ -46,9 +45,6 @@
     "rehype-add-classes": "^1.0.0",
     "remark-autolink-headings": "^5.0.0",
     "remark-slug": "^5.1.0"
-  },
-  "scripts": {
-    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node"
