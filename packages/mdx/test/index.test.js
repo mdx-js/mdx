@@ -48,7 +48,8 @@ it('Should match sample blog post snapshot', async () => {
 
   expect(prettier.format(result, {parser: 'babylon'})).toMatchInlineSnapshot(`
 "export default class MDXContent extends React.Component {
-  constructor() {
+  constructor(props) {
+    super(props);
     this.layout = undefined;
   }
   render() {
