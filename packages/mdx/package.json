@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "0.16.1",
+  "version": "0.16.2",
   "description": "Parse MDX and transpile to JSX",
   "license": "MIT",
   "keywords": [
