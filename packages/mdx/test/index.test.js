@@ -1,6 +1,4 @@
 const babel = require('@babel/core')
-const mdx = require('../index')
-const mdxHastToJsx = require('../mdx-hast-to-jsx')
 const fs = require('fs')
 const path = require('path')
 const {select} = require('hast-util-select')
@@ -8,6 +6,12 @@ const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
 const prettier = require('prettier')
+const {MDXTag} = require('@mdx-js/tag')
+const React = require('react')
+const {renderToStaticMarkup} = require('react-dom/server')
+
+const mdx = require('..')
+const mdxHastToJsx = require('../mdx-hast-to-jsx')
 
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
@@ -21,10 +25,41 @@ const parse = code =>
     ]
   })
 
+const transform = code =>
+  babel.transform(code, {
+    plugins: [
+      '@babel/plugin-transform-react-jsx',
+      '@babel/plugin-proposal-object-rest-spread'
+    ]
+  }).code
+
+const renderWithReact = async mdxCode => {
+  const jsx = await mdx(mdxCode, {skipExport: true})
+  const code = transform(jsx)
+  const scope = {MDXTag, components: {}}
+
+  const fn = new Function( // eslint-disable-line no-new-func
+    'React',
+    ...Object.keys(scope),
+    `
+      ${code}; return React.createElement(MDXContent)`
+  )
+
+  const element = fn(React, ...Object.values(scope))
+
+  return renderToStaticMarkup(element)
+}
+
 it('Should output parseable JSX', async () => {
   const result = await mdx('Hello World')
 
   parse(result)
+})
+
+it('Should be able to render JSX with React', async () => {
+  const result = await renderWithReact('# Hello, world!')
+
+  expect(result).toContain('<h1>Hello, world!</h1>')
 })
 
 it('Should output parseable JSX when using < or >', async () => {
