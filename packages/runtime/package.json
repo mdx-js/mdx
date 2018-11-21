@@ -32,16 +32,16 @@
   "dependencies": {
     "@mdx-js/mdx": "^0.16.2",
     "@mdx-js/tag": "^0.16.1",
-    "buble": "^0.19.3"
+    "buble": "^0.19.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "jest": "^23.2.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "jest": "^23.6.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "rehype-add-classes": "^1.0.0",
     "remark-autolink-headings": "^5.0.0",
     "remark-slug": "^5.1.0"

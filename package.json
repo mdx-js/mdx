@@ -24,6 +24,7 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap && lerna link --force-local",
+    "clean": "lerna exec \"rm -rf node_modules\"",
     "docs": "x0 docs",
     "docs:build": "x0 build docs",
     "docs:deploy": "npm run docs:build && now dist --public && now alias",

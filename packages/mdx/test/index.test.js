@@ -36,7 +36,7 @@ const transform = code =>
 const renderWithReact = async mdxCode => {
   const jsx = await mdx(mdxCode, {skipExport: true})
   const code = transform(jsx)
-  const scope = {MDXTag, components: {}}
+  const scope = {MDXTag}
 
   const fn = new Function( // eslint-disable-line no-new-func
     'React',
@@ -88,6 +88,8 @@ it('Should match sample blog post snapshot', async () => {
     this.layout = undefined;
   }
   render() {
+    const { components = {} } = this.props;
+
     return (
       <MDXTag name=\\"wrapper\\" components={components}>
         <MDXTag name=\\"h1\\" components={components}>{\`Hello World\`}</MDXTag>

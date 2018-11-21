@@ -29,7 +29,7 @@ export default ({
   const {code} = transform(jsx)
 
   const keys = Object.keys(fullScope)
-  const values = keys.map(key => fullScope[key])
+  const values = Object.values(fullScope)
   // eslint-disable-next-line no-new-func
   const fn = new Function(
     '_fn',
@@ -37,7 +37,7 @@ export default ({
     ...keys,
     `${code}
 
-  return React.createElement(MDXContent);`
+  return React.createElement(MDXContent, { components });`
   )
 
   return fn({}, React, ...values)
