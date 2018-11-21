@@ -25,7 +25,7 @@ it('Should render the desired component', () => {
     }
   })
   expect(wrapper.isVueInstance()).toBeTruthy()
-  expect(wrapper.html()).toMatch(/style=\"color: green;\"/)
+  expect(wrapper.html()).toMatch(/style="color: green;"/)
 })
 
 it('Should render the Layout component', () => {
@@ -48,5 +48,5 @@ it('Should render the Layout component', () => {
   }
   const wrapper = mount(MDXTagWithLayout)
   expect(wrapper.html()).toMatch(/id="layout"/)
-  expect(wrapper.html()).toMatch(/style=\"color: green;\"/)
+  expect(wrapper.html()).toMatch(/style="color: green;"/)
 })

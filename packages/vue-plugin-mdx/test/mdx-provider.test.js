@@ -14,7 +14,7 @@ const Layout = {
   }
 }
 
-it('Should allow components to be passed via context', async () => {
+it('Should allow components to be passed via context', () => {
   const components = {h1: H1Tag}
   const TestComponent = {
     render() {
@@ -29,5 +29,5 @@ it('Should allow components to be passed via context', async () => {
   }
   const wrapper = mount(TestComponent)
   expect(wrapper.html()).toMatch(/id="layout"/)
-  expect(wrapper.html()).toMatch(/style=\"color: green;\"/)
+  expect(wrapper.html()).toMatch(/style="color: green;"/)
 })

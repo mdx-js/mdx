@@ -14,18 +14,14 @@ function toVueJSX(node, parentNode = {}, options = {}) {
 
       if (childNode.type === 'export') {
         if (childNode.default) {
-          layout = childNode.value.replace(/^export default /, '')
+          layout = childNode.value
+            .replace(/^export\s+default\s+/, '')
+            .replace(/;\s*$/, '')
           continue
         }
 
         exportNodes.push(childNode)
         continue
-      }
-
-      if (childNode.type === 'jsx') {
-        childNode.value = childNode.value
-          .replace('<!--', '{/*')
-          .replace('-->', '*/}')
       }
 
       jsxNodes.push(childNode)
@@ -45,6 +41,10 @@ function toVueJSX(node, parentNode = {}, options = {}) {
     children = node.children
       .map(childNode => toVueJSX(childNode, node))
       .join('')
+  }
+
+  if (node.type === 'comment') {
+    return node.value.replace('<!--', '{/*').replace('-->', '*/}')
   }
 
   if (node.type === 'element') {

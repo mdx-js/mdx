@@ -56,16 +56,17 @@ it('Should render HTML inside inlineCode correctly', async () => {
 it('Should support comments', async () => {
   const result = await mdxWithVueCompiler(`
 A paragraph
-<!-- a Markdown comment -->
+
 \`\`\`md
 <!-- a code block Markdown comment -->
 \`\`\`
+
 <div>
   {/* a nested JSX comment */}
   <!-- a nested Markdown comment -->
 </div>
   `)
-  expect(result.includes('{/* a Markdown comment */}')).toBeTruthy()
+
   expect(result.includes('<!-- a code block Markdown comment -->')).toBeTruthy()
   expect(result.includes('{/* a nested JSX comment */}')).toBeTruthy()
   expect(result.includes('{/* a nested Markdown comment */}')).toBeTruthy()
@@ -106,7 +107,7 @@ it('Should await and render async plugins', async () => {
   const result = await mdxWithVueCompiler(fixtureBlogPost, {
     hastPlugins: [
       options => tree => {
-        return (async () => {
+        return (() => {
           const headingNode = select('h1', tree)
           const textNode = headingNode.children[0]
           textNode.value = textNode.value.toUpperCase()

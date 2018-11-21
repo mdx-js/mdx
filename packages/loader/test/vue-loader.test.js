@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const memoryFs = require('memory-fs')
+const MemoryFs = require('memory-fs')
 const {VueJSXCompiler} = require('@mdx-js/vue-plugin-mdx')
 
 const testFixture = (fixture, options = {}) => {
@@ -40,7 +40,7 @@ const testFixture = (fixture, options = {}) => {
     }
   })
 
-  compiler.outputFileSystem = new memoryFs()
+  compiler.outputFileSystem = new MemoryFs()
 
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
