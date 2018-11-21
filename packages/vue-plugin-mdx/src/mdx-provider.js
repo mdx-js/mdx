@@ -1,4 +1,3 @@
-
 export default {
   props: {
     components: Object,
@@ -10,10 +9,6 @@ export default {
     }
   },
   render() {
-    return (
-      <div>
-        {this.$slots.default}
-      </div>
-    );
+    return <div>{this.$slots.default}</div>
   }
-};
+}

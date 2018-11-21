@@ -40,9 +40,11 @@ function toVueJSX(node, parentNode = {}, options = {}) {
     )
   }
 
-  // recursively walk through children
+  // Recursively walk through children
   if (node.children) {
-    children = node.children.map(childNode => toVueJSX(childNode, node)).join('')
+    children = node.children
+      .map(childNode => toVueJSX(childNode, node))
+      .join('')
   }
 
   if (node.type === 'element') {
@@ -58,7 +60,7 @@ function toVueJSX(node, parentNode = {}, options = {}) {
 
     return `<MDXTag name="${node.tagName}" components={this.components}${
       parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''
-      }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
+    }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
   }
 
   // Wraps all text nodes except new lines inside template string, so that we don't run into escaping issues.
@@ -93,7 +95,7 @@ function toVueExport(layout, jsxNodes, node) {
         );
       }
     }
-  `;
+  `
 }
 
 export function VueJSXCompiler(options = {}) {

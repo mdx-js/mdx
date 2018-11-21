@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const memoryFs = require('memory-fs')
-const { VueJSXCompiler } = require('@mdx-js/vue-plugin-mdx')
+const {VueJSXCompiler} = require('@mdx-js/vue-plugin-mdx')
 
 const testFixture = (fixture, options = {}) => {
   const fileName = `./${fixture}`

@@ -1,26 +1,24 @@
-import { parse } from '@babel/core';
-import mdx from '@mdx-js/mdx';
-import fs from 'fs';
-import path from 'path';
-import { select } from 'hast-util-select';
-import { VueJSXCompiler } from '../src/mdx-hast-to-vue-jsx';
+import {parse} from '@babel/core'
+import mdx from '@mdx-js/mdx'
+import fs from 'fs'
+import path from 'path'
+import {select} from 'hast-util-select'
+import {VueJSXCompiler} from '../src/mdx-hast-to-vue-jsx'
 
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
-);
+)
 
 const parseCode = code =>
   parse(code, {
-    plugins: [
-      'transform-vue-jsx',
-    ]
+    plugins: ['transform-vue-jsx']
   })
 
-
-const mdxWithVueCompiler = (md, options = {}) => mdx(md, {
-  ...options,
-  ...{compilers: [VueJSXCompiler]},
-})
+const mdxWithVueCompiler = (md, options = {}) =>
+  mdx(md, {
+    ...options,
+    ...{compilers: [VueJSXCompiler]}
+  })
 
 it('Should output parsable JSX with Vue', async () => {
   const result = await mdxWithVueCompiler('Hello World')
@@ -74,14 +72,15 @@ A paragraph
 })
 
 it('Should not include export wrapper if skipExport is true', async () => {
-  const result = await mdxWithVueCompiler('> test\n\n> `test`', { skipExport: true })
+  const result = await mdxWithVueCompiler('> test\n\n> `test`', {
+    skipExport: true
+  })
 
   expect(
     result.includes(`
       export default {
         render() {
-      `
-    )
+      `)
   ).toBeFalsy()
 })
 
@@ -119,24 +118,20 @@ it('Should await and render async plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
-it(
-  'Should parse and render footnotes',
-  async () => {
-    const result = await mdxWithVueCompiler(
-      'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
-    )
+it('Should parse and render footnotes', async () => {
+  const result = await mdxWithVueCompiler(
+    'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
+  )
 
-    expect(
-      result.includes(
-        '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
-      )
+  expect(
+    result.includes(
+      '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
     )
+  )
 
-    expect(
-      result.includes(
-        '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
-      )
+  expect(
+    result.includes(
+      '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
     )
-  },
-  10000
-)
+  )
+}, 10000)

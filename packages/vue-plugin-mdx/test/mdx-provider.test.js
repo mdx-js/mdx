@@ -1,23 +1,21 @@
-import { mount } from '@vue/test-utils';
-import { MDXProvider, MDXTag } from '../src'
+import {mount} from '@vue/test-utils'
+import {MDXProvider, MDXTag} from '../src'
 
 const H1Tag = {
   render() {
-    const data = { style: { color: 'green' }};
+    const data = {style: {color: 'green'}}
     return <h1 {...data}>{this.$slots.default}</h1>
-  }  
+  }
 }
 
 const Layout = {
   render() {
-    return (
-      <div id="layout">{this.$slots.default}</div>
-    );
+    return <div id="layout">{this.$slots.default}</div>
   }
-};
+}
 
 it('Should allow components to be passed via context', async () => {
-  const components = { h1: H1Tag }
+  const components = {h1: H1Tag}
   const TestComponent = {
     render() {
       return (
