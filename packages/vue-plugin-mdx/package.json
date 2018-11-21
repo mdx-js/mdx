@@ -1,0 +1,38 @@
+{
+  "name": "@mdx-js/vue-plugin-mdx",
+  "version": "0.1.0",
+  "repository": "mdx-js/mdx",
+  "license": "MIT",
+  "description": "A plugin to convert MDX into Vue components",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "babel src -d dist",
+    "clean": "rm -rf dist",
+    "prepublish": "npm run clean && npm run build",
+    "test": "jest"
+  },
+  "keywords": [
+    "markdown",
+    "vue",
+    "mdx",
+    "remark"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.0.0-rc.3",
+    "@mdx-js/mdx": "^0.15.0",
+    "@vue/test-utils": "^1.0.0-beta.24",
+    "babel-cli": "^6.26.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-env": "^1.7.0",
+    "hast-util-select": "^2.1.0",
+    "jest": "^23.5.0",
+    "vue": "^2.5.17",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
