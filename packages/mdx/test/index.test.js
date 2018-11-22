@@ -88,7 +88,7 @@ it('Should match sample blog post snapshot', async () => {
     this.layout = undefined;
   }
   render() {
-    const { components = {} } = this.props;
+    const { components = {}, ...props } = this.props;
 
     return (
       <MDXTag name=\\"wrapper\\" components={components}>

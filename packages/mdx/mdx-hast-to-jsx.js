@@ -108,7 +108,7 @@ function toJSX(node, parentNode = {}, options = {}) {
     this.layout = ${layout}
   }
   render() {
-    const { components = {} } = this.props
+    const { components = {}, ...props } = this.props
 
     return <MDXTag
              name="wrapper"
