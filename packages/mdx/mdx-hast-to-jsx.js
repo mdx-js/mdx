@@ -105,7 +105,7 @@ function toJSX(node, parentNode = {}, options = {}) {
       } class MDXContent extends React.Component {
   constructor(props) {
     super(props)
-    this.layout = ${layout}
+    this.layout = ${layout || 'null'}
   }
   render() {
     const { components = {}, ...props } = this.props

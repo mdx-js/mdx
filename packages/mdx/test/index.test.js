@@ -85,7 +85,7 @@ it('Should match sample blog post snapshot', async () => {
 "export default class MDXContent extends React.Component {
   constructor(props) {
     super(props);
-    this.layout = undefined;
+    this.layout = null;
   }
   render() {
     const { components = {}, ...props } = this.props;
