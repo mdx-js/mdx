@@ -25,6 +25,7 @@ const navOrder = [
     'gatsby',
     'x0',
     'typescript',
+    'react-static',
   'plugins',
   'advanced',
     'ast',
