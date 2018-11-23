@@ -6,7 +6,7 @@ const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
 const prettier = require('prettier')
-const {MDXTag} = require('@mdx-js/tag')
+const {MDXTag, MDXProvider} = require('@mdx-js/tag')
 const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')
 
@@ -46,8 +46,18 @@ const renderWithReact = async mdxCode => {
   )
 
   const element = fn(React, ...Object.values(scope))
+  const components = {
+    h1: ({children}) =>
+      React.createElement('h1', {style: {color: 'tomato'}}, children)
+  }
 
-  return renderToStaticMarkup(element)
+  const elementWithProvider = React.createElement(
+    MDXProvider,
+    {components},
+    element
+  )
+
+  return renderToStaticMarkup(elementWithProvider)
 }
 
 it('Should output parseable JSX', async () => {
@@ -59,7 +69,7 @@ it('Should output parseable JSX', async () => {
 it('Should be able to render JSX with React', async () => {
   const result = await renderWithReact('# Hello, world!')
 
-  expect(result).toContain('<h1>Hello, world!</h1>')
+  expect(result).toContain('<h1 style="color:tomato">Hello, world!</h1>')
 })
 
 it('Should output parseable JSX when using < or >', async () => {
@@ -88,7 +98,7 @@ it('Should match sample blog post snapshot', async () => {
     this.layout = null;
   }
   render() {
-    const { components = {}, ...props } = this.props;
+    const { components, ...props } = this.props;
 
     return (
       <MDXTag name=\\"wrapper\\" components={components}>
