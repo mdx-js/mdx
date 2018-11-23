@@ -13,10 +13,11 @@
 *   [spectacle-boilerplate-mdx][]: Boilerplate that facilitates using MDX with
     Spectacle
 
-## Sites using MDX
+## Sites
 
 *   [ZEIT Docs][zeit-docs]
 *   [Compositor][compositor]
+*   [Prisma][prisma]
 
 ## Other related links
 
@@ -35,6 +36,8 @@
 [zeit-docs]: https://github.com/zeit/docs
 
 [compositor]: https://compositor.io
+
+[prisma]: https://www.prisma.io/docs
 
 [awesome-mdx]: https://github.com/transitive-bullshit/awesome-mdx
 
