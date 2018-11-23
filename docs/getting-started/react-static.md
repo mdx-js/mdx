@@ -20,17 +20,15 @@ export default {
     // ...
   },
   webpack: config => {
-    config.resolve.alias = {
-      '@components': path.resolve(__dirname, 'components/')
-    };
     config.module.rules.map(rule => {
+      // rules is an array of objects, we want the one with the `oneOf` field
       if (
         typeof rule.test !== 'undefined' ||
         typeof rule.oneOf === 'undefined'
       ) {
         return rule;
       }
-
+      // add the mdx-js loader to it
       rule.oneOf.unshift({
         test: /.mdx$/,
         use: ['babel-loader', '@mdx-js/loader']
