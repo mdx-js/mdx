@@ -1,5 +1,11 @@
 # Projects using MDX
 
+## Apps
+
+*   [demoboard][]: The simplest editor alive
+
+## Libraries
+
 *   [ok-mdx][]: Browser-based MDX editor
 *   [docz][]: Documentation framework
 *   [mdx-deck][]: MDX-based presentation decks
@@ -15,6 +21,8 @@
 ## Other related links
 
 *   [awesome-mdx][]
+
+[demoboard]: https://frontarm.com/demoboard
 
 [ok-mdx]: https://github.com/jxnblk/ok-mdx
 
