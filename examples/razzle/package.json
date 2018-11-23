@@ -8,12 +8,11 @@
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
-    "@mdx-js/tag": "^0.16.0",
-    "@rebass/markdown": "^1.0.0-1",
-    "express": "^4.15.2",
-    "razzle": "^2.2.0",
-    "razzle-plugin-mdx": "^2.2.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "@mdx-js/tag": "^0.16.1",
+    "express": "^4.16.4",
+    "razzle": "^2.4.0",
+    "razzle-plugin-mdx": "^2.4.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
   }
 }

@@ -2,15 +2,12 @@
   "private": true,
   "name": "mdx-create-react-app",
   "dependencies": {
-    "@mdx-js/loader": "^0.16.0",
-    "@mdx-js/mdx": "^0.16.0",
-    "@rebass/markdown": "^1.0.0",
-    "react": "^16.5.2",
+    "@mdx-js/loader": "^0.16.4",
+    "@mdx-js/mdx": "^0.16.4",
+    "react": "^16.6.3",
     "react-app-rewired": "^1.6.2",
-    "react-dom": "^16.5.2",
-    "react-scripts": "1.1.5",
-    "rebass": "^2.3.4",
-    "styled-components": "^3.4.9"
+    "react-dom": "^16.6.3",
+    "react-scripts": "1.1.5"
   },
   "scripts": {
     "start": "react-app-rewired start",

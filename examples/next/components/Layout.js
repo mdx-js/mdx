@@ -1,4 +1,17 @@
 import React from 'react'
-import {Container} from 'rebass'
+import {Container, baseStyles} from 'unified-ui'
 
-export default props => <Container {...props} />
+const Style = ({children}) => (
+  <style
+    dangerouslySetInnerHTML={{
+      __html: children
+    }}
+  />
+)
+
+export default props => (
+  <>
+    <Style>{baseStyles}</Style>
+    <Container {...props} />
+  </>
+)

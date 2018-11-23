@@ -5,17 +5,15 @@
     "start": "parcel index.html --no-cache"
   },
   "dependencies": {
-    "@mdx-js/tag": "^0.16.0",
-    "@rebass/markdown": "^1.0.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "rebass": "^2.3.4",
-    "styled-components": "^3.4.9"
+    "@mdx-js/tag": "^0.16.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
   },
   "devDependencies": {
-    "@mdx-js/parcel-plugin-mdx": "^0.16.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-react-app": "^3.1.2",
-    "parcel-bundler": "^1.10.0"
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "@mdx-js/parcel-plugin-mdx": "^0.16.5",
+    "parcel-bundler": "^1.10.3"
   }
 }

@@ -1,16 +1,14 @@
 import React from 'react'
 import {MDXProvider} from '@mdx-js/tag'
-import {Container, Provider as RebassProvider} from 'rebass'
-import createComponents from '@rebass/markdown'
 
 import Doc from './example.md'
 
+const components = {
+  h1: props => <h1 style={{color: 'tomato'}} {...props} />
+}
+
 export default () => (
-  <MDXProvider components={createComponents()}>
-    <RebassProvider>
-      <Container>
-        <Doc />
-      </Container>
-    </RebassProvider>
+  <MDXProvider components={components}>
+    <Doc />
   </MDXProvider>
 )
