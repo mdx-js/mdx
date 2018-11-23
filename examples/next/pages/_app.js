@@ -1,13 +1,17 @@
 import React from 'react'
 import {MDXProvider} from '@mdx-js/tag'
-import {Provider as RebassProvider} from 'rebass'
+import {createGlobalStyle} from 'styled-components'
+import {Provider, baseStyles, mdComponents} from 'unified-ui'
 
-import components from '../components/markdown'
+// eslint-disable-next-line no-unused-expressions
+createGlobalStyle`
+  ${baseStyles}
+`
 
 export default ({Component, pageProps}) => (
-  <MDXProvider components={components}>
-    <RebassProvider>
+  <MDXProvider components={mdComponents}>
+    <Provider>
       <Component {...pageProps} />
-    </RebassProvider>
+    </Provider>
   </MDXProvider>
 )
