@@ -37,7 +37,7 @@ export default ({
     ...keys,
     `${code}
 
-  return React.createElement(MDXContent, { components });`
+  return React.createElement(MDXContent, { components, ...props });`
   )
 
   return fn({}, React, ...values)

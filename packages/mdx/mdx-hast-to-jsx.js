@@ -105,10 +105,10 @@ function toJSX(node, parentNode = {}, options = {}) {
       } class MDXContent extends React.Component {
   constructor(props) {
     super(props)
-    this.layout = ${layout}
+    this.layout = ${layout || 'null'}
   }
   render() {
-    const { components = {} } = this.props
+    const { components = {}, ...props } = this.props
 
     return <MDXTag
              name="wrapper"
