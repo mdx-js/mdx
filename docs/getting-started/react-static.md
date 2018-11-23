@@ -1,6 +1,6 @@
 # React Static
 
-In order to use MDX with [React Static][] you just need to [configure the `webpack` option](https://react-static.js.org/docs/config/#webpack) in `static.config.js`.
+In order to use MDX with [React Static][react-static] you just need to [configure the `webpack` option](https://react-static.js.org/docs/config/#webpack) in `static.config.js`.
 
 First, scaffold a new React Static site:
 
@@ -51,4 +51,4 @@ It “Just Works” when you import it.
 some awesome content
 ```
 
-[React Static]: http://react-static.js.org
+[react-static]: http://react-static.js.org
