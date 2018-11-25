@@ -1,5 +1,5 @@
 const {getBabelLoader} = require('react-app-rewired')
-module.exports = (config, env) => {
+module.exports = (config, _env) => {
   const babelLoader = getBabelLoader(config.module.rules)
   config.module.rules.map(rule => {
     if (typeof rule.test !== 'undefined' || typeof rule.oneOf === 'undefined') {

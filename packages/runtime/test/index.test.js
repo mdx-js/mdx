@@ -1,6 +1,5 @@
 import React from 'react'
 import {renderToString as render} from 'react-dom/server'
-import {MDXProvider} from '@mdx-js/tag'
 import slug from 'remark-slug'
 import autolinkHeadings from 'remark-autolink-headings'
 import addClasses from 'rehype-add-classes'
@@ -12,7 +11,7 @@ const components = {
 }
 
 const scope = {
-  Foo: props => <div>Foobarbaz</div>
+  Foo: _props => <div>Foobarbaz</div>
 }
 
 const mdx = `
@@ -32,7 +31,9 @@ export default ({ children, id }) => <div id={id}>{children}</div>
 describe('renders MDX with the proper components', () => {
   it('default layout', () => {
     const result = render(
-      <MDX components={components} scope={scope} children={mdx} />
+      <MDX components={components} scope={scope}>
+        {mdx}
+      </MDX>
     )
 
     expect(result).toMatch(/style="color:tomato"/)
@@ -41,12 +42,9 @@ describe('renders MDX with the proper components', () => {
 
   it('custom layout', () => {
     const result = render(
-      <MDX
-        components={components}
-        scope={scope}
-        children={mdxLayout}
-        id="layout"
-      />
+      <MDX components={components} scope={scope} id="layout">
+        {mdxLayout}
+      </MDX>
     )
 
     expect(result).toMatch(/style="color:tomato"/)
@@ -62,8 +60,9 @@ it('supports remark and rehype plugins', () => {
       hastPlugins={[[addClasses, {h1: 'title'}]]}
       components={components}
       scope={scope}
-      children={mdx}
-    />
+    >
+      {mdx}
+    </MDX>
   )
 
   expect(result).toContain(`id="hello-world"`)

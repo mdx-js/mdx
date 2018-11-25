@@ -38,7 +38,7 @@ const tokenizeEsSyntax = (eat, value) => {
   }
 }
 
-tokenizeEsSyntax.locator = (value, fromIndex) => {
+tokenizeEsSyntax.locator = (value, _fromIndex) => {
   return isExport(value) || isImport(value) ? -1 : 1
 }
 

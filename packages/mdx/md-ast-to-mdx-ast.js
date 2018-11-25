@@ -1,6 +1,6 @@
 const visit = require('unist-util-visit')
 
-module.exports = options => tree => {
+module.exports = _options => tree => {
   visit(tree, 'html', node => {
     if (node.value.startsWith('<!--') && node.value.endsWith('-->')) {
       node.type = 'comment'

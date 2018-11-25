@@ -11,7 +11,6 @@ const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')
 
 const mdx = require('..')
-const mdxHastToJsx = require('../mdx-hast-to-jsx')
 
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
@@ -269,7 +268,7 @@ it('Should render elements without wrapping blank new lines', async () => {
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     hastPlugins: [
-      options => tree => {
+      _options => tree => {
         // eslint-disable-next-line require-await
         return (async () => {
           const headingNode = select('h1', tree)
@@ -287,7 +286,7 @@ test('Should process filepath and pass it to the plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     filepath: 'hello.mdx',
     hastPlugins: [
-      options => (tree, fileInfo) => {
+      _options => (tree, fileInfo) => {
         expect(fileInfo.path).toBe('hello.mdx')
         const headingNode = select('h1', tree)
         const textNode = headingNode.children[0]

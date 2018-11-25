@@ -3,7 +3,7 @@ const detab = require('detab')
 const u = require('unist-builder')
 
 function mdxAstToMdxHast() {
-  return (tree, file) => {
+  return (tree, _file) => {
     const handlers = {
       // `inlineCode` gets passed as `code` by the HAST transform.
       // This makes sure it ends up being `inlineCode`

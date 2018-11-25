@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const MemoryFs = require('memory-fs')
 
-const testFixture = (fixture, options = {}) => {
+const testFixture = (fixture, _options = {}) => {
   const fileName = `./${fixture}`
 
   const compiler = webpack({
