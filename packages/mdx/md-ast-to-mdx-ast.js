@@ -1,7 +1,7 @@
 const visit = require('unist-util-visit')
 
 const commentOpen = '<!--'
-var commentClose = '-->'
+const commentClose = '-->'
 
 module.exports = options => tree => {
   visit(tree, 'html', node => {
