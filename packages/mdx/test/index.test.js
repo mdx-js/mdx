@@ -117,6 +117,18 @@ it('Should render blockquote correctly', async () => {
   parse(result)
 })
 
+it('Should properly expose comments', async () => {
+  const result = await mdx('<!--foo-->', {
+    hastPlugins: [
+      () => tree => {
+        tree.children[0].value = 'bar'
+      }
+    ]
+  })
+
+  expect(result).toContain('{/*bar*/}')
+})
+
 it('Should render HTML inside inlineCode correctly', async () => {
   const result = await mdx('`<div>`')
 

@@ -161,7 +161,7 @@ function toJSX(node, parentNode = {}, options = {}) {
   }
 
   if (node.type === 'comment') {
-    return node.value.replace('<!--', '{/*').replace('-->', '*/}')
+    return `{/*${node.value}*/}`
   }
 
   if (node.type === 'import' || node.type === 'export' || node.type === 'jsx') {
