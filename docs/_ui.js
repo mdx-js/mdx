@@ -15,10 +15,6 @@ export const LiveEditor = props => {
     case '!':
       return <LivePreview mdx={lang === '!mdx'} code={code} />
     default:
-      return (
-        <Pre p={3} mt={4} mb={4} bg="gray">
-          {props.children}
-        </Pre>
-      )
+      return <Pre p={3} mt={4} mb={4} bg="gray" children={props.children} />
   }
 }

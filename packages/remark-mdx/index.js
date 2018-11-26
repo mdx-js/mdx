@@ -1,7 +1,6 @@
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
 const EXPORT_DEFAULT_REGEX = /^export default/
-// eslint-disable-next-line
 // const BLOCKS_REGEX = '[a-z\\.]+(\\.){0,1}[a-z\\.]'
 const EMPTY_NEWLINE = '\n\n'
 

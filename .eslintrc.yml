@@ -26,16 +26,18 @@ rules:
   no-eq-null: off
   no-negated-condition: off
   no-unused-vars:
-  - error
-  - vars: all
-    args: after-used
-    argsIgnorePattern: "^_"
-    varsIgnorePattern: "^React$"
+    - error
+    - args: after-used
+      argsIgnorePattern: "^_"
+  no-var: error
   import/no-extraneous-dependencies: error
+  capitalized-comments: off
   prettier/prettier: error
-  no-console: 0
-  react/prop-types: 0
-  react/display-name: 0
+  no-console: off
+  react/prop-types: off
+  react/display-name: off
+  react/react-in-jsx-scope: off
+  react/no-children-prop: off
 
 settings:
   react: 

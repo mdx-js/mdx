@@ -31,9 +31,7 @@ export default ({ children, id }) => <div id={id}>{children}</div>
 describe('renders MDX with the proper components', () => {
   it('default layout', () => {
     const result = render(
-      <MDX components={components} scope={scope}>
-        {mdx}
-      </MDX>
+      <MDX components={components} scope={scope} children={mdx} />
     )
 
     expect(result).toMatch(/style="color:tomato"/)
@@ -60,9 +58,8 @@ it('supports remark and rehype plugins', () => {
       hastPlugins={[[addClasses, {h1: 'title'}]]}
       components={components}
       scope={scope}
-    >
-      {mdx}
-    </MDX>
+      children={mdx}
+    />
   )
 
   expect(result).toContain(`id="hello-world"`)
