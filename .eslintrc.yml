@@ -36,7 +36,6 @@ rules:
   no-console: off
   react/prop-types: off
   react/display-name: off
-  react/react-in-jsx-scope: off
   react/no-children-prop: off
 
 settings:
@@ -62,3 +61,8 @@ overrides:
     rules:
       import/no-unresolved: off
       import/no-extraneous-dependencies: off
+  -
+    files:
+      - "examples/next/**/*.js"
+    rules:
+      react/react-in-jsx-scope: off
