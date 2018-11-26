@@ -7,9 +7,7 @@ const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
 
 it('Should render the desired component', () => {
   const result = renderToString(
-    <MDXTag name="h1" components={{h1: H1}}>
-      {'Hello, world!'}
-    </MDXTag>
+    <MDXTag name="h1" components={{h1: H1}} children="Hello, world!" />
   )
 
   expect(result).toMatch(/style="color:tomato"/)

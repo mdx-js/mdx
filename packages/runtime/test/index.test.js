@@ -40,9 +40,12 @@ describe('renders MDX with the proper components', () => {
 
   it('custom layout', () => {
     const result = render(
-      <MDX components={components} scope={scope} id="layout">
-        {mdxLayout}
-      </MDX>
+      <MDX
+        components={components}
+        scope={scope}
+        children={mdxLayout}
+        id="layout"
+      />
     )
 
     expect(result).toMatch(/style="color:tomato"/)
