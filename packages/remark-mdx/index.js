@@ -1,7 +1,6 @@
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
 const EXPORT_DEFAULT_REGEX = /^export default/
-// Const BLOCKS_REGEX = '[a-z\\.]+(\\.){0,1}[a-z\\.]'
 const EMPTY_NEWLINE = '\n\n'
 
 const isImport = text => IMPORT_REGEX.test(text)
