@@ -39,7 +39,6 @@ export default {
     return config;
   }
 };
-
 ```
 
 Finally, add an `.mdx` file anywhere in the `src` directory.

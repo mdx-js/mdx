@@ -31,7 +31,6 @@ rules:
       argsIgnorePattern: "^_"
   no-var: error
   import/no-extraneous-dependencies: error
-  capitalized-comments: off
   prettier/prettier: error
   no-console: off
   react/prop-types: off
