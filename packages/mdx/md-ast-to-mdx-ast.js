@@ -3,7 +3,7 @@ const visit = require('unist-util-visit')
 const commentOpen = '<!--'
 const commentClose = '-->'
 
-module.exports = options => tree => {
+module.exports = _options => tree => {
   visit(tree, 'html', node => {
     if (
       node.value.startsWith(commentOpen) &&

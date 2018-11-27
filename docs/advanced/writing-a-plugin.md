@@ -5,7 +5,6 @@ For a full-fledged introduction to plugins it’s recommended to read the [remar
 Now let’s consider an example where we want to pass all headings through the [title][] module to ensure consistent capitalization.  We can use [unist-util-visit][] to visit all headings and change the text nodes with `title(text)`.
 
 ```js
-
 const title = require('title')
 const visit = require('unist-util-visit')
 

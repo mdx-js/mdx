@@ -13,7 +13,7 @@ export default class _Document extends Document {
   }
 
   render() {
-    const {styleTags, title} = this.props
+    const {styleTags} = this.props
 
     return (
       <html lang="en">

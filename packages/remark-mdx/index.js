@@ -1,10 +1,6 @@
-const unified = require('unified')
-const toMDAST = require('remark-parse')
-
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
 const EXPORT_DEFAULT_REGEX = /^export default/
-const BLOCKS_REGEX = '[a-z\\.]+(\\.){0,1}[a-z\\.]'
 const EMPTY_NEWLINE = '\n\n'
 
 const isImport = text => IMPORT_REGEX.test(text)
@@ -17,7 +13,7 @@ mdx.default = mdx
 
 tokenizeEsSyntax.locator = tokenizeEsSyntaxLocator
 
-function mdx(options) {
+function mdx(_options) {
   const parser = this.Parser
   const compiler = this.Compiler
 
@@ -78,10 +74,13 @@ function tokenizeEsSyntax(eat, value) {
   }
 
   if (isImport(subvalue)) {
-    return eat(subvalue)({type: 'import', value: subvalue})
+    return eat(subvalue)({
+      type: 'import',
+      value: subvalue
+    })
   }
 }
 
-function tokenizeEsSyntaxLocator(value, fromIndex) {
+function tokenizeEsSyntaxLocator(value, _fromIndex) {
   return isExport(value) || isImport(value) ? -1 : 1
 }

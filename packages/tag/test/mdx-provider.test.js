@@ -1,4 +1,3 @@
-import fs from 'fs'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 
@@ -25,7 +24,6 @@ it('Should allow components to be passed via context', () => {
 })
 
 it('Should allow context components to be overridden', () => {
-  const Layout = ({children}) => <div id="layout">{children}</div>
   const components = {h1: H1}
   const result = renderToString(
     <MDXProvider components={{}}>

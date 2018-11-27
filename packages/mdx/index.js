@@ -38,14 +38,14 @@ const tokenizeEsSyntax = (eat, value) => {
   }
 }
 
-tokenizeEsSyntax.locator = (value, fromIndex) => {
+tokenizeEsSyntax.locator = (value, _fromIndex) => {
   return isExport(value) || isImport(value) ? -1 : 1
 }
 
 function esSyntax() {
-  var Parser = this.Parser
-  var tokenizers = Parser.prototype.blockTokenizers
-  var methods = Parser.prototype.blockMethods
+  const Parser = this.Parser
+  const tokenizers = Parser.prototype.blockTokenizers
+  const methods = Parser.prototype.blockMethods
 
   tokenizers.esSyntax = tokenizeEsSyntax
 

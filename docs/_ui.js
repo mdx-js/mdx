@@ -1,5 +1,5 @@
 import React from 'react'
-import {Pre, Box, Border} from 'rebass'
+import {Pre} from 'rebass'
 import {LiveEditor as Editor, LivePreview} from '@compositor/x0/components'
 
 export const Logo = () => <img src="https://mdx-logo.now.sh" width="70" />

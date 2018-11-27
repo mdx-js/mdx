@@ -1,6 +1,5 @@
 import React from 'react'
 import {renderToString as render} from 'react-dom/server'
-import {MDXProvider} from '@mdx-js/tag'
 import slug from 'remark-slug'
 import autolinkHeadings from 'remark-autolink-headings'
 import addClasses from 'rehype-add-classes'
@@ -12,7 +11,7 @@ const components = {
 }
 
 const scope = {
-  Foo: props => <div>Foobarbaz</div>
+  Foo: _props => <div>Foobarbaz</div>
 }
 
 const mdx = `

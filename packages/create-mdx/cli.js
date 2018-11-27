@@ -6,7 +6,7 @@ const name = process.argv[3] || example + '-mdx'
 const template = `mdx-js/mdx/examples/${example}`
 
 init({name, template})
-  .then(res => process.exit(0))
+  .then(_res => process.exit(0))
   .catch(err => {
     console.log(err)
     process.exit(1)

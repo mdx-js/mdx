@@ -15,6 +15,8 @@ plugins:
   - prettier
 
 extends:
+  - eslint:recommended
+  - plugin:react/recommended
   - plugin:import/errors
   - xo
   - prettier
@@ -23,9 +25,21 @@ rules:
   eqeqeq: off
   no-eq-null: off
   no-negated-condition: off
-  no-unused-vars: off
+  no-unused-vars:
+    - error
+    - args: after-used
+      argsIgnorePattern: "^_"
+  no-var: error
   import/no-extraneous-dependencies: error
   prettier/prettier: error
+  no-console: off
+  react/prop-types: off
+  react/display-name: off
+  react/no-children-prop: off
+
+settings:
+  react: 
+    version: 16.3.2
 
 overrides:
   -
@@ -46,3 +60,8 @@ overrides:
     rules:
       import/no-unresolved: off
       import/no-extraneous-dependencies: off
+  -
+    files:
+      - "examples/next/**/*.js"
+    rules:
+      react/react-in-jsx-scope: off
