@@ -30,7 +30,7 @@ function mdxAstToMdxHast() {
         }
 
         // mdast sets `node.meta` to `null` instead of `undefined` if
-        // not present which React doesn't like.
+        // not present, which React doesn't like.
         props.metastring = node.meta || undefined
 
         const meta =
