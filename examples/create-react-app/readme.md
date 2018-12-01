@@ -1,6 +1,6 @@
 # MDX + Create React App
 
-```
+```shell
 npm install
 npm start
 ```

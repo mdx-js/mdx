@@ -1,14 +1,16 @@
-const { getOptions } = require('loader-utils')
+const {getOptions} = require('loader-utils')
 const mdx = require('@mdx-js/mdx')
 
 module.exports = async function(content) {
   const callback = this.async()
-  const options = Object.assign({}, getOptions(this), {filepath: this.resourcePath});
+  const options = Object.assign({}, getOptions(this), {
+    filepath: this.resourcePath
+  })
   let result
 
   try {
     result = await mdx(content, options)
-  } catch(err) {
+  } catch (err) {
     return callback(err)
   }
 

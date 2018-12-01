@@ -1,9 +1,26 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "0.15.6",
-  "license": "MIT",
-  "repository": "mdx-js/mdx",
+  "version": "0.16.5",
   "description": "Parse MDX and transpile to JSX",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
   "files": [
     "index.js",
     "util.js",
@@ -11,35 +28,34 @@
     "mdx-ast-to-mdx-hast.js",
     "mdx-hast-to-jsx.js"
   ],
-  "scripts": {
-    "test": "jest"
-  },
-  "keywords": [
-    "react",
-    "markdown",
-    "remark",
-    "mdxast",
-    "mdx"
-  ],
   "dependencies": {
     "change-case": "^3.0.2",
-    "mdast-util-to-hast": "^3.0.0",
-    "remark-parse": "^5.0.0",
+    "detab": "^2.0.0",
+    "mdast-util-to-hast": "^4.0.0",
+    "remark-parse": "^6.0.0",
     "remark-squeeze-paragraphs": "^3.0.1",
     "to-style": "^1.3.3",
-    "unified": "^6.1.6",
+    "unified": "^7.0.0",
+    "unist-builder": "^1.0.1",
     "unist-util-visit": "^1.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.44",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.44",
-    "@babel/plugin-syntax-jsx": "^7.0.0-beta.44",
-    "@mapbox/rehype-prism": "^0.2.0",
-    "hast-util-select": "^1.0.1",
-    "jest": "^22.4.3",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-syntax-jsx": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.1.6",
+    "@mapbox/rehype-prism": "^0.3.0",
+    "@mdx-js/tag": "^0.16.1",
+    "hast-util-select": "^3.0.0",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "rehype-katex": "^1.1.1",
-    "remark-math": "^1.0.4",
-    "request-image-size": "^2.1.0"
+    "remark-math": "^1.0.4"
+  },
+  "scripts": {
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node"

@@ -1,6 +1,6 @@
 # MDX + X0
 
-```
+```shell
 npm install
 npm start
 ```

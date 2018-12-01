@@ -1,13 +1,15 @@
 language: node_js
 node_js:
-  - 8
-  - 10
+  - lts/carbon
+  - node
 git:
   depth: 5
 before_script:
   # https://github.com/lerna/lerna/issues/1457#issuecomment-399678173
   - yarn lerna exec yarn install
   - yarn lerna link --force-local
+script:
+  - yarn test
 cache:
   yarn: true
   directories:

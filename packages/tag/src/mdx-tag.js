@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-import hoistStatics from 'hoist-non-react-statics'
+import React, {Component} from 'react'
 
-import { withMDXComponents } from './mdx-provider'
+import {withMDXComponents} from './mdx-provider'
 
 const defaults = {
   inlineCode: 'code',
@@ -27,8 +26,6 @@ class MDXTag extends Component {
       name
 
     if (Layout) {
-      hoistStatics(this, Layout)
-
       return (
         <Layout components={components} {...layoutProps}>
           <Component {...childProps}>{children}</Component>

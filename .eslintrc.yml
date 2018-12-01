@@ -1,0 +1,67 @@
+root: true
+
+parserOptions:
+  ecmaVersion: 9
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+
+env:
+  es6: true
+  node: true
+
+plugins:
+  - import
+  - prettier
+
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+  - plugin:import/errors
+  - xo
+  - prettier
+
+rules:
+  eqeqeq: off
+  no-eq-null: off
+  no-negated-condition: off
+  no-unused-vars:
+    - error
+    - args: after-used
+      argsIgnorePattern: "^_"
+  no-var: error
+  import/no-extraneous-dependencies: error
+  prettier/prettier: error
+  no-console: off
+  react/prop-types: off
+  react/display-name: off
+  react/no-children-prop: off
+
+settings:
+  react: 
+    version: 16.3.2
+
+overrides:
+  -
+    files:
+      - "**/test/**/*.js"
+      - "**/*.test.js"
+    env:
+      jest: true
+  -
+    files:
+      - "examples/**/*.js"
+    env:
+      browser: true
+  -
+    files:
+      - "docs/**/*.js"
+      - "examples/**/*.js"
+    rules:
+      import/no-unresolved: off
+      import/no-extraneous-dependencies: off
+  -
+    files:
+      - "examples/next/**/*.js"
+    rules:
+      react/react-in-jsx-scope: off
