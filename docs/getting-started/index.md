@@ -91,10 +91,55 @@ export default props =>
 This allows you to remove duplicated component imports and passing.
 It will typically go in layout files.
 
-#### How it works
+### How it works
 
-MDXProvider uses React [context][] to provide the component mapping to MDXTag.
-MDXTag knows to use these components when determining which to render.
+MDXProvider uses [React Context][context] to provide the component mapping to
+MDXTag.  This way MDXTag knows that it should override the standard components
+with those provided in this mapping.
+
+Because MDXProvider uses React Context directly, [it is affected by the same
+caveats][context-caveats].  It is therefore important that you do **not**
+declare your components mapping inline in the JSX.  Doing so will trigger a
+rerender of your entire MDX page with every render cycle.  Not only is this bad
+for performance, but it can cause unwanted side affects, like breaking in-page
+browser navigation.
+
+Avoid this by following the pattern shown above and declare your mapping as a
+constant.
+
+### Updating the mapping object during application runtime
+
+If you need to change the mapping during runtime, declare it on the componentʼs
+state object:
+
+```jsx
+import React from 'react'
+import { MDXProvider } from '@mdx-js/tag'
+
+import { Heading, Text, Pre, Code, Table } from './components'
+
+export default class Layout extends React.Component {
+  state = {
+    h1: Heading.H1,
+    h2: Heading.H2,
+    // ...
+    p: Text,
+    code: Pre,
+    inlineCode: Code
+  }
+
+  render() {
+    return (
+      <MDXProvider components={this.state}>
+        <main {...this.props} />
+      </MDXProvider>
+    )
+  }
+}
+```
+
+You can now use the `setState` function to update the mapping object and be
+assured that it wonʼt trigger unnecessary renders.
 
 ## Projects, libraries and frameworks
 
@@ -111,3 +156,4 @@ following commands:
 [next]: https://github.com/zeit/next.js
 
 [context]: https://reactjs.org/docs/context.html
+[context-caveats]: https://reactjs.org/docs/context.html#caveats
