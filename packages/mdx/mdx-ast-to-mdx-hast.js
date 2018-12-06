@@ -29,7 +29,9 @@ function mdxAstToMdxHast() {
           props.className = ['language-' + lang]
         }
 
-        props.metastring = node.meta
+        // Mdast sets `node.meta` to `null` instead of `undefined` if
+        // not present, which React doesn't like.
+        props.metastring = node.meta || undefined
 
         const meta =
           node.meta &&
