@@ -10,7 +10,7 @@ const {MDXTag, MDXProvider} = require('@mdx-js/tag')
 const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')
 
-const mdx = require('..')
+const mdx = require('../')
 
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
@@ -255,7 +255,7 @@ it('Should throw when exporting default via named export', async () => {
   await mdx(`export const meta = {
     description: 'better default behavior.'
   }`)
-  
+
   await expect(
     mdx(`export { default as MyComp } from './MyComp'`)
   ).resolves.toContain(`export { default as MyComp } from './MyComp'`)
