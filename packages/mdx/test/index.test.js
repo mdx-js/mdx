@@ -250,6 +250,12 @@ it('Should support semicolons in default export statement', async () => {
 it('Should throw when exporting default via named export', async () => {
   await expect(mdx(`export { default } from './Layout'`)).rejects.toThrow()
   await expect(mdx(`export { Layout as default }`)).rejects.toThrow()
+
+  // Edge case where user has the text "default" as part of the export node
+  await mdx(`export const meta = {
+    description: 'better default behavior.'
+  }`)
+  
   await expect(
     mdx(`export { default as MyComp } from './MyComp'`)
   ).resolves.toContain(`export { default as MyComp } from './MyComp'`)
