@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@mdx-js/remark-mdx",
-  "version": "0.16.4",
+  "version": "0.16.6",
   "description": "Support import, export, and JSX in markdown",
   "license": "MIT",
   "keywords": [
