@@ -65,7 +65,7 @@ prevent you from doing unnecessary work.
 
 ## Running the tests
 
-1.  `npm/yarn install`
+1.  `yarn`
 2.  `yarn lerna exec yarn install`
 3.  `yarn bootstrap`
 4.  `yarn test`
