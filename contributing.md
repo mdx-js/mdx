@@ -1,9 +1,9 @@
 # Contributing
 
-Hi! 👋
+Hi!  👋
 We’re excited that you’re interested in contributing!
 Take a moment to read the following guidelines.
-And thanks for contributing to **MDX**! 👏👌✨
+And thanks for contributing to **MDX**!  👏👌✨
 
 If you’re raising an issue, please understand that people involved with this
 project often do so for fun, next to their day job; you are not entitled to
@@ -59,7 +59,7 @@ We’re always looking for more opinions on discussions in the issue tracker.
 
 ### Write code
 
-Code contributions are very welcome. It’s often good to first create an issue
+Code contributions are very welcome.  It’s often good to first create an issue
 to report a bug or suggest a new feature before creating a pull request to
 prevent you from doing unnecessary work.
 
@@ -72,7 +72,7 @@ prevent you from doing unnecessary work.
 
 ## Submitting an issue
 
-*   The issue tracker is for issues. Use chat for support
+*   The issue tracker is for issues.  Use chat for support
 *   Search the issue tracker (including closed issues) before opening a new
     issue
 *   Ensure you’re using the latest version of our packages
