@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "x0",
   "scripts": {
     "start": "x0 pages"
