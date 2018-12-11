@@ -1,4 +1,10 @@
+import { Button } from 'rebass'
+
 # AST
+
+export const AST_EXPLORER_LINK = 'https://astexplorer.net/#/gist/2befce6edce1475eb4bbec001356b222/35997d3b44347daabad8dd1a107adc22dd873de2'
+
+<Button is="a" href={AST_EXPLORER_LINK}>Explore the AST</Button>
 
 This document defines two syntax trees:
 
