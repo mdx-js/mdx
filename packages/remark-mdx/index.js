@@ -27,23 +27,30 @@ function mdx(_options) {
 }
 
 function attachParser(parser) {
-  const tokenizers = parser.prototype.blockTokenizers
-  const blocks = parser.prototype.blockMethods
-  const html = tokenizers.html
+  const blocks = parser.prototype.blockTokenizers
+  const inlines = parser.prototype.inlineTokenizers
+  const methods = parser.prototype.blockMethods
 
-  tokenizers.esSyntax = tokenizeEsSyntax
-  tokenizers.html = tokenizeJsx
+  blocks.esSyntax = tokenizeEsSyntax
+  blocks.html = wrap(blocks.html)
+  inlines.html = wrap(inlines.html)
 
-  blocks.splice(blocks.indexOf('paragraph'), 0, 'esSyntax')
+  methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
 
-  function tokenizeJsx() {
-    const node = html.apply(this, arguments)
+  function wrap(original) {
+    tokenizeJsx.locator = original.locator
 
-    if (node) {
-      node.type = 'jsx'
+    return tokenizeJsx
+
+    function tokenizeJsx() {
+      const node = original.apply(this, arguments)
+
+      if (node) {
+        node.type = 'jsx'
+      }
+
+      return node
     }
-
-    return node
   }
 }
 

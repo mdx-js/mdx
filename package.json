@@ -57,10 +57,6 @@
         false
       ],
       [
-        "lint-no-html",
-        false
-      ],
-      [
         "validate-links",
         false
       ]
