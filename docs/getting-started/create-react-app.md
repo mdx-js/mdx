@@ -1,7 +1,7 @@
 # Create React App
 
-Please note there's a [known bug][] with
-the macro so live reloading doesn't
+Please note there’s a [known bug][] with
+the macro so live reloading doesn’t
 currently work.
 
 With Create React App you will need to use
@@ -42,7 +42,6 @@ And then create the following `src/Content.mdx`:
 ```md
 # Hello, world!
 ```
-
 
 [See the full example][cra-example]
 
