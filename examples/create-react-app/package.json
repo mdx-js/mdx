@@ -1,17 +1,23 @@
 {
+  "name": "create-react-app",
+  "version": "0.1.0",
   "private": true,
-  "name": "mdx-create-react-app",
   "dependencies": {
-    "@mdx-js/loader": "^0.16.4",
-    "@mdx-js/mdx": "^0.16.4",
+    "mdx.macro": "^0.2.7",
     "react": "^16.6.3",
-    "react-app-rewired": "^1.6.2",
     "react-dom": "^16.6.3",
-    "react-scripts": "1.1.5"
+    "react-scripts": "2.1.1"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test --env=jsdom"
-  }
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

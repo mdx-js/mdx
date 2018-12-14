@@ -1,18 +1,16 @@
-import React, {Component} from 'react'
-import {MDXProvider} from '@mdx-js/tag'
+import React, {lazy, Component, Suspense} from 'react'
+import {importMDX} from 'mdx.macro'
 
-import Hello from './hello.md'
-
-const components = {
-  h1: props => <h1 style={{color: 'tomato'}} {...props} />
-}
+const Content = lazy(() => importMDX('./Content.mdx'))
 
 class App extends Component {
   render() {
     return (
-      <MDXProvider components={components}>
-        <Hello />
-      </MDXProvider>
+      <div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Content />
+        </Suspense>
+      </div>
     )
   }
 }
