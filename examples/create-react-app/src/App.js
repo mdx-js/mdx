@@ -1,7 +1,7 @@
-import React, { lazy, Component, Suspense } from 'react';
-import { importMDX } from 'mdx.macro';
+import React, {lazy, Component, Suspense} from 'react'
+import {importMDX} from 'mdx.macro'
 
-const Content = lazy(() => importMDX('./Content.mdx'));
+const Content = lazy(() => importMDX('./Content.mdx'))
 
 class App extends Component {
   render() {
@@ -11,8 +11,8 @@ class App extends Component {
           <Content />
         </Suspense>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
