@@ -18,6 +18,7 @@ free customer service.
     *   [Improve issues](#improve-issues)
     *   [Give feedback on issues and pull requests](#give-feedback-on-issues-and-pull-requests)
     *   [Write code](#write-code)
+*   [Running the tests](#running-the-tests)
 *   [Submitting an issue](#submitting-an-issue)
 *   [Submitting a pull request](#submitting-a-pull-request)
 *   [Resources](#resources)
@@ -61,6 +62,13 @@ We’re always looking for more opinions on discussions in the issue tracker.
 Code contributions are very welcome.  It’s often good to first create an issue
 to report a bug or suggest a new feature before creating a pull request to
 prevent you from doing unnecessary work.
+
+## Running the tests
+
+1.  `yarn`
+2.  `yarn lerna exec yarn install`
+3.  `yarn bootstrap`
+4.  `yarn test`
 
 ## Submitting an issue
 
