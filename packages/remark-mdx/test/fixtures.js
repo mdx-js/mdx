@@ -16,6 +16,10 @@ module.exports = [
     mdx: 'Hello, <>{props.world}</>'
   },
   {
+    description: 'Handles declarations as props',
+    mdx: 'Hello, <span children={props.world} />'
+  },
+  {
     description: 'Handles self closing JSX tags',
     mdx: 'Hello, <span children="world" />'
   },
