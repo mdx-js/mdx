@@ -1,5 +1,5 @@
 const isAlphabetical = require('is-alphabetical')
-const {tag} = require('remark-parse/lib/util/html')
+const {tag} = require('./tag')
 
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
@@ -7,6 +7,7 @@ const EXPORT_DEFAULT_REGEX = /^export default/
 const EMPTY_NEWLINE = '\n\n'
 const LESS_THAN = '<'
 const GREATER_THAN = '>'
+const SLASH = '/'
 
 const isImport = text => IMPORT_REGEX.test(text)
 const isExport = text => EXPORT_REGEX.test(text)
@@ -65,7 +66,11 @@ function attachParser(parser) {
     }
 
     const nextChar = value.charAt(1)
-    if (nextChar !== GREATER_THAN && !isAlphabetical(nextChar)) {
+    if (
+      nextChar !== GREATER_THAN &&
+      nextChar !== SLASH &&
+      !isAlphabetical(nextChar)
+    ) {
       return
     }
 
