@@ -17,6 +17,10 @@ module.exports = [
   },
   {
     description: 'Handles self closing JSX tags',
+    mdx: 'Hello, <span children="world" />'
+  },
+  {
+    description: 'Handles self closing JSX tags with object props',
     mdx: 'Hello <span style={{ color: "tomato" }} />'
   },
   {
