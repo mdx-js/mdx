@@ -24,7 +24,7 @@ abide by its terms.
 
 ## License
 
-[MIT][] © [Titus Wormer][author]
+[MIT][] © [Titus Wormer][author] and [John Otander][author2]
 
 <!-- Definitions -->
 
@@ -51,3 +51,5 @@ abide by its terms.
 [mdx]: https://github.com/mdx-js/mdx
 
 [author]: https://wooorm.com
+
+[author2]: https://johno.com
