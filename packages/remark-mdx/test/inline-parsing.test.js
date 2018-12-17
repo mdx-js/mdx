@@ -20,11 +20,10 @@ const parse = mdx => {
   return result.contents
 }
 
-describe('inline JSX parsing', () => {
-  fixtures.forEach(fixture => {
-    it(fixture.description, () => {
-      const result = parse(fixture.mdx)
-      expect(result.trim()).toEqual(fixture.mdx)
-    })
+fixtures.forEach(fixture => {
+  it(fixture.description, () => {
+    const result = parse(fixture.mdx)
+
+    expect(result.trim()).toEqual(fixture.mdx)
   })
 })
