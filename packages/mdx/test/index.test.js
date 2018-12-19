@@ -247,6 +247,17 @@ it('Should support semicolons in default export statement', async () => {
   expect(() => parse(result)).not.toThrow()
 })
 
+it('Should export regardless of surrounding newlines', async () => {
+  await expect(
+    mdx(`import layout from './layout'
+export const frontMatter = { foo: 'bar' }
+export default layout({ ...frontMatter })
+
+## Hello world
+This is some content`)
+  ).resolves.not.toContain('export default layout({ ...frontMatter })')
+})
+
 it('Should throw when exporting default via named export', async () => {
   await expect(mdx(`export { default } from './Layout'`)).rejects.toThrow()
   await expect(mdx(`export { Layout as default }`)).rejects.toThrow()
