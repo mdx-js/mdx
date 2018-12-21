@@ -26,11 +26,18 @@
     "index.js"
   ],
   "dependencies": {
+    "is-alphabetical": "^1.0.2",
     "remark-parse": "^6.0.0",
     "unified": "^7.0.0"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "jest"
+  },
   "jest": {
     "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "remark-stringify": "^6.0.4"
   }
 }

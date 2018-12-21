@@ -1,7 +1,13 @@
+const isAlphabetical = require('is-alphabetical')
+const {tag} = require('./tag')
+
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
 const EXPORT_DEFAULT_REGEX = /^export default/
 const EMPTY_NEWLINE = '\n\n'
+const LESS_THAN = '<'
+const GREATER_THAN = '>'
+const SLASH = '/'
 
 const isImport = text => IMPORT_REGEX.test(text)
 const isExport = text => EXPORT_REGEX.test(text)
@@ -33,14 +39,15 @@ function attachParser(parser) {
 
   blocks.esSyntax = tokenizeEsSyntax
   blocks.html = wrap(blocks.html)
-  inlines.html = wrap(inlines.html)
+  inlines.html = wrap(inlines.html, inlineJsx)
 
   methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
 
-  function wrap(original) {
-    tokenizeJsx.locator = original.locator
+  function wrap(original, customTokenizer) {
+    const tokenizer = customTokenizer || tokenizeJsx
+    tokenizer.locator = original.locator
 
-    return tokenizeJsx
+    return tokenizer
 
     function tokenizeJsx() {
       const node = original.apply(this, arguments)
@@ -51,6 +58,29 @@ function attachParser(parser) {
 
       return node
     }
+  }
+
+  function inlineJsx(eat, value) {
+    if (value.charAt(0) !== LESS_THAN) {
+      return
+    }
+
+    const nextChar = value.charAt(1)
+    if (
+      nextChar !== GREATER_THAN &&
+      nextChar !== SLASH &&
+      !isAlphabetical(nextChar)
+    ) {
+      return
+    }
+
+    const subvalueMatches = value.match(tag)
+    if (!subvalueMatches) {
+      return
+    }
+
+    const subvalue = subvalueMatches[0]
+    return eat(subvalue)({type: 'jsx', value: subvalue})
   }
 }
 
