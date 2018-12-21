@@ -49,9 +49,8 @@ function toJSX(node, parentNode = {}, options = {}) {
         }
 
         if (
-          /\bdefault\b/.test(childNode.value) &&
-          !/default\s+as/.test(childNode.value) &&
-          !/^export (const|let|var|function)/.test(childNode.value)
+          /^export\s{\s?default\s?}\sfrom/.test(childNode.value) ||
+          /^export\s{.*?as\sdefault\s?}/.test(childNode.value)
         ) {
           let example
 
