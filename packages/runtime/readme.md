@@ -36,11 +36,11 @@ const scope = {
   Demo: props => <h1>This is a demo component</h1>
 }
 
-const mdx = '
+const mdx = `
 # Hello, world!
 
 <Demo />
-'
+`
 
 export default () => (
   <MDX components={components} scope={scope}>{mdx}</MDX>
