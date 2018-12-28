@@ -291,9 +291,7 @@ it('Should recognize components as properties', async () => {
 
 it('Should contain static isMDXComponent() function', async () => {
   const result = await mdx('# Hello World')
-  expect(result).toContain(
-    'MDXContent.isMDXComponent = () => true'
-  )
+  expect(result).toContain('MDXContent.isMDXComponent = () => true')
 })
 
 it('Should render elements without wrapping blank new lines', async () => {
