@@ -103,7 +103,6 @@ function toJSX(node, parentNode = {}, options = {}) {
       `${
         skipExport ? '' : 'export default'
       } class MDXContent extends React.Component {
-  static isMDXComponent = () => true
   constructor(props) {
     super(props)
     this.layout = ${layout || 'null'}
@@ -119,7 +118,8 @@ function toJSX(node, parentNode = {}, options = {}) {
                .join('')}
            </MDXTag>
   }
-}`
+}
+MDXContent.isMDXComponent = () => true`
     )
   }
   // Recursively walk through children
