@@ -103,7 +103,7 @@ function toJSX(node, parentNode = {}, options = {}) {
       `${
         skipExport ? '' : 'export default'
       } class MDXContent extends React.Component {
-  static isMDXElement = () => true
+  static isMDXComponent = () => true
   constructor(props) {
     super(props)
     this.layout = ${layout || 'null'}
