@@ -118,7 +118,8 @@ function toJSX(node, parentNode = {}, options = {}) {
                .join('')}
            </MDXTag>
   }
-}MDXContent.isMDXComponent = () => true`
+}
+MDXContent.isMDXComponent = () => true`
     )
   }
   // Recursively walk through children
