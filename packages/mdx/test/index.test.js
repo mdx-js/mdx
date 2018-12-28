@@ -106,6 +106,7 @@ it('Should match sample blog post snapshot', async () => {
     );
   }
 }
+MDXContent.isMDXComponent = () => true
 "
 `)
 })
