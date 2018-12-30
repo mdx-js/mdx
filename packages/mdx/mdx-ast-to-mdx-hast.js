@@ -2,7 +2,7 @@ const toHAST = require('mdast-util-to-hast')
 const detab = require('detab')
 const u = require('unist-builder')
 
-function mdxAstToMdxHast() {
+function mdxAstToMdxHast({mdxToHastHandlers = {}}) {
   return (tree, _file) => {
     const handlers = {
       // `inlineCode` gets passed as `code` by the HAST transform.
@@ -78,7 +78,7 @@ function mdxAstToMdxHast() {
     }
 
     const hast = toHAST(tree, {
-      handlers
+      handlers: {...handlers, ...mdxToHastHandlers}
     })
 
     return hast
