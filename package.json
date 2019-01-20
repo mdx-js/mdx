@@ -31,7 +31,8 @@
     "docs:deploy": "npm run docs:build && now dist --public && now alias",
     "test": "remark . -qf && eslint . && lerna run test",
     "format": "remark . -qfo && eslint . --fix",
-    "publish": "lerna publish"
+    "publish": "lerna publish",
+    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag=ci"
   },
   "workspaces": [
     "packages/*"

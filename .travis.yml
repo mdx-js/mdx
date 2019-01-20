@@ -14,3 +14,8 @@ cache:
   yarn: true
   directories:
     - node_modules
+deploy:
+  provider: script
+  script: yarn publish-ci
+  on:
+    branch: master
