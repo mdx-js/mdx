@@ -24,7 +24,7 @@
     "remark-preset-wooorm": "^4.0.0"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap && lerna link --force-local",
+    "bootstrap": "lerna bootstrap && lerna link --force-local && yarn workspace @mdx-js/tag run build",
     "clean": "lerna exec \"rm -rf node_modules\"",
     "docs": "x0 docs",
     "docs:build": "x0 build docs",
