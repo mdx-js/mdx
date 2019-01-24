@@ -379,7 +379,7 @@ export default class MDXContent extends React.Component {
 
     return <MDXTag
              name=\\"wrapper\\"
-             Layout={this.layout} layoutProps={{ ...layoutProps, ...props }}
+             Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}
              components={components}>
 
 <MDXTag name=\\"h1\\" components={components}>{\`Hello, world!\`}</MDXTag>
