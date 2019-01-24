@@ -123,7 +123,7 @@ ${skipExport ? '' : 'export default'} class MDXContent extends React.Component {
              name="wrapper"
              ${
                layout
-                 ? `Layout={this.layout} layoutProps={{ ...layoutProps, ...props }}`
+                 ? `Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}`
                  : ''
              }
              components={components}>${jsxNodes
