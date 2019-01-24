@@ -25,6 +25,7 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap && lerna link --force-local",
+    "prepublish": "lerna run prepublish",
     "clean": "lerna exec \"rm -rf node_modules\"",
     "docs": "x0 docs",
     "docs:build": "x0 build docs",
