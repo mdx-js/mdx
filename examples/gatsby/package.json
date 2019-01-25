@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "gatsby",
+  "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build"
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^0.16.8",
+    "@mdx-js/tag": "^0.16.8",
+    "gatsby": "^2.0.98",
+    "gatsby-mdx": "^0.3.5",
+    "unified-ui": "^0.0.3"
+  }
+}
