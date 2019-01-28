@@ -18,7 +18,7 @@
 *   [ZEIT Docs][zeit-docs]
 *   [Compositor][compositor]
 *   [Prisma][prisma]
-*   [Max Stoiber's Blog][mxstbr]
+*   [Max Stoiber’s Blog][mxstbr]
 
 ## Other related links
 
