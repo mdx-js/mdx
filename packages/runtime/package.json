@@ -23,6 +23,9 @@
   ],
   "main": "dist",
   "scripts": {
+    "build": "babel src -d dist",
+    "clean": "rimraf dist",
+    "prepublish": "yarn clean && yarn build",
     "test": "jest"
   },
   "files": [
@@ -44,7 +47,8 @@
     "react-dom": "^16.6.3",
     "rehype-add-classes": "^1.0.0",
     "remark-autolink-headings": "^5.0.0",
-    "remark-slug": "^5.1.0"
+    "remark-slug": "^5.1.0",
+    "rimraf": "^2.6.3"
   },
   "jest": {
     "testEnvironment": "node"
