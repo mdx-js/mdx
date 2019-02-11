@@ -40,7 +40,11 @@ module.exports = [
     mdx: 'Hello, from <span children={`${props.foo}!!!!`} />'
   },
   {
-    description: 'Handles JS in props',
+    description: 'Handles functions as props',
     mdx: 'Hello, from <Span children={(some, stuff) => some / stuff} />'
+  },
+  {
+    description: 'Handles functions with returns as props',
+    mdx: 'Hello, from <Span children={(some, stuff) => { return some / stuff }} />'
   }
 ]
