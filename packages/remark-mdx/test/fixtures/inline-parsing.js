@@ -60,5 +60,9 @@ module.exports = [
   {
     description: 'Does not break } outside of JSX',
     mdx: 'Hello, <Component>{props.world}</Component> and a moustache! }:'
+  },
+  {
+    description: 'Handles mailto links',
+    mdx: 'Hello, <Component>{props.world}</Component> and a moustache! }: <https://johno.com>'
   }
 ]
