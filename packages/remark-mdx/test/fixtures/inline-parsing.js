@@ -8,6 +8,10 @@ module.exports = [
     mdx: 'Hello, from <Fragment>{props.from}</Fragment>'
   },
   {
+    description: 'Handles components as properties',
+    mdx: 'Hello, from <Some.Component>{props.world}</Some.Component>'
+  },
+  {
     description: 'Ignores escaped JSX',
     mdx: 'This is <span>escaped</span> JSX'
   },

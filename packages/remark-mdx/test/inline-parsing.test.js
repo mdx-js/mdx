@@ -3,7 +3,7 @@ const remarkParse = require('remark-parse')
 const remarkStringify = require('remark-stringify')
 const remarkMDX = require('..')
 
-const fixtures = require('./fixtures')
+const fixtures = require('./fixtures/inline-parsing')
 
 function jsxCompiler() {
   this.Compiler.prototype.visitors.jsx = node => node.value

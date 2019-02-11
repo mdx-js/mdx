@@ -20,8 +20,8 @@ const attributeValue =
   ')'
 const attribute =
   '(?:\\s+' + attributeName + '(?:\\s*=\\s*' + attributeValue + ')?)'
-const openTag = '<[A-Za-z]*[A-Za-z0-9\\-]*' + attribute + '*\\s*\\/?>'
-const closeTag = '<\\/[A-Za-z][A-Za-z0-9\\-]*\\s*>'
+const openTag = '<[A-Za-z]*[A-Za-z0-9\\.\\-]*' + attribute + '*\\s*\\/?>'
+const closeTag = '<\\/[A-Za-z][A-Za-z0-9\\.\\-]*\\s*>'
 const comment = '<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->'
 const processing = '<[?].*?[?]>'
 const declaration = '<![A-Za-z]+\\s+[^>]*>'
