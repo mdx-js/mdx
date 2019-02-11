@@ -7,7 +7,6 @@ const attributeName = '[a-zA-Z_:][a-zA-Z0-9:._-]*'
 const unquoted = '[^"\'=<>`\\u0000-\\u0020]+'
 const singleQuoted = "'[^']*'"
 const doubleQuoted = '"[^"]*"'
-const objectProps = '{{[^\n]*}}'
 const jsProps = '{[^\n]*}'
 const attributeValue =
   '(?:' +
@@ -16,8 +15,6 @@ const attributeValue =
   singleQuoted +
   '|' +
   doubleQuoted +
-  '|' +
-  objectProps +
   '|' +
   jsProps +
   ')'
