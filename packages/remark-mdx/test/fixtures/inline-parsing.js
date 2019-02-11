@@ -48,5 +48,13 @@ module.exports = [
     description: 'Handles functions with returns as props',
     mdx:
       'Hello, from <Span children={(some, stuff) => { return some / stuff }} />'
+  },
+  {
+    description: 'Handles nested object props',
+    mdx: 'Hello, from <span some={{ nested: { object: "props" } }} />'
+  },
+  {
+    description: 'Handles multiple inline components with complex JSX',
+    mdx: 'Hello, from <Span children={(some, stuff) => { return some / stuff }} /> <span children={`${props.foo}!!!!`} /> <>{props.world}</>'
   }
 ]
