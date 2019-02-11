@@ -56,5 +56,9 @@ module.exports = [
   {
     description: 'Handles multiple inline components with complex JSX',
     mdx: 'Hello, from <Span children={(some, stuff) => { return some / stuff }} /> <span children={`${props.foo}!!!!`} /> <>{props.world}</>'
+  },
+  {
+    description: 'Does not break } outside of JSX',
+    mdx: 'Hello, <Component>{props.world}</Component> and a moustache! }:'
   }
 ]
