@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = [
   {
     description: 'Handles object props',
@@ -45,6 +46,7 @@ module.exports = [
   },
   {
     description: 'Handles functions with returns as props',
-    mdx: 'Hello, from <Span children={(some, stuff) => { return some / stuff }} />'
+    mdx:
+      'Hello, from <Span children={(some, stuff) => { return some / stuff }} />'
   }
 ]
