@@ -4,15 +4,15 @@
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
+> :warning: This project is currently in alpha
+
 [MDX][] syntax support for [remark][].
 
 ## Installation
 
-This project is not published.
-
-## Usage
-
-This project is not usable.
+```sh
+npm install --save remark-mdx
+```
 
 ## Contribute
 
