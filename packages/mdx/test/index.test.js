@@ -248,35 +248,6 @@ it('Should support semicolons in default export statement', async () => {
   expect(() => parse(result)).not.toThrow()
 })
 
-it('Should throw when exporting default via named export', async () => {
-  await expect(mdx(`export { default } from './Layout'`)).rejects.toThrow()
-  await expect(mdx(`export { Layout as default }`)).rejects.toThrow()
-  await expect(
-    mdx(`export { foo as bar, Layout as default }`)
-  ).rejects.toThrow()
-
-  // Ensure that word "default" appearing in export node does not throw
-  const fixture1 = `export const meta = {
-  description: 'better default as behavior.'
-}`
-  await expect(mdx(fixture1)).resolves.toContain(fixture1)
-
-  // Ensure that a full export pattern within metadata does not throw
-  const fixture2 = `export const meta = {
-decription: 'How to use es6 exports',
-examples: [
-  'export { default } from "./example"',
-  'export { foo as default }'
-]
-}`
-  await expect(mdx(fixture2)).resolves.toContain(fixture2)
-
-  // Ensure that `export { default as x }` pattern does not throw
-  await expect(
-    mdx(`export { default as MyComp } from './MyComp'`)
-  ).resolves.toContain(`export { default as MyComp } from './MyComp'`)
-})
-
 it('Should not include export wrapper if skipExport is true', async () => {
   const result = await mdx('> test\n\n> `test`', {skipExport: true})
 
