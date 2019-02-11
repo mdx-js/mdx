@@ -1,5 +1,5 @@
 {
-  "name": "@mdx-js/remark-mdx",
+  "name": "remark-mdx",
   "version": "0.16.9",
   "description": "Support import, export, and JSX in markdown",
   "license": "MIT",
