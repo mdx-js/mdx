@@ -38,5 +38,9 @@ module.exports = [
   {
     description: 'Handles string interpolation',
     mdx: 'Hello, from <span children={`${props.foo}!!!!`} />'
+  },
+  {
+    description: 'Handles JS in props',
+    mdx: 'Hello, from <Span children={(some, stuff) => some / stuff} />'
   }
 ]
