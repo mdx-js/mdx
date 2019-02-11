@@ -34,5 +34,9 @@ module.exports = [
   {
     description: 'Handles nested tags',
     mdx: 'Hello, <Blue><Code>world <Emoji name="world" /></Code></Blue>'
+  },
+  {
+    description: 'Handles string interpolation',
+    mdx: 'Hello, from <span children={`${props.foo}!!!!`} />'
   }
 ]
