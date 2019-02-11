@@ -11,7 +11,7 @@
 ## Installation
 
 ```sh
-npm i -S remark-mdx
+npm install --save remark-mdx
 ```
 
 ## Contribute
