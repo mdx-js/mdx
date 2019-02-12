@@ -3,7 +3,7 @@ const {tag} = require('./tag')
 
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
-const EXPORT_DEFAULT_REGEX = /^export default/
+const EXPORT_DEFAULT_REGEX = /^export\s+default\s+/
 const EMPTY_NEWLINE = '\n\n'
 const LESS_THAN = '<'
 const GREATER_THAN = '>'
