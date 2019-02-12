@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Handles an import that is later exported 1`] = `
+Array [
+  Object {
+    "type": "import",
+    "value": "import Layout from './Foo'",
+  },
+  Object {
+    "default": true,
+    "type": "export",
+    "value": "Layout",
+  },
+]
+`;
+
+exports[`Handles basic usecase of default export 1`] = `
+Array [
+  Object {
+    "default": true,
+    "type": "export",
+    "value": "props => <article {...props} />",
+  },
+]
+`;
+
+exports[`Handles other types of exports 1`] = `
+Array [
+  Object {
+    "type": "export",
+    "value": "export const metadata = {
+  some: \\"stuff\\"
+}",
+  },
+]
+`;
+
+exports[`Separates import from the default export 1`] = `
+Array [
+  Object {
+    "type": "import",
+    "value": "import Foo from './foo'",
+  },
+  Object {
+    "default": true,
+    "type": "export",
+    "value": "props => <article {...props} />",
+  },
+]
+`;
