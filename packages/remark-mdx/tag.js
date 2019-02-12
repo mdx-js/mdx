@@ -7,7 +7,7 @@ const attributeName = '[a-zA-Z_:][a-zA-Z0-9:._-]*'
 const unquoted = '[^"\'=<>`\\u0000-\\u0020]+'
 const singleQuoted = "'[^']*'"
 const doubleQuoted = '"[^"]*"'
-const objectProps = '{{[^}]*}}'
+const jsProps = '{[^\n]*}'
 const attributeValue =
   '(?:' +
   unquoted +
@@ -16,12 +16,12 @@ const attributeValue =
   '|' +
   doubleQuoted +
   '|' +
-  objectProps +
+  jsProps +
   ')'
 const attribute =
   '(?:\\s+' + attributeName + '(?:\\s*=\\s*' + attributeValue + ')?)'
-const openTag = '<[A-Za-z]*[A-Za-z0-9\\-]*' + attribute + '*\\s*\\/?>'
-const closeTag = '<\\/[A-Za-z][A-Za-z0-9\\-]*\\s*>'
+const openTag = '<[A-Za-z]*[A-Za-z0-9\\.\\-]*' + attribute + '*\\s*\\/?>'
+const closeTag = '<\\/[A-Za-z][A-Za-z0-9\\.\\-]*\\s*>'
 const comment = '<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->'
 const processing = '<[?].*?[?]>'
 const declaration = '<![A-Za-z]+\\s+[^>]*>'
