@@ -22,7 +22,8 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
   "files": [
-    "index.js"
+    "index.js",
+    "tag.js"
   ],
   "dependencies": {
     "is-alphabetical": "^1.0.2",
