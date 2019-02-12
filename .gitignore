@@ -7,3 +7,4 @@ bundle.js
 *-error.log
 *-debug.log
 .vscode
+.DS_Store
