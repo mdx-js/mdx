@@ -62,7 +62,7 @@ module.exports = [
     mdx: 'Hello, <Component>{props.world}</Component> and a moustache! }:'
   },
   {
-    description: 'Handles mailto links',
+    description: 'Handles links',
     mdx: 'Hello, <Component>{props.world}</Component> and a moustache! }: <https://johno.com>'
   }
 ]
