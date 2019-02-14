@@ -102,11 +102,8 @@ function tokenizeEsSyntax(eat, value) {
   const subvalue = index !== -1 ? value.slice(0, index) : value
 
   if (isExport(subvalue) || isImport(subvalue)) {
-    const [first, ...rest] = extractImportsAndExports(subvalue)
-
-    eat(subvalue)(first)
-
-    rest.forEach(node => eat('')(node))
+    const nodes = extractImportsAndExports(subvalue)
+    nodes.map(node => eat(node.value)(node))
   }
 }
 

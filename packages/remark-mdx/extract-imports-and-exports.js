@@ -1,11 +1,8 @@
 const {transformSync} = require('@babel/core')
-const generate = require('@babel/generator').default
 const declare = require('@babel/helper-plugin-utils').declare
 
-const stripTrailingSemi = str => str.replace(/;$/, '')
-
 class BabelPluginExtractImportsAndExports {
-  constructor(code) {
+  constructor() {
     const nodes = []
     this.state = {nodes}
 
@@ -15,20 +12,16 @@ class BabelPluginExtractImportsAndExports {
       return {
         visitor: {
           ExportDefaultDeclaration(path) {
-            const declaration = path.node.declaration
-            const value = generate(declaration, {}, code).code
-
-            nodes.push({type: 'export', value, default: true})
+            const {start} = path.node
+            nodes.push({type: 'export', start, default: true})
           },
           ExportNamedDeclaration(path) {
-            const value = generate(path.node, {}, code).code
-
-            nodes.push({type: 'export', value: stripTrailingSemi(value)})
+            const {start} = path.node
+            nodes.push({type: 'export', start})
           },
           ImportDeclaration(path) {
-            const value = generate(path.node, {}, code).code
-
-            nodes.push({type: 'import', value: stripTrailingSemi(value)})
+            const {start} = path.node
+            nodes.push({type: 'import', start})
           }
         }
       }
@@ -36,8 +29,19 @@ class BabelPluginExtractImportsAndExports {
   }
 }
 
+const partitionString = (str, indices) => {
+  let index = 0
+
+  return indices.reduce((acc, curr) => {
+    index += 1
+    const val = str.slice(curr, indices[index])
+    acc.push(val)
+    return acc
+  }, [])
+}
+
 module.exports = value => {
-  const instance = new BabelPluginExtractImportsAndExports(value)
+  const instance = new BabelPluginExtractImportsAndExports()
 
   transformSync(value, {
     plugins: [
@@ -47,5 +51,12 @@ module.exports = value => {
     ]
   })
 
-  return instance.state.nodes
+  const sortedNodes = instance.state.nodes.sort((a, b) => a.start - b.start)
+  const nodeStarts = sortedNodes.map(n => n.start)
+  const values = partitionString(value, nodeStarts)
+
+  return sortedNodes.map(({start: _, ...node}, i) => {
+    const value = values[i]
+    return {...node, value}
+  })
 }

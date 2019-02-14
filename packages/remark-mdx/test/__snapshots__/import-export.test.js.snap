@@ -4,12 +4,14 @@ exports[`Handles an import that is later exported 1`] = `
 Array [
   Object {
     "type": "import",
-    "value": "import Layout from './Foo'",
+    "value": "import Layout from './Foo'
+
+",
   },
   Object {
     "default": true,
     "type": "export",
-    "value": "Layout",
+    "value": "export default Layout",
   },
 ]
 `;
@@ -19,7 +21,7 @@ Array [
   Object {
     "default": true,
     "type": "export",
-    "value": "props => <article {...props} />",
+    "value": "export default props => <article {...props} />",
   },
 ]
 `;
@@ -28,9 +30,7 @@ exports[`Handles const exports 1`] = `
 Array [
   Object {
     "type": "export",
-    "value": "export const metadata = {
-  some: \\"stuff\\"
-}",
+    "value": "export const metadata = { some: \\"stuff\\" }",
   },
 ]
 `;
@@ -40,7 +40,9 @@ Array [
   Object {
     "default": true,
     "type": "export",
-    "value": "props => <main {...props} />",
+    "value": "export default props => (
+  <main {...props} />
+)",
   },
 ]
 `;
@@ -60,12 +62,13 @@ exports[`Separates import from the default export 1`] = `
 Array [
   Object {
     "type": "import",
-    "value": "import Foo from './foo'",
+    "value": "import Foo from './foo'
+",
   },
   Object {
     "default": true,
     "type": "export",
-    "value": "props => <article {...props} />",
+    "value": "export default props => <article {...props} />",
   },
 ]
 `;
