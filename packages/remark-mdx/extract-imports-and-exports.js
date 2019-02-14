@@ -29,16 +29,10 @@ class BabelPluginExtractImportsAndExports {
   }
 }
 
-const partitionString = (str, indices) => {
-  let index = 0
-
-  return indices.reduce((acc, curr) => {
-    index += 1
-    const val = str.slice(curr, indices[index])
-    acc.push(val)
-    return acc
-  }, [])
-}
+const partitionString = (str, indices) =>
+  indices.map((val, i) => {
+    return str.slice(val, indices[i + 1])
+  })
 
 module.exports = value => {
   const instance = new BabelPluginExtractImportsAndExports()
