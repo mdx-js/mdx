@@ -1,7 +1,7 @@
 const unified = require('unified')
 const remarkParse = require('remark-parse')
 const remarkStringify = require('remark-stringify')
-const remarkMDX = require('..')
+const remarkMdx = require('..')
 
 const fixtures = require('./fixtures/inline-parsing')
 
@@ -12,7 +12,7 @@ function jsxCompiler() {
 const parse = mdx => {
   const result = unified()
     .use(remarkParse)
-    .use(remarkMDX)
+    .use(remarkMdx)
     .use(remarkStringify)
     .use(jsxCompiler)
     .processSync(mdx)

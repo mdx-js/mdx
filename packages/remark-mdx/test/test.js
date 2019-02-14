@@ -1,6 +1,6 @@
 const unified = require('unified')
 const remarkParse = require('remark-parse')
-const remarkMDX = require('..')
+const remarkMdx = require('..')
 const mdxAstToMdxHast = require('../../mdx/mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('../../mdx/mdx-hast-to-jsx')
 
@@ -24,7 +24,7 @@ export default Foo
 const transpile = mdx => {
   const result = unified()
     .use(remarkParse)
-    .use(remarkMDX)
+    .use(remarkMdx)
     .use(mdxAstToMdxHast)
     .use(mdxHastToJsx)
     .processSync(mdx)
