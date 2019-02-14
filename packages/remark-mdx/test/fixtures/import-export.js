@@ -15,7 +15,15 @@ module.exports = [
     ].join('\n')
   },
   {
-    description: 'Handles other types of exports',
+    description: 'Handles const exports',
     mdx: 'export const metadata = { some: "stuff" }'
+  },
+  {
+    description: 'Handles multiline exports',
+    mdx: ['export const metadata = {', '  some: "stuff"', '}'].join('\n')
+  },
+  {
+    description: 'Handles multiline default exports',
+    mdx: ['export default props => (', '  <main {...props} />', ')'].join('\n')
   }
 ]

@@ -24,7 +24,28 @@ Array [
 ]
 `;
 
-exports[`Handles other types of exports 1`] = `
+exports[`Handles const exports 1`] = `
+Array [
+  Object {
+    "type": "export",
+    "value": "export const metadata = {
+  some: \\"stuff\\"
+}",
+  },
+]
+`;
+
+exports[`Handles multiline default exports 1`] = `
+Array [
+  Object {
+    "default": true,
+    "type": "export",
+    "value": "props => <main {...props} />",
+  },
+]
+`;
+
+exports[`Handles multiline exports 1`] = `
 Array [
   Object {
     "type": "export",
