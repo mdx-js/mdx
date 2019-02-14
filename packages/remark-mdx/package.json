@@ -28,7 +28,6 @@
   ],
   "dependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/generator": "^7.3.2",
     "@babel/helper-plugin-utils": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
     "@babel/plugin-syntax-jsx": "^7.2.0",
