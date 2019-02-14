@@ -23,9 +23,14 @@
   ],
   "files": [
     "index.js",
-    "tag.js"
+    "tag.js",
+    "extract-imports-and-exports.js"
   ],
   "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/helper-plugin-utils": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
     "is-alphabetical": "^1.0.2",
     "remark-parse": "^6.0.0",
     "unified": "^7.0.0"

@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`correctly transpiles 1`] = `
+"import Foo from './bar'
+
+export { Baz } from './foo'
+
+const layoutProps = {
+  
+};
+export default class MDXContent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.layout = Foo
+  }
+  render() {
+    const { components, ...props } = this.props
+
+    return <MDXTag
+             name=\\"wrapper\\"
+             Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}
+             components={components}>
+
+
+<MDXTag name=\\"h1\\" components={components}>{\`Hello, world! \`}<Foo bar={{ baz: 'qux' }} /></MDXTag>
+<Baz>
+  Hi!
+</Baz>
+           </MDXTag>
+  }
+}"
+`;
+
+exports[`maintains the proper positional info 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 1,
+          "line": 3,
+          "offset": 25,
+        },
+        "indent": Array [
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 1,
+        },
+      },
+      "type": "import",
+      "value": "import Foo from './bar'
+",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 1,
+          "line": 4,
+          "offset": 53,
+        },
+        "indent": Array [
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 3,
+          "offset": 25,
+        },
+      },
+      "type": "export",
+      "value": "export { Baz } from './foo'
+",
+    },
+    Object {
+      "default": true,
+      "position": Position {
+        "end": Object {
+          "column": 19,
+          "line": 4,
+          "offset": 71,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 4,
+          "offset": 53,
+        },
+      },
+      "type": "export",
+      "value": "export default Foo",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 17,
+              "line": 6,
+              "offset": 89,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 6,
+              "offset": 75,
+            },
+          },
+          "type": "text",
+          "value": "Hello, world! ",
+        },
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 45,
+              "line": 6,
+              "offset": 117,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 17,
+              "line": 6,
+              "offset": 89,
+            },
+          },
+          "type": "jsx",
+          "value": "<Foo bar={{ baz: 'qux' }} />",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 45,
+          "line": 6,
+          "offset": 117,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 6,
+          "offset": 73,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 7,
+          "line": 10,
+          "offset": 137,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 8,
+          "offset": 119,
+        },
+      },
+      "type": "jsx",
+      "value": "<Baz>
+  Hi!
+</Baz>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 1,
+      "line": 11,
+      "offset": 138,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
