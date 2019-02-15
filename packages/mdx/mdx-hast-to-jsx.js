@@ -131,7 +131,8 @@ ${skipExport ? '' : 'export default'} class MDXContent extends React.Component {
                .join('')}
            </MDXTag>
   }
-}`
+}
+MDXContent.isMDXComponent = true`
     )
   }
   // Recursively walk through children

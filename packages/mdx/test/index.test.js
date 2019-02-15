@@ -107,6 +107,7 @@ export default class MDXContent extends React.Component {
     );
   }
 }
+MDXContent.isMDXComponent = true;
 "
 `)
 })
@@ -288,6 +289,11 @@ it('Should recognize components as properties', async () => {
   expect(result).toContain(
     '<MDXTag name="h1" components={components}>{`Hello`}</MDXTag>\n<MDX.Foo />'
   )
+})
+
+it('Should contain static isMDXComponent() function', async () => {
+  const result = await mdx('# Hello World')
+  expect(result).toContain('MDXContent.isMDXComponent = true')
 })
 
 it('Should render elements without wrapping blank new lines', async () => {
