@@ -64,5 +64,20 @@ module.exports = [
   {
     description: 'Handles links',
     mdx: 'Hello, <Component>{props.world}</Component> and a moustache! }: <https://johno.com>'
+  },
+  {
+    description: 'Handles multiline JSX blocks',
+    mdx: `
+      <Image
+        src={asset(\`\${SOME_CONSTANT}/some.png\`)}
+        width="123"
+        height="456"
+        caption={
+          <span>
+            Here's a caption
+          </span>
+        }
+      />
+    `.trim()
   }
 ]
