@@ -28,7 +28,8 @@ export default class MDXContent extends React.Component {
 </Baz>
            </MDXTag>
   }
-}"
+}
+MDXContent.isMDXComponent = true"
 `;
 
 exports[`maintains the proper positional info 1`] = `
