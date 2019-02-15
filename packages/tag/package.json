@@ -32,14 +32,15 @@
     "babel-preset-stage-0": "^6.24.1",
     "jest": "^23.1.0",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "rimraf": "^2.6.3"
   },
   "peerDependencies": {
     "react": "^0.14.x || ^15.x || ^16.x"
   },
   "scripts": {
     "build": "babel src -d dist",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "prepublish": "npm run clean && npm run build",
     "test": "jest"
   }
