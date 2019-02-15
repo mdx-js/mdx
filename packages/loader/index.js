@@ -14,7 +14,7 @@ module.exports = async function(content) {
     return callback(err)
   }
 
-  const code = `
+  const code = `/* @jsx mdx */
   import React from 'react'
   import { MDXTag } from '@mdx-js/tag'
   ${result}

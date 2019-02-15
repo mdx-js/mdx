@@ -159,9 +159,9 @@ MDXContent.isMDXComponent = true`
       props = JSON.stringify(node.properties)
     }
 
-    return `<MDXTag name="${node.tagName}" components={components}${
-      parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''
-    }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
+    return `<${node.tagName} ${
+      parentNode.tagName ? `parentName="${parentNode.tagName}"` : ''
+    }${props ? ` props={${props}}` : ''}>${children}</${node.tagName}>`
   }
 
   // Wraps text nodes inside template string, so that we don't run into escaping issues.

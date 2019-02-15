@@ -35,9 +35,7 @@
     "publish": "lerna publish",
     "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*", "my-site-2/"],
   "prettier": {
     "tabWidth": 2,
     "useTabs": false,
@@ -50,18 +48,9 @@
     "plugins": [
       "./packages/remark-mdx",
       "preset-wooorm",
-      [
-        "lint-no-heading-punctuation",
-        false
-      ],
-      [
-        "lint-maximum-line-length",
-        false
-      ],
-      [
-        "validate-links",
-        false
-      ]
+      ["lint-no-heading-punctuation", false],
+      ["lint-maximum-line-length", false],
+      ["validate-links", false]
     ]
   },
   "husky": {
@@ -70,14 +59,8 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.md": [
-      "remark -qf",
-      "git add"
-    ]
+    "*.js": ["eslint --fix", "git add"],
+    "*.md": ["remark -qf", "git add"]
   },
   "x0": {
     "title": "MDX"
