@@ -419,6 +419,7 @@ export default class MDXContent extends React.Component {
 
            </MDXTag>
   }
-}"
+}
+MDXContent.isMDXComponent = true"
 `)
 })
