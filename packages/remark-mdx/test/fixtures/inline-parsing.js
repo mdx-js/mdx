@@ -66,6 +66,10 @@ module.exports = [
     mdx: 'Hello, <Component>{props.world}</Component> and a moustache! }: <https://johno.com>'
   },
   {
+    description: 'Ignores links inside JSX',
+    mdx: 'Hello, <Component>from https://johno.com</Component>'
+  },
+  {
     description: 'Handles multiline JSX blocks',
     mdx: `
       <Image
