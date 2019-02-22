@@ -2,15 +2,18 @@ import React from 'react'
 
 const {Provider, Consumer} = React.createContext({})
 
-export const withMDXComponents = Component => (props) => (
+export const withMDXComponents = Component => props => (
   <Consumer>
     {contextComponents => (
-      <Component {...props} components={props.components || contextComponents} />
+      <Component
+        {...props}
+        components={props.components || contextComponents}
+      />
     )}
   </Consumer>
 )
 
-const MDXProvider = (props) => (
+const MDXProvider = props => (
   <Provider value={props.components}>{props.children}</Provider>
 )
 
