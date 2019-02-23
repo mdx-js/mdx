@@ -1,0 +1,39 @@
+{
+  "name": "gatsby-starter-mdx-basic",
+  "description": "Gatsby starter MDX basic",
+  "version": "1.0.0",
+  "author": "Chris Biscardi <chris@christopherbiscardi.com>",
+  "dependencies": {
+    "@mdx-js/mdx": "0.16.8",
+    "@mdx-js/tag": "0.16.8",
+    "gatsby": "^2.0.83",
+    "gatsby-image": "^2.0.20",
+    "gatsby-mdx": "^0.3.2",
+    "gatsby-plugin-manifest": "^2.0.13",
+    "gatsby-plugin-offline": "^2.0.20",
+    "gatsby-plugin-react-helmet": "^3.0.5",
+    "gatsby-plugin-sharp": "^2.0.17",
+    "gatsby-source-filesystem": "^2.0.8",
+    "gatsby-transformer-sharp": "^2.1.10",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-helmet": "^5.2.0"
+  },
+  "keywords": ["gatsby"],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "start": "npm run develop",
+    "format": "prettier --write \"src/**/*.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christopherbiscardi/gatsby-starter-mdx-basic"
+  }
+}
