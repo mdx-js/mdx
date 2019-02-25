@@ -14,15 +14,13 @@ export default class MDXContent extends React.Component {
     this.layout = Foo
   }
   render() {
-    const { components, ...props } = this.props
-
     return <MDXTag
              name=\\"wrapper\\"
-             Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}
-             components={components}>
+             Layout={this.layout} layoutProps={Object.assign({}, layoutProps, this.props)}
+             components={this.props.components}>
 
 
-<MDXTag name=\\"h1\\" components={components}>{\`Hello, world! \`}<Foo bar={{ baz: 'qux' }} /></MDXTag>
+<MDXTag name=\\"h1\\" components={this.props.components}>{\`Hello, world! \`}<Foo bar={{ baz: 'qux' }} /></MDXTag>
 <Baz>
   Hi!
 </Baz>
