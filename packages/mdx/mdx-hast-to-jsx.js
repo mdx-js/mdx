@@ -158,7 +158,7 @@ MDXContent.isMDXComponent = true`
 
     return `<${node.tagName} ${
       parentNode.tagName ? `parentName="${parentNode.tagName}"` : ''
-    }${props ? ` props={${props}}` : ''}>${children}</${node.tagName}>`
+    }${props ? ` {...${props}}` : ''}>${children}</${node.tagName}>`
   }
 
   // Wraps text nodes inside template string, so that we don't run into escaping issues.

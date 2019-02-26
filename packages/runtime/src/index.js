@@ -1,7 +1,7 @@
 import React from 'react'
 import {transform} from 'buble'
 import mdx from '@mdx-js/mdx'
-import {MDXTag} from '@mdx-js/tag'
+import createElement from '@mdx-js/mdx/create-element'
 
 export default ({
   scope = {},
@@ -12,7 +12,7 @@ export default ({
   ...props
 }) => {
   const fullScope = {
-    MDXTag,
+    mdx: createElement,
     components,
     props,
     ...scope

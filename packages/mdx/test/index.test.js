@@ -164,7 +164,7 @@ COPY start.sh /home/start.sh
   )
 
   expect(result).toContain(
-    `props={{"className":"language-dockerfile","metastring":"exec registry=something.com","exec":true,"registry":"something.com"}}`
+    `{...{"className":"language-dockerfile","metastring":"exec registry=something.com","exec":true,"registry":"something.com"}}`
   )
 })
 
@@ -342,11 +342,9 @@ test('Should parse and render footnotes', async () => {
     'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
   )
 
-  expect(result).toContain(
-    '<sup parentName="p" props={{"id":"fnref-footnote"}}>'
-  )
+  expect(result).toContain('<sup parentName="p" {...{"id":"fnref-footnote"}}>')
 
-  expect(result).toContain('<li parentName="ol" props={{"id":"fn-footnote"}}>')
+  expect(result).toContain('<li parentName="ol" {...{"id":"fn-footnote"}}>')
 }, 10000)
 
 test('Should expose a sync compiler', () => {
@@ -396,23 +394,23 @@ export default class MDXContent extends React.Component {
     {hello}
     {/* another commment */}
 </Foo>
-<pre ><code parentName=\\"pre\\" props={{}}>{\`test codeblock
+<pre ><code parentName=\\"pre\\" {...{}}>{\`test codeblock
 \`}</code></pre>
-<pre ><code parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
+<pre ><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
 \`}</code></pre>
-<pre ><code parentName=\\"pre\\" props={{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
+<pre ><code parentName=\\"pre\\" {...{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
 \`}</code></pre>
 <table >
 <thead parentName=\\"table\\">
 <tr parentName=\\"thead\\">
-<th parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Test\`}</th>
-<th parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Table\`}</th>
+<th parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Test\`}</th>
+<th parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Table\`}</th>
 </tr>
 </thead>
 <tbody parentName=\\"table\\">
 <tr parentName=\\"tbody\\">
-<td parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col1\`}</td>
-<td parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col2\`}</td>
+<td parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Col1\`}</td>
+<td parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Col2\`}</td>
 </tr>
 </tbody>
 </table>

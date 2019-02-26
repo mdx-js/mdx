@@ -1,5 +1,5 @@
 const React = require('react')
-const {withMDXComponents} = require('@mdx-js/tag/dist/mdx-provider')
+const {withMDXComponents} = require('@mdx-js/tag')
 
 const TYPE_PROP_NAME = '__MDX_TYPE_PLEASE_DO_NOT_USE__'
 
