@@ -35,7 +35,9 @@
     "publish": "lerna publish",
     "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci"
   },
-  "workspaces": ["packages/*", "my-site-2/"],
+  "workspaces": [
+    "packages/*"
+  ],
   "prettier": {
     "tabWidth": 2,
     "useTabs": false,

@@ -3,8 +3,6 @@ import {withMDXComponents} from '@mdx-js/tag/dist/mdx-provider'
 
 const typePropName = '__MDX_TYPE_PLEASE_DO_NOT_USE__'
 
-// Let MDXElement = withMDXComponents(theme => render(cache, props, theme, ref))
-
 const defaults = {
   inlineCode: 'code',
   wrapper: 'div'
