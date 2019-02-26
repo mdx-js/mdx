@@ -4,6 +4,8 @@ import Layout from '../components/layout'
 import Image from '../components/image'
 import SEO from '../components/seo'
 
+export default props => <section><aside>{JSON.stringify(props, null, 2)}</aside><div>{props.children}</div></section>
+
 <SEO title="Home" keywords={['gatsby', 'application', 'react']} />
 
 # Hi people
