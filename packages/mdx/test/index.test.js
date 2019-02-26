@@ -6,7 +6,8 @@ const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
 const prettier = require('prettier')
-const {MDXTag, MDXProvider} = require('@mdx-js/tag')
+const {MDXProvider} = require('@mdx-js/tag')
+const createElement = require('../create-element')
 const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')
 
@@ -39,13 +40,12 @@ const transform = code =>
 const renderWithReact = async mdxCode => {
   const jsx = await mdx(mdxCode, {skipExport: true})
   const code = transform(jsx)
-  const scope = {MDXTag}
+  const scope = {mdx: createElement}
 
   const fn = new Function( // eslint-disable-line no-new-func
     'React',
     ...Object.keys(scope),
-    `
-      ${code}; return React.createElement(MDXContent)`
+    `${code}; return React.createElement(MDXContent)`
   )
 
   const element = fn(React, ...Object.values(scope))
@@ -97,8 +97,10 @@ it('Should compile sample blog post', async () => {
 it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
-  expect(prettier.format(result, {parser: 'babylon'})).toMatchInlineSnapshot(`
-"const layoutProps = {};
+  expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
+"/* @jsx mdx */
+
+const layoutProps = {};
 export default class MDXContent extends React.Component {
   constructor(props) {
     super(props);
@@ -106,11 +108,12 @@ export default class MDXContent extends React.Component {
   }
   render() {
     const { components, ...props } = this.props;
+    const Layout = this.layout;
 
     return (
-      <MDXTag name=\\"wrapper\\" components={components}>
-        <MDXTag name=\\"h1\\" components={components}>{\`Hello World\`}</MDXTag>
-      </MDXTag>
+      <div name=\\"wrapper\\" components={components}>
+        <h1>{\`Hello World\`}</h1>
+      </div>
     );
   }
 }
@@ -140,9 +143,7 @@ it('Should properly expose comments', async () => {
 it('Should render HTML inside inlineCode correctly', async () => {
   const result = await mdx('`<div>`')
 
-  expect(result).toContain(
-    '<MDXTag name="inlineCode" components={components} parentName="p">{`<div>`}</MDXTag>'
-  )
+  expect(result).toContain('<inlineCode parentName="p">{`<div>`}</inlineCode>')
 })
 
 it('Should preserve newlines in code blocks', async () => {
@@ -156,7 +157,7 @@ COPY start.sh /home/start.sh
     {hastPlugins: [prism]}
   )
 
-  expect(result).toContain('{`# Add main script`}</MDXTag>{`\n`}')
+  expect(result).toContain('{`# Add main script`}</span>{`\n`}')
 })
 
 it('Should not escape literals in code blocks or inline code', async () => {
@@ -174,7 +175,7 @@ COPY start.sh /home/start.sh
   )
 
   expect(result).toContain(
-    `props={{"className":"language-dockerfile","metastring":"exec registry=something.com","exec":true,"registry":"something.com"}}`
+    `{...{"className":"language-dockerfile","metastring":"exec registry=something.com","exec":true,"registry":"something.com"}}`
   )
 })
 
@@ -315,9 +316,7 @@ it('Should not include export wrapper if skipExport is true', async () => {
 
 it('Should recognize components as properties', async () => {
   const result = await mdx('# Hello\n\n<MDX.Foo />')
-  expect(result).toContain(
-    '<MDXTag name="h1" components={components}>{`Hello`}</MDXTag>\n<MDX.Foo />'
-  )
+  expect(result).toContain('<h1 >{`Hello`}</h1>\n<MDX.Foo />')
 })
 
 it('Should contain static isMDXComponent() function', async () => {
@@ -382,13 +381,9 @@ test('Should parse and render footnotes', async () => {
     'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
   )
 
-  expect(result).toContain(
-    '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
-  )
+  expect(result).toContain('<sup parentName="p" {...{"id":"fnref-footnote"}}>')
 
-  expect(result).toContain(
-    '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
-  )
+  expect(result).toContain('<li parentName="ol" {...{"id":"fn-footnote"}}>')
 }, 10000)
 
 test('Should expose a sync compiler', () => {
@@ -401,7 +396,8 @@ test('Should handle layout props', () => {
   const result = mdx.sync(fixtureBlogPost)
 
   expect(result).toMatchInlineSnapshot(`
-"import { Baz } from './Fixture'
+"/* @jsx mdx */
+import { Baz } from './Fixture'
 import { Buz } from './Fixture'
 export const foo = {
   hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
@@ -420,14 +416,16 @@ export default class MDXContent extends React.Component {
   }
   render() {
     const { components, ...props } = this.props
+    const Layout = this.layout
 
-    return <MDXTag
+    return <div
              name=\\"wrapper\\"
-             Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}
              components={components}>
+             <Layout {...layoutProps} {...props}>
+             
 
-<MDXTag name=\\"h1\\" components={components}>{\`Hello, world!\`}</MDXTag>
-<MDXTag name=\\"p\\" components={components}>{\`I'm an awesome paragraph.\`}</MDXTag>
+<h1 >{\`Hello, world!\`}</h1>
+<p >{\`I'm an awesome paragraph.\`}</p>
 {/* I'm a comment */}
 <Foo bg='red'>
   <Bar>hi</Bar>
