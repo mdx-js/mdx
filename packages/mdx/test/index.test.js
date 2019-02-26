@@ -91,7 +91,10 @@ it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
   expect(prettier.format(result, {parser: 'babylon'})).toMatchInlineSnapshot(`
-"const layoutProps = {};
+"/* @jsx mdx */
+import mdx from \\"@mdx-js/mdx/create-element\\";
+
+const layoutProps = {};
 export default class MDXContent extends React.Component {
   constructor(props) {
     super(props);
@@ -99,11 +102,12 @@ export default class MDXContent extends React.Component {
   }
   render() {
     const { components, ...props } = this.props;
+    const Layout = this.layout;
 
     return (
-      <MDXTag name=\\"wrapper\\" components={components}>
-        <MDXTag name=\\"h1\\" components={components}>{\`Hello World\`}</MDXTag>
-      </MDXTag>
+      <div name=\\"wrapper\\" components={components}>
+        <h1>{\`Hello World\`}</h1>
+      </div>
     );
   }
 }
@@ -362,7 +366,8 @@ test('Should handle layout props', () => {
   const result = mdx.sync(fixtureBlogPost)
 
   expect(result).toMatchInlineSnapshot(`
-"import { Baz } from './Fixture'
+"/* @jsx mdx */
+import { Baz } from './Fixture'
 import { Buz } from './Fixture'
 export const foo = {
   hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
@@ -382,42 +387,45 @@ export default class MDXContent extends React.Component {
   }
   render() {
     const { components, ...props } = this.props
+    const Layout = this.layout
 
-    return <MDXTag
+    return <div
              name=\\"wrapper\\"
-             Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}
              components={components}>
+             <Layout {...layoutProps} {...props}>
+             
 
-<MDXTag name=\\"h1\\" components={components}>{\`Hello, world!\`}</MDXTag>
-<MDXTag name=\\"p\\" components={components}>{\`I'm an awesome paragraph.\`}</MDXTag>
+<h1 >{\`Hello, world!\`}</h1>
+<p >{\`I'm an awesome paragraph.\`}</p>
 {/* I'm a comment */}
 <Foo bg='red'>
   <Bar>hi</Bar>
     {hello}
     {/* another commment */}
 </Foo>
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{}}>{\`test codeblock
-\`}</MDXTag></MDXTag>
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
-\`}</MDXTag></MDXTag>
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
-\`}</MDXTag></MDXTag>
-<MDXTag name=\\"table\\" components={components}>
-<MDXTag name=\\"thead\\" components={components} parentName=\\"table\\">
-<MDXTag name=\\"tr\\" components={components} parentName=\\"thead\\">
-<MDXTag name=\\"th\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Test\`}</MDXTag>
-<MDXTag name=\\"th\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Table\`}</MDXTag>
-</MDXTag>
-</MDXTag>
-<MDXTag name=\\"tbody\\" components={components} parentName=\\"table\\">
-<MDXTag name=\\"tr\\" components={components} parentName=\\"tbody\\">
-<MDXTag name=\\"td\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col1\`}</MDXTag>
-<MDXTag name=\\"td\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col2\`}</MDXTag>
-</MDXTag>
-</MDXTag>
-</MDXTag>
+<pre ><code parentName=\\"pre\\" props={{}}>{\`test codeblock
+\`}</code></pre>
+<pre ><code parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
+\`}</code></pre>
+<pre ><code parentName=\\"pre\\" props={{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
+\`}</code></pre>
+<table >
+<thead parentName=\\"table\\">
+<tr parentName=\\"thead\\">
+<th parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Test\`}</th>
+<th parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Table\`}</th>
+</tr>
+</thead>
+<tbody parentName=\\"table\\">
+<tr parentName=\\"tbody\\">
+<td parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col1\`}</td>
+<td parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col2\`}</td>
+</tr>
+</tbody>
+</table>
 
-           </MDXTag>
+             </Layout>
+           </div>
   }
 }
 MDXContent.isMDXComponent = true"
