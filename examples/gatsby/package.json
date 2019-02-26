@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "gatsby",
   "version": "0.0.1",
+  "name": "gatsby-example",
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build"

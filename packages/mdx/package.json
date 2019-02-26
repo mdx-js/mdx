@@ -24,6 +24,7 @@
   "files": [
     "index.js",
     "util.js",
+    "create-element.js",
     "md-ast-to-mdx-ast.js",
     "mdx-ast-to-mdx-hast.js",
     "mdx-hast-to-jsx.js"
