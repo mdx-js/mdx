@@ -11,7 +11,7 @@ const components = {
 }
 
 const scope = {
-  Foo: _props => <div>Foobarbaz</div>
+  Foo: () => <div>Foobarbaz</div>
 }
 
 const mdx = `

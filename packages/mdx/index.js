@@ -128,7 +128,8 @@ function sync(mdx, options) {
 
   const {contents} = compiler.processSync(fileOpts)
 
-  return contents
+  return `/* @jsx mdx */
+${contents}`
 }
 
 async function compile(mdx, options = {}) {
@@ -142,7 +143,8 @@ async function compile(mdx, options = {}) {
 
   const {contents} = await compiler.process(fileOpts)
 
-  return contents
+  return `/* @jsx mdx */
+${contents}`
 }
 
 compile.sync = sync
