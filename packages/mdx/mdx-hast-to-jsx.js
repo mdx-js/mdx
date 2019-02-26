@@ -118,18 +118,15 @@ ${skipExport ? '' : 'export default'} class MDXContent extends React.Component {
   }
   render() {
     const { components, ...props } = this.props
+    const Layout = this.layout
 
-    return <MDXTag
+    return <div
              name="wrapper"
-             ${
-               layout
-                 ? `Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}`
-                 : ''
-             }
-             components={components}>${jsxNodes
-               .map(childNode => toJSX(childNode, node))
-               .join('')}
-           </MDXTag>
+             components={components}>
+             ${layout ? `<Layout {...layoutProps} {...props}>` : ''}
+             ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
+             ${layout ? `</Layout>` : ''}
+           </div>
   }
 }
 MDXContent.isMDXComponent = true`

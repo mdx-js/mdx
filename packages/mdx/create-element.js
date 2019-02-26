@@ -10,20 +10,25 @@ const defaults = {
   wrapper: 'div'
 }
 
-const MDX = withMDXComponents(
-  ({components = {}, __MDX_TYPE_PLEASE_DO_NOT_USE__, parentName, ...etc}) => {
-    const type = __MDX_TYPE_PLEASE_DO_NOT_USE__
-    console.log('type', components)
-    const Component =
-      components[`${parentName}.${type}`] ||
-      components[type] ||
-      defaults[type] ||
-      type
+const MDXCreateElementInner = ({
+  components = {},
+  __MDX_TYPE_PLEASE_DO_NOT_USE__,
+  parentName,
+  ...etc
+}) => {
+  const type = __MDX_TYPE_PLEASE_DO_NOT_USE__
+  const Component =
+    components[`${parentName}.${type}`] ||
+    components[type] ||
+    defaults[type] ||
+    type
 
-    return React.createElement(Component, etc)
-  }
-)
+  return React.createElement(Component, etc)
+}
+MDXCreateElementInner.displayName = 'MDXCreateElementInner'
 
+const MDXCreateElement = withMDXComponents(MDXCreateElementInner)
+MDXCreateElement.displayName = 'MDXCreateElement'
 export default function(type, props) {
   let args = arguments
 
@@ -33,7 +38,7 @@ export default function(type, props) {
 
     const createElementArgArray = new Array(argsLength)
 
-    createElementArgArray[0] = MDX
+    createElementArgArray[0] = MDXCreateElement
     const newProps = {}
 
     for (let key in props) {
