@@ -168,9 +168,13 @@ MDXContent.isMDXComponent = true`
   if (node.type === 'text') {
     // Don't wrap newlines unless specifically instructed to by the flag,
     // to avoid issues like React warnings caused by text nodes in tables.
-    if (node.value === '\n' && !preserveNewlines) {
+    const shouldPreserveNewlines =
+      preserveNewlines || parentNode.tagName === 'p'
+
+    if (node.value === '\n' && !shouldPreserveNewlines) {
       return node.value
     }
+
     return '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
   }
 

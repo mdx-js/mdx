@@ -204,6 +204,24 @@ Some text <!-- an inline comment -->
   expect(result).toContain('<!-- a template literal -->')
 })
 
+it('Should turn a newline into a space with adjacent anchors', async () => {
+  const result = await renderWithReact(`
+  [foo](/foo)
+  [bar](/bar)
+  `)
+
+  expect(result).toContain('<a href="/foo">foo</a>\n<a href="/bar">bar</a>')
+})
+
+it('Should turn a newline into a space with other adjacent phrasing content', async () => {
+  const result = await renderWithReact(`
+  *foo*
+  \`bar\`
+  `)
+
+  expect(result).toContain('<em>foo</em>\n<code>bar</code>')
+})
+
 it('Should convert style strings to camelized objects', async () => {
   const result = await mdx(
     `
