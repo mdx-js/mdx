@@ -2,6 +2,7 @@ import React from 'react'
 import {transform} from 'buble'
 import mdx from '@mdx-js/mdx'
 import createElement from '@mdx-js/mdx/create-element'
+import {MDXProvider} from '@mdx-js/tag'
 
 export default ({
   scope = {},
@@ -13,6 +14,7 @@ export default ({
 }) => {
   const fullScope = {
     mdx: createElement,
+    MDXProvider,
     components,
     props,
     ...scope
@@ -26,7 +28,9 @@ export default ({
     })
     .trim()
 
-  const {code} = transform(jsx)
+  const {code} = transform(jsx, {
+    objectAssign: 'Object.assign'
+  })
 
   const keys = Object.keys(fullScope)
   const values = Object.values(fullScope)
@@ -37,7 +41,9 @@ export default ({
     ...keys,
     `${code}
 
-  return React.createElement(MDXContent, { components, ...props });`
+    return React.createElement(MDXProvider, { components },
+      React.createElement(MDXContent, props)
+    );`
   )
 
   return fn({}, React, ...values)
