@@ -1,5 +1,5 @@
-import * as React from 'react'
-import {withMDXComponents} from '@mdx-js/tag/dist/mdx-provider'
+const React = require('react')
+const {withMDXComponents} = require('@mdx-js/tag/dist/mdx-provider')
 
 const TYPE_PROP_NAME = '__MDX_TYPE_PLEASE_DO_NOT_USE__'
 
@@ -28,7 +28,7 @@ MDXCreateElementInner.displayName = 'MDXCreateElementInner'
 const MDXCreateElement = withMDXComponents(MDXCreateElementInner)
 MDXCreateElement.displayName = 'MDXCreateElement'
 
-export default function(type, props) {
+module.exports = function(type, props) {
   const args = arguments
 
   if (typeof type === 'string') {

@@ -130,7 +130,6 @@ async function compile(mdx, options = {}) {
   const {contents} = await compiler.process(fileOpts)
 
   return `/* @jsx mdx */
-import mdx from '@mdx-js/mdx/create-element'
 ${contents}`
 }
 
