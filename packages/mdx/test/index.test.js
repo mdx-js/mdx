@@ -356,7 +356,7 @@ test('Should process filepath and pass it to the plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
-test('Should handle inline JSX', async () => {
+test.skip('Should handle inline JSX', async () => {
   const result = await mdx(
     'Hello, <span style={{ color: "tomato" }}>world</span>'
   )
