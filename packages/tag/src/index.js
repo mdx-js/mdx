@@ -1,2 +1,6 @@
 export {default as MDXTag} from './mdx-tag'
-export {default as MDXContext, MDXProvider} from './mdx-context'
+export {
+  default as MDXContext,
+  MDXProvider,
+  withMDXComponents
+} from './mdx-context'
