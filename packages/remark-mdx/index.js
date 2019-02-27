@@ -1,5 +1,6 @@
 const isAlphabetical = require('is-alphabetical')
 const extractImportsAndExports = require('./extract-imports-and-exports')
+const block = require('./block')
 const {tag} = require('./tag')
 
 const IMPORT_REGEX = /^import/
@@ -37,7 +38,7 @@ function attachParser(parser) {
   const methods = parser.prototype.blockMethods
 
   blocks.esSyntax = tokenizeEsSyntax
-  blocks.html = wrap(blocks.html)
+  blocks.html = wrap(block)
   inlines.html = wrap(inlines.html, inlineJsx)
 
   methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
@@ -89,7 +90,7 @@ function attachCompiler(compiler) {
   proto.visitors = Object.assign({}, proto.visitors, {
     import: stringifyEsSyntax,
     export: stringifyEsSyntax,
-    jsx: proto.visitors.html
+    jsx: stringifyEsSyntax
   })
 }
 
