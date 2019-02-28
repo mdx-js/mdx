@@ -1,5 +1,6 @@
 const toStyleObject = require('to-style').object
 const {paramCase} = require('change-case')
+const {toTemplateLiteral} = require('./util')
 
 // eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
@@ -157,7 +158,8 @@ function toJSX(node, parentNode = {}, options = {}) {
     if (node.value === '\n' && !preserveNewlines) {
       return node.value
     }
-    return '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
+
+    return toTemplateLiteral(node.value)
   }
 
   if (node.type === 'comment') {

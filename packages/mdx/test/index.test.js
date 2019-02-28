@@ -17,7 +17,7 @@ const fixtureBlogPost = fs.readFileSync(
 )
 
 const fixturePonylang = fs.readFileSync(
-  path.join(__dirname, './fixtures/ponylang.md')
+  path.join(__dirname, './fixtures/ponylang.mdx')
 )
 
 const parse = code =>
@@ -155,7 +155,7 @@ COPY start.sh /home/start.sh
 })
 
 it('Should not escape literals in code blocks or inline code', async () => {
-  await expect(renderWithReact(fixturePonylang)).rejects.toThrow(SyntaxError)
+  await expect(() => renderWithReact(fixturePonylang)).not.toThrow()
 })
 
 it('Should preserve infostring in code blocks', async () => {
