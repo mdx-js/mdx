@@ -16,6 +16,10 @@ const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
 )
 
+const fixturePonylang = fs.readFileSync(
+  path.join(__dirname, './fixtures/ponylang.mdx')
+)
+
 const parse = code =>
   babel.parse(code, {
     plugins: [
@@ -145,11 +149,15 @@ it('Should preserve newlines in code blocks', async () => {
 # Add main script
 COPY start.sh /home/start.sh
 \`\`\`
-  `,
+    `,
     {hastPlugins: [prism]}
   )
 
   expect(result).toContain('{`# Add main script`}</MDXTag>{`\n`}')
+})
+
+it('Should not escape literals in code blocks or inline code', async () => {
+  await expect(() => renderWithReact(fixturePonylang)).not.toThrow()
 })
 
 it('Should preserve infostring in code blocks', async () => {
