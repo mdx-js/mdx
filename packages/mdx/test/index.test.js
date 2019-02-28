@@ -356,6 +356,16 @@ test('Should process filepath and pass it to the plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
+test.skip('Should handle inline JSX', async () => {
+  const result = await mdx(
+    'Hello, <span style={{ color: "tomato" }}>world</span>'
+  )
+
+  expect(result).toContain(
+    '<MDXTag name="p" components={components}>Hello, <span style={{ color: "tomato" }}>world</span></MDXTag>'
+  )
+})
+
 test('Should parse and render footnotes', async () => {
   const result = await mdx(
     'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'

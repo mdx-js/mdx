@@ -24,6 +24,7 @@
   "files": [
     "index.js",
     "tag.js",
+    "block.js",
     "extract-imports-and-exports.js"
   ],
   "dependencies": {
