@@ -69,6 +69,10 @@ prevent you from doing unnecessary work.
 2.  `yarn bootstrap`
 3.  `yarn test`
 
+Tests for an individual package can be run as a yarn workspace:
+`yarn workspace remark-mdx test`.  To see what packages ar available to test
+you can list out all workspaces with `yarn workspaces info`.
+
 ## Submitting an issue
 
 *   The issue tracker is for issues.  Use chat for support

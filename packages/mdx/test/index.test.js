@@ -95,7 +95,8 @@ it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
   expect(prettier.format(result, {parser: 'babylon'})).toMatchInlineSnapshot(`
-"export default class MDXContent extends React.Component {
+"const layoutProps = {};
+export default class MDXContent extends React.Component {
   constructor(props) {
     super(props);
     this.layout = null;
@@ -110,6 +111,7 @@ it('Should match sample blog post snapshot', async () => {
     );
   }
 }
+MDXContent.isMDXComponent = true;
 "
 `)
 })
@@ -210,6 +212,24 @@ Some text <!-- an inline comment -->
   expect(result).toContain('<!-- a template literal -->')
 })
 
+it('Should turn a newline into a space with adjacent anchors', async () => {
+  const result = await renderWithReact(`
+  [foo](/foo)
+  [bar](/bar)
+  `)
+
+  expect(result).toContain('<a href="/foo">foo</a>\n<a href="/bar">bar</a>')
+})
+
+it('Should turn a newline into a space with other adjacent phrasing content', async () => {
+  const result = await renderWithReact(`
+  *foo*
+  \`bar\`
+  `)
+
+  expect(result).toContain('<em>foo</em>\n<code>bar</code>')
+})
+
 it('Should convert style strings to camelized objects', async () => {
   const result = await mdx(
     `
@@ -297,6 +317,11 @@ it('Should recognize components as properties', async () => {
   )
 })
 
+it('Should contain static isMDXComponent() function', async () => {
+  const result = await mdx('# Hello World')
+  expect(result).toContain('MDXContent.isMDXComponent = true')
+})
+
 it('Should render elements without wrapping blank new lines', async () => {
   const result = await mdx(`
   | Test | Table |
@@ -339,6 +364,16 @@ test('Should process filepath and pass it to the plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
+test.skip('Should handle inline JSX', async () => {
+  const result = await mdx(
+    'Hello, <span style={{ color: "tomato" }}>world</span>'
+  )
+
+  expect(result).toContain(
+    '<MDXTag name="p" components={components}>Hello, <span style={{ color: "tomato" }}>world</span></MDXTag>'
+  )
+})
+
 test('Should parse and render footnotes', async () => {
   const result = await mdx(
     'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
@@ -357,4 +392,70 @@ test('Should expose a sync compiler', () => {
   const result = mdx.sync(fixtureBlogPost)
 
   expect(result).toMatch(/Hello, world!/)
+})
+
+test('Should handle layout props', () => {
+  const result = mdx.sync(fixtureBlogPost)
+
+  expect(result).toMatchInlineSnapshot(`
+"import { Baz } from './Fixture'
+import { Buz } from './Fixture'
+export const foo = {
+  hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
+  authors: [
+    'fred',
+    'sally'
+  ]
+}
+const layoutProps = {
+  foo
+};
+export default class MDXContent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.layout = ({children}) => <div>{children}</div>
+
+  }
+  render() {
+    const { components, ...props } = this.props
+
+    return <MDXTag
+             name=\\"wrapper\\"
+             Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}
+             components={components}>
+
+<MDXTag name=\\"h1\\" components={components}>{\`Hello, world!\`}</MDXTag>
+<MDXTag name=\\"p\\" components={components}>{\`I'm an awesome paragraph.\`}</MDXTag>
+{/* I'm a comment */}
+<Foo bg='red'>
+  <Bar>hi</Bar>
+    {hello}
+    {/* another commment */}
+</Foo>
+<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{}}>{\`test codeblock
+\`}</MDXTag></MDXTag>
+<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
+\`}</MDXTag></MDXTag>
+<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
+\`}</MDXTag></MDXTag>
+<MDXTag name=\\"table\\" components={components}>
+<MDXTag name=\\"thead\\" components={components} parentName=\\"table\\">
+<MDXTag name=\\"tr\\" components={components} parentName=\\"thead\\">
+<MDXTag name=\\"th\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Test\`}</MDXTag>
+<MDXTag name=\\"th\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Table\`}</MDXTag>
+</MDXTag>
+</MDXTag>
+<MDXTag name=\\"tbody\\" components={components} parentName=\\"table\\">
+<MDXTag name=\\"tr\\" components={components} parentName=\\"tbody\\">
+<MDXTag name=\\"td\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col1\`}</MDXTag>
+<MDXTag name=\\"td\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col2\`}</MDXTag>
+</MDXTag>
+</MDXTag>
+</MDXTag>
+
+           </MDXTag>
+  }
+}
+MDXContent.isMDXComponent = true"
+`)
 })

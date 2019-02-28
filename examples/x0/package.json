@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "x0",
+  "version": "0.0.1",
   "scripts": {
     "start": "x0 pages"
   },

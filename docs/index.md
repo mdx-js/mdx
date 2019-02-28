@@ -20,19 +20,19 @@ Donut rendered inside an MDX document.
 <Donut value={2/3} />
 ```
 
-**:heart: Powerful**: MDX blends Markdown and JSX syntax to fit perfectly in
+:heart: **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
 React/JSX-based projects.
 
-**:computer: Everything is a component**: Use existing components inside your
+:computer: **Everything is a component**: Use existing components inside your
 MDX and import other MDX files as plain components.
 
-**:wrench: Customizable**: Decide which component is rendered for each Markdown
+:wrench: **Customizable**: Decide which component is rendered for each markdown
 element (`{ h1: MyHeading }`).
 
-**:books: Markdown-based**: The simplicity and elegance of Markdown remains,
+:books: **Markdown-based**: The simplicity and elegance of markdown remains,
 you interleave JSX only when you want to.
 
-**:fire: Blazingly blazing fast**: MDX has no runtime, all compilation occurs
+:fire: **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
 during the build stage.
 
 > “It’s extremely useful for using design system components to render markdown
