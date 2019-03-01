@@ -66,8 +66,14 @@ it('maintains the proper positional info', () => {
 })
 
 it('removes newlines between imports and exports', () => {
-  const fixture =
-    'import Foo1 from "./foo"\nimport Foo2 from "./foo"\nimport Foo3 from "./foo"'
+  const fixture = [
+    'import Foo1 from "./foo"',
+    'import Foo2 from "./foo"',
+    'import Foo3 from "./foo"',
+    'export const foo = "bar"',
+    'export default props => <article {...props} />',
+    'import Foo4 from "./foo"'
+  ].join('\n')
 
   const result = stringify(fixture)
 

@@ -95,7 +95,7 @@ function attachCompiler(compiler) {
 }
 
 function stringifyEsSyntax(node) {
-  return node.value
+  return node.value.trim()
 }
 
 function tokenizeEsSyntax(eat, value) {

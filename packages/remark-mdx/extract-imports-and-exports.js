@@ -49,8 +49,42 @@ module.exports = value => {
   const nodeStarts = sortedNodes.map(n => n.start)
   const values = partitionString(value, nodeStarts)
 
-  return sortedNodes.map(({start: _, ...node}, i) => {
+  const allNodes = sortedNodes.map(({start: _, ...node}, i) => {
     const value = values[i]
     return {...node, value}
   })
+
+  // Group adjacent nodes of the same type so that they can be combined
+  // into a single node later
+  let currType = allNodes[0].type
+  const groupedNodes = allNodes.reduce(
+    (acc, curr) => {
+      // Default export nodes shouldn't be grouped with other exports
+      // because they're handled specially by MDX
+      if (curr.default) {
+        currType = 'default'
+        acc.push([curr])
+      } else if (curr.type === currType) {
+        acc[acc.length - 1].push(curr)
+      } else {
+        currType = curr.type
+        acc.push([curr])
+      }
+
+      return acc
+    },
+    [[]]
+  )
+
+  // Combine adjacent nodes into a single node
+  return groupedNodes
+    .filter(a => a.length)
+    .reduce((acc, curr) => {
+      const node = curr.shift()
+      curr.forEach(n => {
+        node.value += n.value
+      })
+
+      return acc.concat([node])
+    }, [])
 }
