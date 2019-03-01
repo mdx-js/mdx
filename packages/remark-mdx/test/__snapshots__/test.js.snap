@@ -8,29 +8,24 @@ export { Baz } from './foo'
 const layoutProps = {
   
 };
-export default class MDXContent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.layout = Foo
-  }
-  render() {
-    const { components, ...props } = this.props
-    const Layout = this.layout
+export default function MDXContent({ components, ...props }) {
+  const Layout = Foo
 
-    return <div
-             name=\\"wrapper\\"
-             components={components}>
-             <Layout {...layoutProps} {...props}>
-             
+  return (
+    <div
+      name=\\"wrapper\\"
+      components={components}>
+      <Layout {...layoutProps} {...props}>
+      
 
 
 <h1 >{\`Hello, world! \`}<Foo bar={{ baz: 'qux' }} /></h1>
 <Baz>
   Hi!
 </Baz>
-             </Layout>
-           </div>
-  }
+      </Layout>
+    </div>
+  )
 }
 MDXContent.isMDXComponent = true"
 `;

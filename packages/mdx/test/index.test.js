@@ -101,21 +101,14 @@ it('Should match sample blog post snapshot', async () => {
 "/* @jsx mdx */
 
 const layoutProps = {};
-export default class MDXContent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.layout = null;
-  }
-  render() {
-    const { components, ...props } = this.props;
-    const Layout = this.layout;
+export default function MDXContent({ components, ...props }) {
+  const Layout = null;
 
-    return (
-      <div name=\\"wrapper\\" components={components}>
-        <h1>{\`Hello World\`}</h1>
-      </div>
-    );
-  }
+  return (
+    <div name=\\"wrapper\\" components={components}>
+      <h1>{\`Hello World\`}</h1>
+    </div>
+  );
 }
 MDXContent.isMDXComponent = true;
 "
@@ -381,20 +374,15 @@ export const foo = {
 const layoutProps = {
   foo
 };
-export default class MDXContent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.layout = ({children}) => <div>{children}</div>
-  }
-  render() {
-    const { components, ...props } = this.props
-    const Layout = this.layout
+export default function MDXContent({ components, ...props }) {
+  const Layout = ({children}) => <div>{children}</div>
 
-    return <div
-             name=\\"wrapper\\"
-             components={components}>
-             <Layout {...layoutProps} {...props}>
-             
+  return (
+    <div
+      name=\\"wrapper\\"
+      components={components}>
+      <Layout {...layoutProps} {...props}>
+      
 
 <h1 >{\`Hello, world!\`}</h1>
 <p >{\`I'm an awesome paragraph.\`}</p>
@@ -441,9 +429,9 @@ export default class MDXContent extends React.Component {
     \\\\\`};
 \\\\\`
 \`}</code></pre>
-             </Layout>
-           </div>
-  }
+      </Layout>
+    </div>
+  )
 }
 MDXContent.isMDXComponent = true"
 `)
