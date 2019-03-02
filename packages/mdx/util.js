@@ -6,8 +6,8 @@ const EMPTY_NEWLINE = '\n\n'
 
 const toTemplateLiteral = text => {
   const escaped = text
-    .replace(/`/g, '\\`') // Escape "`"" since
     .replace(/\\/g, '\\\\') // Escape all "\" to avoid unwanted escaping in text nodes
+    .replace(/`/g, '\\`') // Escape "`"" since
 
   return '{`' + escaped + '`}'
 }
