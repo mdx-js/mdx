@@ -70,7 +70,10 @@ it('Should output parseable JSX', async () => {
 })
 
 it('Should be able to render JSX with React', async () => {
-  const result = await renderWithReact('# Hello, world!')
+  const result = await renderWithReact(`# Hello, world!
+  
+    const code = () => \`template string\`
+  `)
 
   expect(result).toContain('<h1 style="color:tomato">Hello, world!</h1>')
 })
