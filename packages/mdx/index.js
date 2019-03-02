@@ -1,6 +1,8 @@
 const unified = require('unified')
 const toMDAST = require('remark-parse')
 const squeeze = require('remark-squeeze-paragraphs')
+const visit = require('unist-util-visit')
+const raw = require('hast-util-raw')
 const toMDXAST = require('./md-ast-to-mdx-ast')
 const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
@@ -59,6 +61,7 @@ function createMdxAstCompiler(options) {
     .use(toMDAST, options)
     .use(esSyntax)
     .use(squeeze, options)
+    .use(toMDXAST, options)
 
   mdPlugins.forEach(plugin => {
     // Handle [plugin, pluginOptions] syntax
@@ -69,7 +72,7 @@ function createMdxAstCompiler(options) {
     }
   })
 
-  fn.use(toMDXAST, options).use(mdxAstToMdxHast, options)
+  fn.use(mdxAstToMdxHast, options)
 
   return fn
 }
@@ -77,6 +80,17 @@ function createMdxAstCompiler(options) {
 function applyHastPluginsAndCompilers(compiler, options) {
   const hastPlugins = options.hastPlugins
   const compilers = options.compilers
+
+  // Convert raw nodes into HAST
+  compiler.use(() => ast => {
+    visit(ast, 'raw', node => {
+      const {type, children, tagName, properties} = raw(node)
+      node.type = type
+      node.children = children
+      node.tagName = tagName
+      node.properties = properties
+    })
+  })
 
   hastPlugins.forEach(plugin => {
     // Handle [plugin, pluginOptions] syntax
