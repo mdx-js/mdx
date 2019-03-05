@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/loader",
-  "version": "0.20.1",
+  "version": "0.20.2",
   "description": "Loader for MDX",
   "license": "MIT",
   "keywords": [
@@ -27,7 +27,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^0.20.1",
+    "@mdx-js/mdx": "^0.20.2",
     "@mdx-js/tag": "^0.18.0",
     "loader-utils": "^1.1.0"
   },
