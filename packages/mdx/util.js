@@ -8,6 +8,7 @@ const toTemplateLiteral = text => {
   const escaped = text
     .replace(/\\/g, '\\\\') // Escape all "\" to avoid unwanted escaping in text nodes
     .replace(/`/g, '\\`') // Escape "`"" since
+    .replace(/\$\{/g, '\\${') // Escape ${} in text so that it doesn't eval
 
   return '{`' + escaped + '`}'
 }
