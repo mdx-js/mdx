@@ -417,7 +417,6 @@ export default class MDXContent extends React.Component {
   constructor(props) {
     super(props)
     this.layout = ({children}) => <div>{children}</div>
-
   }
   render() {
     const { components, ...props } = this.props
@@ -456,6 +455,22 @@ export default class MDXContent extends React.Component {
 </MDXTag>
 </MDXTag>
 
+<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 0.25rem 1rem;
+  margin: 0 1rem;
+  background: transparent;
+  color: \\\\\${props => props.theme.primary};
+  border: 2px solid \\\\\${props => props.theme.primary};
+  \\\\\${props =>
+    props.primary &&
+    css\\\\\`
+      background: \\\\\${props => props.theme.primary};
+      color: white;
+    \\\\\`};
+\\\\\`
+\`}</MDXTag></MDXTag>
            </MDXTag>
   }
 }
