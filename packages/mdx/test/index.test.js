@@ -432,28 +432,28 @@ export default class MDXContent extends React.Component {
     {hello}
     {/* another commment */}
 </Foo>
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{}}>{\`test codeblock
-\`}</MDXTag></MDXTag>
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
-\`}</MDXTag></MDXTag>
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
-\`}</MDXTag></MDXTag>
-<MDXTag name=\\"table\\" components={components}>
-<MDXTag name=\\"thead\\" components={components} parentName=\\"table\\">
-<MDXTag name=\\"tr\\" components={components} parentName=\\"thead\\">
-<MDXTag name=\\"th\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Test\`}</MDXTag>
-<MDXTag name=\\"th\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Table\`}</MDXTag>
-</MDXTag>
-</MDXTag>
-<MDXTag name=\\"tbody\\" components={components} parentName=\\"table\\">
-<MDXTag name=\\"tr\\" components={components} parentName=\\"tbody\\">
-<MDXTag name=\\"td\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col1\`}</MDXTag>
-<MDXTag name=\\"td\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col2\`}</MDXTag>
-</MDXTag>
-</MDXTag>
-</MDXTag>
+<pre ><code parentName=\\"pre\\" {...{}}>{\`test codeblock
+\`}</code></pre>
+<pre ><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
+\`}</code></pre>
+<pre ><code parentName=\\"pre\\" {...{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
+\`}</code></pre>
+<table >
+<thead parentName=\\"table\\">
+<tr parentName=\\"thead\\">
+<th parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Test\`}</th>
+<th parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Table\`}</th>
+</tr>
+</thead>
+<tbody parentName=\\"table\\">
+<tr parentName=\\"tbody\\">
+<td parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Col1\`}</td>
+<td parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Col2\`}</td>
+</tr>
+</tbody>
+</table>
 
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
+<pre ><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
   font-size: 1rem;
   border-radius: 5px;
   padding: 0.25rem 1rem;
@@ -468,8 +468,9 @@ export default class MDXContent extends React.Component {
       color: white;
     \\\\\`};
 \\\\\`
-\`}</MDXTag></MDXTag>
-           </MDXTag>
+\`}</code></pre>
+             </Layout>
+           </div>
   }
 }
 MDXContent.isMDXComponent = true"
