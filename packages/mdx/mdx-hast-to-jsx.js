@@ -71,7 +71,7 @@ function toJSX(node, parentNode = {}, options = {}) {
       `const layoutProps = {
   ${exportNames.join(',\n')}
 };
-const Layout = ${layout || 'null'}
+${layout ? `const MDXLayout = ${layout}` : ''}
 ${
   skipExport ? '' : 'export default'
 } function MDXContent({ components, ...props }) {
@@ -79,9 +79,9 @@ ${
     <div
       name="wrapper"
       components={components}>
-      ${layout ? `<Layout {...layoutProps} {...props}>` : ''}
+      ${layout ? `<MDXLayout {...layoutProps} {...props}>` : ''}
       ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
-      ${layout ? `</Layout>` : ''}
+      ${layout ? `</MDXLayout>` : ''}
     </div>
   )
 }

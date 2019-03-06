@@ -101,7 +101,7 @@ it('Should match sample blog post snapshot', async () => {
 "/* @jsx mdx */
 
 const layoutProps = {};
-const Layout = null;
+
 export default function MDXContent({ components, ...props }) {
   return (
     <div name=\\"wrapper\\" components={components}>
@@ -373,14 +373,14 @@ export const foo = {
 const layoutProps = {
   foo
 };
-const Layout = ({children}) => <div>{children}</div>
+const MDXLayout = ({children}) => <div>{children}</div>
 
 export default function MDXContent({ components, ...props }) {
   return (
     <div
       name=\\"wrapper\\"
       components={components}>
-      <Layout {...layoutProps} {...props}>
+      <MDXLayout {...layoutProps} {...props}>
       
 
 <h1 >{\`Hello, world!\`}</h1>
@@ -428,7 +428,6 @@ export default function MDXContent({ components, ...props }) {
     \\\\\`};
 \\\\\`
 \`}</code></pre>
-      </Layout>
     </div>
   )
 }

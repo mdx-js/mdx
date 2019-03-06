@@ -8,13 +8,13 @@ export { Baz } from './foo'
 const layoutProps = {
   
 };
-const Layout = Foo
+const MDXLayout = Foo
 export default function MDXContent({ components, ...props }) {
   return (
     <div
       name=\\"wrapper\\"
       components={components}>
-      <Layout {...layoutProps} {...props}>
+      <MDXLayout {...layoutProps} {...props}>
       
 
 
@@ -22,7 +22,7 @@ export default function MDXContent({ components, ...props }) {
 <Baz>
   Hi!
 </Baz>
-      </Layout>
+      </MDXLayout>
     </div>
   )
 }
