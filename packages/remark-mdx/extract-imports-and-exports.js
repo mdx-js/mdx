@@ -55,7 +55,7 @@ module.exports = value => {
   })
 
   // Group adjacent nodes of the same type so that they can be combined
-  // into a single node later
+  // into a single node later, this also ensures that order is preserved
   let currType = allNodes[0].type
   const groupedNodes = allNodes.reduce(
     (acc, curr) => {
@@ -63,15 +63,14 @@ module.exports = value => {
       // because they're handled specially by MDX
       if (curr.default) {
         currType = 'default'
-        acc.push([curr])
-      } else if (curr.type === currType) {
-        acc[acc.length - 1].push(curr)
-      } else {
-        currType = curr.type
-        acc.push([curr])
+        return [...acc, [curr]]
       }
-
-      return acc
+      if (curr.type === currType) {
+        const lastNodes = acc.pop()
+        return [...acc, [...lastNodes, curr]]
+      }
+      currType = curr.type
+      return [...acc, [curr]]
     },
     [[]]
   )
@@ -80,11 +79,11 @@ module.exports = value => {
   return groupedNodes
     .filter(a => a.length)
     .reduce((acc, curr) => {
-      const node = curr.shift()
-      curr.forEach(n => {
-        node.value += n.value
-      })
+      const node = curr.reduce((acc, curr) => ({
+        ...acc,
+        value: acc.value + curr.value
+      }))
 
-      return acc.concat([node])
+      return [...acc, node]
     }, [])
 }
