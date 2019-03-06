@@ -374,7 +374,6 @@ const layoutProps = {
   foo
 };
 const MDXLayout = ({children}) => <div>{children}</div>
-
 export default function MDXContent({ components, ...props }) {
   return (
     <div
@@ -382,6 +381,7 @@ export default function MDXContent({ components, ...props }) {
       components={components}>
       <MDXLayout {...layoutProps} {...props}>
       
+
 
 <h1 >{\`Hello, world!\`}</h1>
 <p >{\`I'm an awesome paragraph.\`}</p>
@@ -428,6 +428,7 @@ export default function MDXContent({ components, ...props }) {
     \\\\\`};
 \\\\\`
 \`}</code></pre>
+      </MDXLayout>
     </div>
   )
 }
