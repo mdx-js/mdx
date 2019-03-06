@@ -35,6 +35,7 @@ const navOrder = [
     'wrapper-customization',
   'advanced',
     'plugins',
+    'api',
     'ast',
     'components',
     'retext-plugins',
