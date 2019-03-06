@@ -5,17 +5,25 @@ const isFunction = obj => typeof obj === 'function'
 const MDXContext = React.createContext({})
 
 export const withMDXComponents = Component => props => {
-  const contextComponents = React.useContext(MDXContext)
-  const allComponents = props.components || contextComponents
+  const allComponents = useMDXComponents(props.components)
 
   return <Component {...props} components={allComponents} />
 }
 
+export const useMDXComponents = components => {
+  const contextComponents = React.useContext(MDXContext)
+  let allComponents = contextComponents
+  if (components) {
+    allComponents = isFunction(components)
+      ? components(contextComponents)
+      : components
+  }
+
+  return allComponents
+}
+
 export const MDXProvider = props => {
-  const outerContextComponents = React.useContext(MDXContext)
-  const allComponents = isFunction(props.components)
-    ? props.components(outerContextComponents)
-    : props.components
+  const allComponents = useMDXComponents(props.components)
 
   return (
     <MDXContext.Provider value={allComponents}>
