@@ -1,6 +1,6 @@
 # API
 
-MDX core is a transpilation library.  It receives and MDX string and outputs a JSX string.  You can also pass [plugins](/plugins) which can customize how MDX creates the JSX string.
+MDX, at its core, is a transpilation library.  It receives and MDX string and outputs a JSX string.  You can also pass [plugins](/plugins) which can customize how MDX creates the JSX string.
 
 By default, MDX is asynchronous because plugins can be asynchronous themselves!  This means that plugins can make request data, read from the file system.  Anything!
 

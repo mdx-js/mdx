@@ -30,6 +30,7 @@ const navOrder = [
     'react-static',
   'plugins',
   'advanced',
+    'api',
     'ast',
     'components',
     'writing-a-plugin',
