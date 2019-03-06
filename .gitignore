@@ -9,3 +9,4 @@ bundle.js
 .vscode
 .DS_Store
 tmp
+artifacts
