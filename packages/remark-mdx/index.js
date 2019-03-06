@@ -1,9 +1,10 @@
 const isAlphabetical = require('is-alphabetical')
+const extractImportsAndExports = require('./extract-imports-and-exports')
+const block = require('./block')
 const {tag} = require('./tag')
 
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
-const EXPORT_DEFAULT_REGEX = /^export\s+default\s+/
 const EMPTY_NEWLINE = '\n\n'
 const LESS_THAN = '<'
 const GREATER_THAN = '>'
@@ -11,7 +12,6 @@ const SLASH = '/'
 
 const isImport = text => IMPORT_REGEX.test(text)
 const isExport = text => EXPORT_REGEX.test(text)
-const isExportDefault = text => EXPORT_DEFAULT_REGEX.test(text)
 
 module.exports = mdx
 
@@ -38,7 +38,7 @@ function attachParser(parser) {
   const methods = parser.prototype.blockMethods
 
   blocks.esSyntax = tokenizeEsSyntax
-  blocks.html = wrap(blocks.html)
+  blocks.html = wrap(block)
   inlines.html = wrap(inlines.html, inlineJsx)
 
   methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
@@ -90,7 +90,7 @@ function attachCompiler(compiler) {
   proto.visitors = Object.assign({}, proto.visitors, {
     import: stringifyEsSyntax,
     export: stringifyEsSyntax,
-    jsx: proto.visitors.html
+    jsx: stringifyEsSyntax
   })
 }
 
@@ -102,19 +102,9 @@ function tokenizeEsSyntax(eat, value) {
   const index = value.indexOf(EMPTY_NEWLINE)
   const subvalue = index !== -1 ? value.slice(0, index) : value
 
-  if (isExport(subvalue)) {
-    return eat(subvalue)({
-      type: 'export',
-      default: isExportDefault(subvalue),
-      value: subvalue
-    })
-  }
-
-  if (isImport(subvalue)) {
-    return eat(subvalue)({
-      type: 'import',
-      value: subvalue
-    })
+  if (isExport(subvalue) || isImport(subvalue)) {
+    const nodes = extractImportsAndExports(subvalue)
+    nodes.map(node => eat(node.value)(node))
   }
 }
 

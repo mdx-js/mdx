@@ -1,5 +1,6 @@
 const toStyleObject = require('to-style').object
 const {paramCase} = require('change-case')
+const {toTemplateLiteral} = require('./util')
 
 // eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
@@ -90,7 +91,8 @@ ${skipExport ? '' : 'export default'} class MDXContent extends React.Component {
                .join('')}
            </MDXTag>
   }
-}`
+}
+MDXContent.isMDXComponent = true`
     )
   }
   // Recursively walk through children
@@ -126,10 +128,14 @@ ${skipExport ? '' : 'export default'} class MDXContent extends React.Component {
   if (node.type === 'text') {
     // Don't wrap newlines unless specifically instructed to by the flag,
     // to avoid issues like React warnings caused by text nodes in tables.
-    if (node.value === '\n' && !preserveNewlines) {
+    const shouldPreserveNewlines =
+      preserveNewlines || parentNode.tagName === 'p'
+
+    if (node.value === '\n' && !shouldPreserveNewlines) {
       return node.value
     }
-    return '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
+
+    return toTemplateLiteral(node.value)
   }
 
   if (node.type === 'comment') {

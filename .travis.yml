@@ -16,6 +16,7 @@ cache:
     - node_modules
 before_deploy:
   - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+  - git fetch --tags
 deploy:
   provider: script
   script: yarn publish-ci

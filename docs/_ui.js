@@ -2,7 +2,26 @@ import React from 'react'
 import {Pre} from 'rebass'
 import {LiveEditor as Editor, LivePreview} from '@compositor/x0/components'
 
-export const Logo = () => <img src="https://mdx-logo.now.sh" width="70" />
+export const Logo = () => (
+  <div>
+    <img src="https://mdx-logo.now.sh" width="70" alt="MDX logo" />
+
+    <a
+      style={{
+        position: 'absolute',
+        right: 11,
+        top: 13
+      }}
+      href="https://github.com/mdx-js/mdx"
+    >
+      <img
+        src="https://icon.now.sh/github/0067ee"
+        alt="github logo"
+        width="20"
+      />
+    </a>
+  </div>
+)
 
 export const LiveEditor = props => {
   const lang = (props.className || '').replace(/^language-/, '')

@@ -16,6 +16,10 @@ const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
 )
 
+const fixturePonylang = fs.readFileSync(
+  path.join(__dirname, './fixtures/ponylang.mdx')
+)
+
 const parse = code =>
   babel.parse(code, {
     plugins: [
@@ -66,7 +70,10 @@ it('Should output parseable JSX', async () => {
 })
 
 it('Should be able to render JSX with React', async () => {
-  const result = await renderWithReact('# Hello, world!')
+  const result = await renderWithReact(`# Hello, world!
+  
+    const code = () => \`template string\`
+  `)
 
   expect(result).toContain('<h1 style="color:tomato">Hello, world!</h1>')
 })
@@ -107,6 +114,7 @@ export default class MDXContent extends React.Component {
     );
   }
 }
+MDXContent.isMDXComponent = true;
 "
 `)
 })
@@ -144,11 +152,15 @@ it('Should preserve newlines in code blocks', async () => {
 # Add main script
 COPY start.sh /home/start.sh
 \`\`\`
-  `,
+    `,
     {hastPlugins: [prism]}
   )
 
   expect(result).toContain('{`# Add main script`}</MDXTag>{`\n`}')
+})
+
+it('Should not escape literals in code blocks or inline code', async () => {
+  await expect(() => renderWithReact(fixturePonylang)).not.toThrow()
 })
 
 it('Should preserve infostring in code blocks', async () => {
@@ -201,6 +213,24 @@ Some text <!-- an inline comment -->
   expect(result).toContain('{/* a comment below */}')
   expect(result).toContain('--> should be as-is')
   expect(result).toContain('<!-- a template literal -->')
+})
+
+it('Should turn a newline into a space with adjacent anchors', async () => {
+  const result = await renderWithReact(`
+  [foo](/foo)
+  [bar](/bar)
+  `)
+
+  expect(result).toContain('<a href="/foo">foo</a>\n<a href="/bar">bar</a>')
+})
+
+it('Should turn a newline into a space with other adjacent phrasing content', async () => {
+  const result = await renderWithReact(`
+  *foo*
+  \`bar\`
+  `)
+
+  expect(result).toContain('<em>foo</em>\n<code>bar</code>')
 })
 
 it('Should convert style strings to camelized objects', async () => {
@@ -261,6 +291,11 @@ it('Should recognize components as properties', async () => {
   )
 })
 
+it('Should contain static isMDXComponent() function', async () => {
+  const result = await mdx('# Hello World')
+  expect(result).toContain('MDXContent.isMDXComponent = true')
+})
+
 it('Should render elements without wrapping blank new lines', async () => {
   const result = await mdx(`
   | Test | Table |
@@ -303,6 +338,16 @@ test('Should process filepath and pass it to the plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
+test.skip('Should handle inline JSX', async () => {
+  const result = await mdx(
+    'Hello, <span style={{ color: "tomato" }}>world</span>'
+  )
+
+  expect(result).toContain(
+    '<MDXTag name="p" components={components}>Hello, <span style={{ color: "tomato" }}>world</span></MDXTag>'
+  )
+})
+
 test('Should parse and render footnotes', async () => {
   const result = await mdx(
     'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
@@ -343,7 +388,6 @@ export default class MDXContent extends React.Component {
   constructor(props) {
     super(props)
     this.layout = ({children}) => <div>{children}</div>
-
   }
   render() {
     const { components, ...props } = this.props
@@ -382,8 +426,25 @@ export default class MDXContent extends React.Component {
 </MDXTag>
 </MDXTag>
 
+<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 0.25rem 1rem;
+  margin: 0 1rem;
+  background: transparent;
+  color: \\\\\${props => props.theme.primary};
+  border: 2px solid \\\\\${props => props.theme.primary};
+  \\\\\${props =>
+    props.primary &&
+    css\\\\\`
+      background: \\\\\${props => props.theme.primary};
+      color: white;
+    \\\\\`};
+\\\\\`
+\`}</MDXTag></MDXTag>
            </MDXTag>
   }
-}"
+}
+MDXContent.isMDXComponent = true"
 `)
 })

@@ -7,7 +7,7 @@ const attributeName = '[a-zA-Z_:][a-zA-Z0-9:._-]*'
 const unquoted = '[^"\'=<>`\\u0000-\\u0020]+'
 const singleQuoted = "'[^']*'"
 const doubleQuoted = '"[^"]*"'
-const jsProps = '{[^\n]*}'
+const jsProps = '{.*}'
 const attributeValue =
   '(?:' +
   unquoted +
@@ -42,5 +42,6 @@ exports.tag = new RegExp(
     declaration +
     '|' +
     cdata +
-    ')'
+    ')',
+  's'
 )

@@ -1,6 +1,7 @@
 {
   "private": true,
-  "name": "mdx-parcel",
+  "name": "parcel",
+  "version": "0.0.1",
   "scripts": {
     "start": "parcel index.html --no-cache"
   },

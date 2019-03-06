@@ -40,7 +40,7 @@
 
 [prisma]: https://www.prisma.io/docs
 
-[mxstbr]: https://mxstbr.com/blog
+[mxstbr]: https://mxstbr.com
 
 [awesome-mdx]: https://github.com/transitive-bullshit/awesome-mdx
 
