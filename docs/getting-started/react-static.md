@@ -9,36 +9,31 @@ react-static create myapp
 yarn add @mdx-js/loader
 ```
 
-Then add the `webpack` field to your `static.config.js`:
+Then add the following to the `webpack` field to your `node.api.js`:
 
 ```javascript
-export default {
-  getSiteData: () => ({
-    // ...
-  }),
-  getRoutes: async () => {
-    // ...
-  },
+export default () => ({
   webpack: config => {
     config.module.rules.map(rule => {
-      // rules is an array of objects, we want the one with the `oneOf` field
       if (
         typeof rule.test !== 'undefined' ||
         typeof rule.oneOf === 'undefined'
       ) {
-        return rule;
+        return rule
       }
-      // add the mdx-js loader to it
+
       rule.oneOf.unshift({
         test: /.mdx$/,
         use: ['babel-loader', '@mdx-js/loader']
-      });
+      })
 
-      return rule;
-    });
-    return config;
+      return rule
+    })
+
+    return config
   }
-};
+})
+
 ```
 
 Finally, add an `.mdx` file anywhere in the `src` directory.

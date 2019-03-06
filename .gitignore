@@ -8,3 +8,5 @@ bundle.js
 *-debug.log
 .vscode
 .DS_Store
+tmp
+artifacts
