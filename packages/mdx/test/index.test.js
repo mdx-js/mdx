@@ -369,6 +369,7 @@ test('Should handle layout props', () => {
   expect(result).toMatchInlineSnapshot(`
 "/* @jsx mdx */
 import { Baz } from './Fixture'
+
 import { Buz } from './Fixture'
 export const foo = {
   hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
@@ -394,6 +395,7 @@ export default class MDXContent extends React.Component {
              components={components}>
              <Layout {...layoutProps} {...props}>
              
+
 
 <h1 >{\`Hello, world!\`}</h1>
 <p >{\`I'm an awesome paragraph.\`}</p>
@@ -424,6 +426,22 @@ export default class MDXContent extends React.Component {
 </tbody>
 </table>
 
+<pre ><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 0.25rem 1rem;
+  margin: 0 1rem;
+  background: transparent;
+  color: \\\\\${props => props.theme.primary};
+  border: 2px solid \\\\\${props => props.theme.primary};
+  \\\\\${props =>
+    props.primary &&
+    css\\\\\`
+      background: \\\\\${props => props.theme.primary};
+      color: white;
+    \\\\\`};
+\\\\\`
+\`}</code></pre>
              </Layout>
            </div>
   }
