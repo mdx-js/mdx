@@ -184,3 +184,16 @@ Object {
   "type": "root",
 }
 `;
+
+exports[`removes newlines between imports and exports 1`] = `
+"import Foo1 from \\"./foo\\"
+import Foo2 from \\"./foo\\"
+import Foo3 from \\"./foo\\"
+
+export const foo = \\"bar\\"
+
+export default props => <article {...props} />
+
+export const fred = \\"flintstone\\"
+"
+`;

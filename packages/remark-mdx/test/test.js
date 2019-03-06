@@ -1,5 +1,7 @@
 const unified = require('unified')
 const remarkParse = require('remark-parse')
+const remarkStringify = require('remark-stringify')
+
 const remarkMdx = require('..')
 const mdxAstToMdxHast = require('../../mdx/mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('../../mdx/mdx-hast-to-jsx')
@@ -41,6 +43,16 @@ const parse = mdx => {
   return result
 }
 
+const stringify = mdx => {
+  const result = unified()
+    .use(remarkParse)
+    .use(remarkStringify)
+    .use(remarkMdx)
+    .processSync(mdx)
+
+  return result.contents
+}
+
 it('correctly transpiles', () => {
   const result = transpile(FIXTURE)
 
@@ -49,6 +61,21 @@ it('correctly transpiles', () => {
 
 it('maintains the proper positional info', () => {
   const result = parse(FIXTURE)
+
+  expect(result).toMatchSnapshot()
+})
+
+it('removes newlines between imports and exports', () => {
+  const fixture = [
+    'import Foo1 from "./foo"',
+    'import Foo2 from "./foo"',
+    'import Foo3 from "./foo"',
+    'export const foo = "bar"',
+    'export default props => <article {...props} />',
+    'export const fred = "flintstone"'
+  ].join('\n')
+
+  const result = stringify(fixture)
 
   expect(result).toMatchSnapshot()
 })
