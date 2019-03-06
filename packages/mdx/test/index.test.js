@@ -101,21 +101,13 @@ it('Should match sample blog post snapshot', async () => {
 "/* @jsx mdx */
 
 const layoutProps = {};
-export default class MDXContent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.layout = null;
-  }
-  render() {
-    const { components, ...props } = this.props;
-    const Layout = this.layout;
 
-    return (
-      <div name=\\"wrapper\\" components={components}>
-        <h1>{\`Hello World\`}</h1>
-      </div>
-    );
-  }
+export default function MDXContent({ components, ...props }) {
+  return (
+    <div name=\\"wrapper\\" components={components}>
+      <h1>{\`Hello World\`}</h1>
+    </div>
+  );
 }
 MDXContent.isMDXComponent = true;
 "
@@ -381,20 +373,15 @@ export const foo = {
 const layoutProps = {
   foo
 };
-export default class MDXContent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.layout = ({children}) => <div>{children}</div>
-  }
-  render() {
-    const { components, ...props } = this.props
-    const Layout = this.layout
+const MDXLayout = ({children}) => <div>{children}</div>
+export default function MDXContent({ components, ...props }) {
+  return (
+    <div
+      name=\\"wrapper\\"
+      components={components}>
+      <MDXLayout {...layoutProps} {...props}>
+      
 
-    return <div
-             name=\\"wrapper\\"
-             components={components}>
-             <Layout {...layoutProps} {...props}>
-             
 
 
 <h1 >{\`Hello, world!\`}</h1>
@@ -442,9 +429,9 @@ export default class MDXContent extends React.Component {
     \\\\\`};
 \\\\\`
 \`}</code></pre>
-             </Layout>
-           </div>
-  }
+      </MDXLayout>
+    </div>
+  )
 }
 MDXContent.isMDXComponent = true"
 `)

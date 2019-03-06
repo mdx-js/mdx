@@ -71,23 +71,19 @@ function toJSX(node, parentNode = {}, options = {}) {
       `const layoutProps = {
   ${exportNames.join(',\n')}
 };
-${skipExport ? '' : 'export default'} class MDXContent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.layout = ${layout || 'null'}
-  }
-  render() {
-    const { components, ...props } = this.props
-    const Layout = this.layout
-
-    return <div
-             name="wrapper"
-             components={components}>
-             ${layout ? `<Layout {...layoutProps} {...props}>` : ''}
-             ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
-             ${layout ? `</Layout>` : ''}
-           </div>
-  }
+${layout ? `const MDXLayout = ${layout}` : ''}
+${
+  skipExport ? '' : 'export default'
+} function MDXContent({ components, ...props }) {
+  return (
+    <div
+      name="wrapper"
+      components={components}>
+      ${layout ? `<MDXLayout {...layoutProps} {...props}>` : ''}
+      ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
+      ${layout ? `</MDXLayout>` : ''}
+    </div>
+  )
 }
 MDXContent.isMDXComponent = true`
     )
