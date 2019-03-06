@@ -33,7 +33,8 @@
     "test": "remark . -qf && eslint . && lerna run test",
     "format": "remark . -qfo && eslint . --fix",
     "publish": "lerna publish",
-    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm"
+    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm",
+    "publish-next": "lerna publish --npm-tag next"
   },
   "workspaces": [
     "packages/*"
