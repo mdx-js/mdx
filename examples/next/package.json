@@ -12,8 +12,8 @@
     "@mdx-js/mdx": "^0.16.5",
     "@zeit/next-mdx": "^1.2.0",
     "next": "^7.0.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "remark-emoji": "^2.0.2",
     "remark-images": "^0.16.1",
     "unified-ui": "^0.0.3"
