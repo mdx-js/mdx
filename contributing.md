@@ -126,6 +126,7 @@ If you’re having issues installing locally you might need to run
 
 ## Resources
 
+*   [Good first issues in the MDX repository](https://github.com/mdx-js/mdx/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 *   [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
 *   [Making your first contribution](https://medium.com/@vadimdemedes/making-your-first-contribution-de6576ddb190)
 *   [Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
