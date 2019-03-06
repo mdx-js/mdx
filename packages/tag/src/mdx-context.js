@@ -16,7 +16,7 @@ export const useMDXComponents = components => {
   if (components) {
     allComponents = isFunction(components)
       ? components(contextComponents)
-      : components
+      : {...contextComponents, ...components}
   }
 
   return allComponents
