@@ -72,7 +72,7 @@ it('removes newlines between imports and exports', () => {
     'import Foo3 from "./foo"',
     'export const foo = "bar"',
     'export default props => <article {...props} />',
-    'import Foo4 from "./foo"'
+    'export const fred = "flintstone"'
   ].join('\n')
 
   const result = stringify(fixture)

@@ -194,6 +194,6 @@ export const foo = \\"bar\\"
 
 export default props => <article {...props} />
 
-import Foo4 from \\"./foo\\"
+export const fred = \\"flintstone\\"
 "
 `;
