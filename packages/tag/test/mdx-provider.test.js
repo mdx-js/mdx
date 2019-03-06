@@ -56,7 +56,7 @@ it('Should merge components when there is nested context', () => {
   expect(result).toMatch(/style="color:papayawhip"/)
 })
 
-it('Should merge components when there is nested context as a function', () => {
+it('Should allow removing of context components using the functional form', () => {
   const components = {h1: H1, h2: H2}
 
   const result = renderToString(
