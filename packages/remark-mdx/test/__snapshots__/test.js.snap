@@ -8,9 +8,8 @@ export { Baz } from './foo'
 const layoutProps = {
   
 };
+const Layout = Foo
 export default function MDXContent({ components, ...props }) {
-  const Layout = Foo
-
   return (
     <div
       name=\\"wrapper\\"

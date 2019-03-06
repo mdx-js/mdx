@@ -71,11 +71,10 @@ function toJSX(node, parentNode = {}, options = {}) {
       `const layoutProps = {
   ${exportNames.join(',\n')}
 };
+const Layout = ${layout || 'null'}
 ${
   skipExport ? '' : 'export default'
 } function MDXContent({ components, ...props }) {
-  const Layout = ${layout || 'null'}
-
   return (
     <div
       name="wrapper"
