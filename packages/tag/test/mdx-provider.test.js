@@ -42,7 +42,7 @@ it('Should merge components when there is nested context', () => {
 
   const result = renderToString(
     <MDXProvider components={components}>
-      <MDXProvider components={components => ({...components, h2: CustomH2})}>
+      <MDXProvider components={{h2: CustomH2}}>
         <MDXTag name="h1" />
         <MDXTag name="h2" />
       </MDXProvider>
@@ -51,6 +51,25 @@ it('Should merge components when there is nested context', () => {
 
   // MDXTag picks up original component context
   expect(result).toMatch(/style="color:tomato"/)
+
+  // MDXTag picks up overridden component context
+  expect(result).toMatch(/style="color:papayawhip"/)
+})
+
+it('Should allow removing of context components using the functional form', () => {
+  const components = {h1: H1, h2: H2}
+
+  const result = renderToString(
+    <MDXProvider components={components}>
+      <MDXProvider components={_outerComponents => ({h2: CustomH2})}>
+        <MDXTag name="h1" />
+        <MDXTag name="h2" />
+      </MDXProvider>
+    </MDXProvider>
+  )
+
+  // MDXTag does not pick up original component context
+  expect(result).not.toMatch(/style="color:tomato"/)
 
   // MDXTag picks up overridden component context
   expect(result).toMatch(/style="color:papayawhip"/)
