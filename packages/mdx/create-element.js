@@ -1,5 +1,5 @@
 const React = require('react')
-const {withMDXComponents} = require('@mdx-js/tag')
+const {useMDXComponents} = require('@mdx-js/tag')
 
 const TYPE_PROP_NAME = '__MDX_TYPE_PLEASE_DO_NOT_USE__'
 
@@ -8,12 +8,13 @@ const DEFAULTS = {
   wrapper: 'div'
 }
 
-const MDXCreateElementInner = ({
-  components = {},
+const MDXCreateElement = ({
+  components: propComponents,
   __MDX_TYPE_PLEASE_DO_NOT_USE__,
   parentName,
   ...etc
 }) => {
+  const components = useMDXComponents(propComponents)
   const type = __MDX_TYPE_PLEASE_DO_NOT_USE__
   const Component =
     components[`${parentName}.${type}`] ||
@@ -23,9 +24,6 @@ const MDXCreateElementInner = ({
 
   return React.createElement(Component, etc)
 }
-MDXCreateElementInner.displayName = 'MDXCreateElementInner'
-
-const MDXCreateElement = withMDXComponents(MDXCreateElementInner)
 MDXCreateElement.displayName = 'MDXCreateElement'
 
 module.exports = function(type, props) {
