@@ -16,7 +16,7 @@
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-hot-loader": "^4.3.12",
-    "react-static": "^6.0.18"
+    "react-static": "^6.0.0"
   },
   "devDependencies": {
     "eslint-config-react-tools": "1.x.x",
