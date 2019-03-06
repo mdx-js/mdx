@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx",
-  "version": "0.18.2",
+  "version": "0.20.3",
   "description": "Support import, export, and JSX in markdown",
   "license": "MIT",
   "keywords": [
