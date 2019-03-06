@@ -12614,19 +12614,6 @@ remark-math@^1.0.4:
   dependencies:
     trim-trailing-lines "^1.1.0"
 
-remark-mdx@^0.17.0:
-  version "0.17.5"
-  resolved "https://registry.yarnpkg.com/remark-mdx/-/remark-mdx-0.17.5.tgz#96fcacd30b04c717dbfa67f62b38d146ef360a07"
-  integrity sha512-J6+UvPKUvJhSGF12JWiJ5uyAEjX2FQDfwkX3YPuQNTbhZfSl1rdzkFL5+itAJsVQ7bQTvkAn62EdUNwyf+9YbQ==
-  dependencies:
-    "@babel/core" "^7.2.2"
-    "@babel/helper-plugin-utils" "^7.0.0"
-    "@babel/plugin-proposal-object-rest-spread" "^7.3.2"
-    "@babel/plugin-syntax-jsx" "^7.2.0"
-    is-alphabetical "^1.0.2"
-    remark-parse "^6.0.0"
-    unified "^7.0.0"
-
 remark-message-control@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/remark-message-control/-/remark-message-control-4.1.1.tgz#a3f0b08dffda484e7196f0539de1488220f1d251"
