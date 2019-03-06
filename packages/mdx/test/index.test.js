@@ -396,7 +396,6 @@ export default class MDXContent extends React.Component {
              <Layout {...layoutProps} {...props}>
              
 
-
 <h1 >{\`Hello, world!\`}</h1>
 <p >{\`I'm an awesome paragraph.\`}</p>
 {/* I'm a comment */}
