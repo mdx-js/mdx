@@ -1,39 +1,36 @@
-import React, {Component} from 'react'
-import {withMDXComponents} from './mdx-context'
+import React from 'react'
+import {useMDXComponents} from './mdx-context'
 
 const defaults = {
   inlineCode: 'code',
   wrapper: 'div'
 }
 
-class MDXTag extends Component {
-  render() {
-    const {
-      name,
-      parentName,
-      props: childProps = {},
-      children,
-      components = {},
-      Layout,
-      layoutProps
-    } = this.props
+const MDXTag = ({
+  name,
+  parentName,
+  props: childProps = {},
+  children,
+  components: propComponents,
+  Layout,
+  layoutProps
+}) => {
+  const components = useMDXComponents(propComponents)
+  const Component =
+    components[`${parentName}.${name}`] ||
+    components[name] ||
+    defaults[name] ||
+    name
 
-    const Component =
-      components[`${parentName}.${name}`] ||
-      components[name] ||
-      defaults[name] ||
-      name
-
-    if (Layout) {
-      return (
-        <Layout components={components} {...layoutProps}>
-          <Component {...childProps}>{children}</Component>
-        </Layout>
-      )
-    }
-
-    return <Component {...childProps}>{children}</Component>
+  if (Layout) {
+    return (
+      <Layout components={components} {...layoutProps}>
+        <Component {...childProps}>{children}</Component>
+      </Layout>
+    )
   }
+
+  return <Component {...childProps}>{children}</Component>
 }
 
-export default withMDXComponents(MDXTag)
+export default MDXTag
