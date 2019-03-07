@@ -45,6 +45,7 @@ const navOrder = [
   'contributing',
   'projects',
   'editor-plugins',
+  'blog',
   'about'
 ]
 
@@ -53,6 +54,7 @@ const ignoredPaths = [
   '/advanced/custom-loader',
   '/advanced/writing-a-plugin',
   '/getting-started/typescript',
+  '/blog/custom-pragma',
   '/plugins'
 ]
 /* eslint-enable prettier/prettier */
