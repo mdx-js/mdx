@@ -45,7 +45,8 @@ const navOrder = [
 
 const ignoredPaths = [
   '/advanced/contributing',
-  '/getting-started/typescript'
+  '/getting-started/typescript',
+  '/plugins'
 ]
 /* eslint-enable prettier/prettier */
 

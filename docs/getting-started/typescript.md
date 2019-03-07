@@ -1,3 +1,3 @@
 import { Redirect } from '../_ui'
 
-<Redirect to='/contributing' />
+<Redirect to='/advanced/typescript' />

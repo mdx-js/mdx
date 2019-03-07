@@ -12,6 +12,8 @@ Consider the following MDX:
 ```markdown
 import MyComponent from './my-component'
 
+export const author = 'Fred Flintstone'
+
 # Title
 
 <MyComponent />
@@ -27,8 +29,11 @@ import React from 'react'
 import { MDXTag } from '@mdx-js/tag'
 import MyComponent from './my-component'
 
-export default ({ components }) => (
-  <MDXTag name="wrapper" components={components}>
+export const author = 'Fred Flintstone'
+
+const layoutProps = { author }
+export default ({ components, ...props }) => (
+  <MDXTag name="wrapper" components={components} {...layoutProps}>
     <MDXTag name="h1" components={components}>
       Title
     </MDXTag>
@@ -46,10 +51,17 @@ Otherwise a standard `p` tag is rendered (`<p>Lorem ipsum dolor sit amet.</p>`).
 This is what allows you to pull in existing components to style your MDX
 documents.
 
+### Layout props
+
+You’ll also notice that `layoutProps` is created based on your exports
+and then passed to the wrapper.  This allows for the wrapper to use
+those props automatically for handling things like adding an author
+bio to the wrapped document.
+
 ## `isMDXComponent`
 
 If you need to check whether a React component has been created by MDX,
-all MDX components have a static prop `isMDXComponent`:
+all MDX components have a static property `isMDXComponent`:
 
 ```jsx
 import React from 'react'
