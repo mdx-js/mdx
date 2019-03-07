@@ -19,7 +19,7 @@ at your project root.
 And installing the dependencies:
 
 ```sh
-npm install --save-dev @babel/env @babel/react @babel/proposal-object-rest-spread
+npm install --save-dev @babel/preset-env @babel/preset-react @babel/plugin-proposal-object-rest-spread
 ```
 
 [babel]: https://babeljs.io
