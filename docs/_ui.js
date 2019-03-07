@@ -1,6 +1,18 @@
-import React from 'react'
+/* global window */
+import React, {Component} from 'react'
 import {Pre} from 'rebass'
 import {LiveEditor as Editor, LivePreview} from '@compositor/x0/components'
+
+export class Redirect extends Component {
+  componentDidMount() {
+    const {to} = this.props
+    window.location = to
+  }
+
+  render() {
+    return <h1>Redirecting...</h1>
+  }
+}
 
 export const Logo = () => (
   <div>
