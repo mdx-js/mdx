@@ -1,3 +1,5 @@
+[MDX Blog](/blog)
+
 # Custom pragma
 
 `MDXTag`, for those that aren't aware, is a critical piece in the way
@@ -248,3 +250,5 @@ other frameworks. Since the pragma insertion is the responsibility of
 the webpack (or other bundler's) loader, swapping the pragma can be an
 option in mdx-loader as long as we have a Vue `createElement` to point
 to.
+
+[&lt; Back to blog](/blog)
