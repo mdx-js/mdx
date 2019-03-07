@@ -39,6 +39,7 @@ const navOrder = [
   'guides',
     'syntax-highlighting',
     'live-code',
+    'table-of-contents',
     'writing-a-plugin',
     'custom-loader',
   'contributing',

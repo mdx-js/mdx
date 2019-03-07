@@ -1,6 +1,6 @@
 import { Message } from 'rebass'
 
-# Live code
+# Table of contents
 
 <Message>
   This guide is a WIP
