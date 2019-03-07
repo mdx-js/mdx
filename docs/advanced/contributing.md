@@ -1,3 +1,3 @@
-import Contributing from '../../contributing.md'
+import { Redirect } from '../_ui'
 
-<Contributing />
+<Redirect to='/contributing' />

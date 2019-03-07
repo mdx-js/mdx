@@ -44,6 +44,8 @@ const navOrder = [
 ]
 /* eslint-enable prettier/prettier */
 
+const ignoredPaths = ['/advanced/contributing']
+
 const pageNames = {
   index: 'Introduction',
   next: 'Next.js',
@@ -73,7 +75,9 @@ const sortRoutes = routes =>
 export default class App extends React.Component {
   render() {
     const {routes} = this.props
-    const nav = sortRoutes(routes)
+    const nav = sortRoutes(routes).filter(
+      route => !ignoredPaths.includes(route.path)
+    )
 
     return (
       <RebassMDX>
