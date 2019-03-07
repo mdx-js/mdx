@@ -1,4 +1,4 @@
-# remark-mdx-remove-imports
+# [remark][]-[mdx][]-remove-imports
 
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
@@ -95,4 +95,6 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[MDXAST]: https://github.com/mdx-js/specification#mdxast
+[mdx]: https://mdxjs.com
+
+[mdxast]: https://github.com/mdx-js/specification#mdxast
