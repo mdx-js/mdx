@@ -18,15 +18,20 @@ const scope = {
 /* eslint-disable prettier/prettier */
 const navOrder = [
   'index',
-  'syntax',
   'getting-started',
+    'next',
+    'gatsby',
+    'create-react-app',
+    'react-static',
     'webpack',
     'parcel',
-    'next',
-    'create-react-app',
-    'gatsby',
     'x0',
-    'react-static',
+  'guides',
+    'syntax-highlighting',
+    'live-code',
+    'table-of-contents',
+    'writing-a-plugin',
+    'custom-loader',
   'advanced',
     'plugins',
     'ast',
@@ -36,12 +41,6 @@ const navOrder = [
     'sync-api',
     'typescript',
     'runtime',
-  'guides',
-    'syntax-highlighting',
-    'live-code',
-    'table-of-contents',
-    'writing-a-plugin',
-    'custom-loader',
   'contributing',
   'projects',
   'editor-plugins',
@@ -55,7 +54,8 @@ const ignoredPaths = [
   '/advanced/writing-a-plugin',
   '/getting-started/typescript',
   '/blog/custom-pragma',
-  '/plugins'
+  '/plugins',
+  '/syntax'
 ]
 /* eslint-enable prettier/prettier */
 

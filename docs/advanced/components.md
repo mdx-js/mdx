@@ -74,3 +74,46 @@ export default () => (
   </div>
 )
 ```
+
+## MDXProvider
+
+
+### Caveats
+
+Because MDXProvider uses React Context directly, it is affected by the same caveats. It is therefore important that you do not declare your components mapping inline in the JSX. Doing so will trigger a rerender of your entire MDX page with every render cycle. Not only is this bad for performance, but it can cause unwanted side affects, like breaking in-page browser navigation.
+
+Avoid this by following declaring your mapping as a constant.
+
+#### Updating the mapping object during application runtime
+
+If you need to change the mapping during runtime, declare it on the componentʼs state object:
+
+```js
+import React from 'react'
+import { MDXProvider } from '@mdx-js/tag'
+
+import { Heading, Text, Pre, Code, Table } from './components'
+
+export default class Layout extends React.Component {
+  state = {
+    h1: Heading.H1,
+    h2: Heading.H2,
+    // ...
+    p: Text,
+    code: Pre,
+    inlineCode: Code
+  }
+
+  render() {
+    return (
+      <MDXProvider components={this.state}>
+        <main {...this.props} />
+      </MDXProvider>
+    )
+  }
+}
+```
+
+You can now use the `setState` function to update the mapping object and be assured that it wonʼt trigger unnecessary renders.
+
+[context-caveats]: https://reactjs.org/docs/context.html#caveats
