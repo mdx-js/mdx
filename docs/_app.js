@@ -26,10 +26,9 @@ const navOrder = [
     'create-react-app',
     'gatsby',
     'x0',
-    'typescript',
     'react-static',
-  'plugins',
   'advanced',
+    'plugins',
     'ast',
     'components',
     'writing-a-plugin',
@@ -38,13 +37,17 @@ const navOrder = [
     'specification',
     'sync-api',
     'runtime',
-    'contributing',
+    'typescript',
+  'contributing',
   'projects',
   'about'
 ]
-/* eslint-enable prettier/prettier */
 
-const ignoredPaths = ['/advanced/contributing']
+const ignoredPaths = [
+  '/advanced/contributing',
+  '/getting-started/typescript'
+]
+/* eslint-enable prettier/prettier */
 
 const pageNames = {
   index: 'Introduction',
