@@ -1,7 +1,58 @@
 /* global window */
 import React, {Component} from 'react'
-import {Pre} from 'rebass'
+import Highlight, {defaultProps} from 'prism-react-renderer'
 import {LiveEditor as Editor, LivePreview} from '@compositor/x0/components'
+
+const prismTheme = {
+  plain: {
+    color: '#282a2e',
+    backgroundColor: '#fafafa'
+  },
+  styles: [
+    {
+      types: ['comment'],
+      style: {
+        color: 'rgb(197, 200, 198)'
+      }
+    },
+    {
+      types: ['string', 'number', 'builtin', 'variable'],
+      style: {
+        color: '#444'
+      }
+    },
+    {
+      types: ['class-name', 'function', 'tag', 'attr-name'],
+      style: {
+        color: 'rgb(40, 42, 46)'
+      }
+    }
+  ]
+}
+
+const CodeBlock = ({children, language}) => (
+  <Highlight
+    {...defaultProps}
+    theme={prismTheme}
+    code={children}
+    language={language}
+  >
+    {({className, style, tokens, getLineProps, getTokenProps}) => (
+      <pre
+        className={className}
+        style={{...style, marginBottom: '30px', padding: '20px 20px 10px 20px'}}
+      >
+        {tokens.map((line, i) => (
+          <div key={i} {...getLineProps({line, key: i})}>
+            {line.map((token, key) => (
+              <span key={key} {...getTokenProps({token, key})} />
+            ))}
+          </div>
+        ))}
+      </pre>
+    )}
+  </Highlight>
+)
 
 export class Redirect extends Component {
   componentDidMount() {
@@ -46,6 +97,6 @@ export const LiveEditor = props => {
     case '!':
       return <LivePreview mdx={lang === '!mdx'} code={code} />
     default:
-      return <Pre p={3} mt={4} mb={4} bg="gray" children={props.children} />
+      return <CodeBlock {...props} language={lang} />
   }
 }

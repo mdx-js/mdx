@@ -4,10 +4,7 @@ import { Border, Blockquote, BlockLink } from 'rebass'
 
 ### Markdown for the component era
 
-MDX is a format that lets you seamlessly use JSX in your Markdown documents.
-You can import components, like interactive charts or notifs, and export
-metadata.
-This makes writing long-form content with components a blast :rocket:.
+MDX is an authorable format that lets you seamlessly use JSX in your Markdown documents.  You can import components, like interactive charts or notifs, and export metadata.  This makes writing long-form content with components a blast :rocket:.
 
 #### Try it
 
@@ -52,22 +49,7 @@ expressive.
 The possibilities are endless when you combine components (that can even be
 dynamic or load data) with the simplicity of Markdown for long-form content.
 
-## Features
-
-*   Fast
-*   No runtime compilation
-*   [Pluggable][remark-plugins]
-*   Element to React component mapping
-*   React component `import`/`export`
-*   Customizable layouts
-*   Webpack loader
-*   Parcel plugin
-*   Next.js plugin
-*   Gatsby plugin
-
 > [Watch some of these features in action][intro]
-
-[remark-plugins]: https://github.com/remarkjs/remark/blob/master/doc/plugins.md
 
 [quote]: https://twitter.com/chrisbiscardi/status/1022304288326864896
 
