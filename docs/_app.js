@@ -31,20 +31,26 @@ const navOrder = [
     'plugins',
     'ast',
     'components',
-    'writing-a-plugin',
     'retext-plugins',
-    'custom-loader',
     'specification',
     'sync-api',
-    'runtime',
     'typescript',
+    'runtime',
+  'guides',
+    'syntax-highlighting',
+    'live-code',
+    'writing-a-plugin',
+    'custom-loader',
   'contributing',
   'projects',
+  'editor-plugins',
   'about'
 ]
 
 const ignoredPaths = [
   '/advanced/contributing',
+  '/advanced/custom-loader',
+  '/advanced/writing-a-plugin',
   '/getting-started/typescript',
   '/plugins'
 ]
@@ -54,12 +60,13 @@ const pageNames = {
   index: 'Introduction',
   next: 'Next.js',
   ast: 'AST',
-  projects: 'Projects Using MDX',
-  'getting-started': 'Getting Started',
+  projects: 'Projects using MDX',
+  'getting-started': 'Getting started',
   'create-react-app': 'Create React App',
-  'writing-a-plugin': 'Writing a Plugin',
-  'retext-plugins': 'Using Retext Plugins',
-  'sync-api': 'Sync API'
+  'retext-plugins': 'Using retext plugins',
+  'sync-api': 'Sync API',
+  'live-code': 'Live code editor',
+  'writing-a-plugin': 'Writing a plugin'
 }
 
 const sortRoutes = routes =>
