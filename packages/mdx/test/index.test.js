@@ -171,7 +171,7 @@ COPY start.sh /home/start.sh
   )
 })
 
-it.skip('Should support comments', async () => {
+it('Should support comments', async () => {
   const result = await mdx(`
 <!-- a Markdown comment -->
 A paragraph
