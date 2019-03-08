@@ -15,7 +15,7 @@ module.exports = async function(content) {
   }
 
   const code = `
-  import { MDXTag } from '@mdx-js/vue'
+  import { mdx as h, MDXTag } from '@mdx-js/vue'
   ${result}
   `
 
