@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Hello MDX</h1>
     <Test />
   </div>
 </template>
@@ -12,7 +13,7 @@ console.log(Test)
 export default {
   name: 'app',
   components: {
-    Test: Test({})
+    Test: Test
   }
 }
 </script>
