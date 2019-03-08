@@ -4,14 +4,11 @@
   "repository": "mdx-js/mdx",
   "license": "MIT",
   "description": "MDX support for Vue components",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "babel src -d dist",
-    "clean": "rm -rf dist",
-    "prepublish": "npm run clean && npm run build",
     "test": "jest"
   },
   "keywords": [
