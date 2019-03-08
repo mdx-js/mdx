@@ -14,6 +14,8 @@ module.exports = async function(content) {
     return callback(err)
   }
 
+  console.log(result)
+
   const code = `
   import { mdx as h, MDXTag } from '@mdx-js/vue'
   ${result}
