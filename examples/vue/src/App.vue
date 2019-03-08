@@ -8,8 +8,6 @@
 <script>
 import Test from './test.mdx'
 
-console.log(Test)
-
 export default {
   name: 'app',
   components: {
