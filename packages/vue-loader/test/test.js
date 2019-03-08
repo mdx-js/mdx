@@ -24,7 +24,7 @@ const testFixture = fixture => {
             {
               loader: 'babel-loader',
               options: {
-                presets: ['env', 'stage-0'],
+                presets: ['env'],
                 plugins: ['transform-vue-jsx']
               }
             },
@@ -56,5 +56,5 @@ const testFixture = fixture => {
 
 test('it loads markdown and returns a component', async () => {
   const generatedCode = await testFixture('fixture.md')
-  expect(generatedCode).toContain('require("@mdx-js/vue-plugin-mdx")')
+  expect(generatedCode).toContain('require("@mdx-js/vue")')
 })
