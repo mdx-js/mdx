@@ -1,9 +1,9 @@
 {
-  "name": "@mdx-js/vue-plugin-mdx",
-  "version": "0.1.0",
+  "name": "@mdx-js/vue",
+  "version": "1.0.0-alpha.1",
   "repository": "mdx-js/mdx",
   "license": "MIT",
-  "description": "A plugin to convert MDX into Vue components",
+  "description": "MDX support for Vue components",
   "main": "dist/index.js",
   "files": [
     "dist"

@@ -53,7 +53,7 @@ it('Should render HTML inside inlineCode correctly', async () => {
   ).toBeTruthy()
 })
 
-it('Should support comments', async () => {
+it.skip('Should support comments', async () => {
   const result = await mdxWithVueCompiler(`
 A paragraph
 
@@ -106,7 +106,7 @@ it('Should render elements without wrapping blank new lines', async () => {
 it('Should await and render async plugins', async () => {
   const result = await mdxWithVueCompiler(fixtureBlogPost, {
     hastPlugins: [
-      options => tree => {
+      () => tree => {
         return (() => {
           const headingNode = select('h1', tree)
           const textNode = headingNode.children[0]
