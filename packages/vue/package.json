@@ -6,7 +6,7 @@
   "description": "MDX support for Vue components",
   "main": "src/index.js",
   "files": [
-    "dist"
+    "src"
   ],
   "scripts": {
     "test": "jest"

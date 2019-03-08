@@ -695,19 +695,19 @@
     unist-builder "^1.0.1"
     unist-util-visit "^1.3.0"
 
-"@mdx-js/vue-loader@^1.0.0-alpha.3":
-  version "1.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@mdx-js/vue-loader/-/vue-loader-1.0.0-alpha.3.tgz#850590a11b31789bce6b999eea962bc3a375d961"
-  integrity sha512-PX0UEE/mWls+UunCyva8npP8OYJY1zZWNOQCwYZYySmmUt0Iocyg3EI1XQTZc5lXkf7XUhyrFTycQkaoOF5ivQ==
+"@mdx-js/vue-loader@^1.0.0-alpha.4":
+  version "1.0.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/@mdx-js/vue-loader/-/vue-loader-1.0.0-alpha.4.tgz#6a12f331e0954036bb97511a271ab791e97a0032"
+  integrity sha512-5DAUfZjzmatmL1Rsp716YOU0Q4U4O/mnN+cpro/u97vrOjTXX9gJeLomhQuFqq1eP1N2m7KIm1IxsGyl4/aHgQ==
   dependencies:
     "@mdx-js/mdx" "^1.0.0-alpha.2"
-    "@mdx-js/vue" "^1.0.0-alpha.3"
+    "@mdx-js/vue" "^1.0.0-alpha.4"
     loader-utils "^1.1.0"
 
-"@mdx-js/vue@^1.0.0-alpha.3":
-  version "1.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@mdx-js/vue/-/vue-1.0.0-alpha.3.tgz#3c17931a55e7830baae4ac4eeb595956e6301759"
-  integrity sha512-IjU7+4TVil3Bs7AHdf47VJcF6dVL4ayXLa2DsrCQ8thc/8M2oUUJ6qV6KI+w1Um2jATEWwfZ9x0weF0OcBhBgg==
+"@mdx-js/vue@^1.0.0-alpha.4":
+  version "1.0.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/@mdx-js/vue/-/vue-1.0.0-alpha.4.tgz#a4be3372a1eb89cba3c2c775b4fb13a99a2c0585"
+  integrity sha512-8AKjjxFkjqQCOHEhGmZY7/3dIvcnFpgorVZignPTZb12ay3yImtXtKNAFofk5nBOvlUCUCAy/9nVw5vG2U1yNg==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
