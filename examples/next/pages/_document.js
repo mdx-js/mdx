@@ -1,5 +1,4 @@
 import Document, {Head, Main, NextScript} from 'next/document'
-import getConfig from 'next/config'
 import {ServerStyleSheet} from 'styled-components'
 
 export default class _Document extends Document {
@@ -14,7 +13,7 @@ export default class _Document extends Document {
   }
 
   render() {
-    const {styleTags, title} = this.props
+    const {styleTags} = this.props
 
     return (
       <html lang="en">

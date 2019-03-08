@@ -1,51 +1,18 @@
 const unified = require('unified')
 const toMDAST = require('remark-parse')
+const remarkMdx = require('remark-mdx')
 const squeeze = require('remark-squeeze-paragraphs')
+const visit = require('unist-util-visit')
+const raw = require('hast-util-raw')
 const toMDXAST = require('./md-ast-to-mdx-ast')
 const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
-
-const {
-  isImport,
-  isExport,
-  isExportDefault,
-  BLOCKS_REGEX,
-  EMPTY_NEWLINE
-} = require('./util')
 
 const DEFAULT_OPTIONS = {
   footnotes: true,
   mdPlugins: [],
   hastPlugins: [],
-  compilers: [],
-  blocks: [BLOCKS_REGEX]
-}
-
-const tokenizeEsSyntax = (eat, value) => {
-  const index = value.indexOf(EMPTY_NEWLINE)
-  const subvalue = index !== -1 ? value.slice(0, index) : value
-
-  if (isExport(subvalue) || isImport(subvalue)) {
-    return eat(subvalue)({
-      type: isExport(subvalue) ? 'export' : 'import',
-      default: isExportDefault(subvalue),
-      value: subvalue
-    })
-  }
-}
-
-tokenizeEsSyntax.locator = (value, fromIndex) => {
-  return isExport(value) || isImport(value) ? -1 : 1
-}
-
-function esSyntax() {
-  var Parser = this.Parser
-  var tokenizers = Parser.prototype.blockTokenizers
-  var methods = Parser.prototype.blockMethods
-
-  tokenizers.esSyntax = tokenizeEsSyntax
-
-  methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
+  compilers: []
 }
 
 function createMdxAstCompiler(options) {
@@ -53,8 +20,9 @@ function createMdxAstCompiler(options) {
 
   const fn = unified()
     .use(toMDAST, options)
-    .use(esSyntax)
+    .use(remarkMdx, options)
     .use(squeeze, options)
+    .use(toMDXAST, options)
 
   mdPlugins.forEach(plugin => {
     // Handle [plugin, pluginOptions] syntax
@@ -65,7 +33,7 @@ function createMdxAstCompiler(options) {
     }
   })
 
-  fn.use(toMDXAST, options).use(mdxAstToMdxHast, options)
+  fn.use(mdxAstToMdxHast, options)
 
   return fn
 }
@@ -73,6 +41,17 @@ function createMdxAstCompiler(options) {
 function applyHastPluginsAndCompilers(compiler, options) {
   const hastPlugins = options.hastPlugins
   const compilers = options.compilers
+
+  // Convert raw nodes into HAST
+  compiler.use(() => ast => {
+    visit(ast, 'raw', node => {
+      const {type, children, tagName, properties} = raw(node)
+      node.type = type
+      node.children = children
+      node.tagName = tagName
+      node.properties = properties
+    })
+  })
 
   hastPlugins.forEach(plugin => {
     // Handle [plugin, pluginOptions] syntax
@@ -110,7 +89,8 @@ function sync(mdx, options) {
 
   const {contents} = compiler.processSync(fileOpts)
 
-  return contents
+  return `/* @jsx mdx */
+${contents}`
 }
 
 async function compile(mdx, options = {}) {
@@ -124,7 +104,8 @@ async function compile(mdx, options = {}) {
 
   const {contents} = await compiler.process(fileOpts)
 
-  return contents
+  return `/* @jsx mdx */
+${contents}`
 }
 
 compile.sync = sync

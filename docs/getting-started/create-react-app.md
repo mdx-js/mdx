@@ -1,44 +1,52 @@
-import { Message } from 'rebass'
-
 # Create React App
 
-<Message>
-  This docs page is a WIP
-</Message>
+Please note there’s a [known bug][] with
+the macro so live reloading doesn’t
+currently work.
 
 With Create React App you will need to use
-[`create-react-app-rewired`][cra-rewired] and add a `config-overrides.js`.
+[`mdx.macro`][mdx-macro].
+
+```sh
+npx create-react-app my-app
+yarn add mdx.macro
+```
+
+Then create the following `src/App.js`:
 
 ```js
-const { getBabelLoader } = require('react-app-rewired')
+// src/App.js
 
-module.exports = (config, env) => {
-  const babelLoader = getBabelLoader(config.module.rules)
-  config.module.rules.map(rule => {
-    if (typeof rule.test !== 'undefined' || typeof rule.oneOf === 'undefined') {
-      return rule
-    }
+import React, { lazy, Component, Suspense } from 'react';
+import { importMDX } from 'mdx.macro';
 
-    rule.oneOf.unshift({
-      test: /\.mdx$/,
-      use: [
-        {
-          loader: babelLoader.loader,
-          options: babelLoader.options
-        },
-        '@mdx-js/loader'
-      ]
-    })
+const Content = lazy(() => importMDX('./Content.mdx'));
 
-    return rule
-  })
-
-  return config
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Content />
+        </Suspense>
+      </div>
+    );
+  }
 }
+
+export default App;
+```
+
+And then create the following `src/Content.mdx`:
+
+```md
+# Hello, world!
 ```
 
 [See the full example][cra-example]
 
-[cra-rewired]: https://github.com/timarney/react-app-rewired
+[mdx-macro]: https://www.npmjs.com/package/mdx.macro
 
 [cra-example]: https://github.com/mdx-js/mdx/tree/master/examples/create-react-app
+
+[known bug]: https://github.com/facebook/create-react-app/issues/5580

@@ -6,7 +6,7 @@
 
 > Markdown for the component era.
 
-MDX is a format that lets you seamlessly use JSX in your markdown documents.
+MDX is an authorable format that lets you seamlessly use JSX in your markdown documents.
 You can import components, like interactive charts or notifications, and export
 metadata.
 This makes writing long-form content with components a blast.  🚀

@@ -15,6 +15,7 @@
     "eslint-config-xo": "^0.25.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.11.1",
     "husky": "^1.1.3",
     "lerna": "^3.4.0",
     "lint-staged": "^8.0.4",
@@ -24,13 +25,16 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap && lerna link --force-local",
+    "prepublish": "lerna run prepublish",
     "clean": "lerna exec \"rm -rf node_modules\"",
     "docs": "x0 docs",
     "docs:build": "x0 build docs",
     "docs:deploy": "npm run docs:build && now dist --public && now alias",
     "test": "remark . -qf && eslint . && lerna run test",
     "format": "remark . -qfo && eslint . --fix",
-    "publish": "lerna publish"
+    "publish": "lerna publish",
+    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm",
+    "publish-next": "lerna publish --npm-tag next"
   },
   "workspaces": [
     "packages/*"
@@ -47,18 +51,9 @@
     "plugins": [
       "./packages/remark-mdx",
       "preset-wooorm",
-      [
-        "lint-no-heading-punctuation",
-        false
-      ],
-      [
-        "lint-maximum-line-length",
-        false
-      ],
-      [
-        "validate-links",
-        false
-      ]
+      ["lint-no-heading-punctuation", false],
+      ["lint-maximum-line-length", false],
+      ["validate-links", false]
     ]
   },
   "husky": {
@@ -67,14 +62,8 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.md": [
-      "remark -qf",
-      "git add"
-    ]
+    "*.js": ["eslint --fix", "git add"],
+    "*.md": ["remark -qf", "git add"]
   },
   "x0": {
     "title": "MDX"

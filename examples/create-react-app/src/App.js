@@ -1,20 +1,16 @@
-import React, {Component} from 'react'
-import {MDXProvider} from '@mdx-js/tag'
-import {Container, Provider as RebassProvider} from 'rebass'
-import createComponents from '@rebass/markdown'
+import React, {lazy, Component, Suspense} from 'react'
+import {importMDX} from 'mdx.macro'
 
-import Hello from './hello.md'
+const Content = lazy(() => importMDX('./Content.mdx'))
 
 class App extends Component {
   render() {
     return (
-      <MDXProvider components={createComponents()}>
-        <RebassProvider>
-          <Container>
-            <Hello />
-          </Container>
-        </RebassProvider>
-      </MDXProvider>
+      <div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Content />
+        </Suspense>
+      </div>
     )
   }
 }

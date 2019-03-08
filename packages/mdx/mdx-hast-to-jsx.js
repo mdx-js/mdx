@@ -1,5 +1,6 @@
 const toStyleObject = require('to-style').object
 const {paramCase} = require('change-case')
+const {toTemplateLiteral} = require('./util')
 
 // eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
@@ -48,77 +49,43 @@ function toJSX(node, parentNode = {}, options = {}) {
           continue
         }
 
-        if (
-          /\bdefault\b/.test(childNode.value) &&
-          !/default\s+as/.test(childNode.value)
-        ) {
-          let example
-
-          // eslint-disable-next-line max-depth
-          if (/\}\s*from\s+/.test(childNode.value)) {
-            example = `
-              For example, instead of:
-
-              export { default } from './Layout'
-
-              use:
-
-              import Layout from './Layout'
-              export default Layout
-            `.trim()
-          } else {
-            example = `
-              For example, instead of:
-
-              export { Layout as default }
-
-              use:
-
-              export default Layout
-            `.trim()
-          }
-
-          throw new Error(
-            `
-            MDX doesn't support using "default" as a named export, use "export default" statement instead.
-
-            ${example}
-          `
-              .trim()
-              .replace(/^ +/gm, '')
-          )
-        }
-
         exportNodes.push(childNode)
         continue
       }
 
       jsxNodes.push(childNode)
     }
+
+    const exportNames = exportNodes
+      .map(node =>
+        node.value.match(/export\s*(var|const|let|class|function)?\s*(\w+)/)
+      )
+      .map(match => (Array.isArray(match) ? match[2] : null))
+      .filter(Boolean)
+
     return (
       importNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
       exportNodes.map(childNode => toJSX(childNode, node)).join('\n') +
       '\n' +
-      `${
-        skipExport ? '' : 'export default'
-      } class MDXContent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.layout = ${layout}
-  }
-  render() {
-    const { components = {} } = this.props
-
-    return <MDXTag
-             name="wrapper"
-             ${layout ? `Layout={this.layout} layoutProps={props}` : ''}
-             components={components}>${jsxNodes
-               .map(childNode => toJSX(childNode, node))
-               .join('')}
-           </MDXTag>
-  }
-}`
+      `const layoutProps = {
+  ${exportNames.join(',\n')}
+};
+${layout ? `const MDXLayout = ${layout}` : ''}
+${
+  skipExport ? '' : 'export default'
+} function MDXContent({ components, ...props }) {
+  return (
+    <div
+      name="wrapper"
+      components={components}>
+      ${layout ? `<MDXLayout {...layoutProps} {...props}>` : ''}
+      ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
+      ${layout ? `</MDXLayout>` : ''}
+    </div>
+  )
+}
+MDXContent.isMDXComponent = true`
     )
   }
   // Recursively walk through children
@@ -145,23 +112,27 @@ function toJSX(node, parentNode = {}, options = {}) {
       props = JSON.stringify(node.properties)
     }
 
-    return `<MDXTag name="${node.tagName}" components={components}${
-      parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''
-    }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
+    return `<${node.tagName} ${
+      parentNode.tagName ? `parentName="${parentNode.tagName}"` : ''
+    }${props ? ` {...${props}}` : ''}>${children}</${node.tagName}>`
   }
 
   // Wraps text nodes inside template string, so that we don't run into escaping issues.
   if (node.type === 'text') {
     // Don't wrap newlines unless specifically instructed to by the flag,
     // to avoid issues like React warnings caused by text nodes in tables.
-    if (node.value === '\n' && !preserveNewlines) {
+    const shouldPreserveNewlines =
+      preserveNewlines || parentNode.tagName === 'p'
+
+    if (node.value === '\n' && !shouldPreserveNewlines) {
       return node.value
     }
-    return '{`' + node.value.replace(/`/g, '\\`').replace(/\$/g, '\\$') + '`}'
+
+    return toTemplateLiteral(node.value)
   }
 
   if (node.type === 'comment') {
-    return node.value.replace('<!--', '{/*').replace('-->', '*/}')
+    return `{/*${node.value}*/}`
   }
 
   if (node.type === 'import' || node.type === 'export' || node.type === 'jsx') {

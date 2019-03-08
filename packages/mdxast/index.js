@@ -59,7 +59,7 @@ const jsx = tree =>
     node.type = 'jsx'
   })
 
-module.exports = options => tree => {
+module.exports = _options => tree => {
   modules(tree)
   jsx(tree)
 

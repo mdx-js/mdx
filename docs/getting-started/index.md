@@ -91,10 +91,87 @@ export default props =>
 This allows you to remove duplicated component imports and passing.
 It will typically go in layout files.
 
-#### How it works
+### How it works
 
-MDXProvider uses React [context][] to provide the component mapping to MDXTag.
-MDXTag knows to use these components when determining which to render.
+MDXProvider uses [React Context][context] to provide the component mapping to
+MDXTag.  This way MDXTag knows that it should override the standard components
+with those provided in this mapping.
+
+Because MDXProvider uses React Context directly, [it is affected by the same
+caveats][context-caveats].  It is therefore important that you do **not**
+declare your components mapping inline in the JSX.  Doing so will trigger a
+rerender of your entire MDX page with every render cycle.  Not only is this bad
+for performance, but it can cause unwanted side affects, like breaking in-page
+browser navigation.
+
+Avoid this by following the pattern shown above and declare your mapping as a
+constant.
+
+### Table of components
+
+The following components are rendered from Markdown, so these can be keys
+in the component object you pass to MDXProvider.
+
+| Tag             | Name                                                                 | Syntax                                              |
+| --------------- | -------------------------------------------------------------------- | --------------------------------------------------- |
+| `p`             | [Paragraph](https://github.com/syntax-tree/mdast#paragraph)          |                                                     |
+| `h1`            | [Heading 1](https://github.com/syntax-tree/mdast#heading)            | `#`                                                 |
+| `h2`            | [Heading 2](https://github.com/syntax-tree/mdast#heading)            | `##`                                                |
+| `h3`            | [Heading 3](https://github.com/syntax-tree/mdast#heading)            | `###`                                               |
+| `h4`            | [Heading 4](https://github.com/syntax-tree/mdast#heading)            | `####`                                              |
+| `h5`            | [Heading 5](https://github.com/syntax-tree/mdast#heading)            | `#####`                                             |
+| `h6`            | [Heading 6](https://github.com/syntax-tree/mdast#heading)            | `######`                                            |
+| `thematicBreak` | [Thematic break](https://github.com/syntax-tree/mdast#thematicbreak) | `***`                                               |
+| `blockquote`    | [Blockquote](https://github.com/syntax-tree/mdast#blockquote)        | `>`                                                 |
+| `ul`            | [List](https://github.com/syntax-tree/mdast#list)                    | `-`                                                 |
+| `ol`            | [Ordered list](https://github.com/syntax-tree/mdast#list)            | `1.`                                                |
+| `li`            | [List item](https://github.com/syntax-tree/mdast#listitem)           |                                                     |
+| `table`         | [Table](https://github.com/syntax-tree/mdast#table)                  | `--- | --- | ---`                                   |
+| `tr`            | [Table row](https://github.com/syntax-tree/mdast#tablerow)           | `This | is | a | table row`                         |
+| `td`/`th`       | [Table cell](https://github.com/syntax-tree/mdast#tablecell)         |                                                     |
+| `pre`           | [Pre](https://github.com/syntax-tree/mdast#code)                     |                                                     |
+| `code`          | [Code](https://github.com/syntax-tree/mdast#code)                    |                                                     |
+| `em`            | [Emphasis](https://github.com/syntax-tree/mdast#emphasis)            | `_emphasis_`                                        |
+| `strong`        | [Strong](https://github.com/syntax-tree/mdast#strong)                | `**strong**`                                        |
+| `delete`        | [Delete](https://github.com/syntax-tree/mdast#delete)                | `~~strikethrough~~`                                 |
+| `code`          | [InlineCode](https://github.com/syntax-tree/mdast#inlinecode)        |                                                     |
+| `hr`            | [Break](https://github.com/syntax-tree/mdast#break)                  | `---`                                               |
+| `a`             | [Link](https://github.com/syntax-tree/mdast#link)                    | `<https://mdxjs.com>` or `[MDX](https://mdxjs.com)` |
+| `img`           | [Image](https://github.com/syntax-tree/mdast#image)                  | `![alt](https://mdx-logo.now.sh)`                   |
+
+### Updating the mapping object during application runtime
+
+If you need to change the mapping during runtime, declare it on the componentʼs
+state object:
+
+```jsx
+import React from 'react'
+import { MDXProvider } from '@mdx-js/tag'
+
+import { Heading, Text, Pre, Code, Table } from './components'
+
+export default class Layout extends React.Component {
+  state = {
+    h1: Heading.H1,
+    h2: Heading.H2,
+    // ...
+    p: Text,
+    code: Pre,
+    inlineCode: Code
+  }
+
+  render() {
+    return (
+      <MDXProvider components={this.state}>
+        <main {...this.props} />
+      </MDXProvider>
+    )
+  }
+}
+```
+
+You can now use the `setState` function to update the mapping object and be
+assured that it wonʼt trigger unnecessary renders.
 
 ## Projects, libraries and frameworks
 
@@ -111,3 +188,5 @@ following commands:
 [next]: https://github.com/zeit/next.js
 
 [context]: https://reactjs.org/docs/context.html
+
+[context-caveats]: https://reactjs.org/docs/context.html#caveats

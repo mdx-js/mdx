@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/tag",
-  "version": "0.16.1",
+  "version": "1.0.0-alpha.1",
   "description": "A fully-featured Markdown/MDX React component for ambitious projects",
   "license": "MIT",
   "keywords": [
@@ -31,15 +31,16 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "jest": "^23.1.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "rimraf": "^2.6.3"
   },
   "peerDependencies": {
-    "react": "^0.14.x || ^15.x || ^16.x"
+    "react": "^16.8.0"
   },
   "scripts": {
     "build": "babel src -d dist",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "prepublish": "npm run clean && npm run build",
     "test": "jest"
   }

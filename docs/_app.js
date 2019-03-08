@@ -6,6 +6,8 @@ import sortBy from 'lodash.sortby'
 import {SidebarLayout, ScopeProvider} from '@compositor/x0/components'
 import {LiveEditor, Logo} from './_ui'
 
+import pkg from '../packages/mdx/package.json'
+
 const scope = {
   ...createScope(),
   ...Rebass,
@@ -25,6 +27,7 @@ const navOrder = [
     'gatsby',
     'x0',
     'typescript',
+    'react-static',
   'plugins',
   'advanced',
     'ast',
@@ -83,5 +86,5 @@ export default class App extends React.Component {
 }
 
 App.defaultProps = {
-  title: 'MDX'
+  title: `MDX v${pkg.version}`
 }

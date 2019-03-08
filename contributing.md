@@ -18,6 +18,7 @@ free customer service.
     *   [Improve issues](#improve-issues)
     *   [Give feedback on issues and pull requests](#give-feedback-on-issues-and-pull-requests)
     *   [Write code](#write-code)
+*   [Running the tests](#running-the-tests)
 *   [Submitting an issue](#submitting-an-issue)
 *   [Submitting a pull request](#submitting-a-pull-request)
 *   [Resources](#resources)
@@ -62,6 +63,16 @@ Code contributions are very welcome.  It’s often good to first create an issue
 to report a bug or suggest a new feature before creating a pull request to
 prevent you from doing unnecessary work.
 
+## Running the tests
+
+1.  `yarn`
+2.  `yarn bootstrap`
+3.  `yarn test`
+
+Tests for an individual package can be run as a yarn workspace:
+`yarn workspace remark-mdx test`.  To see what packages ar available to test
+you can list out all workspaces with `yarn workspaces info`.
+
 ## Submitting an issue
 
 *   The issue tracker is for issues.  Use chat for support
@@ -86,8 +97,36 @@ prevent you from doing unnecessary work.
 *   Write a convincing description of why we should land your pull request:
     it’s your job to convince us
 
+## Project structure
+
+MDX is a monorepo that uses [lerna][].
+
+*   All packages are found in `./packages`
+*   All documentation is found in `./docs` and can be viewed with `yarn docs -- -o`
+*   There’s an `./examples` directory where examples for different tools and
+    frameworks
+
+## Releases
+
+In order to release a new version you can follow these steps:
+
+*   Draft a release for the next version (vX.X.X)
+*   Release a prerelease
+    *   `yarn lerna publish`
+    *   Select prepatch/preminor/premajor
+    *   Sanity check in a project or two with the prerelease
+*   `yarn lerna publish`
+*   Publish release on GitHub
+
+## Troubleshooting
+
+If you’re having issues installing locally you might need to run
+`yarn lerna exec yarn install` instead of `yarn bootstrap`
+([issue][lerna-install]).
+
 ## Resources
 
+*   [Good first issues in the MDX repository](https://github.com/mdx-js/mdx/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 *   [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
 *   [Making your first contribution](https://medium.com/@vadimdemedes/making-your-first-contribution-de6576ddb190)
 *   [Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
@@ -100,3 +139,7 @@ prevent you from doing unnecessary work.
 [collective]: https://opencollective.com/unified
 
 [micromark]: https://github.com/micromark/micromark
+
+[lerna]: https://lernajs.io
+
+[lerna-install]: https://github.com/lerna/lerna/issues/1457

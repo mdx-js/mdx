@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/loader",
-  "version": "0.16.3",
+  "version": "1.0.0-alpha.1",
   "description": "Loader for MDX",
   "license": "MIT",
   "keywords": [
@@ -27,21 +27,18 @@
     "index.js"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^0.16.3",
-    "@mdx-js/tag": "^0.16.1",
-    "@mdx-js/vue-plugin-mdx": "^0.1.0",
+    "@mdx-js/mdx": "^1.0.0-alpha.1",
+    "@mdx-js/tag": "^1.0.0-alpha.1",
     "loader-utils": "^1.1.0"
   },
   "devDependencies": {
-    "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.0",
-    "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "jest": "^23.0.0",
     "memory-fs": "^0.4.1",
-    "react": "^16.3.2",
+    "react": "^16.8.0",
     "webpack": "^4.5.0"
   },
   "scripts": {

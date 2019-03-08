@@ -1,15 +1,17 @@
-const unified = require('unified')
-const toMDAST = require('remark-parse')
+const isAlphabetical = require('is-alphabetical')
+const extractImportsAndExports = require('./extract-imports-and-exports')
+const block = require('./block')
+const {tag} = require('./tag')
 
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
-const EXPORT_DEFAULT_REGEX = /^export default/
-const BLOCKS_REGEX = '[a-z\\.]+(\\.){0,1}[a-z\\.]'
 const EMPTY_NEWLINE = '\n\n'
+const LESS_THAN = '<'
+const GREATER_THAN = '>'
+const SLASH = '/'
 
 const isImport = text => IMPORT_REGEX.test(text)
 const isExport = text => EXPORT_REGEX.test(text)
-const isExportDefault = text => EXPORT_DEFAULT_REGEX.test(text)
 
 module.exports = mdx
 
@@ -17,7 +19,7 @@ mdx.default = mdx
 
 tokenizeEsSyntax.locator = tokenizeEsSyntaxLocator
 
-function mdx(options) {
+function mdx(_options) {
   const parser = this.Parser
   const compiler = this.Compiler
 
@@ -31,23 +33,54 @@ function mdx(options) {
 }
 
 function attachParser(parser) {
-  const tokenizers = parser.prototype.blockTokenizers
-  const blocks = parser.prototype.blockMethods
-  const html = tokenizers.html
+  const blocks = parser.prototype.blockTokenizers
+  const inlines = parser.prototype.inlineTokenizers
+  const methods = parser.prototype.blockMethods
 
-  tokenizers.esSyntax = tokenizeEsSyntax
-  tokenizers.html = tokenizeJsx
+  blocks.esSyntax = tokenizeEsSyntax
+  blocks.html = wrap(block)
+  inlines.html = wrap(inlines.html, inlineJsx)
 
-  blocks.splice(blocks.indexOf('paragraph'), 0, 'esSyntax')
+  methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
 
-  function tokenizeJsx() {
-    const node = html.apply(this, arguments)
+  function wrap(original, customTokenizer) {
+    const tokenizer = customTokenizer || tokenizeJsx
+    tokenizer.locator = original.locator
 
-    if (node) {
-      node.type = 'jsx'
+    return tokenizer
+
+    function tokenizeJsx() {
+      const node = original.apply(this, arguments)
+
+      if (node) {
+        node.type = 'jsx'
+      }
+
+      return node
+    }
+  }
+
+  function inlineJsx(eat, value) {
+    if (value.charAt(0) !== LESS_THAN) {
+      return
     }
 
-    return node
+    const nextChar = value.charAt(1)
+    if (
+      nextChar !== GREATER_THAN &&
+      nextChar !== SLASH &&
+      !isAlphabetical(nextChar)
+    ) {
+      return
+    }
+
+    const subvalueMatches = value.match(tag)
+    if (!subvalueMatches) {
+      return
+    }
+
+    const subvalue = subvalueMatches[0]
+    return eat(subvalue)({type: 'jsx', value: subvalue})
   }
 }
 
@@ -57,12 +90,12 @@ function attachCompiler(compiler) {
   proto.visitors = Object.assign({}, proto.visitors, {
     import: stringifyEsSyntax,
     export: stringifyEsSyntax,
-    jsx: proto.visitors.html
+    jsx: stringifyEsSyntax
   })
 }
 
 function stringifyEsSyntax(node) {
-  return node.value
+  return node.value.trim()
 }
 
 function tokenizeEsSyntax(eat, value) {
@@ -70,14 +103,11 @@ function tokenizeEsSyntax(eat, value) {
   const subvalue = index !== -1 ? value.slice(0, index) : value
 
   if (isExport(subvalue) || isImport(subvalue)) {
-    return eat(subvalue)({
-      type: isExport(subvalue) ? 'export' : 'import',
-      default: isExportDefault(subvalue),
-      value: subvalue
-    })
+    const nodes = extractImportsAndExports(subvalue)
+    nodes.map(node => eat(node.value)(node))
   }
 }
 
-function tokenizeEsSyntaxLocator(value, fromIndex) {
+function tokenizeEsSyntaxLocator(value, _fromIndex) {
   return isExport(value) || isImport(value) ? -1 : 1
 }

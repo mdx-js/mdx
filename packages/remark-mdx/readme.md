@@ -4,15 +4,15 @@
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
+> :warning: This project is currently in alpha
+
 [MDX][] syntax support for [remark][].
 
 ## Installation
 
-This project is not published.
-
-## Usage
-
-This project is not usable.
+```sh
+npm install --save remark-mdx
+```
 
 ## Contribute
 
@@ -24,7 +24,7 @@ abide by its terms.
 
 ## License
 
-[MIT][] © [Titus Wormer][author]
+[MIT][] © [Titus Wormer][author] and [John Otander][author2]
 
 <!-- Definitions -->
 
@@ -51,3 +51,5 @@ abide by its terms.
 [mdx]: https://github.com/mdx-js/mdx
 
 [author]: https://wooorm.com
+
+[author2]: https://johno.com
