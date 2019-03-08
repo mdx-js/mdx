@@ -361,7 +361,6 @@ test('Should handle layout props', () => {
   expect(result).toMatchInlineSnapshot(`
 "/* @jsx mdx */
 import { Baz } from './Fixture'
-
 import { Buz } from './Fixture'
 export const foo = {
   hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
@@ -381,8 +380,6 @@ export default function MDXContent({ components, ...props }) {
       components={components}>
       <MDXLayout {...layoutProps} {...props}>
       
-
-
 
 <h1 >{\`Hello, world!\`}</h1>
 <p >{\`I'm an awesome paragraph.\`}</p>
