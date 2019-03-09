@@ -9,17 +9,24 @@ module.exports = async function(content) {
   let result
 
   try {
-    result = await mdx(content, options)
+    result = await mdx(content, {...options, skipExport: true})
   } catch (err) {
     return callback(err)
   }
 
-  console.log(result)
+  const code = `// vue babel plugin doesn't support the pragma replacement
+import {mdx} from '@mdx-js/vue'
+let h;
+${result}
 
-  const code = `
-  import { mdx as h } from '@mdx-js/vue'
-  ${result}
-  `
+export default {
+  name: 'Mdx',
+  render(vueCreateElement) {
+    h = mdx.bind({vueCreateElement})
+    return MDXContent({})
+  }
+}
+   `
 
   return callback(null, code)
 }
