@@ -44,17 +44,15 @@ the installation guides.
 
 ## Table of contents
 
-- [Scaffold out an app](#scaffold-out-an-app)
-- [Syntax](#syntax)
-  - [Markdown](#markdown)
-  - [JSX](#jsx)
-    - [Imports](#imports)
-    - [Embedding documents](#embedding-documents)
-    - [Exports](#exports)
-    - [Default exports](#export-default)
-- [Working with components](#working-with-components)
-  - [MDXProvider](#mdxprovider)
-  - [Table of components](#table-of-components)
+*   [Scaffold out an app](#scaffold-out-an-app)
+*   [Syntax](#syntax)
+    *   [Markdown](#markdown)
+    *   [JSX](#jsx)
+    *   [Exports](#exports)
+*   [Working with components](#working-with-components)
+    *   [MDXProvider](#mdxprovider)
+    *   [Table of components](#table-of-components)
+*   [Installation guides](#installation-guides)
 
 ## Scaffold out an app
 
@@ -289,7 +287,7 @@ It will typically go in layout files.
 ### Table of components
 
 MDXProvider uses [React Context][context] to provide the component mapping
-internally to MDX when it renders. The following components are rendered from
+internally to MDX when it renders.  The following components are rendered from
 Markdown, so these can be keys in the component object you pass to MDXProvider.
 
 | Tag             | Name                                                                 | Syntax                                              |
@@ -334,7 +332,5 @@ Now that we’ve gone over how MDX works, you’re ready to get installing.
 [export]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
 
 [transclude]: https://en.wikipedia.org/wiki/Transclusion
-
-[next]: https://github.com/zeit/next.js
 
 [context]: https://reactjs.org/docs/context.html

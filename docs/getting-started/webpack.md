@@ -44,9 +44,13 @@ module.exports = {
 }
 ```
 
-The transpiled output for MDX requires [babel][] to be run. This is typically
-by adding in the babel-loader to run _after_ the MDX loader. Webpack starts
+The transpiled output for MDX requires [babel][] to be run.  This is typically
+by adding in the babel-loader to run _after_ the MDX loader.  Webpack starts
 from the end of the loaders array and works backward, so it is important to
 follow the ordering above.
 
 <BabelConfig />
+
+[babel-loader]: https://webpack.js.org/loaders/babel-loader/
+
+[babel]: https://babeljs.io
