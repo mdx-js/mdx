@@ -677,9 +677,9 @@
     postcss "^7.0.0"
 
 "@mdx-js/mdx@^1.0.0-alpha.2":
-  version "1.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-1.0.0-alpha.1.tgz#19be93ab52408d91bbfda898a964e98394f55f82"
-  integrity sha512-tfa9DkfvCD+c3Wz30QyaspZb3VdFfj2FTX6HsGrSuC1L1byH8iS2B2U8r3f4wc8rcnuHCgDeAYZhUhekmbizRA==
+  version "1.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-1.0.0-alpha.5.tgz#b092640fff13dc64ffecc9f3ba63417a7bdf1548"
+  integrity sha512-7Uucec/xAK6fxFIAGR5eIEhXX9elPj6WOwpjkT+JITgsOGpuIfhyq0iddlnwOgWGq9zyF3Sy4w149z701iVFzQ==
   dependencies:
     "@babel/plugin-proposal-object-rest-spread" "^7.3.2"
     "@babel/plugin-syntax-jsx" "^7.2.0"
@@ -687,7 +687,7 @@
     detab "^2.0.0"
     hast-util-raw "^5.0.0"
     mdast-util-to-hast "^4.0.0"
-    remark-mdx "^1.0.0-alpha.1"
+    remark-mdx "^1.0.0-alpha.5"
     remark-parse "^6.0.0"
     remark-squeeze-paragraphs "^3.0.1"
     to-style "^1.3.3"
@@ -6689,10 +6689,10 @@ relateurl@0.2.x:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
-remark-mdx@^1.0.0-alpha.1:
-  version "1.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/remark-mdx/-/remark-mdx-1.0.0-alpha.2.tgz#b4aae0b72736b297ddd350c5fde6122d78e1685d"
-  integrity sha512-Ex2hZvS9F/9cYP1yEE/MzfBi5s6sfVWGVwa4f9S5wW9kt4fz0YC9K+LVDMAIDxfnSPca7WmB7J9EdiHbyNHq9g==
+remark-mdx@^1.0.0-alpha.5:
+  version "1.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/remark-mdx/-/remark-mdx-1.0.0-alpha.5.tgz#662c6ca60138e69f23a008653b4fc9a508cd2bbe"
+  integrity sha512-r2BP1ugi883gc87WUKZ2GMt7R7kMoNd9rk2v4+j3ztBcTYkcsw4idG+zvEmpqesE75jioynZTzhWreFfBOUaDg==
   dependencies:
     "@babel/core" "^7.2.2"
     "@babel/helper-plugin-utils" "^7.0.0"
