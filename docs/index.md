@@ -4,32 +4,34 @@ import { Border, Blockquote, BlockLink } from 'rebass'
 
 ### Markdown for the component era
 
-MDX is a format that lets you seamlessly use JSX in your Markdown documents.
-You can import components, like interactive charts or notifs, and export
-metadata.
-This makes writing long-form content with components a blast :rocket:.
+MDX is an authorable format that lets you seamlessly use JSX in your Markdown
+documents.  You can import components, like interactive charts or notifs, and
+embed them within your content.  This makes writing long-form content with
+components a blast :rocket:.
 
 #### Try it
 
 ```.mdx
-# Hello, world!
+# Hello, *world*!
 
-Here's an example of the [Rebass](https://jxnblk.com/rebass)
-Donut rendered inside an MDX document.
+Below is an example of JSX embedded in Markdown. <br /> **Try and change
+the background color!**
 
-<Donut value={2/3} />
+<div style={{ padding: '20px', backgroundColor: 'tomato' }}>
+  <h3>This is JSX</h3>
+</div>
 ```
 
 :heart: **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
-React/JSX-based projects.
+JSX-based projects.
 
 :computer: **Everything is a component**: Use existing components inside your
 MDX and import other MDX files as plain components.
 
 :wrench: **Customizable**: Decide which component is rendered for each markdown
-element (`{ h1: MyHeading }`).
+element.
 
-:books: **Markdown-based**: The simplicity and elegance of markdown remains,
+:books: **Markdown-based**: The simplicity and elegance of Markdown remains,
 you interleave JSX only when you want to.
 
 :fire: **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
@@ -40,34 +42,17 @@ during the build stage.
 >
 > — [@chrisbiscardi][quote]
 
-## Why
+## Why?
 
 Before MDX, some of the benefits of writing Markdown were lost when integrating
-with JSX.
-Implementations were often template string-based which required lots of escaping
-and cumbersome syntax.
+with JSX.  Implementations were often template string-based which required lots
+of escaping and cumbersome syntax.
 
 MDX seeks to make writing with Markdown _and_ JSX simpler while being more
-expressive.
-The possibilities are endless when you combine components (that can even be
-dynamic or load data) with the simplicity of Markdown for long-form content.
-
-## Features
-
-*   Fast
-*   No runtime compilation
-*   [Pluggable][remark-plugins]
-*   Element to React component mapping
-*   React component `import`/`export`
-*   Customizable layouts
-*   Webpack loader
-*   Parcel plugin
-*   Next.js plugin
-*   Gatsby plugin
+expressive.  The possibilities are endless when you combine components (that can
+even be dynamic or load data) with the simplicity of Markdown for long-form content.
 
 > [Watch some of these features in action][intro]
-
-[remark-plugins]: https://github.com/remarkjs/remark/blob/master/doc/plugins.md
 
 [quote]: https://twitter.com/chrisbiscardi/status/1022304288326864896
 

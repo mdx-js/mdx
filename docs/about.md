@@ -3,17 +3,17 @@ import { Avatar } from 'rebass'
 # About
 
 MDX is based on the [original `.mdx` proposal][idea] by Guillermo Rauch
-([@rauchg][rauchg]).
+([@rauchg][rauchg]).  It’s syntax is defined by an official [specification][].
+The source code for MDX is available on [GitHub][] and is [MIT licensed][license].
 
-The source code for MDX is available on [GitHub][].
+The project is governed by the [unified collective][governance].
 
-## Design
+### Design
 
-[Logo designs][design] were created by [Evil Rabbit][]) of [ZEIT][].
+[Logo designs][design] were created by [Evil Rabbit][]) of [ZEIT][] and are also
+available on [GitHub][design].
 
-[See logo resources][design]
-
-## Authors
+### Authors
 
 *   [John Otander][john] ([@4lpine][4lpine]) – [Compositor][] + [Clearbit][]
 *   [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [ZEIT][]
@@ -41,8 +41,7 @@ These projects define the syntax which MDX blends together (MD and JSX).
 
 *   [remark](https://remark.js.org)
 *   [unified](https://unified.js.org)
-*   [Webpack](https://webpack.js.org)
-*   [Parcel](https://parceljs.com)
+*   [babel](https://babeljs.io)
 
 ### Libraries
 
@@ -51,7 +50,6 @@ These projects define the syntax which MDX blends together (MD and JSX).
 *   [markdown-in-js](https://github.com/threepointone/markdown-in-js)
 *   [remark-jsx](https://github.com/fazouane-marouane/remark-jsx)
 *   [remark-react](https://github.com/mapbox/remark-react)
-*   [eslint-plugin-mdx](https://github.com/azz/eslint-plugin-mdx)
 
 ### Other
 
@@ -59,6 +57,12 @@ These projects define the syntax which MDX blends together (MD and JSX).
 *   [Idyll: Markup language for interactive documents](https://idyll-lang.org)
 
 [github]: https://github.com/mdx-js/mdx
+
+[license]: https://github.com/mdx-js/mdx/blob/master/license
+
+[specification]: https://github.com/mdx-js/specification
+
+[governance]: https://github.com/unifiedjs/governance
 
 [design]: https://github.com/mdx-js/design
 

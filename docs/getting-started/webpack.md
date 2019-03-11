@@ -1,26 +1,58 @@
+import { Message } from 'rebass'
+import BabelConfig from './_babel-config.md'
+
 # Webpack
 
-MDX provides a loader that needs to be used in tandem with the [babel-loader][].
+<Message>
+  TODO: Add plugin documentation
+</Message>
 
-## Basic Setup
+MDX provides a built in webpack loader you need to install and configure
+for webpack projects.
+
+## Installation
+
+```sh
+npm install --save-dev @mdx-js/loader
+```
+
+## Configuration
+
+The loader needs to be used in tandem with the [babel-loader][].  Most projects will typically
+already include this if you are using JSX syntax.
 
 For webpack projects you can define the following `webpack.config.js` extension
-handler for `.md`/`.mdx` files:
+handler for `.md` and `.mdx` files:
 
 ```js
 module.exports = {
   module: {
+    // ...
+
     rules: [
+      // ...
+
       {
         test: /\.mdx?$/,
-        use: ['babel-loader', '@mdx-js/loader']
+        use: [
+          'babel-loader',
+          '@mdx-js/loader'
+        ]
       }
     ]
   }
 }
 ```
 
-It’s important to note that the MDX loader is followed by the babel-loader so
-that the JSX can be transpiled to JavaScript.
+If you only want the loader for `.mdx` files you can change the regex to `/\.mdx$/`.
 
-[babel-loader]: https://npmjs.com/package/babel-loader
+The transpiled output for MDX requires [babel][] to be run.  This is typically
+by adding in the babel-loader to run _after_ the MDX loader.  Webpack starts
+from the end of the loaders array and works backward, so it is important to
+follow the ordering above.
+
+<BabelConfig />
+
+[babel-loader]: https://webpack.js.org/loaders/babel-loader/
+
+[babel]: https://babeljs.io

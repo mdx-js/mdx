@@ -6,8 +6,8 @@ MDX processes everything asynchronously by default.
 In certain cases this behavior might not be desirable.
 
 If you’re using the MDX library directly, you might want to process an MDX
-string synchronously.
-It’s important to note that if you have any async plugins, they will be ignored.
+string synchronously.  It’s important to note that if you have any async plugins,
+they will be ignored.
 
 ```js
 const fs = require('fs')
