@@ -6,7 +6,7 @@ Most users won’t typically need to interact with the library but instead use a
 
 ## Usage
 
-For advanced use cases you can use the library directly.  By default, MDX is asynchronous because plugins can be asynchronous themselves!  This means that plugins can make request data, read from the file system.  Anything!
+For advanced use cases you can use the library directly.  By default, MDX is asynchronous because plugins can be asynchronous themselves!  This means that plugins can make requests for data, read from the file system.  Anything!
 
 ```js
 var mdx = require("@mdx-js/mdx")
