@@ -1,12 +1,12 @@
 # Advanced
 
-MDX, at its core, is a transpilation library.  It receives and MDX string and outputs a JSX string.  You can also pass [plugins](/plugins) which can customize how MDX creates the JSX string.
+MDX, at its core, is a transpilation library.  It receives an MDX string and outputs a JSX string.  You can also pass [plugins](/plugins) which can customize how MDX creates the JSX string.
 
 Most users won’t typically need to interact with the library but instead use a loader or plugin for their framework of choice.  Though that’s not always the case.
 
 ## Usage
 
-For advanced use cases you can use the library directly.  By default, MDX is asynchronous because plugins can be asynchronous themselves!  This means that plugins can make request data, read from the file system.  Anything!
+For advanced use cases you can use the library directly.  By default, MDX is asynchronous because plugins can be asynchronous themselves.  This means that plugins can request data, read from the file system.  Anything!
 
 ```js
 var mdx = require("@mdx-js/mdx")
@@ -94,7 +94,7 @@ const renderWithReact = async mdxCode => {
   const code = transform(jsx)
   const scope = {mdx: createElement}
 
-  const fn = new Function( // eslint-disable-line no-new-func
+  const fn = new Function(
     'React',
     ...Object.keys(scope),
     `${code}; return React.createElement(MDXContent)`

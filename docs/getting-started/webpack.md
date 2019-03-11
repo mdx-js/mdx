@@ -18,8 +18,8 @@ npm install --save-dev @mdx-js/loader
 
 ## Configuration
 
-MDX provides a loader that needs to be used in tandem with the [babel-loader][].
-Most projects will typically include 
+The loader needs to be used in tandem with the [babel-loader][].  Most projects will typically
+already include this if you are using JSX syntax.
 
 For webpack projects you can define the following `webpack.config.js` extension
 handler for `.md` and `.mdx` files:
@@ -43,6 +43,8 @@ module.exports = {
   }
 }
 ```
+
+If you only want the loader for `.mdx` files you can change the regex to `/\.mdx$/`.
 
 The transpiled output for MDX requires [babel][] to be run.  This is typically
 by adding in the babel-loader to run _after_ the MDX loader.  Webpack starts
