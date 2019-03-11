@@ -64,10 +64,12 @@ const ignoredPaths = [
 const pageNames = {
   index: 'Introduction',
   next: 'Next.js',
+  api: 'API',
   ast: 'AST',
   projects: 'Projects using MDX',
   'getting-started': 'Getting started',
   'create-react-app': 'Create React App',
+  'react-static': 'React Static',
   'retext-plugins': 'Using retext plugins',
   'sync-api': 'Sync API',
   'live-code': 'Live code editor',
