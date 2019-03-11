@@ -1,7 +1,7 @@
 const React = require('react')
 const {useMDXComponents} = require('@mdx-js/tag')
 
-const TYPE_PROP_NAME = '__MDX_TYPE_PLEASE_DO_NOT_USE__'
+const TYPE_PROP_NAME = 'mdxType'
 
 const DEFAULTS = {
   inlineCode: 'code',
@@ -10,12 +10,12 @@ const DEFAULTS = {
 
 const MDXCreateElement = ({
   components: propComponents,
-  __MDX_TYPE_PLEASE_DO_NOT_USE__,
+  mdxType,
   parentName,
   ...etc
 }) => {
   const components = useMDXComponents(propComponents)
-  const type = __MDX_TYPE_PLEASE_DO_NOT_USE__
+  const type = mdxType
   const Component =
     components[`${parentName}.${type}`] ||
     components[type] ||
