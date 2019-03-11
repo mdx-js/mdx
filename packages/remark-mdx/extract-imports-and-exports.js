@@ -21,6 +21,14 @@ class BabelPluginExtractImportsAndExports {
           },
           ImportDeclaration(path) {
             const {start} = path.node
+
+            // Imports that are used in exports can end up as
+            // ImportDeclarations with no start/end metadata,
+            // these can be ignored
+            if (start === undefined) {
+              return
+            }
+
             nodes.push({type: 'import', start})
           }
         }
