@@ -36,6 +36,7 @@ rules:
   react/prop-types: off
   react/display-name: off
   react/no-children-prop: off
+  react/react-in-jsx-scope: off
 
 settings:
   react: 

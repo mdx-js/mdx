@@ -1,0 +1,35 @@
+{
+  "name": "@mdx-js/vue",
+  "version": "1.0.0-alpha.5",
+  "repository": "mdx-js/mdx",
+  "license": "MIT",
+  "description": "MDX support for Vue components",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "markdown",
+    "vue",
+    "mdx",
+    "remark"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.0.0-rc.3",
+    "@mdx-js/mdx": "^0.15.0",
+    "@vue/test-utils": "^1.0.0-beta.24",
+    "babel-cli": "^6.26.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-env": "^1.7.0",
+    "hast-util-select": "^2.1.0",
+    "jest": "^23.5.0",
+    "vue": "^2.5.17",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
