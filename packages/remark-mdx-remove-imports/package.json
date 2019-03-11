@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx-remove-imports",
-  "version": "0.20.3",
+  "version": "0.20.4",
   "description": "Remove imports from the MDX AST",
   "license": "MIT",
   "keywords": [
