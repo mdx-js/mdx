@@ -32,6 +32,7 @@ const navOrder = [
     'table-of-contents',
     'writing-a-plugin',
     'custom-loader',
+    'wrapper-customization',
   'advanced',
     'plugins',
     'ast',
