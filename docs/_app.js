@@ -18,29 +18,46 @@ const scope = {
 /* eslint-disable prettier/prettier */
 const navOrder = [
   'index',
-  'syntax',
   'getting-started',
+    'next',
+    'gatsby',
+    'create-react-app',
+    'react-static',
     'webpack',
     'parcel',
-    'next',
-    'create-react-app',
-    'gatsby',
     'x0',
-    'typescript',
-    'react-static',
-  'plugins',
+  'guides',
+    'syntax-highlighting',
+    'live-code',
+    'table-of-contents',
+    'writing-a-plugin',
+    'custom-loader',
+    'wrapper-customization',
   'advanced',
+    'plugins',
+    'api',
     'ast',
     'components',
-    'writing-a-plugin',
     'retext-plugins',
-    'custom-loader',
     'specification',
     'sync-api',
+    'typescript',
     'runtime',
-    'contributing',
+  'contributing',
   'projects',
+  'editor-plugins',
+  'blog',
   'about'
+]
+
+const ignoredPaths = [
+  '/advanced/contributing',
+  '/advanced/custom-loader',
+  '/advanced/writing-a-plugin',
+  '/getting-started/typescript',
+  '/blog/custom-pragma',
+  '/plugins',
+  '/syntax'
 ]
 /* eslint-enable prettier/prettier */
 
@@ -48,12 +65,13 @@ const pageNames = {
   index: 'Introduction',
   next: 'Next.js',
   ast: 'AST',
-  projects: 'Projects Using MDX',
-  'getting-started': 'Getting Started',
+  projects: 'Projects using MDX',
+  'getting-started': 'Getting started',
   'create-react-app': 'Create React App',
-  'writing-a-plugin': 'Writing a Plugin',
-  'retext-plugins': 'Using Retext Plugins',
-  'sync-api': 'Sync API'
+  'retext-plugins': 'Using retext plugins',
+  'sync-api': 'Sync API',
+  'live-code': 'Live code editor',
+  'writing-a-plugin': 'Writing a plugin'
 }
 
 const sortRoutes = routes =>
@@ -73,7 +91,9 @@ const sortRoutes = routes =>
 export default class App extends React.Component {
   render() {
     const {routes} = this.props
-    const nav = sortRoutes(routes)
+    const nav = sortRoutes(routes).filter(
+      route => !ignoredPaths.includes(route.path)
+    )
 
     return (
       <RebassMDX>

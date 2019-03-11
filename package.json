@@ -6,6 +6,7 @@
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "dependencies": {
     "@rebass/mdx": "^1.0.0-1",
+    "prism-react-renderer": "^0.1.6",
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
@@ -66,6 +67,12 @@
     "*.md": ["remark -qf", "git add"]
   },
   "x0": {
-    "title": "MDX"
+    "title": "MDX",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Markdown for the component era"
+      }
+    ]
   }
 }

@@ -21,6 +21,9 @@ free customer service.
 *   [Running the tests](#running-the-tests)
 *   [Submitting an issue](#submitting-an-issue)
 *   [Submitting a pull request](#submitting-a-pull-request)
+*   [Project structure](#project-structure)
+*   [Releases](#releases)
+*   [Troubleshooting](#troubleshooting)
 *   [Resources](#resources)
 
 ## Questions
