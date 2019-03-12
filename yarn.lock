@@ -9,7 +9,7 @@
   dependencies:
     "@babel/highlight" "^7.0.0"
 
-"@babel/core@^7.0.0", "@babel/core@^7.0.0-rc.3", "@babel/core@^7.2.2":
+"@babel/core@^7.0.0", "@babel/core@^7.0.0-rc.3", "@babel/core@^7.3.4":
   version "7.3.4"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.3.4.tgz#921a5a13746c21e32445bf0798680e9d11a6530b"
   integrity sha512-jRsuseXBo9pN197KnDwhhaaBzyZr2oIcLHHTt2oDdQrej5Qp57dCCJafWx5ivU8/alEYDpssYqv1MUqcxwQlrA==
@@ -1443,6 +1443,11 @@
     create-react-context "^0.2.2"
     hoist-non-react-statics "^2.5.5"
     prop-types "^15.6.1"
+
+"@mdx-js/tag@^0.20.3":
+  version "0.20.3"
+  resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.20.3.tgz#9e2306040b6469248c45a5f5baf44d0014db0493"
+  integrity sha512-Co3gUFmNDv9z2LjuvLTpTj2NaOSHFxuoZjohcG0YK/KfECO+Ns9idzThMYjfEDe1vAf4c824rqlBYseedJdFNw==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -11302,7 +11307,7 @@ react-dev-utils@^5.0.1:
     strip-ansi "3.0.1"
     text-table "0.2.0"
 
-react-dom@^16.4.1, react-dom@^16.8.0:
+react-dom@^16.4.1, react-dom@^16.8.0, react-dom@^16.8.4:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.4.tgz#1061a8e01a2b3b0c8160037441c3bf00a0e3bc48"
   integrity sha512-Ob2wK7XG2tUDt7ps7LtLzGYYB6DXMCLj0G5fO6WeEICtT4/HdpOi7W/xLzZnR6RCG1tYza60nMdqtxzA8FaPJQ==
@@ -11365,7 +11370,7 @@ react-scope-provider@^1.0.0-1:
   resolved "https://registry.yarnpkg.com/react-scope-provider/-/react-scope-provider-1.0.0-1.tgz#6cfa4f34af9dce225dbc4d8e0623da689a1bdbfe"
   integrity sha512-9L2zBUonis3OkLadOEh5mID12ju00VQ+wKvJkj9ehxnV2A5ISvIzAcy25D2qgQwSbp7/khAxONXihEE923Idvw==
 
-react@^16.4.1, react@^16.8.0:
+react@^16.4.1, react@^16.8.0, react@^16.8.4:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.4.tgz#fdf7bd9ae53f03a9c4cd1a371432c206be1c4768"
   integrity sha512-0GQ6gFXfUH7aZcjGVymlPOASTuSjlQL4ZtVC5YKH+3JL6bBLCVO21DknzmaPlI90LN253ojj02nsapy+j7wIjg==

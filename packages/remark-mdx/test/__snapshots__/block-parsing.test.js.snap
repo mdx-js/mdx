@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Handles a basic div 1`] = `"<div name=\\"wrapper\\"><div>hi</div></div>"`;
+
+exports[`Handles a basic div with empty newlines 1`] = `"<div name=\\"wrapper\\"><div>hi</div></div>"`;
+
+exports[`Handles object props 1`] = `"<div name=\\"wrapper\\"><div>Hi</div></div>"`;

@@ -28,11 +28,14 @@
     "extract-imports-and-exports.js"
   ],
   "dependencies": {
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.3.4",
     "@babel/helper-plugin-utils": "^7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
     "@babel/plugin-syntax-jsx": "^7.2.0",
+    "@mdx-js/tag": "^0.20.3",
     "is-alphabetical": "^1.0.2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "remark-parse": "^6.0.0",
     "unified": "^7.0.0"
   },
