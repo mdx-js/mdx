@@ -3,12 +3,12 @@ import { Message } from 'rebass'
 # Wrapper customization
 
 The [wrapper](/getting-started#using-the-wrapper) component can be used
-to set the layout for the MDX document.  It's often used to set container
-width, borders, background colors, etc.  However, it's also unique because
+to set the layout for the MDX document.  It’s often used to set container
+width, borders, background colors, etc.  However, it’s also unique because
 it has access to the children passed to it.
 
 This means that you can do powerful things with the MDX document elements.
-If you aren't very familiar with React children, it might be worthwile to
+If you aren’t very familiar with React children, it might be worthwile to
 start with [_A deep dive into children in React_](https://mxstbr.blog/2017/02/react-children-deepdive/)
 by Max Stoiber.
 
@@ -33,10 +33,71 @@ For the purposes of this guide we will use the following MDX:
 Working with React children is fun!
 ```
 
-### Reordering components
+### Using the wrapper for layout
+
+You can use the `wrapper` element in MDXProvider to set layout and even
+background color for your MDX documents.
 
 ```js
-src/App.js
+// src/App.js
+import React from 'react'
+
+import {MDXProvider} from '@mdx-js/tag'
+
+const components = {
+  wrapper: props => (
+    <div style={{ padding: '20px', backgroundColor: 'tomato' }}>
+      <main {...props} />
+    </div>
+  )
+}
+
+export default props => (
+  <MDXProvider components={components}>
+    <main {...props} />
+  </MDXProvider>
+)
+```
+
+### Inspecting types
+
+<Message>
+  This only works on the latest alpha version @mdx-js/mdx@next (>= 1.0.0-alpha.7)
+</Message>
+
+Sometimes you might want to inspect the element type of that
+MDX will be rendering with its custom pragma.  You can use the
+wrapper to achieve this because it will have access to the MDX
+components as children.  You can check their type by accessing
+the `mdxType` in props.
+
+```js
+// src/App.js
+import React from 'react'
+
+import {MDXProvider} from '@mdx-js/tag'
+
+const components = {
+  wrapper: ({ children, ...props }) => {
+    console.log(children.map(child => child.props.mdxType))
+    return <>{children}</>
+  }
+}
+
+export default props => (
+  <MDXProvider components={components}>
+    <main {...props} />
+  </MDXProvider>
+)
+```
+
+### Manipulating children
+
+You can also manipulate and modify children.  Here is an example of reordering
+them by converting them to an array and calling `reverse`.
+
+```js
+// src/App.js
 import React from 'react'
 
 import {MDXProvider} from '@mdx-js/tag'
@@ -56,6 +117,12 @@ export default props => (
 ```
 
 ## Related
+
+If you would like to dive deeper, check out
+[_A deep dive into children in React_](https://mxstbr.blog/2017/02/react-children-deepdive/)
+or Brent Jackson’s [MDX Blocks](https://github.com/jxnblk/mdx-blocks)
+
+* * *
 
 *   <https://mxstbr.blog/2017/02/react-children-deepdive>
 *   <https://github.com/jxnblk/mdx-blocks>
