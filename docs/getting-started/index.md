@@ -51,6 +51,8 @@ the installation guides.
     *   [Exports](#exports)
 *   [Working with components](#working-with-components)
     *   [MDXProvider](#mdxprovider)
+    *   [Using the wrapper](#using-the-wrapper)
+    *   [Default exports](#default-exports)
     *   [Table of components](#table-of-components)
 *   [Installation guides](#installation-guides)
 
@@ -174,31 +176,6 @@ export default () => (
 )
 ```
 
-#### `export default`
-
-The ES default [export][] is used to provide a layout component which will wrap
-the transpiled JSX.
-
-You can export it as a function:
-
-```jsx
-import Layout from './Layout'
-
-export default ({ children }) => <Layout some='metadata' >{children}</Layout>
-
-# Hello, world!
-```
-
-Or directly as a component:
-
-```jsx
-import Layout from './Layout'
-
-export default Layout
-
-# Hello, world!
-```
-
 ## Working with components
 
 In additon to rendering components inline, you can also pass in components
@@ -283,6 +260,55 @@ export default props =>
 
 This allows you to remove duplicated component imports and passing.
 It will typically go in layout files.
+
+#### Using the wrapper
+
+The MDXProvider has a special `wrapper` key that you can use in the component mapping.
+With your wrapper component you can set the layout of your document, inject styling, or
+even manipulate the children passed to the component.
+
+```js
+// src/App.js
+import React from 'react'
+import { MDXProvider } from '@mdx-js/tag'
+
+const Wrapper = props => <main style={{ padding: '20px', backgroundColor: 'tomato' }} {...props} />
+
+export default ({ children }) =>
+  <MDXProvider components={{ wrapper: Wrapper }}>
+    {children}
+  </MDXProvider>
+```
+
+If you would like to see more advanced usage, see the
+[wrapper customization guide](/guides/wrapper-customization).
+
+##### Default exports
+
+Sometimes from an MDX file you might want to override the wrapper. This is especially useful
+when you want to override layout for a single entrypoint at the page level. To achieve this
+you can use the ES default [export][] and it will wrap your MDX document _instead_ of the
+wrapper passed to MDXProvider.
+
+You can declare a default export as a function:
+
+```jsx
+import Layout from './Layout'
+
+export default ({ children }) => <Layout some='metadata' >{children}</Layout>
+
+# Hello, world!
+```
+
+Or directly as a component:
+
+```jsx
+import Layout from './Layout'
+
+export default Layout
+
+# Hello, world!
+```
 
 ### Table of components
 
