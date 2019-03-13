@@ -285,8 +285,8 @@ If you would like to see more advanced usage, see the
 
 ##### Default exports
 
-Sometimes from an MDX file you might want to override the wrapper. This is especially useful
-when you want to override layout for a single entrypoint at the page level. To achieve this
+Sometimes from an MDX file you might want to override the wrapper.  This is especially useful
+when you want to override layout for a single entrypoint at the page level.  To achieve this
 you can use the ES default [export][] and it will wrap your MDX document _instead_ of the
 wrapper passed to MDXProvider.
 

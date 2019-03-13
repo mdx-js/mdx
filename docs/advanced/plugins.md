@@ -22,10 +22,10 @@ that can be used in React/Preact/Vue/etc.
 
 ### Options
 
-| Name          | Type     | Required | Description                                       |
-| ------------- | -------- | -------- | ------------------------------------------------- |
-| `mdPlugins`   | Array\[] | `false`  | Array of remark plugins to manipulate the MDAST   |
-| `hastPlugins` | Array\[] | `false`  | Array of rehype plugins to manipulate the MDXHAST |
+| Name              | Type     | Required | Description                                       |
+| ----------------- | -------- | -------- | ------------------------------------------------- |
+| `remarkPlugins`   | Array\[] | `false`  | Array of remark plugins to manipulate the MDAST   |
+| `rehypePlugins`   | Array\[] | `false`  | Array of rehype plugins to manipulate the MDXHAST |
 
 #### Specifying plugins
 
@@ -48,7 +48,7 @@ module.exports = {
           {
             loader: '@mdx-js/loader',
             options: {
-              mdPlugins: [images, emoji]
+              remarkPlugins: [images, emoji]
             }
           }
         ]
@@ -78,7 +78,7 @@ If a plugin needs specific options, use the `[plugin, pluginOptions]` syntax.
 
 ```js
 mdx.sync(mdxText, {
-  mdPlugins: [
+  remarkPlugins: [
     images,
     [emoji, { padSpaceAfter: true }]
 })
