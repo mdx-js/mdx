@@ -43,7 +43,7 @@
     "webpack": "^4.5.0"
   },
   "scripts": {
-    "test": "jest"
+    "no-test": "jest"
   },
   "jest": {
     "testEnvironment": "node"

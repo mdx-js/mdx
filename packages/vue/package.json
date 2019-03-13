@@ -9,7 +9,7 @@
     "src"
   ],
   "scripts": {
-    "test": "jest"
+    "no-test": "jest"
   },
   "keywords": [
     "markdown",

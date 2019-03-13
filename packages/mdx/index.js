@@ -10,13 +10,22 @@ const mdxHastToJsx = require('./mdx-hast-to-jsx')
 
 const DEFAULT_OPTIONS = {
   footnotes: true,
-  mdPlugins: [],
-  hastPlugins: [],
+  remarkPlugins: [],
+  rehypePlugins: [],
   compilers: []
 }
 
 function createMdxAstCompiler(options) {
   const mdPlugins = options.mdPlugins
+  const remarkPlugins = options.remarkPlugins
+  const plugins = mdPlugins || remarkPlugins
+
+  if (mdPlugins) {
+    console.error(`
+      @mdx-js/mdx: The mdPlugins option has been deprecated in favor of remarkPlugins
+                   Support for mdPlugins will be removed in MDX v2
+    `)
+  }
 
   const fn = unified()
     .use(toMDAST, options)
@@ -24,7 +33,7 @@ function createMdxAstCompiler(options) {
     .use(squeeze, options)
     .use(toMDXAST, options)
 
-  mdPlugins.forEach(plugin => {
+  plugins.forEach(plugin => {
     // Handle [plugin, pluginOptions] syntax
     if (Array.isArray(plugin) && plugin.length > 1) {
       fn.use(plugin[0], plugin[1])
@@ -40,6 +49,16 @@ function createMdxAstCompiler(options) {
 
 function applyHastPluginsAndCompilers(compiler, options) {
   const hastPlugins = options.hastPlugins
+  const rehypePlugins = options.rehypePlugins
+  const plugins = hastPlugins || rehypePlugins
+
+  if (hastPlugins) {
+    console.error(`
+      @mdx-js/mdx: The hastPlugins option has been deprecated in favor of rehypePlugins
+                   Support for hastPlugins will be removed in MDX v2
+    `)
+  }
+
   const compilers = options.compilers
 
   // Convert raw nodes into HAST
@@ -53,7 +72,7 @@ function applyHastPluginsAndCompilers(compiler, options) {
     })
   })
 
-  hastPlugins.forEach(plugin => {
+  plugins.forEach(plugin => {
     // Handle [plugin, pluginOptions] syntax
     if (Array.isArray(plugin) && plugin.length > 1) {
       compiler.use(plugin[0], plugin[1])

@@ -122,7 +122,7 @@ it('Should render blockquote correctly', async () => {
 
 it('Should properly expose comments', async () => {
   const result = await mdx('<!--foo-->', {
-    hastPlugins: [
+    rehypePlugins: [
       () => tree => {
         tree.children[0].value = 'bar'
       }
@@ -146,7 +146,7 @@ it('Should preserve newlines in code blocks', async () => {
 COPY start.sh /home/start.sh
 \`\`\`
     `,
-    {hastPlugins: [prism]}
+    {rehypePlugins: [prism]}
   )
 
   expect(result).toContain('{`# Add main script`}</span>{`\n`}')
@@ -234,8 +234,8 @@ $$
 $$
   `,
     {
-      mdPlugins: [math],
-      hastPlugins: [katex]
+      remarkPlugins: [math],
+      rehypePlugins: [katex]
     }
   )
   expect(result).not.toContain('"style":"')
@@ -250,8 +250,8 @@ $$
 $$
   `,
     {
-      mdPlugins: [math],
-      hastPlugins: [katex]
+      remarkPlugins: [math],
+      rehypePlugins: [katex]
     }
   )
   expect(result).toContain('"aria-hidden":"true"')
@@ -298,7 +298,7 @@ it('Should render elements without wrapping blank new lines', async () => {
 
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
-    hastPlugins: [
+    rehypePlugins: [
       _options => tree => {
         // eslint-disable-next-line require-await
         return (async () => {
@@ -316,7 +316,7 @@ test('Should await and render async plugins', async () => {
 test('Should process filepath and pass it to the plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     filepath: 'hello.mdx',
-    hastPlugins: [
+    rehypePlugins: [
       _options => (tree, fileInfo) => {
         expect(fileInfo.path).toBe('hello.mdx')
         const headingNode = select('h1', tree)

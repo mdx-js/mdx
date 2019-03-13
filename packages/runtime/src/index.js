@@ -7,8 +7,8 @@ import {MDXProvider} from '@mdx-js/tag'
 export default ({
   scope = {},
   components = {},
-  mdPlugins = [],
-  hastPlugins = [],
+  remarkPlugins = [],
+  rehypePlugins = [],
   children,
   ...props
 }) => {
@@ -22,8 +22,8 @@ export default ({
 
   const jsx = mdx
     .sync(children, {
-      mdPlugins,
-      hastPlugins,
+      remarkPlugins,
+      rehypePlugins,
       skipExport: true
     })
     .trim()

@@ -57,8 +57,8 @@ describe('renders MDX with the proper components', () => {
 it('supports remark and rehype plugins', () => {
   const result = render(
     <MDX
-      mdPlugins={[slug, autolinkHeadings]}
-      hastPlugins={[[addClasses, {h1: 'title'}]]}
+      remarkPlugins={[slug, autolinkHeadings]}
+      rehypePlugins={[[addClasses, {h1: 'title'}]]}
       components={components}
       scope={scope}
       children={mdx}
