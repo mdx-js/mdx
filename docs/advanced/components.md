@@ -2,6 +2,8 @@
 
 The MDX core library accepts a string and exports a JSX string.
 
+<!-- TODO: rewrite to update for v1. -->
+
 ## MDXTag
 
 MDXTag is an internal component that MDX uses to map components to an HTML
