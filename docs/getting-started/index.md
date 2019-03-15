@@ -1,71 +1,73 @@
 import { Flex, Card, Link, Text } from 'rebass'
 
-export const InstallationGuides = () => (
-  <Flex flexWrap="wrap">
-    <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
-      <Text fontWeight="bold" textAlign="center">
-        <Link color="black" href="/getting-started/next">Next.js</Link>
-      </Text>
-    </Card>
-    <Card mb={3} px={4} py={3} width={1/2.1}>
-      <Text fontWeight="bold" textAlign="center">
-        <Link color="black" href="/getting-started/gatsby">Gatsby</Link>
-      </Text>
-    </Card>
-    <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
-      <Text fontWeight="bold" textAlign="center">
-        <Link color="black" href="/getting-started/create-react-app">Create React App</Link>
-      </Text>
-    </Card>
-    <Card mb={3} px={4} py={3} width={1/2.1}>
-      <Text fontWeight="bold" textAlign="center">
-        <Link color="black" href="/getting-started/react-static">React Static</Link>
-      </Text>
-    </Card>
-    <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
-      <Text fontWeight="bold" textAlign="center">
-        <Link color="black" href="/getting-started/wepack">Webpack</Link>
-      </Text>
-    </Card>
-    <Card mb={3} px={4} py={3} width={1/2.1}>
-      <Text fontWeight="bold" textAlign="center">
-        <Link color="black" href="/getting-started/parcel">Parcel</Link>
-      </Text>
-    </Card>
-  </Flex>
-)
-
 # Getting Started
 
 If you have an existing project you want to integrate MDX with, check out
 the installation guides.
 
-<InstallationGuides />
+<Flex flexWrap="wrap">
+  <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
+    <Text fontWeight="bold" textAlign="center">
+      <Link color="black" href="/getting-started/next">Next.js</Link>
+    </Text>
+  </Card>
+  <Card mb={3} px={4} py={3} width={1/2.1}>
+    <Text fontWeight="bold" textAlign="center">
+      <Link color="black" href="/getting-started/gatsby">Gatsby</Link>
+    </Text>
+  </Card>
+  <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
+    <Text fontWeight="bold" textAlign="center">
+      <Link color="black" href="/getting-started/create-react-app">Create React App</Link>
+    </Text>
+  </Card>
+  <Card mb={3} px={4} py={3} width={1/2.1}>
+    <Text fontWeight="bold" textAlign="center">
+      <Link color="black" href="/getting-started/react-static">React Static</Link>
+    </Text>
+  </Card>
+  <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
+    <Text fontWeight="bold" textAlign="center">
+      <Link color="black" href="/getting-started/wepack">Webpack</Link>
+    </Text>
+  </Card>
+  <Card mb={3} px={4} py={3} width={1/2.1}>
+    <Text fontWeight="bold" textAlign="center">
+      <Link color="black" href="/getting-started/parcel">Parcel</Link>
+    </Text>
+  </Card>
+</Flex>
 
 ## Table of contents
 
-*   [Scaffold out an app](#scaffold-out-an-app)
+*   [Hello World](#hello-world)
 *   [Syntax](#syntax)
     *   [Markdown](#markdown)
     *   [JSX](#jsx)
-    *   [Exports](#exports)
+    *   [MDX](#mdx)
 *   [Working with components](#working-with-components)
     *   [MDXProvider](#mdxprovider)
     *   [Table of components](#table-of-components)
 *   [Installation guides](#installation-guides)
+    *   [Scaffold out an app](#scaffold-out-an-app)
+    *   [Do it yourself](#do-it-yourself)
 
-## Scaffold out an app
+## Hello World
 
-If you’re the type of person that wants to scaffold out an app quickly and start
-playing around you can use `npm init`:
+The smallest MDX example looks like this:
 
-*   `npm init mdx` [`webpack`](./webpack)
-*   `npm init mdx` [`parcel`](./parcel)
-*   `npm init mdx` [`next`](./next)
-*   `npm init mdx` [`create-react-app`](./create-react-app)
-*   `npm init mdx` [`gatsby`](./gatsby)
-*   `npm init mdx` [`x0`](./x0)
-*   `npm init mdx` [`react-static`](./react-static)
+```markdown
+# Hello, world!
+```
+
+It displays a heading saying “Hello, world!” on the page.
+You could also write it like so:
+
+```jsx
+<h1>Hello, world!</h1>
+```
+
+This displays the same heading.
 
 ## Syntax
 
@@ -75,25 +77,77 @@ JSX.
 
 ### Markdown
 
-Standard [Markdown syntax][md] is supported.
-It’s recommended to learn about Markdown in their [docs][md].
+Traditionally, Markdown is used to generate HTML.
+Many developers like writing markup in Markdown as it often looks more like
+what’s intended and it is typically terser.
+Instead of the following HTML:
+
+```html
+<blockquote>
+<p>A blockquote with <em>some</em> emphasis.</p>
+</blockquote>
+```
+
+You can write the equivalent in Markdown (or MDX) like so:
+
+```markdown
+> A blockquote with *some* emphasis.
+```
+
+Markdown is good for **content**.
+MDX supports standard [Markdown syntax][md].
+It’s important to understand Markdown in order to learn MDX.
 
 ### JSX
 
-[JSX syntax][jsx] is fully supported, JSX blocks are opened by starting a line
-with the `<` character.
+Recently, more and more developers have started using [JSX][] to generate HTML
+markup.
+JSX is typically combined with a frontend framework like React or Vue.
+These frameworks add support for components, which let you change repeating
+things like the following markup:
+
+```html
+<h2>Hello, Venus!</h2>
+<h2>Hello, Mars!</h2>
+```
+
+…to JSX (or MDX) like this:
+
+```jsx
+<Welcome name="Venus" />
+<Welcome name="Mars" />
+```
+
+JSX is good for **components**.
+It makes repeating things more clear and allows for separation of concerns.
+MDX fully supports [JSX syntax][jsx].
+Any line that start with the `<` characters starts a JSX block.
+
+### MDX
+
+We love HTML, but we’ve created MDX to let you combine the benefits of Markdown
+with the benefits of JSX.
+The following example shows how they can be combined.
+It’s interactive so go ahead and change the code!
 
 ```.mdx
 # Below is a JSX block
 
 <div style={{ padding: '10px 30px', backgroundColor: 'tomato' }}>
-  <h2>Try editing the code below</h2>
+  <h2>Try making this heading have the color green</h2>
 </div>
 ```
 
+MDX supports two more features: [imports][] and [exports][].
+
 #### Imports
 
-Imports can be used to [import][] components into the scope and later rendered:
+[`import` (ES2015)][import] can be used to import components, data, and
+documents.
+
+##### Components
+
+You can import components, such as your own or from [rebass][], like so:
 
 ```jsx
 import { Box, Heading, Text } from 'rebass'
@@ -108,26 +162,30 @@ It is using imported components!
 </Box>
 ```
 
-You can also import data that you want to display in a JSX block:
+##### Data
+
+You can also import data that you want to display:
 
 ```jsx
-import { colors } from './theme'
-import Palette from './components/palette'
+import snowfallData from './snowfall.json'
+import BarChart from './charts/BarChart'
 
-# Colors
+# Recent snowfall trends
 
-<Palette colors={colors} />
+2019 has been a particularly snowy year when compared to the last decade.
+
+<BarChart data={snowfallData} />
 ```
 
-##### Embedding documents
+##### Documents
 
-You can embed MDX documents in other documents.  This is also known as
-[transclusion][transclude].  You can achieve this by importing one `.md`
-or `.mdx` file into another:
+You can embed MDX documents in other documents.
+This is also known as [transclusion][transclude].
+You can achieve this by importing an `.mdx` (or `.md`) file:
 
 ```jsx
 import License from './license.md'
-import Contributing from './docs/contributing.md'
+import Contributing from './docs/contributing.mdx'
 
 # Hello, world!
 
@@ -138,20 +196,38 @@ import Contributing from './docs/contributing.md'
 <Contributing />
 ```
 
-### Exports
+#### Exports
 
-You can use exports to export metadata like layout or authors.
-It’s a mechanism for an imported MDX file to communicate with its parent.
-It works similarly to frontmatter, but uses ES2015 syntax.
+[`export` (ES2015)][export] can be used to export data and components.
+For example, you can export metadata like which layout to use or the authors of
+a document.
+It’s a mechanism for an imported MDX file to communicate with the thing that imports it.
+
+Say we import our MDX file, using webpack and React, like so:
+
+```jsx
+// index.js
+import React from 'react'
+import MDXDocument, { metadata } from 'posts/post.mdx'
+
+export default () => (
+  <>
+    <MDXDocument />
+    <footer>
+      <p>By: {metadata.authors.map(author => author.name).join(', ') + '.'}</p>
+    </footer>
+  </>
+)
+```
+
+And our MDX file looks as follows (note the `export`):
 
 ```js
 // posts/post.mdx
-import { fred, sue } from '../data/authors'
-import Layout from '../components/blog-layout'
+import { sue, fred } from '../data/authors'
 
-export const meta = {
-  authors: [fred, sue],
-  layout: Layout
+export const metadata = {
+  authors: [sue, fred]
 }
 
 # Post about MDX
@@ -159,53 +235,26 @@ export const meta = {
 MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.
 ```
 
-```jsx
-// index.js
-import React from 'react'
-import Mdx, { meta } from 'posts/post.mdx'
+After bundling and evaluating, we could get something like this:
 
-const { authors, layout } = meta
-
-export default () => (
-  <layout>
-    <Mdx />
-    By: {authors.map(author => author.name)}
-  </layout>
-)
+```html
+<h1>Post about MDX</h1>
+<p>MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.</p>
+<footer><p>By: Sue, Fred.</p></footer>
 ```
 
-#### `export default`
-
-The ES default [export][] is used to provide a layout component which will wrap
-the transpiled JSX.
-
-You can export it as a function:
-
-```jsx
-import Layout from './Layout'
-
-export default ({ children }) => <Layout some='metadata' >{children}</Layout>
-
-# Hello, world!
-```
-
-Or directly as a component:
-
-```jsx
-import Layout from './Layout'
-
-export default Layout
-
-# Hello, world!
-```
+This is similar to what frontmatter allows in Markdown, but instead of
+supporting only data in something like YAML, MDX lets you use richer JavaScript
+structures.
 
 ## Working with components
 
-In additon to rendering components inline, you can also pass in components
-for any HTML element that Markdown compiles to.  This allows you to use your
-existing components and even CSS-in-JS like `styled-components`.
+In addition to rendering components inline, you can also pass in components
+to be used instead of the default HTML elements that Markdown compiles to.
+This allows you to use your existing components and even CSS-in-JS like
+`styled-components`.
 
-The components object is a mapping between the HTML element and your desired
+The `components` object is a mapping between the HTML name and the desired
 component you’d like to render.
 
 ```jsx
@@ -235,7 +284,7 @@ import {
   Heading,
   Code,
   InlineCode
-} from '../ui-library'
+} from '../my-ui-library'
 
 export default () =>
   <Hello
@@ -251,8 +300,10 @@ export default () =>
 With the above, the `Heading` component will be rendered for any `h1`, `Text`
 for `p` elements, and so on.
 
-In addition to HTML elements, there’s an `inlineCode`.
-This is what remark uses for code elements within paragraphs, tables, etc.
+In addition to HTML elements, there is one special mapping: `inlineCode` can be
+used for code inside paragraphs, tables, etc.
+
+See the [Table of components][components] for supported names.
 
 ### MDXProvider
 
@@ -269,7 +320,7 @@ import { Heading, Text, Pre, Code, Table } from './components'
 const components = {
   h1: Heading.H1,
   h2: Heading.H2,
-  // ...
+  // …
   p: Text,
   code: Pre,
   inlineCode: Code
@@ -281,14 +332,69 @@ export default props =>
   </MDXProvider>
 ```
 
-This allows you to remove duplicated component imports and passing.
+This allows you to remove duplicated component passing and importing.
 It will typically go in layout files.
+
+#### Using the wrapper
+
+The MDXProvider has a special `wrapper` key that you can use in the component
+mapping.
+With your wrapper component you can set the layout of your document, inject
+styling, or even manipulate the children passed to the component.
+
+```js
+// src/App.js
+import React from 'react'
+import { MDXProvider } from '@mdx-js/tag'
+
+const Wrapper = props => <main style={{ padding: '20px', backgroundColor: 'tomato' }} {...props} />
+
+export default ({ children }) =>
+  <MDXProvider components={{ wrapper: Wrapper }}>
+    {children}
+  </MDXProvider>
+```
+
+If you would like to see more advanced usage, see the
+[wrapper customization guide](/guides/wrapper-customization).
+
+#### Default exports
+
+Sometimes from an MDX file you might want to override the wrapper.
+This is especially useful when you want to override layout for a single entry
+point at the page level.
+To achieve this you can use the ES default [export][] and it will wrap your MDX
+document _instead_ of the wrapper passed to MDXProvider.
+
+You can declare a default export as a function:
+
+```jsx
+import Layout from './Layout'
+
+export default ({ children }) => <Layout some='metadata' >{children}</Layout>
+
+# Hello, world!
+```
+
+Or directly as a component:
+
+```jsx
+import Layout from './Layout'
+
+export default Layout
+
+# Hello, world!
+```
+
+Either works.
+Whatever you prefer!
 
 ### Table of components
 
-MDXProvider uses [React Context][context] to provide the component mapping
-internally to MDX when it renders.  The following components are rendered from
-Markdown, so these can be keys in the component object you pass to MDXProvider.
+`MDXProvider` uses [React Context][context] to provide the component mapping
+internally to MDX when it renders.
+The following components are rendered from Markdown, so these can be keys in the
+component object you pass to `MDXProvider`.
 
 | Tag             | Name                                                                 | Syntax                                              |
 | --------------- | -------------------------------------------------------------------- | --------------------------------------------------- |
@@ -321,7 +427,70 @@ Markdown, so these can be keys in the component object you pass to MDXProvider.
 
 Now that we’ve gone over how MDX works, you’re ready to get installing.
 
-<InstallationGuides />
+### Scaffold out an app
+
+If you’re the type of person that wants to scaffold out an app quickly and start
+playing around you can use `npm init`:
+
+*   `npm init mdx` [`webpack`](./webpack)
+*   `npm init mdx` [`parcel`](./parcel)
+*   `npm init mdx` [`next`](./next)
+*   `npm init mdx` [`create-react-app`](./create-react-app)
+*   `npm init mdx` [`gatsby`](./gatsby)
+*   `npm init mdx` [`x0`](./x0)
+*   `npm init mdx` [`react-static`](./react-static)
+
+### Do it yourself
+
+If your favorite bundler or framework isn’t listed above, or if you have a
+custom use case, you can of course do it yourself.
+The below rendering function is what we use for our MDX integration tests:
+
+```js
+const babel = require('@babel/core')
+const React = require('react')
+const {renderToStaticMarkup} = require('react-dom/server')
+
+const transform = code =>
+  babel.transform(code, {
+    plugins: [
+      '@babel/plugin-transform-react-jsx',
+      '@babel/plugin-proposal-object-rest-spread'
+    ]
+  }).code
+
+const renderWithReact = async mdxCode => {
+  const jsx = await mdx(mdxCode, {skipExport: true})
+  const code = transform(jsx)
+  const scope = {mdx: createElement}
+
+  const fn = new Function(
+    'React',
+    ...Object.keys(scope),
+    `${code}; return React.createElement(MDXContent)`
+  )
+
+  const element = fn(React, ...Object.values(scope))
+  const components = {
+    h1: ({children}) =>
+      React.createElement('h1', {style: {color: 'tomato'}}, children)
+  }
+
+  const elementWithProvider = React.createElement(
+    MDXProvider,
+    {components},
+    element
+  )
+
+  return renderToStaticMarkup(elementWithProvider)
+}
+```
+
+[imports]: #imports
+
+[exports]: #exports
+
+[components]: #table-of-components
 
 [md]: https://daringfireball.net/projects/markdown/syntax
 
@@ -330,6 +499,8 @@ Now that we’ve gone over how MDX works, you’re ready to get installing.
 [import]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/import
 
 [export]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
+
+[rebass]: https://github.com/rebassjs/rebass
 
 [transclude]: https://en.wikipedia.org/wiki/Transclusion
 
