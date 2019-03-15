@@ -4,7 +4,7 @@ MDX uses [remark][] and [rehype][] internally.
 These ecosystems focus on plugins that transform syntax trees.
 This may sound very much like what MDX does.
 In fact, that’s what we’re doing: the core of MDX is mostly plugins itself!
-We first use `remark-mdx` to add MDX syntax support and then uses a rehype
+We first use `remark-mdx` to add MDX syntax support and then use a rehype
 plugin to transpile it to JSX.
 The final result is JSX that can be used in React/Preact/Vue/etc.
 
