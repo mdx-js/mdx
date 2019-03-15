@@ -101,7 +101,7 @@ the `emoji` plugin.
 
 ## Using retext plugins
 
-[retext][] plugins are like remark and rehype plugins, really useful.
+[retext][] plugins are, like remark and rehype plugins, really useful.
 But it’s currently not possible for MDX to convert the syntax tree to nlcst
 (which is used by retext) as it wouldn’t be possible to correctly convert it
 back.
