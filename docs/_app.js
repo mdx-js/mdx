@@ -39,6 +39,7 @@ const navOrder = [
     'ast',
     'components',
     'plugins',
+    'typescript',
   'contributing',
   'projects',
   'editor-plugins',
@@ -69,7 +70,8 @@ const pageNames = {
   projects: 'Projects using MDX',
   'getting-started': 'Getting started',
   'create-react-app': 'Create React App',
-  'live-code': 'Live code editor'
+  'live-code': 'Live code editor',
+  'writing-a-plugin': 'Writing a plugin'
 }
 
 const sortRoutes = routes =>
