@@ -42,7 +42,7 @@ const navOrder = [
     'typescript',
   'contributing',
   'projects',
-  'editor-plugins',
+  'editors',
   'blog',
   'about'
 ]
@@ -57,6 +57,7 @@ const ignoredPaths = [
   '/advanced/writing-a-plugin',
   '/getting-started/typescript',
   '/blog/custom-pragma',
+  '/editor-plugins',
   '/plugins',
   '/syntax'
 ]
