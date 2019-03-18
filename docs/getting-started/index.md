@@ -28,7 +28,7 @@ the installation guides.
   </Card>
   <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
     <Text fontWeight="bold" textAlign="center">
-      <Link color="black" href="/getting-started/wepack">Webpack</Link>
+      <Link color="black" href="/getting-started/webpack">Webpack</Link>
     </Text>
   </Card>
   <Card mb={3} px={4} py={3} width={1/2.1}>
