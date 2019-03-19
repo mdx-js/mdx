@@ -296,6 +296,14 @@ it('Should render elements without wrapping blank new lines', async () => {
   expect(result).not.toContain('{`\n`}')
 })
 
+it('Should wrap export function when wrapExport is provided', async () => {
+  const result = await mdx(`# Test`, {
+    wrapExport: 'React.memo'
+  })
+
+  expect(result).toContain(`export default React.memo(MDXContent)`)
+})
+
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     rehypePlugins: [
@@ -379,7 +387,7 @@ export default function MDXContent({ components, ...props }) {
       {...layoutProps}
       {...props}
       components={components}>
-      
+
 
 <h1>{\`Hello, world!\`}</h1>
 <p>{\`I'm an awesome paragraph.\`}</p>
@@ -427,7 +435,7 @@ export default function MDXContent({ components, ...props }) {
 \\\\\`
 \`}</code></pre>
     </MDXLayout>
-    )
+  )
 }
 MDXContent.isMDXComponent = true"
 `)

@@ -15,7 +15,7 @@ export default function MDXContent({ components, ...props }) {
       {...layoutProps}
       {...props}
       components={components}>
-      
+
 
 
 <h1>{\`Hello, world! \`}<Foo bar={{ baz: 'qux' }} /></h1>
@@ -23,7 +23,7 @@ export default function MDXContent({ components, ...props }) {
   Hi!
 </Baz>
     </MDXLayout>
-    )
+  )
 }
 MDXContent.isMDXComponent = true"
 `;
