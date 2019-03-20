@@ -279,7 +279,7 @@ it('Should not include export wrapper if skipExport is true', async () => {
 
 it('Should recognize components as properties', async () => {
   const result = await mdx('# Hello\n\n<MDX.Foo />')
-  expect(result).toContain('<h1 >{`Hello`}</h1>\n<MDX.Foo />')
+  expect(result).toContain('<h1>{`Hello`}</h1>\n<MDX.Foo />')
 })
 
 it('Should contain static isMDXComponent() function', async () => {
@@ -381,21 +381,21 @@ export default function MDXContent({ components, ...props }) {
       <MDXLayout {...layoutProps} {...props}>
       
 
-<h1 >{\`Hello, world!\`}</h1>
-<p >{\`I'm an awesome paragraph.\`}</p>
+<h1>{\`Hello, world!\`}</h1>
+<p>{\`I'm an awesome paragraph.\`}</p>
 {/* I'm a comment */}
 <Foo bg='red'>
   <Bar>hi</Bar>
     {hello}
     {/* another commment */}
 </Foo>
-<pre ><code parentName=\\"pre\\" {...{}}>{\`test codeblock
+<pre><code parentName=\\"pre\\" {...{}}>{\`test codeblock
 \`}</code></pre>
-<pre ><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
+<pre><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
 \`}</code></pre>
-<pre ><code parentName=\\"pre\\" {...{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
+<pre><code parentName=\\"pre\\" {...{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
 \`}</code></pre>
-<table >
+<table>
 <thead parentName=\\"table\\">
 <tr parentName=\\"thead\\">
 <th parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Test\`}</th>
@@ -410,7 +410,7 @@ export default function MDXContent({ components, ...props }) {
 </tbody>
 </table>
 
-<pre ><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
+<pre><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
   font-size: 1rem;
   border-radius: 5px;
   padding: 0.25rem 1rem;

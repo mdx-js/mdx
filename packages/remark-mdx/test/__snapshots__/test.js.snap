@@ -18,7 +18,7 @@ export default function MDXContent({ components, ...props }) {
       
 
 
-<h1 >{\`Hello, world! \`}<Foo bar={{ baz: 'qux' }} /></h1>
+<h1>{\`Hello, world! \`}<Foo bar={{ baz: 'qux' }} /></h1>
 <Baz>
   Hi!
 </Baz>

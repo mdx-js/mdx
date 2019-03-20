@@ -112,8 +112,8 @@ MDXContent.isMDXComponent = true`
       props = JSON.stringify(node.properties)
     }
 
-    return `<${node.tagName} ${
-      parentNode.tagName ? `parentName="${parentNode.tagName}"` : ''
+    return `<${node.tagName}${
+      parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''
     }${props ? ` {...${props}}` : ''}>${children}</${node.tagName}>`
   }
 
