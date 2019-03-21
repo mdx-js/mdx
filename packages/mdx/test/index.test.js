@@ -379,7 +379,7 @@ export default function MDXContent({ components, ...props }) {
       {...layoutProps}
       {...props}
       components={components}>
-
+      
 
 <h1>{\`Hello, world!\`}</h1>
 <p>{\`I'm an awesome paragraph.\`}</p>
