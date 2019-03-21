@@ -1,4 +1,4 @@
-# `@mdx-js/remark-mdx`
+# [remark][]-[mdx][]
 
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
