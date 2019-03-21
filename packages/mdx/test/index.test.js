@@ -379,7 +379,7 @@ export default function MDXContent({ components, ...props }) {
       {...layoutProps}
       {...props}
       components={components}>
-      
+
 
 <h1>{\`Hello, world!\`}</h1>
 <p>{\`I'm an awesome paragraph.\`}</p>
@@ -431,4 +431,10 @@ export default function MDXContent({ components, ...props }) {
 }
 MDXContent.isMDXComponent = true"
 `)
+})
+
+it('Should use fragment as Wrapper', async () => {
+  const result = await renderWithReact(`# Hello, world!`)
+
+  expect(result).toEqual('<h1 style="color:tomato">Hello, world!</h1>')
 })
