@@ -11,10 +11,10 @@ const layoutProps = {
 const MDXLayout = Foo
 export default function MDXContent({ components, ...props }) {
   return (
-    <div
-      name=\\"wrapper\\"
+    <MDXLayout
+      {...layoutProps}
+      {...props}
       components={components}>
-      <MDXLayout {...layoutProps} {...props}>
       
 
 
@@ -22,9 +22,8 @@ export default function MDXContent({ components, ...props }) {
 <Baz>
   Hi!
 </Baz>
-      </MDXLayout>
-    </div>
-  )
+    </MDXLayout>
+    )
 }
 MDXContent.isMDXComponent = true"
 `;

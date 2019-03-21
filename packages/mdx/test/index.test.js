@@ -101,12 +101,12 @@ it('Should match sample blog post snapshot', async () => {
 "/* @jsx mdx */
 
 const layoutProps = {};
-
+const MDXLayout = \\"wrapper\\";
 export default function MDXContent({ components, ...props }) {
   return (
-    <div name=\\"wrapper\\" components={components}>
+    <MDXLayout {...layoutProps} {...props} components={components}>
       <h1>{\`Hello World\`}</h1>
-    </div>
+    </MDXLayout>
   );
 }
 MDXContent.isMDXComponent = true;
@@ -375,10 +375,10 @@ const layoutProps = {
 const MDXLayout = ({children}) => <div>{children}</div>
 export default function MDXContent({ components, ...props }) {
   return (
-    <div
-      name=\\"wrapper\\"
+    <MDXLayout
+      {...layoutProps}
+      {...props}
       components={components}>
-      <MDXLayout {...layoutProps} {...props}>
       
 
 <h1>{\`Hello, world!\`}</h1>
@@ -426,9 +426,8 @@ export default function MDXContent({ components, ...props }) {
     \\\\\`};
 \\\\\`
 \`}</code></pre>
-      </MDXLayout>
-    </div>
-  )
+    </MDXLayout>
+    )
 }
 MDXContent.isMDXComponent = true"
 `)
