@@ -12,6 +12,7 @@
 *   [mdx-docs][]: Next-based documentation framework
 *   [spectacle-boilerplate-mdx][]: Boilerplate that facilitates using MDX with
     Spectacle
+*   [Charge][charge]: An opinionated, zero-config static site generator
 
 ## Sites
 
@@ -45,3 +46,5 @@
 [awesome-mdx]: https://github.com/transitive-bullshit/awesome-mdx
 
 [spectacle-boilerplate-mdx]: https://github.com/FormidableLabs/spectacle-boilerplate-mdx
+
+[charge]: https://charge.js.org
