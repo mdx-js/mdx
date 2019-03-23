@@ -40,6 +40,7 @@ const navOrder = [
     'components',
     'plugins',
     'typescript',
+    'transform-content',
   'contributing',
   'projects',
   'editors',

@@ -16,5 +16,7 @@ directly.
     — learn about the generated JSX
 *   [remark and rehype plugins](/advanced/plugins)
     — learn how to inspect and change the syntax tree
+*   [transform content](/advanced/transform-content)
+    — learn how to interact with or manipulate raw MDX content
 
 [getting-started]: /getting-started
