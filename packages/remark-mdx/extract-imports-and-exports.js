@@ -42,7 +42,7 @@ const partitionString = (str, indices) =>
     return str.slice(val, indices[i + 1])
   })
 
-module.exports = value => {
+module.exports = (value, vfile) => {
   const instance = new BabelPluginExtractImportsAndExports()
 
   transformSync(value, {
@@ -50,7 +50,8 @@ module.exports = value => {
       '@babel/plugin-syntax-jsx',
       '@babel/plugin-proposal-object-rest-spread',
       instance.plugin
-    ]
+    ],
+    filename: vfile.path
   })
 
   const sortedNodes = instance.state.nodes.sort((a, b) => a.start - b.start)
