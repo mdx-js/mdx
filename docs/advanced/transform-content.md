@@ -13,7 +13,7 @@ const mdx = require('remark-mdx');
 
 (async () => {
     const path = './path/to/some/file.mdx';
-    const file = await read();
+    const file = await read(path);
     const contents = await remark()
         .use(mdx)
         // use more plugins or write your own here
