@@ -26,7 +26,7 @@ const mdx = require('remark-mdx');
 })();
 ```
 
-As the comment in the code above points out, you can use any of the [remark plugins][remark-plugins], or even write your own, to interpolate MDX content.  Through the use of remark-mdx, it will enhance the [AST][ast] to understand MDX, giving you access and insight to things like imports and exports.
+As the comment in the code above points out, you can use any of the [remark plugins][remark-plugins], or even write your own, to interpolate MDX content.  The remark-mdx library is a parsing extension to enhance the Markdown [AST][ast] to understand MDX (resulting in MDXAST), giving you access and insight to things like imports and exports.
 
 This technique allows you to use things like [remark-toc][remark-toc] to add a generated table of contents based on the other content in the MDX file or [remark-mdx-metadata][remark-mdx-metadata] to externally modify MDX metadata.
 
