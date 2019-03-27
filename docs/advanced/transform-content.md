@@ -1,6 +1,6 @@
 # Transform Content
 
-As we previously stated, you will most likely use MDX through a loader or framework, but it is also possible to interact with or manipulate raw MDX content.  Since MDX is a part of the [unified][unified] ecosystem, there are many utilities we can use to work with MDX.
+With MDX you can interact with or manipulate raw MDX content.  Since MDX is a part of the [unified][unified] ecosystem, there are many utilities you can use to work with MDX.
 
 We can utilize [to-vfile][to-vfile] to read and write MDX files and we can leverage [remark][remark] and [remark-mdx][remark-mdx] to parse and process MDX content.
 
