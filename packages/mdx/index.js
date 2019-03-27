@@ -64,8 +64,8 @@ function applyHastPluginsAndCompilers(compiler, options) {
   // Convert raw nodes into HAST
   compiler.use(() => ast => {
     visit(ast, 'raw', node => {
-      const {type, children, tagName, properties} = raw(node)
-      node.type = type
+      const {children, tagName, properties} = raw(node)
+      node.type = 'jsx'
       node.children = children
       node.tagName = tagName
       node.properties = properties
