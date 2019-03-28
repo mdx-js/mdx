@@ -42,7 +42,7 @@ background color for your MDX documents.
 // src/App.js
 import React from 'react'
 
-import {MDXProvider} from '@mdx-js/tag'
+import {MDXProvider} from '@mdx-js/react'
 
 const components = {
   wrapper: props => (
@@ -75,7 +75,7 @@ the `mdxType` in props.
 // src/App.js
 import React from 'react'
 
-import {MDXProvider} from '@mdx-js/tag'
+import {MDXProvider} from '@mdx-js/react'
 
 const components = {
   wrapper: ({ children, ...props }) => {
@@ -100,7 +100,7 @@ them by converting them to an array and calling `reverse`.
 // src/App.js
 import React from 'react'
 
-import {MDXProvider} from '@mdx-js/tag'
+import {MDXProvider} from '@mdx-js/react'
 
 const components = {
   wrapper: ({ children, ...props }) => {

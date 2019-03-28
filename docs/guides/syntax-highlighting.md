@@ -23,7 +23,7 @@ to ensure it’s being picked up:
 ```js
 // src/App.js
 import React from 'react'
-import {MDXProvider} from '@mdx-js/tag'
+import {MDXProvider} from '@mdx-js/react'
 
 const components = {
   pre: props => <div {...props} />,

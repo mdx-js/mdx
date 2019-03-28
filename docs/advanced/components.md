@@ -1,13 +1,12 @@
 # Components
 
 The MDX core library accepts a string and exports a JSX string.
+It uses a [custom pragma](/blog/custom-pragma) which customizes
+the rendering of elements in Markdown and JSX.
 
 <!-- TODO: rewrite to update for v1. -->
 
-## MDXTag
-
-MDXTag is an internal component that MDX uses to map components to an HTML
-element based on the Markdown syntax.
+## Tranpilation
 
 Consider the following MDX:
 
@@ -28,30 +27,26 @@ app:
 
 ```jsx
 import React from 'react'
-import { MDXTag } from '@mdx-js/tag'
 import MyComponent from './my-component'
 
 export const author = 'Fred Flintstone'
 
 const layoutProps = { author }
-export default ({ components, ...props }) => (
-  <MDXTag name="wrapper" components={components} {...layoutProps}>
-    <MDXTag name="h1" components={components}>
-      Title
-    </MDXTag>
+export default MDXContent({ components, ...props }) => (
+  <wrapper {...props} {...layoutProps}>
+    <h1>Title</h1>
     <MyComponent />
-    <MDXTag name="p" components={components}>
-      Lorem ipsum dolor sit amet.
-    </MDXTag>
-  </MDXTag>
+    <p>Lorem ipsum dolor sit amet.</p>
+  </wrapper>
 )
+MDXContent.isMDXComponent = true
 ```
 
 If the component mapping contains a `p` key, that will be used for
 `Lorem ipsum dolor sit amet.`.
 Otherwise a standard `p` tag is rendered (`<p>Lorem ipsum dolor sit amet.</p>`).
 This is what allows you to pull in existing components to style your MDX
-documents.
+documents via the [MDXProvider](#mdxprovider)
 
 ### Layout props
 
@@ -96,7 +91,7 @@ If you need to change the mapping during runtime, declare it on the componentʼs
 
 ```js
 import React from 'react'
-import { MDXProvider } from '@mdx-js/tag'
+import { MDXProvider } from '@mdx-js/react'
 
 import { Heading, Text, Pre, Code, Table } from './components'
 

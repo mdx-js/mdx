@@ -8,7 +8,7 @@ plugin.
 ```shell
 gatsby new gatsby-site https://github.com/gatsbyjs/gatsby-starter-default#v2
 cd gatsby-site
-yarn add gatsby-mdx @mdx-js/mdx @mdx-js/tag
+yarn add gatsby-mdx @mdx-js/mdx @mdx-js/react
 ```
 
 Then add `gatsby-mdx` to your `gatsby-config.js` in the `plugins` section.
