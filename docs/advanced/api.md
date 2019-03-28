@@ -1,10 +1,29 @@
+import { Message } from 'rebass'
+
 # API
 
-MDX, at its core, is a transpilation library.  It receives and MDX string and outputs a JSX string.  You can also pass [plugins](/plugins) which can customize how MDX creates the JSX string.
+MDX (the library), at its core, transforms MDX (the syntax) to JSX.
+It receives an MDX string and outputs a JSX string.
+It does this by parsing the MDX document to a [syntax tree][ast] and then
+generates a JSX document from that tree.
+The JSX document is typically evaluated later through something like Babel or
+webpack.
+You can extend MDX by passing [plugins][] that change the tree to customize how
+the JSX string is created.
 
-By default, MDX is asynchronous because plugins can be asynchronous themselves!  This means that plugins can make request data, read from the file system.  Anything!
+## Table of Contents
 
-## Usage
+*   [Async API](#async-api)
+*   [Sync API](#sync-api)
+
+## Async API
+
+By default, MDX is [asynchronous][async] because plugins can be asynchronous
+themselves!
+This means that plugins can request data, read from the file system.
+Anything!
+You should use the async API, unless you have very good reasons to use the
+[sync API][sync].
 
 You can use the library directly:
 
@@ -25,7 +44,7 @@ transpile().then(console.log)
 
 With more complex input, we can see more interesting output:
 
-### Input
+###### Input
 
 ```js
 import TomatoBox from 'tomato-box'
@@ -40,7 +59,7 @@ Here is a paragraph
 <TomatoBox />
 ```
 
-### Output
+###### Output
 
 ```js
 import TomatoBox from 'tomato-box'
@@ -66,12 +85,46 @@ export default function MDXContent(props) {
 MDXContent.isMDXComponent = true;
 ```
 
-This is pretty powerful because the output is pretty readable.  The only weird part is the string escaping from Markdown content.
+This is pretty powerful because the output is rather readable.
+The only weird part is the string escaping from Markdown content:
 
 ```js
 <h1>{`Hello, world!`}</h1>
 ```
 
-But, that’s to ensure that you can write content that isn’t valid JSX syntax and not break the output.
+It’s not super readable, but it makes sure you can write content that wouldn’t
+be valid JSX syntax!
 
-MDX offers a [sync API](/advanced/sync-api) as well.
+## Sync API
+
+MDX processes everything [asynchronously][async] by default.
+In certain cases this behavior might not be desirable.
+
+If you’re using the MDX library directly, you might want to process an MDX
+string synchronously.
+It’s important to note that if you have any async plugins, they will be ignored.
+
+```js
+const fs = require('fs')
+const mdx = require('@mdx-js/mdx')
+
+const mdxText = fs.readFileSync('hello.mdx', 'utf8')
+
+const jsx = mdx.sync(mdxText)
+```
+
+<!-- TODO: links should be updated. Can we also inline this example? -->
+
+MDX’s [runtime][] package has [example][] usage.
+
+[ast]: /advanced/ast
+
+[plugins]: /plugins
+
+[async]: #async-api
+
+[sync]: #sync-api
+
+[runtime]: /advanced/runtime
+
+[example]: https://github.com/mdx-js/mdx/blob/d5a5189e715dc28370de13f6cc0fd18a06f0f122/packages/runtime/src/index.js#L16-L18

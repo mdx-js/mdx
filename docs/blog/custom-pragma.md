@@ -144,27 +144,18 @@ With the new approach, the above MDX transforms into this new React code
 
 ```js
 const layoutProps = {}
-export default class MDXContent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.layout = null
-  }
-  render() {
-    const {components, ...props} = this.props
-    const Layout = this.layout
-
-    return (
-      <div name="wrapper" components={components}>
-        <h1>{`a title`}</h1>
-        <pre>
-          <code parentName="pre" {...{}}>{`and such
-`}</code>
-        </pre>
-        <p>{`testing`}</p>
-      </div>
-    )
-  }
+export default function MDXContent(props) => {
+  return (
+    <div name="wrapper" {...layoutProps}>
+      <h1>{`a title`}</h1>
+      <pre>
+        <code parentName="pre">{`and such`}</code>
+      </pre>
+      <p>{`testing`}</p>
+    </div>
+  )
 }
+
 MDXContent.isMDXComponent = true
 ```
 
@@ -180,7 +171,7 @@ we’ll be using our own.
 
 ```js
 const React = require('react')
-const {withMDXComponents} = require('@mdx-js/tag')
+const {useMDXComponents} = require('@mdx-js/tag')
 
 const TYPE_PROP_NAME = '__MDX_TYPE_PLEASE_DO_NOT_USE__'
 
@@ -189,12 +180,13 @@ const DEFAULTS = {
   wrapper: 'div'
 }
 
-const MDXCreateElementInner = ({
-  components = {},
+const MDXCreateElement = ({
+  components: propComponents,
   __MDX_TYPE_PLEASE_DO_NOT_USE__,
   parentName,
   ...etc
 }) => {
+  const components = useMDXComponents(propComponents)
   const type = __MDX_TYPE_PLEASE_DO_NOT_USE__
   const Component =
     components[`${parentName}.${type}`] ||
@@ -204,9 +196,6 @@ const MDXCreateElementInner = ({
 
   return React.createElement(Component, etc)
 }
-MDXCreateElementInner.displayName = 'MDXCreateElementInner'
-
-const MDXCreateElement = withMDXComponents(MDXCreateElementInner)
 MDXCreateElement.displayName = 'MDXCreateElement'
 
 module.exports = function(type, props) {

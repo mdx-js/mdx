@@ -1,7 +1,7 @@
 {
-  "name": "@mdx-js/vue-loader",
-  "version": "1.0.0-alpha.11",
-  "description": "Vue loader for MDX",
+  "name": "remark-mdx-remove-imports",
+  "version": "0.20.4",
+  "description": "Remove imports from the MDX AST",
   "license": "MIT",
   "keywords": [
     "mdx",
@@ -9,9 +9,7 @@
     "react",
     "jsx",
     "remark",
-    "styleguide",
-    "webpack",
-    "loader"
+    "mdxast"
   ],
   "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
@@ -26,26 +24,20 @@
   "files": [
     "index.js"
   ],
-  "dependencies": {
-    "@mdx-js/mdx": "^1.0.0-alpha.11",
-    "@mdx-js/vue": "^1.0.0-alpha.8",
-    "loader-utils": "^1.1.0"
-  },
-  "devDependencies": {
-    "babel-helper-vue-jsx-merge-props": "^2.0.3",
-    "babel-loader": "^8.0.0",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-vue-jsx": "^4.0.0",
-    "babel-preset-env": "^1.6.1",
-    "jest": "^23.0.0",
-    "memory-fs": "^0.4.1",
-    "react": "^16.8.0",
-    "webpack": "^4.5.0"
-  },
   "scripts": {
-    "no-test": "jest"
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "remark-mdx": "0.20.3",
+    "remark-parse": "^6.0.0",
+    "remark-stringify": "^6.0.4",
+    "unified": "^7.0.0"
+  },
+  "dependencies": {
+    "unist-util-remove": "^1.0.1"
   }
 }
