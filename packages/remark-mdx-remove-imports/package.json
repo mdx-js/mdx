@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "jest": "^23.6.0",
-    "remark-mdx": "0.20.3",
+    "remark-mdx": "^1.0.0-alpha.11",
     "remark-parse": "^6.0.0",
     "remark-stringify": "^6.0.4",
     "unified": "^7.0.0"
