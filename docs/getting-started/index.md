@@ -315,7 +315,7 @@ the `MDXProvider` to only pass your components in one place:
 ```jsx
 // src/App.js
 import React from 'react'
-import { MDXProvider } from '@mdx-js/tag'
+import { MDXProvider } from '@mdx-js/react'
 
 import { Heading, Text, Pre, Code, Table } from './components'
 
@@ -347,7 +347,7 @@ styling, or even manipulate the children passed to the component.
 ```js
 // src/App.js
 import React from 'react'
-import { MDXProvider } from '@mdx-js/tag'
+import { MDXProvider } from '@mdx-js/react'
 
 const Wrapper = props => <main style={{ padding: '20px', backgroundColor: 'tomato' }} {...props} />
 

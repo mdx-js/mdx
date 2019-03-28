@@ -171,7 +171,7 @@ we’ll be using our own.
 
 ```js
 const React = require('react')
-const {useMDXComponents} = require('@mdx-js/tag')
+const {useMDXComponents} = require('@mdx-js/react')
 
 const TYPE_PROP_NAME = '__MDX_TYPE_PLEASE_DO_NOT_USE__'
 
