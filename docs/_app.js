@@ -34,28 +34,31 @@ const navOrder = [
     'custom-loader',
     'wrapper-customization',
   'advanced',
-    'plugins',
     'api',
+    'runtime',
     'ast',
     'components',
-    'retext-plugins',
-    'specification',
-    'sync-api',
+    'plugins',
+    'transform-content',
     'typescript',
-    'runtime',
   'contributing',
   'projects',
-  'editor-plugins',
+  'editors',
   'blog',
   'about'
 ]
+/* eslint-enable prettier/prettier */
 
 const ignoredPaths = [
   '/advanced/contributing',
   '/advanced/custom-loader',
+  '/advanced/retext-plugins',
+  '/advanced/specification',
+  '/advanced/sync-api',
   '/advanced/writing-a-plugin',
   '/getting-started/typescript',
   '/blog/custom-pragma',
+  '/editor-plugins',
   '/plugins',
   '/syntax'
 ]
