@@ -1444,11 +1444,6 @@
     hoist-non-react-statics "^2.5.5"
     prop-types "^15.6.1"
 
-"@mdx-js/tag@^1.0.0-alpha.6":
-  version "1.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-1.0.0-alpha.6.tgz#2ae87d75c1f2cf6d4a79d863bfd1ce441dd34fd5"
-  integrity sha512-jXA1KyBpGkec+imeRuAaLq4EOoJeGApZ3up1YiMWP+axKSVW8O0moz8Ti1gkr0fzntJi5dVosQeMEUe9b1jsxQ==
-
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
