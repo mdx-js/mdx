@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removes exports 1`] = `
+"import { Donut } from 'rebass'
+
+import OtherThing from 'other-place'
+
+# Hello, world!
+
+This is a paragraph
+
+\`\`\`js
+const foo = 'bar'
+\`\`\`
+"
+`;

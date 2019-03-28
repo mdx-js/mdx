@@ -5,7 +5,7 @@ const remarkParse = require('remark-parse')
 const remarkStringify = require('remark-stringify')
 const remarkMdx = require('remark-mdx')
 
-const removeImports = require('..')
+const removeExports = require('..')
 
 const fixture = fs.readFileSync(path.join(__dirname, './fixture.md'), 'utf8')
 
@@ -14,13 +14,13 @@ const stringify = mdx => {
     .use(remarkParse)
     .use(remarkStringify)
     .use(remarkMdx)
-    .use(removeImports)
+    .use(removeExports)
     .processSync(mdx)
 
   return result.contents
 }
 
-it('removes imports', () => {
+it('removes exports', () => {
   const result = stringify(fixture)
 
   expect(result).toMatchSnapshot()
