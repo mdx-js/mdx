@@ -1,7 +1,7 @@
 {
-  "name": "@mdx-js/tag",
+  "name": "@mdx-js/react",
   "version": "1.0.0-alpha.6",
-  "description": "A fully-featured Markdown/MDX React component for ambitious projects",
+  "description": "React implementation for MDX",
   "license": "MIT",
   "keywords": [
     "mdx",
@@ -23,7 +23,8 @@
   ],
   "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "create-element"
   ],
   "devDependencies": {
     "babel-cli": "^6.26.0",

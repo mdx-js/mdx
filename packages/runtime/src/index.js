@@ -1,8 +1,8 @@
 import React from 'react'
 import {transform} from 'buble'
 import mdx from '@mdx-js/mdx'
-import createElement from '@mdx-js/mdx/create-element'
-import {MDXProvider} from '@mdx-js/tag'
+import createElement from '@mdx-js/react/create-element'
+import {MDXProvider} from '@mdx-js/react'
 
 export default ({
   scope = {},

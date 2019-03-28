@@ -1,5 +1,6 @@
-const React = require('react')
-const {useMDXComponents} = require('@mdx-js/tag')
+import React from 'react'
+
+import {useMDXComponents} from './context'
 
 const TYPE_PROP_NAME = 'mdxType'
 
@@ -26,7 +27,7 @@ const MDXCreateElement = ({
 }
 MDXCreateElement.displayName = 'MDXCreateElement'
 
-module.exports = function(type, props) {
+export default function(type, props) {
   const args = arguments
 
   if (typeof type === 'string') {
