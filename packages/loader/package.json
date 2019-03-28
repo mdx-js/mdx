@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "@mdx-js/mdx": "^1.0.0-alpha.13",
-    "@mdx-js/tag": "^1.0.0-alpha.6",
+    "@mdx-js/react": "^1.0.0-alpha.6",
     "loader-utils": "^1.1.0"
   },
   "devDependencies": {
