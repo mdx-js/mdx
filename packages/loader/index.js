@@ -16,7 +16,7 @@ module.exports = async function(content) {
 
   const code = `/* @jsx mdx */
   import React from 'react'
-  import mdx from '@mdx-js/mdx/create-element'
+  import mdx from '@mdx-js/react/create-element'
   ${result}
   `
 

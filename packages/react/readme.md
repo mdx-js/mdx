@@ -1,37 +1,42 @@
-# `@mdx-js/tag`
+# `@mdx-js/react`
 
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
 Map components to HTML elements based on the Markdown syntax.
-Useful with [MDX][].
+Serves as the React implementation for [MDX][].
 
 ## Installation
 
 [npm][]:
 
 ```sh
-npm i -S @mdx-js/tag
+npm install --save @mdx-js/react
 ```
 
 ## Usage
 
 ```jsx
+/* @jsx mdx */
 import React from 'react'
 import {renderToString} from 'react-dom/server'
-import {MDXTag} from '@mdx/tag'
+import {MDXProvider, mdx} from '@mdx/react'
 
 const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
 
-console.log(renderToString(<MDXTag name="h1" children="Hello, world!" />))
-console.log(renderToString(<MDXTag name="h1" components={{h1: H1}} children="Hello, world!" />))
+console.log(
+  renderToString(
+    <MDXProvider components={{ h1: H1 }}>
+      <h1>Hello, world!</h1>
+    </MDXProvider>
+  )
+)
 ```
 
 Yields:
 
 ```html
-<h1>Hello, world!</h1>
 <h1 style="color:tomato">Hello, world!</h1>
 ```
 

@@ -34,7 +34,7 @@
   ],
   "dependencies": {
     "@mdx-js/mdx": "^1.0.0-alpha.10",
-    "@mdx-js/tag": "^1.0.0-alpha.6",
+    "@mdx-js/react": "^1.0.0-alpha.6",
     "buble": "^0.19.6"
   },
   "devDependencies": {
