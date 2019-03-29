@@ -73,7 +73,7 @@ Now, running `node example.js` yields:
 }
 ```
 
-From here, you can continue to [write your own plugin][writing-a-plugin] or use any of the [remark plugins][remark-plugins] to interpolate MDX content.
+From here, you can continue to [write your own plugin][writing-a-plugin] or use any of the [remark plugins][remark-plugins] parse or manipulate MDX content.
 
 This technique allows you to use things like [remark-toc][remark-toc] to add a generated table of contents based on the other content in the MDX file or [remark-mdx-metadata][remark-mdx-metadata] to externally modify MDX metadata and save the modified content back to the original file.
 
