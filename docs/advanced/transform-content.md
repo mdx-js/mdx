@@ -2,9 +2,27 @@
 
 With MDX you can interact with or manipulate raw MDX content.  Since MDX is a part of the [unified][unified] ecosystem, there are many utilities you can use to work with MDX.
 
-You can utilize [to-vfile][to-vfile] to read and write MDX files and you can leverage [remark][remark] and [remark-mdx][remark-mdx] to parse and process MDX content.
+You can utilize [to-vfile][to-vfile] to read and write MDX files and you can leverage [remark][remark] and [remark-mdx][remark-mdx] to parse and process MDX content.  The remark-mdx library is a parsing extension to enhance the Markdown [AST][ast] to understand MDX (resulting in [MDXAST][mdxast]), giving you access and insight to MDX attributes, namely imports, exports, and jsx.
 
-The following example demonstrates how to put all of that together.
+Let’s see an example of what we have explained so far.
+
+Say we have the following file, `example.mdx`:
+
+```md
+import Component from 'Component';
+
+export const meta = {
+    prop: 'value'
+};
+
+# Title
+
+Content.
+
+<Component />
+```
+
+And our script, `example.js`, looks as follows:
 
 ```js
 const {read, write} = require('to-vfile')
@@ -12,11 +30,13 @@ const remark = require('remark');
 const mdx = require('remark-mdx');
 
 (async () => {
-    const path = './path/to/some/file.mdx';
+    const path = './example.mdx';
     const file = await read(path);
     const contents = await remark()
         .use(mdx)
-        // use more plugins or write your own here
+        .use(() => (tree) => {
+            console.log(tree)
+        })
         .process(file);
 
     await write({
@@ -26,11 +46,39 @@ const mdx = require('remark-mdx');
 })();
 ```
 
-As the comment in the code above points out, you can use any of the [remark plugins][remark-plugins], or even write your own, to interpolate MDX content.  The remark-mdx library is a parsing extension to enhance the Markdown [AST][ast] to understand MDX (resulting in MDXAST), giving you access and insight to things like imports and exports.
+Now, running `node example.js` yields:
 
-This technique allows you to use things like [remark-toc][remark-toc] to add a generated table of contents based on the other content in the MDX file or [remark-mdx-metadata][remark-mdx-metadata] to externally modify MDX metadata.
+```js
+{
+  type: "root",
+  children: [
+    {
+      type: "import",
+      value: "import Component from 'Component';",
+      position: [Object]
+    },
+    {
+      type: "export",
+      value: "export const meta = {\n    prop: 'value'\n};",
+      position: [Object]
+    },
+    { type: "heading", depth: 1, children: [Array], position: [Object] },
+    { type: "paragraph", children: [Array], position: [Object] },
+    { type: "jsx", value: "<Component />", position: [Object] }
+  ],
+  position: {
+    start: { line: 1, column: 1, offset: 0 },
+    end: { line: 12, column: 1, offset: 113 }
+  }
+}
+```
+
+From here, you can continue to [write your own plugin][writing-a-plugin] or use any of the [remark plugins][remark-plugins] parse or manipulate MDX content.
+
+This technique allows you to use things like [remark-toc][remark-toc] to add a generated table of contents based on the other content in the MDX file or [remark-mdx-metadata][remark-mdx-metadata] to externally modify MDX metadata and save the modified content back to the original file.
 
 [ast]: /advanced/ast
+[mdxast]: /advanced/ast#mdxast
 [remark]: https://github.com/remarkjs/remark
 [remark-mdx]: https://github.com/mdx-js/mdx/tree/master/packages/remark-mdx
 [remark-mdx-metadata]: https://github.com/manovotny/remark-mdx-metadata
@@ -38,3 +86,4 @@ This technique allows you to use things like [remark-toc][remark-toc] to add a g
 [remark-toc]: https://github.com/remarkjs/remark-toc
 [to-vfile]: https://github.com/vfile/to-vfile
 [unified]: https://unified.js.org
+[writing-a-plugin]: /guides/writing-a-plugin
