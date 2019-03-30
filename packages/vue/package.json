@@ -4,11 +4,13 @@
   "repository": "mdx-js/mdx",
   "license": "MIT",
   "description": "MDX support for Vue components",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "files": [
-    "src"
+    "dist"
   ],
   "scripts": {
+    "build": "microbundle --format es,cjs  --no-sourcemap",
     "no-test": "jest"
   },
   "keywords": [
@@ -18,9 +20,7 @@
     "remark"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
-    "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@mdx-js/mdx": "^0.15.0",
     "@vue/test-utils": "^1.0.0-beta.24",

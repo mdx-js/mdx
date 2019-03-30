@@ -21,16 +21,16 @@
     "Matija Marohnić <matija.marohnic@gmail.com>",
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "main": "dist",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "scripts": {
-    "build": "babel src -d dist",
+    "build": "microbundle --format es,cjs --external react,buble,@mdx-js/mdx,@mdx-js/react --jsx React.createElement --no-sourcemap",
     "clean": "rimraf dist",
     "prepublish": "yarn clean && yarn build",
     "test": "jest"
   },
   "files": [
-    "dist/",
-    "src/"
+    "dist"
   ],
   "dependencies": {
     "@mdx-js/mdx": "^1.0.0-alpha.17",
@@ -38,12 +38,11 @@
     "buble": "^0.19.6"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
-    "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
     "jest": "^24.0.0",
+    "microbundle": "^0.11.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "rehype-add-classes": "^1.0.0",
