@@ -16,7 +16,7 @@ class MDXAsset extends Asset {
     const compiled = await mdx(this.contents, config)
     const fullCode = `/* @jsx mdx */
 import React from 'react';
-import mdx from '@mdx-js/mdx/create-element'
+import { mdx } from '@mdx-js/react'
 ${compiled}
 `
     return [
