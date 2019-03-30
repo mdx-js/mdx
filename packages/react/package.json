@@ -23,8 +23,7 @@
   ],
   "main": "dist/index.js",
   "files": [
-    "dist",
-    "create-element.js"
+    "dist"
   ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
