@@ -23,7 +23,7 @@ const testFixture = (fixture, _options = {}) => {
             {
               loader: 'babel-loader',
               options: {
-                presets: ['env', 'stage-0', 'react']
+                presets: ['@babel/preset-env', '@babel/preset-react']
               }
             },
             {

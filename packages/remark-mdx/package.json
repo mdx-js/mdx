@@ -43,7 +43,7 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "remark-stringify": "^6.0.4",
     "vfile": "^4.0.0"
   }

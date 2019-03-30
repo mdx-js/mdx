@@ -24,7 +24,7 @@ const testFixture = fixture => {
             {
               loader: 'babel-loader',
               options: {
-                presets: ['env'],
+                presets: ['@babel/preset-env'],
                 plugins: ['transform-vue-jsx']
               }
             },
