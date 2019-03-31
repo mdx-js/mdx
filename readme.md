@@ -88,13 +88,6 @@ A nice example of this is [mdx-deck][], a great way to create slides with MDX.
 *   [Next.js plugin](https://mdxjs.com/getting-started/next)
 *   [Gatsby plugin](https://mdxjs.com/getting-started/gatsby)
 
-## Authors
-
-*   [John Otander][john] ([@4lpine][4lpine]) – [Compositor][] + [Clearbit][]
-*   [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [ZEIT][]
-*   [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [ZEIT][]
-*   [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Compositor][]
-
 ## Sponsors
 
 <!--lint ignore no-html maximum-line-length-->
@@ -128,6 +121,13 @@ A nice example of this is [mdx-deck][], a great way to create slides with MDX.
 </table>
 
 **[Read more about the unified collective on Medium »][announcement]**
+
+## Authors
+
+*   [John Otander][john] ([@4lpine][4lpine]) – [Compositor][] + [Clearbit][]
+*   [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [ZEIT][]
+*   [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [ZEIT][]
+*   [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Compositor][]
 
 ## Related
 
