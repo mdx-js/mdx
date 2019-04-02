@@ -6,7 +6,8 @@ module.exports = {
     {
       resolve: 'gatsby-mdx',
       options: {
-        extensions: ['.mdx', '.md']
+        extensions: ['.mdx', '.md'],
+        remarkPlugins: [require('remark-slug'), require('remark-emoji')]
       }
     }
   ]
