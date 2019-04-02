@@ -1,6 +1,8 @@
 import React from 'react'
 import {Global} from '@emotion/core'
+import {MDXProvider} from '@mdx-js/react'
 import Head from './head'
+import components from './mdx-components'
 
 const styles = (
   <Global
@@ -22,7 +24,7 @@ export default props => {
     <>
       <Head />
       {styles}
-      {props.children}
+      <MDXProvider components={components}>{props.children}</MDXProvider>
     </>
   )
 }

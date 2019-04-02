@@ -1,3 +1,3 @@
-import { Redirect } from '../ui'
+import Redirect from '../components/redirect'
 
 <Redirect to="/getting-started#syntax" />
