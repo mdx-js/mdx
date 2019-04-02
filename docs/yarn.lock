@@ -3929,6 +3929,11 @@ execa@^1.0.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
+exenv@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+  integrity sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=
+
 expand-brackets@^2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/expand-brackets/-/expand-brackets-2.1.4.tgz#b77735e315ce30f6b6eff0f83b04151a22449622"
@@ -4485,6 +4490,13 @@ gatsby-plugin-page-creator@^2.0.12:
     micromatch "^3.1.10"
     parse-filepath "^1.0.1"
     slash "^1.0.0"
+
+gatsby-plugin-react-helmet@^3.0.11:
+  version "3.0.11"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.0.11.tgz#0e8aa39d89b06be613177835e1300590be67b499"
+  integrity sha512-VBCO7qlQMBfFQadpNauvZO1CYKVF5aE52jiNEXMiYNuchJWLBEy3FXN/FHdCGo37KipKlkh0iDXCRLSGY00TqQ==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
 
 gatsby-react-router-scroll@^2.0.7:
   version "2.0.7"
@@ -7955,7 +7967,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -8155,6 +8167,16 @@ react-error-overlay@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
   integrity sha512-XzgvowFrwDo6TWcpJ/WTiarb9UI6lhA4PMzS7n1joK3sHfBBBOQHUc0U4u57D6DWO9vHv6lVSWx2Q/Ymfyv4hw==
 
+react-helmet@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-5.2.0.tgz#a81811df21313a6d55c5f058c4aeba5d6f3d97a7"
+  integrity sha1-qBgR3yExOm1VxfBYxK66XW89l6c=
+  dependencies:
+    deep-equal "^1.0.1"
+    object-assign "^4.1.1"
+    prop-types "^15.5.4"
+    react-side-effect "^1.1.0"
+
 react-hot-loader@^4.6.2:
   version "4.8.2"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.8.2.tgz#21a00cfca7fc848c53d78c34f6081f5ae3737dda"
@@ -8193,6 +8215,14 @@ react-live@^2.0.0:
     prop-types "^15.5.8"
     react-simple-code-editor "^0.9.0"
     unescape "^0.2.0"
+
+react-side-effect@^1.1.0:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.1.5.tgz#f26059e50ed9c626d91d661b9f3c8bb38cd0ff2d"
+  integrity sha512-Z2ZJE4p/jIfvUpiUMRydEVpQRf2f8GMHczT6qLcARmX7QRb28JDBTpnM2g/i5y/p7ZDEXYGHWg0RbhikE+hJRw==
+  dependencies:
+    exenv "^1.2.1"
+    shallowequal "^1.0.1"
 
 react-simple-code-editor@^0.9.0:
   version "0.9.9"
@@ -8883,7 +8913,7 @@ shallow-compare@^1.2.2:
   resolved "https://registry.yarnpkg.com/shallow-compare/-/shallow-compare-1.2.2.tgz#fa4794627bf455a47c4f56881d8a6132d581ffdb"
   integrity sha512-LUMFi+RppPlrHzbqmFnINTrazo0lPNwhcgzuAXVVcfy/mqPDrQmHAyz5bvV0gDAuRFrk804V0HpQ6u9sZ0tBeg==
 
-shallowequal@^1.0.2:
+shallowequal@^1.0.1, shallowequal@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
