@@ -3,6 +3,7 @@ import {Global} from '@emotion/core'
 import {MDXProvider} from '@mdx-js/react'
 import Head from './head'
 import components from './mdx-components'
+import Sidebar from './sidebar.mdx'
 
 const styles = (
   <Global
@@ -24,7 +25,14 @@ export default props => {
     <>
       <Head />
       {styles}
-      <MDXProvider components={components}>{props.children}</MDXProvider>
+      <div
+        css={{
+          display: 'flex'
+        }}
+      >
+        <Sidebar />
+        <MDXProvider components={components}>{props.children}</MDXProvider>
+      </div>
     </>
   )
 }
