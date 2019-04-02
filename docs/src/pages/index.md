@@ -1,4 +1,3 @@
-import { Border, Blockquote, BlockLink } from 'rebass'
 
 # MDX
 

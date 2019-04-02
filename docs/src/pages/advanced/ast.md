@@ -1,4 +1,4 @@
-import { Button } from 'rebass'
+import { Button } from '@rebass/emotion'
 
 # AST
 

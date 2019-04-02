@@ -1,4 +1,4 @@
-import { Flex, Card, Link, Text } from 'rebass'
+import { Flex, Card, Link, Text } from '@rebass/emotion'
 
 # Getting Started
 
@@ -502,7 +502,7 @@ const renderWithReact = async mdxCode => {
 
 [export]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
 
-[rebass]: https://github.com/rebassjs/rebass
+[rebass]: https://rebassjs.com
 
 [transclude]: https://en.wikipedia.org/wiki/Transclusion
 

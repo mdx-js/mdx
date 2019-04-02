@@ -1,7 +1,7 @@
-import { Message } from 'rebass'
+import { Box } from '@rebass/emotion'
 
 # Table of contents
 
-<Message>
+<Box p={3} color='white' bg='blue'>
   This guide is a WIP
-</Message>
+</Box>
