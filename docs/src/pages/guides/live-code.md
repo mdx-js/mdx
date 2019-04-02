@@ -1,7 +1,7 @@
-import { Message } from 'rebass'
+import { Box } from '@rebass/emotion'
 
 # Live code
 
-<Message>
+<Box p={3} color='white' bg='blue'>
   This guide is a WIP
-</Message>
+</Box>

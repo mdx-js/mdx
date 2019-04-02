@@ -1,4 +1,3 @@
-import { Avatar } from 'rebass'
 
 # About
 

@@ -1,4 +1,3 @@
-import { Message } from 'rebass'
 
 # API
 
