@@ -1,7 +1,11 @@
 /* global window */
 import React, {Component} from 'react'
 import Highlight, {defaultProps} from 'prism-react-renderer'
-import {LiveEditor as Editor, LivePreview} from '@compositor/x0/components'
+// Import {LiveEditor as Editor, LivePreview} from '@compositor/x0/components'
+
+// placeholders
+const Editor = () => false
+const LivePreview = () => false
 
 const prismTheme = {
   plain: {
