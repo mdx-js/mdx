@@ -19,6 +19,7 @@
     "gatsby-mdx": "^0.5.6",
     "gatsby-plugin-emotion": "^4.0.6",
     "gatsby-plugin-react-helmet": "^3.0.11",
+    "prism-react-renderer": "^0.1.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
