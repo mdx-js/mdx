@@ -1,10 +1,11 @@
 import React from 'react'
 import Highlight, {defaultProps} from 'prism-react-renderer'
+import theme from './theme'
 
 export const prismTheme = {
   plain: {
     color: '#282a2e',
-    backgroundColor: '#fafafa'
+    backgroundColor: theme.colors.gray
   },
   styles: [
     {
@@ -28,8 +29,9 @@ export const prismTheme = {
   ]
 }
 
-export default ({children, language}) => (
+export default ({children, language, ...props}) => (
   <Highlight
+    {...props}
     {...defaultProps}
     theme={prismTheme}
     code={children}
