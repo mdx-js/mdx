@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@mdx-js/docs",
+  "name": "docs",
   "version": "1.0.0-0",
   "author": "Brent Jackson <jxnblk@gmail.com>",
   "license": "MIT",

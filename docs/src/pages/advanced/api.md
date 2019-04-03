@@ -1,4 +1,3 @@
-
 # API
 
 MDX (the library), at its core, transforms MDX (the syntax) to JSX.

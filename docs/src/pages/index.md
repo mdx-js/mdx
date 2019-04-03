@@ -1,4 +1,3 @@
-
 # MDX
 
 ### Markdown for the component era
