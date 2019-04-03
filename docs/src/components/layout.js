@@ -4,9 +4,8 @@ import {ComponentProvider} from 'emotion-mdx'
 import css from '@styled-system/css'
 import Head from './head'
 import components from './mdx-components'
-import HeaderContent from './header.mdx'
 import SidebarContent from './sidebar.mdx'
-import Burger from './burger'
+import Header from './header'
 import Pagination from './pagination'
 import EditLink from './edit-link'
 import theme from './theme'
@@ -37,56 +36,6 @@ const Root = props => (
   />
 )
 
-const MenuButton = props => (
-  <button
-    title="Toggle Menu"
-    {...props}
-    css={css({
-      appearance: 'none',
-      border: 0,
-      color: 'inherit',
-      p: 2,
-      bg: 'transparent',
-      borderRadius: 4,
-      '&:focus': {
-        outline: '1px solid'
-      },
-      [breakpoint]: {
-        display: 'none'
-      }
-    })}
-  >
-    <Burger />
-  </button>
-)
-
-const Header = ({toggleMenu, ...props}) => (
-  <header
-    {...props}
-    css={css({
-      display: 'flex',
-      alignItems: 'center',
-      img: {
-        mx: 2
-      },
-      a: {
-        display: 'flex',
-        alignItems: 'center',
-        px: 3,
-        color: 'inherit',
-        textDecoration: 'none',
-        fontSize: 1,
-        fontWeight: 'bold'
-      }
-    })}
-  >
-    {props.children}
-    <MenuButton onClick={toggleMenu} />
-  </header>
-)
-
-const breakpoint = '@media screen and (min-width: 40em)'
-
 const Main = props => (
   <main
     {...props}
@@ -95,7 +44,7 @@ const Main = props => (
       flexDirection: 'column',
       minWidth: 0,
       flex: '1 1 auto',
-      [breakpoint]: {
+      [theme.mediaQueries.big]: {
         flexDirection: 'row'
       }
     })}
@@ -113,7 +62,7 @@ const Sidebar = ({open, ...props}) => (
       WebkitOverflowScrolling: 'touch',
       bg: 'background',
       pb: 4,
-      [breakpoint]: {
+      [theme.mediaQueries.big]: {
         display: 'block',
         width: 256,
         minWidth: 0,
@@ -184,9 +133,7 @@ export default props => {
       <ComponentProvider theme={theme} transform={css} components={components}>
         <Root>
           <Overlay open={menuOpen} onClick={closeMenu} />
-          <Header toggleMenu={toggleMenu}>
-            <HeaderContent />
-          </Header>
+          <Header toggleMenu={toggleMenu} />
           <Main>
             <Sidebar onClick={closeMenu} open={menuOpen}>
               <SidebarContent />

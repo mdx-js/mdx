@@ -18,6 +18,9 @@ export default {
   fonts: {
     monospace: '"Roboto Mono", Menlo, monospace'
   },
+  mediaQueries: {
+    big: '@media screen and (min-width: 40em)'
+  },
   styles: {
     h1: {
       ...heading,

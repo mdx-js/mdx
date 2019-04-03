@@ -31,6 +31,7 @@ export default ({
   scope = defaultScope,
   mdx,
   editable = true,
+  className,
   ...props
 }) => {
   return (
@@ -55,12 +56,11 @@ export default ({
       />
       {editable && (
         <LiveEditor
+          className={className}
+          padding={16}
           style={{
             fontFamily: '"Roboto Mono", Menlo, monospace',
-            padding: 16,
-            fontSize: 14,
-            tabSize: 2,
-            whiteSpace: 'pre'
+            fontSize: 14
           }}
           css={css({
             bg: 'lightgray'
