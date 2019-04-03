@@ -52,42 +52,49 @@ const Main = props => (
 )
 
 const Sidebar = ({open, ...props}) => (
-  <div
-    {...props}
-    css={css({
-      display: open ? 'block' : 'none',
-      position: 'relative',
-      maxHeight: '100vh',
-      overflowY: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      bg: 'background',
-      pb: 4,
-      [theme.mediaQueries.big]: {
-        display: 'block',
-        width: 256,
-        minWidth: 0,
-        flex: 'none',
-        position: 'sticky',
-        top: 0
-      },
-      ul: {
-        listStyle: 'none',
-        pl: 16
-      },
-      a: {
-        display: 'block',
-        color: 'inherit',
-        textDecoration: 'none',
-        fontWeight: 'bold',
-        fontSize: 1,
-        px: 2,
-        py: 2,
-        '&.active': {
-          color: 'primary'
+  <ComponentProvider
+    theme={{
+      styles: {
+        ul: {
+          listStyle: 'none',
+          pl: 16
+        },
+        a: {
+          display: 'block',
+          color: 'inherit',
+          textDecoration: 'none',
+          fontWeight: 'bold',
+          fontSize: 1,
+          px: 2,
+          py: 2,
+          '&.active': {
+            color: 'primary'
+          }
         }
       }
-    })}
-  />
+    }}
+  >
+    <div
+      {...props}
+      css={css({
+        display: open ? 'block' : 'none',
+        position: 'relative',
+        maxHeight: '100vh',
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        bg: 'background',
+        pb: 4,
+        [theme.mediaQueries.big]: {
+          display: 'block',
+          width: 256,
+          minWidth: 0,
+          flex: 'none',
+          position: 'sticky',
+          top: 0
+        }
+      })}
+    />
+  </ComponentProvider>
 )
 
 const Overlay = props =>
