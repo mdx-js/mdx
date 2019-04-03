@@ -30,7 +30,8 @@
     "publish-next": "lerna publish --npm-tag next"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "prettier": {
     "tabWidth": 2,

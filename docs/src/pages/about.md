@@ -1,4 +1,3 @@
-
 # About
 
 MDX is based on the [original `.mdx` proposal][idea] by Guillermo Rauch

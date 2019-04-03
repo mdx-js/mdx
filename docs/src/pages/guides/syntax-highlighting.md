@@ -1,4 +1,3 @@
-
 # Syntax highlighting
 
 There are two primary approaches for adding syntax highlighting to MDX:

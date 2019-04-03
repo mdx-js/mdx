@@ -1,13 +1,26 @@
 import React from 'react'
 import {LiveProvider, LivePreview, LiveEditor, LiveError} from 'react-live'
 import mdx from '@mdx-js/mdx'
+import {mdx as createElement} from '@mdx-js/react'
 import * as Rebass from '@rebass/emotion'
 import css from '@styled-system/css'
 import theme from './theme'
 import {prismTheme} from './code-block'
 
-const transformCode = isMDX =>
-  isMDX ? src => mdx.sync(src, {skipExport: true}) : src => `<>${src}</>`
+const transformCode = isMDX => src => {
+  if (!isMDX) {
+    return `<>${src}</>`
+  }
+  const transpiledMDX = mdx.sync(src, {skipExport: true})
+
+  return `
+      ${transpiledMDX}
+
+      render(
+        <MDXContent components={components} {...props} />
+      )
+    `
+}
 
 const defaultScope = {
   ...Rebass
@@ -24,7 +37,13 @@ export default ({
     <LiveProvider
       {...props}
       code={code}
-      scope={scope}
+      scope={{
+        components: {},
+        props: {},
+        ...scope,
+        mdx: createElement
+      }}
+      noInline={true}
       transformCode={transformCode(mdx)}
       theme={prismTheme}
     >
