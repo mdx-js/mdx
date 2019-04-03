@@ -9,6 +9,12 @@ module.exports = {
         extensions: ['.mdx', '.md'],
         remarkPlugins: [require('remark-slug'), require('remark-emoji')]
       }
+    },
+    {
+      resolve: 'gatsby-plugin-google-fonts',
+      options: {
+        fonts: ['roboto mono']
+      }
     }
   ]
 }

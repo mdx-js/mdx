@@ -1,11 +1,11 @@
-import { Box } from '@rebass/emotion'
+import Note from '../../components/note'
 import BabelConfig from './babel-config.md'
 
 # Webpack
 
-<Box p={3} color='white' bg='blue'>
+<Note>
   TODO: Add plugin documentation
-</Box>
+</Note>
 
 MDX provides a built in webpack loader you need to install and configure
 for webpack projects.

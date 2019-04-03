@@ -10,7 +10,7 @@ const heading = Tag => props => (
 )
 
 export const code = props => {
-  const lang = (props.className || '').replace(/^language-/, '')
+  const lang = (props.className || '').split(' ')[0].replace(/^language-/, '')
   const type = lang.charAt(0)
   const code = React.Children.toArray(props.children).join('\n')
 

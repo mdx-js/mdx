@@ -17,7 +17,7 @@ const flattenLinks = children =>
 
 const PaginationWrapper = props => props.render(flattenLinks(props.children))
 
-const removeSlash = str => str.replace(/\/$/, '')
+const removeSlash = str => (str.length > 1 ? str.replace(/\/$/, '') : str)
 
 export default () => (
   <Location
@@ -51,8 +51,37 @@ export default () => (
                   }
                 })}
               >
-                {previous}
-                {next}
+                {previous &&
+                  React.cloneElement(
+                    previous,
+                    {},
+                    <div>
+                      <div
+                        css={css({
+                          fontSize: 0
+                        })}
+                      >
+                        Previous:
+                      </div>
+                      {previous.props.children}
+                    </div>
+                  )}
+                <div css={{margin: 'auto'}} />
+                {next &&
+                  React.cloneElement(
+                    next,
+                    {},
+                    <div>
+                      <div
+                        css={css({
+                          fontSize: 0
+                        })}
+                      >
+                        Next:
+                      </div>
+                      {next.props.children}
+                    </div>
+                  )}
               </div>
             )
           }}

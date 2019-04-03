@@ -6,7 +6,9 @@ import Head from './head'
 import components from './mdx-components'
 import HeaderContent from './header.mdx'
 import SidebarContent from './sidebar.mdx'
+import Burger from './burger'
 import Pagination from './pagination'
+import EditLink from './edit-link'
 import theme from './theme'
 
 const styles = (
@@ -37,14 +39,24 @@ const Root = props => (
 
 const MenuButton = props => (
   <button
+    title="Toggle Menu"
     {...props}
     css={css({
+      appearance: 'none',
+      border: 0,
+      color: 'inherit',
+      p: 2,
+      bg: 'transparent',
+      borderRadius: 4,
+      '&:focus': {
+        outline: '1px solid'
+      },
       [breakpoint]: {
         display: 'none'
       }
     })}
   >
-    Menu
+    <Burger />
   </button>
 )
 
@@ -54,7 +66,6 @@ const Header = ({toggleMenu, ...props}) => (
     css={css({
       display: 'flex',
       alignItems: 'center',
-      bg: 'gray',
       img: {
         mx: 2
       },
@@ -104,7 +115,7 @@ const Sidebar = ({open, ...props}) => (
       pb: 4,
       [breakpoint]: {
         display: 'block',
-        width: 320,
+        width: 256,
         minWidth: 0,
         flex: 'none',
         position: 'sticky',
@@ -182,6 +193,7 @@ export default props => {
             </Sidebar>
             <Container>
               {props.children}
+              <EditLink />
               <Pagination />
             </Container>
           </Main>

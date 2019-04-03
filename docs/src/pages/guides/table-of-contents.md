@@ -1,7 +1,7 @@
-import { Box } from '@rebass/emotion'
+import Note from '../../components/note'
 
 # Table of contents
 
-<Box p={3} color='white' bg='blue'>
+<Note>
   This guide is a WIP
-</Box>
+</Note>

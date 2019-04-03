@@ -434,13 +434,13 @@ Now that we’ve gone over how MDX works, you’re ready to get installing.
 If you’re the type of person that wants to scaffold out an app quickly and start
 playing around you can use `npm init`:
 
-*   `npm init mdx` [`webpack`](./webpack)
-*   `npm init mdx` [`parcel`](./parcel)
-*   `npm init mdx` [`next`](./next)
-*   `npm init mdx` [`create-react-app`](./create-react-app)
-*   `npm init mdx` [`gatsby`](./gatsby)
-*   `npm init mdx` [`x0`](./x0)
-*   `npm init mdx` [`react-static`](./react-static)
+*   `npm init mdx` [`webpack`](/getting-started/webpack)
+*   `npm init mdx` [`parcel`](/getting-started/parcel)
+*   `npm init mdx` [`next`](/getting-started/next)
+*   `npm init mdx` [`create-react-app`](/getting-started/create-react-app)
+*   `npm init mdx` [`gatsby`](/getting-started/gatsby)
+*   `npm init mdx` [`x0`](/getting-started/x0)
+*   `npm init mdx` [`react-static`](/getting-started/react-static)
 
 ### Do it yourself
 
