@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "gatsby develop",
-    "build": "gatsby build"
+    "build": "gatsby build",
+    "now-build": "gatsby build"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",

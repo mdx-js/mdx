@@ -1,6 +1,18 @@
 {
+  "version": 2,
   "name": "mdx",
   "alias": ["mdxjs.com", "www.mdxjs.com"],
   "public": true,
-  "type": "static"
+  "builds": [
+    {
+      "src": "docs/package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "public"
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/docs/$1" }
+  ]
 }
