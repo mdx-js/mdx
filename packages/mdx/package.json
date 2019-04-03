@@ -49,7 +49,7 @@
     "@mapbox/rehype-prism": "^0.3.0",
     "@mdx-js/react": "^1.0.0-alpha.17",
     "hast-util-select": "^3.0.0",
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "prettier": "^1.14.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

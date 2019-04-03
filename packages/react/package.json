@@ -22,15 +22,16 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
   "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "files": [
     "dist"
   ],
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "jest": "^23.1.0",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "jest": "^24.0.0",
+    "microbundle": "^0.11.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "rimraf": "^2.6.3"
@@ -39,7 +40,7 @@
     "react": "^16.8.0"
   },
   "scripts": {
-    "build": "babel src -d dist",
+    "build": "microbundle --format es,cjs --external react --jsx React.createElement --no-sourcemap",
     "clean": "rimraf dist",
     "prepublish": "npm run clean && npm run build",
     "test": "jest"
