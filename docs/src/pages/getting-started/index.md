@@ -1,42 +1,27 @@
-import { Flex, Card, Link, Text } from '@rebass/emotion'
+import { Box } from '@rebass/emotion'
 
 # Getting Started
 
 If you have an existing project you want to integrate MDX with, check out
 the installation guides.
 
-<Flex flexWrap="wrap">
-  <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
-    <Text fontWeight="bold" textAlign="center">
-      <Link color="black" href="/getting-started/next">Next.js</Link>
-    </Text>
-  </Card>
-  <Card mb={3} px={4} py={3} width={1/2.1}>
-    <Text fontWeight="bold" textAlign="center">
-      <Link color="black" href="/getting-started/gatsby">Gatsby</Link>
-    </Text>
-  </Card>
-  <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
-    <Text fontWeight="bold" textAlign="center">
-      <Link color="black" href="/getting-started/create-react-app">Create React App</Link>
-    </Text>
-  </Card>
-  <Card mb={3} px={4} py={3} width={1/2.1}>
-    <Text fontWeight="bold" textAlign="center">
-      <Link color="black" href="/getting-started/react-static">React Static</Link>
-    </Text>
-  </Card>
-  <Card mb={3} mr={3} px={4} py={3} width={1/2.1}>
-    <Text fontWeight="bold" textAlign="center">
-      <Link color="black" href="/getting-started/webpack">Webpack</Link>
-    </Text>
-  </Card>
-  <Card mb={3} px={4} py={3} width={1/2.1}>
-    <Text fontWeight="bold" textAlign="center">
-      <Link color="black" href="/getting-started/parcel">Parcel</Link>
-    </Text>
-  </Card>
-</Flex>
+<Box
+  p={3}
+  bg='lightgray'
+  style={{
+    textAlign: 'center',
+    fontWeight: 'bold',
+  }}
+>
+
+[Next.js](/getting-started/next) |
+[Gatsby](/getting-started/gatsby) |
+[Create React App](/getting-started/create-react-app) |
+[React Static](/getting-started/react-static) |
+[Webpack](/getting-started/webpack) |
+[Parcel](/getting-started/parcel)
+
+</Box>
 
 ## Table of contents
 
