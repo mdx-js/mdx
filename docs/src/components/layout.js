@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Global} from '@emotion/core'
 import {ComponentProvider} from 'emotion-mdx'
 import css from '@styled-system/css'
@@ -35,43 +35,84 @@ const Root = props => (
   />
 )
 
-const Header = props => (
+const MenuButton = props => (
+  <button
+    {...props}
+    css={css({
+      [breakpoint]: {
+        display: 'none'
+      }
+    })}
+  >
+    Menu
+  </button>
+)
+
+const Header = ({toggleMenu, ...props}) => (
   <header
     {...props}
     css={css({
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between',
-      px: 3,
       bg: 'gray',
       img: {
-        display: 'inline-block',
-        verticalAlign: 'middle'
+        mx: 2
       },
       a: {
+        display: 'flex',
+        alignItems: 'center',
+        px: 3,
         color: 'inherit',
         textDecoration: 'none',
+        fontSize: 1,
         fontWeight: 'bold'
+      }
+    })}
+  >
+    {props.children}
+    <MenuButton onClick={toggleMenu} />
+  </header>
+)
+
+const breakpoint = '@media screen and (min-width: 40em)'
+
+const Main = props => (
+  <main
+    {...props}
+    css={css({
+      display: 'flex',
+      flexDirection: 'column',
+      minWidth: 0,
+      flex: '1 1 auto',
+      [breakpoint]: {
+        flexDirection: 'row'
       }
     })}
   />
 )
 
-const Sidebar = props => (
+const Sidebar = ({open, ...props}) => (
   <div
     {...props}
     css={css({
-      width: 320,
-      minWidth: 0,
-      flex: 'none',
-      position: 'sticky',
-      bg: 'background',
-      top: 0,
+      display: open ? 'block' : 'none',
+      position: 'relative',
       maxHeight: '100vh',
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
+      bg: 'background',
+      pb: 4,
+      [breakpoint]: {
+        display: 'block',
+        width: 320,
+        minWidth: 0,
+        flex: 'none',
+        position: 'sticky',
+        top: 0
+      },
       ul: {
-        listStyle: 'none'
+        listStyle: 'none',
+        pl: 16
       },
       a: {
         display: 'block',
@@ -89,16 +130,19 @@ const Sidebar = props => (
   />
 )
 
-const Main = props => (
-  <main
-    {...props}
-    css={css({
-      display: 'flex',
-      minWidth: 0,
-      flex: '1 1 auto'
-    })}
-  />
-)
+const Overlay = props =>
+  props.open && (
+    <div
+      {...props}
+      css={css({
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      })}
+    />
+  )
 
 const Container = props => (
   <div
@@ -114,17 +158,26 @@ const Container = props => (
 )
 
 export default props => {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
+  }
+  const closeMenu = () => {
+    setMenuOpen(false)
+  }
+
   return (
     <>
       <Head />
       {styles}
       <ComponentProvider theme={theme} transform={css} components={components}>
         <Root>
-          <Header>
+          <Overlay open={menuOpen} onClick={closeMenu} />
+          <Header toggleMenu={toggleMenu}>
             <HeaderContent />
           </Header>
           <Main>
-            <Sidebar>
+            <Sidebar onClick={closeMenu} open={menuOpen}>
               <SidebarContent />
             </Sidebar>
             <Container>

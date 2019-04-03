@@ -39,7 +39,16 @@ export default () => (
                 css={css({
                   display: 'flex',
                   justifyContent: 'space-between',
-                  py: 4
+                  py: 5,
+                  a: {
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    fontWeight: 'bold',
+                    fontSize: [2, 3],
+                    '&:hover': {
+                      color: 'primary'
+                    }
+                  }
                 })}
               >
                 {previous}
