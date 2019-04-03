@@ -4,7 +4,7 @@ import { Button } from '@rebass/emotion'
 
 export const AST_EXPLORER_LINK = 'https://astexplorer.net/#/gist/2befce6edce1475eb4bbec001356b222/35997d3b44347daabad8dd1a107adc22dd873de2'
 
-<Button is="a" href={AST_EXPLORER_LINK}>Explore the AST</Button>
+<Button as="a" href={AST_EXPLORER_LINK}>Explore the AST</Button>
 
 MDX, the library, uses not one but two syntax trees.
 The first, [MDXAST][], represents markdown with embedded JSX, and is a superset of [mdast][].

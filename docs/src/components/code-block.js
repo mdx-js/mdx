@@ -5,13 +5,13 @@ import theme from './theme'
 export const prismTheme = {
   plain: {
     color: '#282a2e',
-    backgroundColor: theme.colors.gray
+    backgroundColor: theme.colors.lightgray
   },
   styles: [
     {
       types: ['comment'],
       style: {
-        color: 'rgb(197, 200, 198)'
+        color: '#666'
       }
     },
     {
@@ -29,9 +29,8 @@ export const prismTheme = {
   ]
 }
 
-export default ({children, language, ...props}) => (
+export default ({children, language, className: outerClassName}) => (
   <Highlight
-    {...props}
     {...defaultProps}
     theme={prismTheme}
     code={children}
@@ -39,8 +38,11 @@ export default ({children, language, ...props}) => (
   >
     {({className, style, tokens, getLineProps, getTokenProps}) => (
       <pre
-        className={className}
-        style={{...style, marginBottom: '30px', padding: '20px 20px 10px 20px'}}
+        className={[outerClassName, className].join(' ')}
+        style={{
+          ...style,
+          padding: 16
+        }}
       >
         {tokens.map((line, i) => (
           <div key={i} {...getLineProps({line, key: i})}>

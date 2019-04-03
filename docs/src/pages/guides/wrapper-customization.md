@@ -1,4 +1,4 @@
-import { Box } from '@rebass/emotion'
+import Note from '../../components/note'
 
 # Wrapper customization
 
@@ -61,9 +61,9 @@ export default props => (
 
 ### Inspecting types
 
-<Box p={3} color='white' bg='blue'>
+<Note>
   This only works on the latest alpha version @mdx-js/mdx@next (>= 1.0.0-alpha.7)
-</Box>
+</Note>
 
 Sometimes you might want to inspect the element type of that
 MDX will be rendering with its custom pragma.  You can use the
