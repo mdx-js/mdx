@@ -1,5 +1,6 @@
 import React from 'react'
 import {Location} from '@reach/router'
+import {ComponentProvider} from 'emotion-mdx'
 import css from '@styled-system/css'
 import SidebarContent from './sidebar.mdx'
 
@@ -35,54 +36,61 @@ export default () => (
             const next = links[index + 1]
 
             return (
-              <div
-                css={css({
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  py: 5,
-                  a: {
-                    color: 'inherit',
-                    textDecoration: 'none',
-                    fontWeight: 'bold',
-                    fontSize: [2, 3],
-                    '&:hover': {
-                      color: 'primary'
+              <ComponentProvider
+                theme={{
+                  styles: {
+                    a: {
+                      color: 'inherit',
+                      textDecoration: 'none',
+                      fontWeight: 'bold',
+                      fontSize: [2, 3],
+                      '&:hover': {
+                        color: 'primary'
+                      }
                     }
                   }
-                })}
+                }}
               >
-                {previous &&
-                  React.cloneElement(
-                    previous,
-                    {},
-                    <div>
-                      <div
-                        css={css({
-                          fontSize: 0
-                        })}
-                      >
-                        Previous:
+                <div
+                  css={css({
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    py: 5
+                  })}
+                >
+                  {previous &&
+                    React.cloneElement(
+                      previous,
+                      {},
+                      <div>
+                        <div
+                          css={css({
+                            fontSize: 0
+                          })}
+                        >
+                          Previous:
+                        </div>
+                        {previous.props.children}
                       </div>
-                      {previous.props.children}
-                    </div>
-                  )}
-                <div css={{margin: 'auto'}} />
-                {next &&
-                  React.cloneElement(
-                    next,
-                    {},
-                    <div>
-                      <div
-                        css={css({
-                          fontSize: 0
-                        })}
-                      >
-                        Next:
+                    )}
+                  <div css={{margin: 'auto'}} />
+                  {next &&
+                    React.cloneElement(
+                      next,
+                      {},
+                      <div>
+                        <div
+                          css={css({
+                            fontSize: 0
+                          })}
+                        >
+                          Next:
+                        </div>
+                        {next.props.children}
                       </div>
-                      {next.props.children}
-                    </div>
-                  )}
-              </div>
+                    )}
+                </div>
+              </ComponentProvider>
             )
           }}
         />
