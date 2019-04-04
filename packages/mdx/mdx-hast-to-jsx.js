@@ -7,7 +7,8 @@ function toJSX(node, parentNode = {}, options = {}) {
   const {
     // Default options
     skipExport = false,
-    preserveNewlines = false
+    preserveNewlines = false,
+    wrapExport
   } = options
   let children = ''
 
@@ -49,47 +50,6 @@ function toJSX(node, parentNode = {}, options = {}) {
           continue
         }
 
-        if (
-          /^export\s{\s?default\s?}\sfrom/.test(childNode.value) ||
-          /^export\s{.*?as\sdefault\s?}/.test(childNode.value)
-        ) {
-          let example
-
-          // eslint-disable-next-line max-depth
-          if (/\}\s*from\s+/.test(childNode.value)) {
-            example = `
-              For example, instead of:
-
-              export { default } from './Layout'
-
-              use:
-
-              import Layout from './Layout'
-              export default Layout
-            `.trim()
-          } else {
-            example = `
-              For example, instead of:
-
-              export { Layout as default }
-
-              use:
-
-              export default Layout
-            `.trim()
-          }
-
-          throw new Error(
-            `
-            MDX doesn't support using "default" as a named export, use "export default" statement instead.
-
-            ${example}
-          `
-              .trim()
-              .replace(/^ +/gm, '')
-          )
-        }
-
         exportNodes.push(childNode)
         continue
       }
@@ -104,37 +64,44 @@ function toJSX(node, parentNode = {}, options = {}) {
       .map(match => (Array.isArray(match) ? match[2] : null))
       .filter(Boolean)
 
-    return (
-      importNodes.map(childNode => toJSX(childNode, node)).join('\n') +
-      '\n' +
-      exportNodes.map(childNode => toJSX(childNode, node)).join('\n') +
-      '\n' +
-      `const layoutProps = {
+    const importStatements = importNodes
+      .map(childNode => toJSX(childNode, node))
+      .join('\n')
+    const exportStatements = exportNodes
+      .map(childNode => toJSX(childNode, node))
+      .join('\n')
+    const layoutProps = `const layoutProps = {
   ${exportNames.join(',\n')}
-};
-${skipExport ? '' : 'export default'} class MDXContent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.layout = ${layout || 'null'}
-  }
-  render() {
-    const { components, ...props } = this.props
+};`
+    const mdxLayout = `const MDXLayout = ${layout ? layout : '"wrapper"'}`
+    const moduleBase = `${importStatements}
+${exportStatements}
+${layoutProps}
+${mdxLayout}`
 
-    return <MDXTag
-             name="wrapper"
-             ${
-               layout
-                 ? `Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}`
-                 : ''
-             }
-             components={components}>${jsxNodes
-               .map(childNode => toJSX(childNode, node))
-               .join('')}
-           </MDXTag>
-  }
+    const fn = `function MDXContent({ components, ...props }) {
+  return (
+    <MDXLayout
+      {...layoutProps}
+      {...props}
+      components={components}>
+${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
+    </MDXLayout>
+  )
 }
 MDXContent.isMDXComponent = true`
-    )
+
+    if (skipExport) {
+      return `${moduleBase}
+${fn}`
+    }
+    if (wrapExport) {
+      return `${moduleBase}
+${fn}
+export default ${wrapExport}(MDXContent)`
+    }
+    return `${moduleBase}
+export default ${fn}`
   }
   // Recursively walk through children
   if (node.children) {
@@ -160,9 +127,9 @@ MDXContent.isMDXComponent = true`
       props = JSON.stringify(node.properties)
     }
 
-    return `<MDXTag name="${node.tagName}" components={components}${
+    return `<${node.tagName}${
       parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''
-    }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
+    }${props ? ` {...${props}}` : ''}>${children}</${node.tagName}>`
   }
 
   // Wraps text nodes inside template string, so that we don't run into escaping issues.

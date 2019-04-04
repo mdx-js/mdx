@@ -14,9 +14,9 @@ class MDXAsset extends Asset {
       {packageKey: 'mdx'}
     )
     const compiled = await mdx(this.contents, config)
-    const fullCode = `
+    const fullCode = `/* @jsx mdx */
 import React from 'react';
-import { MDXTag } from '@mdx-js/tag';
+import { mdx } from '@mdx-js/react'
 ${compiled}
 `
     return [

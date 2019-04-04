@@ -1,5 +1,6 @@
 const unified = require('unified')
 const toMDAST = require('remark-parse')
+const remarkMdx = require('remark-mdx')
 const squeeze = require('remark-squeeze-paragraphs')
 const visit = require('unist-util-visit')
 const raw = require('hast-util-raw')
@@ -7,63 +8,32 @@ const toMDXAST = require('./md-ast-to-mdx-ast')
 const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
 
-const {
-  isImport,
-  isExport,
-  isExportDefault,
-  BLOCKS_REGEX,
-  EMPTY_NEWLINE
-} = require('./util')
-
 const DEFAULT_OPTIONS = {
   footnotes: true,
-  mdPlugins: [],
-  hastPlugins: [],
-  compilers: [],
-  blocks: [BLOCKS_REGEX]
-}
-
-const tokenizeEsSyntax = (eat, value) => {
-  const index = value.indexOf(EMPTY_NEWLINE)
-  const subvalue = index !== -1 ? value.slice(0, index) : value
-
-  if (isExport(subvalue)) {
-    return eat(subvalue)({
-      type: 'export',
-      default: isExportDefault(subvalue),
-      value: subvalue
-    })
-  }
-
-  if (isImport(subvalue)) {
-    return eat(subvalue)({type: 'import', value: subvalue})
-  }
-}
-
-tokenizeEsSyntax.locator = (value, _fromIndex) => {
-  return isExport(value) || isImport(value) ? -1 : 1
-}
-
-function esSyntax() {
-  const Parser = this.Parser
-  const tokenizers = Parser.prototype.blockTokenizers
-  const methods = Parser.prototype.blockMethods
-
-  tokenizers.esSyntax = tokenizeEsSyntax
-
-  methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
+  remarkPlugins: [],
+  rehypePlugins: [],
+  compilers: []
 }
 
 function createMdxAstCompiler(options) {
   const mdPlugins = options.mdPlugins
+  const remarkPlugins = options.remarkPlugins
+  const plugins = mdPlugins || remarkPlugins
+
+  if (mdPlugins) {
+    console.error(`
+      @mdx-js/mdx: The mdPlugins option has been deprecated in favor of remarkPlugins
+                   Support for mdPlugins will be removed in MDX v2
+    `)
+  }
 
   const fn = unified()
     .use(toMDAST, options)
-    .use(esSyntax)
+    .use(remarkMdx, options)
     .use(squeeze, options)
     .use(toMDXAST, options)
 
-  mdPlugins.forEach(plugin => {
+  plugins.forEach(plugin => {
     // Handle [plugin, pluginOptions] syntax
     if (Array.isArray(plugin) && plugin.length > 1) {
       fn.use(plugin[0], plugin[1])
@@ -79,20 +49,30 @@ function createMdxAstCompiler(options) {
 
 function applyHastPluginsAndCompilers(compiler, options) {
   const hastPlugins = options.hastPlugins
+  const rehypePlugins = options.rehypePlugins
+  const plugins = hastPlugins || rehypePlugins
+
+  if (hastPlugins) {
+    console.error(`
+      @mdx-js/mdx: The hastPlugins option has been deprecated in favor of rehypePlugins
+                   Support for hastPlugins will be removed in MDX v2
+    `)
+  }
+
   const compilers = options.compilers
 
   // Convert raw nodes into HAST
   compiler.use(() => ast => {
     visit(ast, 'raw', node => {
-      const {type, children, tagName, properties} = raw(node)
-      node.type = type
+      const {children, tagName, properties} = raw(node)
+      node.type = 'jsx'
       node.children = children
       node.tagName = tagName
       node.properties = properties
     })
   })
 
-  hastPlugins.forEach(plugin => {
+  plugins.forEach(plugin => {
     // Handle [plugin, pluginOptions] syntax
     if (Array.isArray(plugin) && plugin.length > 1) {
       compiler.use(plugin[0], plugin[1])
@@ -128,7 +108,8 @@ function sync(mdx, options) {
 
   const {contents} = compiler.processSync(fileOpts)
 
-  return contents
+  return `/* @jsx mdx */
+${contents}`
 }
 
 async function compile(mdx, options = {}) {
@@ -142,7 +123,8 @@ async function compile(mdx, options = {}) {
 
   const {contents} = await compiler.process(fileOpts)
 
-  return contents
+  return `/* @jsx mdx */
+${contents}`
 }
 
 compile.sync = sync

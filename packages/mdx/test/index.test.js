@@ -6,7 +6,7 @@ const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
 const prettier = require('prettier')
-const {MDXTag, MDXProvider} = require('@mdx-js/tag')
+const {MDXProvider, mdx: createElement} = require('@mdx-js/react')
 const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')
 
@@ -39,13 +39,12 @@ const transform = code =>
 const renderWithReact = async mdxCode => {
   const jsx = await mdx(mdxCode, {skipExport: true})
   const code = transform(jsx)
-  const scope = {MDXTag}
+  const scope = {mdx: createElement}
 
   const fn = new Function( // eslint-disable-line no-new-func
     'React',
     ...Object.keys(scope),
-    `
-      ${code}; return React.createElement(MDXContent)`
+    `${code}; return React.createElement(MDXContent)`
   )
 
   const element = fn(React, ...Object.values(scope))
@@ -71,7 +70,7 @@ it('Should output parseable JSX', async () => {
 
 it('Should be able to render JSX with React', async () => {
   const result = await renderWithReact(`# Hello, world!
-  
+
     const code = () => \`template string\`
   `)
 
@@ -97,22 +96,17 @@ it('Should compile sample blog post', async () => {
 it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
-  expect(prettier.format(result, {parser: 'babylon'})).toMatchInlineSnapshot(`
-"const layoutProps = {};
-export default class MDXContent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.layout = null;
-  }
-  render() {
-    const { components, ...props } = this.props;
+  expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
+"/* @jsx mdx */
 
-    return (
-      <MDXTag name=\\"wrapper\\" components={components}>
-        <MDXTag name=\\"h1\\" components={components}>{\`Hello World\`}</MDXTag>
-      </MDXTag>
-    );
-  }
+const layoutProps = {};
+const MDXLayout = \\"wrapper\\";
+export default function MDXContent({ components, ...props }) {
+  return (
+    <MDXLayout {...layoutProps} {...props} components={components}>
+      <h1>{\`Hello World\`}</h1>
+    </MDXLayout>
+  );
 }
 MDXContent.isMDXComponent = true;
 "
@@ -127,7 +121,7 @@ it('Should render blockquote correctly', async () => {
 
 it('Should properly expose comments', async () => {
   const result = await mdx('<!--foo-->', {
-    hastPlugins: [
+    rehypePlugins: [
       () => tree => {
         tree.children[0].value = 'bar'
       }
@@ -140,9 +134,7 @@ it('Should properly expose comments', async () => {
 it('Should render HTML inside inlineCode correctly', async () => {
   const result = await mdx('`<div>`')
 
-  expect(result).toContain(
-    '<MDXTag name="inlineCode" components={components} parentName="p">{`<div>`}</MDXTag>'
-  )
+  expect(result).toContain('<inlineCode parentName="p">{`<div>`}</inlineCode>')
 })
 
 it('Should preserve newlines in code blocks', async () => {
@@ -153,10 +145,10 @@ it('Should preserve newlines in code blocks', async () => {
 COPY start.sh /home/start.sh
 \`\`\`
     `,
-    {hastPlugins: [prism]}
+    {rehypePlugins: [prism]}
   )
 
-  expect(result).toContain('{`# Add main script`}</MDXTag>{`\n`}')
+  expect(result).toContain('{`# Add main script`}</span>{`\n`}')
 })
 
 it('Should not escape literals in code blocks or inline code', async () => {
@@ -174,7 +166,7 @@ COPY start.sh /home/start.sh
   )
 
   expect(result).toContain(
-    `props={{"className":"language-dockerfile","metastring":"exec registry=something.com","exec":true,"registry":"something.com"}}`
+    `{...{"className":"language-dockerfile","metastring":"exec registry=something.com","exec":true,"registry":"something.com"}}`
   )
 })
 
@@ -241,8 +233,8 @@ $$
 $$
   `,
     {
-      mdPlugins: [math],
-      hastPlugins: [katex]
+      remarkPlugins: [math],
+      rehypePlugins: [katex]
     }
   )
   expect(result).not.toContain('"style":"')
@@ -257,8 +249,8 @@ $$
 $$
   `,
     {
-      mdPlugins: [math],
-      hastPlugins: [katex]
+      remarkPlugins: [math],
+      rehypePlugins: [katex]
     }
   )
   expect(result).toContain('"aria-hidden":"true"')
@@ -278,35 +270,6 @@ it('Should support semicolons in default export statement', async () => {
   expect(() => parse(result)).not.toThrow()
 })
 
-it('Should throw when exporting default via named export', async () => {
-  await expect(mdx(`export { default } from './Layout'`)).rejects.toThrow()
-  await expect(mdx(`export { Layout as default }`)).rejects.toThrow()
-  await expect(
-    mdx(`export { foo as bar, Layout as default }`)
-  ).rejects.toThrow()
-
-  // Ensure that word "default" appearing in export node does not throw
-  const fixture1 = `export const meta = {
-  description: 'better default as behavior.'
-}`
-  await expect(mdx(fixture1)).resolves.toContain(fixture1)
-
-  // Ensure that a full export pattern within metadata does not throw
-  const fixture2 = `export const meta = {
-decription: 'How to use es6 exports',
-examples: [
-  'export { default } from "./example"',
-  'export { foo as default }'
-]
-}`
-  await expect(mdx(fixture2)).resolves.toContain(fixture2)
-
-  // Ensure that `export { default as x }` pattern does not throw
-  await expect(
-    mdx(`export { default as MyComp } from './MyComp'`)
-  ).resolves.toContain(`export { default as MyComp } from './MyComp'`)
-})
-
 it('Should not include export wrapper if skipExport is true', async () => {
   const result = await mdx('> test\n\n> `test`', {skipExport: true})
 
@@ -315,9 +278,7 @@ it('Should not include export wrapper if skipExport is true', async () => {
 
 it('Should recognize components as properties', async () => {
   const result = await mdx('# Hello\n\n<MDX.Foo />')
-  expect(result).toContain(
-    '<MDXTag name="h1" components={components}>{`Hello`}</MDXTag>\n<MDX.Foo />'
-  )
+  expect(result).toContain('<h1>{`Hello`}</h1>\n<MDX.Foo />')
 })
 
 it('Should contain static isMDXComponent() function', async () => {
@@ -334,9 +295,17 @@ it('Should render elements without wrapping blank new lines', async () => {
   expect(result).not.toContain('{`\n`}')
 })
 
+it('Should wrap export function when wrapExport is provided', async () => {
+  const result = await mdx(`# Test`, {
+    wrapExport: 'React.memo'
+  })
+
+  expect(result).toContain(`export default React.memo(MDXContent)`)
+})
+
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
-    hastPlugins: [
+    rehypePlugins: [
       _options => tree => {
         // eslint-disable-next-line require-await
         return (async () => {
@@ -354,7 +323,7 @@ test('Should await and render async plugins', async () => {
 test('Should process filepath and pass it to the plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     filepath: 'hello.mdx',
-    hastPlugins: [
+    rehypePlugins: [
       _options => (tree, fileInfo) => {
         expect(fileInfo.path).toBe('hello.mdx')
         const headingNode = select('h1', tree)
@@ -382,13 +351,9 @@ test('Should parse and render footnotes', async () => {
     'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
   )
 
-  expect(result).toContain(
-    '<MDXTag name="sup" components={components} parentName="p" props={{"id":"fnref-footnote"}}>'
-  )
+  expect(result).toContain('<sup parentName="p" {...{"id":"fnref-footnote"}}>')
 
-  expect(result).toContain(
-    '<MDXTag name="li" components={components} parentName="ol" props={{"id":"fn-footnote"}}>'
-  )
+  expect(result).toContain('<li parentName="ol" {...{"id":"fn-footnote"}}>')
 }, 10000)
 
 test('Should expose a sync compiler', () => {
@@ -401,7 +366,8 @@ test('Should handle layout props', () => {
   const result = mdx.sync(fixtureBlogPost)
 
   expect(result).toMatchInlineSnapshot(`
-"import { Baz } from './Fixture'
+"/* @jsx mdx */
+import { Baz } from './Fixture'
 import { Buz } from './Fixture'
 export const foo = {
   hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
@@ -413,49 +379,45 @@ export const foo = {
 const layoutProps = {
   foo
 };
-export default class MDXContent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.layout = ({children}) => <div>{children}</div>
-  }
-  render() {
-    const { components, ...props } = this.props
+const MDXLayout = ({children}) => <div>{children}</div>
+export default function MDXContent({ components, ...props }) {
+  return (
+    <MDXLayout
+      {...layoutProps}
+      {...props}
+      components={components}>
 
-    return <MDXTag
-             name=\\"wrapper\\"
-             Layout={this.layout} layoutProps={Object.assign({}, layoutProps, props)}
-             components={components}>
 
-<MDXTag name=\\"h1\\" components={components}>{\`Hello, world!\`}</MDXTag>
-<MDXTag name=\\"p\\" components={components}>{\`I'm an awesome paragraph.\`}</MDXTag>
+<h1>{\`Hello, world!\`}</h1>
+<p>{\`I'm an awesome paragraph.\`}</p>
 {/* I'm a comment */}
 <Foo bg='red'>
   <Bar>hi</Bar>
     {hello}
     {/* another commment */}
 </Foo>
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{}}>{\`test codeblock
-\`}</MDXTag></MDXTag>
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
-\`}</MDXTag></MDXTag>
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
-\`}</MDXTag></MDXTag>
-<MDXTag name=\\"table\\" components={components}>
-<MDXTag name=\\"thead\\" components={components} parentName=\\"table\\">
-<MDXTag name=\\"tr\\" components={components} parentName=\\"thead\\">
-<MDXTag name=\\"th\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Test\`}</MDXTag>
-<MDXTag name=\\"th\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Table\`}</MDXTag>
-</MDXTag>
-</MDXTag>
-<MDXTag name=\\"tbody\\" components={components} parentName=\\"table\\">
-<MDXTag name=\\"tr\\" components={components} parentName=\\"tbody\\">
-<MDXTag name=\\"td\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col1\`}</MDXTag>
-<MDXTag name=\\"td\\" components={components} parentName=\\"tr\\" props={{\\"align\\":\\"left\\"}}>{\`Col2\`}</MDXTag>
-</MDXTag>
-</MDXTag>
-</MDXTag>
+<pre><code parentName=\\"pre\\" {...{}}>{\`test codeblock
+\`}</code></pre>
+<pre><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
+\`}</code></pre>
+<pre><code parentName=\\"pre\\" {...{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
+\`}</code></pre>
+<table>
+<thead parentName=\\"table\\">
+<tr parentName=\\"thead\\">
+<th parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Test\`}</th>
+<th parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Table\`}</th>
+</tr>
+</thead>
+<tbody parentName=\\"table\\">
+<tr parentName=\\"tbody\\">
+<td parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Col1\`}</td>
+<td parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Col2\`}</td>
+</tr>
+</tbody>
+</table>
 
-<MDXTag name=\\"pre\\" components={components}><MDXTag name=\\"code\\" components={components} parentName=\\"pre\\" props={{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
+<pre><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
   font-size: 1rem;
   border-radius: 5px;
   padding: 0.25rem 1rem;
@@ -470,10 +432,16 @@ export default class MDXContent extends React.Component {
       color: white;
     \\\\\`};
 \\\\\`
-\`}</MDXTag></MDXTag>
-           </MDXTag>
-  }
+\`}</code></pre>
+    </MDXLayout>
+  )
 }
 MDXContent.isMDXComponent = true"
 `)
+})
+
+it('Should use fragment as Wrapper', async () => {
+  const result = await renderWithReact(`# Hello, world!`)
+
+  expect(result).toEqual('<h1 style="color:tomato">Hello, world!</h1>')
 })

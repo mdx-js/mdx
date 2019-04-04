@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "0.20.3",
+  "version": "1.0.0-alpha.17",
   "description": "Parse MDX and transpile to JSX",
   "license": "MIT",
   "keywords": [
@@ -35,6 +35,7 @@
     "detab": "^2.0.0",
     "hast-util-raw": "^5.0.0",
     "mdast-util-to-hast": "^4.0.0",
+    "remark-mdx": "^1.0.0-alpha.13",
     "remark-parse": "^6.0.0",
     "remark-squeeze-paragraphs": "^3.0.1",
     "to-style": "^1.3.3",
@@ -46,12 +47,12 @@
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-react-jsx": "^7.1.6",
     "@mapbox/rehype-prism": "^0.3.0",
-    "@mdx-js/tag": "^0.20.3",
+    "@mdx-js/react": "^1.0.0-alpha.17",
     "hast-util-select": "^3.0.0",
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "prettier": "^1.14.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "rehype-katex": "^1.1.1",
     "remark-math": "^1.0.4"
   },

@@ -1,0 +1,48 @@
+{
+  "name": "@mdx-js/react",
+  "version": "1.0.0-alpha.17",
+  "description": "React implementation for MDX",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "jest": "^24.0.0",
+    "microbundle": "^0.11.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "rimraf": "^2.6.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "scripts": {
+    "build": "microbundle --format es,cjs --external react --jsx React.createElement --no-sourcemap",
+    "clean": "rimraf dist",
+    "prepublish": "npm run clean && npm run build",
+    "test": "jest"
+  }
+}

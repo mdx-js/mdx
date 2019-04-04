@@ -9,6 +9,7 @@ const EMPTY_NEWLINE = '\n\n'
 const LESS_THAN = '<'
 const GREATER_THAN = '>'
 const SLASH = '/'
+const EXCLAMATION = '!'
 
 const isImport = text => IMPORT_REGEX.test(text)
 const isExport = text => EXPORT_REGEX.test(text)
@@ -69,6 +70,7 @@ function attachParser(parser) {
     if (
       nextChar !== GREATER_THAN &&
       nextChar !== SLASH &&
+      nextChar !== EXCLAMATION &&
       !isAlphabetical(nextChar)
     ) {
       return
@@ -103,7 +105,7 @@ function tokenizeEsSyntax(eat, value) {
   const subvalue = index !== -1 ? value.slice(0, index) : value
 
   if (isExport(subvalue) || isImport(subvalue)) {
-    const nodes = extractImportsAndExports(subvalue)
+    const nodes = extractImportsAndExports(subvalue, this.file)
     nodes.map(node => eat(node.value)(node))
   }
 }

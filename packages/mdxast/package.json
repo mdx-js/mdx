@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdxast",
-  "version": "0.20.3",
+  "version": "1.0.0-alpha.13",
   "description": "Transforms MDAST to MDXAST",
   "license": "MIT",
   "keywords": [
@@ -28,7 +28,7 @@
     "unist-util-visit": "^1.3.0"
   },
   "devDependencies": {
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "rehype-stringify": "^3.0.0",
     "remark-parse": "^5.0.0",
     "remark-rehype": "^3.0.0",

@@ -32,9 +32,7 @@ describe('MDXAsset', () => {
   })
 
   it('should render markdown with MDX.', () => {
-    expect(value).toContain(
-      '<MDXTag name="h1" components={components}>{`Test`}</MDXTag>'
-    )
+    expect(value).toContain('<h1>{`Test`}</h1>')
   })
 
   it('should render components with MDX.', () => {

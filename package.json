@@ -4,13 +4,8 @@
   "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
   "bugs": "https://github.com/mdx-js/mdx/issues",
-  "dependencies": {
-    "@rebass/mdx": "^1.0.0-1",
-    "prism-react-renderer": "^0.1.6",
-    "styled-components": "^3.3.3"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@compositor/x0": "^6.0.6-0",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-config-xo": "^0.25.0",
@@ -28,16 +23,15 @@
     "bootstrap": "lerna bootstrap && lerna link --force-local",
     "prepublish": "lerna run prepublish",
     "clean": "lerna exec \"rm -rf node_modules\"",
-    "docs": "x0 docs",
-    "docs:build": "x0 build docs",
-    "docs:deploy": "npm run docs:build && now dist --public && now alias",
-    "test": "remark . -qf && eslint . && lerna run test",
+    "test": "lerna run test && remark . -qf && eslint .",
     "format": "remark . -qfo && eslint . --fix",
     "publish": "lerna publish",
-    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm"
+    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm",
+    "publish-next": "lerna publish --npm-tag next"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "prettier": {
     "tabWidth": 2,
@@ -78,15 +72,6 @@
     "*.md": [
       "remark -qf",
       "git add"
-    ]
-  },
-  "x0": {
-    "title": "MDX",
-    "meta": [
-      {
-        "name": "description",
-        "content": "Markdown for the component era"
-      }
     ]
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/runtime",
-  "version": "0.20.3",
+  "version": "1.0.0-alpha.17",
   "description": "Parse and render MDX in a runtime environment",
   "license": "MIT",
   "keywords": [
@@ -21,30 +21,30 @@
     "Matija Marohnić <matija.marohnic@gmail.com>",
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "main": "dist",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "scripts": {
-    "build": "babel src -d dist",
+    "build": "microbundle --format es,cjs --external react,buble,@mdx-js/mdx,@mdx-js/react --jsx React.createElement --no-sourcemap",
     "clean": "rimraf dist",
     "prepublish": "yarn clean && yarn build",
     "test": "jest"
   },
   "files": [
-    "dist/",
-    "src/"
+    "dist"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^0.20.3",
-    "@mdx-js/tag": "^0.20.3",
+    "@mdx-js/mdx": "^1.0.0-alpha.17",
+    "@mdx-js/react": "^1.0.0-alpha.17",
     "buble": "^0.19.6"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "jest": "^23.6.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "jest": "^24.0.0",
+    "microbundle": "^0.11.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "rehype-add-classes": "^1.0.0",
     "remark-autolink-headings": "^5.0.0",
     "remark-slug": "^5.1.0",

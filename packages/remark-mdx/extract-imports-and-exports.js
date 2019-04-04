@@ -21,6 +21,14 @@ class BabelPluginExtractImportsAndExports {
           },
           ImportDeclaration(path) {
             const {start} = path.node
+
+            // Imports that are used in exports can end up as
+            // ImportDeclarations with no start/end metadata,
+            // these can be ignored
+            if (start === undefined) {
+              return
+            }
+
             nodes.push({type: 'import', start})
           }
         }
@@ -34,7 +42,7 @@ const partitionString = (str, indices) =>
     return str.slice(val, indices[i + 1])
   })
 
-module.exports = value => {
+module.exports = (value, vfile) => {
   const instance = new BabelPluginExtractImportsAndExports()
 
   transformSync(value, {
@@ -42,7 +50,8 @@ module.exports = value => {
       '@babel/plugin-syntax-jsx',
       '@babel/plugin-proposal-object-rest-spread',
       instance.plugin
-    ]
+    ],
+    filename: vfile.path
   })
 
   const sortedNodes = instance.state.nodes.sort((a, b) => a.start - b.start)

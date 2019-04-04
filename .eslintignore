@@ -3,3 +3,9 @@ dist
 build
 .next
 artifacts
+.cache
+public
+
+# tmp
+examples/vue
+packages/vue

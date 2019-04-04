@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx",
-  "version": "0.20.3",
+  "version": "1.0.0-alpha.13",
   "description": "Support import, export, and JSX in markdown",
   "license": "MIT",
   "keywords": [
@@ -43,7 +43,8 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "jest": "^23.6.0",
-    "remark-stringify": "^6.0.4"
+    "jest": "^24.0.0",
+    "remark-stringify": "^6.0.4",
+    "vfile": "^4.0.0"
   }
 }

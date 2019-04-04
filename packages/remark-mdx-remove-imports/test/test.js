@@ -9,7 +9,6 @@ const removeImports = require('..')
 
 const fixture = fs.readFileSync(path.join(__dirname, './fixture.md'), 'utf8')
 
-// TODO: Create MDX test utils
 const stringify = mdx => {
   const result = unified()
     .use(remarkParse)

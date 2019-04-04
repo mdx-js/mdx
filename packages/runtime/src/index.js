@@ -1,18 +1,19 @@
 import React from 'react'
 import {transform} from 'buble'
 import mdx from '@mdx-js/mdx'
-import {MDXTag} from '@mdx-js/tag'
+import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 
 export default ({
   scope = {},
   components = {},
-  mdPlugins = [],
-  hastPlugins = [],
+  remarkPlugins = [],
+  rehypePlugins = [],
   children,
   ...props
 }) => {
   const fullScope = {
-    MDXTag,
+    mdx: createElement,
+    MDXProvider,
     components,
     props,
     ...scope
@@ -20,13 +21,15 @@ export default ({
 
   const jsx = mdx
     .sync(children, {
-      mdPlugins,
-      hastPlugins,
+      remarkPlugins,
+      rehypePlugins,
       skipExport: true
     })
     .trim()
 
-  const {code} = transform(jsx)
+  const {code} = transform(jsx, {
+    objectAssign: 'Object.assign'
+  })
 
   const keys = Object.keys(fullScope)
   const values = Object.values(fullScope)
@@ -37,7 +40,9 @@ export default ({
     ...keys,
     `${code}
 
-  return React.createElement(MDXContent, { components, ...props });`
+    return React.createElement(MDXProvider, { components },
+      React.createElement(MDXContent, props)
+    );`
   )
 
   return fn({}, React, ...values)

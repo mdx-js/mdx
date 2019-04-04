@@ -23,7 +23,7 @@ const testFixture = (fixture, _options = {}) => {
             {
               loader: 'babel-loader',
               options: {
-                presets: ['env', 'stage-0', 'react']
+                presets: ['@babel/preset-env', '@babel/preset-react']
               }
             },
             {
@@ -41,8 +41,9 @@ const testFixture = (fixture, _options = {}) => {
     compiler.run((err, stats) => {
       if (err) reject(err)
 
-      const module = stats.toJson().modules.find(m => m.name === fileName)
-        .source
+      const module = stats
+        .toJson()
+        .modules.find(m => m.name.startsWith(fileName)).source
 
       resolve(module)
     })

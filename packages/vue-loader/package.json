@@ -1,0 +1,52 @@
+{
+  "name": "@mdx-js/vue-loader",
+  "version": "1.0.0-alpha.17",
+  "description": "Vue loader for MDX",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "styleguide",
+    "webpack",
+    "loader"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "@mdx-js/mdx": "^1.0.0-alpha.17",
+    "@mdx-js/vue": "^1.0.0-alpha.13",
+    "loader-utils": "^1.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/plugin-syntax-jsx": "^7.0.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-loader": "^8.0.0",
+    "babel-plugin-transform-vue-jsx": "^4.0.0",
+    "jest": "^24.0.0",
+    "memory-fs": "^0.4.1",
+    "react": "^16.8.0",
+    "webpack": "^4.5.0"
+  },
+  "scripts": {
+    "no-test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "remark-mdx-remove-exports",
+  "version": "1.0.0-alpha.14",
+  "description": "Remove exports from the MDX AST",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "jest": "^24.0.0",
+    "remark-mdx": "^1.0.0-alpha.11",
+    "remark-parse": "^6.0.0",
+    "remark-stringify": "^6.0.4",
+    "unified": "^7.0.0"
+  },
+  "dependencies": {
+    "unist-util-remove": "^1.0.1"
+  }
+}
