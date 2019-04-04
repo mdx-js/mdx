@@ -33,7 +33,7 @@ export default ({children, language, className: outerClassName}) => (
   <Highlight
     {...defaultProps}
     theme={prismTheme}
-    code={children}
+    code={children.trim()}
     language={language}
   >
     {({className, style, tokens, getLineProps, getTokenProps}) => (

@@ -6,7 +6,7 @@ First, scaffold a new React Static site:
 
 ```shell
 react-static create myapp
-yarn add @mdx-js/loader
+yarn add @mdx-js/loader@next
 ```
 
 Then add the following to the `webpack` field to your `node.api.js`:

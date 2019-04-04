@@ -49,6 +49,7 @@ export default ({toggleMenu}) => (
     >
       <img
         src="https://mdx-logo.now.sh"
+        alt="MDX logo"
         height="32"
         css={css({
           mr: 3
@@ -66,7 +67,7 @@ export default ({toggleMenu}) => (
         color: 'inherit'
       })}
     >
-      <img src="https://icon.now.sh/github/24" />
+      <img src="https://icon.now.sh/github/24" alt="GitHub logo" />
     </a>
     <MenuButton
       onClick={toggleMenu}

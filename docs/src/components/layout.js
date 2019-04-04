@@ -2,12 +2,15 @@ import React, {useState} from 'react'
 import {Global} from '@emotion/core'
 import {ComponentProvider} from 'emotion-mdx'
 import css from '@styled-system/css'
+
 import Head from './head'
 import components from './mdx-components'
 import SidebarContent from './sidebar.mdx'
 import Header from './header'
 import Pagination from './pagination'
 import EditLink from './edit-link'
+import Link from './link'
+import Banner from './banner'
 import theme from './theme'
 
 const styles = (
@@ -23,6 +26,34 @@ const styles = (
       }
     }}
   />
+)
+
+const V0Banner = () => (
+  <Banner>
+    <Link
+      href="https://v0.mdxjs.com"
+      css={css({
+        color: 'white',
+        textDecoration: 'none'
+      })}
+    >
+      <span role="img" aria-label="Confetti emoji">
+        🎉
+      </span>
+      These docs are for v1 (currently in beta)
+    </Link>{' '}
+    &mdash;{' '}
+    <Link
+      href="https://v0.mdxjs.com"
+      css={css({
+        color: 'white',
+        textTransform: 'uppercase',
+        textDecoration: 'none'
+      })}
+    >
+      read the v0 docs &rarr;
+    </Link>
+  </Banner>
 )
 
 const Root = props => (
@@ -76,6 +107,7 @@ const Sidebar = ({open, ...props}) => (
   >
     <div
       {...props}
+      className="content"
       css={css({
         display: open ? 'block' : 'none',
         position: 'relative',
@@ -138,6 +170,7 @@ export default props => {
       <Head />
       {styles}
       <ComponentProvider theme={theme} transform={css} components={components}>
+        <V0Banner />
         <Root>
           <Overlay open={menuOpen} onClick={closeMenu} />
           <Header toggleMenu={toggleMenu} />
