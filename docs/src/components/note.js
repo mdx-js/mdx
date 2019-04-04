@@ -8,6 +8,7 @@ export default props => (
       fontWeight: 'bold',
       my: 4,
       p: 3,
+      color: 'background',
       bg: 'yellow'
     })}
   />

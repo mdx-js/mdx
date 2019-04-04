@@ -28,7 +28,7 @@ const MenuButton = props => (
   </button>
 )
 
-export default ({toggleMenu}) => (
+export default ({toggleMenu, dark, setDark}) => (
   <header
     css={css({
       display: 'flex',
@@ -67,8 +67,19 @@ export default ({toggleMenu}) => (
         color: 'inherit'
       })}
     >
-      <img src="https://icon.now.sh/github/24" alt="GitHub logo" />
+      <img
+        src={`https://icon.now.sh/github/24/${dark ? 'fff' : '000'}`}
+        alt="GitHub logo"
+      />
     </a>
+    <button
+      title="Toggle Dark Mode"
+      onClick={() => {
+        setDark(!dark)
+      }}
+    >
+      {dark ? 'Dark' : 'Light'}
+    </button>
     <MenuButton
       onClick={toggleMenu}
       css={css({
