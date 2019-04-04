@@ -1,3 +1,9 @@
+This is the v0 branch. For v0 docs please see [v0.mdxjs.com](https://v0.mdxjs.com).
+
+For a guide migrating from v0 to v1, see [mdxjs.com/migrating/v1](https://mdxjs.com/migrating/v1).
+
+---
+
 # [![MDX][logo]][website]
 
 [![Build Status][build-badge]][build]
