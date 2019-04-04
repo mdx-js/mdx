@@ -17,7 +17,7 @@ const colors = {
     text: '#fff',
     background: '#111122',
     primary: '#78f',
-    secondary: '#11a',
+    secondary: '#89f',
     gray: '#334',
     lightgray: '#223',
     yellow: '#ff0'
