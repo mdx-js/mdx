@@ -107,7 +107,6 @@ const Sidebar = ({open, ...props}) => (
   >
     <div
       {...props}
-      className="content"
       css={css({
         display: open ? 'block' : 'none',
         position: 'relative',
@@ -178,7 +177,7 @@ export default props => {
             <Sidebar onClick={closeMenu} open={menuOpen}>
               <SidebarContent />
             </Sidebar>
-            <Container>
+            <Container className="searchable-content">
               {props.children}
               <EditLink />
               <Pagination />
