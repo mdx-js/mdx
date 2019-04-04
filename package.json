@@ -21,13 +21,14 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap && lerna link --force-local",
-    "prepublish": "lerna run prepublish",
     "clean": "lerna exec \"rm -rf node_modules\"",
-    "test": "lerna run test && remark . -qf && eslint .",
+    "deploy-docs": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
     "format": "remark . -qfo && eslint . --fix",
+    "prepublish": "lerna run prepublish",
     "publish": "lerna publish",
     "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm",
-    "publish-next": "lerna publish --npm-tag next"
+    "publish-next": "lerna publish --npm-tag next",
+    "test": "lerna run test && remark . -qf && eslint ."
   },
   "workspaces": [
     "packages/*",
