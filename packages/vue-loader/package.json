@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue-loader",
-  "version": "1.0.0-alpha.17",
+  "version": "1.0.0-rc.0",
   "description": "Vue loader for MDX",
   "license": "MIT",
   "keywords": [
@@ -27,14 +27,14 @@
     "index.js"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^1.0.0-alpha.17",
-    "@mdx-js/vue": "^1.0.0-alpha.13",
+    "@mdx-js/mdx": "^1.0.0-rc.0",
+    "@mdx-js/vue": "^1.0.0-rc.0",
     "loader-utils": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
     "@babel/plugin-syntax-jsx": "^7.0.0",
+    "@babel/preset-env": "^7.4.2",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.0",
     "babel-plugin-transform-vue-jsx": "^4.0.0",
