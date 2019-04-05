@@ -1,9 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Global} from '@emotion/core'
 import {ComponentProvider} from 'emotion-mdx'
 import css from '@styled-system/css'
 
-import Head from './head'
 import components from './mdx-components'
 import SidebarContent from './sidebar.mdx'
 import Header from './header'
@@ -161,7 +160,19 @@ const Container = props => (
 
 export default props => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [dark, setDark] = useState(true)
+  const [dark, setDark] = useState(false)
+
+  useEffect(() => {
+    const initialDark = window.localStorage.getItem('dark') === 'true'
+    if (initialDark !== dark) {
+      setDark(initialDark)
+    }
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('dark', dark)
+  }, [dark])
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
@@ -177,7 +188,6 @@ export default props => {
 
   return (
     <>
-      <Head />
       <ComponentProvider theme={theme} transform={css} components={components}>
         {styles}
         <V0Banner />

@@ -13,6 +13,7 @@ export default ({dark, setDark, ...props}) => (
       bg: 'transparent',
       border: 0,
       borderRadius: 99999,
+      mr: 2,
       p: 2,
       '&:focus': {
         outline: 'none',
