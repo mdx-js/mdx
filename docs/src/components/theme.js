@@ -16,10 +16,11 @@ const colors = {
   dark: {
     text: '#fff',
     background: '#111122',
-    primary: '#78f',
-    secondary: '#89f',
-    gray: '#334',
-    lightgray: '#223',
+    primary: '#3af',
+    secondary: '#18d',
+
+    gray: '#223',
+    lightgray: '#161628',
     yellow: '#ff0'
   }
 }
