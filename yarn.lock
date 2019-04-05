@@ -1972,6 +1972,11 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
+"@reach/skip-nav@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@reach/skip-nav/-/skip-nav-0.1.2.tgz#3a154d834c970577117bf6f56b3acc5492d4b8f2"
+  integrity sha512-EFj8n6OFQYbxIBG5WPIA6MErIqP8Uzj+epx0Y9YyzQxVXzvAhqz0wiO/jeM7sjnKUiBx8/FlS8xLk2v3SWB4Lg==
+
 "@rebass/emotion@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@rebass/emotion/-/emotion-3.1.0.tgz#fa3ef224d65f56a8182b295dc21724f8445abb4d"
