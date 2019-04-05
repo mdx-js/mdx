@@ -487,7 +487,7 @@ const renderWithReact = async mdxCode => {
 
 [export]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
 
-[rebass]: https://rebassjs.com
+[rebass]: https://rebassjs.org
 
 [transclude]: https://en.wikipedia.org/wiki/Transclusion
 
