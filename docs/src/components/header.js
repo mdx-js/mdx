@@ -68,6 +68,27 @@ export default ({toggleMenu, dark, setDark}) => (
       </span>
     </Link>
     <div css={{margin: 'auto'}} />
+    <form>
+      <label css={{display: 'none'}}>Search</label>
+      <input
+        placeholder="Search..."
+        className="docsearch-input"
+        css={css({
+          fontSize: 1,
+          p: 2,
+          mt: 1,
+          mr: 2,
+          border: 'thin solid',
+          borderColor: dark ? 'black' : '#ccc',
+          bg: 'transparent',
+          borderRadius: 4,
+          width: 100,
+          [theme.mediaQueries.big]: {
+            width: 200
+          }
+        })}
+      />
+    </form>
     <a
       href="https://github.com/mdx-js/mdx"
       css={css({

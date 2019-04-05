@@ -5,6 +5,7 @@ build
 artifacts
 .cache
 public
+docsearch.min.js
 
 # tmp
 examples/vue
