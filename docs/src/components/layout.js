@@ -22,7 +22,10 @@ const styles = (
         fontFamily: 'system-ui, sans-serif',
         lineHeight: 1.5,
         color: 'text',
-        bg: 'background'
+        bg: 'background',
+        transitionProperty: 'background-color',
+        transitionTimingFunction: 'ease-out',
+        transitionDuration: '.4s'
       }
     })}
   />
@@ -114,6 +117,7 @@ const Sidebar = ({open, ...props}) => (
         overflowY: 'auto',
         WebkitOverflowScrolling: 'touch',
         bg: 'background',
+        transition: 'background-color .4s ease-out',
         pb: 4,
         [baseTheme.mediaQueries.big]: {
           display: 'block',
@@ -166,6 +170,7 @@ export default props => {
   }
   const theme = {
     ...baseTheme,
+    dark,
     colors: dark ? baseTheme.colors.dark : baseTheme.colors,
     prism: dark ? baseTheme.prism.dark : baseTheme.prism
   }

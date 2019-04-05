@@ -4,6 +4,7 @@ import css from '@styled-system/css'
 import pkg from '@mdx-js/mdx/package.json'
 import Burger from './burger'
 import theme from './theme'
+import DarkToggle from './dark-toggle'
 
 const MenuButton = props => (
   <button
@@ -72,14 +73,7 @@ export default ({toggleMenu, dark, setDark}) => (
         alt="GitHub logo"
       />
     </a>
-    <button
-      title="Toggle Dark Mode"
-      onClick={() => {
-        setDark(!dark)
-      }}
-    >
-      {dark ? 'Dark' : 'Light'}
-    </button>
+    <DarkToggle dark={dark} setDark={setDark} />
     <MenuButton
       onClick={toggleMenu}
       css={css({
