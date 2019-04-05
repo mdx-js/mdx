@@ -56,7 +56,16 @@ export default ({toggleMenu, dark, setDark}) => (
           mr: 3
         })}
       />
-      MDX v{pkg.version}
+      <span
+        css={{
+          display: 'none',
+          [theme.mediaQueries.big]: {
+            display: 'inline'
+          }
+        }}
+      >
+        MDX v{pkg.version}
+      </span>
     </Link>
     <div css={{margin: 'auto'}} />
     <a
