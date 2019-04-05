@@ -1,9 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Global} from '@emotion/core'
 import {ComponentProvider} from 'emotion-mdx'
 import css from '@styled-system/css'
 
-import Head from './head'
 import components from './mdx-components'
 import SidebarContent from './sidebar.mdx'
 import Header from './header'
@@ -11,20 +10,23 @@ import Pagination from './pagination'
 import EditLink from './edit-link'
 import Link from './link'
 import Banner from './banner'
-import theme from './theme'
+import baseTheme from './theme'
 
 const styles = (
   <Global
-    styles={{
+    styles={css({
       '*': {boxSizing: 'border-box'},
       body: {
-        margin: 0,
+        m: 0,
         fontFamily: 'system-ui, sans-serif',
         lineHeight: 1.5,
-        color: '#000',
-        backgroundColor: '#fff'
+        color: 'text',
+        bg: 'background',
+        transitionProperty: 'background-color',
+        transitionTimingFunction: 'ease-out',
+        transitionDuration: '.4s'
       }
-    }}
+    })}
   />
 )
 
@@ -33,7 +35,7 @@ const V0Banner = () => (
     <Link
       href="https://v0.mdxjs.com"
       css={css({
-        color: 'white',
+        color: 'inherit',
         textDecoration: 'none'
       })}
     >
@@ -46,7 +48,7 @@ const V0Banner = () => (
     <Link
       href="https://v0.mdxjs.com"
       css={css({
-        color: 'white',
+        color: 'inherit',
         textTransform: 'uppercase',
         textDecoration: 'none'
       })}
@@ -75,7 +77,7 @@ const Main = props => (
       flexDirection: 'column',
       minWidth: 0,
       flex: '1 1 auto',
-      [theme.mediaQueries.big]: {
+      [baseTheme.mediaQueries.big]: {
         flexDirection: 'row'
       }
     })}
@@ -114,8 +116,9 @@ const Sidebar = ({open, ...props}) => (
         overflowY: 'auto',
         WebkitOverflowScrolling: 'touch',
         bg: 'background',
+        transition: 'background-color .4s ease-out',
         pb: 4,
-        [theme.mediaQueries.big]: {
+        [baseTheme.mediaQueries.big]: {
           display: 'block',
           width: 256,
           minWidth: 0,
@@ -157,22 +160,40 @@ const Container = props => (
 
 export default props => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [dark, setDark] = useState(false)
+
+  useEffect(() => {
+    const initialDark = window.localStorage.getItem('dark') === 'true'
+    if (initialDark !== dark) {
+      setDark(initialDark)
+    }
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('dark', dark)
+  }, [dark])
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
   const closeMenu = () => {
     setMenuOpen(false)
   }
+  const theme = {
+    ...baseTheme,
+    dark,
+    colors: dark ? baseTheme.colors.dark : baseTheme.colors,
+    prism: dark ? baseTheme.prism.dark : baseTheme.prism
+  }
 
   return (
     <>
-      <Head />
-      {styles}
       <ComponentProvider theme={theme} transform={css} components={components}>
+        {styles}
         <V0Banner />
         <Root>
           <Overlay open={menuOpen} onClick={closeMenu} />
-          <Header toggleMenu={toggleMenu} />
+          <Header toggleMenu={toggleMenu} dark={dark} setDark={setDark} />
           <Main>
             <Sidebar onClick={closeMenu} open={menuOpen}>
               <SidebarContent />

@@ -1,6 +1,10 @@
 import React from 'react'
 import Layout from './components/layout'
+import Head from './components/head'
 
 export const wrapRootElement = ({element, props}) => (
-  <Layout {...props}>{element}</Layout>
+  <>
+    <Head />
+    <Layout {...props}>{element}</Layout>
+  </>
 )

@@ -5,16 +5,28 @@ const heading = {
   }
 }
 
+const colors = {
+  text: '#000',
+  background: '#fff',
+  primary: '#33e',
+  secondary: '#11a',
+  gray: '#ccc',
+  lightgray: '#f6f6f6',
+  yellow: '#ffc',
+  dark: {
+    text: '#fff',
+    background: '#111122',
+    primary: '#3af',
+    secondary: '#18d',
+
+    gray: '#223',
+    lightgray: '#161628',
+    yellow: '#ff0'
+  }
+}
+
 export default {
-  colors: {
-    text: '#000',
-    background: '#fff',
-    primary: '#33e',
-    secondary: '#11a',
-    gray: '#ccc',
-    lightgray: '#f6f6f6',
-    yellow: '#ffc'
-  },
+  colors,
   fonts: {
     monospace: '"Roboto Mono", Menlo, monospace'
   },
@@ -98,6 +110,58 @@ export default {
     },
     ul: {
       pl: 3
+    }
+  },
+  prism: {
+    plain: {
+      color: '#282a2e',
+      backgroundColor: colors.lightgray
+    },
+    styles: [
+      {
+        types: ['comment'],
+        style: {
+          color: '#666'
+        }
+      },
+      {
+        types: ['string', 'number', 'builtin', 'variable'],
+        style: {
+          color: '#444'
+        }
+      },
+      {
+        types: ['class-name', 'function', 'tag', 'attr-name'],
+        style: {
+          color: 'rgb(40, 42, 46)'
+        }
+      }
+    ],
+    dark: {
+      plain: {
+        color: '#eee',
+        backgroundColor: colors.dark.lightgray
+      },
+      styles: [
+        {
+          types: ['comment'],
+          style: {
+            color: '#999'
+          }
+        },
+        {
+          types: ['string', 'number', 'builtin', 'variable'],
+          style: {
+            color: '#fff'
+          }
+        },
+        {
+          types: ['class-name', 'function', 'tag', 'attr-name'],
+          style: {
+            color: '#eee'
+          }
+        }
+      ]
     }
   }
 }

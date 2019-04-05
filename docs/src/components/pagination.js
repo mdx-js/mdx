@@ -32,6 +32,7 @@ export default () => (
             const index = links.findIndex(
               link => link.props.href === removeSlash(location.pathname)
             )
+            const hasPagination = index > -1
             const previous = links[index - 1]
             const next = links[index + 1]
 
@@ -58,7 +59,8 @@ export default () => (
                     py: 5
                   })}
                 >
-                  {previous &&
+                  {hasPagination &&
+                    previous &&
                     React.cloneElement(
                       previous,
                       {},
@@ -74,7 +76,8 @@ export default () => (
                       </div>
                     )}
                   <div css={{margin: 'auto'}} />
-                  {next &&
+                  {hasPagination &&
+                    next &&
                     React.cloneElement(
                       next,
                       {},
