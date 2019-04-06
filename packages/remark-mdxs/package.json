@@ -1,0 +1,54 @@
+{
+  "name": "remark-mdxs",
+  "version": "1.0.0-rc.0",
+  "description": "Support for multiple MDX documents in a single file",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "mdxs",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (https://johno.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Brent Jackson <jacksonblack@gmail.com> (https://jxnblk.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/helper-plugin-utils": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
+    "is-alphabetical": "^1.0.2",
+    "remark-parse": "^6.0.0",
+    "unified": "^7.0.0",
+    "unist-util-remove": "^1.0.1",
+    "unist-util-visit": "^1.4.0"
+  },
+  "peerDependencies": {
+    "@mdx-js/mdx": "*"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "jest": "^24.0.0",
+    "remark-stringify": "^6.0.4",
+    "vfile": "^4.0.0"
+  }
+}

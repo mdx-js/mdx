@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`correctly transpiles 1`] = `
+"/* @jsx mdx */
+import Foo from './bar'
+
+export const author = 'fred'
+
+const MDXSLayout = Foo
+
+function MDXSContent0({ components, ...props }) {
+  return (
+    <h1>{\`Hello, world! \`}<Foo bar={{ baz: 'qux' }} /></h1>
+  )
+}
+
+function MDXSContent1({ components, ...props }) {
+  return (
+    <Baz>
+  Hi!
+</Baz>
+  )
+}
+
+function MDXSContent2({ components, ...props }) {
+  return (
+    <h1>{\`I'm another document\`}</h1>
+
+
+<p>{\`over here.\`}</p>
+  )
+}
+
+const MDXSWrapper = props => [
+  <MDXSContent0 {...props} />,
+  <MDXSContent1 {...props} />,
+  <MDXSContent2 {...props} />
+]
+
+export default MDXWrapper"
+`;
