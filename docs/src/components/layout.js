@@ -10,6 +10,7 @@ import Pagination from './pagination'
 import EditLink from './edit-link'
 import Link from './link'
 import Banner from './banner'
+import {SkipNavLink, SkipNavContent} from './skip-nav'
 import baseTheme from './theme'
 
 const styles = (
@@ -189,6 +190,7 @@ export default props => {
   return (
     <>
       <ComponentProvider theme={theme} transform={css} components={components}>
+        <SkipNavLink />
         {styles}
         <V0Banner />
         <Root>
@@ -199,6 +201,7 @@ export default props => {
               <SidebarContent />
             </Sidebar>
             <Container className="searchable-content">
+              <SkipNavContent />
               {props.children}
               <EditLink />
               <Pagination />
