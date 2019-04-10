@@ -31,7 +31,7 @@
     "parcel-bundler": "^1.4.1"
   },
   "peerDependencies": {
-    "@mdx-js/tag": "^0.13.1-1",
+    "@mdx-js/tag": "^1.0.0-alpha.6",
     "react": "^16.8.0"
   },
   "devDependencies": {
