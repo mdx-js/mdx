@@ -1,4 +1,4 @@
-# [remark][]-[mdx][]s
+# @[mdx][]-js/mdxs
 
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
@@ -6,12 +6,34 @@
 
 > :warning: This project is currently in alpha
 
-[MDXs][] syntax support for [remark][].
+Multi-doc syntax support for MDX.
 
 ## Installation
 
 ```sh
-npm install --save remark-mdxs
+npm install --save mdxs
+```
+
+## Usage
+
+```js
+const mdx = require('@mdx-js/mdx')
+const mdxs = require('@mdx-js/mdxs')
+
+const jsx = await mdx(FIXTURE, {
+  compilers: [mdxs]
+})
+```
+
+## Syntax
+
+```md
+
+# Hello, I'm document 1
+
+---
+
+# Hello, I'm document 2
 ```
 
 ## Contribute
@@ -24,7 +46,7 @@ abide by its terms.
 
 ## License
 
-[MIT][] © [Titus Wormer][author] and [John Otander][author2]
+[MIT][] © [John Otander][author]
 
 <!-- Definitions -->
 
@@ -46,10 +68,6 @@ abide by its terms.
 
 [mit]: license
 
-[remark]: https://github.com/remarkjs/remark
-
 [mdx]: https://github.com/mdx-js/mdx
 
-[author]: https://wooorm.com
-
-[author2]: https://johno.com
+[author]: https://johno.com

@@ -30,7 +30,6 @@ function createMdxAstCompiler(options) {
   const fn = unified()
     .use(toMDAST, options)
     .use(remarkMdx, options)
-    .use(mdxHastToJsx, options) // Set JSX compiler early so it can be overridden
     .use(squeeze, options)
     .use(toMDXAST, options)
 
@@ -81,6 +80,8 @@ function applyHastPluginsAndCompilers(compiler, options) {
       compiler.use(plugin, options)
     }
   })
+
+  compiler.use(mdxHastToJsx, options)
 
   for (const compilerPlugin of compilers) {
     compiler.use(compilerPlugin, options)

@@ -23,7 +23,7 @@ over here.
 
 it('correctly transpiles', async () => {
   const result = await mdx(FIXTURE, {
-    remarkPlugins: [remarkMdxs]
+    compilers: [remarkMdxs]
   })
 
   expect(result).toMatchSnapshot()
