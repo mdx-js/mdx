@@ -6,6 +6,9 @@ artifacts
 .cache
 public
 docsearch.min.js
+docs/src/components/header.js
+docs/src/components/layout.js
+docs/src/components/search.js
 
 # tmp
 examples/vue
