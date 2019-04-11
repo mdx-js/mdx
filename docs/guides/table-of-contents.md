@@ -1,4 +1,4 @@
-import Note from '../../components/note'
+import Note from 'gatsby-theme-mdx/src/components/note'
 
 # Table of contents
 

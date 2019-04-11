@@ -15,6 +15,12 @@ module.exports = {
       options: {
         fonts: ['roboto mono']
       }
+    },
+    {
+      resolve: 'gatsby-plugin-page-creator',
+      options: {
+        path: 'docs'
+      }
     }
   ]
 }

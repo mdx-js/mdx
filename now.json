@@ -5,14 +5,11 @@
   "public": true,
   "builds": [
     {
-      "src": "docs/package.json",
+      "src": "package.json",
       "use": "@now/static-build",
       "config": {
         "distDir": "public"
       }
     }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/docs/$1" }
   ]
 }

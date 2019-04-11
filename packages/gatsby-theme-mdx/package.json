@@ -1,13 +1,15 @@
 {
-  "private": true,
-  "name": "docs",
+  "name": "gatsby-theme-mdx",
   "version": "1.0.0-rc.3",
   "author": "Brent Jackson <jxnblk@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",
-    "now-build": "gatsby build"
+    "clean": "gatsby clean"
+  },
+  "devDependencies": {
+    "gatsby": "^2.3.6"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
@@ -15,16 +17,17 @@
     "@mdx-js/mdx": "^1.0.0-rc.3",
     "@mdx-js/react": "^1.0.0-rc.3",
     "@mdx-js/runtime": "^1.0.0-rc.3",
+    "@reach/router": "^1.2.1",
     "@reach/skip-nav": "^0.1.2",
     "@rebass/emotion": "^3.1.0",
     "@styled-system/css": "^1.0.3",
     "emotion-mdx": "^1.0.0-6",
     "emotion-theming": "^10.0.10",
-    "gatsby": "^2.3.6",
     "gatsby-mdx": "^0.5.6",
     "gatsby-plugin-catch-links": "^2.0.13",
     "gatsby-plugin-emotion": "^4.0.6",
     "gatsby-plugin-google-fonts": "^0.0.4",
+    "gatsby-plugin-page-creator": "^2.0.12",
     "gatsby-plugin-react-helmet": "^3.0.11",
     "is-absolute-url": "^2.1.0",
     "lodash.flatten": "^4.4.0",
