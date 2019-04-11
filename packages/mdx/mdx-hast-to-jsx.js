@@ -149,8 +149,8 @@ MDXContent.isMDXComponent = true`
     const babelPluginExptractImportNamesInstance = new BabelPluginExtractImportNames()
     transformSync(importStatements, {
       plugins: [
-        '@babel/plugin-syntax-jsx',
-        '@babel/plugin-syntax-object-rest-spread',
+        require('@babel/plugin-syntax-jsx'),
+        require('@babel/plugin-syntax-object-rest-spread'),
         babelPluginExptractImportNamesInstance.plugin
       ]
     })
@@ -159,8 +159,8 @@ MDXContent.isMDXComponent = true`
     const babelPluginExtractJsxNamesInstance = new BabelPluginExtractJsxNames()
     const fnPostMdxTypeProp = transformSync(fn, {
       plugins: [
-        '@babel/plugin-syntax-jsx',
-        '@babel/plugin-syntax-object-rest-spread',
+        require('@babel/plugin-syntax-jsx'),
+        require('@babel/plugin-syntax-object-rest-spread'),
         babelPluginExtractJsxNamesInstance.plugin
       ]
     }).code
