@@ -12,6 +12,9 @@ const {renderToStaticMarkup} = require('react-dom/server')
 
 const mdx = require('../')
 
+const dropWhitespace = str =>
+  str.replace(/\r?\n|\r/g, ' ').replace(/ +(?= )/g, '')
+
 const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.md')
 )
@@ -97,20 +100,68 @@ it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
   expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
-"/* @jsx mdx */
-
-const layoutProps = {};
-const MDXLayout = \\"wrapper\\";
-export default function MDXContent({ components, ...props }) {
-  return (
-    <MDXLayout {...layoutProps} {...props} components={components}>
-      <h1>{\`Hello World\`}</h1>
-    </MDXLayout>
-  );
-}
-MDXContent.isMDXComponent = true;
-"
-`)
+    "/* @jsx mdx */
+    
+    const makeShortcode = name =>
+      function MDXDefaultShortcode(props) {
+        console.warn(
+          \\"Component \\" +
+            name +
+            \\" was not imported, exported, or provided by MDXProvider as global scope\\"
+        );
+        return <div {...props} />;
+      };
+    
+    const layoutProps = {};
+    const MDXLayout = \\"wrapper\\";
+    export default function _objectWithoutProperties(source, excluded) {
+      if (source == null) return {};
+      var target = _objectWithoutPropertiesLoose(source, excluded);
+      var key, i;
+      if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+        for (i = 0; i < sourceSymbolKeys.length; i++) {
+          key = sourceSymbolKeys[i];
+          if (excluded.indexOf(key) >= 0) continue;
+          if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+          target[key] = source[key];
+        }
+      }
+      return target;
+    }
+    
+    function _objectWithoutPropertiesLoose(source, excluded) {
+      if (source == null) return {};
+      var target = {};
+      var sourceKeys = Object.keys(source);
+      var key, i;
+      for (i = 0; i < sourceKeys.length; i++) {
+        key = sourceKeys[i];
+        if (excluded.indexOf(key) >= 0) continue;
+        target[key] = source[key];
+      }
+      return target;
+    }
+    
+    function MDXContent(_ref) {
+      let { components } = _ref,
+        props = _objectWithoutProperties(_ref, [\\"components\\"]);
+    
+      return (
+        <MDXLayout
+          {...layoutProps}
+          {...props}
+          components={components}
+          mdxType=\\"MDXLayout\\"
+        >
+          <h1>{\`Hello World\`}</h1>
+        </MDXLayout>
+      );
+    }
+    
+    MDXContent.isMDXComponent = true;
+    "
+  `)
 })
 
 it('Should render blockquote correctly', async () => {
@@ -128,7 +179,7 @@ it('Should properly expose comments', async () => {
     ]
   })
 
-  expect(result).toContain('{/*bar*/}')
+  expect(prettier.format(result)).toContain(`{/*bar*/}`)
 })
 
 it('Should render HTML inside inlineCode correctly', async () => {
@@ -165,13 +216,13 @@ COPY start.sh /home/start.sh
   `
   )
 
-  expect(result).toContain(
-    `{...{"className":"language-dockerfile","metastring":"exec registry=something.com","exec":true,"registry":"something.com"}}`
+  expect(dropWhitespace(result)).toContain(
+    `{...{ "className": "language-dockerfile", "metastring": "exec registry=something.com", "exec": true, "registry": "something.com" }}`
   )
 })
 
 it('Should support comments', async () => {
-  const result = await mdx(`
+  const resultWithWhitespace = await mdx(`
 <!-- a Markdown comment -->
 A paragraph
 
@@ -183,7 +234,6 @@ Some text <!-- an inline comment -->
 
 <div>
   {/* a nested JSX comment */}
-  <!-- div content -->
 </div>
 
 <!-- a comment above -->
@@ -194,15 +244,16 @@ Some text <!-- an inline comment -->
 
 <MyComp content={\`
   <!-- a template literal -->
-\`}
+\`}/>
   `)
-  expect(result).toContain('{/* a Markdown comment */}')
-  expect(result).toContain('{/* an inline comment */}')
+
+  const result = dropWhitespace(resultWithWhitespace)
+  expect(result).toContain('{ /* a Markdown comment */ }')
+  expect(result).toContain('{ /* an inline comment */ }')
   expect(result).toContain('<!-- a code block string -->')
-  expect(result).toContain('{/* a nested JSX comment */}')
-  expect(result).toContain('<!-- div content -->')
-  expect(result).toContain('{/* a comment above */}')
-  expect(result).toContain('{/* a comment below */}')
+  expect(result).toContain('{ /* a nested JSX comment */ }')
+  expect(result).toContain('{ /* a comment above */ }')
+  expect(result).toContain('{ /* a comment below */ }')
   expect(result).toContain('--> should be as-is')
   expect(result).toContain('<!-- a template literal -->')
 })
@@ -238,7 +289,7 @@ $$
     }
   )
   expect(result).not.toContain('"style":"')
-  expect(result).toContain('"style":{')
+  expect(dropWhitespace(result)).toContain('"style": {')
 })
 
 it('Should convert data-* and aria-* properties to param-case', async () => {
@@ -253,7 +304,7 @@ $$
       rehypePlugins: [katex]
     }
   )
-  expect(result).toContain('"aria-hidden":"true"')
+  expect(dropWhitespace(result)).toContain('"aria-hidden": "true"')
 })
 
 it('Should support multiline default export statement', async () => {
@@ -278,7 +329,7 @@ it('Should not include export wrapper if skipExport is true', async () => {
 
 it('Should recognize components as properties', async () => {
   const result = await mdx('# Hello\n\n<MDX.Foo />')
-  expect(result).toContain('<h1>{`Hello`}</h1>\n<MDX.Foo />')
+  expect(dropWhitespace(result)).toContain('<h1>{`Hello`}</h1> <MDX.Foo />')
 })
 
 it('Should contain static isMDXComponent() function', async () => {
@@ -351,9 +402,13 @@ test('Should parse and render footnotes', async () => {
     'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
   )
 
-  expect(result).toContain('<sup parentName="p" {...{"id":"fnref-footnote"}}>')
+  expect(dropWhitespace(result)).toContain(
+    '<sup parentName="p" {...{ "id": "fnref-footnote" }}>'
+  )
 
-  expect(result).toContain('<li parentName="ol" {...{"id":"fn-footnote"}}>')
+  expect(dropWhitespace(result)).toContain(
+    '<li parentName="ol" {...{ "id": "fn-footnote" }}>'
+  )
 }, 10000)
 
 test('Should expose a sync compiler', () => {
@@ -366,78 +421,107 @@ test('Should handle layout props', () => {
   const result = mdx.sync(fixtureBlogPost)
 
   expect(result).toMatchInlineSnapshot(`
-"/* @jsx mdx */
-import { Baz } from './Fixture'
-import { Buz } from './Fixture'
-export const foo = {
-  hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
-  authors: [
-    'fred',
-    'sally'
-  ]
-}
-const layoutProps = {
-  foo
-};
-const MDXLayout = ({children}) => <div>{children}</div>
-export default function MDXContent({ components, ...props }) {
-  return (
-    <MDXLayout
-      {...layoutProps}
-      {...props}
-      components={components}>
-
-
-<h1>{\`Hello, world!\`}</h1>
-<p>{\`I'm an awesome paragraph.\`}</p>
-{/* I'm a comment */}
-<Foo bg='red'>
-  <Bar>hi</Bar>
-    {hello}
-    {/* another commment */}
-</Foo>
-<pre><code parentName=\\"pre\\" {...{}}>{\`test codeblock
-\`}</code></pre>
-<pre><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`module.exports = 'test'
-\`}</code></pre>
-<pre><code parentName=\\"pre\\" {...{\\"className\\":\\"language-sh\\"}}>{\`npm i -g foo
-\`}</code></pre>
-<table>
-<thead parentName=\\"table\\">
-<tr parentName=\\"thead\\">
-<th parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Test\`}</th>
-<th parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Table\`}</th>
-</tr>
-</thead>
-<tbody parentName=\\"table\\">
-<tr parentName=\\"tbody\\">
-<td parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Col1\`}</td>
-<td parentName=\\"tr\\" {...{\\"align\\":\\"left\\"}}>{\`Col2\`}</td>
-</tr>
-</tbody>
-</table>
-
-<pre><code parentName=\\"pre\\" {...{\\"className\\":\\"language-js\\"}}>{\`export const Button = styled.button\\\\\`
-  font-size: 1rem;
-  border-radius: 5px;
-  padding: 0.25rem 1rem;
-  margin: 0 1rem;
-  background: transparent;
-  color: \\\\\${props => props.theme.primary};
-  border: 2px solid \\\\\${props => props.theme.primary};
-  \\\\\${props =>
-    props.primary &&
-    css\\\\\`
-      background: \\\\\${props => props.theme.primary};
-      color: white;
-    \\\\\`};
-\\\\\`
-\`}</code></pre>
-    </MDXLayout>
-  )
-}
-MDXContent.isMDXComponent = true"
-`)
+    "/* @jsx mdx */
+    import { Baz } from './Fixture'
+    import { Buz } from './Fixture'
+    export const foo = {
+      hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
+      authors: [
+        'fred',
+        'sally'
+      ]
+    }
+    const makeShortcode = name => function MDXDefaultShortcode(props) {
+      console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
+      return <div {...props}/>
+    };
+    const Foo = makeShortcode(\\"Foo\\");
+    const Bar = makeShortcode(\\"Bar\\");
+    const layoutProps = {
+      foo
+    };
+    const MDXLayout = ({children}) => <div>{children}</div>
+    export default function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+    
+    function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+    
+    function MDXContent(_ref) {
+      let {
+        components
+      } = _ref,
+          props = _objectWithoutProperties(_ref, [\\"components\\"]);
+    
+      return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
+    
+    
+        <h1>{\`Hello, world!\`}</h1>
+        <p>{\`I'm an awesome paragraph.\`}</p>
+        {
+          /* I'm a comment */
+        }
+        <Foo bg='red' mdxType=\\"Foo\\">
+      <Bar mdxType=\\"Bar\\">hi</Bar>
+        {hello}
+        {
+            /* another commment */
+          }
+        </Foo>
+        <pre><code parentName=\\"pre\\" {...{}}>{\`test codeblock
+    \`}</code></pre>
+        <pre><code parentName=\\"pre\\" {...{
+            \\"className\\": \\"language-js\\"
+          }}>{\`module.exports = 'test'
+    \`}</code></pre>
+        <pre><code parentName=\\"pre\\" {...{
+            \\"className\\": \\"language-sh\\"
+          }}>{\`npm i -g foo
+    \`}</code></pre>
+        <table>
+          <thead parentName=\\"table\\">
+            <tr parentName=\\"thead\\">
+              <th parentName=\\"tr\\" {...{
+                \\"align\\": \\"left\\"
+              }}>{\`Test\`}</th>
+              <th parentName=\\"tr\\" {...{
+                \\"align\\": \\"left\\"
+              }}>{\`Table\`}</th>
+            </tr>
+          </thead>
+          <tbody parentName=\\"table\\">
+            <tr parentName=\\"tbody\\">
+              <td parentName=\\"tr\\" {...{
+                \\"align\\": \\"left\\"
+              }}>{\`Col1\`}</td>
+              <td parentName=\\"tr\\" {...{
+                \\"align\\": \\"left\\"
+              }}>{\`Col2\`}</td>
+            </tr>
+          </tbody>
+        </table>
+    
+        <pre><code parentName=\\"pre\\" {...{
+            \\"className\\": \\"language-js\\"
+          }}>{\`export const Button = styled.button\\\\\`
+      font-size: 1rem;
+      border-radius: 5px;
+      padding: 0.25rem 1rem;
+      margin: 0 1rem;
+      background: transparent;
+      color: \\\\\${props => props.theme.primary};
+      border: 2px solid \\\\\${props => props.theme.primary};
+      \\\\\${props =>
+        props.primary &&
+        css\\\\\`
+          background: \\\\\${props => props.theme.primary};
+          color: white;
+        \\\\\`};
+    \\\\\`
+    \`}</code></pre>
+        </MDXLayout>;
+    }
+    
+    MDXContent.isMDXComponent = true;"
+  `)
 })
 
 it('Should use fragment as Wrapper', async () => {

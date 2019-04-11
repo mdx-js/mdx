@@ -1,6 +1,64 @@
+const {transformSync} = require('@babel/core')
+const declare = require('@babel/helper-plugin-utils').declare
+const {types: t} = require('@babel/core')
 const toStyleObject = require('to-style').object
 const {paramCase} = require('change-case')
 const {toTemplateLiteral} = require('./util')
+
+const STARTS_WITH_CAPITAL_LETTER = /^[A-Z]/
+
+class BabelPluginExtractJsxNames {
+  constructor() {
+    const names = []
+    this.state = {names}
+
+    this.plugin = declare(api => {
+      api.assertVersion(7)
+
+      return {
+        visitor: {
+          JSXOpeningElement(path) {
+            const jsxName = path.node.name.name
+            names.push(jsxName)
+            if (STARTS_WITH_CAPITAL_LETTER.test(jsxName)) {
+              path.node.attributes.push(
+                t.jSXAttribute(
+                  t.jSXIdentifier(`mdxType`),
+                  t.stringLiteral(jsxName)
+                )
+              )
+            }
+          }
+        }
+      }
+    })
+  }
+}
+
+class BabelPluginExtractImportNames {
+  constructor() {
+    const names = []
+    this.state = {names}
+
+    this.plugin = declare(api => {
+      api.assertVersion(7)
+
+      return {
+        visitor: {
+          ImportDeclaration(path) {
+            path.traverse({
+              Identifier(path) {
+                if (path.key === 'local') {
+                  names.push(path.node.name)
+                }
+              }
+            })
+          }
+        }
+      }
+    })
+  }
+}
 
 // eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
@@ -74,10 +132,6 @@ function toJSX(node, parentNode = {}, options = {}) {
   ${exportNames.join(',\n')}
 };`
     const mdxLayout = `const MDXLayout = ${layout ? layout : '"wrapper"'}`
-    const moduleBase = `${importStatements}
-${exportStatements}
-${layoutProps}
-${mdxLayout}`
 
     const fn = `function MDXContent({ components, ...props }) {
   return (
@@ -91,17 +145,59 @@ ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
 }
 MDXContent.isMDXComponent = true`
 
+    // Check JSX nodes against imports
+    const babelPluginExptractImportNamesInstance = new BabelPluginExtractImportNames()
+    transformSync(importStatements, {
+      plugins: [
+        '@babel/plugin-syntax-jsx',
+        '@babel/plugin-proposal-object-rest-spread',
+        babelPluginExptractImportNamesInstance.plugin
+      ]
+    })
+    const importNames = babelPluginExptractImportNamesInstance.state.names
+
+    const babelPluginExtractJsxNamesInstance = new BabelPluginExtractJsxNames()
+    const fnPostMdxTypeProp = transformSync(fn, {
+      plugins: [
+        '@babel/plugin-syntax-jsx',
+        '@babel/plugin-proposal-object-rest-spread',
+        babelPluginExtractJsxNamesInstance.plugin
+      ]
+    }).code
+    const jsxNames = babelPluginExtractJsxNamesInstance.state.names
+      .filter(name => STARTS_WITH_CAPITAL_LETTER.test(name))
+      .filter(name => name !== 'MDXLayout')
+    const importExportNames = importNames.concat(exportNames)
+    const fakedModulesForGlobalScope =
+      `const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+  return <div {...props}/>
+};
+` +
+      jsxNames
+        .filter(name => !importExportNames.includes(name))
+        .map(name => {
+          return `const ${name} = makeShortcode("${name}");`
+        })
+        .join('\n')
+
+    const moduleBase = `${importStatements}
+${exportStatements}
+${fakedModulesForGlobalScope}
+${layoutProps}
+${mdxLayout}`
+
     if (skipExport) {
       return `${moduleBase}
-${fn}`
+${fnPostMdxTypeProp}`
     }
     if (wrapExport) {
       return `${moduleBase}
-${fn}
+${fnPostMdxTypeProp}
 export default ${wrapExport}(MDXContent)`
     }
     return `${moduleBase}
-export default ${fn}`
+export default ${fnPostMdxTypeProp}`
   }
   // Recursively walk through children
   if (node.children) {
