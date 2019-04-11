@@ -36,6 +36,8 @@ describe('MDXAsset', () => {
   })
 
   it('should render components with MDX.', () => {
-    expect(value).toContain('<Component>component</Component>')
+    expect(value).toContain(
+      '<Component mdxType="Component">component</Component>'
+    )
   })
 })

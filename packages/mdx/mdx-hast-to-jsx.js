@@ -1,8 +1,11 @@
 const {transformSync} = require('@babel/core')
 const declare = require('@babel/helper-plugin-utils').declare
+const {types: t} = require('@babel/core')
 const toStyleObject = require('to-style').object
 const {paramCase} = require('change-case')
 const {toTemplateLiteral} = require('./util')
+
+const startsWithCapitalLetter = /^[A-Z]/
 
 class BabelPluginExtractJsxNames {
   constructor() {
@@ -15,7 +18,16 @@ class BabelPluginExtractJsxNames {
       return {
         visitor: {
           JSXOpeningElement(path) {
-            names.push(path.node.name.name)
+            const jsxName = path.node.name.name
+            names.push(jsxName)
+            if (startsWithCapitalLetter.test(jsxName)) {
+              path.node.attributes.push(
+                t.jSXAttribute(
+                  t.jSXIdentifier(`mdxType`),
+                  t.stringLiteral(jsxName)
+                )
+              )
+            }
           }
         }
       }
@@ -145,14 +157,13 @@ MDXContent.isMDXComponent = true`
     const importNames = babelPluginExptractImportNamesInstance.state.names
 
     const babelPluginExtractJsxNamesInstance = new BabelPluginExtractJsxNames()
-    transformSync(fn, {
+    const fnPostMdxTypeProp = transformSync(fn, {
       plugins: [
         '@babel/plugin-syntax-jsx',
         '@babel/plugin-proposal-object-rest-spread',
         babelPluginExtractJsxNamesInstance.plugin
       ]
-    })
-    const startsWithCapitalLetter = /^[A-Z]/
+    }).code
     const jsxNames = babelPluginExtractJsxNamesInstance.state.names
       .filter(name => startsWithCapitalLetter.test(name))
       .filter(name => name != 'MDXLayout')
@@ -160,14 +171,18 @@ MDXContent.isMDXComponent = true`
     //       export { Baz } from './foo'
     // should it?
     const importExportNames = importNames.concat(exportNames)
-    const fakedModulesForGlobalScope = jsxNames
-      .filter(name => !importExportNames.includes(name))
-      .map(name => {
-        return `const ${name} = props => {
-console.warn("Component \`${name}\` was not imported, exported, or provided by MDXProvider as global scope")
-}`
-      })
-      .join('\n')
+    const fakedModulesForGlobalScope =
+      `const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+  return <div {...props}/>
+};
+` +
+      jsxNames
+        .filter(name => !importExportNames.includes(name))
+        .map(name => {
+          return `const ${name} = makeShortcode("${name}");`
+        })
+        .join('\n')
 
     const moduleBase = `${importStatements}
 ${exportStatements}
@@ -177,15 +192,15 @@ ${mdxLayout}`
 
     if (skipExport) {
       return `${moduleBase}
-${fn}`
+${fnPostMdxTypeProp}`
     }
     if (wrapExport) {
       return `${moduleBase}
-${fn}
+${fnPostMdxTypeProp}
 export default ${wrapExport}(MDXContent)`
     }
     return `${moduleBase}
-export default ${fn}`
+export default ${fnPostMdxTypeProp}`
   }
   // Recursively walk through children
   if (node.children) {
