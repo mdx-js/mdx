@@ -5,6 +5,9 @@ exports[`correctly transpiles 1`] = `
 
 export { Baz } from './foo'
 
+const Baz = props => {
+console.warn(\\"Component \`Baz\` was not imported, exported, or provided by MDXProvider as global scope\\")
+}
 const layoutProps = {
   
 };

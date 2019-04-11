@@ -1,6 +1,52 @@
+const {transformSync} = require('@babel/core')
+const declare = require('@babel/helper-plugin-utils').declare
 const toStyleObject = require('to-style').object
 const {paramCase} = require('change-case')
 const {toTemplateLiteral} = require('./util')
+
+class BabelPluginExtractJsxNames {
+  constructor() {
+    const names = []
+    this.state = {names}
+
+    this.plugin = declare(api => {
+      api.assertVersion(7)
+
+      return {
+        visitor: {
+          JSXOpeningElement(path) {
+            names.push(path.node.name.name)
+          }
+        }
+      }
+    })
+  }
+}
+
+class BabelPluginExtractImportNames {
+  constructor() {
+    const names = []
+    this.state = {names}
+
+    this.plugin = declare(api => {
+      api.assertVersion(7)
+
+      return {
+        visitor: {
+          ImportDeclaration(path) {
+            path.traverse({
+              Identifier(path) {
+                if (path.key === 'local') {
+                  names.push(path.node.name)
+                }
+              }
+            })
+          }
+        }
+      }
+    })
+  }
+}
 
 // eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
@@ -74,10 +120,6 @@ function toJSX(node, parentNode = {}, options = {}) {
   ${exportNames.join(',\n')}
 };`
     const mdxLayout = `const MDXLayout = ${layout ? layout : '"wrapper"'}`
-    const moduleBase = `${importStatements}
-${exportStatements}
-${layoutProps}
-${mdxLayout}`
 
     const fn = `function MDXContent({ components, ...props }) {
   return (
@@ -90,6 +132,48 @@ ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
   )
 }
 MDXContent.isMDXComponent = true`
+
+    // Check JSX nodes against imports
+    const babelPluginExptractImportNamesInstance = new BabelPluginExtractImportNames()
+    transformSync(importStatements, {
+      plugins: [
+        '@babel/plugin-syntax-jsx',
+        '@babel/plugin-proposal-object-rest-spread',
+        babelPluginExptractImportNamesInstance.plugin
+      ]
+    })
+    const importNames = babelPluginExptractImportNamesInstance.state.names
+
+    const babelPluginExtractJsxNamesInstance = new BabelPluginExtractJsxNames()
+    transformSync(fn, {
+      plugins: [
+        '@babel/plugin-syntax-jsx',
+        '@babel/plugin-proposal-object-rest-spread',
+        babelPluginExtractJsxNamesInstance.plugin
+      ]
+    })
+    const startsWithCapitalLetter = /^[A-Z]/
+    const jsxNames = babelPluginExtractJsxNamesInstance.state.names
+      .filter(name => startsWithCapitalLetter.test(name))
+      .filter(name => name != 'MDXLayout')
+    // It doesn't look like exportNames includes the following named export
+    //       export { Baz } from './foo'
+    // should it?
+    const importExportNames = importNames.concat(exportNames)
+    const fakedModulesForGlobalScope = jsxNames
+      .filter(name => !importExportNames.includes(name))
+      .map(name => {
+        return `const ${name} = props => {
+console.warn("Component \`${name}\` was not imported, exported, or provided by MDXProvider as global scope")
+}`
+      })
+      .join('\n')
+
+    const moduleBase = `${importStatements}
+${exportStatements}
+${fakedModulesForGlobalScope}
+${layoutProps}
+${mdxLayout}`
 
     if (skipExport) {
       return `${moduleBase}
