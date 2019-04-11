@@ -5,27 +5,39 @@ exports[`correctly transpiles 1`] = `
 
 export { Baz } from './foo'
 
+const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
+  return <div {...props}/>
+};
+const Baz = makeShortcode(\\"Baz\\");
 const layoutProps = {
   
 };
 const MDXLayout = Foo
-export default function MDXContent({ components, ...props }) {
-  return (
-    <MDXLayout
-      {...layoutProps}
-      {...props}
-      components={components}>
+export default function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function MDXContent(_ref) {
+  let {
+    components
+  } = _ref,
+      props = _objectWithoutProperties(_ref, [\\"components\\"]);
+
+  return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
 
 
 
-<h1>{\`Hello, world! \`}<Foo bar={{ baz: 'qux' }} /></h1>
-<Baz>
+    <h1>{\`Hello, world! \`}<Foo bar={{
+        baz: 'qux'
+      }} mdxType=\\"Foo\\" /></h1>
+    <Baz mdxType=\\"Baz\\">
   Hi!
-</Baz>
-    </MDXLayout>
-  )
+    </Baz>
+    </MDXLayout>;
 }
-MDXContent.isMDXComponent = true"
+
+MDXContent.isMDXComponent = true;"
 `;
 
 exports[`maintains the proper positional info 1`] = `

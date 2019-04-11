@@ -31,7 +31,7 @@ export default ({ children, id }) => <div id={id}>{children}</div>
 describe('renders MDX with the proper components', () => {
   it('default layout', () => {
     const result = render(
-      <MDX components={components} scope={scope} children={mdx} />
+      <MDX components={{...components, ...scope}} children={mdx} />
     )
 
     expect(result).toMatch(/style="color:tomato"/)
@@ -41,8 +41,7 @@ describe('renders MDX with the proper components', () => {
   it('custom layout', () => {
     const result = render(
       <MDX
-        components={components}
-        scope={scope}
+        components={{...components, ...scope}}
         children={mdxLayout}
         id="layout"
       />
