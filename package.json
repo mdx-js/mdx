@@ -1,5 +1,9 @@
 {
   "private": true,
+  "license": "MIT",
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
   "devDependencies": {
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.1.0",
