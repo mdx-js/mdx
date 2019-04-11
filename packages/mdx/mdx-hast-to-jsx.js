@@ -150,7 +150,7 @@ MDXContent.isMDXComponent = true`
     transformSync(importStatements, {
       plugins: [
         '@babel/plugin-syntax-jsx',
-        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-syntax-object-rest-spread',
         babelPluginExptractImportNamesInstance.plugin
       ]
     })
@@ -160,7 +160,7 @@ MDXContent.isMDXComponent = true`
     const fnPostMdxTypeProp = transformSync(fn, {
       plugins: [
         '@babel/plugin-syntax-jsx',
-        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-syntax-object-rest-spread',
         babelPluginExtractJsxNamesInstance.plugin
       ]
     }).code

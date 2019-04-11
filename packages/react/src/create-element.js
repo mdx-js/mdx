@@ -28,7 +28,7 @@ const MDXCreateElement = ({
 }
 MDXCreateElement.displayName = 'MDXCreateElement'
 
-export default function(type, props) {
+export default function(type, props = {}) {
   const args = arguments
 
   if (typeof type === 'string' || props.mdxType) {
