@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "docs",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "author": "Brent Jackson <jxnblk@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -12,9 +12,9 @@
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.10",
-    "@mdx-js/mdx": "^1.0.0-rc.2",
-    "@mdx-js/react": "^1.0.0-rc.2",
-    "@mdx-js/runtime": "^1.0.0-rc.2",
+    "@mdx-js/mdx": "^1.0.0-rc.3",
+    "@mdx-js/react": "^1.0.0-rc.3",
+    "@mdx-js/runtime": "^1.0.0-rc.3",
     "@reach/skip-nav": "^0.1.2",
     "@rebass/emotion": "^3.1.0",
     "@styled-system/css": "^1.0.3",
