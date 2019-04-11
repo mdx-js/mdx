@@ -5,7 +5,7 @@ const toStyleObject = require('to-style').object
 const {paramCase} = require('change-case')
 const {toTemplateLiteral} = require('./util')
 
-const startsWithCapitalLetter = /^[A-Z]/
+const STARTS_WITH_CAPITAL_LETTER = /^[A-Z]/
 
 class BabelPluginExtractJsxNames {
   constructor() {
@@ -20,7 +20,7 @@ class BabelPluginExtractJsxNames {
           JSXOpeningElement(path) {
             const jsxName = path.node.name.name
             names.push(jsxName)
-            if (startsWithCapitalLetter.test(jsxName)) {
+            if (STARTS_WITH_CAPITAL_LETTER.test(jsxName)) {
               path.node.attributes.push(
                 t.jSXAttribute(
                   t.jSXIdentifier(`mdxType`),
@@ -165,11 +165,8 @@ MDXContent.isMDXComponent = true`
       ]
     }).code
     const jsxNames = babelPluginExtractJsxNamesInstance.state.names
-      .filter(name => startsWithCapitalLetter.test(name))
-      .filter(name => name != 'MDXLayout')
-    // It doesn't look like exportNames includes the following named export
-    //       export { Baz } from './foo'
-    // should it?
+      .filter(name => STARTS_WITH_CAPITAL_LETTER.test(name))
+      .filter(name => name !== 'MDXLayout')
     const importExportNames = importNames.concat(exportNames)
     const fakedModulesForGlobalScope =
       `const makeShortcode = name => function MDXDefaultShortcode(props) {
