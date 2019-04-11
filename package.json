@@ -34,8 +34,7 @@
     "test": "lerna run test && remark . -qf && eslint ."
   },
   "workspaces": [
-    "packages/*",
-    "docs"
+    "packages/*"
   ],
   "prettier": {
     "tabWidth": 2,
