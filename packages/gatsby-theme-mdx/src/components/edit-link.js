@@ -2,7 +2,7 @@ import React from 'react'
 import {Location} from '@reach/router'
 import css from '@styled-system/css'
 
-const base = 'https://github.com/mdx-js/mdx/edit/master/docs/src/pages'
+const base = 'https://github.com/mdx-js/mdx/edit/master/docs'
 
 export default () => (
   <Location>

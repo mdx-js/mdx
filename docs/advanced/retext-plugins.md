@@ -1,3 +1,3 @@
-import Redirect from '../../components/redirect'
+import Redirect from 'gatsby-theme-mdx/src/components/redirect'
 
 <Redirect to='/advanced/using-plugins#using-retext-plugins' />
