@@ -7,14 +7,10 @@ import {ThemeContext} from '@emotion/core'
 import css from '@styled-system/css'
 
 const transformCode = isMDX => src => {
-  console.log(src)
-
   if (!isMDX) {
     return `<>${src}</>`
   }
   const transpiledMDX = mdx.sync(src, {skipExport: true})
-
-  console.log(transpiledMDX)
 
   return `
       ${transpiledMDX}
