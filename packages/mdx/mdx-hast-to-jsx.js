@@ -174,7 +174,7 @@ MDXContent.isMDXComponent = true`
   return <div {...props}/>
 };
 ` +
-      jsxNames
+      [...new Set(jsxNames)]
         .filter(name => !importExportNames.includes(name))
         .map(name => {
           return `const ${name} = makeShortcode("${name}");`
