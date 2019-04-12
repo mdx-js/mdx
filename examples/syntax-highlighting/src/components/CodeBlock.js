@@ -9,8 +9,8 @@ export default ({children, className, live, render}) => {
 
   if (live) {
     return (
-      <div style={{marginTop: '40px'}}>
-        <LiveProvider code={children}>
+      <div style={{marginTop: '40px', backgroundColor: 'black'}}>
+        <LiveProvider code={children.trim()}>
           <LivePreview />
           <LiveEditor />
           <LiveError />
@@ -18,6 +18,7 @@ export default ({children, className, live, render}) => {
       </div>
     )
   }
+
   if (render) {
     return (
       <div style={{marginTop: '40px'}}>
