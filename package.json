@@ -36,6 +36,7 @@
   "workspaces": [
     "packages/*",
     "docs",
+    "examples/gatsby",
     "examples/parcel"
   ],
   "prettier": {
