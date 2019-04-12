@@ -37,7 +37,8 @@
     "packages/*",
     "docs",
     "examples/gatsby",
-    "examples/parcel"
+    "examples/parcel",
+    "examples/syntax-highlighting"
   ],
   "prettier": {
     "tabWidth": 2,
