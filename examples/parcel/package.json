@@ -6,15 +6,16 @@
     "start": "parcel index.html --no-cache"
   },
   "dependencies": {
-    "@mdx-js/tag": "^0.16.1",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "@mdx-js/react": "^1.0.1",
+    "@mdx-js/tag": "^0.20.3",
+    "react": "^0.14.x || ^15.x || ^16.x",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.6",
-    "@babel/preset-env": "^7.1.6",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
-    "@mdx-js/parcel-plugin-mdx": "^0.16.5",
-    "parcel-bundler": "^1.10.3"
+    "@mdx-js/parcel-plugin-mdx": "^1.0.1",
+    "parcel-bundler": "^1.12.3"
   }
 }
