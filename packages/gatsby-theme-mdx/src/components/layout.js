@@ -48,7 +48,7 @@ const V0Banner = () => (
       <span role="img" aria-label="Confetti emoji">
         🎉
       </span>
-      Launching MDX v1 {' '} &rarr;
+      Launching MDX V1 {' '} &rarr;
     </Link>{' '}
     {' '}
     <Link
