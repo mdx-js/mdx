@@ -1,6 +1,6 @@
 {
   "name": "create-mdx",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0",
   "description": "Initialize an MDX project",
   "license": "MIT",
   "keywords": [
