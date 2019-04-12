@@ -34,7 +34,7 @@ const styles = (
 const V0Banner = () => (
   <Banner>
     <Link
-      href="https://v0.mdxjs.com"
+      href="/blog/v1"
       css={css({
         color: 'inherit',
         textDecoration: 'none'
@@ -43,7 +43,7 @@ const V0Banner = () => (
       <span role="img" aria-label="Confetti emoji">
         🎉
       </span>
-      These docs are for v1 (currently in beta)
+      These docs are for v1
     </Link>{' '}
     &mdash;{' '}
     <Link
