@@ -3,6 +3,7 @@ const declare = require('@babel/helper-plugin-utils').declare
 const {types: t} = require('@babel/core')
 const toStyleObject = require('to-style').object
 const {paramCase} = require('change-case')
+const uniq = require('lodash.uniq')
 const {toTemplateLiteral} = require('./util')
 
 const STARTS_WITH_CAPITAL_LETTER = /^[A-Z]/
@@ -167,6 +168,7 @@ MDXContent.isMDXComponent = true`
     const jsxNames = babelPluginExtractJsxNamesInstance.state.names
       .filter(name => STARTS_WITH_CAPITAL_LETTER.test(name))
       .filter(name => name !== 'MDXLayout')
+
     const importExportNames = importNames.concat(exportNames)
     const fakedModulesForGlobalScope =
       `const makeShortcode = name => function MDXDefaultShortcode(props) {
@@ -174,7 +176,7 @@ MDXContent.isMDXComponent = true`
   return <div {...props}/>
 };
 ` +
-      [...new Set(jsxNames)]
+      uniq(jsxNames)
         .filter(name => !importExportNames.includes(name))
         .map(name => {
           return `const ${name} = makeShortcode("${name}");`
