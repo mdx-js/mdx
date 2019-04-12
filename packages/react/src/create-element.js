@@ -28,10 +28,11 @@ const MDXCreateElement = ({
 }
 MDXCreateElement.displayName = 'MDXCreateElement'
 
-export default function(type, props = {}) {
+export default function(type, props) {
   const args = arguments
+  const mdxType = props && props.mdxType
 
-  if (typeof type === 'string' || props.mdxType) {
+  if (typeof type === 'string' || mdxType) {
     const argsLength = args.length
 
     const createElementArgArray = new Array(argsLength)
@@ -44,7 +45,7 @@ export default function(type, props = {}) {
       }
     }
     newProps.originalType = type
-    newProps[TYPE_PROP_NAME] = typeof type === 'string' ? type : props.mdxType
+    newProps[TYPE_PROP_NAME] = typeof type === 'string' ? type : mdxType
 
     createElementArgArray[1] = newProps
 
