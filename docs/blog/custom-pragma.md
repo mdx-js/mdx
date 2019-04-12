@@ -4,7 +4,7 @@
 
 `MDXTag`, for those that aren’t aware, is a critical piece in the way
 MDX replaces HTML primitives like `<pre>` and `<h1>` with custom React
-Components. [I’ve previously
+Components.  [I’ve previously
 written](https://www.christopherbiscardi.com/post/codeblocks-mdx-and-mdx-utils)
 about the way `MDXTag` works when trying to replace the `<pre>` tag
 with a custom code component.
@@ -39,7 +39,7 @@ exports.preToCodeBlock = preProps => {
 ```
 
 So `MDXTag` is a real Component in the middle of all of the other MDX
-rendered elements. All of the code is included here for reference.
+rendered elements.  All of the code is included here for reference.
 
 ```js
 import React, {Component} from 'react'
@@ -86,7 +86,7 @@ export default withMDXComponents(MDXTag)
 
 `MDXTag` is used in the [mdx-hast-to-jsx
 conversion](https://github.com/mdx-js/mdx/blob/e1bcf1b1a352c9728424b01c1bb5d62e450eb48d/packages/mdx/mdx-hast-to-jsx.js#L163-L165),
-which is the final step in the MDX AST pipeline. Every renderable
+which is the final step in the MDX AST pipeline.  Every renderable
 element is wrapped in an `MDXTag`, and `MDXTag` handles rendering the
 element later.
 
@@ -171,12 +171,12 @@ wrapping `MDXTag`.
 
 Now that we’ve cleaned up the intermediary representation, we need to
 make sure that we have the same functionality as the old
-`MDXTag`. This is done through a custom `createElement`
-implementation. Typically when using React, we use
-`React.createElement` to render the elements on screen. This is even
-true if you're using JSX because JSX tags such as `<div>` compile to
-`createElement` calls. So this time instead of using
-`React.createElement` we’ll be using our own. [Check it out in the MDX
+`MDXTag`.  This is done through a custom `createElement`
+implementation.  Typically when using React, we use
+`React.createElement` to render the elements on screen.  This is even
+true if you’re using JSX because JSX tags such as `<div>` compile to
+`createElement` calls.  So this time instead of using
+`React.createElement` we’ll be using our own.  [Check it out in the MDX
 repo](https://github.com/mdx-js/mdx/blob/0506708bed0ac787f605b0a97ef77d1954fa1275/packages/react/src/create-element.js)
 
 Reproduced here is our `createElement` function and the logic for how
@@ -220,7 +220,7 @@ export default function(type, props) {
 
 One really cool application of the new output format using a custom
 `createElement` is that we can now write versions of it for Vue and
-other frameworks. Since the pragma insertion is the responsibility of
+other frameworks.  Since the pragma insertion is the responsibility of
 the webpack (or other bundlers) loader, swapping the pragma can be an
 option in mdx-loader as long as we have a Vue `createElement` to point
 to.
