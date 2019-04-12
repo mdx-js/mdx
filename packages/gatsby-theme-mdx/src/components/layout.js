@@ -59,7 +59,7 @@ const V0Banner = () => (
         textDecoration: 'none'
       })}
     >
-      v0 docs
+      v0
     </Link>
   </Banner>
 )
