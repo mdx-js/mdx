@@ -32,7 +32,12 @@ const styles = (
 )
 
 const V0Banner = () => (
-  <Banner>
+  <Banner
+    css={{
+      display: 'flex',
+      justifyContent: 'space-between'
+    }}
+  >
     <Link
       href="/blog/v1"
       css={css({
@@ -43,9 +48,9 @@ const V0Banner = () => (
       <span role="img" aria-label="Confetti emoji">
         🎉
       </span>
-      These docs are for v1
+      Launching MDX v1 {' '} &rarr;
     </Link>{' '}
-    &mdash;{' '}
+    {' '}
     <Link
       href="https://v0.mdxjs.com"
       css={css({
@@ -54,7 +59,7 @@ const V0Banner = () => (
         textDecoration: 'none'
       })}
     >
-      read the v0 docs &rarr;
+      v0 docs
     </Link>
   </Banner>
 )
