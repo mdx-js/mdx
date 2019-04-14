@@ -64,6 +64,6 @@ jobs:
           at: /tmp/src
       - run:
           command: |
-            echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+            echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $CIRCLE_WORKING_DIRECTORY/.npmrc 2> /dev/null
             git fetch --tags
             yarn publish-ci
