@@ -62,4 +62,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: /tmp/src
-      - run: yarn publish-ci
+      - run:
+          command: |
+            echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+            git fetch --tags
+            yarn publish-ci
