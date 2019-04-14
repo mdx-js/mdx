@@ -34,12 +34,11 @@ jobs:
           command: |
             yarn install
             yarn lerna exec yarn install
-            yarn lerna link --force-local
       - run: yarn lerna exec yarn install
-      # - save_cache:
-      #     paths:
-      #       - node_modules
-      #     key: v2-dependencies-{{ checksum "yarn.lock" }}
+      - save_cache:
+          paths:
+            - node_modules
+          key: v2-dependencies-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
           root: .
           paths:
@@ -51,7 +50,10 @@ jobs:
       - checkout
       - attach_workspace:
           at: /tmp/src
-      - run: yarn test
+      - run:
+          command: |
+            yarn lerna link --force-local
+            yarn test
 
   deploy:
     <<: *mdx-defaults
