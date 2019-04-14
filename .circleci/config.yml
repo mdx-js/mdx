@@ -29,11 +29,17 @@ jobs:
       - restore_cache:
           keys:
           - v2-dependencies-{{ checksum "yarn.lock" }}
-      - run: yarn
-      - save_cache:
-          paths:
-            - node_modules
-          key: v2-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install and Link
+          command: |
+            yarn install
+            yarn lerna exec yarn install
+            yarn lerna link --force-local
+      - run: yarn lerna exec yarn install
+      # - save_cache:
+      #     paths:
+      #       - node_modules
+      #     key: v2-dependencies-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
           root: .
           paths:
