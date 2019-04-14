@@ -1,19 +1,56 @@
 version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:lts
-    working_directory: ~/repo
 
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - install
+      - test:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+
+job-defaults: &mdx-defaults
+  docker:
+    - image: circleci/node:lts
+  working_directory: /tmp/src
+
+jobs:
+  install:
+    <<: *mdx-defaults
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: yarn install
+          - v2-dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v2-dependencies-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+
+  test:
+    <<: *mdx-defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/src
       - run: yarn test
+
+  deploy:
+    <<: *mdx-defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/src
+      - run: yarn publish-ci
