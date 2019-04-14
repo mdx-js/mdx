@@ -29,6 +29,7 @@ jobs:
       - restore_cache:
           keys:
           - v2-dependencies-{{ checksum "yarn.lock" }}
+          - v2-dependencies-
       - run:
           name: Install and Link
           command: |
@@ -52,7 +53,7 @@ jobs:
           at: /tmp/src
       - run:
           command: |
-            yarn lerna link --force-local
+            yarn bootstrap
             yarn test
 
   deploy:
