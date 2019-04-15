@@ -149,6 +149,8 @@ MDXContent.isMDXComponent = true`
     // Check JSX nodes against imports
     const babelPluginExptractImportNamesInstance = new BabelPluginExtractImportNames()
     transformSync(importStatements, {
+      configFile: false,
+      babelrc: false,
       plugins: [
         require('@babel/plugin-syntax-jsx'),
         require('@babel/plugin-syntax-object-rest-spread'),
@@ -159,6 +161,8 @@ MDXContent.isMDXComponent = true`
 
     const babelPluginExtractJsxNamesInstance = new BabelPluginExtractJsxNames()
     const fnPostMdxTypeProp = transformSync(fn, {
+      configFile: false,
+      babelrc: false,
       plugins: [
         require('@babel/plugin-syntax-jsx'),
         require('@babel/plugin-syntax-object-rest-spread'),
