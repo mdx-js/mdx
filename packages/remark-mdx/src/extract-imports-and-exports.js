@@ -20,7 +20,7 @@ if (typeof window !== 'undefined') {
     )
   } catch (exception) {
     console.error(
-      'Please make sure you\'ve added @babel/standalone to your package.json under "dependencies" (not just "devDependencies").'
+      'Please make sure you\'ve added @babel/standalone to your package.json under "dependencies" (not just "devDependencies"). You can skip this if you pass {skipImportsAndExports: true} to remark-mdx'
     )
     throw exception
   }
@@ -30,7 +30,7 @@ if (typeof window !== 'undefined') {
     babelTransform = require('@babel/core').transformSync
   } catch (exception) {
     console.error(
-      'Please make sure you\'ve added @babel/core to your package.json under "dependencies" (not just "devDependencies").'
+      'Please make sure you\'ve added @babel/core to your package.json under "dependencies" (not just "devDependencies"). You can skip this if you pass {skipImportsAndExports: true} to remark-mdx'
     )
     throw exception
   }
