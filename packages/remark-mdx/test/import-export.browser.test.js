@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-const extract = require('../src/extract-imports-and-exports')
+const extract = require('../dist/extract-imports-and-exports')
 const fixtures = require('./fixtures/import-export')
 const vfile = require('vfile')
 

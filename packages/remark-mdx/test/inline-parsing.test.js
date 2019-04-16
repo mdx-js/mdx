@@ -1,7 +1,7 @@
 const unified = require('unified')
 const remarkParse = require('remark-parse')
 const remarkStringify = require('remark-stringify')
-const remarkMdx = require('../src')
+const remarkMdx = require('../dist')
 
 const fixtures = require('./fixtures/inline-parsing')
 
