@@ -69,12 +69,6 @@ function applyHastPluginsAndCompilers(compiler, options) {
       node.children = children
       node.tagName = tagName
 
-      // Transform class property to JSX-friendly className
-      if (properties.class) {
-        properties.className = properties.class
-        delete properties.class
-      }
-
       node.properties = properties
     })
   })
