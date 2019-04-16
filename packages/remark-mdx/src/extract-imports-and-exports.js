@@ -1,4 +1,41 @@
-const {transformSync} = require('@babel/core')
+let babelTransform
+
+// When we're in the browser, use @babel/standalone
+
+// eslint-disable-next-line no-undef
+if (typeof window !== 'undefined') {
+  try {
+    // @babel/standalone is sync by default
+    // eslint-disable-next-line import/no-extraneous-dependencies
+    const standalone = require('@babel/standalone')
+    babelTransform = standalone.transform
+    standalone.registerPlugin(
+      '@babel/plugin-syntax-jsx',
+      require('@babel/plugin-syntax-jsx')
+    )
+
+    standalone.registerPlugin(
+      '@babel/plugin-proposal-object-rest-spread',
+      require('@babel/plugin-proposal-object-rest-spread')
+    )
+  } catch (exception) {
+    console.error(
+      'Please make sure you\'ve added @babel/standalone to your package.json under "dependencies" (not just "devDependencies").'
+    )
+    throw exception
+  }
+} else {
+  // When we're in Node.js, use @babel/core
+  try {
+    babelTransform = require('@babel/core').transformSync
+  } catch (exception) {
+    console.error(
+      'Please make sure you\'ve added @babel/core to your package.json under "dependencies" (not just "devDependencies").'
+    )
+    throw exception
+  }
+}
+
 const declare = require('@babel/helper-plugin-utils').declare
 
 class BabelPluginExtractImportsAndExports {
@@ -45,7 +82,7 @@ const partitionString = (str, indices) =>
 module.exports = (value, vfile) => {
   const instance = new BabelPluginExtractImportsAndExports()
 
-  transformSync(value, {
+  babelTransform(value, {
     plugins: [
       '@babel/plugin-syntax-jsx',
       '@babel/plugin-proposal-object-rest-spread',

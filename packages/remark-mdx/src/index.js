@@ -1,7 +1,7 @@
 const isAlphabetical = require('is-alphabetical')
-const extractImportsAndExports = require('./extract-imports-and-exports')
 const block = require('./block')
 const {tag} = require('./tag')
+let extractImportsAndExports // Don't require this until it's needed.
 
 const IMPORT_REGEX = /^import/
 const EXPORT_REGEX = /^export/
@@ -20,12 +20,12 @@ mdx.default = mdx
 
 tokenizeEsSyntax.locator = tokenizeEsSyntaxLocator
 
-function mdx(_options) {
+function mdx(options) {
   const parser = this.Parser
   const compiler = this.Compiler
 
   if (parser && parser.prototype && parser.prototype.blockTokenizers) {
-    attachParser(parser)
+    attachParser(parser, options)
   }
 
   if (compiler && compiler.prototype && compiler.prototype.visitors) {
@@ -33,12 +33,15 @@ function mdx(_options) {
   }
 }
 
-function attachParser(parser) {
+function attachParser(parser, options) {
   const blocks = parser.prototype.blockTokenizers
   const inlines = parser.prototype.inlineTokenizers
   const methods = parser.prototype.blockMethods
 
-  blocks.esSyntax = tokenizeEsSyntax
+  if (typeof options !== 'object' || !options.skipImportsAndExports) {
+    blocks.esSyntax = tokenizeEsSyntax
+  }
+
   blocks.html = wrap(block)
   inlines.html = wrap(inlines.html, inlineJsx)
 
@@ -105,6 +108,10 @@ function tokenizeEsSyntax(eat, value) {
   const subvalue = index !== -1 ? value.slice(0, index) : value
 
   if (isExport(subvalue) || isImport(subvalue)) {
+    if (!extractImportsAndExports) {
+      extractImportsAndExports = require('./extract-imports-and-exports')
+    }
+
     const nodes = extractImportsAndExports(subvalue, this.file)
     nodes.map(node => eat(node.value)(node))
   }
