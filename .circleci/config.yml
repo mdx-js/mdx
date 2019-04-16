@@ -1,0 +1,69 @@
+version: 2
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - install
+      - test:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+
+job-defaults: &mdx-defaults
+  docker:
+    - image: circleci/node:lts
+  working_directory: /tmp/src
+
+jobs:
+  install:
+    <<: *mdx-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v2-dependencies-{{ checksum "yarn.lock" }}
+          - v2-dependencies-
+      - run:
+          name: Install and Link
+          command: |
+            yarn install
+            yarn lerna exec yarn install
+      - run: yarn lerna exec yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v2-dependencies-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+
+  test:
+    <<: *mdx-defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/src
+      - run:
+          command: |
+            yarn bootstrap
+            yarn test
+
+  deploy:
+    <<: *mdx-defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/src
+      - run:
+          command: |
+            echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $CIRCLE_WORKING_DIRECTORY/.npmrc 2> /dev/null
+            git fetch --tags
+            yarn publish-ci
