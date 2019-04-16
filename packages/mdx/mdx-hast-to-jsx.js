@@ -72,10 +72,17 @@ function toJSX(node, parentNode = {}, options = {}) {
   let children = ''
 
   if (node.properties != null) {
+    // Turn style strings into JSX-friendly style object
     if (typeof node.properties.style === 'string') {
       node.properties.style = toStyleObject(node.properties.style, {
         camelize: true
       })
+    }
+
+    // Transform class property to JSX-friendly className
+    if (node.properties.class) {
+      node.properties.className = node.properties.class
+      delete node.properties.class
     }
 
     // AriaProperty => aria-property
