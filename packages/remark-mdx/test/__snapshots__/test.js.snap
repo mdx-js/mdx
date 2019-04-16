@@ -1,5 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`correctly handles mutliline JSX blocks with props 1`] = `
+"import Foo from './bar'
+
+export { Baz } from './foo'
+
+const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
+  return <div {...props}/>
+};
+const Baz = makeShortcode(\\"Baz\\");
+const layoutProps = {
+  
+};
+const MDXLayout = Foo
+export default function MDXContent({
+  components,
+  ...props
+}) {
+  return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
+
+
+
+    <h1>{\`Hello, world! \`}<Foo bar={{
+        baz: 'qux'
+      }} mdxType=\\"Foo\\" /></h1>
+  <Baz propName=\\"propValue\\" secondProp thirdProp={{
+      withObject: 'value'
+    }} fourthProp={1} mdxType=\\"Baz\\">
+    Hi!
+  </Baz>
+  
+    </MDXLayout>;
+}
+
+MDXContent.isMDXComponent = true;"
+`;
+
 exports[`correctly transpiles 1`] = `
 "import Foo from './bar'
 
@@ -187,6 +224,144 @@ Object {
 }
 `;
 
+exports[`parses imports and exports as a paragraph passed skipImportsAndExports 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 19,
+              "line": 4,
+              "offset": 71,
+            },
+            "indent": Array [
+              1,
+              1,
+            ],
+            "start": Object {
+              "column": 1,
+              "line": 2,
+              "offset": 1,
+            },
+          },
+          "type": "text",
+          "value": "import Foo from './bar'
+export { Baz } from './foo'
+export default Foo",
+        },
+      ],
+      "position": Position {
+        "end": Object {
+          "column": 19,
+          "line": 4,
+          "offset": 71,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 1,
+        },
+      },
+      "type": "paragraph",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 17,
+              "line": 6,
+              "offset": 89,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 6,
+              "offset": 75,
+            },
+          },
+          "type": "text",
+          "value": "Hello, world! ",
+        },
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 45,
+              "line": 6,
+              "offset": 117,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 17,
+              "line": 6,
+              "offset": 89,
+            },
+          },
+          "type": "jsx",
+          "value": "<Foo bar={{ baz: 'qux' }} />",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 45,
+          "line": 6,
+          "offset": 117,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 6,
+          "offset": 73,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 7,
+          "line": 10,
+          "offset": 137,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 8,
+          "offset": 119,
+        },
+      },
+      "type": "jsx",
+      "value": "<Baz>
+  Hi!
+</Baz>",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 1,
+      "line": 11,
+      "offset": 138,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
 exports[`removes newlines between imports and exports 1`] = `
 "import Foo1 from \\"./foo\\"
 import Foo2 from \\"./foo\\"
@@ -198,4 +373,37 @@ export default props => <article {...props} />
 
 export const fred = \\"flintstone\\"
 "
+`;
+
+exports[`skips imports and exports when passed skipImportsAndExports 1`] = `
+"
+
+const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
+  return <div {...props}/>
+};
+const Foo = makeShortcode(\\"Foo\\");
+const Baz = makeShortcode(\\"Baz\\");
+const layoutProps = {
+  
+};
+const MDXLayout = \\"wrapper\\"
+export default function MDXContent({
+  components,
+  ...props
+}) {
+  return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
+    <p>{\`import Foo from './bar'
+export { Baz } from './foo'
+export default Foo\`}</p>
+    <h1>{\`Hello, world! \`}<Foo bar={{
+        baz: 'qux'
+      }} mdxType=\\"Foo\\" /></h1>
+    <Baz mdxType=\\"Baz\\">
+  Hi!
+    </Baz>
+    </MDXLayout>;
+}
+
+MDXContent.isMDXComponent = true;"
 `;

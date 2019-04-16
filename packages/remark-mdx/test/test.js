@@ -43,6 +43,30 @@ const parse = mdx => {
   return result
 }
 
+const parseWithoutImportExport = mdx => {
+  const result = unified()
+    .use(remarkParse)
+    .use(remarkMdx, {
+      skipImportsAndExports: true
+    })
+    .parse(mdx)
+
+  return result
+}
+
+const transpileWithoutImportExport = mdx => {
+  const result = unified()
+    .use(remarkParse)
+    .use(remarkMdx, {
+      skipImportsAndExports: true
+    })
+    .use(mdxAstToMdxHast)
+    .use(mdxHastToJsx)
+    .processSync(mdx)
+
+  return result.contents
+}
+
 const stringify = mdx => {
   const result = unified()
     .use(remarkParse)
@@ -76,6 +100,37 @@ it('removes newlines between imports and exports', () => {
   ].join('\n')
 
   const result = stringify(fixture)
+
+  expect(result).toMatchSnapshot()
+})
+
+it('correctly handles mutliline JSX blocks with props', () => {
+  const fixture = `
+import Foo from './bar'
+export { Baz } from './foo'
+export default Foo
+
+
+  # Hello, world! <Foo bar={{ baz: 'qux' }} />
+
+  <Baz propName="propValue" secondProp thirdProp={{withObject: 'value'}} fourthProp={1}>
+    Hi!
+  </Baz>
+  `
+
+  const result = transpile(fixture)
+
+  expect(result).toMatchSnapshot()
+})
+
+it('skips imports and exports when passed skipImportsAndExports', () => {
+  const result = transpileWithoutImportExport(FIXTURE)
+
+  expect(result).toMatchSnapshot()
+})
+
+it('parses imports and exports as a paragraph passed skipImportsAndExports', () => {
+  const result = parseWithoutImportExport(FIXTURE)
 
   expect(result).toMatchSnapshot()
 })
