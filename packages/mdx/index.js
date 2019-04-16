@@ -65,7 +65,7 @@ function applyHastPluginsAndCompilers(compiler, options) {
   compiler.use(() => ast => {
     visit(ast, 'raw', node => {
       const {children, tagName, properties} = raw(node)
-      node.type = 'jsx'
+      node.type = 'element'
       node.children = children
       node.tagName = tagName
       node.properties = properties
