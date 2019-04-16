@@ -2,7 +2,7 @@ const unified = require('unified')
 const remarkParse = require('remark-parse')
 const remarkStringify = require('remark-stringify')
 
-const remarkMdx = require('../dist')
+const remarkMdx = require('../src')
 const mdxAstToMdxHast = require('../../mdx/mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('../../mdx/mdx-hast-to-jsx')
 
