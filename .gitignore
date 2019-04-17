@@ -12,3 +12,4 @@ tmp
 artifacts
 .cache
 public
+.npmrc
