@@ -6,7 +6,7 @@ const TYPE_PROP_NAME = 'mdxType'
 
 const DEFAULTS = {
   inlineCode: 'code',
-  wrapper: React.Fragment
+  wrapper: ({children}) => React.createElement(React.Fragment, {}, children)
 }
 
 const MDXCreateElement = ({

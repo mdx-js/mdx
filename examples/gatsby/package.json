@@ -1,16 +1,18 @@
 {
   "private": true,
-  "version": "1.0.4",
+  "version": "1.0.10",
   "name": "gatsby",
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.0.4",
-    "@mdx-js/react": "^1.0.2",
+    "@mdx-js/mdx": "^1.0.10",
+    "@mdx-js/react": "^1.0.6",
     "gatsby": "^2.3.21",
     "gatsby-mdx": "^0.6.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "unified-ui": "^0.0.3"
   }
 }
