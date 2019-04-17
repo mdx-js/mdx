@@ -52,9 +52,9 @@ jobs:
       - attach_workspace:
           at: /tmp/src
       - run:
-          command: |
-            yarn bootstrap
-            yarn test
+          command: yarn bootstrap
+      - run:
+          command: yarn test
 
   deploy:
     <<: *mdx-defaults
@@ -63,7 +63,8 @@ jobs:
       - attach_workspace:
           at: /tmp/src
       - run:
-          command: |
-            echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $CIRCLE_WORKING_DIRECTORY/.npmrc 2> /dev/null
-            git fetch --tags
-            yarn publish-ci
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> /tmp/src/.npmrc 2> /dev/null
+      - run:
+          name: Publish to npm
+          command: yarn publish-ci
