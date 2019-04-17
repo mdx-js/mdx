@@ -39,7 +39,8 @@
     "examples/gatsby",
     "examples/next",
     "examples/parcel",
-    "examples/syntax-highlighting"
+    "examples/syntax-highlighting",
+    "examples/webpack"
   ],
   "prettier": {
     "tabWidth": 2,
