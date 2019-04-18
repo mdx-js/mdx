@@ -9,7 +9,7 @@
     "clean": "gatsby clean"
   },
   "devDependencies": {
-    "gatsby": "^2.3.6"
+    "gatsby": "^2.3.24"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
@@ -23,20 +23,20 @@
     "@styled-system/css": "^1.0.3",
     "emotion-mdx": "^1.0.0-6",
     "emotion-theming": "^10.0.10",
-    "gatsby-mdx": "^0.5.6",
+    "gatsby-plugin-mdx": "^1.0.2-rc.0",
     "gatsby-plugin-catch-links": "^2.0.13",
     "gatsby-plugin-compile-es6-packages": "^1.1.0",
     "gatsby-plugin-emotion": "^4.0.6",
     "gatsby-plugin-google-fonts": "^0.0.4",
     "gatsby-plugin-page-creator": "^2.0.12",
-    "gatsby-plugin-react-helmet": "^3.0.11",
-    "is-absolute-url": "^2.1.0",
+    "gatsby-plugin-react-helmet": "^3.0.12",
+    "is-absolute-url": "^3.0.0",
     "lodash.flatten": "^4.4.0",
     "prism-react-renderer": "^0.1.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
-    "react-live": "^2.0.0",
+    "react-live": "^2.0.1",
     "remark-emoji": "^2.0.2",
     "remark-slug": "^5.1.1",
     "styled-system": "^4.1.0"
