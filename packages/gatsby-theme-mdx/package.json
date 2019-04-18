@@ -23,7 +23,7 @@
     "@styled-system/css": "^1.0.3",
     "emotion-mdx": "^1.0.0-6",
     "emotion-theming": "^10.0.10",
-    "gatsby-plugin-mdx": "^1.0.2-rc.0",
+    "gatsby-plugin-mdx": "^1.0.2-rc.1",
     "gatsby-plugin-catch-links": "^2.0.13",
     "gatsby-plugin-compile-es6-packages": "^1.1.0",
     "gatsby-plugin-emotion": "^4.0.6",
