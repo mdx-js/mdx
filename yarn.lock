@@ -7306,10 +7306,10 @@ gatsby-plugin-google-fonts@^0.0.4:
   resolved "https://registry.yarnpkg.com/gatsby-plugin-google-fonts/-/gatsby-plugin-google-fonts-0.0.4.tgz#dc1402a71f27c3ae6caee10777d10adadf74bd7c"
   integrity sha512-B9Q+dznk6UX2Fe7QyCTptiuLT+ZLtdFBs1lg5kvaVDyIlesEA2rSQqtB7IkEQflH91JPE4eAEM699JCPy7CFGg==
 
-gatsby-plugin-mdx@^1.0.2-rc.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-mdx/-/gatsby-plugin-mdx-1.0.2.tgz#a87fc696375b14b0e058fe2c53402aec95bee4b4"
-  integrity sha512-WghwqnIvMdZJcLB2i3YaDDrOcOwkQ21ts4gjcf9wH9SUz2G5TRlELh2ooB7jMTA1LUDgmag1ieKnxNlgIkNIpw==
+gatsby-plugin-mdx@1.0.2-1:
+  version "1.0.2-1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-mdx/-/gatsby-plugin-mdx-1.0.2-1.tgz#71f176dff0797e2db8caa49d32e3be552c323b76"
+  integrity sha512-yLiyg+TE3SFZgDkwViqSpg1GR3Kbez4TrkA5jazC7HouOdsQaDw6XgTUYQNhvgMFr1I1y48Q4F0Ka0yTdMqwEQ==
   dependencies:
     "@babel/core" "^7.4.3"
     "@babel/plugin-proposal-object-rest-spread" "^7.4.3"
@@ -17339,9 +17339,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 typescript@>=2.8.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.4.3.tgz#0eb320e4ace9b10eadf5bc6103286b0f8b7c224f"
-  integrity sha512-FFgHdPt4T/duxx6Ndf7hwgMZZjZpB+U0nMNGVCYPq0rEzWKjEDobm4J6yb3CS7naZ0yURFqdw9Gwc7UOh/P9oQ==
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.4.4.tgz#aac4a08abecab8091a75f10842ffa0631818f785"
+  integrity sha512-xt5RsIRCEaf6+j9AyOBgvVuAec0i92rgCaS3S+UVf5Z/vF2Hvtsw08wtUTJqp4djwznoAgjSxeCcU4r+CcDBJA==
 
 ua-parser-js@^0.7.18:
   version "0.7.19"
