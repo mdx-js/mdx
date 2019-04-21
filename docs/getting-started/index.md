@@ -401,11 +401,11 @@ component object you pass to `MDXProvider`.
 | `tr`            | [Table row](https://github.com/syntax-tree/mdast#tablerow)           | `This | is | a | table row`                         |
 | `td`/`th`       | [Table cell](https://github.com/syntax-tree/mdast#tablecell)         |                                                     |
 | `pre`           | [Pre](https://github.com/syntax-tree/mdast#code)                     |                                                     |
-| `code`          | [Code](https://github.com/syntax-tree/mdast#code)                    |                                                     |
+| `code`          | [Code](https://github.com/syntax-tree/mdast#code)                    | ``\`c tode\```                                                    |
 | `em`            | [Emphasis](https://github.com/syntax-tree/mdast#emphasis)            | `_emphasis_`                                        |
 | `strong`        | [Strong](https://github.com/syntax-tree/mdast#strong)                | `**strong**`                                        |
 | `delete`        | [Delete](https://github.com/syntax-tree/mdast#delete)                | `~~strikethrough~~`                                 |
-| `code`          | [InlineCode](https://github.com/syntax-tree/mdast#inlinecode)        |                                                     |
+| `inlineCode`    | [InlineCode](https://github.com/syntax-tree/mdast#inlinecode)        | `` `inlineCode` ``                                    |
 | `hr`            | [Break](https://github.com/syntax-tree/mdast#break)                  | `---`                                               |
 | `a`             | [Link](https://github.com/syntax-tree/mdast#link)                    | `<https://mdxjs.com>` or `[MDX](https://mdxjs.com)` |
 | `img`           | [Image](https://github.com/syntax-tree/mdast#image)                  | `![alt](https://mdx-logo.now.sh)`                   |
