@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "parcel",
-  "version": "1.0.10",
+  "version": "1.0.14",
   "scripts": {
     "start": "parcel index.html --no-cache"
   },
@@ -15,7 +15,7 @@
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
-    "@mdx-js/parcel-plugin-mdx": "^1.0.10",
+    "@mdx-js/parcel-plugin-mdx": "^1.0.14",
     "parcel-bundler": "^1.12.3"
   }
 }
