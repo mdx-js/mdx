@@ -204,14 +204,17 @@ ${mdxLayout}`
       return `${moduleBase}
 ${fnPostMdxTypeProp}`
     }
+
     if (wrapExport) {
       return `${moduleBase}
 ${fnPostMdxTypeProp}
 export default ${wrapExport}(MDXContent)`
     }
+
     return `${moduleBase}
 export default ${fnPostMdxTypeProp}`
   }
+
   // Recursively walk through children
   if (node.children) {
     children = node.children
@@ -228,11 +231,11 @@ export default ${fnPostMdxTypeProp}`
   if (node.type === 'element') {
     let props = ''
 
-    if (Array.isArray(node.properties.className)) {
+    if (node.properties && Array.isArray(node.properties.className)) {
       node.properties.className = node.properties.className.join(' ')
     }
 
-    if (Object.keys(node.properties).length > 0) {
+    if (node.properties && Object.keys(node.properties).length > 0) {
       props = JSON.stringify(node.properties)
     }
 
