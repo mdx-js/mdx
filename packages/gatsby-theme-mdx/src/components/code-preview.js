@@ -10,6 +10,7 @@ const transformCode = isMDX => src => {
   if (!isMDX) {
     return `<>${src}</>`
   }
+
   const transpiledMDX = mdx.sync(src, {skipExport: true})
 
   return `

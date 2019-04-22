@@ -78,12 +78,21 @@ From here, you can continue to [write your own plugin][writing-a-plugin] or use 
 This technique allows you to use things like [remark-toc][remark-toc] to add a generated table of contents based on the other content in the MDX file or [remark-mdx-metadata][remark-mdx-metadata] to externally modify MDX metadata and save the modified content back to the original file.
 
 [ast]: /advanced/ast
+
 [mdxast]: /advanced/ast#mdxast
+
 [remark]: https://github.com/remarkjs/remark
+
 [remark-mdx]: https://github.com/mdx-js/mdx/tree/master/packages/remark-mdx
+
 [remark-mdx-metadata]: https://github.com/manovotny/remark-mdx-metadata
+
 [remark-plugins]: /advanced/plugins
+
 [remark-toc]: https://github.com/remarkjs/remark-toc
+
 [to-vfile]: https://github.com/vfile/to-vfile
+
 [unified]: https://unified.js.org
+
 [writing-a-plugin]: /guides/writing-a-plugin

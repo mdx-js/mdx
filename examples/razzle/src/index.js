@@ -17,5 +17,6 @@ export default express()
       console.error(err)
       return
     }
+
     console.log(`> Started on port ${port}`)
   })

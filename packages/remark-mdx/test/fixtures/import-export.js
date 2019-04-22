@@ -25,9 +25,5 @@ module.exports = [
   {
     description: 'Handles multiline default exports',
     mdx: ['export default props => (', '  <main {...props} />', ')'].join('\n')
-  },
-  {
-    description: 'does not handle non-export words',
-    mdx: `exporting that from the same file as a React component will make the config`
   }
 ]

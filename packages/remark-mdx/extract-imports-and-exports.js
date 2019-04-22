@@ -74,10 +74,12 @@ module.exports = (value, vfile) => {
         currType = 'default'
         return [...acc, [curr]]
       }
+
       if (curr.type === currType) {
         const lastNodes = acc.pop()
         return [...acc, [...lastNodes, curr]]
       }
+
       currType = curr.type
       return [...acc, [curr]]
     },

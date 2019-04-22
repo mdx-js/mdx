@@ -41,6 +41,7 @@ function mdxAstToMdxHast() {
               acc[t[0]] = t[1]
               return acc
             }
+
             acc[cur] = true
             return acc
           }, {})
