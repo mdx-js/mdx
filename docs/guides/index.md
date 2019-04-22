@@ -7,8 +7,8 @@ to add to them by [contributing](/contributing)!
 
 *   [Add syntax highlighting to code blocks](/guides/syntax-highlighting)
 *   [Add a live code block](/guides/live-code)
-*   [**[WIP]** Implement a dynamic table of contents](/guides/table-of-contents)
-*   [**[WIP]** Use MDX in a Vue project](/guides/vue)
+*   [**\[WIP\]** Implement a dynamic table of contents](/guides/table-of-contents)
+*   [**\[WIP\]** Use MDX in a Vue project](/guides/vue)
 
 ## Customizing
 

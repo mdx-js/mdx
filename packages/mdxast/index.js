@@ -10,9 +10,11 @@ const restringify = node => {
   if (node.type === 'link') {
     return node.url
   }
+
   if (node.type === 'linkReference') {
     return `[${node.children.map(n => n.value)}]`
   }
+
   return node.value
 }
 

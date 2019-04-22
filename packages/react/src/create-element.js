@@ -26,6 +26,7 @@ const MDXCreateElement = ({
 
   return React.createElement(Component, etc)
 }
+
 MDXCreateElement.displayName = 'MDXCreateElement'
 
 export default function(type, props) {
@@ -44,6 +45,7 @@ export default function(type, props) {
         newProps[key] = props[key]
       }
     }
+
     newProps.originalType = type
     newProps[TYPE_PROP_NAME] = typeof type === 'string' ? type : mdxType
 

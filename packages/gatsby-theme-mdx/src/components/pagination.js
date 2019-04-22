@@ -9,6 +9,7 @@ const flattenLinks = children =>
     if (child.props && child.props.mdxType === 'a') {
       return [...acc, child]
     }
+
     if (!child.props || !child.props.children) return acc
     return React.Children.toArray([
       ...acc,

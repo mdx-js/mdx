@@ -13,9 +13,9 @@ to GitHub and it’s a nice usage of meta strings.
 After the language in code fences you can add `key=value` pairs which will
 be automatically passed as props to your code block.
 
-```md
+````md
   ```js live=true
-```
+````
 
 ## Component
 
