@@ -1,4 +1,4 @@
-const {transformSync} = require('@babel/core')
+const {transformSync, createConfigItem} = require('@babel/core')
 const declare = require('@babel/helper-plugin-utils').declare
 
 class BabelPluginExtractImportsAndExports {
@@ -47,8 +47,13 @@ module.exports = (value, vfile) => {
 
   transformSync(value, {
     plugins: [
-      '@babel/plugin-syntax-jsx',
-      '@babel/plugin-proposal-object-rest-spread',
+      createConfigItem([require.resolve('@babel/plugin-syntax-jsx')], {
+        type: 'plugin'
+      }),
+      createConfigItem(
+        [require.resolve('@babel/plugin-proposal-object-rest-spread')],
+        {type: 'plugin'}
+      ),
       instance.plugin
     ],
     filename: vfile.path
