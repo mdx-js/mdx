@@ -47,8 +47,8 @@ module.exports = (value, vfile) => {
 
   transformSync(value, {
     plugins: [
-      '@babel/plugin-syntax-jsx',
-      '@babel/plugin-proposal-object-rest-spread',
+      require('@babel/plugin-syntax-jsx'),
+      require('@babel/plugin-proposal-object-rest-spread'),
       instance.plugin
     ],
     filename: vfile.path
