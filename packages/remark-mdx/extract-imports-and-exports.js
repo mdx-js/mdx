@@ -1,6 +1,15 @@
 const {transformSync, createConfigItem} = require('@babel/core')
 const declare = require('@babel/helper-plugin-utils').declare
 
+const syntaxJsxPlugin = createConfigItem(
+  [require.resolve('@babel/plugin-syntax-jsx')],
+  {type: 'plugin'}
+)
+const proposalObjectRestSpreadPlugin = createConfigItem(
+  [require.resolve('@babel/plugin-proposal-object-rest-spread')],
+  {type: 'plugin'}
+)
+
 class BabelPluginExtractImportsAndExports {
   constructor() {
     const nodes = []
@@ -46,16 +55,7 @@ module.exports = (value, vfile) => {
   const instance = new BabelPluginExtractImportsAndExports()
 
   transformSync(value, {
-    plugins: [
-      createConfigItem([require.resolve('@babel/plugin-syntax-jsx')], {
-        type: 'plugin'
-      }),
-      createConfigItem(
-        [require.resolve('@babel/plugin-proposal-object-rest-spread')],
-        {type: 'plugin'}
-      ),
-      instance.plugin
-    ],
+    plugins: [syntaxJsxPlugin, proposalObjectRestSpreadPlugin, instance.plugin],
     filename: vfile.path
   })
 
