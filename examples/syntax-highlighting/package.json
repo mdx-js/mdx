@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "syntax-highlighting",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.0.14",
-    "@mdx-js/react": "^1.0.6",
+    "@mdx-js/mdx": "^1.0.15",
+    "@mdx-js/react": "^1.0.15",
     "gatsby": "^2.3.21",
     "gatsby-mdx": "^0.6.1",
     "prism-react-renderer": "^0.1.6",
