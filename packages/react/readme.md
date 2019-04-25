@@ -21,7 +21,7 @@ npm install --save @mdx-js/react
 /* @jsx mdx */
 import React from 'react'
 import {renderToString} from 'react-dom/server'
-import {MDXProvider, mdx} from '@mdx/react'
+import {MDXProvider, mdx} from '@mdx-js/react'
 
 const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
 
