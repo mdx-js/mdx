@@ -1,14 +1,8 @@
-const {transformSync, createConfigItem} = require('@babel/core')
+const {transformSync} = require('@babel/core')
 const declare = require('@babel/helper-plugin-utils').declare
 
-const syntaxJsxPlugin = createConfigItem(
-  [require.resolve('@babel/plugin-syntax-jsx')],
-  {type: 'plugin'}
-)
-const proposalObjectRestSpreadPlugin = createConfigItem(
-  [require.resolve('@babel/plugin-proposal-object-rest-spread')],
-  {type: 'plugin'}
-)
+const syntaxJsxPlugin = require('@babel/plugin-syntax-jsx')
+const proposalObjectRestSpreadPlugin = require('@babel/plugin-proposal-object-rest-spread')
 
 class BabelPluginExtractImportsAndExports {
   constructor() {
