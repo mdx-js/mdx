@@ -1,6 +1,6 @@
 # Zero
 
-[Zero](https://zeroserver.io) is a no-config web framework for React, MDX, Nodejs, and Vue. It has built in support for MDX. You just need to install Zero (globally or locally in your project).
+[Zero](https://zeroserver.io) is a no-config web framework for React, MDX, Nodejs, and Vue. It has built in support for MDX. To get started, install Zero (globally or locally in your project).
 
 ## Installation
 
