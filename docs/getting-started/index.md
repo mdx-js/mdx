@@ -19,7 +19,8 @@ the installation guides.
 [Create React App](/getting-started/create-react-app) \|
 [React Static](/getting-started/react-static) \|
 [Webpack](/getting-started/webpack) \|
-[Parcel](/getting-started/parcel)
+[Parcel](/getting-started/parcel) \|
+[Zero](/getting-started/zero)
 
 </Box>
 
