@@ -10,6 +10,7 @@
 *   [docz][]: Documentation framework
 *   [mdx-deck][]: MDX-based presentation decks
 *   [mdx-docs][]: Next-based documentation framework
+*   [mdx-paper][]: MDX-based research articles
 *   [spectacle-boilerplate-mdx][]: Boilerplate that facilitates using MDX with
     Spectacle
 *   [Charge][charge]: An opinionated, zero-config static site generator
@@ -32,6 +33,8 @@
 [mdx-deck]: https://github.com/jxnblk/mdx-deck
 
 [mdx-docs]: https://github.com/jxnblk/mdx-docs
+
+[mdx-paper]: https://github.com/hubgit/mdx-paper
 
 [docz]: https://www.docz.site/
 
