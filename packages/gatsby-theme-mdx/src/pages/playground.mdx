@@ -6,14 +6,12 @@ Write some MDX code and see it render to the right. Below, you can also
 see the output JSX and the intermediary ASTs. This can be helpful for
 debugging or exploring how MDX works.
 
-export const __DEVELOPER_SAVE = value => {
-  window.localStorage['lastMDXPlayground'] = value
-}
-
 export const initialValue =
   typeof window !== 'undefined' && window.localStorage['lastMDXPlayground']
 
 <PlaygroundEditor
   code={initialValue || '# Hello, world!'}
-  onChange={__DEVELOPER_SAVE}
+  onChange={value => {
+    window.localStorage['lastMDXPlayground'] = value
+  }}
 />
