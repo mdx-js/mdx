@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react'
 import {LiveProvider, LivePreview, LiveEditor, LiveError} from 'react-live'
 import mdx from '@mdx-js/mdx'
-import {mdx as createElement} from '@mdx-js/react'
+import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 import * as Rebass from '@rebass/emotion'
 import {ThemeContext} from '@emotion/core'
 import css from '@styled-system/css'
@@ -26,7 +26,9 @@ const transformCode = src => {
     ${transpiledMDX}
 
     render(
-      <MDXContent components={components} {...props} />
+      <MDXProvider components={components}>
+        <MDXContent {...props} />
+      </MDXProvider>
     )
   `
 }
@@ -60,29 +62,28 @@ const getOutputs = src => {
 }
 
 const defaultScope = {
+  MDXProvider,
   ...Rebass
 }
 
-export default ({
-  code,
-  onChange = () => {},
-  scope = defaultScope,
-  ...props
-}) => {
+export default ({code, onChange = () => {}, scope = {}, ...props}) => {
   const theme = useContext(ThemeContext)
   const [activePane, setActivePane] = useState(null)
   const paneWidth = activePane ? '10%' : '30%'
 
   const {jsx, mdast, hast, error} = getOutputs(code)
 
+  const fullScope = {...defaultScope, ...scope}
+
   return (
     <LiveProvider
       {...props}
       code={code}
       scope={{
-        components: {},
+        ...fullScope,
+        components: fullScope,
+        MDXProvider,
         props: {},
-        ...scope,
         mdx: createElement
       }}
       noInline={true}

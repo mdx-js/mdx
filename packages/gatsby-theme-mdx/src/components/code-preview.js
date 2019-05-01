@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {LiveProvider, LivePreview, LiveEditor, LiveError} from 'react-live'
 import mdx from '@mdx-js/mdx'
-import {mdx as createElement} from '@mdx-js/react'
+import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 import * as Rebass from '@rebass/emotion'
 import {ThemeContext} from '@emotion/core'
 import css from '@styled-system/css'
@@ -14,12 +14,14 @@ const transformCode = isMDX => src => {
   const transpiledMDX = mdx.sync(src, {skipExport: true})
 
   return `
-      ${transpiledMDX}
+    ${transpiledMDX}
 
-      render(
-        <MDXContent components={components} {...props} />
-      )
-    `
+    render(
+      <MDXProvider components={components}>
+        <MDXContent {...props} />
+      </MDXProvider>
+    )
+  `
 }
 
 const defaultScope = {
@@ -28,21 +30,24 @@ const defaultScope = {
 
 export default ({
   code,
-  scope = defaultScope,
+  scope = {},
   mdx,
   editable = true,
   className,
   ...props
 }) => {
   const theme = useContext(ThemeContext)
+  const fullScope = {...scope, ...defaultScope}
+
   return (
     <LiveProvider
       {...props}
       code={code}
       scope={{
-        components: {},
+        ...fullScope,
+        components: fullScope,
+        MDXProvider,
         props: {},
-        ...scope,
         mdx: createElement
       }}
       noInline={true}
