@@ -7,11 +7,12 @@ import addClasses from 'rehype-add-classes'
 import MDX from '../src'
 
 const components = {
-  h1: props => <h1 style={{color: 'tomato'}} {...props} />
+  h1: props => <h1 style={{color: 'tomato'}} {...props} />,
+  Foo: () => <div>Foobarbaz</div>
 }
 
 const scope = {
-  Foo: () => <div>Foobarbaz</div>
+  some: 'value'
 }
 
 const mdx = `
