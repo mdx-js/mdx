@@ -16,7 +16,8 @@ export default ({children, language, className: outerClassName}) => {
           className={[outerClassName, className].join(' ')}
           style={{
             ...style,
-            padding: 16
+            padding: 16,
+            overflowX: 'auto'
           }}
         >
           {tokens.map((line, i) => (

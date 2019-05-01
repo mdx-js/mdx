@@ -1,0 +1,27 @@
+import {useState} from 'react'
+
+import PlaygroundEditor from '../components/playground-editor'
+
+export const Playground = () => {
+  const initialValue = typeof window !== 'undefined' && window.localStorage['lastMDXPlayground']
+  const [code, setCode] = useState(initialValue || '# Hello, world!')
+  return (
+    <PlaygroundEditor
+      code={code}
+      onChange={value => {
+        setCode(value)
+        if (typeof window !== 'undefined') {
+          window.localStorage['lastMDXPlayground'] = value
+        }
+      }}
+    />
+  )
+}
+
+# Playground
+
+Write some MDX code and see it render to the right. Below, you can also
+see the output JSX and the intermediary ASTs. This can be helpful for
+debugging or exploring how MDX works.
+
+<Playground />
