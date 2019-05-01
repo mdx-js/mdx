@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -20,6 +22,12 @@ module.exports = {
       resolve: 'gatsby-plugin-page-creator',
       options: {
         path: 'docs'
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-page-creator',
+      options: {
+        path: path.join(__dirname, 'src/pages')
       }
     },
     {
