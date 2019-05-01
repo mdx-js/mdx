@@ -27,13 +27,13 @@ import MDX from '@mdx-js/runtime'
 
 // Provide custom components for markdown elements
 const components = {
-  h1: props => <h1 style={{ color: 'tomato' }} {...props} />
+  h1: props => <h1 style={{ color: 'tomato' }} {...props} />,
+  Demo: props => <h1>This is a demo component</h1>
 }
 
-// Provide custom components that will be referenced as JSX
-// in the markdown string
+// Provide variables that might be referenced by JSX
 const scope = {
-  Demo: props => <h1>This is a demo component</h1>
+  some: 'value'
 }
 
 const mdx = `
