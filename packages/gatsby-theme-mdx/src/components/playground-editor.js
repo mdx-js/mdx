@@ -68,7 +68,7 @@ const defaultScope = {
 
 export default ({code, onChange = () => {}, scope = {}, ...props}) => {
   const theme = useContext(ThemeContext)
-  const [activePane, setActivePane] = useState(null)
+  const [activePane, setActivePane] = useState('jsx')
   const paneWidth = activePane ? '10%' : '30%'
 
   const {jsx, mdast, hast, error} = getOutputs(code)
@@ -135,20 +135,6 @@ export default ({code, onChange = () => {}, scope = {}, ...props}) => {
       ) : (
         <div css={{display: 'flex', justifyContent: 'space-between'}}>
           <div
-            onClick={() => setActivePane('jsx')}
-            css={{
-              width: activePane === 'jsx' ? '100%' : paneWidth,
-              overflowX: 'auto'
-            }}
-          >
-            <h5>JSX</h5>
-            <CodeBlock
-              css={{boxShadow: 'inset 1px 2px 5px rgba(0, 0, 0, .05)'}}
-            >
-              {jsx}
-            </CodeBlock>
-          </div>
-          <div
             onClick={() => setActivePane('mdast')}
             css={{
               width: activePane === 'mdast' ? '100%' : paneWidth,
@@ -174,6 +160,20 @@ export default ({code, onChange = () => {}, scope = {}, ...props}) => {
               css={{boxShadow: 'inset 1px 2px 5px rgba(0, 0, 0, .05)'}}
             >
               {JSON.stringify(hast, null, 2)}
+            </CodeBlock>
+          </div>
+          <div
+            onClick={() => setActivePane('jsx')}
+            css={{
+              width: activePane === 'jsx' ? '100%' : paneWidth,
+              overflowX: 'auto'
+            }}
+          >
+            <h5>JSX</h5>
+            <CodeBlock
+              css={{boxShadow: 'inset 1px 2px 5px rgba(0, 0, 0, .05)'}}
+            >
+              {jsx}
             </CodeBlock>
           </div>
         </div>
