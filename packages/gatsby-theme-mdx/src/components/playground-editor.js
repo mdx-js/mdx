@@ -5,11 +5,16 @@ import {mdx as createElement} from '@mdx-js/react'
 import * as Rebass from '@rebass/emotion'
 import {ThemeContext} from '@emotion/core'
 import css from '@styled-system/css'
+import removeImports from 'remark-mdx-remove-imports'
+import removeExports from 'remark-mdx-remove-exports'
 
 import CodeBlock from './code-block'
 
 const transformCode = src => {
-  const transpiledMDX = mdx.sync(src, {skipExport: true})
+  const transpiledMDX = mdx.sync(src, {
+    skipExport: true,
+    remarkPlugins: [removeImports, removeExports]
+  })
 
   return `
     ${transpiledMDX}
@@ -18,6 +23,29 @@ const transformCode = src => {
       <MDXContent components={components} {...props} />
     )
   `
+}
+
+const getOutputs = src => {
+  let mdast = {}
+  let hast = {}
+
+  const jsx = mdx.sync(src, {
+    skipExport: true,
+    remarkPlugins: [
+      () => ast => {
+        mdast = ast
+        return ast
+      }
+    ],
+    rehypePlugins: [
+      () => ast => {
+        hast = ast
+        return ast
+      }
+    ]
+  })
+
+  return {jsx, mdast, hast}
 }
 
 const defaultScope = {
@@ -34,23 +62,7 @@ export default ({
   const [activePane, setActivePane] = useState(null)
   const paneWidth = activePane ? '10%' : '30%'
 
-  let mdast
-  let hast = {}
-  const jsx = mdx.sync(code, {
-    skipExport: true,
-    remarkPlugins: [
-      () => ast => {
-        mdast = ast
-        return ast
-      }
-    ],
-    rehypePlugins: [
-      () => ast => {
-        hast = ast
-        return ast
-      }
-    ]
-  })
+  const {jsx, mdast, hast} = getOutputs(code)
 
   return (
     <LiveProvider
