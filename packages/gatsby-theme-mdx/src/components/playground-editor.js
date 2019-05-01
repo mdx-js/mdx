@@ -11,10 +11,16 @@ import removeExports from 'remark-mdx-remove-exports'
 import CodeBlock from './code-block'
 
 const transformCode = src => {
-  const transpiledMDX = mdx.sync(src, {
-    skipExport: true,
-    remarkPlugins: [removeImports, removeExports]
-  })
+  let transpiledMDX = ''
+
+  try {
+    transpiledMDX = mdx.sync(src, {
+      skipExport: true,
+      remarkPlugins: [removeImports, removeExports]
+    })
+  } catch (e) {
+    return ''
+  }
 
   return `
     ${transpiledMDX}
@@ -26,24 +32,29 @@ const transformCode = src => {
 }
 
 const getOutputs = src => {
+  let jsx = ''
   let mdast = {}
   let hast = {}
 
-  const jsx = mdx.sync(src, {
-    skipExport: true,
-    remarkPlugins: [
-      () => ast => {
-        mdast = ast
-        return ast
-      }
-    ],
-    rehypePlugins: [
-      () => ast => {
-        hast = ast
-        return ast
-      }
-    ]
-  })
+  try {
+    jsx = mdx.sync(src, {
+      skipExport: true,
+      remarkPlugins: [
+        () => ast => {
+          mdast = ast
+          return ast
+        }
+      ],
+      rehypePlugins: [
+        () => ast => {
+          hast = ast
+          return ast
+        }
+      ]
+    })
+  } catch (error) {
+    return {error}
+  }
 
   return {jsx, mdast, hast}
 }
@@ -62,7 +73,7 @@ export default ({
   const [activePane, setActivePane] = useState(null)
   const paneWidth = activePane ? '10%' : '30%'
 
-  const {jsx, mdast, hast} = getOutputs(code)
+  const {jsx, mdast, hast, error} = getOutputs(code)
 
   return (
     <LiveProvider
@@ -113,44 +124,59 @@ export default ({
         })}
       />
 
-      <div css={{display: 'flex', justifyContent: 'space-between'}}>
-        <div
-          onClick={() => setActivePane('jsx')}
-          css={{
-            width: activePane === 'jsx' ? '100%' : paneWidth,
-            overflowX: 'auto'
-          }}
-        >
-          <h5>JSX</h5>
+      {error ? (
+        <>
+          <h5>Error</h5>
           <CodeBlock css={{boxShadow: 'inset 1px 2px 5px rgba(0, 0, 0, .05)'}}>
-            {jsx}
+            {error.toString()}
           </CodeBlock>
+        </>
+      ) : (
+        <div css={{display: 'flex', justifyContent: 'space-between'}}>
+          <div
+            onClick={() => setActivePane('jsx')}
+            css={{
+              width: activePane === 'jsx' ? '100%' : paneWidth,
+              overflowX: 'auto'
+            }}
+          >
+            <h5>JSX</h5>
+            <CodeBlock
+              css={{boxShadow: 'inset 1px 2px 5px rgba(0, 0, 0, .05)'}}
+            >
+              {jsx}
+            </CodeBlock>
+          </div>
+          <div
+            onClick={() => setActivePane('mdast')}
+            css={{
+              width: activePane === 'mdast' ? '100%' : paneWidth,
+              overflowX: 'auto'
+            }}
+          >
+            <h5>MDAST</h5>
+            <CodeBlock
+              css={{boxShadow: 'inset 1px 2px 5px rgba(0, 0, 0, .05)'}}
+            >
+              {JSON.stringify(mdast, null, 2)}
+            </CodeBlock>
+          </div>
+          <div
+            onClick={() => setActivePane('hast')}
+            css={{
+              width: activePane === 'hast' ? '100%' : paneWidth,
+              overflowX: 'auto'
+            }}
+          >
+            <h5>HAST</h5>
+            <CodeBlock
+              css={{boxShadow: 'inset 1px 2px 5px rgba(0, 0, 0, .05)'}}
+            >
+              {JSON.stringify(hast, null, 2)}
+            </CodeBlock>
+          </div>
         </div>
-        <div
-          onClick={() => setActivePane('mdast')}
-          css={{
-            width: activePane === 'mdast' ? '100%' : paneWidth,
-            overflowX: 'auto'
-          }}
-        >
-          <h5>MDAST</h5>
-          <CodeBlock css={{boxShadow: 'inset 1px 2px 5px rgba(0, 0, 0, .05)'}}>
-            {JSON.stringify(mdast, null, 2)}
-          </CodeBlock>
-        </div>
-        <div
-          onClick={() => setActivePane('hast')}
-          css={{
-            width: activePane === 'hast' ? '100%' : paneWidth,
-            overflowX: 'auto'
-          }}
-        >
-          <h5>HAST</h5>
-          <CodeBlock css={{boxShadow: 'inset 1px 2px 5px rgba(0, 0, 0, .05)'}}>
-            {JSON.stringify(hast, null, 2)}
-          </CodeBlock>
-        </div>
-      </div>
+      )}
     </LiveProvider>
   )
 }
