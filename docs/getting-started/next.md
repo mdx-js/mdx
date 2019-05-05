@@ -29,4 +29,4 @@ module.exports = withMDX({
 })
 ```
 
-[next-plugin]: https://github.com/zeit/next.js/tree/canary/packages/next-mdx
+[next-plugin]: https://github.com/zeit/next.js/tree/master/packages/next-mdx
