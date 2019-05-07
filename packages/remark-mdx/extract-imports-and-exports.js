@@ -50,7 +50,9 @@ module.exports = (value, vfile) => {
 
   transformSync(value, {
     plugins: [syntaxJsxPlugin, proposalObjectRestSpreadPlugin, instance.plugin],
-    filename: vfile.path
+    filename: vfile.path,
+    configFile: false,
+    babelrc: false
   })
 
   const sortedNodes = instance.state.nodes.sort((a, b) => a.start - b.start)
