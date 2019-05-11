@@ -6,7 +6,7 @@ the rendering of elements in Markdown and JSX.
 
 <!-- TODO: rewrite to update for v1. -->
 
-## Tranpilation
+## Transpilation
 
 Consider the following MDX:
 
