@@ -12,6 +12,7 @@ free customer service.
 ## Table of Contents
 
 *   [Questions](#questions)
+    *   [Asking quality questions](#asking-quality-questions)
 *   [Contributions](#contributions)
     *   [Financial support](#financial-support)
     *   [Improve documentation](#improve-documentation)
@@ -30,6 +31,29 @@ free customer service.
 
 Please chat and ask questions on [spectrum][chat]!
 Jump in there and lurk, talk to us, and help others.
+
+### Asking quality questions
+
+Help us help you!
+
+Spending time framing a question and adding support links or resources makes it
+much easier for us to help.  It’s easy to fall into the trap of asking something too
+specific when you’re close to a problem.  Then, those trying to help you out have
+to spend a lot of time asking additional questions to understand what you are
+hoping to achieve.
+
+Spending the extra time up front can help save everyone time in the long run.
+
+*   Try to define what you need help with:
+    *   Is there something in particular you want to do?
+    *   What problem are you encountering and what steps have you taken to try and fix it?
+    *   Is there a concept you’re not understanding?
+*   Learn about the [rubber duck debugging method][rubberduck]
+*   Avoid falling for the [XY problem][xy]
+*   Search on GitHub and Spectrum to see if a similar question has been asked
+*   Read through the [Getting Started Guide](https://mdxjs.com/getting-started)
+*   If possible, provide sample code, a [CodeSandbox](https://codesandbox.io), or a video
+*   The more time you put into asking your question, the better we can help you
 
 ## Contributions
 
@@ -136,6 +160,10 @@ If you’re having issues installing locally you might need to run
 *   [GitHub Help](https://help.github.com)
 
 [unit-test]: https://twitter.com/sindresorhus/status/579306280495357953
+
+[rubberduck]: https://rubberduckdebugging.com
+
+[xy]: https://meta.stackexchange.com/questions/66377/what-is-the-xy-problem/66378#66378
 
 [chat]: https://spectrum.chat/mdx
 
