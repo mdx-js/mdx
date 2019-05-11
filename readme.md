@@ -1,7 +1,6 @@
 # [![MDX][logo]][website]
 
 [![Build Status][build-badge]][build]
-[![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
 > Markdown for the component era.
@@ -154,10 +153,6 @@ Join us on [spectrum][]!
 [build]: https://travis-ci.org/mdx-js/mdx
 
 [build-badge]: https://travis-ci.org/mdx-js/mdx.svg?branch=master
-
-[lerna]: https://lernajs.io/
-
-[lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
 
 [spectrum]: https://spectrum.chat/mdx
 
