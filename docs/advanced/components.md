@@ -4,9 +4,7 @@ The MDX core library accepts a string and exports a JSX string.
 It uses a [custom pragma](/blog/custom-pragma) which customizes
 the rendering of elements in Markdown and JSX.
 
-<!-- TODO: rewrite to update for v1. -->
-
-## Transpilation
+## Compilation
 
 Consider the following MDX:
 
