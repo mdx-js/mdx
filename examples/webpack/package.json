@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "webpack-example",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,8 @@
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
-    "@mdx-js/loader": "^1.0.18",
-    "@mdx-js/mdx": "^1.0.18",
+    "@mdx-js/loader": "^1.0.19",
+    "@mdx-js/mdx": "^1.0.19",
     "babel-loader": "^8.0.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
