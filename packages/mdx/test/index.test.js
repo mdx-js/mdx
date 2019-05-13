@@ -244,6 +244,22 @@ it('Should turn a newline into a space with other adjacent phrasing content', as
   expect(result).toContain('<em>foo</em>\n<code>bar</code>')
 })
 
+test('Should not forward MDX options to plugins', async () => {
+  expect.assertions(2)
+  await mdx(``, {
+    remarkPlugins: [
+      options => _tree => {
+        expect(options).toMatchInlineSnapshot(`undefined`)
+      }
+    ],
+    rehypePlugins: [
+      options => _tree => {
+        expect(options).toMatchInlineSnapshot(`undefined`)
+      }
+    ]
+  })
+})
+
 it('Should convert style strings to camelized objects', async () => {
   const result = await mdx(
     `
