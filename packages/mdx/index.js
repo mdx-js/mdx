@@ -38,7 +38,7 @@ function createMdxAstCompiler(options) {
     if (Array.isArray(plugin) && plugin.length > 1) {
       fn.use(plugin[0], plugin[1])
     } else {
-      fn.use(plugin, options)
+      fn.use(plugin)
     }
   })
 
@@ -78,7 +78,7 @@ function applyHastPluginsAndCompilers(compiler, options) {
     if (Array.isArray(plugin) && plugin.length > 1) {
       compiler.use(plugin[0], plugin[1])
     } else {
-      compiler.use(plugin, options)
+      compiler.use(plugin)
     }
   })
 
