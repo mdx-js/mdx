@@ -233,6 +233,20 @@ This is similar to what frontmatter allows in Markdown, but instead of
 supporting only data in something like YAML, MDX lets you use richer JavaScript
 structures.
 
+##### Defining variables with exports
+
+If you need to define a variable in your MDX document, you can use an export
+to do so.  Not only do exports emit data, they instantiate data you can reference
+in JSX blocks:
+
+```js
+export const myVariable = 'Yay!'
+
+# Hello, world!
+
+<div>{myVariable}</div>
+```
+
 ## Working with components
 
 In addition to rendering components inline, you can also pass in components
