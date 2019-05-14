@@ -58,7 +58,7 @@ bio to the wrapped document.
 ## `makeShortcodes`
 
 There is one other function added to the compiled output: `makeShortcodes`.
-This is added for [shortcode support](/guides/shortcodes).  It’s used in order
+This is added for [shortcode support](/blog/shortcodes).  It’s used in order
 to stub any components that aren’t directly imported so that there won’t be
 any `ReferenceError`s.  If they’re passed to the `MDXProvider`, the custom
 JSX pragma will pull the component from context and use that in place of the
