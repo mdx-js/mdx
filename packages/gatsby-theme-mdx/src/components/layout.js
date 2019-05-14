@@ -9,7 +9,6 @@ import Header from './header'
 import Pagination from './pagination'
 import EditLink from './edit-link'
 import Link from './link'
-import Banner from './banner'
 import {SkipNavLink, SkipNavContent} from './skip-nav'
 import baseTheme from './theme'
 
@@ -29,39 +28,6 @@ const styles = (
       }
     })}
   />
-)
-
-const V0Banner = () => (
-  <Banner
-    css={{
-      display: 'flex',
-      justifyContent: 'space-between'
-    }}
-  >
-    <Link
-      href="/blog/v1"
-      css={css({
-        color: 'inherit',
-        textDecoration: 'none'
-      })}
-    >
-      <span role="img" aria-label="Confetti emoji">
-        🎉
-      </span>
-      Launching MDX V1 {' '} &rarr;
-    </Link>{' '}
-    {' '}
-    <Link
-      href="https://v0.mdxjs.com"
-      css={css({
-        color: 'inherit',
-        textTransform: 'uppercase',
-        textDecoration: 'none'
-      })}
-    >
-      v0
-    </Link>
-  </Banner>
 )
 
 const Root = props => (
@@ -197,7 +163,6 @@ export default props => {
       <ComponentProvider theme={theme} transform={css} components={components}>
         <SkipNavLink />
         {styles}
-        <V0Banner />
         <Root>
           <Overlay open={menuOpen} onClick={closeMenu} />
           <Header toggleMenu={toggleMenu} dark={dark} setDark={setDark} />
