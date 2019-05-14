@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "microbundle --format es,cjs  --no-sourcemap",
+    "build": "microbundle --format es,cjs --no-sourcemap",
+    "prepare": "yarn build",
     "no-test": "jest"
   },
   "keywords": [

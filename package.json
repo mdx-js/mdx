@@ -40,7 +40,8 @@
     "examples/next",
     "examples/parcel",
     "examples/syntax-highlighting",
-    "examples/webpack"
+    "examples/webpack",
+    "examples/vue"
   ],
   "prettier": {
     "tabWidth": 2,
