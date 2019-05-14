@@ -1,3 +1,5 @@
+import { Button } from '@rebass/emotion'
+
 [MDX Blog](/blog)
 
 # Shortcodes
@@ -49,7 +51,9 @@ Here’s a YouTube shortcode wrapped in TomatoBox:
 
 That’s it.  :tada: :rocket:
 
-> [Try it on CodeSandbox](https://codesandbox.io/s/github/mdx-js/mdx/tree/master/examples/shortcodes)
+<Button href="https://codesandbox.io/s/github/mdx-js/mdx/tree/master/examples/shortcodes">
+  Try it on CodeSandbox
+</Button>
 
 * * *
 
