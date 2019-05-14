@@ -51,7 +51,7 @@ Here’s a YouTube shortcode wrapped in TomatoBox:
 
 That’s it.  :tada: :rocket:
 
-<Button href="https://codesandbox.io/s/github/mdx-js/mdx/tree/master/examples/shortcodes">
+<Button as="a" href="https://codesandbox.io/s/github/mdx-js/mdx/tree/master/examples/shortcodes">
   Try it on CodeSandbox
 </Button>
 
