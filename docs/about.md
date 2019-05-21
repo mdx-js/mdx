@@ -8,7 +8,7 @@ The project is governed by the [unified collective][governance].
 
 ### Design
 
-[Logo designs][design] were created by [Evil Rabbit][]) of [ZEIT][] and are also
+[Logo designs][design] were created by [Evil Rabbit][] of [ZEIT][] and are also
 available on [GitHub][design].
 
 ### Authors
