@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "microbundle --format es,cjs --no-sourcemap",
-    "prepare": "yarn build",
+    "prepublish": "yarn build",
     "no-test": "jest"
   },
   "keywords": [
