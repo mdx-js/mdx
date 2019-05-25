@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdxast",
-  "version": "1.0.15",
+  "version": "1.0.20",
   "description": "Transforms MDAST to MDXAST",
   "license": "MIT",
   "keywords": [

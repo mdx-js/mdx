@@ -1,6 +1,6 @@
 {
   "name": "vue-example",
-  "version": "0.1.0",
+  "version": "1.0.20",
   "private": true,
   "scripts": {
     "start": "yarn serve",
@@ -12,10 +12,10 @@
     "vue": "^2.6.10"
   },
   "devDependencies": {
+    "@mdx-js/vue-loader": "^1.0.20",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
-    "@mdx-js/vue-loader": "^1.0.19",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
