@@ -1,15 +1,39 @@
 # Create React App
 
-Please note there’s a [known bug][] with
-the macro so live reloading doesn’t
-currently work.
+# Create React App
 
 With Create React App you will need to use
-[`mdx.macro`][mdx-macro].
+[`mdx-loader`][mdx-loader].
 
 ```sh
 npx create-react-app my-app
-yarn add mdx.macro
+yarn add mdx-loader --dev
+```
+
+Then create a `.babelrc` file in the root level of your project with the following contents:
+
+```
+{
+    "presets": ["babel-preset-react-app"]
+}
+```
+
+Then, you can import a component from any Markdown file by prepending the filename with `!babel-loader!mdx-loader!`. For example:
+
+```
+/* eslint-disable import/no-webpack-loader-syntax */
+import MyDocument from '!babel-loader!mdx-loader!../pages/index.md'
+```
+
+Create a markdown document `src/document.mdx`
+
+```mdx
+---
+title: My Document
+---
+
+This is **markdown** with <span style={{ color: "red" }}>JSX</span>!
+
 ```
 
 Then create the following `src/App.js`:
@@ -17,18 +41,16 @@ Then create the following `src/App.js`:
 ```js
 // src/App.js
 
-import React, { lazy, Component, Suspense } from 'react';
-import { importMDX } from 'mdx.macro';
-
-const Content = lazy(() => importMDX('./Content.mdx'));
-
+import React, { Component } from 'react'
+/* eslint-disable import/no-webpack-loader-syntax */
+import Document, { frontMatter, tableOfContents } from '!babel-loader!mdx-loader!./document.md'
+ 
 class App extends Component {
   render() {
     return (
       <div>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Content />
-        </Suspense>
+        <h1>{frontMatter.title}</h1>
+        <Document />
       </div>
     );
   }
@@ -37,16 +59,8 @@ class App extends Component {
 export default App;
 ```
 
-And then create the following `src/Content.mdx`:
-
-```md
-# Hello, world!
-```
-
 [See the full example][cra-example]
 
-[mdx-macro]: https://www.npmjs.com/package/mdx.macro
+[mdx-loader]: https://www.npmjs.com/package/mdx-loader
 
 [cra-example]: https://github.com/mdx-js/mdx/tree/master/examples/create-react-app
-
-[known bug]: https://github.com/facebook/create-react-app/issues/5580
