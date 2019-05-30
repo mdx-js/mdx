@@ -41,7 +41,7 @@ Then create the following `src/App.js`:
 
 import React, { Component } from 'react'
 /* eslint-disable import/no-webpack-loader-syntax */
-import Document, { frontMatter, tableOfContents } from '!babel-loader!mdx-loader!./document.md'
+import Document, { frontMatter, tableOfContents } from '!babel-loader!mdx-loader!./document.mdx'
  
 class App extends Component {
   render() {
