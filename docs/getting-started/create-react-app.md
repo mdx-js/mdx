@@ -1,7 +1,5 @@
 # Create React App
 
-# Create React App
-
 With Create React App you will need to use
 [`mdx-loader`][mdx-loader].
 
