@@ -1,5 +1,5 @@
 import React from 'react'
-import css from '@styled-system/css'
+import {css} from 'theme-ui'
 import Moon from './moon'
 import Circle from './circle'
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import {Location} from '@reach/router'
-import {ComponentProvider} from 'emotion-mdx'
-import css from '@styled-system/css'
+import {ThemeProvider, css} from 'theme-ui'
 import SidebarContent from './sidebar.mdx'
 
 const flattenLinks = children =>
@@ -38,7 +37,7 @@ export default () => (
             const next = links[index + 1]
 
             return (
-              <ComponentProvider
+              <ThemeProvider
                 theme={{
                   styles: {
                     a: {
@@ -94,7 +93,7 @@ export default () => (
                       </div>
                     )}
                 </div>
-              </ComponentProvider>
+              </ThemeProvider>
             )
           }}
         />
