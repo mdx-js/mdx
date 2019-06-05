@@ -3,4 +3,8 @@ node_js:
   - 8
   - 10
   - 12
+os:
+  - linux
+  - osx
+  - windows
 cache: yarn
