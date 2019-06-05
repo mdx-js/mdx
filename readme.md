@@ -150,9 +150,9 @@ Join us on [spectrum][]!
 
 [logo]: .github/repo.png
 
-[build]: https://travis-ci.org/mdx-js/mdx
+[build]: https://travis-ci.com/mdx-js/mdx
 
-[build-badge]: https://travis-ci.org/mdx-js/mdx.svg?branch=master
+[build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
 
 [spectrum]: https://spectrum.chat/mdx
 
