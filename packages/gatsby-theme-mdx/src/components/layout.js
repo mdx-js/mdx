@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Global} from '@emotion/core'
-import {ComponentProvider} from 'emotion-mdx'
-import css from '@styled-system/css'
+import {ThemeProvider, css} from 'theme-ui'
 
 import components from './mdx-components'
 import SidebarContent from './sidebar.mdx'
@@ -57,7 +56,7 @@ const Main = props => (
 )
 
 const Sidebar = ({open, ...props}) => (
-  <ComponentProvider
+  <ThemeProvider
     theme={{
       styles: {
         ul: {
@@ -100,7 +99,7 @@ const Sidebar = ({open, ...props}) => (
         }
       })}
     />
-  </ComponentProvider>
+  </ThemeProvider>
 )
 
 const Overlay = props =>
@@ -160,7 +159,7 @@ export default props => {
 
   return (
     <>
-      <ComponentProvider theme={theme} transform={css} components={components}>
+      <ThemeProvider theme={theme} components={components}>
         <SkipNavLink />
         {styles}
         <Root>
@@ -178,7 +177,7 @@ export default props => {
             </Container>
           </Main>
         </Root>
-      </ComponentProvider>
+      </ThemeProvider>
     </>
   )
 }

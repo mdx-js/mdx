@@ -1,6 +1,6 @@
 import React from 'react'
 import {Location} from '@reach/router'
-import css from '@styled-system/css'
+import {css} from 'theme-ui'
 
 const base = 'https://github.com/mdx-js/mdx/edit/master/docs'
 

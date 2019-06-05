@@ -4,7 +4,7 @@ import mdx from '@mdx-js/mdx'
 import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 import * as Rebass from '@rebass/emotion'
 import {ThemeContext} from '@emotion/core'
-import css from '@styled-system/css'
+import {css} from 'theme-ui'
 
 const transformCode = isMDX => src => {
   if (!isMDX) {

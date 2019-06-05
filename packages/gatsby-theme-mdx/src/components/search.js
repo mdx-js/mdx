@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { navigate } from 'gatsby'
-import { css } from '@styled-system/css'
+import { css } from 'theme-ui'
 import SearchIcon from './search-icon'
 
 const loadJs = () => import('./docsearch.min.js')

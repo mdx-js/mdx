@@ -20,8 +20,6 @@
     "@reach/router": "^1.2.1",
     "@reach/skip-nav": "^0.1.2",
     "@rebass/emotion": "^3.1.0",
-    "@styled-system/css": "^5.0.5",
-    "emotion-mdx": "^1.0.0-6",
     "emotion-theming": "^10.0.10",
     "gatsby": "^2.3.24",
     "gatsby-plugin-catch-links": "^2.0.13",
@@ -42,6 +40,6 @@
     "remark-mdx-remove-exports": "^1.0.20",
     "remark-mdx-remove-imports": "^1.0.20",
     "remark-slug": "^5.1.1",
-    "styled-system": "^4.1.0"
+    "theme-ui": "^0.1.1"
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'gatsby'
-import css from '@styled-system/css'
+import { css } from 'theme-ui'
 import pkg from '@mdx-js/mdx/package.json'
 import Burger from './burger'
 import theme from './theme'
