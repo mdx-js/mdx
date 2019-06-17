@@ -26,7 +26,7 @@ const elementCloseExpression = /^$/
 const otherElementOpenExpression = new RegExp(openCloseTag.source + '\\s*$')
 
 function blockHtml(eat, value, silent) {
-  const blocks = '[a-z\\.]+(\\.){0,1}[a-z\\.]'
+  const blocks = '[a-z0-9\\.]+(\\.){0,1}[a-z0-9\\.]'
   const elementOpenExpression = new RegExp(
     '^</?(' + blocks + ')(?=(\\s|/?>|$))',
     'i'
