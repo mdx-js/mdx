@@ -11,7 +11,12 @@ const transformCode = isMDX => src => {
     return `<>${src}</>`
   }
 
-  const transpiledMDX = mdx.sync(src, {skipExport: true})
+  let transpiledMDX
+  try {
+    transpiledMDX = mdx.sync(src, {skipExport: true})
+  } catch (e) {
+    return ''
+  }
 
   return `
     ${transpiledMDX}
