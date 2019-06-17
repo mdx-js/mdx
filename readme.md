@@ -70,7 +70,7 @@ and cumbersome syntax.
 >
 > — [@chrisbiscardi][tweet]
 
-MDX seeks to make writing with markdown _and_ JSX simpler while being more
+MDX seeks to make writing with markdown *and* JSX simpler while being more
 expressive.
 The possibilities are endless when you combine components (that can even be
 dynamic or load data) with the simplicity of markdown for long-form content.

@@ -25,7 +25,7 @@ module.exports = () => (tree, file) => {
 This will log out all the nodes in your document that are headings.  Inside heading nodes there are text nodes.  These
 include the raw text included in the heading.
 
-_Note_: The reason that heading nodes include multiple text node types is because there can be other
+*Note*: The reason that heading nodes include multiple text node types is because there can be other
 “[phrasing content][phrasing]” nodes.  For example if your heading looked like `# Hello, _world_`.  In addition to the
 text there is also an emphasis node.
 

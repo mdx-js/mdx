@@ -46,7 +46,7 @@ Before MDX, some of the benefits of writing Markdown were lost when integrating
 with JSX.  Implementations were often template string-based which required lots
 of escaping and cumbersome syntax.
 
-MDX seeks to make writing with Markdown _and_ JSX simpler while being more
+MDX seeks to make writing with Markdown *and* JSX simpler while being more
 expressive.  Writing is fun again when you combine components, that can
 even be dynamic or load data, with the simplicity of Markdown for long-form
 content.

@@ -364,7 +364,7 @@ Sometimes from an MDX file you might want to override the wrapper.
 This is especially useful when you want to override layout for a single entry
 point at the page level.
 To achieve this you can use the ES default [export][] and it will wrap your MDX
-document _instead_ of the wrapper passed to MDXProvider.
+document *instead* of the wrapper passed to MDXProvider.
 
 You can declare a default export as a function:
 
