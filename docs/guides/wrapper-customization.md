@@ -9,13 +9,13 @@ it has access to the children passed to it.
 
 This means that you can do powerful things with the MDX document elements.
 If you aren’t very familiar with React children, it might be worthwile to
-start with [_A deep dive into children in React_](https://mxstbr.blog/2017/02/react-children-deepdive/)
+start with [*A deep dive into children in React*](https://mxstbr.blog/2017/02/react-children-deepdive/)
 by Max Stoiber.
 
 > We can render arbitrary components as children, but still control them from the
 > parent instead of the component we render them from.
 >
-> _Max Stoiber - A deep dive into children in React_
+> *Max Stoiber - A deep dive into children in React*
 
 The implications of this are very interesting from the context of an
 MDX wrapper component.  This means the wrapper can do things like reordering
@@ -119,7 +119,7 @@ export default props => (
 ## Related
 
 If you would like to dive deeper, check out
-[_A deep dive into children in React_](https://mxstbr.blog/2017/02/react-children-deepdive/)
+[*A deep dive into children in React*](https://mxstbr.blog/2017/02/react-children-deepdive/)
 or Brent Jackson’s [MDX Blocks](https://github.com/jxnblk/mdx-blocks)
 
 * * *
