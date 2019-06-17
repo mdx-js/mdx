@@ -142,7 +142,7 @@ module.exports = {
           {
             resolve: '@mdx-js/loader',
             options: {
-              hastPlugins[rehypePrism]
+              rehypePlugins: [rehypePrism]
             }
           }
         ]
