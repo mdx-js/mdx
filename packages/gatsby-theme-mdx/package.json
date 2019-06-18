@@ -32,8 +32,6 @@
     "is-absolute-url": "^3.0.0",
     "lodash.flatten": "^4.4.0",
     "prism-react-renderer": "^0.1.6",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
     "react-live": "^2.0.1",
     "remark-emoji": "^2.0.2",
@@ -41,5 +39,9 @@
     "remark-mdx-remove-imports": "^1.0.20",
     "remark-slug": "^5.1.1",
     "theme-ui": "^0.1.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }
