@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx-remove-exports",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Remove exports from the MDX AST",
   "license": "MIT",
   "keywords": [
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "jest": "^24.0.0",
-    "remark-mdx": "^1.0.20",
+    "remark-mdx": "^1.0.21",
     "remark-parse": "^6.0.0",
     "remark-stringify": "^6.0.4",
     "unified": "^7.0.0"

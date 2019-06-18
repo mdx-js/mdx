@@ -1,14 +1,14 @@
 {
   "private": true,
-  "version": "1.0.20",
+  "version": "1.0.21",
   "name": "gatsby-example",
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.0.20",
-    "@mdx-js/react": "^1.0.20",
+    "@mdx-js/mdx": "^1.0.21",
+    "@mdx-js/react": "^1.0.21",
     "gatsby": "^2.3.21",
     "gatsby-mdx": "^0.6.1",
     "react": "^16.8.6",
