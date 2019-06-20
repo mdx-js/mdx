@@ -1,7 +1,7 @@
 # About
 
 MDX is based on the [original `.mdx` proposal][idea] by Guillermo Rauch
-([@rauchg][rauchg]).  It’s syntax is defined by an official [specification][].
+([@rauchg][rauchg]).  Its syntax is defined by an official [specification][].
 The source code for MDX is available on [GitHub][] and is [MIT licensed][license].
 
 The project is governed by the [unified collective][governance].
