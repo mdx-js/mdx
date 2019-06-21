@@ -1,0 +1,16 @@
+{
+  "name": "terminal-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^1.0.21",
+    "@mdx-js/react": "^1.0.21",
+    "import-jsx": "^2.0.0",
+    "ink": "^2.2.0",
+    "react": "^16.8.6"
+  }
+}
