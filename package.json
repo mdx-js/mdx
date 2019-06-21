@@ -42,7 +42,8 @@
     "examples/syntax-highlighting",
     "examples/webpack",
     "examples/vue",
-    "examples/shortcodes"
+    "examples/shortcodes",
+    "examples/terminal"
   ],
   "prettier": {
     "tabWidth": 2,
