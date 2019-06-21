@@ -75,6 +75,9 @@ As a user of this project you’re perfect for helping us improve our docs.
 Typo corrections, error fixes, better explanations, new examples, etcetera.
 Anything!
 
+All MDX docs live in the `/docs` directory. 
+You can edit the files directly on GitHub or in your favorite text editor.
+
 ### Improve issues
 
 Some issues lack information, aren’t reproducible, or are just incorrect.
@@ -99,6 +102,12 @@ prevent you from doing unnecessary work.
 Tests for an individual package can be run as a yarn workspace:
 `yarn workspace remark-mdx test`.  To see what packages ar available to test
 you can list out all workspaces with `yarn workspaces info`.
+
+## Running the docs site
+
+1.  `yarn`
+2.  `yarn bootstrap`
+3.  `yarn docs`
 
 ## Submitting an issue
 
