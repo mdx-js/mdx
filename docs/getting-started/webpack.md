@@ -13,7 +13,7 @@ for webpack projects.
 ## Installation
 
 ```sh
-npm install --save-dev @mdx-js/loader@next
+npm install --save-dev @mdx-js/loader
 ```
 
 ## Configuration
