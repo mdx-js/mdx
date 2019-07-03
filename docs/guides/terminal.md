@@ -119,4 +119,5 @@ render(
 [See the full example](https://github.com/mdx-js/mdx/tree/master/examples/cli)
 
 [ink]: https://github.com/vadimdemedes/ink
+
 [runtime]: https://mdxjs.com/advanced/runtime

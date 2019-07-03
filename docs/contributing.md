@@ -1,5 +1,9 @@
 # Contributing
 
+> This project has a [Code of Conduct][coc].
+> By interacting with this repository, organization, or community you agree to
+> abide by its terms.
+
 Hi!  👋
 We’re excited that you’re interested in contributing!
 Take a moment to read the following guidelines.
@@ -11,8 +15,7 @@ free customer service.
 
 ## Table of Contents
 
-*   [Questions](#questions)
-    *   [Asking quality questions](#asking-quality-questions)
+*   [Support](#support)
 *   [Contributions](#contributions)
     *   [Financial support](#financial-support)
     *   [Improve documentation](#improve-documentation)
@@ -20,6 +23,7 @@ free customer service.
     *   [Give feedback on issues and pull requests](#give-feedback-on-issues-and-pull-requests)
     *   [Write code](#write-code)
 *   [Running the tests](#running-the-tests)
+*   [Running the docs site](#running-the-docs-site)
 *   [Submitting an issue](#submitting-an-issue)
 *   [Submitting a pull request](#submitting-a-pull-request)
 *   [Project structure](#project-structure)
@@ -27,33 +31,9 @@ free customer service.
 *   [Troubleshooting](#troubleshooting)
 *   [Resources](#resources)
 
-## Questions
+## Support
 
-Please chat and ask questions on [spectrum][chat]!
-Jump in there and lurk, talk to us, and help others.
-
-### Asking quality questions
-
-Help us help you!
-
-Spending time framing a question and adding support links or resources makes it
-much easier for us to help.  It’s easy to fall into the trap of asking something too
-specific when you’re close to a problem.  Then, those trying to help you out have
-to spend a lot of time asking additional questions to understand what you are
-hoping to achieve.
-
-Spending the extra time up front can help save everyone time in the long run.
-
-*   Try to define what you need help with:
-    *   Is there something in particular you want to do?
-    *   What problem are you encountering and what steps have you taken to try and fix it?
-    *   Is there a concept you’re not understanding?
-*   Learn about the [rubber duck debugging method][rubberduck]
-*   Avoid falling for the [XY problem][xy]
-*   Search on GitHub and Spectrum to see if a similar question has been asked
-*   Read through the [Getting Started Guide](https://mdxjs.com/getting-started)
-*   If possible, provide sample code, a [CodeSandbox](https://codesandbox.io), or a video
-*   The more time you put into asking your question, the better we can help you
+[Read the Support guidelines on the MDX website][support].
 
 ## Contributions
 
@@ -75,7 +55,7 @@ As a user of this project you’re perfect for helping us improve our docs.
 Typo corrections, error fixes, better explanations, new examples, etcetera.
 Anything!
 
-All MDX docs live in the `/docs` directory. 
+All MDX docs live in the `/docs` directory.
 You can edit the files directly on GitHub or in your favorite text editor.
 
 ### Improve issues
@@ -168,13 +148,13 @@ If you’re having issues installing locally you might need to run
 *   [Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
 *   [GitHub Help](https://help.github.com)
 
+<!-- Definitions -->
+
+[coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
+
+[support]: https://mdxjs.com/support
+
 [unit-test]: https://twitter.com/sindresorhus/status/579306280495357953
-
-[rubberduck]: https://rubberduckdebugging.com
-
-[xy]: https://meta.stackexchange.com/questions/66377/what-is-the-xy-problem/66378#66378
-
-[chat]: https://spectrum.chat/mdx
 
 [collective]: https://opencollective.com/unified
 
