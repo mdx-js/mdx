@@ -135,14 +135,15 @@ See related projects in the [MDX specification][spec].
 ## Contribute
 
 **MDX** is built by people just like you!
-Check out [`contributing.md`][contributing] for ways to get started.
+See the [Support][] and [Contributing][] guidelines on the MDX website for ways
+to (get) help.
 
 This project has a [Code of Conduct][coc].
 By interacting with this repository, organisation, or community you agree to
 abide by its terms.
 
 Want to chat with the community and contributors?
-Join us on [spectrum][]!
+Join us on [Spectrum][]!
 
 ## License
 
@@ -194,9 +195,11 @@ Join us on [spectrum][]!
 
 [contribute]: #contribute
 
-[contributing]: contributing.md
+[contributing]: https://mdxjs.com/contributing
 
-[coc]: code-of-conduct.md
+[support]: https://mdxjs.com/support
+
+[coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
 [mdx-deck]: https://github.com/jxnblk/mdx-deck
 
