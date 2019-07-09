@@ -150,7 +150,7 @@ function toJSX(node, parentNode = {}, options = {}) {
 ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
     </MDXLayout>
   )
-}
+};
 MDXContent.isMDXComponent = true`
 
     // Check JSX nodes against imports

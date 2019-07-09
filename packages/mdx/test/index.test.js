@@ -100,36 +100,36 @@ it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
   expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
-    "/* @jsx mdx */
-    
-    const makeShortcode = name =>
-      function MDXDefaultShortcode(props) {
-        console.warn(
-          \\"Component \\" +
-            name +
-            \\" was not imported, exported, or provided by MDXProvider as global scope\\"
-        );
-        return <div {...props} />;
-      };
-    
-    const layoutProps = {};
-    const MDXLayout = \\"wrapper\\";
-    export default function MDXContent({ components, ...props }) {
-      return (
-        <MDXLayout
-          {...layoutProps}
-          {...props}
-          components={components}
-          mdxType=\\"MDXLayout\\"
-        >
-          <h1>{\`Hello World\`}</h1>
-        </MDXLayout>
-      );
-    }
-    
-    MDXContent.isMDXComponent = true;
-    "
-  `)
+        "/* @jsx mdx */
+        
+        const makeShortcode = name =>
+          function MDXDefaultShortcode(props) {
+            console.warn(
+              \\"Component \\" +
+                name +
+                \\" was not imported, exported, or provided by MDXProvider as global scope\\"
+            );
+            return <div {...props} />;
+          };
+        
+        const layoutProps = {};
+        const MDXLayout = \\"wrapper\\";
+        export default function MDXContent({ components, ...props }) {
+          return (
+            <MDXLayout
+              {...layoutProps}
+              {...props}
+              components={components}
+              mdxType=\\"MDXLayout\\"
+            >
+              <h1>{\`Hello World\`}</h1>
+            </MDXLayout>
+          );
+        }
+        
+        MDXContent.isMDXComponent = true;
+        "
+    `)
 })
 
 it('Should render blockquote correctly', async () => {
@@ -430,8 +430,8 @@ test('Should handle layout props', () => {
       ...props
     }) {
       return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
-    
-    
+
+
         <h1>{\`Hello, world!\`}</h1>
         <p>{\`I'm an awesome paragraph.\`}</p>
         {
@@ -476,7 +476,7 @@ test('Should handle layout props', () => {
             </tr>
           </tbody>
         </table>
-    
+
         <pre><code parentName=\\"pre\\" {...{
             \\"className\\": \\"language-js\\"
           }}>{\`export const Button = styled.button\\\\\`
@@ -497,7 +497,8 @@ test('Should handle layout props', () => {
     \`}</code></pre>
         </MDXLayout>;
     }
-    
+
+    ;
     MDXContent.isMDXComponent = true;"
   `)
 })
