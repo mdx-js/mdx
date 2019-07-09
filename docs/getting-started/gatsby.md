@@ -6,7 +6,7 @@ First, scaffold a new Gatsby 2.0 or greater site and install the `gatsby-plugin-
 plugin.
 
 ```shell
-gatsby new gatsby-site https://github.com/gatsbyjs/gatsby-starter-default#v2
+gatsby new gatsby-site
 cd gatsby-site
 yarn add gatsby-plugin-mdx @mdx-js/mdx@latest @mdx-js/react@latest
 ```
