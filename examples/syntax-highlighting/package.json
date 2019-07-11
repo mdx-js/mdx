@@ -1,13 +1,13 @@
 {
   "private": true,
   "name": "syntax-highlighting",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.0.23",
+    "@mdx-js/mdx": "^1.0.24",
     "@mdx-js/react": "^1.0.23",
     "gatsby": "^2.9.4",
     "gatsby-mdx": "^0.6.3",

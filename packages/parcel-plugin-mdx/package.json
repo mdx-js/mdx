@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/parcel-plugin-mdx",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "Parcel plugin for MDX",
   "license": "MIT",
   "keywords": [
@@ -27,7 +27,7 @@
     "src"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^1.0.23",
+    "@mdx-js/mdx": "^1.0.24",
     "parcel-bundler": "^1.4.1"
   },
   "peerDependencies": {
