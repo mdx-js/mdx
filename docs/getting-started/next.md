@@ -4,7 +4,7 @@ Next.js provides an [official plugin][next-plugin] to simplify MDX importing
 into your project.
 
 ```shell
-npm install --save-dev @next/mdx @mdx-js/loader 
+npm install --save @next/mdx @mdx-js/loader 
 ```
 
 To configure MDX, add the following to your `next.config.js`:
