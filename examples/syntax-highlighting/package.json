@@ -9,9 +9,9 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.0.24",
     "@mdx-js/react": "^1.0.23",
-    "gatsby": "^2.9.4",
+    "gatsby": "^2.13.14",
     "gatsby-mdx": "^0.6.3",
-    "prism-react-renderer": "^0.1.6",
+    "prism-react-renderer": "^0.1.7",
     "react-live": "^2.1.2",
     "unified-ui": "^0.0.3"
   }
