@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-mdx",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "author": "Brent Jackson <jxnblk@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -15,9 +15,9 @@
     "@blocks/kit": "^0.0.20",
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.10",
-    "@mdx-js/mdx": "^1.0.24",
+    "@mdx-js/mdx": "^1.0.25",
     "@mdx-js/react": "^1.0.23",
-    "@mdx-js/runtime": "^1.0.24",
+    "@mdx-js/runtime": "^1.0.25",
     "@reach/router": "^1.2.1",
     "@reach/skip-nav": "^0.1.2",
     "@rebass/emotion": "^3.1.0",
@@ -36,8 +36,8 @@
     "react-helmet": "^5.2.0",
     "react-live": "^2.0.1",
     "remark-emoji": "^2.0.2",
-    "remark-mdx-remove-exports": "^1.0.23",
-    "remark-mdx-remove-imports": "^1.0.23",
+    "remark-mdx-remove-exports": "^1.0.25",
+    "remark-mdx-remove-imports": "^1.0.25",
     "remark-slug": "^5.1.1",
     "theme-ui": "^0.1.1"
   },
