@@ -10,6 +10,8 @@ const makeShortcode = name => function MDXDefaultShortcode(props) {
   return <div {...props}/>
 };
 const Baz = makeShortcode(\\"Baz\\");
+const Paragraph = makeShortcode(\\"Paragraph\\");
+const Button = makeShortcode(\\"Button\\");
 const layoutProps = {
   
 };
@@ -28,6 +30,15 @@ export default function MDXContent({
     <Baz mdxType=\\"Baz\\">
   Hi!
     </Baz>
+    <Paragraph bg='red.500' color='white' mdxType=\\"Paragraph\\">Foo</Paragraph>
+    <Button mdxType=\\"Button\\">
+  Hi!
+    </Button>
+    <>Foo</>
+    <>
+  Foo
+    </>
+    <h1>Hello, world!</h1>
     </MDXLayout>;
 }
 
@@ -171,12 +182,107 @@ Object {
   Hi!
 </Baz>",
     },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 54,
+          "line": 12,
+          "offset": 192,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 12,
+          "offset": 139,
+        },
+      },
+      "type": "jsx",
+      "value": "<Paragraph bg='red.500' color='white'>Foo</Paragraph>",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 10,
+          "line": 16,
+          "offset": 218,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 14,
+          "offset": 194,
+        },
+      },
+      "type": "jsx",
+      "value": "<Button>
+  Hi!
+</Button>",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 9,
+          "line": 18,
+          "offset": 228,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 18,
+          "offset": 220,
+        },
+      },
+      "type": "jsx",
+      "value": "<>Foo</>",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 22,
+          "offset": 242,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 20,
+          "offset": 230,
+        },
+      },
+      "type": "jsx",
+      "value": "<>
+  Foo
+</>",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 23,
+          "line": 24,
+          "offset": 266,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 24,
+          "offset": 244,
+        },
+      },
+      "type": "jsx",
+      "value": "<h1>Hello, world!</h1>",
+    },
   ],
   "position": Object {
     "end": Object {
       "column": 1,
-      "line": 11,
-      "offset": 138,
+      "line": 25,
+      "offset": 267,
     },
     "start": Object {
       "column": 1,

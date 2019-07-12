@@ -16,6 +16,20 @@ export default Foo
 <Baz>
   Hi!
 </Baz>
+
+<Paragraph bg='red.500' color='white'>Foo</Paragraph>
+
+<Button>
+  Hi!
+</Button>
+
+<>Foo</>
+
+<>
+  Foo
+</>
+
+<h1>Hello, world!</h1>
 `
 
 // Manually apply all mdx transformations for now
@@ -63,6 +77,16 @@ it('maintains the proper positional info', () => {
   const result = parse(FIXTURE)
 
   expect(result).toMatchSnapshot()
+})
+
+it('does not wrap an block level elements in a paragraph', () => {
+  const result = transpile(FIXTURE)
+
+  expect(result).not.toMatch(/<p><Baz/)
+  expect(result).not.toMatch(/<p><Button/)
+  expect(result).not.toMatch(/<p><Paragraph>/)
+  expect(result).not.toMatch(/<p><>/)
+  expect(result).not.toMatch(/<p><h1/)
 })
 
 it('removes newlines between imports and exports', () => {
