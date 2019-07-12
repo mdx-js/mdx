@@ -16,6 +16,14 @@ export default Foo
 <Baz>
   Hi!
 </Baz>
+
+<Paragraph bg='red.500' color='white'>Foo</Paragraph>
+
+<Button>
+  Hi!
+</Button>
+
+<h1>Hello, world!</h1>
 `
 
 // Manually apply all mdx transformations for now
@@ -32,15 +40,6 @@ const transpile = mdx => {
     .processSync(mdx)
 
   return result.contents
-}
-
-const parse = mdx => {
-  const result = unified()
-    .use(remarkParse)
-    .use(remarkMdx)
-    .parse(mdx)
-
-  return result
 }
 
 const stringify = mdx => {
@@ -60,9 +59,18 @@ it('correctly transpiles', () => {
 })
 
 it('maintains the proper positional info', () => {
-  const result = parse(FIXTURE)
+  const result = stringify(FIXTURE)
 
   expect(result).toMatchSnapshot()
+})
+
+it('does not wrap an block level elements in a paragraph', () => {
+  const result = transpile(FIXTURE)
+
+  expect(result).not.toMatch(/<p><Baz/)
+  expect(result).not.toMatch(/<p><Button/)
+  expect(result).not.toMatch(/<p><Paragraph>/)
+  expect(result).not.toMatch(/<p><h1/)
 })
 
 it('removes newlines between imports and exports', () => {
