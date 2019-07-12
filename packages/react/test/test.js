@@ -59,3 +59,9 @@ it('Should allow removing of context components using the functional form', () =
   // MDXTag picks up overridden component context
   expect(result).toMatch(/style="color:papayawhip"/)
 })
+
+it('Should pass prop components along', () => {
+  const result = renderToString(<Fixture />)
+
+  expect(result).toMatch(/h3, h4/)
+})
