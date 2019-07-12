@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Parse MDX and transpile to JSX",
   "license": "MIT",
   "keywords": [
@@ -48,7 +48,7 @@
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-react-jsx": "^7.1.6",
     "@mapbox/rehype-prism": "^0.3.0",
-    "@mdx-js/react": "^1.0.26",
+    "@mdx-js/react": "^1.0.27",
     "hast-util-select": "^3.0.0",
     "jest": "^24.0.0",
     "prettier": "^1.14.2",
