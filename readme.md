@@ -1,14 +1,18 @@
-# [![MDX][logo]][website]
+<p align="center">
+  <a href="https://mdxjs.com">
+    <img alt="MDX logo" src="https://mdx-logo.now.sh" width="60" />
+  </a>
+</p>
+
+# MDX: Markdown for the component era 🚀
 
 [![Build Status][build-badge]][build]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
-> Markdown for the component era.
-
-MDX is an authorable format that lets you seamlessly use JSX in your markdown documents.
+[MDX][website] is an authorable format that lets you seamlessly use JSX in your markdown documents.
 You can import components, like interactive charts or notifications, and export
 metadata.
-This makes writing long-form content with components a blast.  🚀
+This makes writing long-form content with components a blast. 
 
 ## Example
 
@@ -148,8 +152,6 @@ Join us on [Spectrum][]!
 ## License
 
 [MIT][] © [Compositor][] and [ZEIT][]
-
-[logo]: .github/repo.png
 
 [build]: https://travis-ci.com/mdx-js/mdx
 
