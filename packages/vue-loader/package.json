@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue-loader",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "Vue loader for MDX",
   "license": "MIT",
   "keywords": [
@@ -27,8 +27,8 @@
     "index.js"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^1.0.25",
-    "@mdx-js/vue": "^1.0.23",
+    "@mdx-js/mdx": "^1.0.26",
+    "@mdx-js/vue": "^1.0.26",
     "loader-utils": "^1.1.0"
   },
   "devDependencies": {

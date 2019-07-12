@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/runtime",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "Parse and render MDX in a runtime environment",
   "license": "MIT",
   "keywords": [
@@ -33,8 +33,8 @@
     "dist"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^1.0.25",
-    "@mdx-js/react": "^1.0.23",
+    "@mdx-js/mdx": "^1.0.26",
+    "@mdx-js/react": "^1.0.26",
     "buble": "^0.19.6"
   },
   "devDependencies": {
