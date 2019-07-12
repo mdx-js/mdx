@@ -23,6 +23,12 @@ export default Foo
   Hi!
 </Button>
 
+<>Foo</>
+
+<>
+  Foo
+</>
+
 <h1>Hello, world!</h1>
 `
 

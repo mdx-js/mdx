@@ -34,6 +34,10 @@ export default function MDXContent({
     <Button mdxType=\\"Button\\">
   Hi!
     </Button>
+    <>Foo</>
+    <>
+  Foo
+    </>
     <h1>Hello, world!</h1>
     </MDXLayout>;
 }
@@ -60,6 +64,12 @@ export default Foo
 <Button>
   Hi!
 </Button>
+
+<>Foo</>
+
+<>
+  Foo
+</>
 
 <h1>Hello, world!</h1>
 "
