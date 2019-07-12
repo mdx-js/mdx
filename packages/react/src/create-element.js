@@ -24,6 +24,10 @@ const MDXCreateElement = ({
     DEFAULTS[type] ||
     originalType
 
+  if (propComponents) {
+    return React.createElement(Component, {...etc, components: propComponents})
+  }
+
   return React.createElement(Component, etc)
 }
 
