@@ -51,6 +51,21 @@ by adding in the babel-loader to run *after* the MDX loader.  Webpack starts
 from the end of the loaders array and works backward, so it is important to
 follow the ordering above.
 
+## Running MDX in the browser
+
+If you’re running MDX in the browser you will need to configure webpack to ignore
+the `fs` module:
+
+```js
+module.exports = {
+  node: {
+    fs: 'empty'
+  }
+}
+```
+
+[See the webpack docs](https://webpack.js.org/configuration/node/#other-node-core-libraries)
+
 <BabelConfig />
 
 [babel-loader]: https://webpack.js.org/loaders/babel-loader/
