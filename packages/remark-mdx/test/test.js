@@ -76,6 +76,7 @@ it('does not wrap an block level elements in a paragraph', () => {
   expect(result).not.toMatch(/<p><Baz/)
   expect(result).not.toMatch(/<p><Button/)
   expect(result).not.toMatch(/<p><Paragraph>/)
+  expect(result).not.toMatch(/<p><>/)
   expect(result).not.toMatch(/<p><h1/)
 })
 
