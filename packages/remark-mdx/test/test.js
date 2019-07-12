@@ -48,6 +48,15 @@ const transpile = mdx => {
   return result.contents
 }
 
+const parse = mdx => {
+  const result = unified()
+    .use(remarkParse)
+    .use(remarkMdx)
+    .parse(mdx)
+
+  return result
+}
+
 const stringify = mdx => {
   const result = unified()
     .use(remarkParse)
@@ -65,7 +74,7 @@ it('correctly transpiles', () => {
 })
 
 it('maintains the proper positional info', () => {
-  const result = stringify(FIXTURE)
+  const result = parse(FIXTURE)
 
   expect(result).toMatchSnapshot()
 })
