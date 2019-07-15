@@ -20,7 +20,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.0",
+    "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.3.1"
   }
 }
