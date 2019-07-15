@@ -30,7 +30,7 @@ export default ({children, className, live, render}) => {
   }
 
   return (
-    <Highlight {...defaultProps} code={children} language={language}>
+    <Highlight {...defaultProps} code={children.trim()} language={language}>
       {({className, style, tokens, getLineProps, getTokenProps}) => (
         <pre className={className} style={{...style, padding: '20px'}}>
           {tokens.map((line, i) => (
