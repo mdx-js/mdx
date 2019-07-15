@@ -4,21 +4,6 @@
   "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
   "bugs": "https://github.com/mdx-js/mdx/issues",
-  "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^5.0.0",
-    "eslint-config-xo": "^0.26.0",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.13.0",
-    "gatsby": "^2.9.4",
-    "husky": "^2.4.1",
-    "lerna": "^3.15.0",
-    "lint-staged": "^8.2.1",
-    "prettier": "^1.18.2",
-    "remark-cli": "^6.0.1",
-    "remark-preset-wooorm": "^5.0.0"
-  },
   "scripts": {
     "bootstrap": "lerna bootstrap && lerna link --force-local",
     "clean": "lerna exec \"rm -rf node_modules\"",
@@ -26,12 +11,17 @@
     "docs-build": "gatsby build",
     "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
     "now-build": "yarn docs-build",
-    "format": "remark . -qfo && eslint . --fix",
+    "format": "yarn format-mdx && yarn format-js",
+    "format-js": "eslint . --fix",
+    "format-mdx": "remark . -qfo",
+    "lint": "yarn lint-mdx && yarn lint-js",
+    "lint-js": "eslint .",
+    "lint-mdx": "remark . -qf",
     "prepublish": "lerna run prepublish",
     "publish": "lerna publish",
     "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm",
     "publish-next": "lerna publish --npm-tag next --preid rc --force-publish=\"*\"",
-    "test": "lerna run test && remark . -qf && eslint ."
+    "test": "lerna run test && yarn lint"
   },
   "workspaces": [
     "packages/*",
@@ -45,6 +35,21 @@
     "examples/shortcodes",
     "examples/terminal"
   ],
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-config-xo": "^0.26.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
+    "gatsby": "^2.13.23",
+    "husky": "^3.0.0",
+    "lerna": "^3.15.0",
+    "lint-staged": "^9.2.0",
+    "prettier": "^1.18.2",
+    "remark-cli": "^6.0.1",
+    "remark-preset-wooorm": "^5.0.0"
+  },
   "prettier": {
     "tabWidth": 2,
     "useTabs": false,

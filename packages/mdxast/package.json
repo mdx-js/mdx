@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "jest": "^24.0.0",
-    "rehype-stringify": "^3.0.0",
-    "remark-parse": "^5.0.0",
-    "remark-rehype": "^3.0.0",
-    "unified": "^6.1.6",
+    "rehype-stringify": "^6.0.0",
+    "remark-parse": "^6.0.3",
+    "remark-rehype": "^4.0.1",
+    "unified": "^8.2.0",
     "unist-util-inspect": "^4.1.2"
   },
   "scripts": {

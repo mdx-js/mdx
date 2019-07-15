@@ -40,6 +40,7 @@ export default Foo
 const transpile = mdx => {
   const result = unified()
     .use(remarkParse)
+    .use(remarkStringify)
     .use(remarkMdx)
     .use(mdxAstToMdxHast)
     .use(mdxHastToJsx)
@@ -51,6 +52,7 @@ const transpile = mdx => {
 const parse = mdx => {
   const result = unified()
     .use(remarkParse)
+    .use(remarkStringify)
     .use(remarkMdx)
     .parse(mdx)
 
@@ -79,7 +81,7 @@ it('maintains the proper positional info', () => {
   expect(result).toMatchSnapshot()
 })
 
-it('does not wrap an block level elements in a paragraph', () => {
+it('does not wrap a block level elements in a paragraph', () => {
   const result = transpile(FIXTURE)
 
   expect(result).not.toMatch(/<p><Baz/)

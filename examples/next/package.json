@@ -10,12 +10,12 @@
   "dependencies": {
     "@mdx-js/loader": "^1.0.27",
     "@mdx-js/mdx": "^1.0.27",
-    "@next/mdx": "^8.1.0",
-    "next": "^8.1.0",
+    "@next/mdx": "^9.0.1",
+    "next": "^9.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "remark-emoji": "^2.0.2",
-    "remark-images": "^0.18.0",
+    "remark-images": "^1.0.0",
     "unified-ui": "^0.0.3"
   }
 }

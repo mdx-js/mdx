@@ -35,7 +35,7 @@
     "remark-mdx": "^1.0.26",
     "remark-parse": "^6.0.0",
     "remark-stringify": "^6.0.4",
-    "unified": "^7.0.0"
+    "unified": "^8.2.0"
   },
   "dependencies": {
     "unist-util-remove": "^1.0.1"
