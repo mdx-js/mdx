@@ -96,8 +96,6 @@ function attachCompiler(compiler) {
     export: stringifyEsSyntax,
     jsx: stringifyEsSyntax
   })
-
-  console.log(proto)
 }
 
 function stringifyEsSyntax(node) {
