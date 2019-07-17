@@ -28,9 +28,9 @@
     "extract-imports-and-exports.js"
   ],
   "dependencies": {
-    "@babel/core": "7.5.4",
+    "@babel/core": "7.5.5",
     "@babel/helper-plugin-utils": "7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.5.4",
+    "@babel/plugin-proposal-object-rest-spread": "7.5.5",
     "@babel/plugin-syntax-jsx": "7.2.0",
     "is-alphabetical": "1.0.3",
     "remark-parse": "6.0.3",
