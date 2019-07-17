@@ -21,15 +21,15 @@
     "remark"
   ],
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/core": "7.5.4",
+    "@babel/preset-env": "7.5.4",
     "@mdx-js/mdx": "^1.1.0",
-    "@vue/test-utils": "^1.0.0-beta.24",
-    "babel-helper-vue-jsx-merge-props": "^2.0.3",
-    "babel-plugin-transform-vue-jsx": "^4.0.0",
-    "hast-util-select": "^3.0.1",
-    "jest": "^24.0.0",
-    "vue": "^2.5.17",
-    "vue-template-compiler": "^2.5.17"
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-helper-vue-jsx-merge-props": "2.0.3",
+    "babel-plugin-transform-vue-jsx": "4.0.1",
+    "hast-util-select": "3.0.1",
+    "jest": "24.8.0",
+    "vue": "2.6.10",
+    "vue-template-compiler": "2.6.10"
   }
 }

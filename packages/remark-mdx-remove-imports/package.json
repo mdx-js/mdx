@@ -31,13 +31,13 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "jest": "^24.0.0",
+    "jest": "24.8.0",
     "remark-mdx": "^1.1.0",
-    "remark-parse": "^6.0.0",
-    "remark-stringify": "^6.0.4",
-    "unified": "^8.2.0"
+    "remark-parse": "6.0.3",
+    "remark-stringify": "6.0.4",
+    "unified": "8.2.0"
   },
   "dependencies": {
-    "unist-util-remove": "^1.0.1"
+    "unist-util-remove": "1.0.3"
   }
 }

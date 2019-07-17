@@ -28,13 +28,13 @@
     "extract-imports-and-exports.js"
   ],
   "dependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/helper-plugin-utils": "^7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
-    "@babel/plugin-syntax-jsx": "^7.2.0",
-    "is-alphabetical": "^1.0.2",
-    "remark-parse": "^6.0.0",
-    "unified": "^8.2.0"
+    "@babel/core": "7.5.4",
+    "@babel/helper-plugin-utils": "7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.5.4",
+    "@babel/plugin-syntax-jsx": "7.2.0",
+    "is-alphabetical": "1.0.3",
+    "remark-parse": "6.0.3",
+    "unified": "8.2.0"
   },
   "scripts": {
     "test": "jest"
@@ -43,8 +43,8 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "jest": "^24.0.0",
-    "remark-stringify": "^6.0.4",
-    "vfile": "^4.0.0"
+    "jest": "24.8.0",
+    "remark-stringify": "6.0.4",
+    "vfile": "4.0.1"
   }
 }

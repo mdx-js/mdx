@@ -30,6 +30,6 @@
     "cli.js"
   ],
   "dependencies": {
-    "initit": "^1.0.0-2"
+    "initit": "1.0.0-2"
   }
 }
