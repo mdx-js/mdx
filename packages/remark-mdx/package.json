@@ -34,7 +34,7 @@
     "@babel/plugin-syntax-jsx": "7.2.0",
     "is-alphabetical": "1.0.3",
     "remark-parse": "6.0.3",
-    "unified": "8.2.0"
+    "unified": "8.3.2"
   },
   "scripts": {
     "test": "jest"
