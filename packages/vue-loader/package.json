@@ -32,9 +32,9 @@
     "loader-utils": "1.2.3"
   },
   "devDependencies": {
-    "@babel/core": "7.5.4",
+    "@babel/core": "7.5.5",
     "@babel/plugin-syntax-jsx": "7.2.0",
-    "@babel/preset-env": "7.5.4",
+    "@babel/preset-env": "7.5.5",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-loader": "8.0.6",
     "babel-plugin-transform-vue-jsx": "4.0.1",
