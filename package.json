@@ -36,19 +36,19 @@
     "examples/terminal"
   ],
   "devDependencies": {
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-config-xo": "^0.26.0",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.2",
-    "gatsby": "^2.13.23",
-    "husky": "^3.0.0",
-    "lerna": "^3.15.0",
-    "lint-staged": "^9.2.0",
-    "prettier": "^1.18.2",
-    "remark-cli": "^6.0.1",
-    "remark-preset-wooorm": "^5.0.0"
+    "eslint": "6.0.1",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-config-xo": "0.26.0",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-react": "7.14.2",
+    "gatsby": "2.13.23",
+    "husky": "3.0.0",
+    "lerna": "3.15.0",
+    "lint-staged": "9.2.0",
+    "prettier": "1.18.2",
+    "remark-cli": "6.0.1",
+    "remark-preset-wooorm": "5.0.0"
   },
   "prettier": {
     "tabWidth": 2,

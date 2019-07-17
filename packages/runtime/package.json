@@ -38,17 +38,17 @@
     "buble": "^0.19.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/preset-react": "^7.0.0",
-    "jest": "^24.0.0",
-    "microbundle": "^0.11.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "rehype-add-classes": "^1.0.0",
-    "remark-autolink-headings": "^5.0.0",
-    "remark-slug": "^5.1.0",
-    "rimraf": "^2.6.3"
+    "@babel/core": "7.5.4",
+    "@babel/preset-env": "7.5.4",
+    "@babel/preset-react": "7.0.0",
+    "jest": "24.8.0",
+    "microbundle": "0.11.0",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "rehype-add-classes": "1.0.0",
+    "remark-autolink-headings": "5.2.1",
+    "remark-slug": "5.1.2",
+    "rimraf": "2.6.3"
   },
   "jest": {
     "testEnvironment": "node"
