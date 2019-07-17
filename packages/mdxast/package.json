@@ -32,7 +32,7 @@
     "rehype-stringify": "6.0.0",
     "remark-parse": "6.0.3",
     "remark-rehype": "4.0.1",
-    "unified": "8.2.0",
+    "unified": "8.3.2",
     "unist-util-inspect": "4.1.4"
   },
   "scripts": {

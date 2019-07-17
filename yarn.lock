@@ -19162,10 +19162,10 @@ unified-ui@^0.0.3:
     styled-components "^4.0.2"
     styled-system "^3.1.11"
 
-unified@8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/unified/-/unified-8.2.0.tgz#cbff446d96c222454681a7bbd440533d78f104ae"
-  integrity sha512-qehI6AV1YbXpria9mA9oanrlRxLi/AE99cBQZsqiIeRzBi8nOBqehRjo6QTFmxQAyoyr7jpAhAPeWaGVJcykLg==
+unified@8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/unified/-/unified-8.3.2.tgz#aed69d0e577d6ef27268431c63a10faef60e63ab"
+  integrity sha512-NDtUAXcd4c+mKppCbsZHzmhkKEQuhveZNBrFYmNgMIMk2K9bc8hmG3mLEGVtRmSNodobwyMePAnvIGVWZfPdzQ==
   dependencies:
     bail "^1.0.0"
     extend "^3.0.0"
