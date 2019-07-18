@@ -1281,7 +1281,22 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@blocks/kit@0.0.20", "@blocks/kit@^0.0.20":
+"@blocks/kit@0.0.28":
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/@blocks/kit/-/kit-0.0.28.tgz#212ffea890c5bd442f05c0aa4cc84923d362e9bd"
+  integrity sha512-IlRO0SmPG01Z73xlXszw5ygQikT8Z03o6azGfVlPKSjHClNqsR8r/w2ko0cNytPMLtV0gCY2amv/E6CbMTx6vw==
+  dependencies:
+    adaptive-gradient "^1.0.6"
+    get-youtube-id "^1.0.1"
+    is-url "^1.2.4"
+    random-hex-color "^1.0.1"
+    react-gist "^1.2.1"
+    react-twitter-embed "^2.0.8"
+    react-youtube "^7.9.0"
+    theme-ui "^0.0.10"
+    url-parse "^1.4.7"
+
+"@blocks/kit@^0.0.20":
   version "0.0.20"
   resolved "https://registry.yarnpkg.com/@blocks/kit/-/kit-0.0.20.tgz#6a3272a17340c8bc1a90e14d107ab18347485e8b"
   integrity sha512-xYyZbUH7/n0hQWMVMRAEllX6bRm+6XuJKJJa0pQ+crzWBZFY0AGmgCZQ5DKfo6SlnWcrHiv0wBWhmLJFzAmx4g==
