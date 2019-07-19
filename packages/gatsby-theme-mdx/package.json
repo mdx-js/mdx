@@ -9,7 +9,7 @@
     "clean": "gatsby clean"
   },
   "devDependencies": {
-    "gatsby": "2.13.28"
+    "gatsby": "2.13.31"
   },
   "dependencies": {
     "@blocks/kit": "0.0.28",
@@ -22,7 +22,7 @@
     "@reach/skip-nav": "0.1.3",
     "@rebass/emotion": "3.1.1",
     "emotion-theming": "10.0.14",
-    "gatsby": "2.13.28",
+    "gatsby": "2.13.31",
     "gatsby-plugin-catch-links": "2.1.2",
     "gatsby-plugin-compile-es6-packages": "2.0.0",
     "gatsby-plugin-emotion": "4.1.2",
