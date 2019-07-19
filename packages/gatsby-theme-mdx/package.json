@@ -27,7 +27,7 @@
     "gatsby-plugin-compile-es6-packages": "2.0.0",
     "gatsby-plugin-emotion": "4.1.2",
     "gatsby-plugin-google-fonts": "1.0.1",
-    "gatsby-plugin-mdx": "1.0.13",
+    "gatsby-plugin-mdx": "1.0.14",
     "gatsby-plugin-page-creator": "2.1.5",
     "gatsby-plugin-react-helmet": "3.1.2",
     "gatsby-plugin-theme-ui": "0.2.6",
