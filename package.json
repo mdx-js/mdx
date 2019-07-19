@@ -44,7 +44,7 @@
     "eslint-plugin-react": "7.14.2",
     "gatsby": "2.13.31",
     "husky": "3.0.1",
-    "lerna": "3.16.0",
+    "lerna": "3.16.1",
     "lint-staged": "9.2.0",
     "prettier": "1.18.2",
     "remark-cli": "6.0.1",
