@@ -410,11 +410,11 @@ component object you pass to `MDXProvider`.
 | `ul`            | [List](https://github.com/syntax-tree/mdast#list)                    | `-`                                                 |
 | `ol`            | [Ordered list](https://github.com/syntax-tree/mdast#list)            | `1.`                                                |
 | `li`            | [List item](https://github.com/syntax-tree/mdast#listitem)           |                                                     |
-| `table`         | [Table](https://github.com/syntax-tree/mdast#table)                  | `--- | --- | ---`                                   |
-| `tr`            | [Table row](https://github.com/syntax-tree/mdast#tablerow)           | `This | is | a | table row`                         |
+| `table`         | [Table](https://github.com/syntax-tree/mdast#table)                  |                                                     |
+| `tr`            | [Table row](https://github.com/syntax-tree/mdast#tablerow)           |                                                     |
 | `td`/`th`       | [Table cell](https://github.com/syntax-tree/mdast#tablecell)         |                                                     |
 | `pre`           | [Pre](https://github.com/syntax-tree/mdast#code)                     |                                                     |
-| `code`          | [Code](https://github.com/syntax-tree/mdast#code)                    | ``\`code\```                                        |
+| `code`          | [Code](https://github.com/syntax-tree/mdast#code)                    | \``\`code\`\`\`                                     |
 | `em`            | [Emphasis](https://github.com/syntax-tree/mdast#emphasis)            | `_emphasis_`                                        |
 | `strong`        | [Strong](https://github.com/syntax-tree/mdast#strong)                | `**strong**`                                        |
 | `delete`        | [Delete](https://github.com/syntax-tree/mdast#delete)                | `~~strikethrough~~`                                 |

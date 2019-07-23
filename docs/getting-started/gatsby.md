@@ -35,5 +35,7 @@ For more documentation on programmatically creating pages with Gatsby, see
 the [Gatsby MDX docs][gatsby-mdx-docs].
 
 [gatsby]: https://gatsbyjs.org
+
 [gatsby-mdx-docs]: https://gatsbyjs.org/docs/mdx/
+
 [gatsby-plugin-mdx]: https://gatsbyjs.org/packages/gatsby-plugin-mdx/
