@@ -13,13 +13,13 @@
 *   [mdx-paper][]: MDX-based research articles
 *   [spectacle-boilerplate-mdx][]: Boilerplate that facilitates using MDX with
     Spectacle
-*   [Charge][charge]: An opinionated, zero-config static site generator
+*   [Charge][]: An opinionated, zero-config static site generator
 
 ## Sites
 
 *   [ZEIT Docs][zeit-docs]
-*   [Compositor][compositor]
-*   [Prisma][prisma]
+*   [Compositor][]
+*   [Prisma][]
 *   [Max Stoiber’s Blog][mxstbr]
 
 ## Other related links

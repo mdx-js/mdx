@@ -2,7 +2,7 @@ import { Tweet } from '@blocks/kit'
 
 # Terminal
 
-With MDX you can render to the command line using [Ink][ink].
+With MDX you can render to the command line using [Ink][].
 This is a great way to log structured text for welcome screens,
 options, or even error messages.
 

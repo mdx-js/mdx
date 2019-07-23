@@ -1,14 +1,14 @@
 # Transform Content
 
 With MDX you can interact with or manipulate raw MDX content.
-Since MDX is a part of the [unified][unified] ecosystem, there
+Since MDX is a part of the [unified][] ecosystem, there
 are many utilities you can use to work with MDX.
 
-You can utilize [to-vfile][to-vfile] to read and write MDX files
-and you can leverage [remark][remark] and [remark-mdx][remark-mdx]
+You can utilize [to-vfile][] to read and write MDX files
+and you can leverage [remark][] and [remark-mdx][]
 to parse and process MDX content.  The remark-mdx library is a parsing
-extension to enhance the Markdown [AST][ast] to understand MDX
-(resulting in [MDXAST][mdxast]), giving you access and insight to MDX
+extension to enhance the Markdown [AST][] to understand MDX
+(resulting in [MDXAST][]), giving you access and insight to MDX
 attributes, namely imports, exports, and jsx.
 
 Let’s see an example of what we have explained so far.
@@ -83,9 +83,9 @@ Now, running `node example.js` yields:
 From here, you can continue to [write your own plugin][writing-a-plugin] or use
 [remark plugins][remark-plugins] to manipulate MDX content.
 
-This technique allows you to use things like [remark-toc][remark-toc] to add a
+This technique allows you to use things like [remark-toc][] to add a
 generated table of contents based on the other content in the MDX file or
-[remark-mdx-metadata][remark-mdx-metadata] to externally modify MDX metadata and
+[remark-mdx-metadata][] to externally modify MDX metadata and
 save the modified content back to the original file.
 
 [ast]: /advanced/ast
