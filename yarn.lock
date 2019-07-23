@@ -8604,10 +8604,10 @@ gatsby-plugin-catch-links@2.1.2:
     "@babel/runtime" "^7.0.0"
     escape-string-regexp "^1.0.5"
 
-gatsby-plugin-compile-es6-packages@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-compile-es6-packages/-/gatsby-plugin-compile-es6-packages-2.0.0.tgz#152726a561178b3f02ba35a63b785eb367d334c2"
-  integrity sha512-2WYSqDt4EM2yko/srSLYoKePArIfzpEsXNpP6SLYlRvlYsnwZ7acFPT5rdsyXHjtQoHHprybYimVnu3HiGcLaQ==
+gatsby-plugin-compile-es6-packages@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-compile-es6-packages/-/gatsby-plugin-compile-es6-packages-2.0.1.tgz#4d730d346e928fac352b2f9d958b4823fd2a6527"
+  integrity sha512-Xco8L4grOpBl0tMz/2z86wVu+muJdKwbih5X4sEWfs6b+R79L1B7FknIifoIUNYjjU5J3T3cIG95doHUuDV8hA==
   dependencies:
     "@babel/runtime" "^7.0.0"
     regex-escape "^3.4.8"
