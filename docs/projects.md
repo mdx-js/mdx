@@ -25,6 +25,7 @@
 ## Other related links
 
 *   [awesome-mdx][]
+*   [MDX: content for kings and princesses][mdx-fairy-tale]
 
 [demoboard]: https://frontarm.com/demoboard
 
@@ -51,3 +52,5 @@
 [spectacle-boilerplate-mdx]: https://github.com/FormidableLabs/spectacle-boilerplate-mdx
 
 [charge]: https://charge.js.org
+
+[mdx-fairy-tale]: https://github.com/DeveloperMode/mdx-fairy-tale
