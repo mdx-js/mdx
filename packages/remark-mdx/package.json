@@ -33,7 +33,7 @@
     "@babel/plugin-proposal-object-rest-spread": "7.5.5",
     "@babel/plugin-syntax-jsx": "7.2.0",
     "is-alphabetical": "1.0.3",
-    "remark-parse": "6.0.3",
+    "remark-parse": "7.0.0",
     "unified": "8.3.2"
   },
   "scripts": {
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "jest": "24.8.0",
-    "remark-stringify": "6.0.4",
+    "remark-stringify": "7.0.1",
     "vfile": "4.0.1"
   }
 }
