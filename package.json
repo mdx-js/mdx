@@ -48,7 +48,7 @@
     "lint-staged": "9.2.0",
     "prettier": "1.18.2",
     "remark-cli": "7.0.0",
-    "remark-preset-wooorm": "5.0.0"
+    "remark-preset-wooorm": "6.0.1"
   },
   "prettier": {
     "tabWidth": 2,
