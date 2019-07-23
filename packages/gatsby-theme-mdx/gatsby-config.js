@@ -36,6 +36,12 @@ module.exports = {
       options: {
         modules: ['gatsby-theme-mdx']
       }
+    },
+    {
+      resolve: 'gatsby-plugin-fathom',
+      options: {
+        siteId: 'CFRUTYPC'
+      }
     }
   ]
 }
