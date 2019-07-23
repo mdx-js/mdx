@@ -30,7 +30,7 @@
     "gatsby-plugin-mdx": "1.0.15",
     "gatsby-plugin-page-creator": "2.1.5",
     "gatsby-plugin-react-helmet": "3.1.2",
-    "gatsby-plugin-theme-ui": "0.2.6",
+    "gatsby-plugin-theme-ui": "0.2.18",
     "is-absolute-url": "3.0.0",
     "lodash.flatten": "4.4.0",
     "prism-react-renderer": "0.1.7",
