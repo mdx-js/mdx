@@ -30,7 +30,7 @@
   "devDependencies": {
     "jest": "24.8.0",
     "rehype-stringify": "6.0.0",
-    "remark-parse": "6.0.3",
+    "remark-parse": "7.0.0",
     "remark-rehype": "5.0.0",
     "unified": "8.3.2",
     "unist-util-inspect": "4.1.4"
