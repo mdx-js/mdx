@@ -450,6 +450,8 @@ The below rendering function is what we use for our MDX integration tests:
 const babel = require('@babel/core')
 const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')
+const mdx = require('@mdx-js/mdx')
+const {MDXProvider, mdx: createElement} = require('@mdx-js/react')
 
 const transform = code =>
   babel.transform(code, {
