@@ -1,7 +1,8 @@
 const {transformSync} = require('@babel/core')
 const declare = require('@babel/helper-plugin-utils').declare
 const {types: t} = require('@babel/core')
-const toStyleObject = require('to-style').object
+const postcss = require('postcss')
+const postcssJs = require('postcss-js')
 const uniq = require('lodash.uniq')
 const {paramCase, toTemplateLiteral} = require('./util')
 
@@ -73,9 +74,8 @@ function toJSX(node, parentNode = {}, options = {}) {
   if (node.properties != null) {
     // Turn style strings into JSX-friendly style object
     if (typeof node.properties.style === 'string') {
-      node.properties.style = toStyleObject(node.properties.style, {
-        camelize: true
-      })
+      const cssTree = postcss.parse(node.properties.style)
+      node.properties.style = postcssJs.objectify(cssTree)
     }
 
     // Transform class property to JSX-friendly className

@@ -36,10 +36,11 @@
     "hast-util-raw": "5.0.1",
     "lodash.uniq": "4.5.0",
     "mdast-util-to-hast": "6.0.1",
+    "postcss": "7.0.17",
+    "postcss-js": "2.0.2",
     "remark-mdx": "^1.1.0",
     "remark-parse": "7.0.0",
     "remark-squeeze-paragraphs": "3.0.4",
-    "to-style": "1.3.3",
     "unified": "8.3.2",
     "unist-builder": "1.0.4",
     "unist-util-visit": "1.4.1"
