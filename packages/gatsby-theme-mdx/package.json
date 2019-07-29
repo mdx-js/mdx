@@ -26,7 +26,7 @@
     "gatsby-plugin-catch-links": "2.1.2",
     "gatsby-plugin-compile-es6-packages": "2.0.1",
     "gatsby-plugin-emotion": "4.1.2",
-    "gatsby-plugin-fathom": "^1.1.0",
+    "gatsby-plugin-fathom": "1.1.0",
     "gatsby-plugin-google-fonts": "1.0.1",
     "gatsby-plugin-mdx": "1.0.15",
     "gatsby-plugin-page-creator": "2.1.5",
