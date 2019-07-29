@@ -39,7 +39,7 @@
     "jest": "24.8.0",
     "memory-fs": "0.4.1",
     "react": "16.8.6",
-    "webpack": "4.37.0"
+    "webpack": "4.38.0"
   },
   "scripts": {
     "test": "jest"
