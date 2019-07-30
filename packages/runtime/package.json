@@ -50,6 +50,9 @@
     "remark-slug": "5.1.2",
     "rimraf": "2.6.3"
   },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
   "jest": {
     "testEnvironment": "node"
   }
