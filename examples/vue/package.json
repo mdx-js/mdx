@@ -1,6 +1,6 @@
 {
   "name": "vue-example",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "scripts": {
     "start": "yarn serve",
@@ -11,7 +11,7 @@
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@mdx-js/vue-loader": "^1.1.0",
+    "@mdx-js/vue-loader": "^1.1.1",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
     "vue-template-compiler": "^2.6.10"
