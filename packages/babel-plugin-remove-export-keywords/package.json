@@ -1,0 +1,8 @@
+{
+  "name": "babel-plugin-remove-export-keywords",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mdx-js/mdx",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "license": "MIT"
+}
