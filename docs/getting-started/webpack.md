@@ -1,11 +1,6 @@
-import Note from 'gatsby-theme-mdx/src/components/note'
 import BabelConfig from './babel-config.md'
 
 # Webpack
-
-<Note>
-  TODO: Add plugin documentation
-</Note>
 
 MDX provides a built in webpack loader you need to install and configure
 for webpack projects.
@@ -50,6 +45,36 @@ The transpiled output for MDX requires [babel][] to be run.  This is typically
 by adding in the babel-loader to run *after* the MDX loader.  Webpack starts
 from the end of the loaders array and works backward, so it is important to
 follow the ordering above.
+
+## Using plugins
+
+If you’d like to configure [plugins](/advanced/plugins) you can do that by
+passing them as options:
+
+```js
+const images = require('remark-images')
+const emoji = require('remark-emoji')
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.mdx?$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: '@mdx-js/loader',
+            options: {
+              remarkPlugins: [images, emoji]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 ## Running MDX in the browser
 
