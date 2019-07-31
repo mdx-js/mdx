@@ -12,10 +12,13 @@ export { MDXContent as default };
 `
 const expectedResults = `const foo = 'bar';
 /** @jsx mdx*/
+
 const _frontmatter = {
   title: "Here's a title with the word export"
 };
+
 const MDXContent = function () {};
+
 export { MDXContent as default };`
 
 describe('babel-plugin-remove-export-keywords', () => {
