@@ -89,6 +89,10 @@
     "*.md": [
       "remark -qf",
       "git add"
+    ],
+    "*.mdx": [
+      "remark -qf",
+      "git add"
     ]
   }
 }
