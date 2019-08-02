@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "repository": "mdx-js/mdx",
   "license": "MIT",
   "description": "MDX support for Vue components",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@babel/core": "7.5.5",
     "@babel/preset-env": "7.5.5",
-    "@mdx-js/mdx": "^1.1.4",
+    "@mdx-js/mdx": "^1.1.5",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-plugin-transform-vue-jsx": "4.0.1",
