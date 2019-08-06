@@ -232,7 +232,7 @@ export default ${fnPostMdxTypeProp}`
 
   if (node.type === 'element') {
     let props = ''
-    
+
     const shouldBeStrings = ['className', 'sandbox']
 
     if (node.properties) {
