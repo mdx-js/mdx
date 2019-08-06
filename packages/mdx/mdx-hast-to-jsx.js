@@ -232,13 +232,19 @@ export default ${fnPostMdxTypeProp}`
 
   if (node.type === 'element') {
     let props = ''
+    
+    const shouldBeStrings = ['className', 'sandbox']
 
-    if (node.properties && Array.isArray(node.properties.className)) {
-      node.properties.className = node.properties.className.join(' ')
-    }
+    if (node.properties) {
+      shouldBeStrings.forEach(prop => {
+        if (Array.isArray(node.properties[prop])) {
+          node.properties[prop] = node.properties[prop].join(' ')
+        }
+      })
 
-    if (node.properties && Object.keys(node.properties).length > 0) {
-      props = JSON.stringify(node.properties)
+      if (Object.keys(node.properties).length > 0) {
+        props = JSON.stringify(node.properties)
+      }
     }
 
     return `<${node.tagName}${
