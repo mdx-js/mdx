@@ -11,16 +11,16 @@
   "author": "Brent Jackson",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@mdx-js/loader": "^1.1.6",
     "@mdx-js/mdx": "^1.1.6",
-    "babel-loader": "^8.0.5",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "webpack": "^4.30.0",
+    "babel-loader": "^8.0.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.3.1"
+    "webpack-dev-server": "^3.7.2"
   }
 }

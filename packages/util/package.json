@@ -1,0 +1,30 @@
+{
+  "name": "@mdx-js/util",
+  "version": "1.1.6",
+  "description": "Utilities for MDX libraries",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {
+    "jest": "24.8.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

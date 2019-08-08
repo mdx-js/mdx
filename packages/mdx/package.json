@@ -29,7 +29,7 @@
     "mdx-hast-to-jsx.js"
   ],
   "dependencies": {
-    "@babel/helper-plugin-utils": "7.0.0",
+    "@babel/core": "^7.5.5",
     "@babel/plugin-syntax-jsx": "7.2.0",
     "@babel/plugin-syntax-object-rest-spread": "7.2.0",
     "camelcase-css": "2.0.1",
@@ -38,23 +38,26 @@
     "lodash.uniq": "4.5.0",
     "mdast-util-to-hast": "6.0.1",
     "remark-mdx": "^1.1.6",
-    "remark-parse": "7.0.0",
+    "remark-parse": "7.0.1",
     "remark-squeeze-paragraphs": "3.0.4",
     "style-to-object": "0.2.3",
     "unified": "8.3.2",
     "unist-builder": "1.0.4",
-    "unist-util-visit": "1.4.1"
+    "unist-util-visit": "2.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/plugin-transform-react-jsx": "7.3.0",
     "@mapbox/rehype-prism": "0.3.1",
     "@mdx-js/react": "^1.1.6",
+    "@mdx-js/test-util": "^1.1.6",
+    "@mdx-js/util": "^1.1.6",
+    "babel-plugin-apply-mdx-type-prop": "^1.1.6",
+    "babel-plugin-extract-import-names": "^1.1.6",
+    "babel-plugin-remove-export-keywords": "^1.1.6",
     "hast-util-select": "3.0.1",
     "jest": "24.8.0",
     "prettier": "1.18.2",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
     "rehype-katex": "1.2.0",
     "remark-math": "1.0.6"
   },

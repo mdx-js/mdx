@@ -22,7 +22,7 @@ module: {
   rules: [
     // ...
     {
-      test: /\.md$/,
+      test: /\.mdx?$/,
       use: [
         'babel-loader',
         '@mdx-js/loader'

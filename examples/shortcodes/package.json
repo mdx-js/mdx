@@ -7,14 +7,14 @@
     "build": "gatsby build"
   },
   "dependencies": {
-    "@blocks/kit": "^0.0.20",
-    "@emotion/core": "^10.0.10",
+    "@blocks/kit": "^0.0.28",
+    "@emotion/core": "^10.0.15",
     "@mdx-js/mdx": "^1.1.6",
     "@mdx-js/react": "^1.1.6",
-    "gatsby": "^2.13.23",
-    "gatsby-mdx": "^0.6.3",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "gatsby": "^2.13.53",
+    "gatsby-mdx": "^1.0.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "unified-ui": "^0.0.3"
   }
 }

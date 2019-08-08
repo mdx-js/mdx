@@ -1,4 +1,3 @@
-const babel = require('@babel/core')
 const fs = require('fs')
 const path = require('path')
 const {select} = require('hast-util-select')
@@ -6,9 +5,7 @@ const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
 const prettier = require('prettier')
-const {MDXProvider, mdx: createElement} = require('@mdx-js/react')
-const React = require('react')
-const {renderToStaticMarkup} = require('react-dom/server')
+const {parse} = require('@mdx-js/test-util')
 
 const mdx = require('../')
 
@@ -16,68 +13,13 @@ const dropWhitespace = str =>
   str.replace(/\r?\n|\r/g, ' ').replace(/ +(?= )/g, '')
 
 const fixtureBlogPost = fs.readFileSync(
-  path.join(__dirname, './fixtures/blog-post.md')
+  path.join(__dirname, './fixtures/blog-post.mdx')
 )
-
-const fixturePonylang = fs.readFileSync(
-  path.join(__dirname, './fixtures/ponylang.mdx')
-)
-
-const parse = code =>
-  babel.parse(code, {
-    plugins: [
-      '@babel/plugin-syntax-jsx',
-      '@babel/plugin-proposal-object-rest-spread'
-    ]
-  })
-
-const transform = code =>
-  babel.transform(code, {
-    plugins: [
-      '@babel/plugin-transform-react-jsx',
-      '@babel/plugin-proposal-object-rest-spread'
-    ]
-  }).code
-
-const renderWithReact = async mdxCode => {
-  const jsx = await mdx(mdxCode, {skipExport: true})
-  const code = transform(jsx)
-  const scope = {mdx: createElement}
-
-  const fn = new Function( // eslint-disable-line no-new-func
-    'React',
-    ...Object.keys(scope),
-    `${code}; return React.createElement(MDXContent)`
-  )
-
-  const element = fn(React, ...Object.values(scope))
-  const components = {
-    h1: ({children}) =>
-      React.createElement('h1', {style: {color: 'tomato'}}, children)
-  }
-
-  const elementWithProvider = React.createElement(
-    MDXProvider,
-    {components},
-    element
-  )
-
-  return renderToStaticMarkup(elementWithProvider)
-}
 
 it('Should output parseable JSX', async () => {
   const result = await mdx('Hello World')
 
   parse(result)
-})
-
-it('Should be able to render JSX with React', async () => {
-  const result = await renderWithReact(`# Hello, world!
-
-    const code = () => \`template string\`
-  `)
-
-  expect(result).toContain('<h1 style="color:tomato">Hello, world!</h1>')
 })
 
 it('Should output parseable JSX when using < or >', async () => {
@@ -100,36 +42,36 @@ it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
   expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
-        "/* @jsx mdx */
-        
-        const makeShortcode = name =>
-          function MDXDefaultShortcode(props) {
-            console.warn(
-              \\"Component \\" +
-                name +
-                \\" was not imported, exported, or provided by MDXProvider as global scope\\"
-            );
-            return <div {...props} />;
-          };
-        
-        const layoutProps = {};
-        const MDXLayout = \\"wrapper\\";
-        export default function MDXContent({ components, ...props }) {
-          return (
-            <MDXLayout
-              {...layoutProps}
-              {...props}
-              components={components}
-              mdxType=\\"MDXLayout\\"
-            >
-              <h1>{\`Hello World\`}</h1>
-            </MDXLayout>
-          );
-        }
-        
-        MDXContent.isMDXComponent = true;
-        "
-    `)
+            "/* @jsx mdx */
+            
+            const makeShortcode = name =>
+              function MDXDefaultShortcode(props) {
+                console.warn(
+                  \\"Component \\" +
+                    name +
+                    \\" was not imported, exported, or provided by MDXProvider as global scope\\"
+                );
+                return <div {...props} />;
+              };
+            
+            const layoutProps = {};
+            const MDXLayout = \\"wrapper\\";
+            export default function MDXContent({ components, ...props }) {
+              return (
+                <MDXLayout
+                  {...layoutProps}
+                  {...props}
+                  components={components}
+                  mdxType=\\"MDXLayout\\"
+                >
+                  <h1>{\`Hello World\`}</h1>
+                </MDXLayout>
+              );
+            }
+            
+            MDXContent.isMDXComponent = true;
+            "
+      `)
 })
 
 it('Should render blockquote correctly', async () => {
@@ -147,7 +89,7 @@ it('Should properly expose comments', async () => {
     ]
   })
 
-  expect(prettier.format(result)).toContain(`{/*bar*/}`)
+  expect(prettier.format(result, {parser: 'babel'})).toContain(`{/*bar*/}`)
 })
 
 it('Should render HTML inside inlineCode correctly', async () => {
@@ -168,10 +110,6 @@ COPY start.sh /home/start.sh
   )
 
   expect(result).toContain('{`# Add main script`}</span>{`\n`}')
-})
-
-it('Should not escape literals in code blocks or inline code', async () => {
-  await expect(() => renderWithReact(fixturePonylang)).not.toThrow()
 })
 
 it('Should preserve infostring in code blocks', async () => {
@@ -224,24 +162,6 @@ Some text <!-- an inline comment -->
   expect(result).toContain('{ /* a comment below */ }')
   expect(result).toContain('--> should be as-is')
   expect(result).toContain('<!-- a template literal -->')
-})
-
-it('Should turn a newline into a space with adjacent anchors', async () => {
-  const result = await renderWithReact(`
-  [foo](/foo)
-  [bar](/bar)
-  `)
-
-  expect(result).toContain('<a href="/foo">foo</a>\n<a href="/bar">bar</a>')
-})
-
-it('Should turn a newline into a space with other adjacent phrasing content', async () => {
-  const result = await renderWithReact(`
-  *foo*
-  \`bar\`
-  `)
-
-  expect(result).toContain('<em>foo</em>\n<code>bar</code>')
 })
 
 test('Should not forward MDX options to plugins', async () => {
@@ -371,16 +291,6 @@ test('Should process filepath and pass it to the plugins', async () => {
   expect(result).toMatch(/HELLO, WORLD!/)
 })
 
-test.skip('Should handle inline JSX', async () => {
-  const result = await mdx(
-    'Hello, <span style={{ color: "tomato" }}>world</span>'
-  )
-
-  expect(result).toContain(
-    '<MDXTag name="p" components={components}>Hello, <span style={{ color: "tomato" }}>world</span></MDXTag>'
-  )
-})
-
 test('Should parse and render footnotes', async () => {
   const result = await mdx(
     'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
@@ -410,11 +320,8 @@ test('Should handle layout props', () => {
     import { Buz } from './Fixture'
     export const foo = {
       hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
-      authors: [
-        'fred',
-        'sally'
-      ]
-    }
+      authors: ['fred', 'sally']
+    };
     const makeShortcode = name => function MDXDefaultShortcode(props) {
       console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
       return <div {...props}/>
@@ -501,10 +408,4 @@ test('Should handle layout props', () => {
     ;
     MDXContent.isMDXComponent = true;"
   `)
-})
-
-it('Should use fragment as Wrapper', async () => {
-  const result = await renderWithReact(`# Hello, world!`)
-
-  expect(result).toEqual('<h1 style="color:tomato">Hello, world!</h1>')
 })

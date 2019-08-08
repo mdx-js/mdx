@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "@mdx-js/vue-loader": "^1.1.6",
-    "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-service": "^3.7.0",
+    "@vue/cli-plugin-babel": "^3.10.0",
+    "@vue/cli-service": "^3.10.0",
     "vue-template-compiler": "^2.6.10"
   },
   "postcss": {

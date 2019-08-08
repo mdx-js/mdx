@@ -1,22 +1,15 @@
 const isAlphabetical = require('is-alphabetical')
+const {isImportOrExport, EMPTY_NEWLINE} = require('@mdx-js/util')
 const extractImportsAndExports = require('./extract-imports-and-exports')
 const block = require('./block')
 const {tag} = require('./tag')
 
-const IMPORT_REGEX = /^import\s/
-const EXPORT_REGEX = /^export\s/
-const EMPTY_NEWLINE = '\n\n'
 const LESS_THAN = '<'
 const GREATER_THAN = '>'
 const SLASH = '/'
 const EXCLAMATION = '!'
 
-const isImport = text => IMPORT_REGEX.test(text)
-const isExport = text => EXPORT_REGEX.test(text)
-const isImportOrExport = text => isImport(text) || isExport(text)
-
 module.exports = mdx
-module.exports.isImportOrExport = isImportOrExport
 
 mdx.default = mdx
 
@@ -113,5 +106,5 @@ function tokenizeEsSyntax(eat, value) {
 }
 
 function tokenizeEsSyntaxLocator(value, _fromIndex) {
-  return isExport(value) || isImport(value) ? -1 : 1
+  return isImportOrExport(value) ? -1 : 1
 }

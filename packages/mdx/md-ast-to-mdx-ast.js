@@ -1,16 +1,11 @@
 const visit = require('unist-util-visit')
-
-const commentOpen = '<!--'
-const commentClose = '-->'
+const {isComment, getCommentContents} = require('@mdx-js/util')
 
 module.exports = _options => tree => {
   visit(tree, 'jsx', node => {
-    if (
-      node.value.startsWith(commentOpen) &&
-      node.value.endsWith(commentClose)
-    ) {
+    if (isComment(node.value)) {
       node.type = 'comment'
-      node.value = node.value.slice(commentOpen.length, -commentClose.length)
+      node.value = getCommentContents(node.value)
     }
   })
 

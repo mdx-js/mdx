@@ -38,7 +38,7 @@
     "babel-loader": "8.0.6",
     "jest": "24.8.0",
     "memory-fs": "0.4.1",
-    "react": "16.8.6",
+    "react": "16.9.0",
     "webpack": "4.39.1"
   },
   "scripts": {
