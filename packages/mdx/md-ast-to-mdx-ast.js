@@ -2,15 +2,16 @@ const visit = require('unist-util-visit')
 
 const commentOpen = '<!--'
 const commentClose = '-->'
+const isComment = str =>
+  str.startsWith(commentOpen) && str.endsWith(commentClose)
+const getCommentContents = str =>
+  str.slice(commentOpen.length, -commentClose.length)
 
 module.exports = _options => tree => {
   visit(tree, 'jsx', node => {
-    if (
-      node.value.startsWith(commentOpen) &&
-      node.value.endsWith(commentClose)
-    ) {
+    if (isComment(node.value)) {
       node.type = 'comment'
-      node.value = node.value.slice(commentOpen.length, -commentClose.length)
+      node.value = getCommentContents(node.value)
     }
   })
 
