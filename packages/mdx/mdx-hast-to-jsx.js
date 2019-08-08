@@ -114,6 +114,8 @@ MDXContent.isMDXComponent = true`
     const importNames = babelPluginExptractImportNamesInstance.state.names
 
     const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
+    const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
+
     const fnPostMdxTypeProp = transformSync(fn, {
       configFile: false,
       babelrc: false,
@@ -123,9 +125,22 @@ MDXContent.isMDXComponent = true`
         babelPluginApplyMdxPropInstance.plugin
       ]
     }).code
-    const jsxNames = babelPluginApplyMdxPropInstance.state.names.filter(
-      name => name !== 'MDXLayout'
-    )
+
+    const exportStatementsPostMdxTypeProps = transformSync(exportStatements, {
+      configFile: false,
+      babelrc: false,
+      plugins: [
+        require('@babel/plugin-syntax-jsx'),
+        require('@babel/plugin-syntax-object-rest-spread'),
+        babelPluginApplyMdxPropToExportsInstance.plugin
+      ]
+    }).code
+
+    const allJsxNames = [
+      ...babelPluginApplyMdxPropInstance.state.names,
+      ...babelPluginApplyMdxPropToExportsInstance.state.names
+    ]
+    const jsxNames = allJsxNames.filter(name => name !== 'MDXLayout')
 
     const importExportNames = importNames.concat(exportNames)
     const fakedModulesForGlobalScope =
@@ -142,7 +157,7 @@ MDXContent.isMDXComponent = true`
         .join('\n')
 
     const moduleBase = `${importStatements}
-${exportStatements}
+${exportStatementsPostMdxTypeProps}
 ${fakedModulesForGlobalScope}
 ${layoutProps}
 ${mdxLayout}`

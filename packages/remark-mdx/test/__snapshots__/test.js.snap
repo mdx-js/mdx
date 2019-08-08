@@ -3,8 +3,7 @@
 exports[`correctly transpiles 1`] = `
 "import Foo from './bar'
 
-export { Baz } from './foo'
-
+export { Baz } from './foo';
 const makeShortcode = name => function MDXDefaultShortcode(props) {
   console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
   return <div {...props}/>

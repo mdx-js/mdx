@@ -100,36 +100,36 @@ it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
   expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
-        "/* @jsx mdx */
-        
-        const makeShortcode = name =>
-          function MDXDefaultShortcode(props) {
-            console.warn(
-              \\"Component \\" +
-                name +
-                \\" was not imported, exported, or provided by MDXProvider as global scope\\"
-            );
-            return <div {...props} />;
-          };
-        
-        const layoutProps = {};
-        const MDXLayout = \\"wrapper\\";
-        export default function MDXContent({ components, ...props }) {
-          return (
-            <MDXLayout
-              {...layoutProps}
-              {...props}
-              components={components}
-              mdxType=\\"MDXLayout\\"
-            >
-              <h1>{\`Hello World\`}</h1>
-            </MDXLayout>
-          );
-        }
-        
-        MDXContent.isMDXComponent = true;
-        "
-    `)
+            "/* @jsx mdx */
+            
+            const makeShortcode = name =>
+              function MDXDefaultShortcode(props) {
+                console.warn(
+                  \\"Component \\" +
+                    name +
+                    \\" was not imported, exported, or provided by MDXProvider as global scope\\"
+                );
+                return <div {...props} />;
+              };
+            
+            const layoutProps = {};
+            const MDXLayout = \\"wrapper\\";
+            export default function MDXContent({ components, ...props }) {
+              return (
+                <MDXLayout
+                  {...layoutProps}
+                  {...props}
+                  components={components}
+                  mdxType=\\"MDXLayout\\"
+                >
+                  <h1>{\`Hello World\`}</h1>
+                </MDXLayout>
+              );
+            }
+            
+            MDXContent.isMDXComponent = true;
+            "
+      `)
 })
 
 it('Should render blockquote correctly', async () => {
@@ -410,11 +410,8 @@ test('Should handle layout props', () => {
     import { Buz } from './Fixture'
     export const foo = {
       hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
-      authors: [
-        'fred',
-        'sally'
-      ]
-    }
+      authors: ['fred', 'sally']
+    };
     const makeShortcode = name => function MDXDefaultShortcode(props) {
       console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
       return <div {...props}/>
