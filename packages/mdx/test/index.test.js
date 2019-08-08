@@ -16,7 +16,7 @@ const dropWhitespace = str =>
   str.replace(/\r?\n|\r/g, ' ').replace(/ +(?= )/g, '')
 
 const fixtureBlogPost = fs.readFileSync(
-  path.join(__dirname, './fixtures/blog-post.md')
+  path.join(__dirname, './fixtures/blog-post.mdx')
 )
 
 const fixturePonylang = fs.readFileSync(
