@@ -1,15 +1,15 @@
 {
   "private": true,
   "name": "next-example",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.1.6",
-    "@mdx-js/mdx": "^1.1.6",
+    "@mdx-js/loader": "^1.2.0",
+    "@mdx-js/mdx": "^1.2.0",
     "@next/mdx": "^9.0.3",
     "next": "^9.0.3",
     "react": "^16.9.0",
