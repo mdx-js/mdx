@@ -1,15 +1,15 @@
 {
   "private": true,
   "name": "terminal-example",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "start": "node ."
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.2.1",
-    "@mdx-js/react": "^1.2.1",
+    "@mdx-js/mdx": "^1.2.2",
+    "@mdx-js/react": "^1.2.2",
     "import-jsx": "^3.0.0",
     "ink": "^2.3.0",
     "react": "^16.9.0"
