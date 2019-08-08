@@ -29,7 +29,6 @@
     "mdx-hast-to-jsx.js"
   ],
   "dependencies": {
-    "@babel/helper-plugin-utils": "7.0.0",
     "@babel/plugin-syntax-jsx": "7.2.0",
     "@babel/plugin-syntax-object-rest-spread": "7.2.0",
     "camelcase-css": "2.0.1",
@@ -50,6 +49,9 @@
     "@babel/plugin-transform-react-jsx": "7.3.0",
     "@mapbox/rehype-prism": "0.3.1",
     "@mdx-js/react": "^1.1.6",
+    "babel-plugin-apply-mdx-type-prop": "^1.1.6",
+    "babel-plugin-extract-import-names": "^1.1.6",
+    "babel-plugin-remove-export-keywords": "^1.1.6",
     "hast-util-select": "3.0.1",
     "jest": "24.8.0",
     "prettier": "1.18.2",

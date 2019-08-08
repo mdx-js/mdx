@@ -147,7 +147,7 @@ it('Should properly expose comments', async () => {
     ]
   })
 
-  expect(prettier.format(result)).toContain(`{/*bar*/}`)
+  expect(prettier.format(result, {parser: 'babel'})).toContain(`{/*bar*/}`)
 })
 
 it('Should render HTML inside inlineCode correctly', async () => {

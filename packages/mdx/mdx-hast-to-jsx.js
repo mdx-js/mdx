@@ -1,65 +1,10 @@
 const {transformSync} = require('@babel/core')
-const declare = require('@babel/helper-plugin-utils').declare
-const {types: t} = require('@babel/core')
 const styleToObject = require('style-to-object')
 const camelCaseCSS = require('camelcase-css')
 const uniq = require('lodash.uniq')
 const {paramCase, toTemplateLiteral} = require('./util')
-
-const STARTS_WITH_CAPITAL_LETTER = /^[A-Z]/
-
-class BabelPluginExtractJsxNames {
-  constructor() {
-    const names = []
-    this.state = {names}
-
-    this.plugin = declare(api => {
-      api.assertVersion(7)
-
-      return {
-        visitor: {
-          JSXOpeningElement(path) {
-            const jsxName = path.node.name.name
-            names.push(jsxName)
-            if (STARTS_WITH_CAPITAL_LETTER.test(jsxName)) {
-              path.node.attributes.push(
-                t.jSXAttribute(
-                  t.jSXIdentifier(`mdxType`),
-                  t.stringLiteral(jsxName)
-                )
-              )
-            }
-          }
-        }
-      }
-    })
-  }
-}
-
-class BabelPluginExtractImportNames {
-  constructor() {
-    const names = []
-    this.state = {names}
-
-    this.plugin = declare(api => {
-      api.assertVersion(7)
-
-      return {
-        visitor: {
-          ImportDeclaration(path) {
-            path.traverse({
-              Identifier(path) {
-                if (path.key === 'local') {
-                  names.push(path.node.name)
-                }
-              }
-            })
-          }
-        }
-      }
-    })
-  }
-}
+const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
+const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 
 // eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
@@ -168,19 +113,19 @@ MDXContent.isMDXComponent = true`
     })
     const importNames = babelPluginExptractImportNamesInstance.state.names
 
-    const babelPluginExtractJsxNamesInstance = new BabelPluginExtractJsxNames()
+    const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
     const fnPostMdxTypeProp = transformSync(fn, {
       configFile: false,
       babelrc: false,
       plugins: [
         require('@babel/plugin-syntax-jsx'),
         require('@babel/plugin-syntax-object-rest-spread'),
-        babelPluginExtractJsxNamesInstance.plugin
+        babelPluginApplyMdxPropInstance.plugin
       ]
     }).code
-    const jsxNames = babelPluginExtractJsxNamesInstance.state.names
-      .filter(name => STARTS_WITH_CAPITAL_LETTER.test(name))
-      .filter(name => name !== 'MDXLayout')
+    const jsxNames = babelPluginApplyMdxPropInstance.state.names.filter(
+      name => name !== 'MDXLayout'
+    )
 
     const importExportNames = importNames.concat(exportNames)
     const fakedModulesForGlobalScope =
