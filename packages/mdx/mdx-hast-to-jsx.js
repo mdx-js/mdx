@@ -2,7 +2,7 @@ const {transformSync} = require('@babel/core')
 const styleToObject = require('style-to-object')
 const camelCaseCSS = require('camelcase-css')
 const uniq = require('lodash.uniq')
-const {paramCase, toTemplateLiteral} = require('./util')
+const {paramCase, toTemplateLiteral} = require('@mdx-js/util')
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 
