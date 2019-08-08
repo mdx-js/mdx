@@ -10,10 +10,10 @@
   "dependencies": {
     "@mdx-js/loader": "^1.1.6",
     "@mdx-js/mdx": "^1.1.6",
-    "@next/mdx": "^9.0.1",
-    "next": "^9.0.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "@next/mdx": "^9.0.3",
+    "next": "^9.0.3",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "remark-emoji": "^2.0.2",
     "remark-images": "^1.0.0"
   }

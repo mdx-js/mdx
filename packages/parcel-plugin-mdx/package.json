@@ -28,16 +28,16 @@
   ],
   "dependencies": {
     "@mdx-js/mdx": "^1.1.6",
-    "parcel-bundler": "^1.4.1"
+    "parcel-bundler": "^1.12.3"
   },
   "peerDependencies": {
-    "@mdx-js/react": "^1.0.0-rc.0",
-    "react": "^16.8.0"
+    "@mdx-js/react": "^1.1.6",
+    "react": "^16.9.0"
   },
   "devDependencies": {
     "jest": "24.8.0",
-    "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "react": "16.9.0",
+    "react-dom": "16.9.0"
   },
   "scripts": {
     "test": "jest"

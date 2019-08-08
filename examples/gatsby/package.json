@@ -9,10 +9,10 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.1.6",
     "@mdx-js/react": "^1.1.6",
-    "gatsby": "^2.3.23",
-    "gatsby-mdx": "^0.6.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "gatsby": "^2.13.53",
+    "gatsby-mdx": "^1.0.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "unified-ui": "^0.0.3"
   }
 }

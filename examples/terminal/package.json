@@ -10,8 +10,8 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.1.6",
     "@mdx-js/react": "^1.1.6",
-    "import-jsx": "^2.0.0",
-    "ink": "^2.2.0",
-    "react": "^16.8.6"
+    "import-jsx": "^3.0.0",
+    "ink": "^2.3.0",
+    "react": "^16.9.0"
   }
 }

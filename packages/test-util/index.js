@@ -1,15 +1,17 @@
 const babel = require('@babel/core')
-const fs = require('fs')
-const path = require('path')
 const {MDXProvider, mdx: createElement} = require('@mdx-js/react')
 const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')
 
-const mdx = require('../')
+const mdx = require('@mdx-js/mdx')
 
-const fixture = fs.readFileSync(
-  path.join(__dirname, './fixtures/export-with-shortcode.mdx')
-)
+const parse = code =>
+  babel.parse(code, {
+    plugins: [
+      '@babel/plugin-syntax-jsx',
+      '@babel/plugin-proposal-object-rest-spread'
+    ]
+  })
 
 const transform = code =>
   babel.transform(code, {
@@ -20,7 +22,7 @@ const transform = code =>
     ]
   }).code
 
-const renderWithReact = async mdxCode => {
+const renderWithReact = async (mdxCode, {components} = {}) => {
   const jsx = await mdx(mdxCode, {skipExport: true})
   const code = transform(jsx)
   const scope = {mdx: createElement}
@@ -32,11 +34,6 @@ const renderWithReact = async mdxCode => {
   )
 
   const element = fn(React, ...Object.values(scope))
-  const components = {
-    h1: ({children}) =>
-      React.createElement('h1', {style: {color: 'tomato'}}, children),
-    Button: () => React.createElement('button', {}, 'Hello, button!')
-  }
 
   const elementWithProvider = React.createElement(
     MDXProvider,
@@ -47,8 +44,6 @@ const renderWithReact = async mdxCode => {
   return renderToStaticMarkup(elementWithProvider)
 }
 
-it('Should use MDX pragma for exports', async () => {
-  const result = await renderWithReact(fixture)
-
-  expect(result).toContain('<button>Hello, button!</button>')
-})
+module.exports.parse = parse
+module.exports.transform = transform
+module.exports.renderWithReact = renderWithReact

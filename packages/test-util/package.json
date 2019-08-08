@@ -1,0 +1,31 @@
+{
+  "name": "@mdx-js/test-util",
+  "version": "1.1.6",
+  "description": "Testing utilities for MDX libraries",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@mdx-js/mdx": "^1.1.6",
+    "@mdx-js/react": "^1.1.6",
+    "babel-plugin-remove-export-keywords": "^1.1.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  }
+}

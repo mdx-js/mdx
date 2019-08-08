@@ -33,8 +33,8 @@
   "devDependencies": {
     "jest": "24.8.0",
     "remark-mdx": "^1.1.6",
-    "remark-parse": "7.0.0",
-    "remark-stringify": "7.0.1",
+    "remark-parse": "7.0.1",
+    "remark-stringify": "7.0.2",
     "unified": "8.3.2"
   },
   "dependencies": {
