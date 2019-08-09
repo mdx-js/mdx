@@ -32,6 +32,53 @@ module: {
 }
 ```
 
+The `prepend` option specifies a string that will be prepended to the generated source allowing for the use of any `createElement` implementation. By default, that string is:
+
+```js
+import React from 'react'
+import { mdx } from '@mdx-js/react'
+```
+
+One could use any other implementation. The example below wraps a generic JSX compatible function named `h`.
+
+```js
+const prepend = `
+import { h } from 'generic-implementation'
+
+const mdx = (function (createElement) {
+  return function (name, props, ...children) {
+    if (typeof name === 'string') {
+      if (name === 'wrapper') return children.map(createElement)
+      if (name === 'inlineCode') return createElement('code', props, ...children)
+    }
+
+    return createElement(name, props, ...children)
+  }
+}(h))
+`
+
+// ...
+module: {
+  rules: [
+    // ...
+    {
+      test: /\.mdx?$/,
+      use: [
+        'babel-loader',
+        {
+          loader: '@mdx-js/loader'
+          options: {
+            prepend,
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+For more information on why this is required, see [this post](https://mdxjs.com/blog/custom-pragma).
+
 ## Contribute
 
 See the [Support][] and [Contributing][] guidelines on the MDX website for ways
