@@ -14,7 +14,7 @@ export default ({children, className, live, render}) => {
         <LiveProvider
           code={children.trim()}
           transformCode={code => '/** @jsx mdx */' + code}
-          scope={{ mdx }}
+          scope={{mdx}}
         >
           <LivePreview />
           <LiveEditor />
