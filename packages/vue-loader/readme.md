@@ -1,17 +1,17 @@
-# `@mdx-js/loader`
+# `@mdx-js/vue-loader`
 
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
-Webpack loader for [MDX][].
+Webpack loader for [MDX][] in Vue.
 
 ## Installation
 
 [npm][]:
 
 ```sh
-npm i -D @mdx-js/loader
+npm i -D @mdx-js/vue-loader
 ```
 
 ## Usage
@@ -22,10 +22,10 @@ module: {
   rules: [
     // ...
     {
-      test: /\.md$/,
+      test: /\.mdx?$/,
       use: [
         'babel-loader',
-        '@mdx-js/loader'
+        '@mdx-js/vue-loader'
       ]
     }
   ]
