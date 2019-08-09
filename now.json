@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "mdx",
-  "alias": ["mdxjs.com", "www.mdxjs.com"],
+  "alias": ["mdxjs.com"],
   "public": true,
   "builds": [
     {
