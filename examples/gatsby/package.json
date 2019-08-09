@@ -10,7 +10,7 @@
     "@mdx-js/mdx": "^1.2.2",
     "@mdx-js/react": "^1.2.2",
     "gatsby": "^2.13.53",
-    "gatsby-mdx": "^1.0.0",
+    "gatsby-plugin-mdx": "^1.0.23",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "unified-ui": "^0.0.3"
