@@ -1,4 +1,4 @@
-const {transformSync} = require('@babel/core')
+const {transform} = require('@babel/standalone')
 const styleToObject = require('style-to-object')
 const camelCaseCSS = require('camelcase-css')
 const uniq = require('lodash.uniq')
@@ -102,7 +102,7 @@ MDXContent.isMDXComponent = true`
 
     // Check JSX nodes against imports
     const babelPluginExptractImportNamesInstance = new BabelPluginExtractImportNames()
-    transformSync(importStatements, {
+    transform(importStatements, {
       configFile: false,
       babelrc: false,
       plugins: [
@@ -116,7 +116,7 @@ MDXContent.isMDXComponent = true`
     const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
     const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
 
-    const fnPostMdxTypeProp = transformSync(fn, {
+    const fnPostMdxTypeProp = transform(fn, {
       configFile: false,
       babelrc: false,
       plugins: [
@@ -126,7 +126,7 @@ MDXContent.isMDXComponent = true`
       ]
     }).code
 
-    const exportStatementsPostMdxTypeProps = transformSync(exportStatements, {
+    const exportStatementsPostMdxTypeProps = transform(exportStatements, {
       configFile: false,
       babelrc: false,
       plugins: [
