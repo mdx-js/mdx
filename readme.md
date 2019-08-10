@@ -12,7 +12,7 @@
 [MDX][website] is an authorable format that lets you seamlessly use JSX in your markdown documents.
 You can import components, like interactive charts or notifications, and export
 metadata.
-This makes writing long-form content with components a blast. 
+This makes writing long-form content with components a blast.
 
 ## Example
 
@@ -105,11 +105,12 @@ A nice example of this is [mdx-deck][], a great way to create slides with MDX.
     <td width="20%" align="center">
       <a href="https://www.gatsbyjs.org"><img src="https://avatars1.githubusercontent.com/u/12551863?s=400&v=4"></a>
       <br><br>🥇
-      <a href="https://www.gatsbyjs.org">Gatsby</a></td>
+      <a href="https://www.gatsbyjs.org">Gatsby</a>
+    </td>
     <td width="20%" align="center">
-      <a href="https://compositor.io"><img src="https://avatars1.githubusercontent.com/u/19245838?s=400&v=4"></a>
-      <br><br>🥉
-      <a href="https://compositor.io">Compositor</a>
+      <a href="https://www.netlify.com"><img src="https://avatars1.githubusercontent.com/u/7892489?s=400&v=4"></a>
+      <br><br>🥇
+      <a href="https://www.netlify.com">Netlify</a>
     </td>
     <td width="20%" align="center">
       <a href="https://www.holloway.com"><img src="https://avatars1.githubusercontent.com/u/35904294?s=400&v=4"></a>
