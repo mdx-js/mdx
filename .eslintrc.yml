@@ -39,7 +39,7 @@ rules:
   react/react-in-jsx-scope: off
 
 settings:
-  react: 
+  react:
     version: 16.3.2
 
 overrides:
