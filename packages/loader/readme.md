@@ -32,17 +32,17 @@ module: {
 }
 ```
 
-The `prepend` option specifies a string that will be prepended to the generated source allowing for the use of any `createElement` implementation. By default, that string is:
+The `renderer` option specifies a string that will be prepended to the generated source allowing for the use of any `createElement` implementation.  By default, that string is:
 
 ```js
 import React from 'react'
 import { mdx } from '@mdx-js/react'
 ```
 
-One could use any other implementation. The example below wraps a generic JSX compatible function named `h`.
+Using the `renderer` option, one can swap out React for another implementation.  The example below wraps a generic JSX compatible function named `h`.
 
 ```js
-const prepend = `
+const renderer = `
 import { h } from 'generic-implementation'
 
 const mdx = (function (createElement) {
@@ -68,7 +68,7 @@ module: {
         {
           loader: '@mdx-js/loader'
           options: {
-            prepend,
+            renderer,
           }
         }
       ]

@@ -1,12 +1,10 @@
 const {getOptions} = require('loader-utils')
 const mdx = require('@mdx-js/mdx')
 
-const DEFAULT_PREPEND = `
-  import React from 'react'
-  import { mdx } from '@mdx-js/react'
+const DEFAULT_RENDERER = `
+import React from 'react'
+import { mdx } from '@mdx-js/react'
 `
-  .split('\n')
-  .map(l => l.trim())
 
 const loader = async function(content) {
   const callback = this.async()
@@ -22,9 +20,9 @@ const loader = async function(content) {
     return callback(err)
   }
 
-  const {prepend = DEFAULT_PREPEND} = options
+  const {renderer = DEFAULT_RENDERER} = options
 
-  const code = `${prepend}\n${result}`
+  const code = `${renderer}\n${result}`
   return callback(null, code)
 }
 
