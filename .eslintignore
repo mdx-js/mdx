@@ -6,9 +6,15 @@ artifacts
 .cache
 public
 docsearch.min.js
+packages/**/fixtures/**/*.mdx
+packages/**/test/**/*.mdx
 packages/gatsby-theme-mdx/src/components/header.js
 packages/gatsby-theme-mdx/src/components/layout.js
 packages/gatsby-theme-mdx/src/components/search.js
+
+# ignore edge cases of blank lines temporarily
+docs/getting-started/index.mdx
+examples/shortcodes/src/pages/index.mdx
 
 # tmp
 examples/vue

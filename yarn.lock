@@ -2406,6 +2406,13 @@
   dependencies:
     styled-system "^5.0.0"
 
+"@rxts/eslint-plugin-mdx@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@rxts/eslint-plugin-mdx/-/eslint-plugin-mdx-0.10.0.tgz#43f54bc4586e1b7eeebcfc365b1074015eeb51b4"
+  integrity sha512-4AHWwSDSnQyOSCEUL+YWJ63I8WyYOo/SK4oCd07l3MslaiGusPc7thAZt21RhGJndLCZ10d+DBmlWK93volWiA==
+  dependencies:
+    eslint-mdx "^0.10.0"
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -7183,6 +7190,14 @@ eslint-loader@^2.1.0:
     object-assign "^4.0.1"
     object-hash "^1.1.4"
     rimraf "^2.6.1"
+
+eslint-mdx@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-0.10.0.tgz#776887bc760c702c1b1d5393d634a12f3d50d61c"
+  integrity sha512-uKZJ5RwHFbtb1lUZ4pHVW+92bj6N85dGnwIoM5Ate2YS2HN23cWrAE+/gLigM0JqePzH0WOZd7XQENBgC9mEkQ==
+  dependencies:
+    remark-mdx "^1.2.2"
+    remark-parse "^7.0.1"
 
 eslint-module-utils@^2.4.0:
   version "2.4.1"
@@ -16816,7 +16831,7 @@ remark-message-control@^4.0.0:
     unified-message-control "^1.0.0"
     xtend "^4.0.1"
 
-remark-parse@7.0.1, remark-parse@^7.0.0:
+remark-parse@7.0.1, remark-parse@^7.0.0, remark-parse@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/remark-parse/-/remark-parse-7.0.1.tgz#0c13d67e0d7b82c2ad2d8b6604ec5fae6c333c2b"
   integrity sha512-WOZLa545jYXtSy+txza6ACudKWByQac4S2DmGk+tAGO/3XnVTOxwyCIxB7nTcLlk8Aayhcuf3cV1WV6U6L7/DQ==
