@@ -23,7 +23,7 @@
     "jest": "24.8.0"
   },
   "dependencies": {
-    "@babel/helper-plugin-utils": "^7.0.0"
+    "@babel/helper-plugin-utils": "7.0.0"
   },
   "scripts": {
     "test": "jest"

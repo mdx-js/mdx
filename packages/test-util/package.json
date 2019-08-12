@@ -19,13 +19,13 @@
     "index.js"
   ],
   "dependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/core": "7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "7.5.5",
+    "@babel/plugin-transform-react-jsx": "7.3.0",
     "@mdx-js/mdx": "^1.2.2",
     "@mdx-js/react": "^1.2.2",
     "babel-plugin-remove-export-keywords": "^1.2.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "16.9.0",
+    "react-dom": "16.9.0"
   }
 }

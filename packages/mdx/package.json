@@ -29,7 +29,7 @@
     "mdx-hast-to-jsx.js"
   ],
   "dependencies": {
-    "@babel/core": "^7.5.5",
+    "@babel/core": "7.5.5",
     "@babel/plugin-syntax-jsx": "7.2.0",
     "@babel/plugin-syntax-object-rest-spread": "7.2.0",
     "@mdx-js/util": "^1.2.2",
