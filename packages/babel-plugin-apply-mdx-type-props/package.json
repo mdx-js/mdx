@@ -20,11 +20,11 @@
   ],
   "devDependencies": {
     "@babel/core": "7.5.5",
-    "@babel/plugin-syntax-jsx": "^7.2.0",
+    "@babel/plugin-syntax-jsx": "7.2.0",
     "jest": "24.8.0"
   },
   "dependencies": {
-    "@babel/helper-plugin-utils": "^7.0.0",
+    "@babel/helper-plugin-utils": "7.0.0",
     "@mdx-js/util": "^1.2.2"
   },
   "scripts": {
