@@ -43,7 +43,7 @@
     "@babel/preset-react": "7.0.0",
     "jest": "24.8.0",
     "microbundle": "0.11.0",
-    "react": "16.8.6",
+    "react": "16.9.0",
     "react-dom": "16.9.0",
     "rehype-add-classes": "1.0.0",
     "remark-autolink-headings": "5.2.1",
