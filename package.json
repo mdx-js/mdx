@@ -42,7 +42,7 @@
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.14.3",
-    "gatsby": "2.13.35",
+    "gatsby": "2.13.61",
     "husky": "3.0.3",
     "lerna": "3.16.4",
     "lint-staged": "9.2.1",
