@@ -15,11 +15,11 @@ jobs:
           yarn bootstrap
           yarn test
   deploy:
+    if: github.event.branch == 'master'
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
-      - if: github.event.branch == 'master'
-        uses: actions/checkout@v1
+      - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
           version: 10.x
