@@ -18,7 +18,7 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
-      - if: 'github.branch == "master"'
+      - if: github.event.branch == 'master'
         uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
