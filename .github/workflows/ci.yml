@@ -1,22 +1,8 @@
-name: Build test and deploy
+name: CI
 on: [push, pull_request]
 jobs:
-  build-and-test:
-    name: Build and test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          version: 10.x
-      - run: |
-          yarn install
-          yarn lerna exec yarn install
-          yarn bootstrap
-          yarn test
-  deploy:
-    if: github.event.branch == 'master'
-    needs: build-and-test
+  all:
+    name: Build test and deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -24,6 +10,12 @@ jobs:
         with:
           version: 10.x
           registry-url: https://registry.npmjs.org/
+      - run: |
+          yarn install
+          yarn lerna exec yarn install
+          yarn bootstrap
+          yarn test
       - run: npm publish
+        if: github.event.ref == 'refs/head/master'
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
