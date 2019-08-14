@@ -13,10 +13,10 @@
     "now-build": "yarn docs-build",
     "format": "yarn format-mdx && yarn format-js",
     "format-js": "eslint . --fix",
-    "format-mdx": "remark . -qfo",
+    "format-mdx": "remark . --ext .md,.mdx -qfo",
     "lint": "yarn lint-mdx && yarn lint-js",
-    "lint-js": "eslint .",
-    "lint-mdx": "remark . -qf",
+    "lint-js": "eslint . --ext .js,.mdx",
+    "lint-mdx": "remark . --ext .md,.mdx -qf",
     "prepublish": "lerna run prepublish",
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm",
@@ -36,6 +36,7 @@
     "examples/terminal"
   ],
   "devDependencies": {
+    "@rxts/eslint-plugin-mdx": "^0.11.2",
     "eslint": "6.1.0",
     "eslint-config-prettier": "6.0.0",
     "eslint-config-xo": "0.26.0",
@@ -63,6 +64,14 @@
       "./packages/remark-mdx",
       "preset-wooorm",
       [
+        "lint-file-extension",
+        false
+      ],
+      [
+        "lint-no-file-name-mixed-case",
+        false
+      ],
+      [
         "lint-no-heading-punctuation",
         false
       ],
@@ -82,15 +91,11 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "*.{js,mdx}": [
       "eslint --fix",
       "git add"
     ],
-    "*.md": [
-      "remark -qf",
-      "git add"
-    ],
-    "*.mdx": [
+    "*.{md,mdx}": [
       "remark -qf",
       "git add"
     ]

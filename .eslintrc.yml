@@ -39,10 +39,18 @@ rules:
   react/react-in-jsx-scope: off
 
 settings:
-  react: 
+  react:
     version: 16.3.2
 
 overrides:
+  -
+    files: "*.mdx"
+    extends:
+      - plugin:@rxts/mdx/recommended
+      - plugin:@rxts/mdx/overrides
+    rules:
+      import/no-extraneous-dependencies: 0
+
   -
     files:
       - "**/test/**/*.js"
