@@ -5,8 +5,8 @@ jobs:
     name: Build and test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
         with:
           version: 10.x
       - run: |
@@ -14,3 +14,16 @@ jobs:
           yarn lerna exec yarn install
           yarn bootstrap
           yarn test
+  deploy:
+    if: 'github.branch == "master"'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          version: 10.x
+          registry-url: https://registry.npmjs.org/
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
