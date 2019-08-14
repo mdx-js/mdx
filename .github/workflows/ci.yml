@@ -15,7 +15,7 @@ jobs:
           yarn lerna exec yarn install
           yarn bootstrap
           yarn test
-      - run: npm publish
+      - run: yarn publish-ci
         if: github.event.ref == 'refs/head/master'
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
