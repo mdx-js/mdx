@@ -18,4 +18,4 @@ jobs:
       - run: yarn publish-ci
         if: github.event.ref == 'refs/head/master'
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+          NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
