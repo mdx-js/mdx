@@ -1,4 +1,4 @@
-name: Build test and deploy
+name: 'Build test and deploy'
 on: [push, pull_request]
 jobs:
   name: Build and test
