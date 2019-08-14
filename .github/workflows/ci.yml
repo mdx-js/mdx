@@ -16,6 +16,6 @@ jobs:
           yarn bootstrap
           yarn test
       - run: yarn publish-ci
-        if: github.event.ref == 'refs/head/master'
+        if: github.ref == 'refs/head/master'
         env:
           NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
