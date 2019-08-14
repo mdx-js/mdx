@@ -1,15 +1,16 @@
-name: 'Build test and deploy'
+name: Build test and deploy
 on: [push, pull_request]
 jobs:
-  name: Build and test
-  runs-on: [ubuntu-latest]
-  steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-      with:
-        version: 10.x
-    - run: |
-        yarn install
-        yarn lerna exec yarn install
-        yarn bootstrap
-        yarn test
+  build-and-test:
+    name: Build and test
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          version: 10.x
+      - run: |
+          yarn install
+          yarn lerna exec yarn install
+          yarn bootstrap
+          yarn test
