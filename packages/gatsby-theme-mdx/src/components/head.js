@@ -1,9 +1,9 @@
 import React from 'react'
 import {Helmet} from 'react-helmet'
 
-export default () => (
+export default ({title, description = 'Markdown for the component era'}) => (
   <Helmet>
-    <title>MDX</title>
-    <meta name="description" content="Markdown for the component era" />
+    <title>{title ? title + ' | ' : ''}MDX</title>
+    <meta name="description" content={description} />
   </Helmet>
 )
