@@ -1,5 +1,8 @@
 import React from 'react'
-import {transform} from 'buble'
+import {transform} from '@babel/standalone'
+import babelPluginJsx from '@babel/plugin-transform-react-jsx'
+import babelPluginSpread from '@babel/plugin-proposal-object-rest-spread'
+import babelPluginExports from 'babel-plugin-remove-export-keywords'
 import mdx from '@mdx-js/mdx'
 import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 
@@ -8,6 +11,7 @@ export default ({
   components = {},
   remarkPlugins = [],
   rehypePlugins = [],
+  babelPlugins = [],
   children,
   ...props
 }) => {
@@ -28,7 +32,12 @@ export default ({
     .trim()
 
   const {code} = transform(jsx, {
-    objectAssign: 'Object.assign'
+    plugins: [
+      babelPluginJsx,
+      babelPluginSpread,
+      babelPluginExports,
+      ...babelPlugins
+    ]
   })
 
   const keys = Object.keys(fullScope)

@@ -1,5 +1,5 @@
 import React from 'react'
-import {renderToString as render} from 'react-dom/server'
+import {renderToStaticMarkup as render} from 'react-dom/server'
 import slug from 'remark-slug'
 import autolinkHeadings from 'remark-autolink-headings'
 import addClasses from 'rehype-add-classes'
@@ -16,9 +16,13 @@ const scope = {
 }
 
 const mdx = `
+export const foo = 'bar'
+
 # Hello, world
 
 <Foo />
+
+<h1>Hello, from {foo}</h1>
 `
 
 const mdxLayout = `
@@ -30,7 +34,7 @@ export default ({ children, id }) => <div id={id}>{children}</div>
 `
 
 describe('renders MDX with the proper components', () => {
-  it('default layout', () => {
+  it('defaults layout', () => {
     const result = render(
       <MDX components={{...components, ...scope}} children={mdx} />
     )
@@ -39,7 +43,7 @@ describe('renders MDX with the proper components', () => {
     expect(result).toMatch(/Foobarbaz/)
   })
 
-  it('custom layout', () => {
+  it('allows a custom layout', () => {
     const result = render(
       <MDX
         components={{...components, ...scope}}
@@ -51,6 +55,14 @@ describe('renders MDX with the proper components', () => {
     expect(result).toMatch(/style="color:tomato"/)
     expect(result).toMatch(/Foobarbaz/)
     expect(result).toMatch(/id="layout"/)
+  })
+
+  it('removes export keywords', () => {
+    const result = render(
+      <MDX components={{...components, ...scope}} children={mdx} />
+    )
+
+    expect(result).toMatch(/Hello, from bar/)
   })
 })
 

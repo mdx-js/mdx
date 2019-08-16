@@ -47,6 +47,16 @@ export default () => (
 )
 ```
 
+### Options
+
+| Name            | Default | Description                                         |
+| --------------- | ------- | --------------------------------------------------- |
+| `remarkPlugins` | `[]`    | Remark plugins to transform the MDAST               |
+| `rehypePlugins` | `[]`    | Rehype plugins to transform the HAST                |
+| `babelPlugins`  | `[]`    | Babel plugins to transform the JSX before evaluated |
+
+[Read more about plugins](https://mdxjs.com/advanced/plugins)
+
 ## Contribute
 
 See the [Support][] and [Contributing][] guidelines on the MDX website for ways
