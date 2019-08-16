@@ -13,15 +13,16 @@ const colors = {
   gray: '#ccc',
   lightgray: '#f6f6f6',
   yellow: '#ffc',
+  muted: '#444',
   dark: {
     text: '#fff',
     background: '#111122',
     primary: '#3af',
     secondary: '#18d',
-
     gray: '#223',
     lightgray: '#161628',
-    yellow: '#ff0'
+    yellow: '#ff0',
+    muted: '#ccc'
   }
 }
 

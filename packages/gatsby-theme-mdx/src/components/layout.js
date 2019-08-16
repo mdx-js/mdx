@@ -60,13 +60,18 @@ const Sidebar = ({open, ...props}) => (
       styles: {
         ul: {
           listStyle: 'none',
-          pl: 16
+          pl: 16,
+          'li > ul': {
+            a: {
+              color: 'muted'
+            }
+          }
         },
         a: {
           display: 'block',
           color: 'inherit',
           textDecoration: 'none',
-          fontWeight: 'bold',
+          fontWeight: 500,
           fontSize: 1,
           px: 2,
           py: 2,
