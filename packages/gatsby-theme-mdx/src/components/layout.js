@@ -7,7 +7,6 @@ import SidebarContent from './sidebar.mdx'
 import Header from './header'
 import Pagination from './pagination'
 import EditLink from './edit-link'
-import Link from './link'
 import {SkipNavLink, SkipNavContent} from './skip-nav'
 import baseTheme from './theme'
 
