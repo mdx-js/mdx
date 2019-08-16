@@ -24,7 +24,7 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "scripts": {
-    "build": "microbundle --format es,cjs --external react,@babel/standalone,@babel/plugin-proposal-object-rest-spread,@babel/plugin-syntax-jsx,babel-plugin-remove-export-keywords,@mdx-js/mdx,@mdx-js/react --jsx React.createElement --no-sourcemap",
+    "build": "microbundle --format es,cjs --external react,@babel/standalone,@babel/types,@babel/plugin-proposal-object-rest-spread,@babel/plugin-transform-react-jsx,babel-plugin-remove-export-keywords,@mdx-js/mdx,@mdx-js/react --jsx React.createElement --no-sourcemap",
     "clean": "rimraf dist",
     "prepublish": "yarn clean && yarn build",
     "test": "jest"
