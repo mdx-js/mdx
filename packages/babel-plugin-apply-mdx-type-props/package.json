@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-apply-mdx-type-prop",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Apply the MDX type prop used in the MDX pragma",
   "license": "MIT",
   "keywords": [
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@babel/helper-plugin-utils": "7.0.0",
-    "@mdx-js/util": "^1.3.0"
+    "@mdx-js/util": "^1.3.1"
   },
   "scripts": {
     "test": "jest"
