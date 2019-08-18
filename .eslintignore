@@ -6,6 +6,7 @@ artifacts
 .cache
 public
 docsearch.min.js
+examples/**/node_modules/**/*.*
 packages/**/fixtures/**/*.mdx
 packages/**/test/**/*.mdx
 packages/gatsby-theme-mdx/src/components/header.js

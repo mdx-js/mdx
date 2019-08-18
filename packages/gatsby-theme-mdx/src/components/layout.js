@@ -7,7 +7,6 @@ import SidebarContent from './sidebar.mdx'
 import Header from './header'
 import Pagination from './pagination'
 import EditLink from './edit-link'
-import Link from './link'
 import {SkipNavLink, SkipNavContent} from './skip-nav'
 import baseTheme from './theme'
 
@@ -61,13 +60,18 @@ const Sidebar = ({open, ...props}) => (
       styles: {
         ul: {
           listStyle: 'none',
-          pl: 16
+          pl: 16,
+          'li > ul': {
+            a: {
+              color: 'muted'
+            }
+          }
         },
         a: {
           display: 'block',
           color: 'inherit',
           textDecoration: 'none',
-          fontWeight: 'bold',
+          fontWeight: 500,
           fontSize: 1,
           px: 2,
           py: 2,

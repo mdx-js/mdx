@@ -20,9 +20,10 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-page-creator',
+      resolve: 'gatsby-source-filesystem',
       options: {
-        path: 'docs'
+        path: 'docs',
+        name: 'docs'
       }
     },
     {
