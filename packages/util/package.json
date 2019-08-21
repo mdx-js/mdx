@@ -26,5 +26,8 @@
   },
   "jest": {
     "testEnvironment": "node"
+  },
+  "dependencies": {
+    "lodash.uniq": "^4.5.0"
   }
 }

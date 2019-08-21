@@ -45,3 +45,4 @@ module.exports.isComment = isComment
 module.exports.getCommentContents = getCommentContents
 module.exports.paramCase = paramCase
 module.exports.toTemplateLiteral = toTemplateLiteral
+module.exports.uniq = require('lodash.uniq')
