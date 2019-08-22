@@ -318,20 +318,14 @@ test('Should handle layout props', () => {
     "/* @jsx mdx */
     import { Baz } from './Fixture'
     import { Buz } from './Fixture'
+
     export const foo = {
       hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
       authors: ['fred', 'sally']
     };
-    const makeShortcode = name => function MDXDefaultShortcode(props) {
-      console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
-      return <div {...props}/>
-    };
-    const Foo = makeShortcode(\\"Foo\\");
-    const Bar = makeShortcode(\\"Bar\\");
-    const layoutProps = {
-      foo
-    };
+
     const MDXLayout = ({children}) => <div>{children}</div>
+
     export default function MDXContent({
       components,
       ...props

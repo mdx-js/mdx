@@ -5,22 +5,8 @@ const u = require('unist-builder')
 function mdxAstToMdxHast() {
   return (tree, _file) => {
     const handlers = {
-      // `inlineCode` gets passed as `code` by the HAST transform.
-      // This makes sure it ends up being `inlineCode`
-      inlineCode(h, node) {
-        return Object.assign({}, node, {
-          type: 'element',
-          tagName: 'inlineCode',
-          properties: {},
-          children: [
-            {
-              type: 'text',
-              value: node.value
-            }
-          ]
-        })
-      },
       code(h, node) {
+        // TODO: See if this detab is really necessary
         const value = node.value ? detab(node.value + '\n') : ''
         const lang = node.lang
         const props = {}
@@ -31,7 +17,11 @@ function mdxAstToMdxHast() {
 
         // MDAST sets `node.meta` to `null` instead of `undefined` if
         // not present, which React doesn't like.
-        props.metastring = node.meta || undefined
+        if (node.meta) {
+          props.metastring = node.meta
+        } else {
+          delete props.metastring
+        }
 
         const meta =
           node.meta &&
@@ -56,22 +46,22 @@ function mdxAstToMdxHast() {
           h(node, 'code', props, [u('text', value)])
         ])
       },
-      import(h, node) {
-        return Object.assign({}, node, {
+      import(_h, node) {        
+        Object.assign({}, node, {
           type: 'import'
         })
       },
-      export(h, node) {
+      export(_h, node) {
         return Object.assign({}, node, {
           type: 'export'
         })
       },
-      comment(h, node) {
+      comment(_h, node) {
         return Object.assign({}, node, {
           type: 'comment'
         })
       },
-      jsx(h, node) {
+      jsx(_h, node) {
         return Object.assign({}, node, {
           type: 'jsx'
         })

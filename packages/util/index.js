@@ -35,6 +35,8 @@ const toTemplateLiteral = text => {
   return '{`' + escaped + '`}'
 }
 
+const isEmptyObject = (obj = {}) => !Object.keys(obj).length
+
 module.exports.EMPTY_NEWLINE = EMPTY_NEWLINE
 module.exports.isImport = isImport
 module.exports.isExport = isExport
@@ -45,4 +47,5 @@ module.exports.isComment = isComment
 module.exports.getCommentContents = getCommentContents
 module.exports.paramCase = paramCase
 module.exports.toTemplateLiteral = toTemplateLiteral
+module.exports.isEmptyObject = isEmptyObject
 module.exports.uniq = require('lodash.uniq')
