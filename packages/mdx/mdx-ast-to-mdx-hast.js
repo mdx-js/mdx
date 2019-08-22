@@ -46,8 +46,8 @@ function mdxAstToMdxHast() {
           h(node, 'code', props, [u('text', value)])
         ])
       },
-      import(_h, node) {        
-        Object.assign({}, node, {
+      import(_h, node) {
+        return Object.assign({}, node, {
           type: 'import'
         })
       },
