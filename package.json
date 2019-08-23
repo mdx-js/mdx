@@ -59,15 +59,7 @@
       "./packages/remark-mdx",
       "preset-wooorm",
       [
-        "lint-file-extension",
-        false
-      ],
-      [
         "lint-no-file-name-mixed-case",
-        false
-      ],
-      [
-        "lint-no-heading-punctuation",
         false
       ],
       [
