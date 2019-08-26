@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-remove-export-keywords",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Remove plugin export keywords",
   "license": "MIT",
   "keywords": [
