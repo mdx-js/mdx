@@ -52,7 +52,7 @@ export const Foo = () => (
 ```js
 const Foo = () => (
   <div srcSet="foo">
-    <Button mdxType="Button" />
+    <Button />
   </div>
 )
 ```
