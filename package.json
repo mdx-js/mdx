@@ -37,7 +37,7 @@
   ],
   "devDependencies": {
     "@rxts/eslint-plugin-mdx": "0.11.2",
-    "eslint": "6.1.0",
+    "eslint": "6.2.2",
     "eslint-config-prettier": "6.0.0",
     "eslint-config-xo": "0.26.0",
     "eslint-plugin-import": "2.18.2",
