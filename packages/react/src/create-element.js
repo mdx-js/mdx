@@ -9,13 +9,13 @@ const DEFAULTS = {
   wrapper: ({children}) => React.createElement(React.Fragment, {}, children)
 }
 
-const MDXCreateElement = ({
+const MDXCreateElement = React.forwardRef(({
   components: propComponents,
   mdxType,
   originalType,
   parentName,
   ...etc
-}) => {
+}, ref) => {
   const components = useMDXComponents(propComponents)
   const type = mdxType
   const Component =
@@ -25,11 +25,11 @@ const MDXCreateElement = ({
     originalType
 
   if (propComponents) {
-    return React.createElement(Component, {...etc, components: propComponents})
+    return React.createElement(Component, {...etc, ref, components: propComponents})
   }
 
-  return React.createElement(Component, etc)
-}
+  return React.createElement(Component, { ...etc, ref })
+});
 
 MDXCreateElement.displayName = 'MDXCreateElement'
 
