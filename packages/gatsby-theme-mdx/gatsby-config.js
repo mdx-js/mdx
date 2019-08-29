@@ -35,7 +35,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-compile-es6-packages',
       options: {
-        modules: ['gatsby-theme-mdx']
+        modules: ['gatsby-theme-mdx', 'gatsby-plugin-mdx']
       }
     },
     {
