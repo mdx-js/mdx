@@ -8,14 +8,44 @@ Where could it go?
 Below are some basic typings to get started with:
 
 ```tsx
-declare module "@mdx-js/react" {
-  import { ComponentType, StyleHTMLAttributes } from "react"
+declare module '@mdx-js/react' {
+  import * as React from 'react'
 
-  type MDXProps = {
-    children: React.ReactNode
-    components: { wrapper: React.ReactNode }
+  type ComponentType =
+    | 'p'
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'thematicBreak'
+    | 'blockquote'
+    | 'ul'
+    | 'ol'
+    | 'li'
+    | 'table'
+    | 'tr'
+    | 'td'
+    | 'pre'
+    | 'code'
+    | 'em'
+    | 'strong'
+    | 'delete'
+    | 'inlineCode'
+    | 'hr'
+    | 'a'
+    | 'img'
+
+  export type Components = {
+    [key in ComponentType]?: React.ComponentType<{ children: React.ReactNode }>
   }
-  export class MDXProvider extends React.Component<MDXProps> {}
+
+  export interface MDXProviderProps {
+    children: React.ReactNode
+    components: Components
+  }
+  export class MDXProvider extends React.Component<MDXProviderProps> {}
 }
 ```
 
@@ -31,7 +61,7 @@ inside your `tsconfig.json`.
 ```tsx
 // types/mdx.d.ts
 declare module '*.mdx' {
-  let MDXComponent: (props) => JSX.Element;
-  export default MDXComponent;
+  let MDXComponent: (props: any) => JSX.Element
+  export default MDXComponent
 }
 ```
