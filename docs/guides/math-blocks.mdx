@@ -1,12 +1,14 @@
 # Math blocks
 
-You can render math blocks via [remark-math](https://github.com/remarkjs/remark-math/blob/master/packages/remark-math) and [rehype-katex](https://github.com/remarkjs/remark-math/blob/master/packages/rehype-katex). remark-math parses math blocks and rehype-katex transforms the blocks into html elements with classes for styling. Also, you need to apply css style of KaTeX by yourself to render them properly.
+You can render math blocks via [remark-math](https://github.com/remarkjs/remark-math/blob/master/packages/remark-math) and [rehype-katex](https://github.com/remarkjs/remark-math/blob/master/packages/rehype-katex). remark-math parses math blocks and rehype-katex transforms the blocks into html elements with classes for styling.Also, you need to apply css style of KaTeX by yourself to render them properly.
+
+Let's try it quickly.It's quite easy.
 
 ```md
 <!-- index.mdx -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossOrigin="anonymous"/>
 
-# Remark math test
+<!-- Apply katex css -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossOrigin="anonymous"/>
 
 Lift($L$) can be determined by Lift Coefficient ($C_L$) like the following equation.
 
@@ -14,6 +16,8 @@ $$
 L = \frac{1}{2} \rho v^2 S C_L
 $$
 ```
+
+And configure webpack.
 
 ```js
 // webpack.config.js
