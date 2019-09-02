@@ -24,10 +24,10 @@
     "translations.js"
   ],
   "dependencies": {
-    "@babel/types": "^7.5.5",
+    "@babel/types": "7.5.5",
     "@mdx-js/util": "^1.4.0",
-    "camelcase-css": "^2.0.1",
-    "style-to-object": "^0.2.3"
+    "camelcase-css": "2.0.1",
+    "style-to-object": "0.2.3"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",
