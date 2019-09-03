@@ -10,12 +10,14 @@ jobs:
         with:
           version: 10.x
           registry-url: https://registry.npmjs.org/
-      - run: |
-          yarn install
-          yarn lerna exec yarn install
-          yarn bootstrap
-          yarn test
+      - run: yarn
+        name: Install
+      - run: yarn bootstrap
+        name: Bootstrap
+      - run: yarn test
+        name: Test
       - run: yarn publish-ci
         if: github.ref == 'refs/head/master'
+        name: Publish CI tag to npm
         env:
           NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
