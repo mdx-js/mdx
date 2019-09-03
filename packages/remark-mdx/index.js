@@ -37,6 +37,8 @@ function attachParser(parser) {
   blocks.html = wrap(block)
   inlines.html = wrap(inlines.html, inlineJsx)
 
+  tokenizeEsSyntax.notInBlock = true
+
   methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
 
   function wrap(original, customTokenizer) {
@@ -100,8 +102,10 @@ function tokenizeEsSyntax(eat, value) {
   const subvalue = index !== -1 ? value.slice(0, index) : value
 
   if (isImportOrExport(subvalue)) {
-    const nodes = extractImportsAndExports(subvalue, this.file)
-    nodes.map(node => eat(node.value)(node))
+    try {
+      const nodes = extractImportsAndExports(subvalue, this.file)
+      nodes.map(node => eat(node.value)(node))
+    } catch (e) {}
   }
 }
 
