@@ -1,0 +1,21 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  all:
+    name: Build test and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          version: 10.x
+          registry-url: https://registry.npmjs.org/
+      - run: |
+          yarn install
+          yarn lerna exec yarn install
+          yarn bootstrap
+          yarn test
+      - run: yarn publish-ci
+        if: github.ref == 'refs/head/master'
+        env:
+          NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
