@@ -2,7 +2,7 @@
 
 You can render math blocks via [remark-math](https://github.com/remarkjs/remark-math/blob/master/packages/remark-math) and [rehype-katex](https://github.com/remarkjs/remark-math/blob/master/packages/rehype-katex). remark-math parses math blocks and rehype-katex transforms the blocks into html elements with classes for styling.Also, you need to apply css style of KaTeX by yourself to render them properly.
 
-Let's try it quickly.It's quite easy.
+First, link a stylesheet and use the `$` syntax:
 
 ```md
 <!-- index.mdx -->
@@ -17,7 +17,7 @@ L = \frac{1}{2} \rho v^2 S C_L
 $$
 ```
 
-And configure webpack.
+Then, configure webpack by using the remark-math and rehype-katex plugins:
 
 ```js
 // webpack.config.js
@@ -47,7 +47,7 @@ module.exports = {
 }
 ```
 
-If you're using mdx with next.js, you could do like the below example.
+If you're using MDX with Next.js, you can use `@next/mdx` with the following configuration:
 
 ```js
 // next.config.js
