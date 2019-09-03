@@ -62,6 +62,7 @@ it('turns a newline into a space with other adjacent phrasing content', async ()
 it('ignores escaped import wording', async () => {
   const result = await renderWithReact(IMPORT_FIXTURE)
 
+  expect(result).toContain('<p>import')
   expect(result).toContain('<li>import')
   expect(result).toContain('<li>export')
 })
