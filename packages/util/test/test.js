@@ -38,14 +38,16 @@ describe('isImportOrExport', () => {
 
 describe('toTemplateLiteral', () => {
   it("doesn't double escape '$'", () => {
+    // eslint-disable-next-line
     const result = toTemplateLiteral('All the \$')
 
-    expect(result).toEqual('{`All the \$`}')
+    expect(result).toEqual('{`All the $`}')
   })
 
   it("escapes string interpolation '${'", () => {
     const result = toTemplateLiteral('All the ${')
 
+    // eslint-disable-next-line
     expect(result).toEqual('{`All the \\${`}')
   })
 })
