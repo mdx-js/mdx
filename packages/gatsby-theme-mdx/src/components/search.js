@@ -23,6 +23,9 @@ const styles = theme => important(css({
   alignItems: 'center',
   // <3 CSS
   '.algolia-autocomplete': {
+    '@media screen and (min-width:40em)': {
+      width: '500px'
+    },
     '.ds-dropdown-menu': {
       '@media screen and (max-width:40em)': {
         position: 'fixed',

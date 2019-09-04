@@ -57,19 +57,19 @@ export default ({toggleMenu, dark, setDark}) => (
           mr: 3
         })}
       />
-      <span
-        css={{
-          display: 'none',
-          [theme.mediaQueries.big]: {
-            display: 'inline'
-          }
-        }}
-      >
-        MDX v{pkg.version}
-      </span>
     </Link>
-    <div css={{margin: 'auto'}} />
     <Search />
+    <div css={{margin: 'auto'}} />
+    <span
+      css={{
+        display: 'none',
+        [theme.mediaQueries.big]: {
+          display: 'inline'
+        }
+      }}
+    >
+      v{pkg.version}
+    </span>
     <a
       href="https://github.com/mdx-js/mdx"
       css={css({
