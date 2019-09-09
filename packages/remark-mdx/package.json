@@ -44,7 +44,7 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "jest": "24.8.0",
+    "jest": "24.9.0",
     "remark-stringify": "7.0.2",
     "vfile": "4.0.1"
   }

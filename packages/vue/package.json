@@ -28,7 +28,7 @@
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-plugin-transform-vue-jsx": "4.0.1",
     "hast-util-select": "3.0.1",
-    "jest": "24.8.0",
+    "jest": "24.9.0",
     "vue": "2.6.10",
     "vue-template-compiler": "2.6.10"
   }
