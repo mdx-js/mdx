@@ -24,13 +24,13 @@
     "translations.js"
   ],
   "dependencies": {
-    "@babel/types": "7.5.5",
+    "@babel/types": "7.6.1",
     "@mdx-js/util": "^1.4.4",
     "camelcase-css": "2.0.1",
     "style-to-object": "0.2.3"
   },
   "devDependencies": {
-    "@babel/core": "7.5.5",
+    "@babel/core": "7.6.0",
     "@babel/preset-react": "7.0.0",
     "jest": "24.9.0"
   },
