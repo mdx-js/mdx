@@ -7205,13 +7205,15 @@ eslint-loader@^2.1.0:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-mdx@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.4.0.tgz#bb1e0fb2f4cc8cab3f08f69abaf442a8c513cbb3"
-  integrity sha512-35uHNR256X8XgkMetyJyrO+pwt4MDvvSftrIqvoLP7n7vqF1SQFkOtW83royokFsLlWiEqESUX4vv+khhNVMBw==
+eslint-mdx@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.4.5.tgz#5341ae8bf77b4afedcb4d2d4983dc0ed11bef4c0"
+  integrity sha512-+J2ODRnyNkxAzU7mLCLFPwF0JMALgSFFtbrpfB8i7t72vx7Lz3gFsPgugkd/ktWjB7Bi9qWeh1vNRs8JnNxTqQ==
   dependencies:
-    remark-mdx "^1.3.1"
+    espree "^6.1.1"
+    remark-mdx "^1.4.4"
     remark-parse "^7.0.1"
+    unified "^8.3.2"
 
 eslint-module-utils@^2.4.0:
   version "2.4.1"
@@ -7268,16 +7270,19 @@ eslint-plugin-jsx-a11y@^6.0.3:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-mdx@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.4.0.tgz#7bb9f0ddcaaba8295b06d0cbf884cbefe0fa7617"
-  integrity sha512-YPznUlcNKfQmS/J8gb69tM/RtTsGUiiFnN3h8Hlusd7Epcd1772G31SHALK2X1efNOXR3+zE8KCBBxY+SIKhTQ==
+eslint-plugin-mdx@1.4.6:
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.4.6.tgz#c68d5308faa267ddc32f593600c9ff950c86e4f5"
+  integrity sha512-pqeALniX92Fyxq+wIXsZ2Z+KCZIigEmWjR6huXvIHwDkaPIxryOg5fqsqYpQ4IGDrqrkRUJnnWQBaiWK7Jdzgg==
   dependencies:
     cosmiconfig "^5.2.1"
-    eslint-mdx "^1.4.0"
+    eslint-mdx "^1.4.5"
     rebass "^4.0.5"
-    remark-lint-file-extension "^1.0.3"
-    remark-stringify "^7.0.2"
+    remark-mdx "^1.4.4"
+    remark-parse "^7.0.1"
+    remark-stringify "^7.0.3"
+    unified "^8.3.2"
+    vfile "^4.0.1"
 
 eslint-plugin-prettier@3.1.0:
   version "3.1.0"
@@ -16447,7 +16452,7 @@ remark-lint-fenced-code-marker@^1.0.0:
     unist-util-position "^3.0.0"
     unist-util-visit "^1.1.1"
 
-remark-lint-file-extension@^1.0.0, remark-lint-file-extension@^1.0.3:
+remark-lint-file-extension@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/remark-lint-file-extension/-/remark-lint-file-extension-1.0.3.tgz#a7fc78fbf041e513c618b2cca0f2160ee37daa13"
   integrity sha512-P5gzsxKmuAVPN7Kq1W0f8Ss0cFKfu+OlezYJWXf+5qOa+9Y5GqHEUOobPnsmNFZrVMiM7JoqJN2C9ZjrUx3N6Q==
@@ -17109,7 +17114,7 @@ remark-squeeze-paragraphs@3.0.4:
   dependencies:
     mdast-squeeze-paragraphs "^3.0.0"
 
-remark-stringify@7.0.2, remark-stringify@^7.0.2:
+remark-stringify@7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/remark-stringify/-/remark-stringify-7.0.2.tgz#1b87716e3bf278ef5dd6c230e47c633d89b81d76"
   integrity sha512-+Fr2xUe+P9b4XwRBjtIQF6DuHtQEQAVsBv8Uv+Gz3d3gkFxwEIzKFjzHo13KgWkASn/MQIY1C9vmOTm0kwlGXw==
@@ -17146,6 +17151,26 @@ remark-stringify@^6.0.0:
     repeat-string "^1.5.4"
     state-toggle "^1.0.0"
     stringify-entities "^1.0.1"
+    unherit "^1.0.4"
+    xtend "^4.0.1"
+
+remark-stringify@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/remark-stringify/-/remark-stringify-7.0.3.tgz#9221e9770b0b395af83a0d5881a44b6fcb9d0a2a"
+  integrity sha512-+jgmjNjm2kR7y2Ns1BATXRlFr+iQ7sDcpSgytfU77nkw7UCd5yJNArSxB3MU3Uul7HuyYNTCjetoGfy8xLia1A==
+  dependencies:
+    ccount "^1.0.0"
+    is-alphanumeric "^1.0.0"
+    is-decimal "^1.0.0"
+    is-whitespace-character "^1.0.0"
+    longest-streak "^2.0.1"
+    markdown-escapes "^1.0.0"
+    markdown-table "^1.1.0"
+    mdast-util-compact "^1.0.0"
+    parse-entities "^1.0.2"
+    repeat-string "^1.5.4"
+    state-toggle "^1.0.0"
+    stringify-entities "^2.0.0"
     unherit "^1.0.4"
     xtend "^4.0.1"
 
@@ -20102,7 +20127,7 @@ vfile-message@^2.0.0:
     "@types/unist" "^2.0.2"
     unist-util-stringify-position "^2.0.0"
 
-vfile@4.0.1, vfile@^4.0.0:
+vfile@4.0.1, vfile@^4.0.0, vfile@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/vfile/-/vfile-4.0.1.tgz#fc3d43a1c71916034216bf65926d5ee3c64ed60c"
   integrity sha512-lRHFCuC4SQBFr7Uq91oJDJxlnftoTLQ7eKIpMdubhYcVMho4781a8MWXLy3qZrZ0/STD1kRiKc0cQOHm4OkPeA==
