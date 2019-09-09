@@ -21,7 +21,7 @@
   "devDependencies": {
     "@babel/core": "7.5.5",
     "@babel/preset-react": "7.0.0",
-    "jest": "24.8.0"
+    "jest": "24.9.0"
   },
   "scripts": {
     "test": "jest"
