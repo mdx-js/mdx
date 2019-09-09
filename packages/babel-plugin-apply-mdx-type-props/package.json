@@ -27,6 +27,9 @@
     "@babel/helper-plugin-utils": "7.0.0",
     "@mdx-js/util": "^1.4.4"
   },
+  "peerDependencies": {
+    "@babel/core": "^7.0.0"
+  },
   "scripts": {
     "test": "jest"
   },
