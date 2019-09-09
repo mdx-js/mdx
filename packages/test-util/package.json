@@ -19,7 +19,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@babel/core": "7.5.5",
+    "@babel/core": "7.6.0",
     "@babel/plugin-proposal-object-rest-spread": "7.5.5",
     "@babel/plugin-transform-react-jsx": "7.3.0",
     "@mdx-js/mdx": "^1.4.4",

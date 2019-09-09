@@ -19,7 +19,7 @@
     "index.js"
   ],
   "devDependencies": {
-    "@babel/core": "7.5.5",
+    "@babel/core": "7.6.0",
     "@babel/preset-react": "7.0.0",
     "jest": "24.9.0"
   },
