@@ -1,4 +1,4 @@
-const {paramCase, isImportOrExport} = require('..')
+const {paramCase, isImportOrExport, toTemplateLiteral} = require('..')
 
 const PARAM_CASE_FIXTURES = [
   ['ariaHidden', 'aria-hidden'],
@@ -33,5 +33,21 @@ describe('isImportOrExport', () => {
 
       expect(result).toBeTruthy()
     })
+  })
+})
+
+describe('toTemplateLiteral', () => {
+  it("doesn't double escape '$'", () => {
+    // eslint-disable-next-line
+    const result = toTemplateLiteral('All the \$')
+
+    expect(result).toEqual('{`All the $`}')
+  })
+
+  it("escapes string interpolation '${'", () => {
+    const result = toTemplateLiteral('All the ${')
+
+    // eslint-disable-next-line
+    expect(result).toEqual('{`All the \\${`}')
   })
 })

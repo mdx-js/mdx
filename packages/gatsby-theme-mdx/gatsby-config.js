@@ -20,9 +20,10 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-page-creator',
+      resolve: 'gatsby-source-filesystem',
       options: {
-        path: 'docs'
+        path: 'docs',
+        name: 'docs'
       }
     },
     {
@@ -34,7 +35,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-compile-es6-packages',
       options: {
-        modules: ['gatsby-theme-mdx']
+        modules: ['gatsby-theme-mdx', 'gatsby-plugin-mdx']
       }
     },
     {

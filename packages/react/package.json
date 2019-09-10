@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/react",
-  "version": "1.2.2",
+  "version": "1.4.5",
   "description": "React implementation for MDX",
   "license": "MIT",
   "keywords": [
@@ -27,10 +27,10 @@
     "dist"
   ],
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/preset-env": "7.5.5",
+    "@babel/core": "7.6.0",
+    "@babel/preset-env": "7.6.0",
     "@babel/preset-react": "7.0.0",
-    "jest": "24.8.0",
+    "jest": "24.9.0",
     "microbundle": "0.11.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",

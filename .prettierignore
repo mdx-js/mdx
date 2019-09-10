@@ -1,2 +1,4 @@
 .next
 dist
+*.md
+*.mdx

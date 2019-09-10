@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-extract-import-names",
-  "version": "1.2.2",
+  "version": "1.4.5",
   "description": "Extract import names",
   "license": "MIT",
   "keywords": [
@@ -19,11 +19,11 @@
     "index.js"
   ],
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "jest": "24.8.0"
+    "@babel/core": "7.6.0",
+    "jest": "24.9.0"
   },
   "dependencies": {
-    "@babel/helper-plugin-utils": "^7.0.0"
+    "@babel/helper-plugin-utils": "7.0.0"
   },
   "scripts": {
     "test": "jest"
