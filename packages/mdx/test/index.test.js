@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const {select} = require('hast-util-select')
+const visit = require('unist-util-visit')
 const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
@@ -259,36 +260,30 @@ it('Should wrap export function when wrapExport is provided', async () => {
 })
 
 test('Should await and render async plugins', async () => {
+  const upperCasePlugin = () => async tree => {
+    const headingNode = select('h1', tree)
+    visit(headingNode, 'text', textNode => {
+      textNode.value = textNode.value.toUpperCase()
+    })
+  }
+
   const result = await mdx(fixtureBlogPost, {
-    rehypePlugins: [
-      _options => tree => {
-        // eslint-disable-next-line require-await
-        return (async () => {
-          const headingNode = select('h1', tree)
-          const textNode = headingNode.children[0]
-          textNode.value = textNode.value.toUpperCase()
-        })()
-      }
-    ]
+    rehypePlugins: [upperCasePlugin]
   })
 
-  expect(result).toMatch(/HELLO, WORLD!/)
+  expect(result).toMatch(/HELLO/)
+  expect(result).toMatch(/WORLD/)
 })
 
 test('Should process filepath and pass it to the plugins', async () => {
-  const result = await mdx(fixtureBlogPost, {
+  await mdx(fixtureBlogPost, {
     filepath: 'hello.mdx',
     rehypePlugins: [
-      _options => (tree, fileInfo) => {
+      () => (_, fileInfo) => {
         expect(fileInfo.path).toBe('hello.mdx')
-        const headingNode = select('h1', tree)
-        const textNode = headingNode.children[0]
-        textNode.value = textNode.value.toUpperCase()
       }
     ]
   })
-
-  expect(result).toMatch(/HELLO, WORLD!/)
 })
 
 test('Should parse and render footnotes', async () => {
@@ -308,7 +303,7 @@ test('Should parse and render footnotes', async () => {
 test('Should expose a sync compiler', () => {
   const result = mdx.sync(fixtureBlogPost)
 
-  expect(result).toMatch(/Hello, world!/)
+  expect(result).toMatch(/<h1>Hello/)
 })
 
 test('Should handle layout props', () => {
@@ -316,90 +311,59 @@ test('Should handle layout props', () => {
 
   expect(result).toMatchInlineSnapshot(`
     "/* @jsx mdx */
-    import { Baz } from './Fixture'
-    import { Buz } from './Fixture'
-
+    import { Baz } from './Fixture';
+    import { Buz } from './Fixture';
     export const foo = {
       hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
       authors: ['fred', 'sally']
     };
 
-    const MDXLayout = ({children}) => <div>{children}</div>
+    const MDXLayout = ({
+      children
+    }) => <div>{children}</div>;
 
-    export default function MDXContent({
-      components,
-      ...props
-    }) {
-      return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
-
-
-        <h1>{\`Hello, world!\`}</h1>
-        <p>{\`I'm an awesome paragraph.\`}</p>
-        {
-          /* I'm a comment */
-        }
-        <Foo bg='red' mdxType=\\"Foo\\">
+    const MDXContent = props => {
+      return <MDXLayout {...props} mdxType=\\"MDXLayout\\">
+              \\"\\\\n\\"\\"\\\\n\\"<h1>Hello, <code parentName=\\"h1\\">world</code>!</h1>\\"\\\\n\\"<p>Hello, here's a <a parentName=\\"p\\" href=\\"https://mdxjs.com\\">link</a>.</p>\\"\\\\n\\"<p>I'm an awesome paragraph.</p>\\"\\\\n\\"\\"\\\\n\\"<Foo bg='red' mdxType=\\"Foo\\">
       <Bar mdxType=\\"Bar\\">hi</Bar>
-        {hello}
+        {foo.hi}
         {
             /* another commment */
           }
-        </Foo>
-        <pre><code parentName=\\"pre\\" {...{}}>{\`test codeblock
-    \`}</code></pre>
-        <pre><code parentName=\\"pre\\" {...{
-            \\"className\\": \\"language-js\\"
-          }}>{\`module.exports = 'test'
-    \`}</code></pre>
-        <pre><code parentName=\\"pre\\" {...{
-            \\"className\\": \\"language-sh\\"
-          }}>{\`npm i -g foo
-    \`}</code></pre>
-        <table>
-          <thead parentName=\\"table\\">
-            <tr parentName=\\"thead\\">
-              <th parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
-              }}>{\`Test\`}</th>
-              <th parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
-              }}>{\`Table\`}</th>
-            </tr>
-          </thead>
-          <tbody parentName=\\"table\\">
-            <tr parentName=\\"tbody\\">
-              <td parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
-              }}>{\`Col1\`}</td>
-              <td parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
-              }}>{\`Col2\`}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <pre><code parentName=\\"pre\\" {...{
-            \\"className\\": \\"language-js\\"
-          }}>{\`export const Button = styled.button\\\\\`
+        </Foo>\\"\\\\n\\"<pre><code parentName=\\"pre\\">test codeblock
+      </code></pre>\\"\\\\n\\"<pre><code parentName=\\"pre\\" className={[\\"language-js\\"]}>module.exports = 'test'
+      </code></pre>\\"\\\\n\\"<pre><code parentName=\\"pre\\" className={[\\"language-sh\\"]}>npm i -g foo
+      </code></pre>\\"\\\\n\\"<table>
+      <thead parentName=\\"table\\">
+        <tr parentName=\\"thead\\">
+          <th parentName=\\"tr\\" align=\\"left\\">Test</th>
+          <th parentName=\\"tr\\" align=\\"left\\">Table</th>
+        </tr>
+      </thead>
+      <tbody parentName=\\"table\\">
+        <tr parentName=\\"tbody\\">
+          <td parentName=\\"tr\\" align=\\"left\\">Col1</td>
+          <td parentName=\\"tr\\" align=\\"left\\">Col2</td>
+        </tr>
+      </tbody>
+        </table>\\"\\\\n\\"\\"\\\\n\\"<pre><code parentName=\\"pre\\" className={[\\"language-js\\"]}>export const Button = styled.button\`
       font-size: 1rem;
       border-radius: 5px;
       padding: 0.25rem 1rem;
       margin: 0 1rem;
       background: transparent;
-      color: \\\\\${props => props.theme.primary};
-      border: 2px solid \\\\\${props => props.theme.primary};
-      \\\\\${props =>
-        props.primary &&
-        css\\\\\`
-          background: \\\\\${props => props.theme.primary};
+      color: \${props => props.theme.primary};
+      border: 2px solid \${props => props.theme.primary};
+      \${props => props.primary && css\`
+          background: \${props => props.theme.primary};
           color: white;
-        \\\\\`};
-    \\\\\`
-    \`}</code></pre>
-        </MDXLayout>;
-    }
+        \`};
+    \`
+      </code></pre>
+            </MDXLayout>;
+    };
 
-    ;
-    MDXContent.isMDXComponent = true;"
+    MDXContent.isMDXComponent = true;
+    export default MDXContent;"
   `)
 })

@@ -4,10 +4,13 @@ import {useMDXComponents} from './context'
 
 const TYPE_PROP_NAME = 'mdxType'
 
-const DEFAULTS = {
-  inlineCode: 'code',
-  wrapper: ({children}) => React.createElement(React.Fragment, {}, children)
-}
+const pre = ({children, ...props}) =>
+  React.createElement('pre', props, React.createElement('code', {children}))
+
+const wrapper = ({children}) =>
+  React.createElement(React.Fragment, {}, children)
+
+const DEFAULTS = {pre, wrapper}
 
 const MDXCreateElement = forwardRef((props, ref) => {
   const {mdxType, mdxComponents, originalType, parentName, ...etc} = props

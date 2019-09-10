@@ -25,6 +25,16 @@ it('renders using components from context', async () => {
   expect(result).toContain('<h1 style="color:tomato">Hello, world!</h1>')
 })
 
+it('allows the wrapper to be overridden', async () => {
+  const result = await renderWithReact(`
+export default props => <div {...props} style={{ backgroundColor: 'tomato' }} />
+
+# Hello, world!
+`)
+
+  expect(result).toContain('<div style="background-color:tomato">')
+})
+
 it('processes exports for MDX pragma', async () => {
   const result = await renderWithReact(EXPORT_SHORTCODE_FIXTURE, {components})
 

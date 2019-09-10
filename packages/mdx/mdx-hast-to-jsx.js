@@ -65,11 +65,13 @@ const buildElement = ({tagName, props, parentName, children = []}) => {
   )
 }
 
+const buildLayout = layout => generate(layout).code
+
 const buildJsx = ({children, layout, importNodes, exportNodes}) => {
   const extractImportNames = new BabelPluginExtractImportNames()
   const applyMdxProp = new BabelPluginApplyMdxProp()
 
-  const layoutJsx = generate(layout).code
+  const layoutJsx = buildLayout(layout)
   const childJsx = serializeChildren(children)
   const importJs = importNodes.map(n => n.value).join('\n')
   const exportJs = exportNodes.map(n => n.value).join('\n')
@@ -96,7 +98,7 @@ const buildJsx = ({children, layout, importNodes, exportNodes}) => {
     {
       plugins: [
         '@babel/plugin-syntax-jsx',
-        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-syntax-object-rest-spread',
         extractImportNames.plugin,
         applyMdxProp.plugin,
         // TODO: Shortcodes plugin
@@ -123,7 +125,7 @@ const elementVisitor = (node, parent) => {
 }
 
 const rootVisitor = node => {
-  let layout = 'wrapper'
+  let layout = t.stringLiteral('wrapper')
   const childNodes = []
   const importNodes = []
   const exportNodes = []
