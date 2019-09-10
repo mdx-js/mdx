@@ -10,15 +10,9 @@ const DEFAULTS = {
 }
 
 const MDXCreateElement = forwardRef((props, ref) => {
-  const {
-    components: propComponents,
-    mdxType,
-    originalType,
-    parentName,
-    ...etc
-  } = props
+  const {mdxType, mdxComponents, originalType, parentName, ...etc} = props
 
-  const components = useMDXComponents(propComponents)
+  const components = useMDXComponents(mdxComponents)
   const type = mdxType
   const Component =
     components[`${parentName}.${type}`] ||
@@ -26,12 +20,8 @@ const MDXCreateElement = forwardRef((props, ref) => {
     DEFAULTS[type] ||
     originalType
 
-  if (propComponents) {
-    return React.createElement(Component, {
-      ref,
-      ...etc,
-      components: propComponents
-    })
+  if (mdxComponents) {
+    return React.createElement(Component, {ref, mdxComponents, ...etc})
   }
 
   return React.createElement(Component, {ref, ...etc})
