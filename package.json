@@ -11,12 +11,8 @@
     "docs-build": "gatsby build",
     "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
     "now-build": "yarn docs-build",
-    "format": "yarn format-mdx && yarn format-js",
-    "format-js": "eslint . --fix",
-    "format-mdx": "remark . --ext .md,.mdx -qfo",
-    "lint": "yarn lint-mdx && yarn lint-js",
-    "lint-js": "eslint . --ext .js,.mdx",
-    "lint-mdx": "remark . --ext .md,.mdx -qf",
+    "format": "yarn lint --fix",
+    "lint": "eslint . --ext .js,.md,.mdx",
     "prepublish": "lerna run prepublish",
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm",
@@ -36,19 +32,18 @@
     "examples/terminal"
   ],
   "devDependencies": {
-    "@rxts/eslint-plugin-mdx": "0.11.2",
-    "eslint": "6.1.0",
-    "eslint-config-prettier": "6.0.0",
+    "eslint": "6.3.0",
+    "eslint-config-prettier": "6.2.0",
     "eslint-config-xo": "0.26.0",
     "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-mdx": "1.4.6",
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.14.3",
     "gatsby": "2.13.67",
-    "husky": "3.0.3",
+    "husky": "3.0.5",
     "lerna": "3.16.4",
     "lint-staged": "9.2.1",
     "prettier": "1.18.2",
-    "remark-cli": "7.0.0",
     "remark-preset-wooorm": "6.0.1"
   },
   "prettier": {
@@ -64,15 +59,7 @@
       "./packages/remark-mdx",
       "preset-wooorm",
       [
-        "lint-file-extension",
-        false
-      ],
-      [
         "lint-no-file-name-mixed-case",
-        false
-      ],
-      [
-        "lint-no-heading-punctuation",
         false
       ],
       [
@@ -91,12 +78,8 @@
     }
   },
   "lint-staged": {
-    "*.{js,mdx}": [
+    "*.{js,md,mdx}": [
       "eslint --fix",
-      "git add"
-    ],
-    "*.{md,mdx}": [
-      "remark -qf",
       "git add"
     ]
   }

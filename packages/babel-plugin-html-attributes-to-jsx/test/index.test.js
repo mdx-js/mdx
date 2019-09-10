@@ -3,23 +3,11 @@ const babel = require('@babel/core')
 const plugin = require('..')
 
 const testContents = `
-export const foo = 'bar';
-/** @jsx mdx*/ export const _frontmatter = {
-  title: "Here's a title with the word export"
-};
-const MDXContent = function () {};
-export { MDXContent as default };
+<img srcset="foo" />
 `
-const expectedResults = `const foo = 'bar';
-/** @jsx mdx*/
-
-const _frontmatter = {
-  title: "Here's a title with the word export"
-};
-
-const MDXContent = function () {};
-
-export { MDXContent as default };`
+const expectedResults = `React.createElement("img", {
+  srcSet: "foo"
+});`
 
 describe('babel-plugin-remove-export-keywords', () => {
   test('removes all export keywords', () => {

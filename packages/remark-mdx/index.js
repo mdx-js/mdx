@@ -37,6 +37,8 @@ function attachParser(parser) {
   blocks.html = wrap(block)
   inlines.html = wrap(inlines.html, inlineJsx)
 
+  tokenizeEsSyntax.notInBlock = true
+
   methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
 
   function wrap(original, customTokenizer) {

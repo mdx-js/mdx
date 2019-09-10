@@ -1,4 +1,4 @@
-const {transformSync} = require('@babel/core')
+const {transform} = require('@babel/standalone')
 const declare = require('@babel/helper-plugin-utils').declare
 
 const syntaxJsxPlugin = require('@babel/plugin-syntax-jsx')
@@ -48,7 +48,7 @@ const partitionString = (str, indices) =>
 module.exports = (value, vfile) => {
   const instance = new BabelPluginExtractImportsAndExports()
 
-  transformSync(value, {
+  transform(value, {
     plugins: [syntaxJsxPlugin, proposalObjectRestSpreadPlugin, instance.plugin],
     filename: vfile.path,
     configFile: false,

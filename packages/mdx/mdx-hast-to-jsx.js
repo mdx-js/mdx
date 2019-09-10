@@ -1,8 +1,9 @@
-const {transformSync} = require('@babel/core')
+const {transform} = require('@babel/standalone')
 const template = require('@babel/template').default
 const generate = require('@babel/generator').default
 const t = require('@babel/types')
 const {isEmptyObject} = require('@mdx-js/util')
+
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 const babelPluginHtmlAttributesToJsx = require('babel-plugin-html-attributes-to-jsx')
@@ -73,7 +74,7 @@ const buildJsx = ({children, layout, importNodes, exportNodes}) => {
   const importJs = importNodes.map(n => n.value).join('\n')
   const exportJs = exportNodes.map(n => n.value).join('\n')
 
-  const jsx = transformSync(
+  const jsx = transform(
     `
     ${importJs}
     ${exportJs}

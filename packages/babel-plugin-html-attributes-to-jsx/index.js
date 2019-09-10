@@ -40,7 +40,7 @@ const jsxAttributeFromHTMLAttributeVisitor = {
       node.node.value = t.jSXExpressionContainer(
         t.objectExpression(
           styleArray.map(([key, value]) =>
-            t.objectProperty(t.StringLiteral(key), t.stringLiteral(value))
+            t.objectProperty(t.stringLiteral(key), t.stringLiteral(value))
           )
         )
       )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 
 import {useMDXComponents} from './context'
 
@@ -9,14 +9,10 @@ const DEFAULTS = {
   wrapper: ({children}) => React.createElement(React.Fragment, {}, children)
 }
 
-const MDXCreateElement = ({
-  components: propComponents,
-  mdxType,
-  originalType,
-  parentName,
-  ...etc
-}) => {
-  const components = useMDXComponents(propComponents)
+const MDXCreateElement = forwardRef((props, ref) => {
+  const {mdxType, mdxComponents, originalType, parentName, ...etc} = props
+
+  const components = useMDXComponents(mdxComponents)
   const type = mdxType
   const Component =
     components[`${parentName}.${type}`] ||
@@ -24,12 +20,12 @@ const MDXCreateElement = ({
     DEFAULTS[type] ||
     originalType
 
-  if (propComponents) {
-    return React.createElement(Component, {...etc, components: propComponents})
+  if (mdxComponents) {
+    return React.createElement(Component, {ref, mdxComponents, ...etc})
   }
 
-  return React.createElement(Component, etc)
-}
+  return React.createElement(Component, {ref, ...etc})
+})
 
 MDXCreateElement.displayName = 'MDXCreateElement'
 

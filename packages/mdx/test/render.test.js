@@ -9,6 +9,9 @@ const EXPORT_SHORTCODE_FIXTURE = fs.readFileSync(
 const PONYLANG_FIXTURE = fs.readFileSync(
   path.join(__dirname, './fixtures/ponylang.mdx')
 )
+const IMPORT_FIXTURE = fs.readFileSync(
+  path.join(__dirname, './fixtures/imports.mdx')
+)
 
 const components = {
   h1: ({children}) =>
@@ -54,4 +57,11 @@ it('turns a newline into a space with other adjacent phrasing content', async ()
   `)
 
   expect(result).toContain('<em>foo</em>\n<code>bar</code>')
+})
+
+it('ignores escaped import wording', async () => {
+  const result = await renderWithReact(IMPORT_FIXTURE)
+
+  expect(result).toContain('<li>import')
+  expect(result).toContain('<li>export')
 })

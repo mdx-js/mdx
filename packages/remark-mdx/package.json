@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx",
-  "version": "1.3.1",
+  "version": "1.4.5",
   "description": "Support import, export, and JSX in markdown",
   "license": "MIT",
   "keywords": [
@@ -28,11 +28,11 @@
     "extract-imports-and-exports.js"
   ],
   "dependencies": {
-    "@babel/core": "7.5.5",
     "@babel/helper-plugin-utils": "7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "7.5.5",
     "@babel/plugin-syntax-jsx": "7.2.0",
-    "@mdx-js/util": "^1.3.1",
+    "@babel/standalone": "^7.5.5",
+    "@mdx-js/util": "^1.4.5",
     "is-alphabetical": "1.0.3",
     "remark-parse": "7.0.1",
     "unified": "8.3.2"
@@ -44,7 +44,7 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "jest": "24.8.0",
+    "jest": "24.9.0",
     "remark-stringify": "7.0.2",
     "vfile": "4.0.1"
   }
