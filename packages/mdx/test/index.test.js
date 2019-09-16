@@ -43,36 +43,21 @@ it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
   expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
-            "/* @jsx mdx */
-            
-            const makeShortcode = name =>
-              function MDXDefaultShortcode(props) {
-                console.warn(
-                  \\"Component \\" +
-                    name +
-                    \\" was not imported, exported, or provided by MDXProvider as global scope\\"
-                );
-                return <div {...props} />;
-              };
-            
-            const layoutProps = {};
-            const MDXLayout = \\"wrapper\\";
-            export default function MDXContent({ components, ...props }) {
-              return (
-                <MDXLayout
-                  {...layoutProps}
-                  {...props}
-                  components={components}
-                  mdxType=\\"MDXLayout\\"
-                >
-                  <h1>{\`Hello World\`}</h1>
-                </MDXLayout>
-              );
-            }
-            
-            MDXContent.isMDXComponent = true;
-            "
-      `)
+    "/* @jsx mdx */
+    const MDXLayout = \\"wrapper\\";
+
+    const MDXContent = props => {
+      return (
+        <MDXLayout {...props} mdxType=\\"MDXLayout\\">
+          <h1>Hello World</h1>
+        </MDXLayout>
+      );
+    };
+
+    MDXContent.isMDXComponent = true;
+    export default MDXContent;
+    "
+  `)
 })
 
 it('Should render blockquote correctly', async () => {
@@ -81,22 +66,22 @@ it('Should render blockquote correctly', async () => {
   parse(result)
 })
 
-it('Should properly expose comments', async () => {
+it('Should properly expose comments in AST and not in JSX output', async () => {
   const result = await mdx('<!--foo-->', {
     rehypePlugins: [
       () => tree => {
-        tree.children[0].value = 'bar'
+        expect(tree.children[0].value).toEqual('foo')
       }
     ]
   })
 
-  expect(prettier.format(result, {parser: 'babel'})).toContain(`{/*bar*/}`)
+  expect(prettier.format(result, {parser: 'babel'})).not.toContain('foo')
 })
 
-it('Should render HTML inside inlineCode correctly', async () => {
+it('Should render HTML inside code correctly', async () => {
   const result = await mdx('`<div>`')
 
-  expect(result).toContain('<inlineCode parentName="p">{`<div>`}</inlineCode>')
+  expect(result).toContain('<code parentName="p">{`<div>`}</code>')
 })
 
 it('Should preserve newlines in code blocks', async () => {
@@ -110,7 +95,7 @@ COPY start.sh /home/start.sh
     {rehypePlugins: [prism]}
   )
 
-  expect(result).toContain('{`# Add main script`}</span>{`\n`}')
+  expect(result).toContain('# Add main script</span>\n')
 })
 
 it('Should preserve infostring in code blocks', async () => {
@@ -123,8 +108,8 @@ COPY start.sh /home/start.sh
   `
   )
 
-  expect(dropWhitespace(result)).toContain(
-    `{...{ "className": "language-dockerfile", "metastring": "exec registry=something.com", "exec": true, "registry": "something.com" }}`
+  expect(result).toContain(
+    'className="language-dockerfile" metastring="exec registry=something.com" exec={true} registry="something.com"'
   )
 })
 
@@ -194,10 +179,10 @@ $$
     }
   )
   expect(result).not.toContain('"style":"')
-  expect(dropWhitespace(result)).toContain('"style": {')
+  expect(dropWhitespace(result)).toContain('style={{')
 })
 
-it('Should convert data-* and aria-* properties to param-case', async () => {
+it('Should convert data- and aria- properties to param-case', async () => {
   const result = await mdx(
     `
 $$
@@ -209,7 +194,7 @@ $$
       rehypePlugins: [katex]
     }
   )
-  expect(dropWhitespace(result)).toContain('"aria-hidden": "true"')
+  expect(dropWhitespace(result)).toContain('aria-hidden="true"')
 })
 
 it('Should support multiline default export statement', async () => {
@@ -234,7 +219,7 @@ it('Should not include export wrapper if skipExport is true', async () => {
 
 it('Should recognize components as properties', async () => {
   const result = await mdx('# Hello\n\n<MDX.Foo />')
-  expect(dropWhitespace(result)).toContain('<h1>{`Hello`}</h1> <MDX.Foo />')
+  expect(dropWhitespace(result)).toContain('<h1>Hello</h1><MDX.Foo />')
 })
 
 it('Should contain static isMDXComponent() function', async () => {
@@ -292,11 +277,11 @@ test('Should parse and render footnotes', async () => {
   )
 
   expect(dropWhitespace(result)).toContain(
-    '<sup parentName="p" {...{ "id": "fnref-footnote" }}>'
+    '<sup parentName="p" id="fnref-footnote">'
   )
 
   expect(dropWhitespace(result)).toContain(
-    '<li parentName="ol" {...{ "id": "fn-footnote" }}>'
+    '<li parentName="ol" id="fn-footnote">'
   )
 }, 10000)
 
@@ -324,16 +309,16 @@ test('Should handle layout props', () => {
 
     const MDXContent = props => {
       return <MDXLayout {...props} mdxType=\\"MDXLayout\\">
-              \\"\\\\n\\"\\"\\\\n\\"<h1>Hello, <code parentName=\\"h1\\">world</code>!</h1>\\"\\\\n\\"<p>Hello, here's a <a parentName=\\"p\\" href=\\"https://mdxjs.com\\">link</a>.</p>\\"\\\\n\\"<p>I'm an awesome paragraph.</p>\\"\\\\n\\"\\"\\\\n\\"<Foo bg='red' mdxType=\\"Foo\\">
+              <h1>Hello, <code parentName=\\"h1\\">world</code>!</h1><p>Hello, here's a <a parentName=\\"p\\" href=\\"https://mdxjs.com\\">link</a>.</p><p>I'm an awesome paragraph.</p><Foo bg='red' mdxType=\\"Foo\\">
       <Bar mdxType=\\"Bar\\">hi</Bar>
         {foo.hi}
         {
             /* another commment */
           }
-        </Foo>\\"\\\\n\\"<pre><code parentName=\\"pre\\">test codeblock
-      </code></pre>\\"\\\\n\\"<pre><code parentName=\\"pre\\" className={[\\"language-js\\"]}>module.exports = 'test'
-      </code></pre>\\"\\\\n\\"<pre><code parentName=\\"pre\\" className={[\\"language-sh\\"]}>npm i -g foo
-      </code></pre>\\"\\\\n\\"<table>
+        </Foo><pre><code parentName=\\"pre\\">test codeblock
+      </code></pre><pre><code parentName=\\"pre\\" className=\\"language-js\\">module.exports = 'test'
+      </code></pre><pre><code parentName=\\"pre\\" className=\\"language-sh\\">npm i -g foo
+      </code></pre><table>
       <thead parentName=\\"table\\">
         <tr parentName=\\"thead\\">
           <th parentName=\\"tr\\" align=\\"left\\">Test</th>
@@ -346,20 +331,22 @@ test('Should handle layout props', () => {
           <td parentName=\\"tr\\" align=\\"left\\">Col2</td>
         </tr>
       </tbody>
-        </table>\\"\\\\n\\"\\"\\\\n\\"<pre><code parentName=\\"pre\\" className={[\\"language-js\\"]}>export const Button = styled.button\`
+        </table><pre><code parentName=\\"pre\\" className=\\"language-js\\">{\`export const Button = styled.button\\\\\`
       font-size: 1rem;
       border-radius: 5px;
       padding: 0.25rem 1rem;
       margin: 0 1rem;
       background: transparent;
-      color: \${props => props.theme.primary};
-      border: 2px solid \${props => props.theme.primary};
-      \${props => props.primary && css\`
-          background: \${props => props.theme.primary};
+      color: \\\\\${props => props.theme.primary};
+      border: 2px solid \\\\\${props => props.theme.primary};
+      \\\\\${props =>
+        props.primary &&
+        css\\\\\`
+          background: \\\\\${props => props.theme.primary};
           color: white;
-        \`};
-    \`
-      </code></pre>
+        \\\\\`};
+    \\\\\`
+    \`}</code></pre>
             </MDXLayout>;
     };
 

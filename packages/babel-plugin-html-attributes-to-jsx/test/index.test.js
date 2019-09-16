@@ -3,10 +3,16 @@ const babel = require('@babel/core')
 const plugin = require('..')
 
 const testContents = `
-<img srcset="foo" />
+<img
+  srcset="foo"
+  ariaHidden="hidden"
+  className={["foo", "bar"]}
+/>
 `
 const expectedResults = `React.createElement("img", {
-  srcSet: "foo"
+  srcSet: "foo",
+  "aria-hidden": "hidden",
+  className: "foo bar"
 });`
 
 describe('babel-plugin-remove-export-keywords', () => {

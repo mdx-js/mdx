@@ -1,9 +1,14 @@
 const styleToObject = require('style-to-object')
 const camelCaseCSS = require('camelcase-css')
 const t = require('@babel/types')
+// TODO: paramCase and camelCase are sort of confused here.
 const {paramCase: camelCase} = require('@mdx-js/util')
 
 const TRANSLATIONS = require('./translations')
+const ARRAY_TO_STRING = {
+  className: true,
+  sandbox: true
+}
 
 const propsKeysVisitor = {
   ObjectProperty(node) {
@@ -21,17 +26,26 @@ const jsxAttributeFromHTMLAttributeVisitor = {
     } else if (node.node.name.name === `props`) {
       node.traverse(propsKeysVisitor)
     } else if (
-      node.node.name.name.includes(`-`) &&
-      !node.node.name.name.startsWith(`data`) &&
-      !node.node.name.name.startsWith(`aria`)
+      node.node.name.name.startsWith(`data`) ||
+      node.node.name.name.startsWith(`aria`)
     ) {
-      node.node.name.name = camelCase(node.node.name.name)
+      const CAMEL_CASE_REGEX = /^(aria[A-Z])|(data[A-Z])/
+      if (CAMEL_CASE_REGEX.test(node.node.name.name)) {
+        node.node.name.name = camelCase(node.node.name.name)
+      }
+    } else if (
+      node.node.name.name in ARRAY_TO_STRING &&
+      node.node.value.type === 'JSXExpressionContainer' &&
+      node.node.value.expression.type === 'ArrayExpression'
+    ) {
+      node.node.value = t.stringLiteral(
+        node.node.value.expression.elements.map(el => el.value).join(' ')
+      )
     }
 
     if (
       node.node.name.name === `style` &&
       node.node.value.type === `StringLiteral`
-      //      Node.node.value.type !== "JSXExpressionContainer"
     ) {
       let styleArray = []
       styleToObject(node.node.value.extra.rawValue, function(name, value) {

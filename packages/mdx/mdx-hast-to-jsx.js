@@ -2,7 +2,7 @@ const {transform} = require('@babel/standalone')
 const template = require('@babel/template').default
 const generate = require('@babel/generator').default
 const t = require('@babel/types')
-const {isEmptyObject} = require('@mdx-js/util')
+const {isEmptyObject, toTemplateLiteral} = require('@mdx-js/util')
 
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
@@ -28,14 +28,24 @@ const buildObjectPropValue = value => {
   return ast.expression.children[0]
 }
 
+const buildTemplateLiteral = value => {
+  const ast = template.ast(`<>${toTemplateLiteral(value)}</>`, {
+    plugins: ['jsx']
+  })
+
+  return ast.expression.children[0]
+}
+
 const buildPropValue = value => {
   switch (typeof value) {
     case 'string':
       return t.stringLiteral(value)
     case 'object':
       return buildObjectPropValue(value)
+    case 'boolean':
+      return t.jsxExpressionContainer(t.booleanLiteral(value))
     default:
-      return t.nullLiteral()
+      return t.jsxExpressionContainer(t.nullLiteral())
   }
 }
 
@@ -97,8 +107,8 @@ const buildJsx = ({children, layout, importNodes, exportNodes}) => {
   `,
     {
       plugins: [
-        '@babel/plugin-syntax-jsx',
-        '@babel/plugin-syntax-object-rest-spread',
+        require('@babel/plugin-syntax-jsx'),
+        require('@babel/plugin-syntax-object-rest-spread'),
         extractImportNames.plugin,
         applyMdxProp.plugin,
         // TODO: Shortcodes plugin
@@ -159,9 +169,21 @@ const jsSyntaxVisitor = node => node.value
 
 // TODO: I'm sure this isn't working like we expect.
 const textVisitor = (node, parent) => {
-  return parent.type === 'root'
-    ? t.stringLiteral(node.value)
-    : t.jsxText(node.value)
+  if (parent.type === 'root') {
+    return t.jsxText(node.value)
+  }
+
+  if (
+    node.value.includes('$') ||
+    node.value.includes('<') ||
+    node.value.includes('{') ||
+    node.value.includes('}') ||
+    node.value.includes('`')
+  ) {
+    return buildTemplateLiteral(node.value)
+  }
+
+  return t.jsxText(node.value)
 }
 
 // We don't really need to persist comments to the
