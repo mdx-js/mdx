@@ -33,7 +33,7 @@
   ],
   "devDependencies": {
     "eslint": "6.3.0",
-    "eslint-config-prettier": "6.2.0",
+    "eslint-config-prettier": "6.3.0",
     "eslint-config-xo": "0.26.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-mdx": "1.4.6",
