@@ -7,6 +7,7 @@ const {isEmptyObject, toTemplateLiteral} = require('@mdx-js/util')
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 const babelPluginHtmlAttributesToJsx = require('babel-plugin-html-attributes-to-jsx')
+const babelPluginWrapDefaultExport = require('babel-plugin-wrap-default-export')
 // TODO: Create a babel plugin to add MDX shortcode instantiation
 
 const serializeChild = node =>
@@ -77,7 +78,7 @@ const buildElement = ({tagName, props, parentName, children = []}) => {
 
 const buildLayout = layout => generate(layout).code
 
-const buildJsx = ({children, layout, importNodes, exportNodes}) => {
+const buildJsx = ({children, layout, importNodes, exportNodes}, options) => {
   const extractImportNames = new BabelPluginExtractImportNames()
   const applyMdxProp = new BabelPluginApplyMdxProp()
 
@@ -112,8 +113,9 @@ const buildJsx = ({children, layout, importNodes, exportNodes}) => {
         extractImportNames.plugin,
         applyMdxProp.plugin,
         // TODO: Shortcodes plugin
-        babelPluginHtmlAttributesToJsx
-      ]
+        babelPluginHtmlAttributesToJsx,
+        [babelPluginWrapDefaultExport, {wrapper: options.wrapExport}]
+      ].filter(Boolean)
     }
   )
 
@@ -134,7 +136,7 @@ const elementVisitor = (node, parent) => {
   return element
 }
 
-const rootVisitor = node => {
+const rootVisitor = (node, options) => {
   let layout = t.stringLiteral('wrapper')
   const childNodes = []
   const importNodes = []
@@ -154,12 +156,15 @@ const rootVisitor = node => {
 
   const children = childNodes.map(n => visit(n, node))
 
-  return buildJsx({
-    layout,
-    children,
-    importNodes,
-    exportNodes
-  })
+  return buildJsx(
+    {
+      layout,
+      children,
+      importNodes,
+      exportNodes
+    },
+    options
+  )
 }
 
 // After all children are processed we reparse the
@@ -190,10 +195,10 @@ const textVisitor = (node, parent) => {
 // compiled JSX.
 const commentVisitor = () => ''
 
-const visit = (node, parent) => {
+const visit = (node, parent, options) => {
   switch (node.type) {
     case 'root':
-      return rootVisitor(node)
+      return rootVisitor(node, options)
     case 'import':
     case 'export':
     case 'jsx':
@@ -209,7 +214,7 @@ const visit = (node, parent) => {
 
 function compile(options = {}) {
   this.Compiler = tree => {
-    return visit(tree, options)
+    return visit(tree, null, options)
   }
 }
 

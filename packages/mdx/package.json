@@ -41,6 +41,7 @@
     "babel-plugin-apply-mdx-type-prop": "^1.4.5",
     "babel-plugin-extract-import-names": "^1.4.5",
     "babel-plugin-html-attributes-to-jsx": "^1.4.5",
+    "babel-plugin-wrap-default-export": "^1.4.5",
     "camelcase-css": "2.0.1",
     "detab": "2.0.2",
     "hast-util-raw": "5.0.1",
