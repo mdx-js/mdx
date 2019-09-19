@@ -10,6 +10,7 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.4.5",
     "@mdx-js/react": "^1.4.5",
+    "@mdx-js/runtime": "^1.4.5",
     "import-jsx": "^3.0.0",
     "ink": "^2.3.0",
     "react": "^16.9.0"
