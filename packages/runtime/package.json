@@ -35,7 +35,7 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.4.5",
     "@mdx-js/react": "^1.4.5",
-    "buble": "^0.19.8"
+    "buble-jsx-only": "^0.19.8"
   },
   "devDependencies": {
     "@babel/core": "7.6.0",
