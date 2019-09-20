@@ -1,7 +1,7 @@
 const images = require('remark-images')
 const emoji = require('remark-emoji')
 
-const withMDX = require('@zeit/next-mdx')({
+const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
     mdPlugins: [images, emoji]

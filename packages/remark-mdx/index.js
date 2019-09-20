@@ -1,18 +1,13 @@
 const isAlphabetical = require('is-alphabetical')
+const {isImportOrExport, EMPTY_NEWLINE} = require('@mdx-js/util')
 const extractImportsAndExports = require('./extract-imports-and-exports')
 const block = require('./block')
 const {tag} = require('./tag')
 
-const IMPORT_REGEX = /^import/
-const EXPORT_REGEX = /^export/
-const EMPTY_NEWLINE = '\n\n'
 const LESS_THAN = '<'
 const GREATER_THAN = '>'
 const SLASH = '/'
 const EXCLAMATION = '!'
-
-const isImport = text => IMPORT_REGEX.test(text)
-const isExport = text => EXPORT_REGEX.test(text)
 
 module.exports = mdx
 
@@ -41,6 +36,8 @@ function attachParser(parser) {
   blocks.esSyntax = tokenizeEsSyntax
   blocks.html = wrap(block)
   inlines.html = wrap(inlines.html, inlineJsx)
+
+  tokenizeEsSyntax.notInBlock = true
 
   methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
 
@@ -104,12 +101,12 @@ function tokenizeEsSyntax(eat, value) {
   const index = value.indexOf(EMPTY_NEWLINE)
   const subvalue = index !== -1 ? value.slice(0, index) : value
 
-  if (isExport(subvalue) || isImport(subvalue)) {
+  if (isImportOrExport(subvalue)) {
     const nodes = extractImportsAndExports(subvalue, this.file)
     nodes.map(node => eat(node.value)(node))
   }
 }
 
 function tokenizeEsSyntaxLocator(value, _fromIndex) {
-  return isExport(value) || isImport(value) ? -1 : 1
+  return isImportOrExport(value) ? -1 : 1
 }

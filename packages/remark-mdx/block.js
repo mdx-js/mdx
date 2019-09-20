@@ -24,13 +24,15 @@ const cdataOpenExpression = /^<!\[CDATA\[/
 const cdataCloseExpression = /\]\]>/
 const elementCloseExpression = /^$/
 const otherElementOpenExpression = new RegExp(openCloseTag.source + '\\s*$')
+const fragmentOpenExpression = /^<>/
 
 function blockHtml(eat, value, silent) {
-  const blocks = '[a-z\\.]+(\\.){0,1}[a-z\\.]'
+  const blocks = '[a-z\\.]*(\\.){0,1}[a-z][a-z0-9\\.]*'
   const elementOpenExpression = new RegExp(
     '^</?(' + blocks + ')(?=(\\s|/?>|$))',
     'i'
   )
+
   const length = value.length
   let index = 0
   let next
@@ -48,6 +50,7 @@ function blockHtml(eat, value, silent) {
     [directiveOpenExpression, directiveCloseExpression, true],
     [cdataOpenExpression, cdataCloseExpression, true],
     [elementOpenExpression, elementCloseExpression, true],
+    [fragmentOpenExpression, elementCloseExpression, true],
     [otherElementOpenExpression, elementCloseExpression, false]
   ]
 

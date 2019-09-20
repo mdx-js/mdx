@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue",
-  "version": "1.0.0-rc.0",
+  "version": "1.4.5",
   "repository": "mdx-js/mdx",
   "license": "MIT",
   "description": "MDX support for Vue components",
@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "microbundle --format es,cjs  --no-sourcemap",
+    "build": "microbundle --format es,cjs --no-sourcemap",
+    "prepublish": "yarn build",
     "no-test": "jest"
   },
   "keywords": [
@@ -20,15 +21,15 @@
     "remark"
   ],
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@mdx-js/mdx": "^0.15.0",
-    "@vue/test-utils": "^1.0.0-beta.24",
-    "babel-helper-vue-jsx-merge-props": "^2.0.3",
-    "babel-plugin-transform-vue-jsx": "^4.0.0",
-    "hast-util-select": "^2.1.0",
-    "jest": "^24.0.0",
-    "vue": "^2.5.17",
-    "vue-template-compiler": "^2.5.17"
+    "@babel/core": "7.6.0",
+    "@babel/preset-env": "7.6.0",
+    "@mdx-js/mdx": "^1.4.5",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-helper-vue-jsx-merge-props": "2.0.3",
+    "babel-plugin-transform-vue-jsx": "4.0.1",
+    "hast-util-select": "3.0.1",
+    "jest": "24.9.0",
+    "vue": "2.6.10",
+    "vue-template-compiler": "2.6.10"
   }
 }

@@ -1,0 +1,6 @@
+overrides:
+  - files: '*.mdx'
+    globals:
+      TextGradient: false
+      Tweet: false
+      YouTube: false

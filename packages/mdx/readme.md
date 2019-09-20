@@ -37,9 +37,10 @@ export default ({components, ...props}) => <MDXTag name="wrapper"  components={c
 
 ## Contribute
 
-See [`contributing.md` in `mdx-js/mdx`][contributing] for ways to get started.
+See the [Support][] and [Contributing][] guidelines on the MDX website for ways
+to (get) help.
 
-This organisation has a [Code of Conduct][coc].
+This project has a [Code of Conduct][coc].
 By interacting with this repository, organisation, or community you agree to
 abide by its terms.
 
@@ -49,9 +50,9 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build]: https://travis-ci.org/mdx-js/mdx
+[build]: https://travis-ci.com/mdx-js/mdx
 
-[build-badge]: https://travis-ci.org/mdx-js/mdx.svg?branch=master
+[build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
 
 [lerna]: https://lernajs.io/
 
@@ -61,9 +62,11 @@ abide by its terms.
 
 [spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
 
-[contributing]: https://github.com/mdx-js/mdx/blob/master/contributing.md
+[contributing]: https://mdxjs.com/contributing
 
-[coc]: https://github.com/mdx-js/mdx/blob/master/code-of-conduct.md
+[support]: https://mdxjs.com/support
+
+[coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
 [mit]: license
 

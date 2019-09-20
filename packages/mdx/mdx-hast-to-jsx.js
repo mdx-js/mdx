@@ -1,6 +1,10 @@
-const toStyleObject = require('to-style').object
-const {paramCase} = require('change-case')
-const {toTemplateLiteral} = require('./util')
+const {transformSync} = require('@babel/core')
+const styleToObject = require('style-to-object')
+const camelCaseCSS = require('camelcase-css')
+const uniq = require('lodash.uniq')
+const {paramCase, toTemplateLiteral} = require('@mdx-js/util')
+const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
+const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 
 // eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
@@ -13,10 +17,19 @@ function toJSX(node, parentNode = {}, options = {}) {
   let children = ''
 
   if (node.properties != null) {
+    // Turn style strings into JSX-friendly style object
     if (typeof node.properties.style === 'string') {
-      node.properties.style = toStyleObject(node.properties.style, {
-        camelize: true
+      let styleObject = {}
+      styleToObject(node.properties.style, function(name, value) {
+        styleObject[camelCaseCSS(name)] = value
       })
+      node.properties.style = styleObject
+    }
+
+    // Transform class property to JSX-friendly className
+    if (node.properties.class) {
+      node.properties.className = node.properties.class
+      delete node.properties.class
     }
 
     // AriaProperty => aria-property
@@ -74,10 +87,6 @@ function toJSX(node, parentNode = {}, options = {}) {
   ${exportNames.join(',\n')}
 };`
     const mdxLayout = `const MDXLayout = ${layout ? layout : '"wrapper"'}`
-    const moduleBase = `${importStatements}
-${exportStatements}
-${layoutProps}
-${mdxLayout}`
 
     const fn = `function MDXContent({ components, ...props }) {
   return (
@@ -88,21 +97,86 @@ ${mdxLayout}`
 ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
     </MDXLayout>
   )
-}
+};
 MDXContent.isMDXComponent = true`
+
+    // Check JSX nodes against imports
+    const babelPluginExptractImportNamesInstance = new BabelPluginExtractImportNames()
+    transformSync(importStatements, {
+      configFile: false,
+      babelrc: false,
+      plugins: [
+        require('@babel/plugin-syntax-jsx'),
+        require('@babel/plugin-syntax-object-rest-spread'),
+        babelPluginExptractImportNamesInstance.plugin
+      ]
+    })
+    const importNames = babelPluginExptractImportNamesInstance.state.names
+
+    const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
+    const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
+
+    const fnPostMdxTypeProp = transformSync(fn, {
+      configFile: false,
+      babelrc: false,
+      plugins: [
+        require('@babel/plugin-syntax-jsx'),
+        require('@babel/plugin-syntax-object-rest-spread'),
+        babelPluginApplyMdxPropInstance.plugin
+      ]
+    }).code
+
+    const exportStatementsPostMdxTypeProps = transformSync(exportStatements, {
+      configFile: false,
+      babelrc: false,
+      plugins: [
+        require('@babel/plugin-syntax-jsx'),
+        require('@babel/plugin-syntax-object-rest-spread'),
+        babelPluginApplyMdxPropToExportsInstance.plugin
+      ]
+    }).code
+
+    const allJsxNames = [
+      ...babelPluginApplyMdxPropInstance.state.names,
+      ...babelPluginApplyMdxPropToExportsInstance.state.names
+    ]
+    const jsxNames = allJsxNames.filter(name => name !== 'MDXLayout')
+
+    const importExportNames = importNames.concat(exportNames)
+    const fakedModulesForGlobalScope =
+      `const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+  return <div {...props}/>
+};
+` +
+      uniq(jsxNames)
+        .filter(name => !importExportNames.includes(name))
+        .map(name => {
+          return `const ${name} = makeShortcode("${name}");`
+        })
+        .join('\n')
+
+    const moduleBase = `${importStatements}
+${exportStatementsPostMdxTypeProps}
+${fakedModulesForGlobalScope}
+${layoutProps}
+${mdxLayout}`
 
     if (skipExport) {
       return `${moduleBase}
-${fn}`
+${fnPostMdxTypeProp}`
     }
+
     if (wrapExport) {
       return `${moduleBase}
-${fn}
+${fnPostMdxTypeProp}
 export default ${wrapExport}(MDXContent)`
     }
+
     return `${moduleBase}
-export default ${fn}`
+export default ${fnPostMdxTypeProp}`
   }
+
   // Recursively walk through children
   if (node.children) {
     children = node.children
@@ -119,12 +193,18 @@ export default ${fn}`
   if (node.type === 'element') {
     let props = ''
 
-    if (Array.isArray(node.properties.className)) {
-      node.properties.className = node.properties.className.join(' ')
-    }
+    const shouldBeStrings = ['className', 'sandbox']
 
-    if (Object.keys(node.properties).length > 0) {
-      props = JSON.stringify(node.properties)
+    if (node.properties) {
+      shouldBeStrings.forEach(prop => {
+        if (Array.isArray(node.properties[prop])) {
+          node.properties[prop] = node.properties[prop].join(' ')
+        }
+      })
+
+      if (Object.keys(node.properties).length > 0) {
+        props = JSON.stringify(node.properties)
+      }
     }
 
     return `<${node.tagName}${
@@ -156,7 +236,7 @@ export default ${fn}`
 }
 
 function compile(options = {}) {
-  this.Compiler = tree => {
+  this.Compiler = function(tree) {
     return toJSX(tree, {}, options)
   }
 }

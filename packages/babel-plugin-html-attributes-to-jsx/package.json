@@ -1,0 +1,43 @@
+{
+  "name": "babel-plugin-html-attributes-to-jsx",
+  "version": "1.4.5",
+  "description": "Coerce HTML attributes into something JSX and React friendly",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "babel"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "author": "Christopher Biscardi <chris@christopherbiscardi.com> (https://www.christopherbiscardi.com)",
+  "contributors": [
+    "Christopher Biscardi <chris@christopherbiscardi.com> (https://www.christopherbiscardi.com)",
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)"
+  ],
+  "files": [
+    "index.js",
+    "translations.js"
+  ],
+  "dependencies": {
+    "@babel/types": "7.6.1",
+    "@mdx-js/util": "^1.4.5",
+    "camelcase-css": "2.0.1",
+    "style-to-object": "0.2.3"
+  },
+  "devDependencies": {
+    "@babel/core": "7.6.0",
+    "@babel/preset-react": "7.0.0",
+    "jest": "24.9.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

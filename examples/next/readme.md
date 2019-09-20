@@ -2,11 +2,11 @@
 
 A basic example using imports and custom components.
 
-> [Try it on CodeSandbox](https://codesandbox.io/s/p74l8p381m)
+> [Try it on CodeSandbox](https://codesandbox.io/s/github/mdx-js/mdx/tree/master/examples/next)
 
 ```sh
-npm install
-npm run dev
+yarn
+yarn dev
 ```
 
 [See documentation](https://mdxjs.com/getting-started/next)

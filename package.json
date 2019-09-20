@@ -4,36 +4,48 @@
   "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
   "bugs": "https://github.com/mdx-js/mdx/issues",
-  "dependencies": {},
-  "devDependencies": {
-    "eslint": "^5.9.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-config-xo": "^0.25.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "eslint-plugin-react": "^7.11.1",
-    "husky": "^1.1.3",
-    "lerna": "^3.4.0",
-    "lint-staged": "^8.0.4",
-    "prettier": "^1.14.2",
-    "remark-cli": "^6.0.1",
-    "remark-preset-wooorm": "^4.0.0"
-  },
   "scripts": {
     "bootstrap": "lerna bootstrap && lerna link --force-local",
     "clean": "lerna exec \"rm -rf node_modules\"",
-    "deploy-docs": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
-    "format": "remark . -qfo && eslint . --fix",
+    "docs": "gatsby develop",
+    "docs-build": "gatsby build",
+    "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
+    "now-build": "yarn docs-build",
+    "format": "yarn lint --fix",
+    "lint": "eslint . --ext .js,.md,.mdx",
     "prepublish": "lerna run prepublish",
-    "publish": "lerna publish",
+    "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm",
-    "publish-next": "lerna publish --npm-tag next",
-    "test": "lerna run test && remark . -qf && eslint ."
+    "publish-next": "lerna publish --npm-tag next --preid rc --force-publish=\"*\"",
+    "test": "lerna run test && yarn lint"
   },
   "workspaces": [
     "packages/*",
-    "docs"
+    "docs",
+    "examples/gatsby",
+    "examples/next",
+    "examples/parcel",
+    "examples/syntax-highlighting",
+    "examples/webpack",
+    "examples/vue",
+    "examples/shortcodes",
+    "examples/terminal"
   ],
+  "devDependencies": {
+    "eslint": "6.4.0",
+    "eslint-config-prettier": "6.3.0",
+    "eslint-config-xo": "0.26.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-mdx": "1.4.6",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-react": "7.14.3",
+    "gatsby": "2.13.67",
+    "husky": "3.0.5",
+    "lerna": "3.16.4",
+    "lint-staged": "9.2.5",
+    "prettier": "1.18.2",
+    "remark-preset-wooorm": "6.0.1"
+  },
   "prettier": {
     "tabWidth": 2,
     "useTabs": false,
@@ -47,7 +59,7 @@
       "./packages/remark-mdx",
       "preset-wooorm",
       [
-        "lint-no-heading-punctuation",
+        "lint-no-file-name-mixed-case",
         false
       ],
       [
@@ -66,12 +78,8 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "*.{js,md,mdx}": [
       "eslint --fix",
-      "git add"
-    ],
-    "*.md": [
-      "remark -qf",
       "git add"
     ]
   }

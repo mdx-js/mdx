@@ -7,11 +7,12 @@ import addClasses from 'rehype-add-classes'
 import MDX from '../src'
 
 const components = {
-  h1: props => <h1 style={{color: 'tomato'}} {...props} />
+  h1: props => <h1 style={{color: 'tomato'}} {...props} />,
+  Foo: () => <div>Foobarbaz</div>
 }
 
 const scope = {
-  Foo: () => <div>Foobarbaz</div>
+  some: 'value'
 }
 
 const mdx = `
@@ -31,7 +32,7 @@ export default ({ children, id }) => <div id={id}>{children}</div>
 describe('renders MDX with the proper components', () => {
   it('default layout', () => {
     const result = render(
-      <MDX components={components} scope={scope} children={mdx} />
+      <MDX components={{...components, ...scope}} children={mdx} />
     )
 
     expect(result).toMatch(/style="color:tomato"/)
@@ -41,8 +42,7 @@ describe('renders MDX with the proper components', () => {
   it('custom layout', () => {
     const result = render(
       <MDX
-        components={components}
-        scope={scope}
+        components={{...components, ...scope}}
         children={mdxLayout}
         id="layout"
       />

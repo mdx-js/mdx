@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 
 import {useMDXComponents} from './context'
 
@@ -6,31 +6,44 @@ const TYPE_PROP_NAME = 'mdxType'
 
 const DEFAULTS = {
   inlineCode: 'code',
-  wrapper: React.Fragment
+  wrapper: ({children}) => React.createElement(React.Fragment, {}, children)
 }
 
-const MDXCreateElement = ({
-  components: propComponents,
-  mdxType,
-  parentName,
-  ...etc
-}) => {
+const MDXCreateElement = forwardRef((props, ref) => {
+  const {
+    components: propComponents,
+    mdxType,
+    originalType,
+    parentName,
+    ...etc
+  } = props
+
   const components = useMDXComponents(propComponents)
   const type = mdxType
   const Component =
     components[`${parentName}.${type}`] ||
     components[type] ||
     DEFAULTS[type] ||
-    type
+    originalType
 
-  return React.createElement(Component, etc)
-}
+  if (propComponents) {
+    return React.createElement(Component, {
+      ref,
+      ...etc,
+      components: propComponents
+    })
+  }
+
+  return React.createElement(Component, {ref, ...etc})
+})
+
 MDXCreateElement.displayName = 'MDXCreateElement'
 
 export default function(type, props) {
   const args = arguments
+  const mdxType = props && props.mdxType
 
-  if (typeof type === 'string') {
+  if (typeof type === 'string' || mdxType) {
     const argsLength = args.length
 
     const createElementArgArray = new Array(argsLength)
@@ -43,7 +56,8 @@ export default function(type, props) {
       }
     }
 
-    newProps[TYPE_PROP_NAME] = type
+    newProps.originalType = type
+    newProps[TYPE_PROP_NAME] = typeof type === 'string' ? type : mdxType
 
     createElementArgArray[1] = newProps
 

@@ -1,6 +1,9 @@
 const {transformSync} = require('@babel/core')
 const declare = require('@babel/helper-plugin-utils').declare
 
+const syntaxJsxPlugin = require('@babel/plugin-syntax-jsx')
+const proposalObjectRestSpreadPlugin = require('@babel/plugin-proposal-object-rest-spread')
+
 class BabelPluginExtractImportsAndExports {
   constructor() {
     const nodes = []
@@ -46,12 +49,10 @@ module.exports = (value, vfile) => {
   const instance = new BabelPluginExtractImportsAndExports()
 
   transformSync(value, {
-    plugins: [
-      '@babel/plugin-syntax-jsx',
-      '@babel/plugin-proposal-object-rest-spread',
-      instance.plugin
-    ],
-    filename: vfile.path
+    plugins: [syntaxJsxPlugin, proposalObjectRestSpreadPlugin, instance.plugin],
+    filename: vfile.path,
+    configFile: false,
+    babelrc: false
   })
 
   const sortedNodes = instance.state.nodes.sort((a, b) => a.start - b.start)
@@ -74,10 +75,12 @@ module.exports = (value, vfile) => {
         currType = 'default'
         return [...acc, [curr]]
       }
+
       if (curr.type === currType) {
         const lastNodes = acc.pop()
         return [...acc, [...lastNodes, curr]]
       }
+
       currType = curr.type
       return [...acc, [curr]]
     },

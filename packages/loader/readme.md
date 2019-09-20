@@ -22,7 +22,7 @@ module: {
   rules: [
     // ...
     {
-      test: /\.md$/,
+      test: /\.mdx?$/,
       use: [
         'babel-loader',
         '@mdx-js/loader'
@@ -32,11 +32,59 @@ module: {
 }
 ```
 
+The `renderer` option specifies a string that will be prepended to the generated source allowing for the use of any `createElement` implementation.  By default, that string is:
+
+```js
+import React from 'react'
+import { mdx } from '@mdx-js/react'
+```
+
+Using the `renderer` option, one can swap out React for another implementation.  The example below wraps a generic JSX compatible function named `h`.
+
+```js
+const renderer = `
+import { h } from 'generic-implementation'
+
+const mdx = (function (createElement) {
+  return function (name, props, ...children) {
+    if (typeof name === 'string') {
+      if (name === 'wrapper') return children.map(createElement)
+      if (name === 'inlineCode') return createElement('code', props, ...children)
+    }
+
+    return createElement(name, props, ...children)
+  }
+}(h))
+`
+
+// ...
+module: {
+  rules: [
+    // ...
+    {
+      test: /\.mdx?$/,
+      use: [
+        'babel-loader',
+        {
+          loader: '@mdx-js/loader'
+          options: {
+            renderer,
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+For more information on why this is required, see [this post](https://mdxjs.com/blog/custom-pragma).
+
 ## Contribute
 
-See [`contributing.md` in `mdx-js/mdx`][contributing] for ways to get started.
+See the [Support][] and [Contributing][] guidelines on the MDX website for ways
+to (get) help.
 
-This organisation has a [Code of Conduct][coc].
+This project has a [Code of Conduct][coc].
 By interacting with this repository, organisation, or community you agree to
 abide by its terms.
 
@@ -46,9 +94,9 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build]: https://travis-ci.org/mdx-js/mdx
+[build]: https://travis-ci.com/mdx-js/mdx
 
-[build-badge]: https://travis-ci.org/mdx-js/mdx.svg?branch=master
+[build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
 
 [lerna]: https://lernajs.io/
 
@@ -58,9 +106,11 @@ abide by its terms.
 
 [spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
 
-[contributing]: https://github.com/mdx-js/mdx/blob/master/contributing.md
+[contributing]: https://mdxjs.com/contributing
 
-[coc]: https://github.com/mdx-js/mdx/blob/master/code-of-conduct.md
+[support]: https://mdxjs.com/support
+
+[coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
 [mit]: license
 

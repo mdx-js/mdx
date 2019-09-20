@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/react",
-  "version": "1.0.0-rc.0",
+  "version": "1.4.5",
   "description": "React implementation for MDX",
   "license": "MIT",
   "keywords": [
@@ -27,20 +27,20 @@
     "dist"
   ],
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/preset-react": "^7.0.0",
-    "jest": "^24.0.0",
-    "microbundle": "^0.11.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "rimraf": "^2.6.3"
+    "@babel/core": "7.6.0",
+    "@babel/preset-env": "7.6.0",
+    "@babel/preset-react": "7.0.0",
+    "jest": "24.9.0",
+    "microbundle": "0.11.0",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "rimraf": "2.6.3"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.9.0"
   },
   "scripts": {
-    "build": "microbundle --format es,cjs --external react --jsx React.createElement --no-sourcemap",
+    "build": "microbundle --format es,cjs --external react --jsx React.createElement --no-sourcemap --no-compress",
     "clean": "rimraf dist",
     "prepublish": "npm run clean && npm run build",
     "test": "jest"

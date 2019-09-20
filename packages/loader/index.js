@@ -1,11 +1,17 @@
 const {getOptions} = require('loader-utils')
 const mdx = require('@mdx-js/mdx')
 
-module.exports = async function(content) {
+const DEFAULT_RENDERER = `
+import React from 'react'
+import { mdx } from '@mdx-js/react'
+`
+
+const loader = async function(content) {
   const callback = this.async()
   const options = Object.assign({}, getOptions(this), {
     filepath: this.resourcePath
   })
+
   let result
 
   try {
@@ -14,11 +20,10 @@ module.exports = async function(content) {
     return callback(err)
   }
 
-  const code = `/* @jsx mdx */
-  import React from 'react'
-  import { mdx } from '@mdx-js/react'
-  ${result}
-  `
+  const {renderer = DEFAULT_RENDERER} = options
 
+  const code = `${renderer}\n${result}`
   return callback(null, code)
 }
+
+module.exports = loader

@@ -1,15 +1,18 @@
-# [![MDX][logo]][website]
+<p align="center">
+  <a href="https://mdxjs.com">
+    <img alt="MDX logo" src="https://mdx-logo.now.sh" width="60" />
+  </a>
+</p>
+
+# MDX: Markdown for the component era 🚀
 
 [![Build Status][build-badge]][build]
-[![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
-> Markdown for the component era.
-
-MDX is an authorable format that lets you seamlessly use JSX in your markdown documents.
+[MDX][website] is an authorable format that lets you seamlessly use JSX in your markdown documents.
 You can import components, like interactive charts or notifications, and export
 metadata.
-This makes writing long-form content with components a blast.  🚀
+This makes writing long-form content with components a blast.
 
 ## Example
 
@@ -71,7 +74,7 @@ and cumbersome syntax.
 >
 > — [@chrisbiscardi][tweet]
 
-MDX seeks to make writing with markdown _and_ JSX simpler while being more
+MDX seeks to make writing with markdown *and* JSX simpler while being more
 expressive.
 The possibilities are endless when you combine components (that can even be
 dynamic or load data) with the simplicity of markdown for long-form content.
@@ -102,11 +105,12 @@ A nice example of this is [mdx-deck][], a great way to create slides with MDX.
     <td width="20%" align="center">
       <a href="https://www.gatsbyjs.org"><img src="https://avatars1.githubusercontent.com/u/12551863?s=400&v=4"></a>
       <br><br>🥇
-      <a href="https://www.gatsbyjs.org">Gatsby</a></td>
+      <a href="https://www.gatsbyjs.org">Gatsby</a>
+    </td>
     <td width="20%" align="center">
-      <a href="https://compositor.io"><img src="https://avatars1.githubusercontent.com/u/19245838?s=400&v=4"></a>
-      <br><br>🥉
-      <a href="https://compositor.io">Compositor</a>
+      <a href="https://www.netlify.com"><img src="https://avatars1.githubusercontent.com/u/7892489?s=400&v=4"></a>
+      <br><br>🥇
+      <a href="https://www.netlify.com">Netlify</a>
     </td>
     <td width="20%" align="center">
       <a href="https://www.holloway.com"><img src="https://avatars1.githubusercontent.com/u/35904294?s=400&v=4"></a>
@@ -136,28 +140,23 @@ See related projects in the [MDX specification][spec].
 ## Contribute
 
 **MDX** is built by people just like you!
-Check out [`contributing.md`][contributing] for ways to get started.
+See the [Support][] and [Contributing][] guidelines on the MDX website for ways
+to (get) help.
 
 This project has a [Code of Conduct][coc].
 By interacting with this repository, organisation, or community you agree to
 abide by its terms.
 
 Want to chat with the community and contributors?
-Join us on [spectrum][]!
+Join us on [Spectrum][]!
 
 ## License
 
 [MIT][] © [Compositor][] and [ZEIT][]
 
-[logo]: .github/repo.png
+[build]: https://travis-ci.com/mdx-js/mdx
 
-[build]: https://travis-ci.org/mdx-js/mdx
-
-[build-badge]: https://travis-ci.org/mdx-js/mdx.svg?branch=master
-
-[lerna]: https://lernajs.io/
-
-[lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
+[build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
 
 [spectrum]: https://spectrum.chat/mdx
 
@@ -199,9 +198,11 @@ Join us on [spectrum][]!
 
 [contribute]: #contribute
 
-[contributing]: contributing.md
+[contributing]: https://mdxjs.com/contributing
 
-[coc]: code-of-conduct.md
+[support]: https://mdxjs.com/support
+
+[coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
 [mdx-deck]: https://github.com/jxnblk/mdx-deck
 

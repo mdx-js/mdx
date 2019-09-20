@@ -29,7 +29,7 @@ function mdxAstToMdxHast() {
           props.className = ['language-' + lang]
         }
 
-        // Mdast sets `node.meta` to `null` instead of `undefined` if
+        // MDAST sets `node.meta` to `null` instead of `undefined` if
         // not present, which React doesn't like.
         props.metastring = node.meta || undefined
 
@@ -41,6 +41,7 @@ function mdxAstToMdxHast() {
               acc[t[0]] = t[1]
               return acc
             }
+
             acc[cur] = true
             return acc
           }, {})
@@ -79,7 +80,7 @@ function mdxAstToMdxHast() {
 
     const hast = toHAST(tree, {
       handlers,
-      // Enable passing of html nodes to HAST as raw nodes
+      // Enable passing of HTML nodes to HAST as raw nodes
       allowDangerousHTML: true
     })
 
