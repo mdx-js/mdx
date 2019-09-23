@@ -36,7 +36,7 @@
     "eslint-config-prettier": "6.3.0",
     "eslint-config-xo": "0.26.0",
     "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-mdx": "1.4.6",
+    "eslint-plugin-mdx": "1.5.5",
     "eslint-plugin-prettier": "3.1.1",
     "eslint-plugin-react": "7.14.3",
     "gatsby": "2.13.67",
