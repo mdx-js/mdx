@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "jest": "24.9.0",
-    "remark-stringify": "7.0.2",
+    "remark-stringify": "7.0.3",
     "vfile": "4.0.1"
   }
 }
