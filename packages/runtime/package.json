@@ -48,7 +48,7 @@
     "rehype-add-classes": "1.0.0",
     "remark-autolink-headings": "5.2.1",
     "remark-slug": "5.1.2",
-    "rimraf": "2.6.3"
+    "rimraf": "2.7.1"
   },
   "peerDependencies": {
     "react": "^16.9.0"
