@@ -30,7 +30,7 @@
     "style-to-object": "0.2.3"
   },
   "devDependencies": {
-    "@babel/core": "7.6.0",
+    "@babel/core": "7.6.2",
     "@babel/preset-react": "7.0.0",
     "jest": "24.9.0"
   },
