@@ -16,7 +16,9 @@ const IMPORT_FIXTURE = fs.readFileSync(
 const components = {
   h1: ({children}) =>
     React.createElement('h1', {style: {color: 'tomato'}}, children),
-  Button: () => React.createElement('button', {}, 'Hello, button!')
+  Button: () => React.createElement('button', {}, 'Hello, button!'),
+  delete: ({children}) =>
+    React.createElement('del', {style: {color: 'crimson'}}, children)
 }
 
 it('renders using components from context', async () => {
@@ -64,4 +66,12 @@ it('ignores escaped import wording', async () => {
 
   expect(result).toContain('<li>import')
   expect(result).toContain('<li>export')
+})
+
+it('renders delete component from context', async () => {
+  const result = await renderWithReact(`Hello, ~~world~~ MDX!`, {components})
+
+  expect(result).toContain(
+    '<p>Hello, <del style="color:crimson">world</del> MDX!</p>'
+  )
 })
