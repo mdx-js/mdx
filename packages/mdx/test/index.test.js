@@ -127,6 +127,18 @@ COPY start.sh /home/start.sh
   )
 })
 
+it('Should preserve lang className in code blocks', async () => {
+  const result = await mdx(
+    `
+\`\`\`js class=foo
+console.log(1)
+\`\`\`
+    `
+  )
+
+  expect(dropWhitespace(result)).toContain(`"className": "language-js foo"`)
+})
+
 it('Should support comments', async () => {
   const resultWithWhitespace = await mdx(`
 <!-- a Markdown comment -->
