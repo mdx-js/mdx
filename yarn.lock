@@ -7425,16 +7425,16 @@ eslint-loader@^2.1.0:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-mdx@^1.5.5:
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.5.5.tgz#71de4e2c05ab59005e75113e6ba6731ef6566002"
-  integrity sha512-IWic9iYZNnVnvftGQf49BfChsxcMeP8fuMuPAEjQPYfJHV6Elp0XoJIDUdepgCtpHlCLoE2kbO9pf7d5vW6h1Q==
+eslint-mdx@^1.5.6:
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.5.6.tgz#bb10ee0a083e5b3cd9688e15bf3c691b7091bf97"
+  integrity sha512-ebxVIw1WsJMrZMgG9f8MUuorWZoyjO/WZD7tRkCXSU7rHFzcA59MBbBmKT/T678GEqCHLqIiKzqzZDMWsXdGQg==
   dependencies:
     espree "^6.1.1"
-    remark-mdx "^1.4.5"
+    remark-mdx "^1.5.0"
     remark-parse "^7.0.1"
     tslib "^1.10.0"
-    unified "^8.4.0"
+    unified "^8.4.1"
 
 eslint-module-utils@^2.4.0:
   version "2.4.1"
@@ -7491,19 +7491,19 @@ eslint-plugin-jsx-a11y@^6.0.3:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-mdx@1.5.5:
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.5.5.tgz#df00b7e44ca509f565f0c79b0b39a9ab9f1ebd44"
-  integrity sha512-sObXZaCzhb+xvCFDTIJCDJNbCS93KE3zlK5g+8xqQpE4iMCylLFoEevtnMcMf2fyB58AM7RNqUDoT98UAWzFow==
+eslint-plugin-mdx@1.5.6:
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.5.6.tgz#06747e53cd587a632fa2a1306eb06b99a5355d2e"
+  integrity sha512-UFxnx3o52Tvj/JuDyYAp5/rnKCQVF7lI31zDaWYBK3KC7wFP4suo8Ru7w2A+16DR52ZJIhl6U5A0J2yGBikgOQ==
   dependencies:
     cosmiconfig "^5.2.1"
-    eslint-mdx "^1.5.5"
+    eslint-mdx "^1.5.6"
     eslint-plugin-react ">=7.0.0"
-    remark-mdx "^1.4.5"
+    remark-mdx "^1.5.0"
     remark-parse "^7.0.1"
     remark-stringify "^7.0.3"
     tslib "^1.10.0"
-    unified "^8.4.0"
+    unified "^8.4.1"
     vfile "^4.0.1"
   optionalDependencies:
     rebass "^4.0.6"
@@ -19950,10 +19950,10 @@ unified@^7.0.0:
     vfile "^3.0.0"
     x-is-string "^0.1.0"
 
-unified@^8.4.0:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/unified/-/unified-8.4.0.tgz#5bb8a05c2a0b9dcc56152312ad8e4578a0d90af7"
-  integrity sha512-hQqeCrzqqS3vk8WbvbjYgaxe9WqmZF32Y3lz/kY5A8/5RdJbxoa4yOIAYpSEvqii9n2MTI2OL1+ByoVJYLhlUg==
+unified@^8.4.1:
+  version "8.4.1"
+  resolved "https://registry.yarnpkg.com/unified/-/unified-8.4.1.tgz#99bd0393f58a139eaa51832cfbcc0e7f6573a1e1"
+  integrity sha512-YPj/uIIZSO7mMIZQj/5Z3hDl4lshWYRQGs5TgUCjHTVdklUWH+O94mK5Cy77SEcmEUwGhnUcudMuH/zIwporqw==
   dependencies:
     bail "^1.0.0"
     extend "^3.0.0"
