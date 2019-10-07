@@ -137,16 +137,17 @@ const buildJsx = ({children, layout, importNodes, exportNodes}, options) => {
     .filter(s => s !== 'MDXLayout')
     .filter(s => !extractImportNames.state.names.includes(s))
 
-  const shortcodeFunctionCode = template.ast(`
+  const shortcodeFunctionCode = template.ast(
+    `
     const mdxMakeShortcode = name => props => {
       console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
       return <div {...props}/>
     }
-  `, {
-    plugins: [
-      'jsx'
-    ]
-  })
+  `,
+    {
+      plugins: ['jsx']
+    }
+  )
 
   const shortcodesCode = shortcodes
     .map(shortcode => buildShortcode(shortcode))
@@ -158,15 +159,13 @@ const buildJsx = ({children, layout, importNodes, exportNodes}, options) => {
     ...shortcodesCode
   ].join('\n')
 
-  return transform(jsx.code,
-    {
-      plugins: [
-        require('@babel/plugin-syntax-jsx'),
-        require('@babel/plugin-syntax-object-rest-spread'),
-        shortcodes.length && injectShortcodes(shortcodes)
-      ].filter(Boolean)
-    }
-  ).code
+  return transform(jsx.code, {
+    plugins: [
+      require('@babel/plugin-syntax-jsx'),
+      require('@babel/plugin-syntax-object-rest-spread'),
+      shortcodes.length && injectShortcodes(shortcodes)
+    ].filter(Boolean)
+  }).code
 }
 
 const elementVisitor = (node, parent) => {
