@@ -48,7 +48,12 @@ function mdxAstToMdxHast() {
 
         if (meta) {
           Object.keys(meta).forEach(key => {
-            props[key] = meta[key]
+            const isClassKey = key === 'class' || key === 'className'
+            if (props.className && isClassKey) {
+              props.className.push(meta[key])
+            } else {
+              props[key] = meta[key]
+            }
           })
         }
 
