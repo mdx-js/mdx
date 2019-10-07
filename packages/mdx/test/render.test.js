@@ -35,6 +35,12 @@ export default props => <div {...props} style={{ backgroundColor: 'tomato' }} />
   expect(result).toContain('<div style="background-color:tomato">')
 })
 
+it('renders shortcodes', async () => {
+  const result = await renderWithReact('<Button />', {components})
+
+  expect(result).toContain('<button>Hello, button!</button>')
+})
+
 it('processes exports for MDX pragma', async () => {
   const result = await renderWithReact(EXPORT_SHORTCODE_FIXTURE, {components})
 

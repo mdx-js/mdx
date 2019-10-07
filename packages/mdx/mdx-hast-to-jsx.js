@@ -37,6 +37,17 @@ const buildTemplateLiteral = value => {
   return ast.expression.children[0]
 }
 
+const shortcodeTemplate = template(`
+  const IDENTIFIER = mdxMakeShortcode(STRING)
+`)
+
+const buildShortcode = name => {
+  return shortcodeTemplate({
+    IDENTIFIER: t.identifier(name),
+    STRING: t.stringLiteral(name)
+  })
+}
+
 const buildPropValue = value => {
   switch (typeof value) {
     case 'string':
@@ -87,6 +98,9 @@ const buildJsx = ({children, layout, importNodes, exportNodes}, options) => {
   const importJs = importNodes.map(n => n.value).join('\n')
   const exportJs = exportNodes.map(n => n.value).join('\n')
 
+  // TODO: Shortcodes plugin should run on import + exports
+  //       and then append for interpolation below.
+
   const jsx = transform(
     `
     ${importJs}
@@ -119,7 +133,40 @@ const buildJsx = ({children, layout, importNodes, exportNodes}, options) => {
     }
   )
 
-  return jsx.code
+  const shortcodes = applyMdxProp.state.names
+    .filter(s => s !== 'MDXLayout')
+    .filter(s => !extractImportNames.state.names.includes(s))
+
+  const shortcodeFunctionCode = template.ast(`
+    const mdxMakeShortcode = name => props => {
+      console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+      return <div {...props}/>
+    }
+  `, {
+    plugins: [
+      'jsx'
+    ]
+  })
+
+  const shortcodesCode = shortcodes
+    .map(shortcode => buildShortcode(shortcode))
+    .map(code => generate(code).code)
+
+  return [
+    jsx.code,
+    generate(shortcodeFunctionCode).code,
+    ...shortcodesCode
+  ].join('\n')
+
+  return transform(jsx.code,
+    {
+      plugins: [
+        require('@babel/plugin-syntax-jsx'),
+        require('@babel/plugin-syntax-object-rest-spread'),
+        shortcodes.length && injectShortcodes(shortcodes)
+      ].filter(Boolean)
+    }
+  ).code
 }
 
 const elementVisitor = (node, parent) => {
