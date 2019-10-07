@@ -42,7 +42,7 @@
     "gatsby": "2.13.67",
     "husky": "3.0.8",
     "lerna": "3.16.4",
-    "lint-staged": "9.3.0",
+    "lint-staged": "9.4.1",
     "prettier": "1.18.2",
     "remark-preset-wooorm": "6.0.1"
   },
