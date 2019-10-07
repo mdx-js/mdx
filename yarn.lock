@@ -15586,7 +15586,12 @@ pretty-format@^24.9.0:
     ansi-styles "^3.2.0"
     react-is "^16.8.4"
 
-prism-react-renderer@0.1.7, prism-react-renderer@^0.1.0, prism-react-renderer@^0.1.7:
+prism-react-renderer@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-0.2.0.tgz#2267a67eccabc707018c762cfc8569550bd9bd59"
+  integrity sha512-VZBw7M+4Bz1/heKtshHItITwaYGG3AoZNVZm5KP+NeiKYm7ZA2XuTRuLt091fcoJSUNNSikwR3LkW1cdubkEXw==
+
+prism-react-renderer@^0.1.0, prism-react-renderer@^0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-0.1.7.tgz#dc273d0cb6e4a498ba0775094e9a8b01a3ad2eaa"
   integrity sha512-EhnM0sYfLK103ASK0ViSv0rta//ZGB0dBA9TiFyOvA+zOj5peLmGEG01sLEDwl9sMe+gSqncInafBe1VFTCMvA==

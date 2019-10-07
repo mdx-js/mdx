@@ -34,7 +34,7 @@
     "gatsby-source-filesystem": "2.1.9",
     "is-absolute-url": "3.0.3",
     "lodash.flatten": "4.4.0",
-    "prism-react-renderer": "0.1.7",
+    "prism-react-renderer": "0.2.0",
     "react-helmet": "5.2.1",
     "react-live": "2.2.0",
     "remark-emoji": "2.0.2",
