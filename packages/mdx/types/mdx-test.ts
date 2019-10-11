@@ -1,0 +1,15 @@
+import * as mdx from '@mdx-js/mdx'
+
+mdx('# title') // $ExpectType Promise<string>
+mdx('# title', {}) // $ExpectType Promise<string>
+mdx('# title', {footnotes: false}) // $ExpectType Promise<string>
+mdx('# title', {rehypePlugins: [() => () => ({type: 'test'})]}) // $ExpectType Promise<string>
+mdx('# title', {remarkPlugins: [() => () => ({type: 'test'})]}) // $ExpectType Promise<string>
+mdx('# title', {compilers: []}) // $ExpectType Promise<string>
+
+mdx.sync('# title') // $ExpectType string
+mdx.sync('# title', {}) // $ExpectType string
+mdx.sync('# title', {footnotes: false}) // $ExpectType string
+mdx.sync('# title', {rehypePlugins: [() => () => ({type: 'test'})]}) // $ExpectType string
+mdx.sync('# title', {remarkPlugins: [() => () => ({type: 'test'})]}) // $ExpectType string
+mdx.sync('# title', {compilers: []}) // $ExpectType string

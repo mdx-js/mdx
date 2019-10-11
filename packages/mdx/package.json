@@ -19,15 +19,18 @@
     "John Otander <johnotander@gmail.com> (http://johnotander.com)",
     "Tim Neutkens <tim@zeit.co>",
     "Matija Marohnić <matija.marohnic@gmail.com>",
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+    "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "files": [
     "index.js",
     "util.js",
     "md-ast-to-mdx-ast.js",
     "mdx-ast-to-mdx-hast.js",
-    "mdx-hast-to-jsx.js"
+    "mdx-hast-to-jsx.js",
+    "types/index.d.ts"
   ],
+  "types": "types/index.d.ts",
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.2.0",
     "@babel/plugin-syntax-object-rest-spread": "7.2.0",
@@ -53,6 +56,7 @@
     "@mdx-js/react": "^1.4.5",
     "@mdx-js/test-util": "^1.4.5",
     "babel-plugin-remove-export-keywords": "^1.4.5",
+    "dtslint": "^0.9.8",
     "hast-util-select": "3.0.1",
     "jest": "24.9.0",
     "prettier": "1.18.2",
@@ -62,7 +66,7 @@
     "remark-math": "1.0.6"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest && dtslint types"
   },
   "jest": {
     "testEnvironment": "node"

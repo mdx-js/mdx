@@ -1,0 +1,55 @@
+// TypeScript Version: 3.4
+
+import {Plugin, Compiler} from 'unified'
+
+declare namespace mdx {
+  interface Options {
+    /**
+     * support footnotes
+     *
+     * @default true
+     */
+    footnotes?: boolean
+
+    /**
+     * remark plugins to transform markdown content
+     *
+     * @default []
+     */
+    remarkPlugins?: Plugin[]
+
+    /**
+     * rehype plugins html content
+     *
+     * @default []
+     */
+    rehypePlugins?: Plugin[]
+
+    /**
+     * compilers to customize output
+     *
+     * @default []
+     */
+    compilers?: Compiler[]
+  }
+
+  /**
+   * compile mdx text to jsx text asynchronously
+   *
+   * @param mdx content as a text
+   * @param options transform and compiler options
+   * @returns jsx text
+   */
+  function sync(mdx: string, options?: Options): string
+}
+
+/**
+ * compile mdx text to jsx text asynchronously
+ *
+ * @param mdx content as a text
+ * @param options transform and compiler options
+ * @returns jsx text
+ */
+declare function mdx(mdx: string, options?: mdx.Options): Promise<string>
+
+export = mdx
