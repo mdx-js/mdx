@@ -5,14 +5,15 @@
   "license": "MIT",
   "description": "MDX support for Vue components",
   "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "module": "types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "types/index.d.ts"
   ],
   "scripts": {
     "build": "microbundle --format es,cjs --no-sourcemap",
     "prepublish": "yarn build",
-    "no-test": "jest"
+    "no-test": "jest && dtslint"
   },
   "keywords": [
     "markdown",
@@ -27,6 +28,7 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-plugin-transform-vue-jsx": "4.0.1",
+    "dtslint": "^0.9.8",
     "hast-util-select": "3.0.1",
     "jest": "24.9.0",
     "vue": "2.6.10",
