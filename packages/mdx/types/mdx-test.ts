@@ -13,3 +13,10 @@ mdx.sync('# title', {footnotes: false}) // $ExpectType string
 mdx.sync('# title', {rehypePlugins: [() => () => ({type: 'test'})]}) // $ExpectType string
 mdx.sync('# title', {remarkPlugins: [() => () => ({type: 'test'})]}) // $ExpectType string
 mdx.sync('# title', {compilers: []}) // $ExpectType string
+
+mdx.createMdxAstCompiler() // $ExpectType Processor<Settings>
+mdx.createMdxAstCompiler({}) // $ExpectType Processor<Settings>
+mdx.createMdxAstCompiler({footnotes: false}) // $ExpectType Processor<Settings>
+mdx.createMdxAstCompiler({rehypePlugins: [() => () => ({type: 'test'})]}) // $ExpectType Processor<Settings>
+mdx.createMdxAstCompiler({remarkPlugins: [() => () => ({type: 'test'})]}) // $ExpectType Processor<Settings>
+mdx.createMdxAstCompiler({compilers: []}) // $ExpectType Processor<Settings>

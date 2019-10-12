@@ -24,6 +24,7 @@ const WithMDXComponentsExample = () =>
 
 const UseMDXComponentsExample = () => {
   useMDXComponents({h1: H1}) // $ExpectType ComponentDictionary
+  useMDXComponents(() => ({h1: H1})) // $ExpectType ComponentDictionary
 }
 
 const UseMDXContextExample = () => {
