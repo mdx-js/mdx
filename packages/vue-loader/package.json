@@ -21,11 +21,14 @@
     "John Otander <johnotander@gmail.com> (http://johnotander.com)",
     "Tim Neutkens <tim@zeit.co>",
     "Matija Marohnić <matija.marohnic@gmail.com>",
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+    "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "files": [
-    "index.js"
+    "index.js",
+    "types/index.d.ts"
   ],
+  "types": "types/index.d.ts",
   "dependencies": {
     "@mdx-js/mdx": "^1.4.5",
     "@mdx-js/vue": "^1.4.5",
@@ -38,13 +41,14 @@
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-loader": "8.0.6",
     "babel-plugin-transform-vue-jsx": "4.0.1",
+    "dtslint": "^0.9.8",
     "jest": "24.9.0",
     "memory-fs": "0.4.1",
     "react": "16.9.0",
     "webpack": "4.39.1"
   },
   "scripts": {
-    "no-test": "jest"
+    "no-test": "jest && dtslint"
   },
   "jest": {
     "testEnvironment": "node"

@@ -21,10 +21,13 @@
     "John Otander <johnotander@gmail.com> (http://johnotander.com)",
     "Tim Neutkens <tim@zeit.co>",
     "Matija Marohnić <matija.marohnic@gmail.com>",
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+    "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
+  "types": "types/index.d.ts",
   "files": [
-    "index.js"
+    "index.js",
+    "types/index.d.ts"
   ],
   "dependencies": {
     "@mdx-js/mdx": "^1.4.5",
@@ -36,6 +39,7 @@
     "@babel/preset-env": "7.6.0",
     "@babel/preset-react": "7.0.0",
     "babel-loader": "8.0.6",
+    "dtslint": "^0.9.8",
     "jest": "24.9.0",
     "memory-fs": "0.4.1",
     "react": "16.9.0",
