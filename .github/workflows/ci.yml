@@ -1,14 +1,34 @@
 name: CI
 on: [push, pull_request]
 jobs:
-  all:
+  build-and-test:
+    name: 'Build on ${{ matrix.platform }} with node.js ${{ matrix.node-version }}'
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [10, 12]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Set up Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn
+        name: Install
+      - run: yarn bootstrap
+        name: Bootstrap
+      - run: yarn test
+        name: Test
+  build-and-deploy:
     name: Build test and deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          version: 10.x
+          node-version: 10.x
           registry-url: https://registry.npmjs.org/
       - run: yarn
         name: Install
