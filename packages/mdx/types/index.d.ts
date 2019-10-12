@@ -9,28 +9,28 @@ declare namespace mdx {
      *
      * @default true
      */
-    footnotes?: boolean
+    footnotes: boolean
 
     /**
      * remark plugins to transform markdown content
      *
      * @default []
      */
-    remarkPlugins?: Plugin[]
+    remarkPlugins: Plugin[]
 
     /**
      * rehype plugins html content
      *
      * @default []
      */
-    rehypePlugins?: Plugin[]
+    rehypePlugins: Plugin[]
 
     /**
      * compilers to customize output
      *
      * @default []
      */
-    compilers?: Compiler[]
+    compilers: Compiler[]
   }
 
   /**
@@ -40,7 +40,7 @@ declare namespace mdx {
    * @param options transform and compiler options
    * @returns jsx text
    */
-  function sync(mdx: string, options?: Options): string
+  function sync(mdx: string, options?: Partial<Options>): string
 
   /**
    * Generated an MDX compiler
@@ -48,7 +48,7 @@ declare namespace mdx {
    * @param options transform and compiler options
    * @returns Unified Processor for MDX
    */
-  function createMdxAstCompiler(options?: Options): Processor
+  function createMdxAstCompiler(options?: Partial<Options>): Processor
 }
 
 /**
@@ -58,6 +58,6 @@ declare namespace mdx {
  * @param options transform and compiler options
  * @returns jsx text
  */
-declare function mdx(mdx: string, options?: mdx.Options): Promise<string>
+declare function mdx(mdx: string, options?: Partial<mdx.Options>): Promise<string>
 
 export = mdx

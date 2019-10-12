@@ -20,6 +20,9 @@ interface ComponentDictionary {
  * Prop type that includes a component dictionary
  */
 interface ComponentsProp {
+  /**
+   * Mapping of names for JSX components to React components
+   */
   components: ComponentDictionary
 }
 
