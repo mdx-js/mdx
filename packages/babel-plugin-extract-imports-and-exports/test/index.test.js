@@ -1,7 +1,7 @@
 const vfile = require('vfile')
 
-const extract = require('../extract-imports-and-exports')
-const fixtures = require('./fixtures/import-export')
+const extract = require('../')
+const fixtures = require('./fixtures/')
 
 fixtures.forEach(fixture => {
   it(fixture.description, () => {

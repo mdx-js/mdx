@@ -1,6 +1,6 @@
 const isAlphabetical = require('is-alphabetical')
 const {isImportOrExport, EMPTY_NEWLINE} = require('@mdx-js/util')
-const extractImportsAndExports = require('./extract-imports-and-exports')
+const extractImportsAndExports = require('babel-plugin-extract-imports-and-exports')
 const block = require('./block')
 const {tag} = require('./tag')
 
