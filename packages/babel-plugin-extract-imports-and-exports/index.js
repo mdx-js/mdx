@@ -15,15 +15,15 @@ class BabelPluginExtractImportsAndExports {
       return {
         visitor: {
           ExportDefaultDeclaration(path) {
-            const {start} = path.node
-            nodes.push({type: 'export', start, default: true})
+            const {start, end} = path.node
+            nodes.push({type: 'export', start, end, default: true})
           },
           ExportNamedDeclaration(path) {
-            const {start} = path.node
-            nodes.push({type: 'export', start})
+            const {start, end} = path.node
+            nodes.push({type: 'export', start, end})
           },
           ImportDeclaration(path) {
-            const {start} = path.node
+            const {start, end} = path.node
 
             // Imports that are used in exports can end up as
             // ImportDeclarations with no start/end metadata,
@@ -32,7 +32,7 @@ class BabelPluginExtractImportsAndExports {
               return
             }
 
-            nodes.push({type: 'import', start})
+            nodes.push({type: 'import', start, end})
           }
         }
       }
@@ -40,10 +40,7 @@ class BabelPluginExtractImportsAndExports {
   }
 }
 
-const partitionString = (str, indices) =>
-  indices.map((val, i) => {
-    return str.slice(val, indices[i + 1])
-  })
+// Module.exports = BabelPluginExtractImportsAndExports
 
 module.exports = (value, vfile) => {
   const instance = new BabelPluginExtractImportsAndExports()
@@ -55,47 +52,9 @@ module.exports = (value, vfile) => {
     babelrc: false
   })
 
-  const sortedNodes = instance.state.nodes.sort((a, b) => a.start - b.start)
-  const nodeStarts = sortedNodes.map(n => n.start)
-  const values = partitionString(value, nodeStarts)
-
-  const allNodes = sortedNodes.map(({start: _, ...node}, i) => {
-    const value = values[i]
-    return {...node, value}
-  })
-
-  // Group adjacent nodes of the same type so that they can be combined
-  // into a single node later, this also ensures that order is preserved
-  let currType = allNodes[0].type
-  const groupedNodes = allNodes.reduce(
-    (acc, curr) => {
-      // Default export nodes shouldn't be grouped with other exports
-      // because they're handled specially by MDX
-      if (curr.default) {
-        currType = 'default'
-        return [...acc, [curr]]
-      }
-
-      if (curr.type === currType) {
-        const lastNodes = acc.pop()
-        return [...acc, [...lastNodes, curr]]
-      }
-
-      currType = curr.type
-      return [...acc, [curr]]
-    },
-    [[]]
-  )
-
-  // Combine adjacent nodes into a single node
-  return groupedNodes
-    .filter(a => a.length)
-    .reduce((acc, curr) => {
-      const node = curr.reduce((acc, curr) => ({
-        ...acc,
-        value: acc.value + curr.value
-      }))
-
-      return [...acc, node]
-    }, [])
+  return instance.state.nodes.map(node => ({
+    ...(node.default && {default: node.default}),
+    type: node.type,
+    value: value.substr(node.start, node.end - node.start)
+  }))
 }
