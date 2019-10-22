@@ -11,15 +11,15 @@ class BabelPluginExtractImportsAndExports {
       return {
         visitor: {
           ExportDefaultDeclaration(path) {
-            const {start, end} = path.node
-            nodes.push({type: 'export', start, end, default: true})
+            const {start} = path.node
+            nodes.push({type: 'export', start, default: true})
           },
           ExportNamedDeclaration(path) {
-            const {start, end} = path.node
-            nodes.push({type: 'export', start, end})
+            const {start} = path.node
+            nodes.push({type: 'export', start})
           },
           ImportDeclaration(path) {
-            const {start, end} = path.node
+            const {start} = path.node
 
             // Imports that are used in exports can end up as
             // ImportDeclarations with no start/end metadata,
@@ -28,7 +28,7 @@ class BabelPluginExtractImportsAndExports {
               return
             }
 
-            nodes.push({type: 'import', start, end})
+            nodes.push({type: 'import', start})
           }
         }
       }

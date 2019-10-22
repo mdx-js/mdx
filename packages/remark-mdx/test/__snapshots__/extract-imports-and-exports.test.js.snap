@@ -4,7 +4,9 @@ exports[`Handles an import that is later exported 1`] = `
 Array [
   Object {
     "type": "import",
-    "value": "import Layout from './Foo'",
+    "value": "import Layout from './Foo'
+
+",
   },
   Object {
     "default": true,
@@ -60,7 +62,8 @@ exports[`Separates import from the default export 1`] = `
 Array [
   Object {
     "type": "import",
-    "value": "import Foo from './foo'",
+    "value": "import Foo from './foo'
+",
   },
   Object {
     "default": true,

@@ -103,7 +103,6 @@ function tokenizeEsSyntax(eat, value) {
 
   if (isImportOrExport(subvalue)) {
     const nodes = extractImportsAndExports(subvalue, this.file)
-    console.log(nodes)
     nodes.map(node => eat(node.value)(node))
   }
 }

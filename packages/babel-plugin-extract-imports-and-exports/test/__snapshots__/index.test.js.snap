@@ -4,13 +4,11 @@ exports[`Handles an import that is later exported 1`] = `
 Object {
   "nodes": Array [
     Object {
-      "end": 26,
       "start": 0,
       "type": "import",
     },
     Object {
       "default": true,
-      "end": 49,
       "start": 28,
       "type": "export",
     },
@@ -23,7 +21,6 @@ Object {
   "nodes": Array [
     Object {
       "default": true,
-      "end": 46,
       "start": 0,
       "type": "export",
     },
@@ -35,7 +32,6 @@ exports[`Handles const exports 1`] = `
 Object {
   "nodes": Array [
     Object {
-      "end": 41,
       "start": 0,
       "type": "export",
     },
@@ -48,7 +44,6 @@ Object {
   "nodes": Array [
     Object {
       "default": true,
-      "end": 49,
       "start": 0,
       "type": "export",
     },
@@ -60,7 +55,6 @@ exports[`Handles multiline exports 1`] = `
 Object {
   "nodes": Array [
     Object {
-      "end": 43,
       "start": 0,
       "type": "export",
     },
@@ -72,13 +66,11 @@ exports[`Separates import from the default export 1`] = `
 Object {
   "nodes": Array [
     Object {
-      "end": 23,
       "start": 0,
       "type": "import",
     },
     Object {
       "default": true,
-      "end": 70,
       "start": 24,
       "type": "export",
     },
