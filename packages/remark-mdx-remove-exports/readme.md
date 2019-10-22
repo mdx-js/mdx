@@ -50,9 +50,7 @@ remark()
 Now, running `node example` yields:
 
 ```markdown
-import { Donut } from 'rebass'
-
-import OtherThing from 'other-place'
+export default props => <div {...props} />
 
 # Hello, world!
 

@@ -74,6 +74,5 @@ it('Should render custom del', () => {
     </MDXProvider>
   )
 
-  // CustomDelete is rendered
   expect(result).toMatch(/style="color:crimson"/)
 })
