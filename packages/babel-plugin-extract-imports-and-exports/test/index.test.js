@@ -1,15 +1,21 @@
-const vfile = require('vfile')
-
-const extract = require('../')
 const fixtures = require('./fixtures/')
+
+const babel = require('@babel/core')
+const BabelPluginExtractImportNames = require('..')
+
+const transform = str => {
+  const plugin = new BabelPluginExtractImportNames()
+
+  babel.transform(str, {
+    configFile: false,
+    plugins: ['@babel/plugin-syntax-jsx', plugin.plugin]
+  })
+
+  return plugin.state
+}
 
 fixtures.forEach(fixture => {
   it(fixture.description, () => {
-    const result = extract(
-      fixture.mdx,
-      vfile({path: '/test', content: 'testing'})
-    )
-
-    expect(result).toMatchSnapshot(fixture.result)
+    expect(transform(fixture.mdx)).toMatchSnapshot(fixture.result)
   })
 })

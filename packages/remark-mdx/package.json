@@ -28,11 +28,16 @@
     "extract-imports-and-exports.js"
   ],
   "dependencies": {
+    "@babel/core": "7.6.4",
+    "@babel/helper-plugin-utils": "7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.6.2",
+    "@babel/plugin-syntax-jsx": "7.2.0",
     "@mdx-js/util": "^1.5.1",
     "babel-plugin-extract-imports-and-exports": "^1.5.1",
     "is-alphabetical": "1.0.3",
     "remark-parse": "7.0.1",
-    "unified": "8.3.2"
+    "unified": "8.3.2",
+    "vfile": "4.0.1"
   },
   "scripts": {
     "test": "jest"

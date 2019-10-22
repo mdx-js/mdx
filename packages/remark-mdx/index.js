@@ -1,6 +1,6 @@
 const isAlphabetical = require('is-alphabetical')
 const {isImportOrExport, EMPTY_NEWLINE} = require('@mdx-js/util')
-const extractImportsAndExports = require('babel-plugin-extract-imports-and-exports')
+const extractImportsAndExports = require('./extract-imports-and-exports')
 const block = require('./block')
 const {tag} = require('./tag')
 
@@ -103,6 +103,7 @@ function tokenizeEsSyntax(eat, value) {
 
   if (isImportOrExport(subvalue)) {
     const nodes = extractImportsAndExports(subvalue, this.file)
+    console.log(nodes)
     nodes.map(node => eat(node.value)(node))
   }
 }

@@ -1,74 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Handles an import that is later exported 1`] = `
-Array [
-  Object {
-    "type": "import",
-    "value": "import Layout from './Foo'
-
-",
-  },
-  Object {
-    "default": true,
-    "type": "export",
-    "value": "export default Layout",
-  },
-]
+Object {
+  "nodes": Array [
+    Object {
+      "end": 26,
+      "start": 0,
+      "type": "import",
+    },
+    Object {
+      "default": true,
+      "end": 49,
+      "start": 28,
+      "type": "export",
+    },
+  ],
+}
 `;
 
 exports[`Handles basic usecase of default export 1`] = `
-Array [
-  Object {
-    "default": true,
-    "type": "export",
-    "value": "export default props => <article {...props} />",
-  },
-]
+Object {
+  "nodes": Array [
+    Object {
+      "default": true,
+      "end": 46,
+      "start": 0,
+      "type": "export",
+    },
+  ],
+}
 `;
 
 exports[`Handles const exports 1`] = `
-Array [
-  Object {
-    "type": "export",
-    "value": "export const metadata = { some: \\"stuff\\" }",
-  },
-]
+Object {
+  "nodes": Array [
+    Object {
+      "end": 41,
+      "start": 0,
+      "type": "export",
+    },
+  ],
+}
 `;
 
 exports[`Handles multiline default exports 1`] = `
-Array [
-  Object {
-    "default": true,
-    "type": "export",
-    "value": "export default props => (
-  <main {...props} />
-)",
-  },
-]
+Object {
+  "nodes": Array [
+    Object {
+      "default": true,
+      "end": 49,
+      "start": 0,
+      "type": "export",
+    },
+  ],
+}
 `;
 
 exports[`Handles multiline exports 1`] = `
-Array [
-  Object {
-    "type": "export",
-    "value": "export const metadata = {
-  some: \\"stuff\\"
-}",
-  },
-]
+Object {
+  "nodes": Array [
+    Object {
+      "end": 43,
+      "start": 0,
+      "type": "export",
+    },
+  ],
+}
 `;
 
 exports[`Separates import from the default export 1`] = `
-Array [
-  Object {
-    "type": "import",
-    "value": "import Foo from './foo'
-",
-  },
-  Object {
-    "default": true,
-    "type": "export",
-    "value": "export default props => <article {...props} />",
-  },
-]
+Object {
+  "nodes": Array [
+    Object {
+      "end": 23,
+      "start": 0,
+      "type": "import",
+    },
+    Object {
+      "default": true,
+      "end": 70,
+      "start": 24,
+      "type": "export",
+    },
+  ],
+}
 `;
