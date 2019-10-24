@@ -1,10 +1,10 @@
 const fixtures = require('./fixtures/')
 
 const babel = require('@babel/core')
-const BabelPluginExtractImportNames = require('..')
+const BabelPluginExtractImportsAndExports = require('..')
 
 const transform = str => {
-  const plugin = new BabelPluginExtractImportNames()
+  const plugin = new BabelPluginExtractImportsAndExports()
 
   babel.transform(str, {
     configFile: false,
