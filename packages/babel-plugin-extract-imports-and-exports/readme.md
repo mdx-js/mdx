@@ -1,6 +1,6 @@
 # `babel-plugin-extract-imports-and-exports`
 
-Babel plugin that extracts all exports and imports from.
+Babel plugin that extracts all exports and imports.
 Used by [MDX](https://mdxjs.com).
 
 ## Installation

@@ -36,8 +36,7 @@
     "babel-plugin-extract-imports-and-exports": "^1.5.1",
     "is-alphabetical": "1.0.3",
     "remark-parse": "7.0.1",
-    "unified": "8.3.2",
-    "vfile": "4.0.1"
+    "unified": "8.3.2"
   },
   "scripts": {
     "test": "jest"
@@ -47,6 +46,7 @@
   },
   "devDependencies": {
     "jest": "24.9.0",
-    "remark-stringify": "7.0.3"
+    "remark-stringify": "7.0.3",
+    "vfile": "4.0.1"
   }
 }
