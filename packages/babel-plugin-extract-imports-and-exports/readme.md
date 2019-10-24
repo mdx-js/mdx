@@ -18,6 +18,7 @@ const BabelPluginHtmlAttributesToJsx = require('babel-plugin-extract-imports-and
 
 const jsx = `
   import Foo from './foo'
+  export const bar = "bar"
   export default props => <article {...props} />
 `
 
@@ -37,24 +38,18 @@ console.log(result.code)
 ### Input
 
 ```js
-import Foo from './foo'
-export default props => <article {...props} />
+  import Foo from './foo'
+  export const bar = "bar"
+  export default props => <article {...props} />
 ```
 
 ### Output
 
 ```js
 [
-  Object {
-    "type": "import",
-    "value": "import Foo from './foo'
-",
-  },
-  Object {
-    "default": true,
-    "type": "export",
-    "value": "export default props => <article {...props} />",
-  },
+  { type: 'import', start: 3 },
+  { type: 'export', start: 29 },
+  { type: 'export', start: 56, default: true }
 ]
 ```
 
