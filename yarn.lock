@@ -3613,6 +3613,11 @@ acorn-jsx@^5.0.2:
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.0.2.tgz#84b68ea44b373c4f8686023a551f61a21b7c4a4f"
   integrity sha512-tiNTrP1MP0QrChmD2DdupCr6HWSFeKVw5d/dHTu4Y7rkAkRhU/Dt7dphAfIUyxtHpl/eBVip5uTNSpQJHylpAw==
 
+acorn-jsx@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.1.0.tgz#294adb71b57398b0680015f0a38c563ee1db5384"
+  integrity sha512-tMUqwBWfLFbJbizRmEcWSLw6HnFzfdJs2sOJEOwwtVPMoH/0Ay+E703oZz78VSXZiiDcZrQ5XKjPIUQixhmgVw==
+
 acorn-walk@^6.0.1, acorn-walk@^6.1.1:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-6.2.0.tgz#123cb8f3b84c2171f1f7fb252615b1c78a6b1a8c"
@@ -3632,6 +3637,11 @@ acorn@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.0.0.tgz#26b8d1cd9a9b700350b71c0905546f64d1284e7a"
   integrity sha512-PaF/MduxijYYt7unVGRuds1vBC9bFxbNf+VWqhOClfdgy7RlVkQqt610ig1/yxTgsDIfW1cWDel5EBbOy3jdtQ==
+
+acorn@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.0.tgz#949d36f2c292535da602283586c2477c57eb2d6c"
+  integrity sha512-kL5CuoXA/dgxlBbVrflsflzQ3PAas7RYZB52NOm/6839iVYJgKMJ3cQJD+t2i5+qFa8h3MDpEOJiS64E8JLnSQ==
 
 adaptive-gradient@^1.0.6:
   version "1.0.6"
@@ -7460,13 +7470,13 @@ eslint-loader@^2.1.0:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-mdx@^1.5.6:
-  version "1.5.6"
-  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.5.6.tgz#bb10ee0a083e5b3cd9688e15bf3c691b7091bf97"
-  integrity sha512-ebxVIw1WsJMrZMgG9f8MUuorWZoyjO/WZD7tRkCXSU7rHFzcA59MBbBmKT/T678GEqCHLqIiKzqzZDMWsXdGQg==
+eslint-mdx@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.6.1.tgz#59bc247f354893d8aa2c3d9fc4b74f5d19e1c32f"
+  integrity sha512-aMVycwR3qDfWwF8KaLbTvL9y3fWyqE1vUoeOh2XTtSAaPf+PsAJLZPECPisLOd//BbOlg0wrBx47aCb6nk8IUA==
   dependencies:
-    espree "^6.1.1"
-    remark-mdx "^1.5.0"
+    espree "^6.1.2"
+    remark-mdx "^1.5.1"
     remark-parse "^7.0.1"
     tslib "^1.10.0"
     unified "^8.4.1"
@@ -7526,15 +7536,15 @@ eslint-plugin-jsx-a11y@^6.0.3:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-mdx@1.5.6:
-  version "1.5.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.5.6.tgz#06747e53cd587a632fa2a1306eb06b99a5355d2e"
-  integrity sha512-UFxnx3o52Tvj/JuDyYAp5/rnKCQVF7lI31zDaWYBK3KC7wFP4suo8Ru7w2A+16DR52ZJIhl6U5A0J2yGBikgOQ==
+eslint-plugin-mdx@1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.6.1.tgz#85a85552f38851ee08cdcf396e88724ab1412579"
+  integrity sha512-KJT0+jdvUtzaydWwN4GDneU8eige3ds0q6mx4dN4eKNLukfSLgU9es0wMpolZOjK78QHjr60nA1EuWVApWwfgA==
   dependencies:
     cosmiconfig "^5.2.1"
-    eslint-mdx "^1.5.6"
+    eslint-mdx "^1.6.1"
     eslint-plugin-react ">=7.0.0"
-    remark-mdx "^1.5.0"
+    remark-mdx "^1.5.1"
     remark-parse "^7.0.1"
     remark-stringify "^7.0.3"
     tslib "^1.10.0"
@@ -7729,6 +7739,15 @@ espree@^6.1.1:
   dependencies:
     acorn "^7.0.0"
     acorn-jsx "^5.0.2"
+    eslint-visitor-keys "^1.1.0"
+
+espree@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/espree/-/espree-6.1.2.tgz#6c272650932b4f91c3714e5e7b5f5e2ecf47262d"
+  integrity sha512-2iUPuuPP+yW1PZaMSDM9eyVf8D5P0Hi8h83YtZ5bPc/zHYjII5khoixIUTMO794NOY8F/ThF1Bo8ncZILarUTA==
+  dependencies:
+    acorn "^7.1.0"
+    acorn-jsx "^5.1.0"
     eslint-visitor-keys "^1.1.0"
 
 esprima@^2.6.0:
