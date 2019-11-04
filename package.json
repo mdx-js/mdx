@@ -41,7 +41,7 @@
     "eslint-plugin-react": "7.16.0",
     "gatsby": "2.13.67",
     "husky": "3.0.9",
-    "lerna": "3.18.1",
+    "lerna": "3.18.3",
     "lint-staged": "9.4.2",
     "prettier": "1.18.2",
     "remark-preset-wooorm": "6.0.1"
