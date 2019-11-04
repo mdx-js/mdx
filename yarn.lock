@@ -7472,10 +7472,10 @@ eslint-loader@^2.1.0:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-mdx@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.6.1.tgz#59bc247f354893d8aa2c3d9fc4b74f5d19e1c32f"
-  integrity sha512-aMVycwR3qDfWwF8KaLbTvL9y3fWyqE1vUoeOh2XTtSAaPf+PsAJLZPECPisLOd//BbOlg0wrBx47aCb6nk8IUA==
+eslint-mdx@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.6.2.tgz#4e2b83f41af3a29ae83f802dd16f77566291785f"
+  integrity sha512-O+r3u7/Vz9laOp6tYGVvRBISgMkZTzJzVWJwAJmZ4ZFfF+ICV1WMxqphaxE8OfesnEYMwvS+tBXRkcLfuqa9mw==
   dependencies:
     espree "^6.1.2"
     remark-mdx "^1.5.1"
@@ -7538,13 +7538,13 @@ eslint-plugin-jsx-a11y@^6.0.3:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-mdx@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.6.1.tgz#85a85552f38851ee08cdcf396e88724ab1412579"
-  integrity sha512-KJT0+jdvUtzaydWwN4GDneU8eige3ds0q6mx4dN4eKNLukfSLgU9es0wMpolZOjK78QHjr60nA1EuWVApWwfgA==
+eslint-plugin-mdx@1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.6.2.tgz#5d157e494f5592ef7dde4dc77b88c65ec7120ace"
+  integrity sha512-dEu7BuujCQ5Hho121aJx2T4FYUKWY4Op1EV5xi4WXEMziPDlGbu9I36oN0Ta154HRfiflfgaUdM1qoQn8gQJBA==
   dependencies:
     cosmiconfig "^5.2.1"
-    eslint-mdx "^1.6.1"
+    eslint-mdx "^1.6.2"
     eslint-plugin-react ">=7.0.0"
     remark-mdx "^1.5.1"
     remark-parse "^7.0.1"
@@ -7553,7 +7553,7 @@ eslint-plugin-mdx@1.6.1:
     unified "^8.4.1"
     vfile "^4.0.1"
   optionalDependencies:
-    rebass "^4.0.6"
+    rebass "^4.0.7"
 
 eslint-plugin-prettier@3.1.1:
   version "3.1.1"
@@ -16394,10 +16394,10 @@ realpath-native@^1.1.0:
   dependencies:
     util.promisify "^1.0.0"
 
-rebass@^4.0.6:
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/rebass/-/rebass-4.0.6.tgz#eaded5d0d99f68e69cd6b1e9e645f391c15d90dd"
-  integrity sha512-O4eSG4vhboiI00R5YmrRTuKiehpLkB3gDBWp00qymEbPxJPjkXoQVkOEhbWaRNRqBv/bMlvLczqarvCno1JORw==
+rebass@^4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/rebass/-/rebass-4.0.7.tgz#0a84e5558750c1f416c3baf41ec4c7fc8d64a98a"
+  integrity sha512-GJot6j6Qcr7jk1QIgf9qBoud75CGRpN8pGcEo98TSp4KNSWV01ZLvGwFKGI35oEBuNs+lpEd3+pnwkQUTSFytg==
   dependencies:
     reflexbox "^4.0.6"
 
