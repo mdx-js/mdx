@@ -36,7 +36,7 @@
     "lodash.flatten": "4.4.0",
     "prism-react-renderer": "0.2.0",
     "react-helmet": "5.2.1",
-    "react-live": "2.2.0",
+    "react-live": "2.2.1",
     "remark-emoji": "2.0.2",
     "remark-mdx-remove-exports": "^1.5.1",
     "remark-mdx-remove-imports": "^1.5.1",
