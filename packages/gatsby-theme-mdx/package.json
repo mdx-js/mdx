@@ -3,6 +3,10 @@
   "version": "1.5.1",
   "author": "Brent Jackson <jxnblk@gmail.com>",
   "license": "MIT",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",

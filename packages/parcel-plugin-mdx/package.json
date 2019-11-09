@@ -14,6 +14,10 @@
   "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
   "bugs": "https://github.com/mdx-js/mdx/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
   "author": "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me)",
   "contributors": [
     "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me)",

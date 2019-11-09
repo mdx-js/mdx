@@ -9,6 +9,10 @@
   "files": [
     "dist"
   ],
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
   "scripts": {
     "build": "microbundle --format es,cjs --no-sourcemap",
     "prepublish": "yarn build",
