@@ -8,7 +8,7 @@ export default () => (
   <Location>
     {({location}) => (
       <a
-        href={base + location.pathname + '.md'}
+        href={base + location.pathname + '.mdx'}
         css={css({
           display: 'inline-block',
           color: 'inherit',
