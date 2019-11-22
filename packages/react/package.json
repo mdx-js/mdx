@@ -31,9 +31,9 @@
     "dist"
   ],
   "devDependencies": {
-    "@babel/core": "7.6.4",
-    "@babel/preset-env": "7.6.3",
-    "@babel/preset-react": "7.6.3",
+    "@babel/core": "7.7.4",
+    "@babel/preset-env": "7.7.4",
+    "@babel/preset-react": "7.7.4",
     "jest": "24.9.0",
     "microbundle": "0.11.0",
     "react": "16.9.0",

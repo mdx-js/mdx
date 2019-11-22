@@ -23,9 +23,9 @@
     "index.js"
   ],
   "dependencies": {
-    "@babel/core": "7.6.4",
-    "@babel/plugin-proposal-object-rest-spread": "7.6.2",
-    "@babel/plugin-transform-react-jsx": "7.3.0",
+    "@babel/core": "7.7.4",
+    "@babel/plugin-proposal-object-rest-spread": "7.7.4",
+    "@babel/plugin-transform-react-jsx": "7.7.4",
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
     "babel-plugin-remove-export-keywords": "^1.5.1",

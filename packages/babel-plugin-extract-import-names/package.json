@@ -23,7 +23,7 @@
     "index.js"
   ],
   "devDependencies": {
-    "@babel/core": "7.6.4",
+    "@babel/core": "7.7.4",
     "jest": "24.9.0"
   },
   "dependencies": {
