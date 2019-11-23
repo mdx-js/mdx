@@ -2675,10 +2675,10 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@reach/skip-nav@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@reach/skip-nav/-/skip-nav-0.5.0.tgz#23bda1c0775b78a8c5ebf15da8a6c928c0cb879b"
-  integrity sha512-Rw/XalPh+xF7XfZ42sw3C1qpVjkJMWBOMtsFQT2roPxOmRjIpPA6O/JM9S+pqe6wZKjDjyY4t3vOZ2xscMZLRw==
+"@reach/skip-nav@0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@reach/skip-nav/-/skip-nav-0.6.2.tgz#5514ecf4034079df2d61ad9a4128791db738108d"
+  integrity sha512-lfP0T0doixl8YsTpwPrW1pVKkU0x0A+cQC8z5XDlN2g6flo0W7pSSn6ybF8kYZ8uKymOsIs+gr1FiOrhd9stZQ==
 
 "@rebass/emotion@3.2.0":
   version "3.2.0"
