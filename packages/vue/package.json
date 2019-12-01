@@ -11,8 +11,8 @@
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "main": "dist/cjs.js",
+  "module": "dist/esm.js",
   "files": [
     "dist"
   ],
