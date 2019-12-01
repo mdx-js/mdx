@@ -8,5 +8,6 @@
       }
     ],
     "@babel/react"
-  ]
+  ],
+  "plugins": ["macros"]
 }

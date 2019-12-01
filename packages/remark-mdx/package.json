@@ -2,17 +2,8 @@
   "name": "remark-mdx",
   "version": "1.5.1",
   "description": "Support import, export, and JSX in markdown",
-  "license": "MIT",
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "mdxast"
-  ],
-  "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
@@ -23,13 +14,23 @@
     "John Otander <johnotander@gmail.com> (http://johnotander.com)",
     "Tim Neutkens <tim@zeit.co>",
     "Matija Marohnić <matija.marohnic@gmail.com>",
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
+  "license": "MIT",
   "files": [
     "index.js",
     "tag.js",
     "block.js",
     "extract-imports-and-exports.js"
+  ],
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
   ],
   "dependencies": {
     "@babel/core": "7.7.4",
@@ -40,16 +41,5 @@
     "is-alphabetical": "1.0.3",
     "remark-parse": "7.0.1",
     "unified": "8.3.2"
-  },
-  "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "devDependencies": {
-    "jest": "24.9.0",
-    "remark-stringify": "7.0.3",
-    "vfile": "4.0.2"
   }
 }

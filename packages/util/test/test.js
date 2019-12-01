@@ -9,7 +9,6 @@ describe('paramCase', () => {
   PARAM_CASE_FIXTURES.forEach(([input, expected]) => {
     test(`it turns ${input} into ${expected}`, () => {
       const result = paramCase(input)
-
       expect(result).toEqual(expected)
     })
   })
@@ -22,7 +21,6 @@ describe('isImportOrExport', () => {
   NOT_IMPORT_OR_EXPORT.forEach(str => {
     it(`returns false for "${str}"`, () => {
       const result = isImportOrExport(str)
-
       expect(result).toBeFalsy()
     })
   })
@@ -30,7 +28,6 @@ describe('isImportOrExport', () => {
   IMPORT_OR_EXPORT.forEach(str => {
     it(`returns true for "${str}"`, () => {
       const result = isImportOrExport(str)
-
       expect(result).toBeTruthy()
     })
   })
@@ -38,16 +35,13 @@ describe('isImportOrExport', () => {
 
 describe('toTemplateLiteral', () => {
   it("doesn't double escape '$'", () => {
-    // eslint-disable-next-line
-    const result = toTemplateLiteral('All the \$')
-
+    const result = toTemplateLiteral('All the $')
     expect(result).toEqual('{`All the $`}')
   })
 
   it("escapes string interpolation '${'", () => {
     const result = toTemplateLiteral('All the ${')
-
-    // eslint-disable-next-line
+    // eslint-disable-next-line no-template-curly-in-string
     expect(result).toEqual('{`All the \\${`}')
   })
 })

@@ -27,9 +27,15 @@ export default ({
     })
     .trim()
 
-  const {code} = transform(jsx, {
-    objectAssign: 'Object.assign'
-  })
+  let code
+  try {
+    code = transform(jsx, {
+      objectAssign: 'Object.assign'
+    }).code
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
 
   const keys = Object.keys(fullScope)
   const values = Object.values(fullScope)

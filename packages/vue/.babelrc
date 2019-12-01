@@ -7,6 +7,6 @@
         "useBuiltIns": "usage"
       }
     ],
-    "@babel/react"
+    "@vue/babel-preset-jsx"
   ]
 }

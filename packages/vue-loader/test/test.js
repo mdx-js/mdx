@@ -45,10 +45,8 @@ const testFixture = fixture => {
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err) reject(err)
-
       const module = stats.toJson().modules.find(m => m.name === fileName)
         .source
-
       resolve(module)
     })
   })

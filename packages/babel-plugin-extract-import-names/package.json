@@ -2,7 +2,21 @@
   "name": "babel-plugin-extract-import-names",
   "version": "1.5.1",
   "description": "Extract import names",
+  "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
+  ],
   "license": "MIT",
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "mdx",
     "markdown",
@@ -11,28 +25,7 @@
     "remark",
     "babel"
   ],
-  "homepage": "https://mdxjs.com",
-  "repository": "mdx-js/mdx",
-  "bugs": "https://github.com/mdx-js/mdx/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
-  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
-  "files": [
-    "index.js"
-  ],
-  "devDependencies": {
-    "@babel/core": "7.7.4",
-    "jest": "24.9.0"
-  },
   "dependencies": {
     "@babel/helper-plugin-utils": "7.0.0"
-  },
-  "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

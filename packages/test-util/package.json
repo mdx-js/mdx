@@ -2,7 +2,21 @@
   "name": "@mdx-js/test-util",
   "version": "1.5.1",
   "description": "Testing utilities for MDX libraries",
+  "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
+  ],
   "license": "MIT",
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "mdx",
     "markdown",
@@ -11,17 +25,6 @@
     "remark",
     "mdxast"
   ],
-  "homepage": "https://mdxjs.com",
-  "repository": "mdx-js/mdx",
-  "bugs": "https://github.com/mdx-js/mdx/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
-  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
-  "files": [
-    "index.js"
-  ],
   "dependencies": {
     "@babel/core": "7.7.4",
     "@babel/plugin-proposal-object-rest-spread": "7.7.4",
@@ -29,7 +32,7 @@
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
     "babel-plugin-remove-export-keywords": "^1.5.1",
-    "react": "16.9.0",
-    "react-dom": "16.9.0"
+    "react": "16.12.0",
+    "react-dom": "16.12.0"
   }
 }
