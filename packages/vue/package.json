@@ -13,6 +13,9 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
+  "contributors": [
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
+  ],
   "scripts": {
     "build": "microbundle --format es,cjs --no-sourcemap",
     "prepublish": "yarn build",
@@ -23,17 +26,5 @@
     "vue",
     "mdx",
     "remark"
-  ],
-  "devDependencies": {
-    "@babel/core": "7.7.4",
-    "@babel/preset-env": "7.7.4",
-    "@mdx-js/mdx": "^1.5.1",
-    "@vue/test-utils": "1.0.0-beta.29",
-    "babel-helper-vue-jsx-merge-props": "2.0.3",
-    "babel-plugin-transform-vue-jsx": "4.0.1",
-    "hast-util-select": "3.0.1",
-    "jest": "24.9.0",
-    "vue": "2.6.10",
-    "vue-template-compiler": "2.6.10"
-  }
+  ]
 }

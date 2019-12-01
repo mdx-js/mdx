@@ -21,7 +21,8 @@
   "author": "Christopher Biscardi <chris@christopherbiscardi.com> (https://www.christopherbiscardi.com)",
   "contributors": [
     "Christopher Biscardi <chris@christopherbiscardi.com> (https://www.christopherbiscardi.com)",
-    "John Otander <johnotander@gmail.com> (http://johnotander.com)"
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
   "files": [
     "index.js",
@@ -32,11 +33,6 @@
     "@mdx-js/util": "^1.5.1",
     "camelcase-css": "2.0.1",
     "style-to-object": "0.3.0"
-  },
-  "devDependencies": {
-    "@babel/core": "7.7.4",
-    "@babel/preset-react": "7.7.4",
-    "jest": "24.9.0"
   },
   "scripts": {
     "test": "jest"

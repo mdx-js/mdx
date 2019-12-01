@@ -19,12 +19,12 @@
     "url": "https://opencollective.com/unified"
   },
   "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
+  ],
   "files": [
     "index.js"
   ],
-  "devDependencies": {
-    "jest": "24.9.0"
-  },
   "scripts": {
     "test": "jest"
   },

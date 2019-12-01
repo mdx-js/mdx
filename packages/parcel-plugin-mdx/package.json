@@ -24,7 +24,8 @@
     "John Otander <johnotander@gmail.com> (http://johnotander.com)",
     "Tim Neutkens <tim@zeit.co>",
     "Matija Marohnić <matija.marohnic@gmail.com>",
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
   "main": "src/index.js",
   "files": [
@@ -37,11 +38,6 @@
   "peerDependencies": {
     "@mdx-js/react": "^1.1.6",
     "react": "^16.9.0"
-  },
-  "devDependencies": {
-    "jest": "24.9.0",
-    "react": "16.9.0",
-    "react-dom": "16.9.0"
   },
   "scripts": {
     "test": "jest"

@@ -19,13 +19,12 @@
     "url": "https://opencollective.com/unified"
   },
   "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
+  ],
   "files": [
     "index.js"
   ],
-  "devDependencies": {
-    "@babel/core": "7.7.4",
-    "jest": "24.9.0"
-  },
   "dependencies": {
     "@babel/helper-plugin-utils": "7.0.0"
   },

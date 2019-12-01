@@ -55,7 +55,8 @@ module.exports = [
   },
   {
     description: 'Handles multiple inline components with complex JSX',
-    mdx: 'Hello, from <Span children={(some, stuff) => { return some / stuff }} /> <span children={`${props.foo}!!!!`} /> <>{props.world}</>'
+    mdx:
+      'Hello, from <Span children={(some, stuff) => { return some / stuff }} /> <span children={`${props.foo}!!!!`} /> <>{props.world}</>'
   },
   {
     description: 'Does not break } outside of JSX',
@@ -63,7 +64,8 @@ module.exports = [
   },
   {
     description: 'Handles links',
-    mdx: 'Hello, <Component>{props.world}</Component> and a moustache! }: <https://johno.com>'
+    mdx:
+      'Hello, <Component>{props.world}</Component> and a moustache! }: <https://johno.com>'
   },
   {
     description: 'Ignores links inside JSX blocks',

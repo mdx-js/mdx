@@ -23,7 +23,8 @@
     "John Otander <johnotander@gmail.com> (http://johnotander.com)",
     "Tim Neutkens <tim@zeit.co>",
     "Matija Marohnić <matija.marohnic@gmail.com>",
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
   "files": [
     "index.js",
@@ -46,10 +47,5 @@
   },
   "jest": {
     "testEnvironment": "node"
-  },
-  "devDependencies": {
-    "jest": "24.9.0",
-    "remark-stringify": "7.0.3",
-    "vfile": "4.0.2"
   }
 }

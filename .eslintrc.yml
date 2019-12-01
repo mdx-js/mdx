@@ -28,7 +28,7 @@ rules:
   no-unused-vars:
     - error
     - args: after-used
-      argsIgnorePattern: "^_"
+      argsIgnorePattern: '^_'
   no-var: error
   import/no-extraneous-dependencies: error
   prettier/prettier: error
@@ -43,38 +43,34 @@ settings:
     version: 16.3.2
 
 overrides:
-  -
-    files: "*.md"
+  - files: '*.md'
     extends: plugin:mdx/recommended
 
-  -
-    files: "*.mdx"
+  - files: '*.mdx'
     extends:
       - plugin:mdx/recommended
       - plugin:mdx/overrides
     rules:
       import/no-extraneous-dependencies: 0
 
-  -
-    files:
-      - "**/test/**/*.js"
-      - "**/*.test.js"
+  - files:
+      - '**/test/**/*.js'
+      - '**/*.test.js'
     env:
       jest: true
-  -
-    files:
-      - "examples/**/*.js"
+    rules:
+      import/no-extraneous-dependencies: 0
+  - files:
+      - 'examples/**/*.js'
     env:
       browser: true
-  -
-    files:
-      - "docs/**/*.js"
-      - "examples/**/*.js"
+  - files:
+      - 'docs/**/*.js'
+      - 'examples/**/*.js'
     rules:
       import/no-unresolved: off
       import/no-extraneous-dependencies: off
-  -
-    files:
-      - "examples/next/**/*.js"
+  - files:
+      - 'examples/next/**/*.js'
     rules:
       react/react-in-jsx-scope: off

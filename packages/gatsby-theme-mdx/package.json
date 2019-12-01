@@ -7,13 +7,13 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
+  "contributors": [
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
+  ],
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",
     "clean": "gatsby clean"
-  },
-  "devDependencies": {
-    "gatsby": "2.13.67"
   },
   "dependencies": {
     "@blocks/kit": "0.0.28",

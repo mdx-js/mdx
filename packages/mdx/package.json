@@ -23,7 +23,8 @@
     "John Otander <johnotander@gmail.com> (http://johnotander.com)",
     "Tim Neutkens <tim@zeit.co>",
     "Matija Marohnić <matija.marohnic@gmail.com>",
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
   "files": [
     "index.js",
@@ -51,19 +52,6 @@
     "unified": "8.3.2",
     "unist-builder": "1.0.4",
     "unist-util-visit": "2.0.0"
-  },
-  "devDependencies": {
-    "@mapbox/rehype-prism": "0.3.1",
-    "@mdx-js/react": "^1.5.1",
-    "@mdx-js/test-util": "^1.5.1",
-    "babel-plugin-remove-export-keywords": "^1.5.1",
-    "hast-util-select": "3.0.1",
-    "jest": "24.9.0",
-    "prettier": "1.19.1",
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
-    "rehype-katex": "1.2.0",
-    "remark-math": "1.0.6"
   },
   "scripts": {
     "test": "jest"
