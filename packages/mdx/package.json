@@ -47,7 +47,7 @@
     "remark-mdx": "^1.5.1",
     "remark-parse": "7.0.1",
     "remark-squeeze-paragraphs": "3.0.4",
-    "style-to-object": "0.2.3",
+    "style-to-object": "0.3.0",
     "unified": "8.3.2",
     "unist-builder": "1.0.4",
     "unist-util-visit": "2.0.0"
