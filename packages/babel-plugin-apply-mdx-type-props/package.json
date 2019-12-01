@@ -2,17 +2,8 @@
   "name": "babel-plugin-apply-mdx-type-prop",
   "version": "1.5.1",
   "description": "Apply the MDX type prop used in the MDX pragma",
-  "license": "MIT",
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "babel"
-  ],
-  "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
@@ -22,18 +13,24 @@
   "contributors": [
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
+  "license": "MIT",
   "files": [
     "index.js"
   ],
-  "dependencies": {
-    "@babel/helper-plugin-utils": "7.0.0",
-    "@mdx-js/util": "^1.5.1"
-  },
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "babel"
+  ],
   "peerDependencies": {
     "@babel/core": "^7.0.0"
   },
-  "scripts": {
-    "test": "jest"
+  "dependencies": {
+    "@babel/helper-plugin-utils": "7.0.0",
+    "@mdx-js/util": "^1.5.1"
   },
   "jest": {
     "testEnvironment": "node"

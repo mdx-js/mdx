@@ -1,19 +1,23 @@
 {
   "name": "gatsby-theme-mdx",
   "version": "1.5.1",
-  "author": "Brent Jackson <jxnblk@gmail.com>",
-  "license": "MIT",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
+  "author": "Brent Jackson <jxnblk@gmail.com>",
   "contributors": [
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
+  "license": "MIT",
   "scripts": {
-    "start": "gatsby develop",
     "build": "gatsby build",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "start": "gatsby develop"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "dependencies": {
     "@blocks/kit": "0.0.28",
@@ -46,9 +50,5 @@
     "remark-mdx-remove-imports": "^1.5.1",
     "remark-slug": "5.1.2",
     "theme-ui": "0.2.49"
-  },
-  "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
   }
 }

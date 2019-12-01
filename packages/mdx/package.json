@@ -2,17 +2,8 @@
   "name": "@mdx-js/mdx",
   "version": "1.5.1",
   "description": "Parse MDX and transpile to JSX",
-  "license": "MIT",
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "mdxast"
-  ],
-  "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
@@ -26,12 +17,21 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
+  "license": "MIT",
   "files": [
     "index.js",
     "util.js",
     "md-ast-to-mdx-ast.js",
     "mdx-ast-to-mdx-hast.js",
     "mdx-hast-to-jsx.js"
+  ],
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
   ],
   "dependencies": {
     "@babel/core": "7.7.4",
@@ -52,9 +52,6 @@
     "unified": "8.3.2",
     "unist-builder": "1.0.4",
     "unist-util-visit": "2.0.0"
-  },
-  "scripts": {
-    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node"

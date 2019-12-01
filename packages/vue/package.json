@@ -1,14 +1,8 @@
 {
   "name": "@mdx-js/vue",
   "version": "1.5.1",
-  "repository": "mdx-js/mdx",
-  "license": "MIT",
   "description": "MDX support for Vue components",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "files": [
-    "dist"
-  ],
+  "repository": "mdx-js/mdx",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
@@ -16,15 +10,19 @@
   "contributors": [
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
-  "scripts": {
-    "build": "microbundle --format es,cjs --no-sourcemap",
-    "prepublish": "yarn build",
-    "no-test": "jest"
-  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "markdown",
     "vue",
     "mdx",
     "remark"
-  ]
+  ],
+  "scripts": {
+    "no-test": "jest"
+  }
 }

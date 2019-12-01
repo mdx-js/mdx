@@ -2,17 +2,8 @@
   "name": "@mdx-js/util",
   "version": "1.5.1",
   "description": "Utilities for MDX libraries",
-  "license": "MIT",
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "mdxast"
-  ],
-  "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
@@ -22,12 +13,18 @@
   "contributors": [
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
+  "license": "MIT",
   "files": [
     "index.js"
   ],
-  "scripts": {
-    "test": "jest"
-  },
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
   "jest": {
     "testEnvironment": "node"
   }

@@ -6,7 +6,6 @@ const MDXContext = React.createContext({})
 
 export const withMDXComponents = Component => props => {
   const allComponents = useMDXComponents(props.components)
-
   return <Component {...props} components={allComponents} />
 }
 

@@ -2,19 +2,8 @@
   "name": "create-mdx",
   "version": "1.5.1",
   "description": "Initialize an MDX project",
-  "license": "MIT",
-  "keywords": [
-    "create",
-    "mdx",
-    "app",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "unified"
-  ],
-  "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
@@ -28,11 +17,22 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
+  "license": "MIT",
   "bin": {
     "create-mdx": "cli.js"
   },
   "files": [
     "cli.js"
+  ],
+  "keywords": [
+    "create",
+    "mdx",
+    "app",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "unified"
   ],
   "dependencies": {
     "initit": "1.0.0-2"

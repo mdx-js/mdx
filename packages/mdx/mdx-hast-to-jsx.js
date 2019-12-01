@@ -101,17 +101,17 @@ ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
 MDXContent.isMDXComponent = true`
 
     // Check JSX nodes against imports
-    const babelPluginExptractImportNamesInstance = new BabelPluginExtractImportNames()
+    const babelPluginExtractImportNamesInstance = new BabelPluginExtractImportNames()
     transformSync(importStatements, {
       configFile: false,
       babelrc: false,
       plugins: [
         require('@babel/plugin-syntax-jsx'),
         require('@babel/plugin-syntax-object-rest-spread'),
-        babelPluginExptractImportNamesInstance.plugin
+        babelPluginExtractImportNamesInstance.plugin
       ]
     })
-    const importNames = babelPluginExptractImportNamesInstance.state.names
+    const importNames = babelPluginExtractImportNamesInstance.state.names
 
     const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
     const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
@@ -151,9 +151,7 @@ MDXContent.isMDXComponent = true`
 ` +
       uniq(jsxNames)
         .filter(name => !importExportNames.includes(name))
-        .map(name => {
-          return `const ${name} = makeShortcode("${name}");`
-        })
+        .map(name => `const ${name} = makeShortcode("${name}");`)
         .join('\n')
 
     const moduleBase = `${importStatements}

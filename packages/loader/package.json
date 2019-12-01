@@ -2,19 +2,8 @@
   "name": "@mdx-js/loader",
   "version": "1.5.1",
   "description": "Loader for MDX",
-  "license": "MIT",
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "styleguide",
-    "webpack",
-    "loader"
-  ],
-  "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
@@ -28,16 +17,24 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
+  "license": "MIT",
   "files": [
     "index.js"
+  ],
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "styleguide",
+    "webpack",
+    "loader"
   ],
   "dependencies": {
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
     "loader-utils": "1.2.3"
-  },
-  "scripts": {
-    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node"

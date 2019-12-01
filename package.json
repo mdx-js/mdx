@@ -1,31 +1,16 @@
 {
-  "private": true,
-  "license": "MIT",
-  "homepage": "https://mdxjs.com",
   "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "scripts": {
-    "bootstrap": "lerna bootstrap && lerna link --force-local",
-    "clean": "lerna exec \"rm -rf node_modules\"",
-    "docs": "gatsby develop",
-    "docs-build": "gatsby build",
-    "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
-    "now-build": "yarn docs-build",
-    "format": "yarn lint --fix",
-    "lint": "eslint . --cache --ext js,md,mdx -f friendly",
-    "prepublish": "lerna run prepublish",
-    "publish": "lerna publish --force-publish=\"*\"",
-    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci",
-    "publish-next": "lerna publish --npm-tag next --preid rc --force-publish=\"*\"",
-    "test": "lerna run test && yarn lint"
-  },
+  "license": "MIT",
+  "private": true,
   "workspaces": [
-    "packages/*",
     "docs",
+    "packages/*",
     "examples/gatsby",
     "examples/next",
     "examples/parcel",
@@ -35,6 +20,23 @@
     "examples/shortcodes",
     "examples/terminal"
   ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap && lerna link --force-local",
+    "build": "r -f cjs,esm -o dist --exclude 'babel-plugin-*,create-mdx,*loader,mdx,parcel-plugin-mdx,remark-*,runtime,*util'",
+    "clean": "lerna exec \"rm -rf node_modules\"",
+    "docs": "gatsby develop",
+    "docs-build": "gatsby build",
+    "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
+    "format": "yarn lint --fix",
+    "lint": "eslint . --cache --ext js,md,mdx -f friendly",
+    "now-build": "yarn docs-build",
+    "prepublishOnly": "yarn build",
+    "pretest": "yarn build",
+    "publish": "lerna publish --force-publish=\"*\"",
+    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci",
+    "publish-next": "lerna publish --npm-tag next --preid rc --force-publish=\"*\"",
+    "test": "jest"
+  },
   "devDependencies": {
     "@babel/core": "7.7.4",
     "@babel/plugin-syntax-jsx": "7.7.4",
@@ -44,11 +46,16 @@
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
     "@mdx-js/test-util": "^1.5.1",
+    "@mdx-js/vue": "^1.5.1",
+    "@pkgr/rollup": "^0.8.5",
+    "@vue/babel-preset-jsx": "^1.1.2",
     "@vue/test-utils": "1.0.0-beta.30",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-loader": "8.0.6",
+    "babel-plugin-macros": "^2.7.1",
     "babel-plugin-remove-export-keywords": "^1.5.1",
     "babel-plugin-transform-vue-jsx": "4.0.1",
+    "core-js": "^3.4.5",
     "eslint": "6.7.2",
     "eslint-config-prettier": "6.7.0",
     "eslint-config-xo": "0.27.2",
@@ -64,8 +71,8 @@
     "lerna": "3.19.0",
     "lint-staged": "9.5.0",
     "memory-fs": "0.5.0",
-    "microbundle": "0.11.0",
     "prettier": "1.19.1",
+    "prettier-plugin-pkg": "^0.4.6",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "rehype-add-classes": "^1.0.0",
@@ -78,11 +85,39 @@
     "remark-slug": "5.1.2",
     "remark-stringify": "7.0.4",
     "rimraf": "3.0.0",
+    "typescript": "^3.7.2",
     "unified": "8.4.2",
     "vfile": "4.0.2",
     "vue": "2.6.10",
     "vue-template-compiler": "2.6.10",
     "webpack": "4.41.2"
+  },
+  "resolutions": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "create-react-app",
+      "\\bvue\\b"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,md,mdx}": [
+      "eslint --cache --fix -f friendly",
+      "git add"
+    ],
+    "*.{css,html,json,yml}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "prettier": {
     "tabWidth": 2,
@@ -108,21 +143,6 @@
         "validate-links",
         false
       ]
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,md,mdx}": [
-      "eslint --cache --fix -f friendly",
-      "git add"
-    ],
-    "*.{css,html,json,yml}": [
-      "prettier --write",
-      "git add"
     ]
   }
 }
