@@ -120,7 +120,7 @@
       "eslint --cache --fix -f friendly",
       "git add"
     ],
-    "*.{html,json,yml}": [
+    "*.{css,html,json,yml}": [
       "prettier --write",
       "git add"
     ]
