@@ -46,7 +46,8 @@ const testFixture = fixture => {
     compiler.run((err, stats) => {
       if (err) reject(err)
       const module = stats.toJson().modules.find(m => m.name === fileName)
-      resolve(module && module.source)
+        .source
+      resolve(module)
     })
   })
 }

@@ -106,8 +106,9 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "create-react-app",
-      "\\bvue\\b"
+      "<rootDir>/examples/create-react-app",
+      "<rootDir>/packages/vue",
+      "<rootDir>/packages/vue-loader"
     ],
     "testEnvironment": "node"
   },
