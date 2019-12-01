@@ -105,14 +105,13 @@ it('Should render elements without wrapping blank new lines', async () => {
 
 it('Should await and render async plugins', async () => {
   const result = await mdxWithVueCompiler(fixtureBlogPost, {
-    hastPlugins: [
-      () => tree => {
-        return (() => {
+    rehypePlugins: [
+      () => tree =>
+        (() => {
           const headingNode = select('h1', tree)
           const textNode = headingNode.children[0]
           textNode.value = textNode.value.toUpperCase()
         })()
-      }
     ]
   })
 

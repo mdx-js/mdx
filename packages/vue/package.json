@@ -24,5 +24,8 @@
   ],
   "scripts": {
     "no-test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }
