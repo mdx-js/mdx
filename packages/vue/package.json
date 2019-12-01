@@ -25,8 +25,8 @@
     "remark"
   ],
   "devDependencies": {
-    "@babel/core": "7.6.4",
-    "@babel/preset-env": "7.6.3",
+    "@babel/core": "7.7.4",
+    "@babel/preset-env": "7.7.4",
     "@mdx-js/mdx": "^1.5.1",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
