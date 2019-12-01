@@ -16,8 +16,8 @@
     "start": "gatsby develop"
   },
   "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "dependencies": {
     "@blocks/kit": "0.0.28",
@@ -42,7 +42,7 @@
     "gatsby-source-filesystem": "2.1.39",
     "is-absolute-url": "3.0.3",
     "lodash.flatten": "4.4.0",
-    "prism-react-renderer": "0.2.0",
+    "prism-react-renderer": "1.0.2",
     "react-helmet": "5.2.1",
     "react-live": "2.2.1",
     "remark-emoji": "2.0.2",

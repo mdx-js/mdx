@@ -1,3 +1,4 @@
 module.exports = {
-  babelrcRoots: ['.', './packages/*', './examples/*/*']
+  babelrcRoots: ['.', '.docs', './packages/*', './examples/*/*'],
+  plugins: ['@babel/syntax-dynamic-import', '@babel/proposal-class-properties']
 }
