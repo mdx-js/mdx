@@ -7,3 +7,5 @@ os:
   - linux
   - osx
 cache: yarn
+install: yarn --lockfile
+scripts: yarn test

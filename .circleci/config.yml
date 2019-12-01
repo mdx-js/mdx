@@ -32,10 +32,7 @@ jobs:
             - v2-dependencies-
       - run:
           name: Install and Link
-          command: |
-            yarn install
-            yarn lerna exec yarn install
-      - run: yarn lerna exec yarn install
+          command: yarn --lockfile
       - save_cache:
           paths:
             - node_modules
