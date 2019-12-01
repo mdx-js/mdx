@@ -24,8 +24,5 @@
     "jsx",
     "remark",
     "mdxast"
-  ],
-  "jest": {
-    "testEnvironment": "node"
-  }
+  ]
 }

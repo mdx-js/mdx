@@ -33,8 +33,5 @@
     "@mdx-js/util": "^1.5.1",
     "camelcase-css": "2.0.1",
     "style-to-object": "0.3.0"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

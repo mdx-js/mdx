@@ -35,8 +35,5 @@
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
     "loader-utils": "1.2.3"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

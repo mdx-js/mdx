@@ -27,8 +27,5 @@
   ],
   "dependencies": {
     "@babel/helper-plugin-utils": "7.0.0"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

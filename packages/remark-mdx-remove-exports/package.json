@@ -31,8 +31,5 @@
   ],
   "dependencies": {
     "unist-util-remove": "1.0.3"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

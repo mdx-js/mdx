@@ -108,7 +108,8 @@
     "testPathIgnorePatterns": [
       "create-react-app",
       "\\bvue\\b"
-    ]
+    ],
+    "testEnvironment": "node"
   },
   "lint-staged": {
     "*.{js,jsx,md,mdx}": [

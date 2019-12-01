@@ -38,8 +38,5 @@
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
     "buble-jsx-only": "^0.19.8"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

@@ -24,8 +24,5 @@
     "jsx",
     "remark",
     "babel"
-  ],
-  "jest": {
-    "testEnvironment": "node"
-  }
+  ]
 }

@@ -41,8 +41,5 @@
     "is-alphabetical": "1.0.3",
     "remark-parse": "7.0.1",
     "unified": "8.3.2"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }
