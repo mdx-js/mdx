@@ -19,7 +19,7 @@
     "lint": "eslint . --ext .js,.md,.mdx",
     "prepublish": "lerna run prepublish",
     "publish": "lerna publish --force-publish=\"*\"",
-    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci --npm-client npm",
+    "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci",
     "publish-next": "lerna publish --npm-tag next --preid rc --force-publish=\"*\"",
     "test": "lerna run test && yarn lint"
   },
