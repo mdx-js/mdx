@@ -10,6 +10,6 @@ bundle.js
 .DS_Store
 tmp
 artifacts
-.cache
+.*cache
 public
 .npmrc

@@ -4,7 +4,7 @@ const rad = n => (Math.PI * n) / 180
 const rx = (r, n) => r * Math.cos(rad(n))
 const ry = (r, n) => r * Math.sin(rad(n))
 
-const c = (center = 8, radius) => angle => [
+const c = (center = 8, radius = undefined) => angle => [
   center + rx(radius, angle),
   center + ry(radius, angle)
 ]
