@@ -43,7 +43,7 @@ it('Should match sample blog post snapshot', async () => {
 
   expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
             "/* @jsx mdx */
-            
+
             const makeShortcode = name =>
               function MDXDefaultShortcode(props) {
                 console.warn(
@@ -53,7 +53,7 @@ it('Should match sample blog post snapshot', async () => {
                 );
                 return <div {...props} />;
               };
-            
+
             const layoutProps = {};
             const MDXLayout = \\"wrapper\\";
             export default function MDXContent({ components, ...props }) {
@@ -68,7 +68,7 @@ it('Should match sample blog post snapshot', async () => {
                 </MDXLayout>
               );
             }
-            
+
             MDXContent.isMDXComponent = true;
             "
       `)
@@ -273,14 +273,12 @@ it('Should wrap export function when wrapExport is provided', async () => {
 test('Should await and render async plugins', async () => {
   const result = await mdx(fixtureBlogPost, {
     rehypePlugins: [
-      _options => tree => {
-        // eslint-disable-next-line require-await
-        return (async () => {
+      _options => tree =>
+        (async () => {
           const headingNode = select('h1', tree)
           const textNode = headingNode.children[0]
           textNode.value = textNode.value.toUpperCase()
         })()
-      }
     ]
   })
 
