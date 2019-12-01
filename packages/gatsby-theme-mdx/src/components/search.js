@@ -67,7 +67,7 @@ export default props => {
       })
 
       const path =
-        'https://unpkg.com/docsearch.js@2.6.2/dist/cdn/docsearch.min.css'
+        'https://unpkg.com/docsearch.js@2.6.3/dist/cdn/docsearch.min.css'
       const link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
       link.setAttribute('type', 'text/css')
