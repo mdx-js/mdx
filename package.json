@@ -29,7 +29,7 @@
     "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
     "format": "yarn lint --fix",
     "lint": "eslint . --cache --ext js,md,mdx -f friendly",
-    "now-build": "yarn docs-build",
+    "now-build": "yarn build && yarn docs-build",
     "prepublishOnly": "yarn build",
     "pretest": "yarn build",
     "publish": "lerna publish --force-publish=\"*\"",
