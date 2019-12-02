@@ -46,7 +46,7 @@
     "lodash.uniq": "4.5.0",
     "mdast-util-to-hast": "6.0.2",
     "remark-mdx": "^1.5.1",
-    "remark-parse": "7.0.1",
+    "remark-parse": "7.0.2",
     "remark-squeeze-paragraphs": "3.0.4",
     "style-to-object": "0.3.0",
     "unified": "8.3.2",
