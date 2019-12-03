@@ -16,19 +16,24 @@ npm install --save @mdx-js/react
 ```
 
 ## Usage
+```md
+// helloworld.md
+# Hello, World!
+```
 
 ```jsx
-/* @jsx mdx */
 import React from 'react'
-import {renderToString} from 'react-dom/server'
-import {MDXProvider, mdx} from '@mdx-js/react'
+import { MDXProvider } from '@mdx-js/react'
+import { renderToString } from 'react-dom/server'
+
+import HelloWorld from './helloworld.md'
 
 const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
 
 console.log(
   renderToString(
     <MDXProvider components={{ h1: H1 }}>
-      <h1>Hello, world!</h1>
+      <HelloWorld />
     </MDXProvider>
   )
 )
