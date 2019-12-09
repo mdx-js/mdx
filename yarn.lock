@@ -2216,7 +2216,7 @@
   resolved "https://registry.yarnpkg.com/@pkgr/named-exports/-/named-exports-0.4.0.tgz#2ee994cfea1e50d888adb0df1e7c4625651dcec8"
   integrity sha512-DXWo3ZQWp1XBE7q9M3n/M+8GTuz8Ob0/qAeJMOH5qWDTRv6eU/UAkfHNo340/53+gX5MdiHRqByexNrB6db25g==
 
-"@pkgr/rollup@^0.8.5":
+"@pkgr/rollup@0.8.5":
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/@pkgr/rollup/-/rollup-0.8.5.tgz#6a6b556fb7f60283dda5346ffc4b141a21c84dd5"
   integrity sha512-znL6zDGNNzR4BGIKiLf5Id9k4M/eIWBVZd8UYkmDDygyr1R2kE6Py2/2Yq7YCiKaGiEuZe6AAAMpVYAugA61PA==
@@ -2765,7 +2765,7 @@
     babel-plugin-module-resolver "3.2.0"
     core-js "^2.6.5"
 
-"@vue/babel-preset-jsx@^1.0.0", "@vue/babel-preset-jsx@^1.1.2":
+"@vue/babel-preset-jsx@1.1.2", "@vue/babel-preset-jsx@^1.0.0":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@vue/babel-preset-jsx/-/babel-preset-jsx-1.1.2.tgz#2e169eb4c204ea37ca66c2ea85a880bfc99d4f20"
   integrity sha512-zDpVnFpeC9YXmvGIDSsKNdL7qCG2rA3gjywLYHPCKDT10erjxF4U+6ay9X6TW5fl4GsDlJp9bVfAVQAAVzxxvQ==
@@ -3991,7 +3991,7 @@ babel-plugin-jest-hoist@^24.9.0:
   dependencies:
     "@types/babel__traverse" "^7.0.6"
 
-babel-plugin-macros@^2.0.0, babel-plugin-macros@^2.7.1:
+babel-plugin-macros@2.7.1, babel-plugin-macros@^2.0.0, babel-plugin-macros@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-macros/-/babel-plugin-macros-2.7.1.tgz#ee294383c1a38f9d6535be3d89734824cb3ed415"
   integrity sha512-HNM284amlKSQ6FddI4jLXD+XTqF0cTYOe5uemOIZxHJHnamC+OhFQ57rMF9sgnYhkJQptVl9U1SKVZsV9/GLQQ==
@@ -5679,7 +5679,7 @@ core-js-pure@3.1.4:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.1.4.tgz#5fa17dc77002a169a3566cc48dc774d2e13e3769"
   integrity sha512-uJ4Z7iPNwiu1foygbcZYJsJs1jiXrTTCvxfLDXNhI/I+NHbSIEyr548y4fcsCEyWY0XgfAG/qqaunJ1SThHenA==
 
-core-js@2, core-js@^2.4.0, core-js@^2.4.1, core-js@^2.6.10, core-js@^2.6.5:
+core-js@2, core-js@2.6.10, core-js@^2.4.0, core-js@^2.4.1, core-js@^2.6.10, core-js@^2.6.5:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.10.tgz#8a5b8391f8cc7013da703411ce5b585706300d7f"
   integrity sha512-I39t74+4t+zau64EN1fE5v2W31Adtc/REhzWN+gWRRXg6WH5qAsZm62DHpQ1+Yhe4047T55jvzz7MUqF/dBBlA==
@@ -7032,7 +7032,7 @@ eslint-config-xo@0.27.2:
   resolved "https://registry.yarnpkg.com/eslint-config-xo/-/eslint-config-xo-0.27.2.tgz#71aff3d5b5554e9e5b5e1853e21da7799bb53f1f"
   integrity sha512-qEuZP0zNQkWpOdNZvWnfY2GNp1AZ33uXgeOXl4DN5YVLHFvekHbeSM2FFZ8A489fp1rCCColVRlJsYMf28o4DA==
 
-eslint-formatter-friendly@^7.0.0:
+eslint-formatter-friendly@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/eslint-formatter-friendly/-/eslint-formatter-friendly-7.0.0.tgz#32a4998ababa0a39994aed629b831fda7dabc864"
   integrity sha512-WXg2D5kMHcRxIZA3ulxdevi8/BGTXu72pfOO5vXHqcAfClfIWDSlOljROjCSOCcKvilgmHz1jDWbvFCZHjMQ5w==
@@ -10889,7 +10889,7 @@ jest-worker@^24.6.0, jest-worker@^24.9.0:
     merge-stream "^2.0.0"
     supports-color "^6.1.0"
 
-jest@^24.9.0:
+jest@24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest/-/jest-24.9.0.tgz#987d290c05a08b52c56188c1002e368edb007171"
   integrity sha512-YvkBL1Zm7d2B1+h5fHEOdyjCG+sGMz4f8D86/0HiqJ6MB4MnDc8FgP5vdWsGnemOQro7lnYo8UakZ3+5A0jxGw==
@@ -14335,7 +14335,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier-plugin-pkg@^0.4.6:
+prettier-plugin-pkg@0.4.6:
   version "0.4.6"
   resolved "https://registry.yarnpkg.com/prettier-plugin-pkg/-/prettier-plugin-pkg-0.4.6.tgz#285feb45cb8450d891e1ed403399dd1af03c1038"
   integrity sha512-z3sEbhv+vptgatJb5tz5Qzmc2mJFt5rNVIiP5/C007CFx1TMTw0nlBmPhu2kkWp68ho6RPk6olXhOWTNJZCPZg==
@@ -15275,7 +15275,7 @@ regjsparser@^0.6.0:
   dependencies:
     jsesc "~0.5.0"
 
-rehype-add-classes@^1.0.0:
+rehype-add-classes@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/rehype-add-classes/-/rehype-add-classes-1.0.0.tgz#3d8b37b13ce06e2eb8681b33ccf1c2995611a33b"
   integrity sha512-Iz8t2KhCNAL+0AHKjxb+kVwsHk/pI3Cy4k0R70ZGzoQiZ7WQm3o8+3odJkMhFRfcNIK1lNShIHEdC90H5LwLdg==
@@ -18469,7 +18469,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.7.2:
+typescript@3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"
   integrity sha512-ml7V7JfiN2Xwvcer+XAf2csGO1bPBdRbFCkYBczNZggrBZ9c7G3riSUeJmqEU5uOtXNPMhE3n+R4FA/3YOAWOQ==
