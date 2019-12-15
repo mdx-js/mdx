@@ -66,7 +66,10 @@ module.exports = (value, vfile) => {
 
   // Group adjacent nodes of the same type so that they can be combined
   // into a single node later, this also ensures that order is preserved
-  let currType = allNodes[0].type
+  let currType
+  if (allNodes.length) {
+    currType = allNodes[0].type
+  }
   const groupedNodes = allNodes.reduce(
     (acc, curr) => {
       // Default export nodes shouldn't be grouped with other exports
