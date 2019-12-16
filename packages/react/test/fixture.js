@@ -9,6 +9,7 @@ export default () => (
   <wrapper>
     <h1 />
     <h2 />
+    <del />
     <Component
       components={{
         h3: props => <h3 {...props} />,

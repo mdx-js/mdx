@@ -7,6 +7,7 @@ import Fixture from './fixture'
 const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
 const H2 = props => <h2 style={{color: 'rebeccapurple'}} {...props} />
 const CustomH2 = props => <h2 style={{color: 'papayawhip'}} {...props} />
+const CustomDelete = props => <del style={{color: 'crimson'}} {...props} />
 
 it('Should allow components to be passed via context', () => {
   const Layout = ({children}) => <div id="layout">{children}</div>
@@ -64,4 +65,14 @@ it('Should pass prop components along', () => {
   const result = renderToString(<Fixture />)
 
   expect(result).toMatch(/h3, h4/)
+})
+
+it('Should render custom del', () => {
+  const result = renderToString(
+    <MDXProvider components={{del: CustomDelete}}>
+      <Fixture />
+    </MDXProvider>
+  )
+
+  expect(result).toMatch(/style="color:crimson"/)
 })
