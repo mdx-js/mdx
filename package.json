@@ -85,7 +85,7 @@
     "remark-slug": "5.1.2",
     "remark-stringify": "7.0.4",
     "rimraf": "3.0.0",
-    "typescript": "3.7.2",
+    "typescript": "3.7.3",
     "unified": "8.4.2",
     "vfile": "4.0.2",
     "vue": "2.6.10",
