@@ -775,7 +775,7 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
-"@babel/preset-env@7.4.5", "@babel/preset-env@7.7.4", "@babel/preset-env@^7.0.0 < 7.4.0", "@babel/preset-env@^7.0.0 <7.4.0", "@babel/preset-env@^7.5.5", "@babel/preset-env@^7.7.1", "@babel/preset-env@^7.7.4":
+"@babel/preset-env@7.4.5", "@babel/preset-env@7.7.4", "@babel/preset-env@^7.0.0 < 7.4.0", "@babel/preset-env@^7.0.0 <7.4.0", "@babel/preset-env@^7.5.5", "@babel/preset-env@^7.7.4", "@babel/preset-env@^7.7.6":
   version "7.7.4"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.7.4.tgz#ccaf309ae8d1ee2409c85a4e2b5e280ceee830f8"
   integrity sha512-Dg+ciGJjwvC1NIe/DGblMbcGq1HOtKbw8RLl4nIjlfcILKEOkWT/vRqPpumswABEBVudii6dnVwrBtzD7ibm4g==
@@ -2213,27 +2213,28 @@
   resolved "https://registry.yarnpkg.com/@pkgr/named-exports/-/named-exports-0.4.0.tgz#2ee994cfea1e50d888adb0df1e7c4625651dcec8"
   integrity sha512-DXWo3ZQWp1XBE7q9M3n/M+8GTuz8Ob0/qAeJMOH5qWDTRv6eU/UAkfHNo340/53+gX5MdiHRqByexNrB6db25g==
 
-"@pkgr/rollup@0.8.5":
-  version "0.8.5"
-  resolved "https://registry.yarnpkg.com/@pkgr/rollup/-/rollup-0.8.5.tgz#6a6b556fb7f60283dda5346ffc4b141a21c84dd5"
-  integrity sha512-znL6zDGNNzR4BGIKiLf5Id9k4M/eIWBVZd8UYkmDDygyr1R2kE6Py2/2Yq7YCiKaGiEuZe6AAAMpVYAugA61PA==
+"@pkgr/rollup@0.8.6":
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/@pkgr/rollup/-/rollup-0.8.6.tgz#3689bfd1a40bdef5e3c802e8794c873fccb90f63"
+  integrity sha512-hINzs8En2SaQp9/OILDQXFiSwVSMvIJReiLyfK4dkvwtOulsu3avWYV8fXyXxv+zbsCE5tRQ7AX6Cpe+Q+UW+A==
   dependencies:
-    "@babel/preset-env" "^7.7.1"
+    "@babel/preset-env" "^7.7.6"
     "@pkgr/es-modules" "^0.2.1"
     "@pkgr/named-exports" "^0.4.0"
     "@pkgr/umd-globals" "^0.3.0"
-    "@pkgr/utils" "^0.3.3"
+    "@pkgr/utils" "^0.3.4"
     "@rollup/plugin-json" "^4.0.0"
     "@rollup/plugin-replace" "^2.2.1"
+    "@rollup/plugin-url" "^4.0.0"
     "@rxts/rollup-plugin-alias" "^0.1.1"
     builtin-modules "^3.1.0"
     commander "^4.0.1"
     debug "^4.1.1"
     is-glob "^4.0.1"
-    jsox "^1.1.117"
+    jsox "^1.1.121"
     lodash "^4.17.15"
     micromatch "^4.0.2"
-    rollup "^1.27.0"
+    rollup "^1.27.9"
     rollup-plugin-babel "^4.3.3"
     rollup-plugin-commonjs "^10.1.0"
     rollup-plugin-copy "^3.1.0"
@@ -2241,7 +2242,6 @@
     rollup-plugin-postcss "^2.0.3"
     rollup-plugin-terser "^5.1.2"
     rollup-plugin-typescript "^1.0.1"
-    rollup-plugin-url "^3.0.0"
     tslib "^1.10.0"
 
 "@pkgr/umd-globals@^0.3.0":
@@ -2249,10 +2249,10 @@
   resolved "https://registry.yarnpkg.com/@pkgr/umd-globals/-/umd-globals-0.3.0.tgz#ba82ddc4b6c2f864b4635fa8a6257f65f57b40b3"
   integrity sha512-tnSeL23iFiqgmN6ISWG5cTJ/Cv7Kol81MolfPowYj63rAtEXyr0p1uHBXxFWUyM7WNUGJSUw98xdOdTzh1+BaQ==
 
-"@pkgr/utils@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@pkgr/utils/-/utils-0.3.3.tgz#efd1684b7e35b193e9e1293af79a20c2e29000e7"
-  integrity sha512-jAO8ERHh8x1ypFcqdI4LwcNcTJasBeLasGxfm67pyIvIc7rL2HN21gTpQnNUWNwvaTO2siFf9p31Bw0YOX8+mw==
+"@pkgr/utils@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@pkgr/utils/-/utils-0.3.4.tgz#a68e4ee9e00c8d671cea1b3dac3395f2e72617b6"
+  integrity sha512-pGlTsk+jwJEh9Mtj2S4cM8pgjdVHF+p1suJEGtdNTqdkOKgkqnf/sHSTtFRVfbudUMeBcx+2IwQm74Fla0OagQ==
   dependencies:
     chalk "^3.0.0"
     cross-spawn "^7.0.1"
@@ -2298,6 +2298,15 @@
   dependencies:
     magic-string "^0.25.2"
     rollup-pluginutils "^2.6.0"
+
+"@rollup/plugin-url@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-url/-/plugin-url-4.0.0.tgz#ad9c268093a0962f5663e909969fb5ab0dad5752"
+  integrity sha512-Xu2Kl17soRopkpkjrCAj3M3S/bGkzpKDrfM5iTQeZ3MeHz8VEv2EPqQa4MwVWtdw+BlApM2yFkGR0gZOGS0nsQ==
+  dependencies:
+    make-dir "^3.0.0"
+    mime "^2.4.4"
+    rollup-pluginutils "^2.8.2"
 
 "@rxts/rollup-plugin-alias@^0.1.1":
   version "0.1.1"
@@ -11086,7 +11095,7 @@ jsonparse@^1.2.0:
   resolved "https://registry.yarnpkg.com/jsonparse/-/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
   integrity sha1-P02uSpH6wxX3EGL4UhzCOfE2YoA=
 
-jsox@^1.1.117:
+jsox@^1.1.121:
   version "1.1.121"
   resolved "https://registry.yarnpkg.com/jsox/-/jsox-1.1.121.tgz#454f3adb4346782d4d227543774b4d7644d4cc0a"
   integrity sha512-qhQRR03q0Ggo7scpYtyp0kk2Wu+xYB2hOtMcdqBhVoMRMKPJZtQtIzNMHGAgYD4FpVTBFOASVyCFH2fhKzPPXg==
@@ -16566,7 +16575,7 @@ rollup-plugin-typescript@^1.0.1:
     resolve "^1.10.0"
     rollup-pluginutils "^2.5.0"
 
-rollup-plugin-url@^2.2.4, rollup-plugin-url@^3.0.0:
+rollup-plugin-url@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/rollup-plugin-url/-/rollup-plugin-url-2.2.4.tgz#36a6dedb709f73647bed7b253b9dcd4f3e781af4"
   integrity sha512-vQjMgJj3tYrg6nKYO/Tvc8s1WTqbaLzHXia17358E6vO0Iq4Ih5WcWYRPopLMUx0x63/31+9ezApAL0HFd998w==
@@ -16582,10 +16591,10 @@ rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.5.0, rollup-pluginutils@^2.6.0,
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^1.27.0:
-  version "1.27.6"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.6.tgz#287f255af0c76c30a60df67900e5dd8379f3147e"
-  integrity sha512-/NA1sjU92K9KZHiPdrHMzykFABcjeDaxS8xh19hYj8FKbtGNEahbXkdYatlk75dZF0oRXwzA9KIjHedcxcnYng==
+rollup@^1.27.9:
+  version "1.27.13"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.13.tgz#d6d3500512daacbf8de54d2800de62d893085b90"
+  integrity sha512-hDi7M07MpmNSDE8YVwGVFA8L7n8jTLJ4lG65nMAijAyqBe//rtu4JdxjUBE7JqXfdpqxqDTbCDys9WcqdpsQvw==
   dependencies:
     "@types/estree" "*"
     "@types/node" "*"
