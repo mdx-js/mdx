@@ -1,21 +1,21 @@
 {
-  "private": true,
   "name": "webpack-example",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack -p"
-  },
   "author": "Brent Jackson",
   "license": "MIT",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack -p",
+    "start": "webpack-dev-server"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
-    "@mdx-js/loader": "^1.5.1",
-    "@mdx-js/mdx": "^1.5.1",
+    "@mdx-js/loader": "^1.5.2",
+    "@mdx-js/mdx": "^1.5.2",
     "babel-loader": "^8.0.6",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

@@ -1,29 +1,29 @@
 {
   "name": "vue-example",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "private": true,
   "scripts": {
-    "start": "yarn serve",
+    "build": "vue-cli-service build",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "start": "yarn serve"
   },
   "dependencies": {
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@mdx-js/vue-loader": "^1.5.1",
+    "@mdx-js/vue-loader": "^1.5.2",
     "@vue/cli-plugin-babel": "^3.10.0",
     "@vue/cli-service": "^3.10.0",
     "vue-template-compiler": "^2.6.10"
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  }
 }
