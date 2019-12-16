@@ -52,7 +52,7 @@
     "@vue/test-utils": "1.0.0-beta.30",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-loader": "8.0.6",
-    "babel-plugin-macros": "2.7.1",
+    "babel-plugin-macros": "2.8.0",
     "babel-plugin-remove-export-keywords": "^1.5.1",
     "babel-plugin-transform-vue-jsx": "4.0.1",
     "core-js": "2.6.10",
