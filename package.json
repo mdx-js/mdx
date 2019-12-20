@@ -22,8 +22,8 @@
   ],
   "scripts": {
     "bootstrap": "yarn && lerna bootstrap && lerna link --force-local",
-    "build": "r -f cjs,esm -o dist --exclude 'babel-plugin-*,create-mdx,*loader,mdx,parcel-plugin-mdx,remark-*,runtime,*util'",
-    "clean": "lerna exec \"rm -rf node_modules\"",
+    "build": "r -f cjs,esm -o dist --exclude 'babel-plugin-*,create-mdx,*loader,mdx,parcel-plugin-mdx,remark-*,*util'",
+    "clean": "lerna exec \"rimraf dist node_modules\"",
     "docs": "gatsby develop",
     "docs-build": "gatsby build",
     "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
@@ -96,8 +96,7 @@
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
-    "@babel/preset-typescript": "^7.7.4",
-    "rollup-plugin-url": "^2.2.4"
+    "@babel/preset-typescript": "^7.7.4"
   },
   "husky": {
     "hooks": {

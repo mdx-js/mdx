@@ -18,6 +18,9 @@
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
   ],
   "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
   "files": [
