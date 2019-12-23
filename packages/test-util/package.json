@@ -26,9 +26,9 @@
     "mdxast"
   ],
   "dependencies": {
-    "@babel/core": "7.7.4",
-    "@babel/plugin-proposal-object-rest-spread": "7.7.4",
-    "@babel/plugin-transform-react-jsx": "7.7.4",
+    "@babel/core": "7.7.7",
+    "@babel/plugin-proposal-object-rest-spread": "7.7.7",
+    "@babel/plugin-transform-react-jsx": "7.7.7",
     "@mdx-js/mdx": "^1.5.3",
     "@mdx-js/react": "^1.5.3",
     "babel-plugin-remove-export-keywords": "^1.5.3",

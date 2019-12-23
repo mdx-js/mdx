@@ -38,9 +38,9 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@babel/core": "7.7.4",
+    "@babel/core": "7.7.7",
     "@babel/plugin-syntax-jsx": "7.7.4",
-    "@babel/preset-env": "7.7.4",
+    "@babel/preset-env": "7.7.7",
     "@babel/preset-react": "7.7.4",
     "@mapbox/rehype-prism": "0.3.1",
     "@mdx-js/mdx": "^1.5.1",
@@ -93,8 +93,8 @@
     "webpack": "4.41.2"
   },
   "resolutions": {
-    "@babel/core": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
+    "@babel/core": "7.7.7",
+    "@babel/preset-env": "7.7.7",
     "@babel/preset-react": "^7.7.4",
     "@babel/preset-typescript": "^7.7.4"
   },
