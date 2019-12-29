@@ -1,19 +1,19 @@
 {
-  "private": true,
   "name": "razzle",
   "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "start": "razzle start",
     "build": "razzle build",
-    "test": "razzle test --env=jsdom",
-    "start:prod": "NODE_ENV=production node build/server.js"
+    "start": "razzle start",
+    "start:prod": "NODE_ENV=production node build/server.js",
+    "test": "razzle test --env=jsdom"
   },
   "dependencies": {
-    "@mdx-js/tag": "^0.16.1",
-    "express": "^4.16.4",
-    "razzle": "^2.4.0",
-    "razzle-plugin-mdx": "^2.4.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "@mdx-js/tag": "^0.20.3",
+    "express": "^4.17.1",
+    "razzle": "^3.0.0",
+    "razzle-plugin-mdx": "^3.0.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   }
 }
