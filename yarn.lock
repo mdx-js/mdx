@@ -819,7 +819,7 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
-"@babel/preset-env@7.4.5", "@babel/preset-env@7.7.7", "@babel/preset-env@^7.0.0 < 7.4.0", "@babel/preset-env@^7.0.0 <7.4.0", "@babel/preset-env@^7.5.5", "@babel/preset-env@^7.7.4", "@babel/preset-env@^7.7.6":
+"@babel/preset-env@7.4.5", "@babel/preset-env@7.7.7", "@babel/preset-env@^7.0.0 < 7.4.0", "@babel/preset-env@^7.0.0 <7.4.0", "@babel/preset-env@^7.5.5", "@babel/preset-env@^7.7.4", "@babel/preset-env@^7.7.7":
   version "7.7.7"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.7.7.tgz#c294167b91e53e7e36d820e943ece8d0c7fe46ac"
   integrity sha512-pCu0hrSSDVI7kCVUOdcMNQEbOPJ52E+LrQ14sN8uL2ALfSqePZQlKrOy+tM4uhEdYlCHi4imr8Zz2cZe9oSdIg==
@@ -2257,18 +2257,19 @@
   resolved "https://registry.yarnpkg.com/@pkgr/named-exports/-/named-exports-0.4.0.tgz#2ee994cfea1e50d888adb0df1e7c4625651dcec8"
   integrity sha512-DXWo3ZQWp1XBE7q9M3n/M+8GTuz8Ob0/qAeJMOH5qWDTRv6eU/UAkfHNo340/53+gX5MdiHRqByexNrB6db25g==
 
-"@pkgr/rollup@0.8.6":
-  version "0.8.6"
-  resolved "https://registry.yarnpkg.com/@pkgr/rollup/-/rollup-0.8.6.tgz#3689bfd1a40bdef5e3c802e8794c873fccb90f63"
-  integrity sha512-hINzs8En2SaQp9/OILDQXFiSwVSMvIJReiLyfK4dkvwtOulsu3avWYV8fXyXxv+zbsCE5tRQ7AX6Cpe+Q+UW+A==
+"@pkgr/rollup@0.8.7":
+  version "0.8.7"
+  resolved "https://registry.yarnpkg.com/@pkgr/rollup/-/rollup-0.8.7.tgz#b5385c52c41329681641385e4455d253128f0660"
+  integrity sha512-s6idnugwR/SxY7//tkjGn79UQzDBA3bvgUk3VK3S9VSm6KxSwm84nuo7hROy1YxcJIvEqLjx3VC9wsN7duVk6Q==
   dependencies:
-    "@babel/preset-env" "^7.7.6"
+    "@babel/preset-env" "^7.7.7"
     "@pkgr/es-modules" "^0.2.1"
     "@pkgr/named-exports" "^0.4.0"
     "@pkgr/umd-globals" "^0.3.0"
     "@pkgr/utils" "^0.3.4"
-    "@rollup/plugin-json" "^4.0.0"
-    "@rollup/plugin-replace" "^2.2.1"
+    "@rollup/plugin-json" "^4.0.1"
+    "@rollup/plugin-node-resolve" "^6.0.0"
+    "@rollup/plugin-replace" "^2.3.0"
     "@rollup/plugin-url" "^4.0.0"
     "@rxts/rollup-plugin-alias" "^0.1.1"
     builtin-modules "^3.1.0"
@@ -2278,13 +2279,12 @@
     jsox "^1.1.121"
     lodash "^4.17.15"
     micromatch "^4.0.2"
-    rollup "^1.27.9"
+    rollup "^1.27.14"
     rollup-plugin-babel "^4.3.3"
     rollup-plugin-commonjs "^10.1.0"
     rollup-plugin-copy "^3.1.0"
-    rollup-plugin-node-resolve "^5.2.0"
     rollup-plugin-postcss "^2.0.3"
-    rollup-plugin-terser "^5.1.2"
+    rollup-plugin-terser "^5.1.3"
     rollup-plugin-typescript "^1.0.1"
     tslib "^1.10.0"
 
@@ -2328,17 +2328,28 @@
   dependencies:
     styled-system "^5.0.0"
 
-"@rollup/plugin-json@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-json/-/plugin-json-4.0.0.tgz#4462e83c7ad5544bef4a601a6e8450daedc4b69b"
-  integrity sha512-Z65CtEVWv40+ri4CvmswyhtuUtki9yP5p0UJN/GyCKKyU4jRuDS9CG0ZuV7/XuS7zGkoajyE7E4XBEaC4GW62A==
+"@rollup/plugin-json@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-json/-/plugin-json-4.0.1.tgz#223898c6c37993886da06989b0e93ceef52aa3ce"
+  integrity sha512-soxllkhOGgchswBAAaTe7X9G80U2tjjHvXv0sBrriLJcC/89PkP59iTrKPOfbz3SjX088mKDmMhAscuyLz8ZSg==
   dependencies:
     rollup-pluginutils "^2.5.0"
 
-"@rollup/plugin-replace@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-replace/-/plugin-replace-2.2.1.tgz#94af20cb3d70cccdcec991d1f97dd373936ec544"
-  integrity sha512-dgq5ijT8fK18KTb1inenZ61ivTayV7pvbz2+ivT+VN20BOgJVM1fqoBETqGHKgFVm/J9BhR82mQyAtxfpPv1lQ==
+"@rollup/plugin-node-resolve@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-6.0.0.tgz#f351e29b45c007c17df4e28a0efd0d1f5662f59b"
+  integrity sha512-GqWz1CfXOsqpeVMcoM315+O7zMxpRsmhWyhJoxLFHVSp9S64/u02i7len/FnbTNbmgYs+sZyilasijH8UiuboQ==
+  dependencies:
+    "@rollup/pluginutils" "^3.0.0"
+    "@types/resolve" "0.0.8"
+    builtin-modules "^3.1.0"
+    is-module "^1.0.0"
+    resolve "^1.11.1"
+
+"@rollup/plugin-replace@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-replace/-/plugin-replace-2.3.0.tgz#86d88746383e40dd81cffb5216449cc51a734eb9"
+  integrity sha512-rzWAMqXAHC1w3eKpK6LxRqiF4f3qVFaa1sGii6Bp3rluKcwHNOpPt+hWRCmAH6SDEPtbPiLFf0pfNQyHs6Btlg==
   dependencies:
     magic-string "^0.25.2"
     rollup-pluginutils "^2.6.0"
@@ -2351,6 +2362,13 @@
     make-dir "^3.0.0"
     mime "^2.4.4"
     rollup-pluginutils "^2.8.2"
+
+"@rollup/pluginutils@^3.0.0":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-3.0.1.tgz#6923a24c4a0db2917e5c77b1ed7d6721ac7fe58e"
+  integrity sha512-PmNurkecagFimv7ZdKCVOfQuqKDPkrcpLFxRBcQ00LYr4HAjJwhCFxBiY2Xoletll2htTIiXBg6g0Yg21h2M3w==
+  dependencies:
+    estree-walker "^0.6.1"
 
 "@rxts/rollup-plugin-alias@^0.1.1":
   version "0.1.1"
@@ -16697,17 +16715,6 @@ rollup-plugin-copy@^3.1.0:
     globby "10.0.1"
     is-plain-object "^3.0.0"
 
-rollup-plugin-node-resolve@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-node-resolve/-/rollup-plugin-node-resolve-5.2.0.tgz#730f93d10ed202473b1fb54a5997a7db8c6d8523"
-  integrity sha512-jUlyaDXts7TW2CqQ4GaO5VJ4PwwaV8VUGA7+km3n6k6xtOEacf61u0VXwN80phY/evMcaS+9eIeJ9MOyDxt5Zw==
-  dependencies:
-    "@types/resolve" "0.0.8"
-    builtin-modules "^3.1.0"
-    is-module "^1.0.0"
-    resolve "^1.11.1"
-    rollup-pluginutils "^2.8.1"
-
 rollup-plugin-postcss@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/rollup-plugin-postcss/-/rollup-plugin-postcss-2.0.3.tgz#1fd5b7e1fc7545cb0084d9c99d11b259e41a05e6"
@@ -16728,15 +16735,15 @@ rollup-plugin-postcss@^2.0.3:
     rollup-pluginutils "^2.0.1"
     style-inject "^0.3.0"
 
-rollup-plugin-terser@^5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-5.1.2.tgz#3e41256205cb75f196fc70d4634227d1002c255c"
-  integrity sha512-sWKBCOS+vUkRtHtEiJPAf+WnBqk/C402fBD9AVHxSIXMqjsY7MnYWKYEUqGixtr0c8+1DjzUEPlNgOYQPVrS1g==
+rollup-plugin-terser@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-5.1.3.tgz#5f4c4603b12b4f8d093f4b6f31c9aa5eba98a223"
+  integrity sha512-FuFuXE5QUJ7snyxHLPp/0LFXJhdomKlIx/aK7Tg88Yubsx/UU/lmInoJafXJ4jwVVNcORJ1wRUC5T9cy5yk0wA==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     jest-worker "^24.6.0"
     rollup-pluginutils "^2.8.1"
-    serialize-javascript "^1.7.0"
+    serialize-javascript "^2.1.2"
     terser "^4.1.0"
 
 rollup-plugin-typescript@^1.0.1:
@@ -16754,10 +16761,10 @@ rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.5.0, rollup-pluginutils@^2.6.0,
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^1.27.9:
-  version "1.27.13"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.13.tgz#d6d3500512daacbf8de54d2800de62d893085b90"
-  integrity sha512-hDi7M07MpmNSDE8YVwGVFA8L7n8jTLJ4lG65nMAijAyqBe//rtu4JdxjUBE7JqXfdpqxqDTbCDys9WcqdpsQvw==
+rollup@^1.27.14:
+  version "1.27.14"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.14.tgz#940718d5eec1a6887e399aa0089944bae5c4f377"
+  integrity sha512-DuDjEyn8Y79ALYXMt+nH/EI58L5pEw5HU9K38xXdRnxQhvzUTI/nxAawhkAHUQeudANQ//8iyrhVRHJBuR6DSQ==
   dependencies:
     "@types/estree" "*"
     "@types/node" "*"
