@@ -90,7 +90,7 @@
     "vfile": "4.0.2",
     "vue": "2.6.10",
     "vue-template-compiler": "2.6.10",
-    "webpack": "4.41.4"
+    "webpack": "4.41.5"
   },
   "resolutions": {
     "@babel/core": "7.7.7",
