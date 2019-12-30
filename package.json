@@ -88,8 +88,8 @@
     "typescript": "3.7.4",
     "unified": "8.4.2",
     "vfile": "4.0.2",
-    "vue": "2.6.10",
-    "vue-template-compiler": "2.6.10",
+    "vue": "2.6.11",
+    "vue-template-compiler": "2.6.11",
     "webpack": "4.41.5"
   },
   "resolutions": {
