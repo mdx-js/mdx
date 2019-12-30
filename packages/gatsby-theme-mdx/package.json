@@ -38,7 +38,7 @@
     "gatsby-plugin-mdx": "1.0.58",
     "gatsby-plugin-page-creator": "2.1.32",
     "gatsby-plugin-react-helmet": "3.1.16",
-    "gatsby-plugin-theme-ui": "0.2.43",
+    "gatsby-plugin-theme-ui": "0.2.53",
     "gatsby-source-filesystem": "2.1.39",
     "is-absolute-url": "3.0.3",
     "lodash.flatten": "4.4.0",
