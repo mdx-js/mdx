@@ -49,6 +49,6 @@
     "remark-mdx-remove-exports": "^1.5.3",
     "remark-mdx-remove-imports": "^1.5.3",
     "remark-slug": "5.1.2",
-    "theme-ui": "0.2.49"
+    "theme-ui": "0.2.52"
   }
 }
