@@ -14615,7 +14615,7 @@ pretty@^2.0.0:
     extend-shallow "^2.0.1"
     js-beautify "^1.6.12"
 
-prism-react-renderer@1.0.2:
+prism-react-renderer@1.0.2, prism-react-renderer@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.0.2.tgz#3bb9a6a42f76fc049b03266298c7068fdd4b7ea9"
   integrity sha512-0++pJyRfu4v2OxI/Us/5RLui9ESDkTiLkVCtKuPZYdpB8UQWJpnJQhPrWab053XtsKW3oM0sD69uJ6N9exm1Ag==
@@ -15049,7 +15049,21 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-live@2.2.1, react-live@^2.1.2:
+react-live@2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-live/-/react-live-2.2.2.tgz#834edf1c11204e49fa7468166316b2e70da1a6b0"
+  integrity sha512-kJYAzKnPsR4oXleAX9lLsJA330BhTmSWHhr3ienZA2E/0eFDRodGl3I7sge8pp1vjc2K5Aaz73KpFUnV7Lq/DQ==
+  dependencies:
+    buble "0.19.6"
+    core-js "^2.4.1"
+    create-react-context "0.2.2"
+    dom-iterator "^1.0.0"
+    prism-react-renderer "^1.0.1"
+    prop-types "^15.5.8"
+    react-simple-code-editor "^0.10.0"
+    unescape "^1.0.1"
+
+react-live@^2.1.2:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-live/-/react-live-2.2.1.tgz#32a7732ba28bc1e252da28c312a47e27711bd98b"
   integrity sha512-J97Fk0it6DFgEneGX2DbxugVy3++nb1fGUy3TcehQZcvfRI6ssnbrXyDE94xCUT0zJMC48tX1wT6GEaK+lDYsA==
@@ -18793,6 +18807,13 @@ unescape@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/unescape/-/unescape-0.2.0.tgz#b78b9b60c86f1629df181bf53eee3bc8d6367ddf"
   integrity sha1-t4ubYMhvFinfGBv1Pu47yNY2fd8=
+
+unescape@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/unescape/-/unescape-1.0.1.tgz#956e430f61cad8a4d57d82c518f5e6cc5d0dda96"
+  integrity sha512-O0+af1Gs50lyH1nUu3ZyYS1cRh01Q/kUKatTOkSs7jukXE6/NebucDVxyiDsA9AQ4JC1V1jUH9EO8JX2nMDgGQ==
+  dependencies:
+    extend-shallow "^2.0.1"
 
 unfetch@4.1.0:
   version "4.1.0"
