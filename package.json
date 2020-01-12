@@ -20,6 +20,9 @@
     "examples/shortcodes",
     "examples/terminal"
   ],
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "bootstrap": "yarn && lerna bootstrap && lerna link --force-local",
     "build": "r -f cjs,esm -o dist --exclude 'babel-plugin-*,create-mdx,*loader,mdx,parcel-plugin-mdx,remark-*,*util'",
