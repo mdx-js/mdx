@@ -33,10 +33,10 @@
     "mdxast"
   ],
   "dependencies": {
-    "@babel/core": "7.7.7",
-    "@babel/helper-plugin-utils": "7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.7.7",
-    "@babel/plugin-syntax-jsx": "7.7.4",
+    "@babel/core": "7.8.0",
+    "@babel/helper-plugin-utils": "7.8.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.8.0",
+    "@babel/plugin-syntax-jsx": "7.8.0",
     "@mdx-js/util": "^1.5.3",
     "is-alphabetical": "1.0.3",
     "remark-parse": "7.0.2",

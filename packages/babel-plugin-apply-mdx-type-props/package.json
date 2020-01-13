@@ -29,7 +29,7 @@
     "@babel/core": "^7.0.0"
   },
   "dependencies": {
-    "@babel/helper-plugin-utils": "7.0.0",
+    "@babel/helper-plugin-utils": "7.8.0",
     "@mdx-js/util": "^1.5.3"
   }
 }

@@ -26,6 +26,6 @@
     "babel"
   ],
   "dependencies": {
-    "@babel/helper-plugin-utils": "7.0.0"
+    "@babel/helper-plugin-utils": "7.8.0"
   }
 }
