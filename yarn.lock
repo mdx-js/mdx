@@ -2581,17 +2581,17 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@reach/skip-nav@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@reach/skip-nav/-/skip-nav-0.7.0.tgz#ffba531866e3ce8480064cf143652dab82c7e5a4"
-  integrity sha512-8k7Zk/tJ2po7rqKM4SwDrm/hrq3U7l9kXyvo+UcqTDoApoutEHbxxkBuz8rxlczKYPkSkNk6G31sqISdO0zVHQ==
+"@reach/skip-nav@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@reach/skip-nav/-/skip-nav-0.7.2.tgz#74e25e30750324c0f55722eea19fdb97ac3b35f7"
+  integrity sha512-0bb8GIy9my5q5ewrQmhdg/IpGv+92MkEaRtRYjAQwe/57ZbIJy8eEdw8uiRu/lWDfw+D3SbKA1Xj0cWt6MJIYw==
   dependencies:
-    "@reach/utils" "^0.7.0"
+    "@reach/utils" "^0.7.2"
 
-"@reach/utils@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.7.0.tgz#d089552bee11b9900cb8b54d4f151362a509eb54"
-  integrity sha512-sqPUQzpA+ofGd+38kZ3PylG5NrsbPCP6U+W5+YOrrxGDobX04807ofNRrq30unGo1ueIBzwcm5C5pu33FshpmQ==
+"@reach/utils@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.7.2.tgz#0bc91cc449a5a9be5735b4626c920ee3e74e0e8b"
+  integrity sha512-oGmA5eqM1f4NAyFSQvyFCcRRvgFTSiiPhw8Djn5PGfPY+sgmfyrUsJpo9FwJnl7P0nKb4liWq5jbWlZXUtWhLQ==
 
 "@rebass/emotion@3.2.0":
   version "3.2.0"
