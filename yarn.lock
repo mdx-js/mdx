@@ -8967,10 +8967,10 @@ gatsby-plugin-emotion@4.1.21:
     "@babel/runtime" "^7.7.6"
     "@emotion/babel-preset-css-prop" "^10.0.23"
 
-gatsby-plugin-fathom@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-fathom/-/gatsby-plugin-fathom-1.1.1.tgz#3c2536009a8e4e3c20ee6c670aabb3d0d4b27399"
-  integrity sha512-Gly8uHJ7oHQJTJXi7UXvi60ZpyRGDWWWe8ROceUK/AfJ3WA1PHSZbLL2vZ9DmdAqZo/9H+n/R0LudEVOJKbw1A==
+gatsby-plugin-fathom@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-fathom/-/gatsby-plugin-fathom-1.2.0.tgz#31838fb71e3505ab919c97bb4a6849d458f522e3"
+  integrity sha512-z2HjpoXkOPOVZuXI8bfGDzgH0brAof2xVz9bIM8poBdW9HcdQXpFW468zlcv2/d5m8VeK8X+NfAiesNvZ8/tpw==
   dependencies:
     "@babel/runtime" "7.1.2"
     react "16.5.2"
