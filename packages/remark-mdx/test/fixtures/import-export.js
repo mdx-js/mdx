@@ -25,5 +25,9 @@ module.exports = [
   {
     description: 'Handles multiline default exports',
     mdx: ['export default props => (', '  <main {...props} />', ')'].join('\n')
+  },
+  {
+    description: 'Handles export all',
+    mdx: ["export * from './foo'"]
   }
 ]

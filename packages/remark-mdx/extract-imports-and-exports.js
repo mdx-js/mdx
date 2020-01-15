@@ -22,6 +22,10 @@ class BabelPluginExtractImportsAndExports {
             const {start} = path.node
             nodes.push({type: 'export', start})
           },
+          ExportAllDeclaration(path) {
+            const {start} = path.node
+            nodes.push({type: 'export', start})
+          },
           ImportDeclaration(path) {
             const {start} = path.node
 
