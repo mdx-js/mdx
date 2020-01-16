@@ -72,7 +72,7 @@ function toJSX(node, parentNode = {}, options = {}) {
 
     const exportNames = exportNodes
       .map(node =>
-        node.value.match(/export\s*(var|const|let|class|function)?\s*(\w+)/)
+        node.value.match(/^export\s*(var|const|let|class|function)?\s*(\w+)/)
       )
       .map(match => (Array.isArray(match) ? match[2] : null))
       .filter(Boolean)
