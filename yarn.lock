@@ -1054,7 +1054,7 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
-"@babel/preset-env@7.4.5", "@babel/preset-env@7.8.3", "@babel/preset-env@^7.0.0 < 7.4.0", "@babel/preset-env@^7.0.0 <7.4.0", "@babel/preset-env@^7.5.5", "@babel/preset-env@^7.7.4", "@babel/preset-env@^7.7.6", "@babel/preset-env@^7.7.7":
+"@babel/preset-env@7.4.5", "@babel/preset-env@7.8.3", "@babel/preset-env@^7.0.0 < 7.4.0", "@babel/preset-env@^7.0.0 <7.4.0", "@babel/preset-env@^7.5.5", "@babel/preset-env@^7.7.4", "@babel/preset-env@^7.7.6", "@babel/preset-env@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.8.3.tgz#dc0fb2938f52bbddd79b3c861a4b3427dd3a6c54"
   integrity sha512-Rs4RPL2KjSLSE2mWAx5/iCH+GC1ikKdxPrhnRS6PfFVaiZeom22VFKN4X8ZthyN61kAaR05tfXTbCvatl9WIQg==
@@ -2668,21 +2668,21 @@
   resolved "https://registry.yarnpkg.com/@pkgr/es-modules/-/es-modules-0.2.1.tgz#66a2c4faf3899c170755f7e5959d8bd16c236a2e"
   integrity sha512-gRh2On5CCKuLdj11/tRlsKkOHl3zdSwesK0r2JtCfRhbmQXn6O5ahr2LkhEWl6qjULqrtYbyp9H3bru4lJgVvg==
 
-"@pkgr/named-exports@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@pkgr/named-exports/-/named-exports-0.4.0.tgz#2ee994cfea1e50d888adb0df1e7c4625651dcec8"
-  integrity sha512-DXWo3ZQWp1XBE7q9M3n/M+8GTuz8Ob0/qAeJMOH5qWDTRv6eU/UAkfHNo340/53+gX5MdiHRqByexNrB6db25g==
+"@pkgr/named-exports@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@pkgr/named-exports/-/named-exports-0.4.1.tgz#d4546c5d4612b0481b097355cbf57bdec9bb557c"
+  integrity sha512-f8p46sF5mrwoMor/cJExDq35kT2xOVcWcyXbxwmjZM0jLJWa9iDU9eEa9GG742zmIk5yX3sgG/snpPyZGrdcbQ==
 
-"@pkgr/rollup@0.8.10":
-  version "0.8.10"
-  resolved "https://registry.yarnpkg.com/@pkgr/rollup/-/rollup-0.8.10.tgz#1e2223251d35985498617434c09e7374b044a58c"
-  integrity sha512-JTt/HDJwiP0O4QRDedL6oIkeGJF7T30oYklWmJ7Z3dqsp7+JRBKsVn1UTZTOkuBjAl3pYWQWfezbxqWB+BP+tg==
+"@pkgr/rollup@0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@pkgr/rollup/-/rollup-0.9.0.tgz#a638907f0c2d115789e4b193c7ca3300df500620"
+  integrity sha512-Fnj3Sn/YP75y5SD7mCM86mhNgJPKUexmbDxdEzRIo01AnI0/6eZdzUdJgaLmjO4G+mKQic7LLnO1dWXYjTjtbg==
   dependencies:
-    "@babel/preset-env" "^7.7.7"
+    "@babel/preset-env" "^7.8.3"
     "@pkgr/es-modules" "^0.2.1"
-    "@pkgr/named-exports" "^0.4.0"
+    "@pkgr/named-exports" "^0.4.1"
     "@pkgr/umd-globals" "^0.3.0"
-    "@pkgr/utils" "^0.3.4"
+    "@pkgr/utils" "^0.3.5"
     "@rollup/plugin-commonjs" "^11.0.1"
     "@rollup/plugin-json" "^4.0.1"
     "@rollup/plugin-node-resolve" "^7.0.0"
@@ -2698,9 +2698,9 @@
     micromatch "^4.0.2"
     rollup "^1.29.0"
     rollup-plugin-babel "^4.3.3"
-    rollup-plugin-copy "^3.1.0"
+    rollup-plugin-copy "^3.2.1"
     rollup-plugin-postcss "^2.0.3"
-    rollup-plugin-terser "^5.1.3"
+    rollup-plugin-terser "^5.2.0"
     rollup-plugin-typescript "^1.0.1"
     tslib "^1.10.0"
 
@@ -2709,10 +2709,10 @@
   resolved "https://registry.yarnpkg.com/@pkgr/umd-globals/-/umd-globals-0.3.0.tgz#ba82ddc4b6c2f864b4635fa8a6257f65f57b40b3"
   integrity sha512-tnSeL23iFiqgmN6ISWG5cTJ/Cv7Kol81MolfPowYj63rAtEXyr0p1uHBXxFWUyM7WNUGJSUw98xdOdTzh1+BaQ==
 
-"@pkgr/utils@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@pkgr/utils/-/utils-0.3.4.tgz#a68e4ee9e00c8d671cea1b3dac3395f2e72617b6"
-  integrity sha512-pGlTsk+jwJEh9Mtj2S4cM8pgjdVHF+p1suJEGtdNTqdkOKgkqnf/sHSTtFRVfbudUMeBcx+2IwQm74Fla0OagQ==
+"@pkgr/utils@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@pkgr/utils/-/utils-0.3.5.tgz#7315837f12ef6db87d246d236ce0683fe90520d5"
+  integrity sha512-Bg/tDHDGJ71b8ma8zdf6hUaCjQvJSySZT4jtsfEXNHBiEzz6PKtZp1fDv7cxZYI+4PrlI0Fgcb56bE7EHih1IA==
   dependencies:
     chalk "^3.0.0"
     cross-spawn "^7.0.1"
@@ -3016,7 +3016,7 @@
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
   integrity sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
 
-"@types/fs-extra@^8.0.0":
+"@types/fs-extra@^8.0.1":
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-8.0.1.tgz#a2378d6e7e8afea1564e44aafa2e207dadf77686"
   integrity sha512-J00cVDALmi/hJOYsunyT52Hva5TnJeKP5yd1r+mH/ZU0mbYZflR0Z5kw5kITtKTRYMhm1JMClOFYdHnQszEvqw==
@@ -17605,12 +17605,12 @@ rollup-plugin-babel@^4.3.3:
     "@babel/helper-module-imports" "^7.0.0"
     rollup-pluginutils "^2.8.1"
 
-rollup-plugin-copy@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-copy/-/rollup-plugin-copy-3.1.0.tgz#435589857f4e346ea63fc137d99dcc1b25f51c3b"
-  integrity sha512-oVw3ljRV5jv7Yw/6eCEHntVs9Mc+NFglc0iU0J8ei76gldYmtBQ0M/j6WAkZUFVRSrhgfCrEakUllnN87V2f4w==
+rollup-plugin-copy@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-copy/-/rollup-plugin-copy-3.2.1.tgz#2942b2328ba700b559ceb22583394e0880928986"
+  integrity sha512-HuMrwIBAJUpy0MCCdRJLbxLJVyha+HrHbJCLyXm5gilSKplDDLOHpue4dyQS2xFDtxg278DlZtK26BlhDXvd3w==
   dependencies:
-    "@types/fs-extra" "^8.0.0"
+    "@types/fs-extra" "^8.0.1"
     colorette "^1.1.0"
     fs-extra "^8.1.0"
     globby "10.0.1"
@@ -17636,16 +17636,16 @@ rollup-plugin-postcss@^2.0.3:
     rollup-pluginutils "^2.0.1"
     style-inject "^0.3.0"
 
-rollup-plugin-terser@^5.1.3:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-5.1.3.tgz#5f4c4603b12b4f8d093f4b6f31c9aa5eba98a223"
-  integrity sha512-FuFuXE5QUJ7snyxHLPp/0LFXJhdomKlIx/aK7Tg88Yubsx/UU/lmInoJafXJ4jwVVNcORJ1wRUC5T9cy5yk0wA==
+rollup-plugin-terser@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-5.2.0.tgz#ba758adf769347b7f1eaf9ef35978d2e207dccc7"
+  integrity sha512-jQI+nYhtDBc9HFRBz8iGttQg7li9klmzR62RG2W2nN6hJ/FI2K2ItYQ7kJ7/zn+vs+BP1AEccmVRjRN989I+Nw==
   dependencies:
-    "@babel/code-frame" "^7.0.0"
-    jest-worker "^24.6.0"
-    rollup-pluginutils "^2.8.1"
+    "@babel/code-frame" "^7.5.5"
+    jest-worker "^24.9.0"
+    rollup-pluginutils "^2.8.2"
     serialize-javascript "^2.1.2"
-    terser "^4.1.0"
+    terser "^4.6.2"
 
 rollup-plugin-typescript@^1.0.1:
   version "1.0.1"
@@ -19146,10 +19146,19 @@ terser@^3.7.3:
     source-map "~0.6.1"
     source-map-support "~0.5.10"
 
-terser@^4.1.0, terser@^4.1.2:
+terser@^4.1.2:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/terser/-/terser-4.4.0.tgz#22c46b4817cf4c9565434bfe6ad47336af259ac3"
   integrity sha512-oDG16n2WKm27JO8h4y/w3iqBGAOSCtq7k8dRmrn4Wf9NouL0b2WpMHGChFGZq4nFAQy1FsNJrVQHfurXOSTmOA==
+  dependencies:
+    commander "^2.20.0"
+    source-map "~0.6.1"
+    source-map-support "~0.5.12"
+
+terser@^4.6.2:
+  version "4.6.3"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.3.tgz#e33aa42461ced5238d352d2df2a67f21921f8d87"
+  integrity sha512-Lw+ieAXmY69d09IIc/yqeBqXpEQIpDGZqT34ui1QWXIUpR2RjbqEkT8X7Lgex19hslSqcWM5iMN2kM11eMsESQ==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
