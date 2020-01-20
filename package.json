@@ -41,10 +41,10 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@babel/core": "7.8.0",
-    "@babel/plugin-syntax-jsx": "7.8.0",
-    "@babel/preset-env": "7.8.2",
-    "@babel/preset-react": "7.8.0",
+    "@babel/core": "7.8.3",
+    "@babel/plugin-syntax-jsx": "7.8.3",
+    "@babel/preset-env": "7.8.3",
+    "@babel/preset-react": "7.8.3",
     "@mapbox/rehype-prism": "0.4.0",
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
@@ -96,9 +96,9 @@
     "webpack": "4.41.5"
   },
   "resolutions": {
-    "@babel/core": "7.8.0",
-    "@babel/preset-env": "7.8.2",
-    "@babel/preset-react": "7.8.0",
+    "@babel/core": "7.8.3",
+    "@babel/preset-env": "7.8.3",
+    "@babel/preset-react": "7.8.3",
     "@babel/preset-typescript": "^7.7.4"
   },
   "husky": {
