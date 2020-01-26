@@ -154,9 +154,9 @@ Join us on [Spectrum][]!
 
 [MIT][] © [Compositor][] and [ZEIT][]
 
-[build]: https://travis-ci.com/mdx-js/mdx
+[build]: https://github.com/mdx-js/mdx/actions?query=workflow%3A%22CI%22
 
-[build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
+[build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
 
 [spectrum]: https://spectrum.chat/mdx
 
