@@ -1,43 +1,45 @@
 name: CI
+
 on: [push, pull_request]
+
 jobs:
-  build-and-test:
-    name: 'Build on ${{ matrix.platform }} with node.js ${{ matrix.node-version }}'
+  default:
+    name: Build and Test on ${{ matrix.os }} with Node.js ${{ matrix.node }}
     strategy:
       matrix:
-        platform: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [10, 12]
-    runs-on: ${{ matrix.platform }}
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [8, 10, 12]
+    runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Set up Node.js
-        uses: actions/setup-node@master
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: yarn
-        name: Install
-      - run: yarn bootstrap
-        name: Bootstrap
-      - run: yarn test
-        name: Test
-  build-and-deploy:
-    name: Build test and deploy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 10.x
-          registry-url: https://registry.npmjs.org/
-      - run: yarn
-        name: Install
-      - run: yarn bootstrap
-        name: Bootstrap
-      - run: yarn test
-        name: Test
-      - run: yarn publish-ci
-        if: github.ref == 'refs/head/master'
-        name: Publish CI tag to npm
+          node-version: ${{ matrix.node }}
+
+      - name: Setup yarn
+        if: matrix.os != 'windows-latest'
+        run: |
+          curl -o- -L https://yarnpkg.com/install.sh | bash
+          export PATH="$HOME/.yarn/bin:$PATH"
+
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile
         env:
-          NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+          CI: 'true'
+
+      - name: Build and Lint
+        if: matrix.os != 'windows-latest'
+        run: |
+          yarn build
+          yarn lint
+
+      - name: Test
+        run: yarn test
+
+      - name: Publish CI tag to npm
+        if: matrix.node == 12 && matrix.os == 'ubuntu-latest' && github.event_name == 'push' && github.ref	== 'refs/heads/master'
+        run: |
+          npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
+          yarn publish-ci
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
