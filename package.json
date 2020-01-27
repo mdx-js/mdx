@@ -32,12 +32,13 @@
     "format": "yarn lint --fix",
     "lint": "eslint . --cache --ext js,md,mdx -f friendly",
     "now-build": "yarn build && yarn docs-build",
+    "postinstall": "yarn-deduplicate || exit 0",
     "prepublishOnly": "yarn build",
     "pretest": "yarn build",
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --npm-tag ci",
     "publish-next": "lerna publish --npm-tag next --preid rc --force-publish=\"*\"",
-    "test": "jest"
+    "test": "jest --runInBand --detectOpenHandles"
   },
   "devDependencies": {
     "@babel/core": "7.8.3",
@@ -51,7 +52,7 @@
     "@mdx-js/vue": "^1.5.1",
     "@pkgr/rollup": "0.9.0",
     "@vue/babel-preset-jsx": "1.1.2",
-    "@vue/test-utils": "1.0.0-beta.30",
+    "@vue/test-utils": "1.0.0-beta.31",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-loader": "8.0.6",
     "babel-plugin-macros": "2.8.0",
@@ -63,18 +64,18 @@
     "eslint-config-xo": "0.27.2",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.20.0",
-    "eslint-plugin-mdx": "1.6.5",
+    "eslint-plugin-mdx": "1.6.8",
     "eslint-plugin-prettier": "3.1.2",
     "eslint-plugin-react": "7.18.0",
-    "gatsby": "2.18.21",
+    "gatsby": "^2.19.5",
     "hast-util-select": "3.0.1",
-    "husky": "3.1.0",
-    "jest": "24.9.0",
+    "husky": "4.2.1",
+    "jest": "25.1.0",
     "lerna": "3.20.2",
-    "lint-staged": "9.5.0",
+    "lint-staged": "10.0.2",
     "memory-fs": "0.5.0",
     "prettier": "1.19.1",
-    "prettier-plugin-pkg": "0.4.6",
+    "prettier-plugin-pkg": "0.4.10",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "rehype-add-classes": "1.0.0",
@@ -87,18 +88,19 @@
     "remark-slug": "5.1.2",
     "remark-stringify": "7.0.4",
     "rimraf": "3.0.0",
-    "typescript": "3.7.4",
+    "typescript": "3.7.5",
     "unified": "8.4.2",
     "vfile": "4.0.2",
     "vue": "2.6.11",
     "vue-template-compiler": "2.6.11",
-    "webpack": "4.41.5"
+    "webpack": "4.41.5",
+    "yarn-deduplicate": "^1.1.1"
   },
   "resolutions": {
-    "@babel/core": "7.8.3",
-    "@babel/preset-env": "7.8.3",
-    "@babel/preset-react": "7.8.3",
-    "@babel/preset-typescript": "^7.7.4"
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3"
   },
   "husky": {
     "hooks": {
@@ -116,12 +118,10 @@
   },
   "lint-staged": {
     "*.{js,jsx,md,mdx}": [
-      "eslint --cache --fix -f friendly",
-      "git add"
+      "eslint --cache --fix -f friendly"
     ],
     "*.{css,html,json,yml}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "prettier": {

@@ -10,6 +10,6 @@ fixtures.forEach(fixture => {
       vfile({path: '/test', content: 'testing'})
     )
 
-    expect(result).toMatchSnapshot(fixture.result)
+    expect(result).toMatchSnapshot()
   })
 })
