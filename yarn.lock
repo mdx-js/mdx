@@ -7041,7 +7041,14 @@ destroy@~1.0.4:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
-detab@2.0.2, detab@^2.0.0:
+detab@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/detab/-/detab-2.0.3.tgz#33e5dd74d230501bd69985a0d2b9a3382699a130"
+  integrity sha512-Up8P0clUVwq0FnFjDclzZsy9PadzRn5FFxrr47tQQvMHqyiFYVbpH8oXDzWtF0Q7pYy3l+RPmtBl+BsFF6wH0A==
+  dependencies:
+    repeat-string "^1.5.4"
+
+detab@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/detab/-/detab-2.0.2.tgz#074970d1a807b045d0258a4235df5928dd683561"
   integrity sha512-Q57yPrxScy816TTE1P/uLRXLDKjXhvYTbfxS/e6lPD+YrqghbsMlGB9nQzj/zVtSPaF0DFPSdO916EWO4sQUyQ==

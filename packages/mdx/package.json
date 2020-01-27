@@ -41,7 +41,7 @@
     "babel-plugin-apply-mdx-type-prop": "^1.5.5",
     "babel-plugin-extract-import-names": "^1.5.5",
     "camelcase-css": "2.0.1",
-    "detab": "2.0.2",
+    "detab": "2.0.3",
     "hast-util-raw": "5.0.1",
     "lodash.uniq": "4.5.0",
     "mdast-util-to-hast": "6.0.2",
