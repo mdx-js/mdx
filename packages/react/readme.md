@@ -18,7 +18,7 @@ npm install --save @mdx-js/react
 ## Usage
 
 ```md
-// helloworld.md
+<!-- helloworld.md -->
 
 # Hello, World!
 ```
