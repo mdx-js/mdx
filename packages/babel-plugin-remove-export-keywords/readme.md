@@ -1,7 +1,7 @@
 # `babel-plugin-remove-export-keywords`
 
 Remove export keywords by coercing them into variable
-declarations.  Used by [MDX](https://mdxjs.com).
+declarations. Used by [MDX](https://mdxjs.com).
 
 ## Installation
 
@@ -28,10 +28,7 @@ const plugin = new BabelPluginApplyMdxTypeProp()
 
 const result = babel.transform(jsx, {
   configFile: false,
-  plugins: [
-    '@babel/plugin-syntax-jsx',
-    plugin
-  ]
+  plugins: ['@babel/plugin-syntax-jsx', plugin]
 })
 
 console.log(result.code)

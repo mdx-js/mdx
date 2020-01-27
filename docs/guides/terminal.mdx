@@ -1,4 +1,4 @@
-import { Tweet } from '@blocks/kit'
+import {Tweet} from '@blocks/kit'
 
 # Terminal
 
@@ -41,15 +41,15 @@ const {MDXProvider} = require('@mdx-js/react')
 const MDX = require('@mdx-js/runtime')
 
 const components = {
-  h1: ({ children }) => <Text bold>{children}</Text>,
-  p: ({ children }) => <Text>{children}</Text>
+  h1: ({children}) => <Text bold>{children}</Text>,
+  p: ({children}) => <Text>{children}</Text>
 }
 
 render(
   <MDXProvider components={components}>
     <MDX>{MDXContent}</MDX>
   </MDXProvider>
-);
+)
 ```
 
 You can also provide other components to the runtime scope for additional
@@ -60,8 +60,8 @@ const components = {
   Box,
   Color,
   Text,
-  h1: ({ children }) => <Text bold>{children}</Text>,
-  p: ({ children }) => <Text>{children}</Text>
+  h1: ({children}) => <Text bold>{children}</Text>,
+  p: ({children}) => <Text>{children}</Text>
 }
 ```
 
@@ -71,7 +71,7 @@ This will allow you to write content like the following
 ```mdx
 # Hello, world!
 
-From <Color bgBlack white bold>    MDX!    </Color>
+From <Color bgBlack white bold> MDX! </Color>
 
 <Box marginTop={1}>
   <Color bgCyan white bold>
@@ -83,10 +83,10 @@ From <Color bgBlack white bold>    MDX!    </Color>
 ## All together
 
 ```js
-const React = require('react');
-const {render, Color, Box, Text} = require('ink');
+const React = require('react')
+const {render, Color, Box, Text} = require('ink')
 const MDX = require('@mdx-js/runtime')
-const { MDXProvider } = require('@mdx-js/react')
+const {MDXProvider} = require('@mdx-js/react')
 
 const MDXContent = `
 # Hello, world!
@@ -103,15 +103,15 @@ From <Color bgBlack white bold>    MDX!    </Color>
 const components = {
   Box,
   Color,
-  h1: ({ children }) => <Text bold>{children}</Text>,
-  p: ({ children }) => <Text>{children}</Text>
+  h1: ({children}) => <Text bold>{children}</Text>,
+  p: ({children}) => <Text>{children}</Text>
 }
 
 render(
   <MDXProvider components={components}>
     <MDX>{MDXContent}</MDX>
   </MDXProvider>
-);
+)
 ```
 
 <Tweet tweetId="1141781114786160641" />
@@ -119,5 +119,4 @@ render(
 [See the full example](https://github.com/mdx-js/mdx/tree/master/examples/cli)
 
 [ink]: https://github.com/vadimdemedes/ink
-
 [runtime]: https://mdxjs.com/advanced/runtime

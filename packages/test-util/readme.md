@@ -9,7 +9,5 @@ Test utility functions used in [MDX][].
 <!-- Definitions -->
 
 [mit]: license
-
 [mdx]: https://github.com/mdx-js/mdx
-
 [author]: https://johno.com

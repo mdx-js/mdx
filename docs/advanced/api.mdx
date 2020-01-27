@@ -11,8 +11,8 @@ the JSX string is created.
 
 ## Table of Contents
 
-*   [Async API](#async-api)
-*   [Sync API](#sync-api)
+- [Async API](#async-api)
+- [Sync API](#sync-api)
 
 ## Async API
 
@@ -26,7 +26,7 @@ You should use the async API, unless you have very good reasons to use the
 You can use the library directly:
 
 ```js
-var mdx = require("@mdx-js/mdx")
+var mdx = require('@mdx-js/mdx')
 
 const content = `
 # Hello, world!
@@ -65,7 +65,7 @@ import TomatoBox from 'tomato-box'
 const MDXLayout = props => <main {...props} />
 
 const layoutProps = {
-  author: "Fred Flintstone"
+  author: 'Fred Flintstone'
 }
 
 export default function MDXContent(props) {
@@ -77,10 +77,10 @@ export default function MDXContent(props) {
         <TomatoBox />
       </MDXLayout>
     </div>
-  );
+  )
 }
 
-MDXContent.isMDXComponent = true;
+MDXContent.isMDXComponent = true
 ```
 
 This is pretty powerful because the output is rather readable.
@@ -116,13 +116,8 @@ const jsx = mdx.sync(mdxText)
 MDX’s [runtime][] package has [example][] usage.
 
 [ast]: /advanced/ast
-
 [plugins]: /plugins
-
 [async]: #async-api
-
 [sync]: #sync-api
-
 [runtime]: /advanced/runtime
-
 [example]: https://github.com/mdx-js/mdx/blob/d5a5189e715dc28370de13f6cc0fd18a06f0f122/packages/runtime/src/index.js#L16-L18

@@ -74,22 +74,22 @@ and cumbersome syntax.
 >
 > — [@chrisbiscardi][tweet]
 
-MDX seeks to make writing with markdown *and* JSX simpler while being more
+MDX seeks to make writing with markdown _and_ JSX simpler while being more
 expressive.
 The possibilities are endless when you combine components (that can even be
 dynamic or load data) with the simplicity of markdown for long-form content.
 A nice example of this is [mdx-deck][], a great way to create slides with MDX.
 
-*   Fast
-*   No runtime compilation
-*   [Pluggable][remark-plugins]
-*   Element to React component mapping
-*   React component `import`/`export`
-*   Customizable layouts
-*   [Webpack loader](https://mdxjs.com/getting-started/webpack)
-*   [Parcel plugin](https://mdxjs.com/getting-started/parcel)
-*   [Next.js plugin](https://mdxjs.com/getting-started/next)
-*   [Gatsby plugin](https://mdxjs.com/getting-started/gatsby)
+- Fast
+- No runtime compilation
+- [Pluggable][remark-plugins]
+- Element to React component mapping
+- React component `import`/`export`
+- Customizable layouts
+- [Webpack loader](https://mdxjs.com/getting-started/webpack)
+- [Parcel plugin](https://mdxjs.com/getting-started/parcel)
+- [Next.js plugin](https://mdxjs.com/getting-started/next)
+- [Gatsby plugin](https://mdxjs.com/getting-started/gatsby)
 
 ## Sponsors
 
@@ -128,10 +128,10 @@ A nice example of this is [mdx-deck][], a great way to create slides with MDX.
 
 ## Authors
 
-*   [John Otander][john] ([@4lpine][4lpine]) – [Compositor][] + [Clearbit][]
-*   [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [ZEIT][]
-*   [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [ZEIT][]
-*   [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Compositor][]
+- [John Otander][john] ([@4lpine][4lpine]) – [Compositor][] + [Clearbit][]
+- [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [ZEIT][]
+- [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [ZEIT][]
+- [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Compositor][]
 
 ## Related
 
@@ -155,55 +155,29 @@ Join us on [Spectrum][]!
 [MIT][] © [Compositor][] and [ZEIT][]
 
 [build]: https://github.com/mdx-js/mdx/actions?query=workflow%3A%22CI%22
-
 [build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
-
 [spectrum]: https://spectrum.chat/mdx
-
 [spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
-
 [intro]: https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u
-
 [tweet]: https://twitter.com/chrisbiscardi/status/1022304288326864896
-
 [remark-plugins]: https://github.com/remarkjs/remark/blob/master/doc/plugins.md
-
 [website]: https://mdxjs.com
-
 [spec]: https://github.com/mdx-js/specification#related
-
 [john]: https://johno.com
-
 [tim]: https://github.com/timneutkens
-
 [guillermo]: https://rauchg.com
-
 [brent]: https://jxnblk.com
-
 [4lpine]: https://twitter.com/4lpine
-
 [rauchg]: https://twitter.com/rauchg
-
 [timneutkens]: https://twitter.com/timneutkens
-
 [jxnblk]: https://twitter.com/jxnblk
-
 [compositor]: https://compositor.io
-
 [zeit]: https://zeit.co
-
 [clearbit]: https://clearbit.com
-
 [announcement]: https://medium.com/unifiedjs/collectively-evolving-through-crowdsourcing-22c359ea95cc
-
 [contribute]: #contribute
-
 [contributing]: https://mdxjs.com/contributing
-
 [support]: https://mdxjs.com/support
-
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
-
 [mdx-deck]: https://github.com/jxnblk/mdx-deck
-
 [mit]: license

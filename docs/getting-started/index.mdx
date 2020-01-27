@@ -1,4 +1,4 @@
-import { Box } from '@rebass/emotion'
+import {Box} from '@rebass/emotion'
 
 # Getting Started
 
@@ -26,17 +26,17 @@ the installation guides.
 
 ## Table of contents
 
-*   [Hello World](#hello-world)
-*   [Syntax](#syntax)
-    *   [Markdown](#markdown)
-    *   [JSX](#jsx)
-    *   [MDX](#mdx)
-*   [Working with components](#working-with-components)
-    *   [MDXProvider](#mdxprovider)
-    *   [Table of components](#table-of-components)
-*   [Installation guides](#installation-guides)
-    *   [Scaffold out an app](#scaffold-out-an-app)
-    *   [Do it yourself](#do-it-yourself)
+- [Hello World](#hello-world)
+- [Syntax](#syntax)
+  - [Markdown](#markdown)
+  - [JSX](#jsx)
+  - [MDX](#mdx)
+- [Working with components](#working-with-components)
+  - [MDXProvider](#mdxprovider)
+  - [Table of components](#table-of-components)
+- [Installation guides](#installation-guides)
+  - [Scaffold out an app](#scaffold-out-an-app)
+  - [Do it yourself](#do-it-yourself)
 
 ## Hello World
 
@@ -70,14 +70,14 @@ Instead of the following HTML:
 
 ```html
 <blockquote>
-<p>A blockquote with <em>some</em> emphasis.</p>
+  <p>A blockquote with <em>some</em> emphasis.</p>
 </blockquote>
 ```
 
 You can write the equivalent in Markdown (or MDX) like so:
 
 ```markdown
-> A blockquote with *some* emphasis.
+> A blockquote with _some_ emphasis.
 ```
 
 Markdown is good for **content**.
@@ -194,7 +194,7 @@ Say we import our MDX file, using webpack and React, like so:
 ```jsx
 // index.js
 import React from 'react'
-import MDXDocument, { metadata } from 'posts/post.mdx'
+import MDXDocument, {metadata} from 'posts/post.mdx'
 
 export default () => (
   <>
@@ -225,7 +225,9 @@ After bundling and evaluating, we could get something like this:
 
 ```html
 <h1>Post about MDX</h1>
-<p>MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.</p>
+<p>
+  MDX is a JSX in Markdown loader, parser, and renderer for ambitious projects.
+</p>
 <footer><p>By: Sue, Fred.</p></footer>
 ```
 
@@ -236,7 +238,7 @@ structures.
 ##### Defining variables with exports
 
 If you need to define a variable in your MDX document, you can use an export
-to do so.  Not only do exports emit data, they instantiate data you can reference
+to do so. Not only do exports emit data, they instantiate data you can reference
 in JSX blocks:
 
 ```js
@@ -262,8 +264,8 @@ component you’d like to render.
 import React from 'react'
 import Hello from '../hello.mdx'
 
-const MyH1 = props => <h1 style={{ color: 'tomato' }} {...props} />
-const MyParagraph = props => <p style={{ fontSize: '18px', lineHeight: 1.6 }} />
+const MyH1 = props => <h1 style={{color: 'tomato'}} {...props} />
+const MyParagraph = props => <p style={{fontSize: '18px', lineHeight: 1.6}} />
 
 const components = {
   h1: MyH1,
@@ -279,14 +281,9 @@ You can also import your components from another location like your UI library:
 import React from 'react'
 import Hello from '../hello.mdx'
 
-import {
-  Text,
-  Heading,
-  Code,
-  InlineCode
-} from '../my-ui-library'
+import {Text, Heading, Code, InlineCode} from '../my-ui-library'
 
-export default () =>
+export default () => (
   <Hello
     components={{
       h1: Heading,
@@ -295,6 +292,7 @@ export default () =>
       inlineCode: InlineCode
     }}
   />
+)
 ```
 
 With the above, the `Heading` component will be rendered for any `h1`, `Text`
@@ -313,9 +311,9 @@ the `MDXProvider` to only pass your components in one place:
 ```jsx
 // src/App.js
 import React from 'react'
-import { MDXProvider } from '@mdx-js/react'
+import {MDXProvider} from '@mdx-js/react'
 
-import { Heading, Text, Pre, Code, Table } from './components'
+import {Heading, Text, Pre, Code, Table} from './components'
 
 const components = {
   h1: Heading.H1,
@@ -326,10 +324,11 @@ const components = {
   inlineCode: Code
 }
 
-export default props =>
+export default props => (
   <MDXProvider components={components}>
     <main {...props} />
   </MDXProvider>
+)
 ```
 
 This allows you to remove duplicated component passing and importing.
@@ -345,14 +344,15 @@ styling, or even manipulate the children passed to the component.
 ```js
 // src/App.js
 import React from 'react'
-import { MDXProvider } from '@mdx-js/react'
+import {MDXProvider} from '@mdx-js/react'
 
-const Wrapper = props => <main style={{ padding: '20px', backgroundColor: 'tomato' }} {...props} />
+const Wrapper = props => (
+  <main style={{padding: '20px', backgroundColor: 'tomato'}} {...props} />
+)
 
-export default ({ children }) =>
-  <MDXProvider components={{ wrapper: Wrapper }}>
-    {children}
-  </MDXProvider>
+export default ({children}) => (
+  <MDXProvider components={{wrapper: Wrapper}}>{children}</MDXProvider>
+)
 ```
 
 If you would like to see more advanced usage, see the
@@ -364,7 +364,7 @@ Sometimes from an MDX file you might want to override the wrapper.
 This is especially useful when you want to override layout for a single entry
 point at the page level.
 To achieve this you can use the ES default [export][] and it will wrap your MDX
-document *instead* of the wrapper passed to MDXProvider.
+document _instead_ of the wrapper passed to MDXProvider.
 
 You can declare a default export as a function:
 
@@ -434,13 +434,13 @@ Now that we’ve gone over how MDX works, you’re ready to get installing.
 If you’re the type of person that wants to scaffold out an app quickly and start
 playing around you can use `npm init`:
 
-*   `npm init mdx` [`webpack`](/getting-started/webpack)
-*   `npm init mdx` [`parcel`](/getting-started/parcel)
-*   `npm init mdx` [`next`](/getting-started/next)
-*   `npm init mdx` [`create-react-app`](/getting-started/create-react-app)
-*   `npm init mdx` [`gatsby`](/getting-started/gatsby)
-*   `npm init mdx` [`x0`](/getting-started/x0)
-*   `npm init mdx` [`react-static`](/getting-started/react-static)
+- `npm init mdx` [`webpack`](/getting-started/webpack)
+- `npm init mdx` [`parcel`](/getting-started/parcel)
+- `npm init mdx` [`next`](/getting-started/next)
+- `npm init mdx` [`create-react-app`](/getting-started/create-react-app)
+- `npm init mdx` [`gatsby`](/getting-started/gatsby)
+- `npm init mdx` [`x0`](/getting-started/x0)
+- `npm init mdx` [`react-static`](/getting-started/react-static)
 
 ### Do it yourself
 
@@ -491,21 +491,12 @@ const renderWithReact = async mdxCode => {
 ```
 
 [imports]: #imports
-
 [exports]: #exports
-
 [components]: #table-of-components
-
 [md]: https://daringfireball.net/projects/markdown/syntax
-
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
-
 [import]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/import
-
 [export]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
-
 [rebass]: https://rebassjs.org
-
 [transclude]: https://en.wikipedia.org/wiki/Transclusion
-
 [context]: https://reactjs.org/docs/context.html

@@ -1,6 +1,4 @@
 .next
 dist
 node_modules
-*.md
-*.mdx
 *.min.*

@@ -17,10 +17,10 @@ Then create the following `src/App.js`:
 ```js
 // src/App.js
 
-import React, { lazy, Component, Suspense } from 'react';
-import { importMDX } from 'mdx.macro';
+import React, {lazy, Component, Suspense} from 'react'
+import {importMDX} from 'mdx.macro'
 
-const Content = lazy(() => importMDX('./Content.mdx'));
+const Content = lazy(() => importMDX('./Content.mdx'))
 
 class App extends Component {
   render() {
@@ -30,11 +30,11 @@ class App extends Component {
           <Content />
         </Suspense>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
 ```
 
 And then create the following `src/Content.mdx`:
@@ -46,7 +46,5 @@ And then create the following `src/Content.mdx`:
 [See the full example][cra-example]
 
 [mdx-macro]: https://www.npmjs.com/package/mdx.macro
-
 [cra-example]: https://github.com/mdx-js/mdx/tree/master/examples/create-react-app
-
 [known bug]: https://github.com/facebook/create-react-app/issues/5580

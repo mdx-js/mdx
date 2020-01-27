@@ -19,13 +19,14 @@ npm install --save @mdx-js/react
 
 ```md
 // helloworld.md
+
 # Hello, World!
 ```
 
 ```jsx
 import React from 'react'
-import { MDXProvider } from '@mdx-js/react'
-import { renderToString } from 'react-dom/server'
+import {MDXProvider} from '@mdx-js/react'
+import {renderToString} from 'react-dom/server'
 
 import HelloWorld from './helloworld.md'
 
@@ -33,7 +34,7 @@ const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
 
 console.log(
   renderToString(
-    <MDXProvider components={{ h1: H1 }}>
+    <MDXProvider components={{h1: H1}}>
       <HelloWorld />
     </MDXProvider>
   )
@@ -62,29 +63,16 @@ abide by its terms.
 <!-- Definitions -->
 
 [build]: https://travis-ci.com/mdx-js/mdx
-
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
-
 [lerna]: https://lernajs.io/
-
 [lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
-
 [spectrum]: https://spectrum.chat/mdx
-
 [spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
-
 [contributing]: https://mdxjs.com/contributing
-
 [support]: https://mdxjs.com/support
-
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
-
 [mit]: license
-
 [compositor]: https://compositor.io
-
 [zeit]: https://zeit.co
-
 [mdx]: https://github.com/mdx-js/mdx
-
 [npm]: https://docs.npmjs.com/cli/install

@@ -6,7 +6,7 @@ are many utilities you can use to work with MDX.
 
 You can utilize [to-vfile][] to read and write MDX files
 and you can leverage [remark][] and [remark-mdx][]
-to parse and process MDX content.  The remark-mdx library is a parsing
+to parse and process MDX content. The remark-mdx library is a parsing
 extension to enhance the Markdown [AST][] to understand MDX
 (resulting in [MDXAST][]), giving you access and insight to MDX
 attributes, namely imports, exports, and jsx.
@@ -19,7 +19,7 @@ Say we have the following file, `example.mdx`:
 import Component from 'Component';
 
 export const meta = {
-    prop: 'value'
+prop: 'value'
 };
 
 # Title
@@ -33,24 +33,24 @@ And our script, `example.js`, looks as follows:
 
 ```js
 const {read, write} = require('to-vfile')
-const remark = require('remark');
-const mdx = require('remark-mdx');
+const remark = require('remark')
+const mdx = require('remark-mdx')
 
-(async () => {
-    const path = './example.mdx';
-    const file = await read(path);
-    const contents = await remark()
-        .use(mdx)
-        .use(() => (tree) => {
-            console.log(tree)
-        })
-        .process(file);
-
-    await write({
-        path,
-        contents
+;(async () => {
+  const path = './example.mdx'
+  const file = await read(path)
+  const contents = await remark()
+    .use(mdx)
+    .use(() => tree => {
+      console.log(tree)
     })
-})();
+    .process(file)
+
+  await write({
+    path,
+    contents
+  })
+})()
 ```
 
 Now, running `node example.js` yields:
@@ -89,21 +89,12 @@ generated table of contents based on the other content in the MDX file or
 save the modified content back to the original file.
 
 [ast]: /advanced/ast
-
 [mdxast]: /advanced/ast#mdxast
-
 [remark]: https://github.com/remarkjs/remark
-
 [remark-mdx]: https://github.com/mdx-js/mdx/tree/master/packages/remark-mdx
-
 [remark-mdx-metadata]: https://github.com/manovotny/remark-mdx-metadata
-
 [remark-plugins]: /advanced/plugins
-
 [remark-toc]: https://github.com/remarkjs/remark-toc
-
 [to-vfile]: https://github.com/vfile/to-vfile
-
 [unified]: https://unifiedjs.com
-
 [writing-a-plugin]: /guides/writing-a-plugin

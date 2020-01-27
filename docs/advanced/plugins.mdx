@@ -25,8 +25,8 @@ table of contents][remark-toc], and many more.
 
 For more information, see the following links:
 
-*   [List of remark plugins][remark-plugins]
-*   [List of rehype plugins][rehype-plugins]
+- [List of remark plugins][remark-plugins]
+- [List of rehype plugins][rehype-plugins]
 
 Creating a plugin for MDX is mostly the same as creating a plugin for remark
 or rehype.
@@ -120,8 +120,7 @@ const retextSmartypants = require('retext-smartypants')
 const mdx = require('@mdx-js/mdx')
 
 function remarkSmartypants(options) {
-  const processor = retext()
-    .use(retextSmartypants, options)
+  const processor = retext().use(retextSmartypants, options)
 
   function transformer(tree) {
     visit(tree, 'text', node => {
@@ -141,33 +140,21 @@ mdx.sync(mdxText, {
     // regular quotes → smart quotes,
     // triple dash → em dash
     // etc.
-    [remarkSmartypants, { dashes: 'oldschool' }]
+    [remarkSmartypants, {dashes: 'oldschool'}]
   ]
 })
 ```
 
 [ast]: /advanced/ast
-
 [write-plugin]: /guides/writing-a-plugin
-
 [remark]: https://github.com/remarkjs/remark
-
 [rehype]: https://github.com/rehypejs/rehype
-
 [remark-capitalize]: https://github.com/zeit/remark-capitalize
-
 [remark-toc]: https://github.com/remarkjs/remark-toc
-
 [remark-plugins]: https://github.com/remarkjs/remark/blob/master/doc/plugins.md#list-of-plugins
-
 [rehype-plugins]: https://github.com/rehypejs/rehype/blob/master/doc/plugins.md#list-of-plugins
-
 [retext]: https://github.com/retextjs/retext
-
 [remarkjs/remark#224]: https://github.com/remarkjs/remark/issues/224
-
 [visit]: https://github.com/syntax-tree/unist-util-visit
-
 [retext-smartypants]: https://github.com/retextjs/retext-smartypants
-
 [create-plugin]: https://unifiedjs.com/create-a-plugin.html
