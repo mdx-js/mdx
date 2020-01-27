@@ -27,7 +27,7 @@
     "@mdx-js/react": "^1.5.5",
     "@mdx-js/runtime": "^1.5.5",
     "@reach/router": "1.2.1",
-    "@reach/skip-nav": "0.7.3",
+    "@reach/skip-nav": "0.7.4",
     "@rebass/emotion": "3.2.0",
     "gatsby": "2.18.21",
     "gatsby-plugin-catch-links": "2.1.24",
