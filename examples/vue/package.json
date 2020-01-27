@@ -12,9 +12,9 @@
   },
   "devDependencies": {
     "@mdx-js/vue-loader": "^1.5.5",
-    "@vue/cli-plugin-babel": "^3.10.0",
-    "@vue/cli-service": "^3.10.0",
-    "vue-template-compiler": "^2.6.10"
+    "@vue/cli-plugin-babel": "^4.1.2",
+    "@vue/cli-service": "^4.1.2",
+    "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
     "> 1%",

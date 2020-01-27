@@ -44,13 +44,13 @@
     "detab": "2.0.3",
     "hast-util-raw": "5.0.1",
     "lodash.uniq": "4.5.0",
-    "mdast-util-to-hast": "6.0.2",
+    "mdast-util-to-hast": "7.0.0",
     "remark-mdx": "^1.5.5",
     "remark-parse": "7.0.2",
     "remark-squeeze-paragraphs": "3.0.4",
     "style-to-object": "0.3.0",
     "unified": "8.4.2",
-    "unist-builder": "1.0.4",
+    "unist-builder": "2.0.2",
     "unist-util-visit": "2.0.1"
   }
 }

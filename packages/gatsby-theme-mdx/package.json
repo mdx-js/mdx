@@ -38,7 +38,7 @@
     "gatsby-plugin-mdx": "1.0.67",
     "gatsby-plugin-page-creator": "2.1.38",
     "gatsby-plugin-react-helmet": "3.1.21",
-    "gatsby-plugin-theme-ui": "0.2.53",
+    "gatsby-plugin-theme-ui": "0.3.0",
     "gatsby-source-filesystem": "2.1.46",
     "is-absolute-url": "3.0.3",
     "lodash.flatten": "4.4.0",
@@ -49,6 +49,6 @@
     "remark-mdx-remove-exports": "^1.5.5",
     "remark-mdx-remove-imports": "^1.5.5",
     "remark-slug": "5.1.2",
-    "theme-ui": "0.2.52"
+    "theme-ui": "0.3.1"
   }
 }
