@@ -9,16 +9,8 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "docs",
-    "packages/*",
-    "examples/gatsby",
-    "examples/next",
-    "examples/parcel",
-    "examples/syntax-highlighting",
-    "examples/webpack",
-    "examples/vue",
-    "examples/shortcodes",
-    "examples/terminal"
+    "examples/*",
+    "packages/*"
   ],
   "engines": {
     "node": "12.x"

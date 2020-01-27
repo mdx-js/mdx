@@ -7,7 +7,7 @@ jobs:
     name: Build and Test on ${{ matrix.os }} with Node.js ${{ matrix.node }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [macOS-latest, ubuntu-latest, windows-latest]
         node: [8, 10, 12]
     runs-on: ${{ matrix.os }}
     steps:
@@ -37,7 +37,7 @@ jobs:
         run: yarn test
 
       - name: Publish CI tag to npm
-        if: matrix.node == 12 && matrix.os == 'ubuntu-latest' && github.event_name == 'push' && github.ref	== 'refs/heads/master'
+        if: matrix.node == 12 && matrix.os == 'macOS-latest' && github.event_name == 'push' && github.ref	== 'refs/heads/master'
         run: |
           npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
           yarn publish-ci

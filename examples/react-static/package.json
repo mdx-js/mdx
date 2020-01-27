@@ -1,13 +1,14 @@
 {
   "name": "react-static-example-basic",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "react-static start",
-    "stage": "react-static build --staging",
     "build": "react-static build",
     "bundle": "react-static bundle",
     "export": "react-static export",
-    "serve": "serve dist -p 3000 -s"
+    "serve": "serve dist -p 3000 -s",
+    "stage": "react-static build --staging",
+    "start": "react-static start"
   },
   "dependencies": {
     "@mdx-js/loader": "^0.20.3",

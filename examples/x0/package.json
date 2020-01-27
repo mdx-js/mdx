@@ -1,14 +1,14 @@
 {
-  "private": true,
   "name": "x0",
   "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
   "scripts": {
     "start": "x0 pages"
   },
-  "license": "MIT",
   "dependencies": {
     "@compositor/x0": "^6.0.4",
     "@rebass/markdown": "^1.0.0-1",
-    "styled-components": "^3.3.3"
+    "styled-components": "^5.0.0"
   }
 }
