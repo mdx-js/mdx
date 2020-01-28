@@ -1,7 +1,7 @@
 import React, {lazy, Component, Suspense} from 'react'
 import {importMDX} from 'mdx.macro'
 
-const Content = lazy(() => importMDX('./Content.mdx'))
+const Content = lazy(() => importMDX('./content.mdx'))
 
 class App extends Component {
   render() {

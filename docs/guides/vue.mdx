@@ -2,9 +2,7 @@ import Note from 'gatsby-theme-mdx/src/components/note'
 
 # Vue
 
-<Note>
-  This guide is a WIP
-</Note>
+<Note>This guide is a WIP</Note>
 
 If you want to initialize a project to try Vue + MDX you can
 [use the Vue example](https://github.com/mdx-js/mdx/tree/master/examples/vue).
@@ -30,10 +28,7 @@ module.exports = {
       rules: [
         {
           test: /.mdx?$/,
-          use: [
-            'babel-loader',
-            '@mdx-js/vue-loader'
-          ]
+          use: ['babel-loader', '@mdx-js/vue-loader']
         }
       ]
     }
@@ -41,5 +36,5 @@ module.exports = {
 }
 ```
 
-That’s it.  Now restart your server and you should be able to create `.mdx` files
+That’s it. Now restart your server and you should be able to create `.mdx` files
 and import them in other components.

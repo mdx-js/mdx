@@ -38,10 +38,7 @@ const plugin = new BabelPluginApplyMdxTypeProp()
 
 const result = babel.transform(jsx, {
   configFile: false,
-  plugins: [
-    '@babel/plugin-syntax-jsx',
-    plugin.plugin
-  ]
+  plugins: ['@babel/plugin-syntax-jsx', plugin.plugin]
 })
 
 console.log(result.code)

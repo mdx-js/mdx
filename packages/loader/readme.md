@@ -23,23 +23,20 @@ module: {
     // ...
     {
       test: /\.mdx?$/,
-      use: [
-        'babel-loader',
-        '@mdx-js/loader'
-      ]
+      use: ['babel-loader', '@mdx-js/loader']
     }
   ]
 }
 ```
 
-The `renderer` option specifies a string that will be prepended to the generated source allowing for the use of any `createElement` implementation.  By default, that string is:
+The `renderer` option specifies a string that will be prepended to the generated source allowing for the use of any `createElement` implementation. By default, that string is:
 
 ```js
 import React from 'react'
-import { mdx } from '@mdx-js/react'
+import {mdx} from '@mdx-js/react'
 ```
 
-Using the `renderer` option, one can swap out React for another implementation.  The example below wraps a generic JSX compatible function named `h`.
+Using the `renderer` option, one can swap out React for another implementation. The example below wraps a generic JSX compatible function named `h`.
 
 ```js
 const renderer = `
@@ -95,29 +92,16 @@ abide by its terms.
 <!-- Definitions -->
 
 [build]: https://travis-ci.com/mdx-js/mdx
-
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
-
 [lerna]: https://lernajs.io/
-
 [lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
-
 [spectrum]: https://spectrum.chat/mdx
-
 [spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
-
 [contributing]: https://mdxjs.com/contributing
-
 [support]: https://mdxjs.com/support
-
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
-
 [mit]: license
-
 [compositor]: https://compositor.io
-
 [zeit]: https://zeit.co
-
 [mdx]: https://github.com/mdx-js/mdx
-
 [npm]: https://docs.npmjs.com/cli/install

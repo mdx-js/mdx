@@ -38,7 +38,7 @@ declare module '@mdx-js/react' {
     | 'img'
 
   export type Components = {
-    [key in ComponentType]?: React.ComponentType<{ children: React.ReactNode }>
+    [key in ComponentType]?: React.ComponentType<{children: React.ReactNode}>
   }
 
   export interface MDXProviderProps {
@@ -49,10 +49,10 @@ declare module '@mdx-js/react' {
 }
 ```
 
-If you want to improve upon the types we would *love* a PR to
+If you want to improve upon the types we would _love_ a PR to
 improve the developer experience for TypeScript users.
 
-* * *
+---
 
 If you’re getting errors from TypeScript related to imports with an `*.mdx`
 extension, create an `mdx.d.ts` file in your types directory and include it

@@ -1,7 +1,7 @@
 # `babel-plugin-html-attributes-to-jsx`
 
 Coerce HTML attributes into something JSX and React
-friendly.  Used by [MDX](https://mdxjs.com).
+friendly. Used by [MDX](https://mdxjs.com).
 
 ## Installation
 
@@ -28,10 +28,7 @@ const plugin = new BabelPluginHtmlAttributesToJsx()
 
 const result = babel.transform(jsx, {
   configFile: false,
-  plugins: [
-    '@babel/plugin-syntax-jsx',
-    plugin
-  ]
+  plugins: ['@babel/plugin-syntax-jsx', plugin]
 })
 
 console.log(result.code)
