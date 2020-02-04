@@ -28,8 +28,8 @@
     "prepublishOnly": "yarn build",
     "pretest": "yarn build",
     "publish": "lerna publish --force-publish=\"*\"",
-    "publish-ci": "lerna publish prerelease -y --force-publish=\"*\" --pre-dist-tag ci --preid ci --no-push --no-git-tag-version",
-    "publish-next": "lerna publish --force-publish=\"*\" --pre-dist-tag next --preid rc ",
+    "publish-ci": "lerna publish prerelease -y --force-publish=\"*\" --dist-tag ci --no-push --no-git-tag-version",
+    "publish-next": "lerna publish --force-publish=\"*\" --dist-tag next --preid rc",
     "test": "jest --runInBand --detectOpenHandles"
   },
   "devDependencies": {
