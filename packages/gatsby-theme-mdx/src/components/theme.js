@@ -32,7 +32,8 @@ export default {
     monospace: '"Roboto Mono", Menlo, monospace'
   },
   mediaQueries: {
-    big: '@media screen and (min-width: 40em)'
+    big: '@media screen and (min-width: 48em)',
+    maxBig: '@media screen and (max-width: 47.9em)'
   },
   styles: {
     h1: {

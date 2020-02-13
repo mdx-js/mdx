@@ -24,20 +24,21 @@ const styles = theme =>
       display: 'flex',
       alignItems: 'center',
       // <3 CSS
-      '.algolia-autocomplete': {
-        '@media screen and (min-width:40em)': {
-          width: '500px'
-        },
-        '.ds-dropdown-menu': {
-          '@media screen and (max-width:40em)': {
+      [theme.mediaQueries.big]: {
+        '.algolia-autocomplete': {
+          width: '450px'
+        }
+      },
+      [theme.mediaQueries.maxBig]: {
+        '.algolia-autocomplete.algolia-autocomplete-left': {
+          '.ds-dropdown-menu': {
             position: 'fixed',
-            top: '128px',
-            right: 0,
-            bottom: 0,
-            left: 0,
-            margin: 16,
-            minWidth: 'calc(100vw - 32px)',
-            backgroundColor: 'white'
+            top: '60px',
+            right: '0px',
+            bottom: '0px',
+            margin: '5px',
+            minWidth: 'calc(100vw - 20px)',
+            maxWidth: 'calc(100vw - 20px)'
           }
         }
       }
