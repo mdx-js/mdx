@@ -6,6 +6,7 @@ import Burger from './burger'
 import theme from './theme'
 import DarkToggle from './dark-toggle'
 import Search from './search'
+import {GithubButton, TwitterButton} from './buttons'
 
 const MenuButton = props => (
   <button
@@ -64,26 +65,23 @@ export default ({toggleMenu, dark, setDark}) => (
       css={{
         display: 'none',
         [theme.mediaQueries.big]: {
-          display: 'inline'
+          display: 'inline',
+          padding: '8px'
         }
       }}
     >
       v{pkg.version}
     </span>
-    <a
-      href="https://github.com/mdx-js/mdx"
-      css={css({
-        display: 'flex',
-        alignItems: 'center',
-        p: 3,
-        color: 'inherit'
-      })}
-    >
-      <img
-        src={`https://icon.now.sh/github/24/${dark ? 'fff' : '000'}`}
-        alt="GitHub logo"
-      />
-    </a>
+    <GithubButton dark={dark} />
+    <TwitterButton
+      dark={dark}
+      customCss={{
+        display: 'none',
+        [theme.mediaQueries.big]: {
+          display: 'flex'
+        }
+      }}
+    />
     <DarkToggle dark={dark} setDark={setDark} />
     <MenuButton
       onClick={toggleMenu}

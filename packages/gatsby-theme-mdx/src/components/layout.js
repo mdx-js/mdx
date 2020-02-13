@@ -8,6 +8,7 @@ import Header from './header'
 import Pagination from './pagination'
 import EditLink from './edit-link'
 import {SkipNavLink, SkipNavContent} from './skip-nav'
+import {GithubButton, TwitterButton} from './buttons'
 import baseTheme from './theme'
 
 const styles = (
@@ -172,6 +173,15 @@ export default props => {
           <Main>
             <Sidebar onClick={closeMenu} open={menuOpen}>
               <SidebarContent />
+              <div
+                css={css({
+                  display: 'flex',
+                  pl: 16
+                })}
+              >
+                <GithubButton dark={dark} />
+                <TwitterButton dark={dark} />
+              </div>
             </Sidebar>
             <Container className="searchable-content">
               <SkipNavContent />

@@ -14,7 +14,7 @@ export default ({dark, setDark, ...props}) => (
       border: 0,
       borderRadius: 99999,
       mr: 2,
-      p: 1,
+      p: 2,
       '&:focus': {
         outline: 'none',
         boxShadow: '0 0 0 2px'
