@@ -16257,10 +16257,10 @@ linguist-languages@7.7.0:
   resolved "https://registry.yarnpkg.com/linguist-languages/-/linguist-languages-7.7.0.tgz#c069731f8b307ce301980a4bac4b81bf06a2c351"
   integrity sha512-6vR1OgfD/YK1xgqVBT3aUx9zurSVeHUsXpVyTilT1o7LW6MNAcGmWy5wwmQAAhvEXxG2PZmktHbQiGtJ5hpGkg==
 
-lint-staged@10.0.2:
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.0.2.tgz#cfdd9fa5080b05fc6e29536897da1795bc67c7f9"
-  integrity sha512-ZldhtIfT7bynVa7nmU/1jbK05r9hYQXbIQqZSotqdBCAcGJDEUqaUB7kG3ZCdoe9Qkj6HUM3x2yjCGJRxPUQLA==
+lint-staged@10.0.7:
+  version "10.0.7"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.0.7.tgz#d205f92d9359419a23bc6aa3b6f8546b1998da64"
+  integrity sha512-Byj0F4l7GYUpYYHEqyFH69NiI6ICTg0CeCKbhRorL+ickbzILKUlZLiyCkljZV02wnoh7yH7PmFyYm9PRNwk9g==
   dependencies:
     chalk "^3.0.0"
     commander "^4.0.1"
