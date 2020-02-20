@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "MDX support for Vue components",
   "repository": "mdx-js/mdx",
   "funding": {

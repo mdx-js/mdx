@@ -1,6 +1,6 @@
 {
   "name": "razzle",
-  "version": "0.0.1",
+  "version": "1.5.6",
   "private": true,
   "scripts": {
     "build": "razzle build",
