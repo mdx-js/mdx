@@ -11258,10 +11258,10 @@ gatsby-cli@^2.8.27:
     ink "^2.6.0"
     ink-spinner "^3.0.1"
 
-gatsby-cli@^2.8.29:
-  version "2.8.29"
-  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-2.8.29.tgz#53dd79d2ff01d555570cd2a81a51c95be585bd7e"
-  integrity sha512-HVZmb22D+Qf24rceY37MEzaPOk7v3ffw/tzu8pFkG1IoHLIJumbo2LMSJRvnd2+SUMQf1ZIVQCmbdEuaJ9Fn1A==
+gatsby-cli@^2.8.30:
+  version "2.8.30"
+  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-2.8.30.tgz#29655d05890d7c54b04d3fecd97446941e0c0507"
+  integrity sha512-dEGuvF91EwSzLwBV98NDihtn6e6uZedcPljlx9Mr7ZQLlOhGAVDcWR9KNq0Z1SWeRInwWc3cEdUJ6TUmPa308Q==
   dependencies:
     "@babel/code-frame" "^7.5.5"
     "@babel/runtime" "^7.7.6"
@@ -11290,7 +11290,7 @@ gatsby-cli@^2.8.29:
     pretty-error "^2.1.1"
     progress "^2.0.3"
     prompts "^2.3.0"
-    react "^16.12.0"
+    react "^16.8.0"
     redux "^4.0.4"
     resolve-cwd "^2.0.0"
     semver "^6.3.0"
@@ -11424,10 +11424,10 @@ gatsby-plugin-google-fonts@1.0.1:
   resolved "https://registry.yarnpkg.com/gatsby-plugin-google-fonts/-/gatsby-plugin-google-fonts-1.0.1.tgz#d71054f7bf207b9a8da227380369e18e6f4e0201"
   integrity sha512-p1NVkn27GUnDA5qHM+Z4cCcLCJIardzZXMon3640sT4xuL/AZJbsx3HEt2KY/5oZu0UXIkytkxzV2Da4rQeUIg==
 
-gatsby-plugin-mdx@1.0.71:
-  version "1.0.71"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-mdx/-/gatsby-plugin-mdx-1.0.71.tgz#1c302b1b55fd3e2add45edd7cef1b5150ec0ffe3"
-  integrity sha512-1JX8XpzlXucQAwE8FpnfYfjnNrWTkj5aOYqkizdfu2R129P8o8dB+v4EWbqMhfXO7Ol0bBjUUpuK20MSGF/ZEg==
+gatsby-plugin-mdx@1.0.73:
+  version "1.0.73"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-mdx/-/gatsby-plugin-mdx-1.0.73.tgz#cd9187e362ffae559c111ca6ce931c35276d8aa5"
+  integrity sha512-QEYlDV9o25NNbP0C86G3z+E2yrzb3kWEMqD51u85sRUdIMpMeYto2ZkPzTBDinmkUa4/vQYuoL9th69bukNtEg==
   dependencies:
     "@babel/core" "^7.7.5"
     "@babel/generator" "^7.7.4"
@@ -11629,10 +11629,10 @@ gatsby-telemetry@^1.1.49:
     stack-utils "1.0.2"
     uuid "3.3.3"
 
-gatsby@2.19.15:
-  version "2.19.15"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.19.15.tgz#fc913f4f295f3c4f31977ea71d76ea4094af446c"
-  integrity sha512-9ndAxvom1Wsc6GgcXOxhV80ZjZb1Rk+aV7zjiHzzXfjjRU86X0/CMEjcEIbzbxqv7mcIoNAULoKyH1q0xXlNfQ==
+gatsby@2.19.19:
+  version "2.19.19"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.19.19.tgz#8d4aa54e8c8da9cb38c5c7a15cfa358aec496f65"
+  integrity sha512-Is2s9qJ5p9fSzwhAf2LpKcv5l3/03Le3ZMJiU4ZOOauFhzLbsEIWK/Fu90GwnC8T7t9iWH3myI9NGh3a9+6cAQ==
   dependencies:
     "@babel/code-frame" "^7.5.5"
     "@babel/core" "^7.7.5"
@@ -11693,7 +11693,7 @@ gatsby@2.19.15:
     flat "^4.1.0"
     fs-exists-cached "1.0.0"
     fs-extra "^8.1.0"
-    gatsby-cli "^2.8.29"
+    gatsby-cli "^2.8.30"
     gatsby-core-utils "^1.0.28"
     gatsby-graphiql-explorer "^0.2.34"
     gatsby-link "^2.2.29"
@@ -21312,7 +21312,7 @@ react-youtube@^7.9.0:
     prop-types "^15.5.3"
     youtube-player "^5.5.1"
 
-react@16.12.0, react@^16.11.0, react@^16.12.0, react@^16.4.1, react@^16.8.1, react@^16.8.4, react@^16.9.0, react@^16.x:
+react@16.12.0, react@^16.11.0, react@^16.12.0, react@^16.4.1, react@^16.8.0, react@^16.8.1, react@^16.8.4, react@^16.9.0, react@^16.x:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
