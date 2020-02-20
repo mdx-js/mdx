@@ -2906,7 +2906,7 @@
     tiny-glob "^0.2.6"
     tslib "^1.10.0"
 
-"@reach/router@1.3.1":
+"@reach/router@1.3.1", "@reach/router@^1.3.1":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.3.1.tgz#0a49f75fa9621323d6e21c803447bcfcde1713b2"
   integrity sha512-Ov1j1J+pSgXliJHFL7XWhjyREwc6GxeWfgBTa5MMH5eRmYtHbPhaovba4xKo7aTVCg8fxkt2yDMNSpvwfUP+pA==
@@ -2927,27 +2927,21 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@reach/router@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.3.1.tgz#0a49f75fa9621323d6e21c803447bcfcde1713b2"
-  integrity sha512-Ov1j1J+pSgXliJHFL7XWhjyREwc6GxeWfgBTa5MMH5eRmYtHbPhaovba4xKo7aTVCg8fxkt2yDMNSpvwfUP+pA==
+"@reach/skip-nav@0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@reach/skip-nav/-/skip-nav-0.8.4.tgz#6cc2b7af37562da3f283c033691ee11e7e9e1197"
+  integrity sha512-e4OzREWcthbLhAZNrRn5oV4OIhLm3yCfRMDaY0AMGfWBhn7f8q4RMUGmT73Qz2zQIfucztejW8A4nLR03uQASg==
   dependencies:
-    create-react-context "0.3.0"
-    invariant "^2.2.3"
-    prop-types "^15.6.1"
-    react-lifecycles-compat "^3.0.4"
+    "@reach/utils" "^0.8.4"
+    tslib "^1.10.0"
 
-"@reach/skip-nav@0.7.4":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@reach/skip-nav/-/skip-nav-0.7.4.tgz#7b5c263a64d43330e9e4560da23340ea9e71918c"
-  integrity sha512-/3aQ3V9G4MtQjm7AFN09wVs0rivWR49ntNRC6waQviBd2HlRXbDlbNGsQ8zl0M5R7VHYuBQERwGuG4P0hJ53iQ==
+"@reach/utils@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.8.4.tgz#c5045637401beff8fa5e8e278fafc5af226c2fee"
+  integrity sha512-RZq5Y5K5+CakM5zzecNypP28U60/9sm3PraZznCsfcB/O3+3O0kgg5X+a7IHD3GnRqJVYTzAjA6sral6kPYLKQ==
   dependencies:
-    "@reach/utils" "^0.7.4"
-
-"@reach/utils@^0.7.4":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.7.4.tgz#cdd0cff8c57445ce9c2b11204e6a62868f1093a1"
-  integrity sha512-RFhWmeaEfcu+xATfGPH4yjTlgD01ek0D8bVhtP4CgCqV2gnyS0KLAlWshzlAlSrBvr7zmpkA5QZJ1g43vFBSww==
+    tslib "^1.10.0"
+    warning "^4.0.3"
 
 "@rebass/components@4.0.0-1", "@rebass/components@^4.0.0-1":
   version "4.0.0-1"
