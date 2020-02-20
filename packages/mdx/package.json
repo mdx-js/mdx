@@ -51,6 +51,6 @@
     "style-to-object": "0.3.0",
     "unified": "8.4.2",
     "unist-builder": "2.0.2",
-    "unist-util-visit": "2.0.1"
+    "unist-util-visit": "2.0.2"
   }
 }
