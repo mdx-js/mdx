@@ -61,7 +61,7 @@
     "eslint-plugin-react": "7.18.3",
     "gatsby": "2.19.19",
     "hast-util-select": "3.0.1",
-    "husky": "4.2.1",
+    "husky": "4.2.3",
     "jest": "25.1.0",
     "lerna": "3.20.2",
     "lint-staged": "10.0.2",
