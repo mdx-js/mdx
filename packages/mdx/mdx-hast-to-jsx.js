@@ -151,7 +151,13 @@ MDXContent.isMDXComponent = true`
 ` +
       uniq(jsxNames)
         .filter(name => !importExportNames.includes(name))
-        .map(name => `const ${name} = makeShortcode("${name}");`)
+        .map(name => {
+          if (name.includes('.')) {
+            return `${name} = ${name} || makeShortcode("${name}");`
+          }
+
+          return `const ${name} = makeShortcode("${name}");`
+        })
         .join('\n')
 
     const moduleBase = `${importStatements}

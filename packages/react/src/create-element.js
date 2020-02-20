@@ -20,9 +20,21 @@ const MDXCreateElement = forwardRef((props, ref) => {
 
   const components = useMDXComponents(propComponents)
   const type = mdxType
+
+  const getMemberExpressionElement = () => {
+    if (!type.includes('.')) {
+      return
+    }
+
+    const [objName, propName] = type.split('.')
+    const component = (components[objName] || {})[propName]
+    return component
+  }
+
   const Component =
     components[`${parentName}.${type}`] ||
     components[type] ||
+    getMemberExpressionElement() ||
     DEFAULTS[type] ||
     originalType
 

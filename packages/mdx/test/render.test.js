@@ -18,7 +18,11 @@ const components = {
     React.createElement('h1', {style: {color: 'tomato'}}, children),
   Button: () => React.createElement('button', {}, 'Hello, button!'),
   del: ({children}) =>
-    React.createElement('del', {style: {color: 'crimson'}}, children)
+    React.createElement('del', {style: {color: 'crimson'}}, children),
+  Foo: {
+    Bar: ({children}) =>
+      React.createElement('p', {style: {color: 'salmon'}}, children)
+  }
 }
 
 it('renders using components from context', async () => {
@@ -74,4 +78,10 @@ it('renders delete component from context', async () => {
   expect(result).toContain(
     '<p>Hello, <del style="color:crimson">world</del> MDX!</p>'
   )
+})
+
+it('renders the jsx element with that uses a member expression', async () => {
+  const result = await renderWithReact(`<Foo.Bar />`, {components})
+
+  expect(result).toContain('<p style="color:salmon"')
 })

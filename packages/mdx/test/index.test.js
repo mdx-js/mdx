@@ -245,7 +245,9 @@ it('Should not include export wrapper if skipExport is true', async () => {
 
 it('Should recognize components as properties', async () => {
   const result = await mdx('# Hello\n\n<MDX.Foo />')
-  expect(dropWhitespace(result)).toContain('<h1>{`Hello`}</h1> <MDX.Foo />')
+  expect(dropWhitespace(result)).toContain(
+    '<h1>{`Hello`}</h1> <MDX.Foo mdxType="MDX.Foo" />'
+  )
 })
 
 it('Should contain static isMDXComponent() function', async () => {
