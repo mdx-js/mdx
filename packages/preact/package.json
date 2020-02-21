@@ -1,0 +1,41 @@
+{
+  "name": "@mdx-js/preact",
+  "version": "1.5.6",
+  "description": "Preact implementation for MDX",
+  "repository": "mdx-js/mdx",
+  "homepage": "https://mdxjs.com",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+  "contributors": [
+    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
+    "Tim Neutkens <tim@zeit.co>",
+    "Matija Marohnić <matija.marohnic@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+    "JounQin <admin@1stg.me> (https://www.1stg.me)"
+  ],
+  "license": "MIT",
+  "main": "dist/cjs.js",
+  "module": "dist/esm.js",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "peerDependencies": {
+    "preact": "^10.3.2"
+  },
+  "devDependencies": {
+    "preact": "10.3.2",
+    "preact-render-to-string": "5.1.4"
+  }
+}
