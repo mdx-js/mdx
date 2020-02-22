@@ -49,7 +49,7 @@ jobs:
         run: yarn test
 
       - name: Publish CI tag to npm
-        if: matrix.node == 12 && matrix.os == 'macOS-latest' && github.event_name == 'push'
+        if: matrix.node == 12 && matrix.os == 'macOS-latest' && github.event_name == 'push' && github.ref	== 'refs/heads/master'
         run: |
           npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
           yarn publish-ci
