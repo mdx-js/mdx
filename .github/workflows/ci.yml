@@ -11,9 +11,9 @@ jobs:
         node: [8, 10, 12]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v1
 
-      - uses: actions/setup-node@master
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
@@ -49,7 +49,7 @@ jobs:
         run: yarn test
 
       - name: Publish CI tag to npm
-        if: matrix.node == 12 && matrix.os == 'macOS-latest' && github.event_name == 'push' && github.ref	== 'refs/heads/master'
+        if: matrix.node == 12 && matrix.os == 'macOS-latest' && github.event_name == 'push'
         run: |
           npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
           yarn publish-ci
