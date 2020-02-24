@@ -56,13 +56,17 @@ improve the developer experience for TypeScript users.
 ---
 
 If you’re getting errors from TypeScript related to imports with an `*.mdx`
-extension, create an `mdx.d.ts` file in your types directory and include it
-inside your `tsconfig.json`.
+extension, create an `mdx.d.ts` file in your types directory with:
 
 ```tsx
-// types/mdx.d.ts
 declare module '*.mdx' {
   let MDXComponent: (props: any) => JSX.Element
   export default MDXComponent
 }
+```
+
+Then update the `include` section of your `tsconfig.json` file with: 
+
+```
+'types/mdx.d.ts'
 ```
