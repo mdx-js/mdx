@@ -22273,7 +22273,7 @@ remark-preset-lint-recommended@^3.0.1:
     remark-lint-no-unused-definitions "^1.0.0"
     remark-lint-ordered-list-marker-style "^1.0.0"
 
-remark-preset-prettier@^0.3.0:
+remark-preset-prettier@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/remark-preset-prettier/-/remark-preset-prettier-0.3.0.tgz#31ac7101eafc28815b930c04ab4fcfefbfdc7a6d"
   integrity sha512-TYJfPdAn/T9+Nmm63qc7JtED9QL1hDh7V2loDPwAgfDFPTGQUzkeKLsl4z8QdjvJ/pgK/IZoKpZZbjK50CGgnw==
@@ -22706,7 +22706,7 @@ retext-diacritics@^2.0.0:
     quotation "^1.0.1"
     unist-util-position "^3.0.0"
 
-retext-english@^3.0.0, retext-english@^3.0.4:
+retext-english@3.0.4, retext-english@^3.0.0, retext-english@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/retext-english/-/retext-english-3.0.4.tgz#f978828d51fbcee842bc3807a45b7f709822ea8d"
   integrity sha512-yr1PgaBDde+25aJXrnt3p1jvT8FVLVat2Bx8XeAWX13KXo8OT+3nWGU3HWxM4YFJvmfqvJYJZG2d7xxaO774gw==
@@ -22725,7 +22725,7 @@ retext-indefinite-article@^1.1.0:
     unist-util-is "^3.0.0"
     unist-util-visit "^1.1.0"
 
-retext-preset-wooorm@^2.0.0:
+retext-preset-wooorm@2.0.0, retext-preset-wooorm@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/retext-preset-wooorm/-/retext-preset-wooorm-2.0.0.tgz#dd174d634945192704122284f6fcf192b7210179"
   integrity sha512-oFvNxq+5zjclk5lF5owEPg7wF3Zxu6WZTOcOtwqDJO165xVibMo0ikDqGWmE+9vPYjId8z4FNWf6DqlpeesQog==
@@ -22769,7 +22769,7 @@ retext-repeated-words@^2.0.0:
     unist-util-is "^3.0.0"
     unist-util-visit "^1.1.0"
 
-retext-sentence-spacing@^3.0.0:
+retext-sentence-spacing@3.0.0, retext-sentence-spacing@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/retext-sentence-spacing/-/retext-sentence-spacing-3.0.0.tgz#bfdfc4fc5990f816cc79a6caa335046878208300"
   integrity sha512-UWltTXZNh6kBwJJc0js3nOmbqze3LqhJg68jaRErNIPZQHtZ5hMn7h7f8kVY5OrbEL9XiY88m5DRPbFz16eTkQ==
@@ -27285,7 +27285,7 @@ yargs@~3.10.0:
     decamelize "^1.0.0"
     window-size "0.1.0"
 
-yarn-deduplicate@^1.1.1:
+yarn-deduplicate@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/yarn-deduplicate/-/yarn-deduplicate-1.1.1.tgz#19b4a87654b66f55bf3a4bd6b153b4e4ab1b6e6d"
   integrity sha512-2FDJ1dFmtvqhRmfja89ohYzpaheCYg7BFBSyaUq+kxK0y61C9oHv1XaQovCWGJtP2WU8PksQOgzMVV7oQOobzw==

@@ -76,13 +76,13 @@
     "remark-math": "2.0.0",
     "remark-mdx": "^1.5.1",
     "remark-parse": "7.0.2",
-    "remark-preset-prettier": "^0.3.0",
+    "remark-preset-prettier": "0.3.0",
     "remark-preset-wooorm": "6.0.1",
     "remark-slug": "5.1.2",
     "remark-stringify": "7.0.4",
-    "retext-english": "^3.0.4",
-    "retext-preset-wooorm": "^2.0.0",
-    "retext-sentence-spacing": "^3.0.0",
+    "retext-english": "3.0.4",
+    "retext-preset-wooorm": "2.0.0",
+    "retext-sentence-spacing": "3.0.0",
     "rimraf": "3.0.2",
     "typescript": "3.7.5",
     "unified": "8.4.2",
@@ -90,7 +90,7 @@
     "vue": "2.6.11",
     "vue-template-compiler": "2.6.11",
     "webpack": "4.41.6",
-    "yarn-deduplicate": "^1.1.1"
+    "yarn-deduplicate": "1.1.1"
   },
   "resolutions": {
     "@babel/core": "7.8.4",
