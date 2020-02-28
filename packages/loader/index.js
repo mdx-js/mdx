@@ -21,8 +21,12 @@ const loader = async function(content) {
   }
 
   const {renderer = DEFAULT_RENDERER} = options
+  const {header = ''} = options
+  const {footer = ''} = options
 
-  const code = `${renderer}\n${result}`
+  const code = `${header ? header + '\n' : ''}${renderer}\n${result}${
+    footer ? '\n' + footer : ''
+  }`
   return callback(null, code)
 }
 
