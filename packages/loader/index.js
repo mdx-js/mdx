@@ -12,7 +12,12 @@ const loader = async function(content) {
     filepath: this.resourcePath
   })
 
-  const {renderer = DEFAULT_RENDERER, header, footer} = options
+  const {
+    renderer = DEFAULT_RENDERER,
+    header,
+    footer,
+    defaultExport = true
+  } = options
 
   let headerCode = ''
   if (header) {
@@ -40,6 +45,12 @@ const loader = async function(content) {
 
   try {
     result = await mdx(`${headerCode}${content}`, options)
+    if (!defaultExport) {
+      result = result.replace(
+        'export default function MDXContent',
+        'export function MDXContent'
+      )
+    }
   } catch (err) {
     return callback(err)
   }
