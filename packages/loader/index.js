@@ -12,17 +12,7 @@ const loader = async function(content) {
     filepath: this.resourcePath
   })
 
-  let result
-
-  try {
-    result = await mdx(content, options)
-  } catch (err) {
-    return callback(err)
-  }
-
-  const {renderer = DEFAULT_RENDERER} = options
-  const {header} = options
-  const {footer} = options
+  const {renderer = DEFAULT_RENDERER, header, footer} = options
 
   let headerCode = ''
   if (header) {
@@ -46,7 +36,15 @@ const loader = async function(content) {
     }
   }
 
-  const code = `${renderer}\n${headerCode}${result}${footerCode}`
+  let result
+
+  try {
+    result = await mdx(`${headerCode}${content}`, options)
+  } catch (err) {
+    return callback(err)
+  }
+
+  const code = `${renderer}\n${result}${footerCode}`
   return callback(null, code)
 }
 
