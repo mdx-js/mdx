@@ -46,7 +46,7 @@ const loader = async function(content) {
     }
   }
 
-  const code = `${headerCode}${renderer}\n${result}${footerCode}`
+  const code = `${renderer}\n${headerCode}${result}${footerCode}`
   return callback(null, code)
 }
 
