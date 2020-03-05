@@ -39,7 +39,7 @@
     "@babel/preset-env": "7.6.0",
     "@babel/preset-react": "7.0.0",
     "babel-loader": "8.0.6",
-    "dtslint": "^0.9.8",
+    "dtslint": "^3.3.0",
     "jest": "24.9.0",
     "memory-fs": "0.4.1",
     "react": "16.9.0",

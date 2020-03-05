@@ -56,7 +56,7 @@
     "@mdx-js/react": "^1.4.5",
     "@mdx-js/test-util": "^1.4.5",
     "babel-plugin-remove-export-keywords": "^1.4.5",
-    "dtslint": "^0.9.8",
+    "dtslint": "^3.3.0",
     "hast-util-select": "3.0.1",
     "jest": "24.9.0",
     "prettier": "1.18.2",

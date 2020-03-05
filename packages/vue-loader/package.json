@@ -41,7 +41,7 @@
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-loader": "8.0.6",
     "babel-plugin-transform-vue-jsx": "4.0.1",
-    "dtslint": "^0.9.8",
+    "dtslint": "^3.3.0",
     "jest": "24.9.0",
     "memory-fs": "0.4.1",
     "react": "16.9.0",
