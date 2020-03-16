@@ -42,7 +42,7 @@
     "babel-plugin-extract-import-names": "^1.5.7",
     "camelcase-css": "2.0.1",
     "detab": "2.0.3",
-    "hast-util-raw": "5.0.1",
+    "hast-util-raw": "5.0.2",
     "lodash.uniq": "4.5.0",
     "mdast-util-to-hast": "7.0.0",
     "remark-mdx": "^1.5.7",
