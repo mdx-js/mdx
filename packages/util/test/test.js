@@ -44,4 +44,22 @@ describe('toTemplateLiteral', () => {
     // eslint-disable-next-line no-template-curly-in-string
     expect(result).toEqual('{`All the \\${`}')
   })
+
+  it("escapes string with slash in front of '${' so that it is not evaluated", () => {
+    const originalString = String.raw`Hello \${world}`
+    const result = toTemplateLiteral(originalString)
+
+    expect(result).toEqual('{`Hello \\\\\\$\\{world}`}')
+    // eslint-disable-next-line no-eval
+    expect(originalString).toEqual(eval(result))
+  })
+
+  it("escapes string with slash in front of '$' so that it is not evaluated", () => {
+    const originalString = String.raw`My vars $foo\$bar`
+    const result = toTemplateLiteral(originalString)
+
+    expect(result).toEqual('{`My vars $foo\\\\$bar`}')
+    // eslint-disable-next-line no-eval
+    expect(originalString).toEqual(eval(result))
+  })
 })
