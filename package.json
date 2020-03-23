@@ -68,8 +68,8 @@
     "memory-fs": "0.5.0",
     "prettier": "prettier/prettier",
     "prettier-plugin-pkg": "0.4.11",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
     "rehype-add-classes": "1.0.0",
     "rehype-katex": "2.0.0",
     "remark-autolink-headings": "5.2.2",
@@ -98,8 +98,8 @@
     "@babel/preset-react": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
     "@emotion/core": "10.0.28",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
     "theme-ui": "0.3.1"
   },
   "husky": {
