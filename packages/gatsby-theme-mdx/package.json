@@ -46,7 +46,7 @@
     "prism-react-renderer": "1.0.2",
     "react-helmet": "5.2.1",
     "react-live": "2.2.2",
-    "remark-emoji": "2.0.2",
+    "remark-emoji": "2.1.0",
     "remark-mdx-remove-exports": "^1.5.7",
     "remark-mdx-remove-imports": "^1.5.7",
     "remark-slug": "5.1.2",
