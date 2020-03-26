@@ -1,6 +1,6 @@
 {
   "name": "react-static-example-basic",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "private": true,
   "scripts": {
     "build": "react-static build",
