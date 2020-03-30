@@ -73,7 +73,7 @@
     "rehype-add-classes": "1.0.0",
     "rehype-katex": "2.0.0",
     "remark-autolink-headings": "5.2.2",
-    "remark-math": "2.0.0",
+    "remark-math": "2.0.1",
     "remark-mdx": "^1.5.7",
     "remark-parse": "7.0.2",
     "remark-preset-prettier": "0.4.0",
