@@ -89,7 +89,7 @@
     "vfile": "4.0.3",
     "vue": "2.6.11",
     "vue-template-compiler": "2.6.11",
-    "webpack": "4.42.0",
+    "webpack": "4.42.1",
     "yarn-deduplicate": "2.0.0"
   },
   "resolutions": {
