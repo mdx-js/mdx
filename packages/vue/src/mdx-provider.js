@@ -1,14 +1,26 @@
-export default {
+/**
+ * MDXProvider component
+ *
+ * This component custom components from the user and
+ * provides them to the context tree for all output markdown.
+ *
+ */
+const MDXProvider = {
+  name: 'MDXProvider',
   props: {
-    components: Object,
-    required: true
+    components: {
+      type: Object,
+      default: () => ({})
+    },
   },
   provide() {
     return {
-      contextComponents: this.components
-    }
+      $mdxComponents: () => this.components
+    };
   },
-  render() {
-    return <div>{this.$slots.default}</div>
+  render(h) {
+    return h('div', this.$slots.default);
   }
-}
+};
+
+export default MDXProvider

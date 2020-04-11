@@ -45,7 +45,7 @@
   dependencies:
     cross-fetch "3.0.4"
 
-"@babel/cli@^7.5.5":
+"@babel/cli@^7.5.5", "@babel/cli@^7.8.4":
   version "7.8.4"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.8.4.tgz#505fb053721a98777b2b175323ea4f090b7d3c1c"
   integrity sha512-XXLgAm6LBbaNxaGhMAznXXaxtCWfuv6PIDJ9Alsy9JYTOh+j2jJz+L/162kkfU1j/pTSxK1xGmlwI4pdIMkoag==
@@ -2612,6 +2612,25 @@
   version "0.20.3"
   resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.20.3.tgz#9e2306040b6469248c45a5f5baf44d0014db0493"
   integrity sha512-Co3gUFmNDv9z2LjuvLTpTj2NaOSHFxuoZjohcG0YK/KfECO+Ns9idzThMYjfEDe1vAf4c824rqlBYseedJdFNw==
+
+"@mdx-js/vue-loader@^1.5.9":
+  version "1.5.9"
+  resolved "https://registry.yarnpkg.com/@mdx-js/vue-loader/-/vue-loader-1.5.9.tgz#63e5e2336b39a55d710ba1667f3c22a9e170eb26"
+  integrity sha512-c+fX3Z3CU4e/rSuobMUHJMvDEQdvMwUow79CmKkhk30ESsImTuxRiyTc0eKWXVHUOdoFv1aXoTGK8cSpcGP/Lw==
+  dependencies:
+    "@mdx-js/mdx" "^1.5.9"
+    "@mdx-js/vue" "^1.5.9"
+    loader-utils "2.0.0"
+
+"@mdx-js/vue@^1.5.8":
+  version "1.5.8"
+  resolved "https://registry.yarnpkg.com/@mdx-js/vue/-/vue-1.5.8.tgz#2d55a738611a91a734bee077b1c1f91555a9430a"
+  integrity sha512-nRLHKzjsGD5uMAfIB1/6hsxYdFziKfyRIkKoAG3PMsy1rKEo3S++VlWPqlIqFgiY6DdLFp7Iy4j6Tm9ZFpqN7w==
+
+"@mdx-js/vue@^1.5.9":
+  version "1.5.9"
+  resolved "https://registry.yarnpkg.com/@mdx-js/vue/-/vue-1.5.9.tgz#4eb0e506500e75b16e223c4e12b13a1d2dcd83fe"
+  integrity sha512-J/biLL2iugCvmRBxvuzR8RpY/ProOU47U3TQ+3FzEvJQt14CWNOY/3iB+YkTmZQEa2d0pzkz3HIVnzczKAo1fQ==
 
 "@mikaelkristiansson/domready@^1.0.10":
   version "1.0.10"
@@ -8178,6 +8197,13 @@ create-react-context@^0.2.2, create-react-context@^0.2.3:
   dependencies:
     fbjs "^0.8.0"
     gud "^1.0.0"
+
+cross-env@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.2.tgz#bd5ed31339a93a3418ac4f3ca9ca3403082ae5f9"
+  integrity sha512-KZP/bMEOJEDCkDQAyRhu3RL2ZO/SUVrxQVI0G3YEQ+OLbRA3c6zgixe8Mq8a/z7+HKlNEjo8oiLUs8iRijY2Rw==
+  dependencies:
+    cross-spawn "^7.0.1"
 
 cross-fetch@2.2.2:
   version "2.2.2"
@@ -26453,6 +26479,14 @@ warning@^4.0.1, warning@^4.0.3:
   integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
   dependencies:
     loose-envify "^1.0.0"
+
+watch@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/watch/-/watch-1.0.2.tgz#340a717bde765726fa0aa07d721e0147a551df0c"
+  integrity sha1-NApxe952Vyb6CqB9ch4BR6VR3ww=
+  dependencies:
+    exec-sh "^0.2.0"
+    minimist "^1.2.0"
 
 watch@~0.18.0:
   version "0.18.0"
