@@ -1,9 +1,10 @@
 import { shallowMount } from '@vue/test-utils'
 import MDXProvider from '../src/mdx-provider'
-import components from './components'
+import components from './mdx-components'
 
 /**
  * Skipped because @vue/test-utils requires jsdom-global installed.
+ * @todo Add unit test setup for vue components with @vue/test-utils or @testing-library/vue
  */
 xdescribe('===== MDXProvider Component =====', () => {
   let mdxProvider
