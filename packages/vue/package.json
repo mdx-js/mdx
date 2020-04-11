@@ -1,30 +1,42 @@
 {
   "name": "@mdx-js/vue",
-  "version": "1.5.7",
+  "version": "2.0.0",
   "description": "MDX support for Vue components",
-  "repository": "mdx-js/mdx",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
-  "contributors": [
-    "JounQin <admin@1stg.me> (https://www.1stg.me)"
-  ],
-  "license": "MIT",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
+  "license": "MIT",
+  "author": "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
   "files": [
     "dist"
   ],
+  "scripts": {
+    "dev": "watch 'yarn build' src",
+    "build": "yarn build:cjs && yarn build:es",
+    "build:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --copy-files",
+    "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src -d dist/es --copy-files",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "cross-env": "^7.0.2",
+    "watch": "^1.0.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  },
   "keywords": [
     "markdown",
     "vue",
     "mdx",
     "remark"
   ],
-  "scripts": {
-    "no-test": "jest"
-  },
   "jest": {
     "testEnvironment": "jsdom"
   }
