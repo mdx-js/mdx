@@ -55,9 +55,9 @@ and then passed to the wrapper. This allows for the wrapper to use
 those props automatically for handling things like adding an author
 bio to the wrapped document.
 
-## `makeShortcodes`
+## `makeShortcode`
 
-There is one other function added to the compiled output: `makeShortcodes`.
+There is one other function added to the compiled output: `makeShortcode`.
 This is added for [shortcode support](/blog/shortcodes). It’s used in order
 to stub any components that aren’t directly imported so that there won’t be
 any `ReferenceError`s. If they’re passed to the `MDXProvider`, the custom
