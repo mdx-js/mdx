@@ -5,7 +5,8 @@ const plugin = require('..')
 const testContents = `
 <img srcset="foo" />
 `
-const expectedResults = `React.createElement("img", {
+const expectedResults = `/*#__PURE__*/
+React.createElement("img", {
   srcSet: "foo"
 });`
 
