@@ -83,15 +83,12 @@ function toJSX(node, parentNode = {}, options = {}) {
     const exportStatements = exportNodes
       .map(childNode => toJSX(childNode, node))
       .join('\n')
-    const layoutProps = `const layoutProps = {
-  ${exportNames.join(',\n')}
-};`
     const mdxLayout = `const MDXLayout = ${layout ? layout : '"wrapper"'}`
 
     const fn = `function MDXContent({ components, ...props }) {
   return (
     <MDXLayout
-      {...layoutProps}
+${exportNames.map(name => `      ${name}={${name}}`).join('\n')}
       {...props}
       components={components}>
 ${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
@@ -157,7 +154,6 @@ MDXContent.isMDXComponent = true`
     const moduleBase = `${importStatements}
 ${exportStatementsPostMdxTypeProps}
 ${fakedModulesForGlobalScope}
-${layoutProps}
 ${mdxLayout}`
 
     if (skipExport) {

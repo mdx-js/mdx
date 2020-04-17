@@ -54,16 +54,10 @@ it('Should match sample blog post snapshot', async () => {
                 return <div {...props} />;
               };
 
-            const layoutProps = {};
             const MDXLayout = \\"wrapper\\";
             export default function MDXContent({ components, ...props }) {
               return (
-                <MDXLayout
-                  {...layoutProps}
-                  {...props}
-                  components={components}
-                  mdxType=\\"MDXLayout\\"
-                >
+                <MDXLayout {...props} components={components} mdxType=\\"MDXLayout\\">
                   <h1>{\`Hello World\`}</h1>
                 </MDXLayout>
               );
@@ -338,15 +332,12 @@ test('Should handle layout props', () => {
     };
     const Foo = makeShortcode(\\"Foo\\");
     const Bar = makeShortcode(\\"Bar\\");
-    const layoutProps = {
-      foo
-    };
     const MDXLayout = ({children}) => <div>{children}</div>
     export default function MDXContent({
       components,
       ...props
     }) {
-      return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
+      return <MDXLayout foo={foo} {...props} components={components} mdxType=\\"MDXLayout\\">
 
 
         <h1>{\`Hello, world!\`}</h1>

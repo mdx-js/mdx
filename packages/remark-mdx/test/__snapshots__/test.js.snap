@@ -11,15 +11,12 @@ const makeShortcode = name => function MDXDefaultShortcode(props) {
 const Baz = makeShortcode(\\"Baz\\");
 const Paragraph = makeShortcode(\\"Paragraph\\");
 const Button = makeShortcode(\\"Button\\");
-const layoutProps = {
-  
-};
 const MDXLayout = Foo
 export default function MDXContent({
   components,
   ...props
 }) {
-  return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
+  return <MDXLayout {...props} components={components} mdxType=\\"MDXLayout\\">
 
 
 
