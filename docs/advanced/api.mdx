@@ -13,6 +13,7 @@ the JSX string is created.
 
 - [Async API](#async-api)
 - [Sync API](#sync-api)
+- [Compiler](#compiler)
 
 ## Async API
 
@@ -114,6 +115,46 @@ const jsx = mdx.sync(mdxText)
 <!-- TODO: links should be updated. Can we also inline this example? -->
 
 MDX’s [runtime][] package has [example][] usage.
+
+## Compiler
+
+If you want to extract data from a MDX file, you can access the
+compiler directly:
+
+```js
+const {createCompiler} = require('@mdx-js/mdx')
+const detectFrontmatter = require('remark-frontmatter')
+const vfile = require('vfile')
+const visit = require('unist-util-visit')
+const remove = require('unist-util-remove')
+const yaml = require('yaml')
+
+const file = vfile(`
+---
+title: Hello, MDX
+---
+
+I <3 Markdown and JSX
+`)
+
+function extractFrontmatter() {
+  return function transformer(tree, file) {
+    visit(tree, 'yaml', function visitor(node) {
+      file.data.frontmatter = yaml.parse(node.value)
+    })
+    remove(tree, 'yaml')
+  }
+}
+
+mdxCompiler = createCompiler({
+  remarkPlugins: [detectFrontmatter, extractFrontmatter]
+})
+
+mdxCompiler.process(file, function done(err, file) {
+  console.log(file.data.frontmatter)
+  // { title: "Hello, MDX" }
+})
+```
 
 [ast]: /advanced/ast
 [plugins]: /plugins
