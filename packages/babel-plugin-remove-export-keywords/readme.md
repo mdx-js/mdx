@@ -1,7 +1,7 @@
 # `babel-plugin-remove-export-keywords`
 
 Remove export keywords by coercing them into variable
-declarations.Used by [MDX](https://mdxjs.com).
+declarations. Used by [MDX](https://mdxjs.com).
 
 ## Installation
 

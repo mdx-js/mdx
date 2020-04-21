@@ -1,7 +1,7 @@
 # `babel-plugin-html-attributes-to-jsx`
 
 Coerce HTML attributes into something JSX and React
-friendly.Used by [MDX](https://mdxjs.com).
+friendly. Used by [MDX](https://mdxjs.com).
 
 ## Installation
 
