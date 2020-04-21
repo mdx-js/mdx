@@ -13,7 +13,7 @@
     "express": "^4.17.1",
     "razzle": "^3.0.0",
     "razzle-plugin-mdx": "^3.0.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }

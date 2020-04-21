@@ -1,12 +1,12 @@
 {
-  "private": true,
-  "name": "zero-mdx",
+  "name": "zero-example",
   "version": "1.5.8",
+  "license": "MIT",
+  "private": true,
   "scripts": {
     "start": "zero"
   },
-  "license": "MIT",
   "dependencies": {
-    "zero": "latest"
+    "zero": "^1.1.20"
   }
 }

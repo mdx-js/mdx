@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import React, {useState} from 'react'
 
-module.exports = function Counter() {
+module.exports = function () {
   // Declare a new state variable, which we'll call "count"
   const [count, setCount] = useState(0)
 

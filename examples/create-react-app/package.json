@@ -9,10 +9,10 @@
     "test": "react-scripts test"
   },
   "dependencies": {
-    "mdx.macro": "^0.2.8",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-scripts": "3.3.0"
+    "mdx.macro": "^0.2.9",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1"
   },
   "browserslist": [
     ">0.2%",

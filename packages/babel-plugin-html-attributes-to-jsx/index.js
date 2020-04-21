@@ -34,7 +34,7 @@ const jsxAttributeFromHTMLAttributeVisitor = {
       //      Node.node.value.type !== "JSXExpressionContainer"
     ) {
       let styleArray = []
-      styleToObject(node.node.value.extra.rawValue, function(name, value) {
+      styleToObject(node.node.value.extra.rawValue, function (name, value) {
         styleArray.push([camelCaseCSS(name), value])
       })
       node.node.value = t.jSXExpressionContainer(

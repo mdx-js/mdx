@@ -11,8 +11,8 @@
     "@mdx-js/mdx": "^1.5.8",
     "@mdx-js/react": "^1.5.8",
     "@mdx-js/runtime": "^1.5.8",
-    "import-jsx": "^3.1.0",
-    "ink": "^2.3.0",
-    "react": "^16.9.0"
+    "import-jsx": "^4.0.0",
+    "ink": "^2.7.1",
+    "react": "^16.13.1"
   }
 }

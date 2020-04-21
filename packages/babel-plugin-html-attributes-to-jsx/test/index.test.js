@@ -17,6 +17,6 @@ describe('babel-plugin-remove-export-keywords', () => {
       presets: [require('@babel/preset-react')]
     })
 
-    expect(result.code).toEqual(expectedResults)
+    expect(result.code).toContain(expectedResults)
   })
 })

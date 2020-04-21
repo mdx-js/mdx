@@ -30,6 +30,6 @@
     "mdxast"
   ],
   "dependencies": {
-    "unist-util-remove": "1.0.3"
+    "unist-util-remove": "2.0.0"
   }
 }

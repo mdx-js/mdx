@@ -39,7 +39,7 @@ const MDXCreateElement = forwardRef((props, ref) => {
 
 MDXCreateElement.displayName = 'MDXCreateElement'
 
-export default function(type, props) {
+export default function (type, props) {
   const args = arguments
   const mdxType = props && props.mdxType
 
