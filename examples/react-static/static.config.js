@@ -1,4 +1,5 @@
 import axios from 'axios'
+import path from 'path'
 
 export default {
   getSiteData: () => ({
@@ -10,7 +11,7 @@ export default {
     )
     return [
       {
-        path: '/blog',
+        path: 'blog',
         getData: () => ({
           posts
         }),
@@ -23,5 +24,15 @@ export default {
         }))
       }
     ]
-  }
+  },
+  plugins: [
+    'react-static-plugin-mdx',
+    [
+      'react-static-plugin-source-filesystem',
+      {
+        location: path.resolve('./src/pages')
+      }
+    ],
+    'react-static-plugin-reach-router'
+  ]
 }

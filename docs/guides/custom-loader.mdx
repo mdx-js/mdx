@@ -9,7 +9,7 @@ Consider a scenario where you wanted to add frontmatter support to all your MDX 
 const matter = require('gray-matter')
 const stringifyObject = require('stringify-object')
 
-module.exports = async function(src) {
+module.exports = async function (src) {
   const callback = this.async()
   const {content, data} = matter(src)
 

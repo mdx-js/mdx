@@ -8,13 +8,13 @@
   },
   "dependencies": {
     "@blocks/kit": "^0.0.28",
-    "@emotion/core": "^10.0.15",
+    "@emotion/core": "^10.0.28",
     "@mdx-js/mdx": "^1.5.8",
     "@mdx-js/react": "^1.5.8",
-    "gatsby": "^2.19.5",
-    "gatsby-mdx": "^1.0.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "gatsby": "^2.20.28",
+    "gatsby-plugin-mdx": "^1.1.9",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "unified-ui": "^0.0.3"
   }
 }

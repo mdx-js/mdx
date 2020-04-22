@@ -1,5 +1,5 @@
 {
-  "name": "x0",
+  "name": "x0-example",
   "version": "1.5.8",
   "license": "MIT",
   "private": true,
@@ -7,8 +7,8 @@
     "start": "x0 pages"
   },
   "dependencies": {
-    "@compositor/x0": "^6.0.4",
-    "@rebass/markdown": "^1.0.0-1",
-    "styled-components": "^5.0.0"
+    "@compositor/x0": "^6.0.7",
+    "@rebass/markdown": "^1.0.0",
+    "styled-components": "^5.1.0"
   }
 }

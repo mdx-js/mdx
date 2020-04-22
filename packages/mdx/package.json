@@ -20,10 +20,10 @@
   "license": "MIT",
   "files": [
     "index.js",
-    "util.js",
     "md-ast-to-mdx-ast.js",
     "mdx-ast-to-mdx-hast.js",
-    "mdx-hast-to-jsx.js"
+    "mdx-hast-to-jsx.js",
+    "util.js"
   ],
   "keywords": [
     "mdx",
@@ -34,7 +34,7 @@
     "mdxast"
   ],
   "dependencies": {
-    "@babel/core": "7.8.4",
+    "@babel/core": "7.9.0",
     "@babel/plugin-syntax-jsx": "7.8.3",
     "@babel/plugin-syntax-object-rest-spread": "7.8.3",
     "@mdx-js/util": "^1.5.8",
@@ -44,12 +44,13 @@
     "detab": "2.0.3",
     "hast-util-raw": "5.0.2",
     "lodash.uniq": "4.5.0",
-    "mdast-util-to-hast": "7.0.0",
+    "mdast-util-to-hast": "8.2.0",
+    "remark-footnotes": "1.0.0",
     "remark-mdx": "^1.5.8",
-    "remark-parse": "7.0.2",
-    "remark-squeeze-paragraphs": "3.0.4",
+    "remark-parse": "8.0.1",
+    "remark-squeeze-paragraphs": "4.0.0",
     "style-to-object": "0.3.0",
-    "unified": "8.4.2",
+    "unified": "9.0.0",
     "unist-builder": "2.0.3",
     "unist-util-visit": "2.0.2"
   }

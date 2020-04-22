@@ -86,7 +86,7 @@ function mdxAstToMdxHast() {
     const hast = toHAST(tree, {
       handlers,
       // Enable passing of HTML nodes to HAST as raw nodes
-      allowDangerousHTML: true
+      allowDangerousHtml: true
     })
 
     return hast

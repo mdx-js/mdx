@@ -41,7 +41,7 @@ const removeImports = require('remark-mdx-remove-imports')
 remark()
   .use(mdx)
   .use(removeImports)
-  .process(vfile.readSync('example.md'), function(err, file) {
+  .process(vfile.readSync('example.md'), function (err, file) {
     if (err) throw err
     console.log(String(file))
   })

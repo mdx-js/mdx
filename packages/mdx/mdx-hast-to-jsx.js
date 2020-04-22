@@ -20,7 +20,7 @@ function toJSX(node, parentNode = {}, options = {}) {
     // Turn style strings into JSX-friendly style object
     if (typeof node.properties.style === 'string') {
       let styleObject = {}
-      styleToObject(node.properties.style, function(name, value) {
+      styleToObject(node.properties.style, function (name, value) {
         styleObject[camelCaseCSS(name)] = value
       })
       node.properties.style = styleObject
@@ -234,7 +234,7 @@ export default ${fnPostMdxTypeProp}`
 }
 
 function compile(options = {}) {
-  this.Compiler = function(tree) {
+  this.Compiler = function (tree) {
     return toJSX(tree, {}, options)
   }
 }
