@@ -1,0 +1,17 @@
+{
+  "name": "react-web-components-example",
+  "version": "1.5.9",
+  "private": true,
+  "scripts": {
+    "build": "gatsby build",
+    "start": "gatsby develop"
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^1.5.9",
+    "@mdx-js/react": "^1.5.9",
+    "gatsby": "^2.20.27",
+    "gatsby-plugin-mdx": "^1.1.9",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
