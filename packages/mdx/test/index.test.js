@@ -56,7 +56,7 @@ it('Should match sample blog post snapshot', async () => {
 
             const layoutProps = {};
             const MDXLayout = \\"wrapper\\";
-            export default function MDXContent({ components, ...props }) {
+            function MDXContent({ components, ...props }) {
               return (
                 <MDXLayout
                   {...layoutProps}
@@ -70,6 +70,8 @@ it('Should match sample blog post snapshot', async () => {
             }
 
             MDXContent.isMDXComponent = true;
+
+            export default MDXContent;
             "
       `)
 })
@@ -325,97 +327,99 @@ test('Should handle layout props', () => {
   const result = mdx.sync(fixtureBlogPost)
 
   expect(result).toMatchInlineSnapshot(`
-    "/* @jsx mdx */
-    import { Baz } from './Fixture'
-    import { Buz } from './Fixture'
-    export const foo = {
-      hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
-      authors: ['fred', 'sally']
-    };
-    const makeShortcode = name => function MDXDefaultShortcode(props) {
-      console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
-      return <div {...props}/>
-    };
-    const Foo = makeShortcode(\\"Foo\\");
-    const Bar = makeShortcode(\\"Bar\\");
-    const layoutProps = {
-      foo
-    };
-    const MDXLayout = ({children}) => <div>{children}</div>
-    export default function MDXContent({
-      components,
-      ...props
-    }) {
-      return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
+"/* @jsx mdx */
+import { Baz } from './Fixture'
+import { Buz } from './Fixture'
+export const foo = {
+  hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
+  authors: ['fred', 'sally']
+};
+const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
+  return <div {...props}/>
+};
+const Foo = makeShortcode(\\"Foo\\");
+const Bar = makeShortcode(\\"Bar\\");
+const layoutProps = {
+  foo
+};
+const MDXLayout = ({children}) => <div>{children}</div>
+function MDXContent({
+  components,
+  ...props
+}) {
+  return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
 
 
-        <h1>{\`Hello, world!\`}</h1>
-        <p>{\`I'm an awesome paragraph.\`}</p>
-        {
-          /* I'm a comment */
-        }
-        <Foo bg='red' mdxType=\\"Foo\\">
-      <Bar mdxType=\\"Bar\\">hi</Bar>
-        {hello}
-        {
-            /* another commment */
-          }
-        </Foo>
-        <pre><code parentName=\\"pre\\" {...{}}>{\`test codeblock
-    \`}</code></pre>
-        <pre><code parentName=\\"pre\\" {...{
-            \\"className\\": \\"language-js\\"
-          }}>{\`module.exports = 'test'
-    \`}</code></pre>
-        <pre><code parentName=\\"pre\\" {...{
-            \\"className\\": \\"language-sh\\"
-          }}>{\`npm i -g foo
-    \`}</code></pre>
-        <table>
-          <thead parentName=\\"table\\">
-            <tr parentName=\\"thead\\">
-              <th parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
-              }}>{\`Test\`}</th>
-              <th parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
-              }}>{\`Table\`}</th>
-            </tr>
-          </thead>
-          <tbody parentName=\\"table\\">
-            <tr parentName=\\"tbody\\">
-              <td parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
-              }}>{\`Col1\`}</td>
-              <td parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
-              }}>{\`Col2\`}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <pre><code parentName=\\"pre\\" {...{
-            \\"className\\": \\"language-js\\"
-          }}>{\`export const Button = styled.button\\\\\`
-      font-size: 1rem;
-      border-radius: 5px;
-      padding: 0.25rem 1rem;
-      margin: 0 1rem;
-      background: transparent;
-      color: \\\\\${props => props.theme.primary};
-      border: 2px solid \\\\\${props => props.theme.primary};
-      \\\\\${props =>
-        props.primary &&
-        css\\\\\`
-          background: \\\\\${props => props.theme.primary};
-          color: white;
-        \\\\\`};
-    \\\\\`
-    \`}</code></pre>
-        </MDXLayout>;
+    <h1>{\`Hello, world!\`}</h1>
+    <p>{\`I'm an awesome paragraph.\`}</p>
+    {
+      /* I'm a comment */
     }
+    <Foo bg='red' mdxType=\\"Foo\\">
+  <Bar mdxType=\\"Bar\\">hi</Bar>
+    {hello}
+    {
+        /* another commment */
+      }
+    </Foo>
+    <pre><code parentName=\\"pre\\" {...{}}>{\`test codeblock
+\`}</code></pre>
+    <pre><code parentName=\\"pre\\" {...{
+        \\"className\\": \\"language-js\\"
+      }}>{\`module.exports = 'test'
+\`}</code></pre>
+    <pre><code parentName=\\"pre\\" {...{
+        \\"className\\": \\"language-sh\\"
+      }}>{\`npm i -g foo
+\`}</code></pre>
+    <table>
+      <thead parentName=\\"table\\">
+        <tr parentName=\\"thead\\">
+          <th parentName=\\"tr\\" {...{
+            \\"align\\": \\"left\\"
+          }}>{\`Test\`}</th>
+          <th parentName=\\"tr\\" {...{
+            \\"align\\": \\"left\\"
+          }}>{\`Table\`}</th>
+        </tr>
+      </thead>
+      <tbody parentName=\\"table\\">
+        <tr parentName=\\"tbody\\">
+          <td parentName=\\"tr\\" {...{
+            \\"align\\": \\"left\\"
+          }}>{\`Col1\`}</td>
+          <td parentName=\\"tr\\" {...{
+            \\"align\\": \\"left\\"
+          }}>{\`Col2\`}</td>
+        </tr>
+      </tbody>
+    </table>
 
-    ;
-    MDXContent.isMDXComponent = true;"
-  `)
+    <pre><code parentName=\\"pre\\" {...{
+        \\"className\\": \\"language-js\\"
+      }}>{\`export const Button = styled.button\\\\\`
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 0.25rem 1rem;
+  margin: 0 1rem;
+  background: transparent;
+  color: \\\\\${props => props.theme.primary};
+  border: 2px solid \\\\\${props => props.theme.primary};
+  \\\\\${props =>
+    props.primary &&
+    css\\\\\`
+      background: \\\\\${props => props.theme.primary};
+      color: white;
+    \\\\\`};
+\\\\\`
+\`}</code></pre>
+    </MDXLayout>;
+}
+
+;
+MDXContent.isMDXComponent = true;
+
+export default MDXContent"
+`)
 })

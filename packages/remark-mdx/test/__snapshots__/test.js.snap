@@ -15,7 +15,7 @@ const layoutProps = {
   
 };
 const MDXLayout = Foo
-export default function MDXContent({
+function MDXContent({
   components,
   ...props
 }) {
@@ -42,7 +42,9 @@ export default function MDXContent({
 }
 
 ;
-MDXContent.isMDXComponent = true;"
+MDXContent.isMDXComponent = true;
+
+export default MDXContent"
 `;
 
 exports[`maintains the proper positional info 1`] = `

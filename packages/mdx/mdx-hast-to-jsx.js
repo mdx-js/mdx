@@ -172,7 +172,9 @@ export default ${wrapExport}(MDXContent)`
     }
 
     return `${moduleBase}
-export default ${fnPostMdxTypeProp}`
+${fnPostMdxTypeProp}
+
+export default MDXContent`
   }
 
   // Recursively walk through children
