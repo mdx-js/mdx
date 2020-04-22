@@ -60,7 +60,7 @@ abide by its terms.
 
 ## License
 
-[MIT][] © [Compositor][] and [ZEIT][]
+[MIT][] © [Compositor][] and [Vercel][]
 
 <!-- Definitions -->
 
@@ -75,6 +75,6 @@ abide by its terms.
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 [mit]: license
 [compositor]: https://compositor.io
-[zeit]: https://zeit.co
+[vercel]: https://vercel.com
 [mdx]: https://github.com/mdx-js/mdx
 [npm]: https://docs.npmjs.com/cli/install
