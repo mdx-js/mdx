@@ -98,9 +98,9 @@ A nice example of this is [mdx-deck][], a great way to create slides with MDX.
 <table>
   <tr valign="top">
     <td width="20%" align="center">
-      <a href="https://zeit.co"><img src="https://avatars1.githubusercontent.com/u/14985020?s=400&v=4"></a>
+      <a href="https://vercel.com"><img src="https://avatars1.githubusercontent.com/u/14985020?s=400&v=4"></a>
       <br><br>🥇
-      <a href="https://zeit.co">ZEIT</a>
+      <a href="https://vercel.com">Vercel</a>
     </td>
     <td width="20%" align="center">
       <a href="https://www.gatsbyjs.org"><img src="https://avatars1.githubusercontent.com/u/12551863?s=400&v=4"></a>
@@ -129,8 +129,8 @@ A nice example of this is [mdx-deck][], a great way to create slides with MDX.
 ## Authors
 
 - [John Otander][john] ([@4lpine][4lpine]) – [Compositor][] + [Clearbit][]
-- [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [ZEIT][]
-- [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [ZEIT][]
+- [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [Vercel][]
+- [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [Vercel][]
 - [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Compositor][]
 
 ## Related
@@ -152,7 +152,7 @@ Join us on [Spectrum][]!
 
 ## License
 
-[MIT][] © [Compositor][] and [ZEIT][]
+[MIT][] © [Compositor][] and [Vercel][]
 
 [build]: https://github.com/mdx-js/mdx/actions?query=workflow%3A%22CI%22
 [build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
@@ -172,7 +172,7 @@ Join us on [Spectrum][]!
 [timneutkens]: https://twitter.com/timneutkens
 [jxnblk]: https://twitter.com/jxnblk
 [compositor]: https://compositor.io
-[zeit]: https://zeit.co
+[vercel]: https://vercel.com
 [clearbit]: https://clearbit.com
 [announcement]: https://medium.com/unifiedjs/collectively-evolving-through-crowdsourcing-22c359ea95cc
 [contribute]: #contribute
