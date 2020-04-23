@@ -1,17 +1,30 @@
 <template>
   <div id="app">
     <h1>Hello MDX</h1>
-    <Test />
+    <MDXProvider v-bind:components="components">
+      <Test />
+    </MDXProvider>
   </div>
 </template>
 
 <script>
+import {MDXProvider} from '@mdx-js/vue'
+import HelloWorld from './components/HelloWorld'
 import Test from './test.mdx'
 
 export default {
   name: 'app',
   components: {
-    Test: Test
+    Test,
+    MDXProvider
+  },
+  data() {
+    return {
+      components: {
+        section: props => HelloWorld,
+        wrapper: props => 'article'
+      }
+    }
   }
 }
 </script>

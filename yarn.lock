@@ -2638,20 +2638,6 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.20.3.tgz#9e2306040b6469248c45a5f5baf44d0014db0493"
   integrity sha512-Co3gUFmNDv9z2LjuvLTpTj2NaOSHFxuoZjohcG0YK/KfECO+Ns9idzThMYjfEDe1vAf4c824rqlBYseedJdFNw==
 
-"@mdx-js/vue-loader@^1.5.8":
-  version "1.5.8"
-  resolved "https://registry.yarnpkg.com/@mdx-js/vue-loader/-/vue-loader-1.5.8.tgz#19840e0228942a1f8c5c0a3370bd420766bae5cc"
-  integrity sha512-N5xh4nVrv1BnF75xr7/8+oTalT5J7SrF68kWFpVd8BBEhxu6J9BGkUoTrFTbI8vwCh49uD3f+Mke6/ziTOSFTg==
-  dependencies:
-    "@mdx-js/mdx" "^1.5.8"
-    "@mdx-js/vue" "^1.5.8"
-    loader-utils "1.2.3"
-
-"@mdx-js/vue@^1.5.7", "@mdx-js/vue@^1.5.8":
-  version "1.5.8"
-  resolved "https://registry.yarnpkg.com/@mdx-js/vue/-/vue-1.5.8.tgz#2d55a738611a91a734bee077b1c1f91555a9430a"
-  integrity sha512-nRLHKzjsGD5uMAfIB1/6hsxYdFziKfyRIkKoAG3PMsy1rKEo3S++VlWPqlIqFgiY6DdLFp7Iy4j6Tm9ZFpqN7w==
-
 "@mikaelkristiansson/domready@^1.0.10":
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/@mikaelkristiansson/domready/-/domready-1.0.10.tgz#f6d69866c0857664e70690d7a0bfedb72143adb5"
