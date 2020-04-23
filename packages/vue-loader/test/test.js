@@ -1,54 +1,31 @@
-/**
- * This test file is not currently being run
- * @todo debug webpack this.outputFileSystem.join() bug
- */
-
 const path = require('path')
-const webpack = require('webpack')
-const {createFsFromVolume, Volume} = require('memfs')
+const fs = require('fs').promises
+const {transformAsync} = require('@babel/core')
 
-const testFixture = fixture => {
-  const compiler = webpack({
-    context: __dirname,
-    entry: `./${fixture}`,
-    output: {
-      path: path.resolve(__dirname),
-      filename: 'bundle.js'
-    },
-    module: {
-      rules: [
-        {
-          test: /\.md?$/,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env'],
-                plugins: ['transform-vue-jsx']
-              }
-            },
-            {
-              loader: path.resolve(__dirname, '..')
-            }
-          ]
-        }
-      ]
+const loader = require('..')
+
+const testFixture = async fixture => {
+  const str = await fs.readFile(path.join(__dirname, fixture), 'utf-8')
+
+  let result
+  await loader.bind({
+    async: () => (err, res) => {
+      if (err) {
+        throw err
+      }
+
+      result = res
     }
+  })(str)
+  const {code} = await transformAsync(result, {
+    presets: ['@babel/preset-env'],
+    plugins: ['transform-vue-jsx']
   })
 
-  compiler.outputFileSystem = createFsFromVolume(new Volume())
-
-  return new Promise((resolve, reject) => {
-    compiler.run((err, stats) => {
-      if (err) reject(err)
-      if (stats.hasErrors()) reject(new Error(stats.toJson().errors))
-
-      resolve(stats)
-    })
-  })
+  return code
 }
 
-xtest('it loads markdown and returns a component', async () => {
+test('it loads markdown and returns a component', async () => {
   const generatedCode = await testFixture('fixture.md')
   expect(generatedCode).toContain('require("@mdx-js/vue")')
 })
