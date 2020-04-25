@@ -8,7 +8,7 @@ export default () => (
   <Location>
     {({location}) => (
       <a
-        href={base + location.pathname + '.mdx'}
+        href={base + location.pathname.replace(/\/$/, '/index') + '.mdx'}
         css={css({
           display: 'inline-block',
           color: 'inherit',
