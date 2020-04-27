@@ -1,55 +1,28 @@
 const path = require('path')
-const webpack = require('webpack')
-const MemoryFs = require('memory-fs')
-const {VueJSXCompiler} = require('@mdx-js/vue')
+const fs = require('fs').promises
+const {transformAsync} = require('@babel/core')
 
-const testFixture = fixture => {
-  const fileName = `./${fixture}`
+const loader = require('..')
 
-  const compiler = webpack({
-    context: __dirname,
-    entry: `./${fixture}`,
-    output: {
-      path: path.resolve(__dirname),
-      filename: 'bundle.js'
-    },
-    node: {
-      fs: 'empty'
-    },
-    module: {
-      rules: [
-        {
-          test: /\.md?$/,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env'],
-                plugins: ['transform-vue-jsx']
-              }
-            },
-            {
-              loader: path.resolve(__dirname, '..'),
-              options: {
-                compilers: [VueJSXCompiler]
-              }
-            }
-          ]
-        }
-      ]
+const testFixture = async fixture => {
+  const str = await fs.readFile(path.join(__dirname, fixture), 'utf-8')
+
+  let result
+  await loader.bind({
+    async: () => (err, res) => {
+      if (err) {
+        throw err
+      }
+
+      result = res
     }
+  })(str)
+  const {code} = await transformAsync(result, {
+    presets: ['@babel/preset-env'],
+    plugins: ['transform-vue-jsx']
   })
 
-  compiler.outputFileSystem = new MemoryFs()
-
-  return new Promise((resolve, reject) => {
-    compiler.run((err, stats) => {
-      if (err) reject(err)
-      const module = stats.toJson().modules.find(m => m.name === fileName)
-        .source
-      resolve(module)
-    })
-  })
+  return code
 }
 
 test('it loads markdown and returns a component', async () => {
