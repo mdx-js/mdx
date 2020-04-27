@@ -1,19 +1,25 @@
 {
   "name": "@mdx-js/vue",
-  "version": "1.5.9",
+  "version": "1.6.0",
   "description": "MDX support for Vue components",
+  "author": "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
+  "license": "MIT",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
-  "license": "MIT",
-  "author": "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
   "files": [
     "dist"
   ],
+  "keywords": [
+    "markdown",
+    "vue",
+    "mdx",
+    "remark"
+  ],
   "scripts": {
-    "dev": "watch 'yarn build' src",
     "build": "yarn build:cjs && yarn build:es",
     "build:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --copy-files",
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src -d dist/es --copy-files",
+    "dev": "watch 'yarn build' src",
     "test": "jest"
   },
   "devDependencies": {
@@ -31,12 +37,6 @@
       "node_modules"
     ]
   },
-  "keywords": [
-    "markdown",
-    "vue",
-    "mdx",
-    "remark"
-  ],
   "jest": {
     "testEnvironment": "jsdom"
   }
