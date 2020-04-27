@@ -41,7 +41,7 @@
     "@mdx-js/mdx": "^1.5.8",
     "@mdx-js/react": "^1.5.8",
     "@mdx-js/test-util": "^1.5.8",
-    "@mdx-js/vue": "^2.0.0",
+    "@mdx-js/vue": "^1.5.9",
     "@pkgr/rollup": "0.10.3",
     "@vue/babel-preset-jsx": "1.1.2",
     "@vue/test-utils": "1.0.0-beta.33",
