@@ -11,7 +11,7 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@mdx-js/vue-loader": "^2.0.0",
+    "@mdx-js/vue-loader": "^1.5.9",
     "@vue/cli-plugin-babel": "^4.3.1",
     "@vue/cli-service": "^4.3.1",
     "vue-template-compiler": "^2.6.11"
