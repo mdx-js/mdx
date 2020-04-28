@@ -12,7 +12,7 @@ const Baz = makeShortcode(\\"Baz\\");
 const Paragraph = makeShortcode(\\"Paragraph\\");
 const Button = makeShortcode(\\"Button\\");
 const layoutProps = {
-  
+
 };
 const MDXLayout = Foo
 export default function MDXContent({
