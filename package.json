@@ -30,7 +30,7 @@
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "lerna publish --force-publish=\"*\" --dist-tag next --preid rc",
-    "test": "jest --runInBand --detectOpenHandles"
+    "test": "jest --runInBand --detectOpenHandles && nyc --reporter lcov tape packages/remark-mdx/test/index.js"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",

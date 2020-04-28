@@ -1,19 +1,19 @@
 'use strict'
 
-var fs = require('fs')
-var path = require('path')
-var test = require('tape')
-var u = require('unist-builder')
-var vfile = require('to-vfile')
-var unified = require('unified')
-var parse = require('remark-parse')
-var stringify = require('remark-stringify')
-var mdx = require('..')
+let fs = require('fs')
+let path = require('path')
+let test = require('tape')
+let u = require('unist-builder')
+let vfile = require('to-vfile')
+let unified = require('unified')
+let parse = require('remark-parse')
+let stringify = require('remark-stringify')
+let mdx = require('..')
 
-var base = path.join('test', 'fixtures')
+let base = path.join(__dirname, 'fixtures')
 
 test('parse', function (t) {
-  var basic = unified().use(parse, {position: false}).use(mdx)
+  let basic = unified().use(parse, {position: false}).use(mdx)
 
   t.test('basics', function (t) {
     t.deepEqual(
@@ -1091,7 +1091,7 @@ test('parse', function (t) {
 })
 
 test('stringify', function (t) {
-  var basic = unified().use(stringify).use(mdx)
+  let basic = unified().use(stringify).use(mdx)
 
   t.throws(
     function () {
@@ -1436,18 +1436,18 @@ test('fixtures', function (t) {
   fs.readdirSync(base)
     .filter((d) => /\.md$/.test(d))
     .forEach((name) => {
-      var position = unified().use(parse).use(stringify).use(mdx)
-      var noPosition = unified().use(parse, {position: false}).use(mdx)
-      var fpIn = path.join(base, name)
-      var fpExpected = fpIn.replace(/\.md$/, '.json')
-      var fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
-      var input = vfile.readSync(fpIn)
-      var tree = position.parse(input)
-      var doc = position.stringify(tree)
-      var treeB = noPosition.parse(input)
-      var reparsed = noPosition.parse(doc)
-      var expected
-      var expectedDoc
+      let position = unified().use(parse).use(stringify).use(mdx)
+      let noPosition = unified().use(parse, {position: false}).use(mdx)
+      let fpIn = path.join(base, name)
+      let fpExpected = fpIn.replace(/\.md$/, '.json')
+      let fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
+      let input = vfile.readSync(fpIn)
+      let tree = position.parse(input)
+      let doc = position.stringify(tree)
+      let treeB = noPosition.parse(input)
+      let reparsed = noPosition.parse(doc)
+      let expected
+      let expectedDoc
 
       try {
         expected = JSON.parse(vfile.readSync(fpExpected))
