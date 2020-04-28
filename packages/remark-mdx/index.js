@@ -5,6 +5,9 @@ var serialize = require('./lib/serialize')
 
 module.exports = mdx
 
+// I think this is needed for webpack? 😔
+mdx.default = mdx
+
 function mdx() {
   var parser = this.Parser
   var compiler = this.Compiler

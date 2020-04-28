@@ -35,10 +35,12 @@ And our script, `example.js`, looks as follows:
 ```javascript
 const vfile = require('to-vfile')
 const remark = require('remark')
+const mdx = require('remark-mdx')
 const mdxjs = require('remark-mdxjs')
 const removeImports = require('remark-mdxjs-remove-imports')
 
 remark()
+  .use(mdx)
   .use(mdxjs)
   .use(removeImports)
   .process(vfile.readSync('example.md'), function (err, file) {
