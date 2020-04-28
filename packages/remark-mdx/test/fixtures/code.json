@@ -1,0 +1,1053 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "JSX, Markdown, and Code",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 3,
+              "offset": 2
+            },
+            "end": {
+              "line": 1,
+              "column": 26,
+              "offset": 25
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 26,
+          "offset": 25
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Block",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 4,
+              "offset": 30
+            },
+            "end": {
+              "line": 3,
+              "column": 9,
+              "offset": 35
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 3,
+          "column": 1,
+          "offset": 27
+        },
+        "end": {
+          "line": 3,
+          "column": 9,
+          "offset": 35
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 3,
+      "children": [
+        {
+          "type": "text",
+          "value": "Fenced code",
+          "position": {
+            "start": {
+              "line": 5,
+              "column": 5,
+              "offset": 41
+            },
+            "end": {
+              "line": 5,
+              "column": 16,
+              "offset": 52
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 5,
+          "column": 1,
+          "offset": 37
+        },
+        "end": {
+          "line": 5,
+          "column": 16,
+          "offset": 52
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Here is an example of broken JSX:",
+          "position": {
+            "start": {
+              "line": 7,
+              "column": 1,
+              "offset": 54
+            },
+            "end": {
+              "line": 7,
+              "column": 34,
+              "offset": 87
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 7,
+          "column": 1,
+          "offset": 54
+        },
+        "end": {
+          "line": 7,
+          "column": 34,
+          "offset": 87
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "code",
+      "lang": "jsx",
+      "meta": null,
+      "value": "<//>",
+      "position": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "offset": 89
+        },
+        "end": {
+          "line": 11,
+          "column": 4,
+          "offset": 104
+        },
+        "indent": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "This gets weird when embedded in JSX.\nWe can’t use character references, because those don’t work in markdown code. 😥",
+          "position": {
+            "start": {
+              "line": 13,
+              "column": 1,
+              "offset": 106
+            },
+            "end": {
+              "line": 14,
+              "column": 81,
+              "offset": 224
+            },
+            "indent": [
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 13,
+          "column": 1,
+          "offset": 106
+        },
+        "end": {
+          "line": 14,
+          "column": 81,
+          "offset": 224
+        },
+        "indent": [
+          1
+        ]
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "X",
+      "attributes": [],
+      "children": [
+        {
+          "type": "code",
+          "lang": "jsx",
+          "meta": null,
+          "value": "<//>",
+          "position": {
+            "start": {
+              "line": 17,
+              "column": 1,
+              "offset": 230
+            },
+            "end": {
+              "line": 19,
+              "column": 4,
+              "offset": 245
+            },
+            "indent": [
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 16,
+          "column": 1,
+          "offset": 226
+        },
+        "end": {
+          "line": 20,
+          "column": 5,
+          "offset": 250
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Or:",
+          "position": {
+            "start": {
+              "line": 22,
+              "column": 1,
+              "offset": 252
+            },
+            "end": {
+              "line": 22,
+              "column": 4,
+              "offset": 255
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 22,
+          "column": 1,
+          "offset": 252
+        },
+        "end": {
+          "line": 22,
+          "column": 4,
+          "offset": 255
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "X",
+      "attributes": [],
+      "children": [
+        {
+          "type": "code",
+          "lang": "jsx",
+          "meta": null,
+          "value": "<//>",
+          "position": {
+            "start": {
+              "line": 24,
+              "column": 4,
+              "offset": 260
+            },
+            "end": {
+              "line": 26,
+              "column": 4,
+              "offset": 275
+            },
+            "indent": [
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 24,
+          "column": 1,
+          "offset": 257
+        },
+        "end": {
+          "line": 26,
+          "column": 8,
+          "offset": 279
+        },
+        "indent": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Or:",
+          "position": {
+            "start": {
+              "line": 28,
+              "column": 1,
+              "offset": 281
+            },
+            "end": {
+              "line": 28,
+              "column": 4,
+              "offset": 284
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 28,
+          "column": 1,
+          "offset": 281
+        },
+        "end": {
+          "line": 28,
+          "column": 4,
+          "offset": 284
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "X",
+      "attributes": [],
+      "children": [
+        {
+          "type": "code",
+          "lang": null,
+          "meta": null,
+          "value": "<//>",
+          "position": {
+            "start": {
+              "line": 31,
+              "column": 1,
+              "offset": 290
+            },
+            "end": {
+              "line": 33,
+              "column": 6,
+              "offset": 306
+            },
+            "indent": [
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 30,
+          "column": 1,
+          "offset": 286
+        },
+        "end": {
+          "line": 33,
+          "column": 10,
+          "offset": 310
+        },
+        "indent": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 3,
+      "children": [
+        {
+          "type": "text",
+          "value": "Indented code",
+          "position": {
+            "start": {
+              "line": 35,
+              "column": 5,
+              "offset": 316
+            },
+            "end": {
+              "line": 35,
+              "column": 18,
+              "offset": 329
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 35,
+          "column": 1,
+          "offset": 312
+        },
+        "end": {
+          "line": 35,
+          "column": 18,
+          "offset": 329
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Not code!",
+          "position": {
+            "start": {
+              "line": 37,
+              "column": 1,
+              "offset": 331
+            },
+            "end": {
+              "line": 37,
+              "column": 14,
+              "offset": 344
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 37,
+          "column": 1,
+          "offset": 331
+        },
+        "end": {
+          "line": 37,
+          "column": 14,
+          "offset": 344
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "A",
+      "attributes": [],
+      "children": [
+        {
+          "type": "mdxBlockElement",
+          "name": "B",
+          "attributes": [],
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Nor this!",
+                  "position": {
+                    "start": {
+                      "line": 41,
+                      "column": 1,
+                      "offset": 356
+                    },
+                    "end": {
+                      "line": 42,
+                      "column": 3,
+                      "offset": 372
+                    },
+                    "indent": [
+                      1
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 41,
+                  "column": 1,
+                  "offset": 356
+                },
+                "end": {
+                  "line": 42,
+                  "column": 3,
+                  "offset": 372
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 40,
+              "column": 1,
+              "offset": 350
+            },
+            "end": {
+              "line": 42,
+              "column": 7,
+              "offset": 376
+            },
+            "indent": [
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 39,
+          "column": 1,
+          "offset": 346
+        },
+        "end": {
+          "line": 43,
+          "column": 5,
+          "offset": 381
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "A",
+      "attributes": [],
+      "children": [
+        {
+          "type": "mdxBlockElement",
+          "name": "B",
+          "attributes": [],
+          "children": [
+            {
+              "type": "mdxBlockElement",
+              "name": "C",
+              "attributes": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Nor this, these are all paragraphs.",
+                      "position": {
+                        "start": {
+                          "line": 48,
+                          "column": 1,
+                          "offset": 401
+                        },
+                        "end": {
+                          "line": 49,
+                          "column": 5,
+                          "offset": 447
+                        },
+                        "indent": [
+                          1
+                        ]
+                      }
+                    }
+                  ],
+                  "position": {
+                    "start": {
+                      "line": 48,
+                      "column": 1,
+                      "offset": 401
+                    },
+                    "end": {
+                      "line": 49,
+                      "column": 5,
+                      "offset": 447
+                    },
+                    "indent": [
+                      1
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 47,
+                  "column": 1,
+                  "offset": 393
+                },
+                "end": {
+                  "line": 49,
+                  "column": 9,
+                  "offset": 451
+                },
+                "indent": [
+                  1,
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 46,
+              "column": 1,
+              "offset": 387
+            },
+            "end": {
+              "line": 50,
+              "column": 7,
+              "offset": 458
+            },
+            "indent": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 45,
+          "column": 1,
+          "offset": 383
+        },
+        "end": {
+          "line": 51,
+          "column": 5,
+          "offset": 463
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Span",
+          "position": {
+            "start": {
+              "line": 53,
+              "column": 4,
+              "offset": 468
+            },
+            "end": {
+              "line": 53,
+              "column": 8,
+              "offset": 472
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 53,
+          "column": 1,
+          "offset": 465
+        },
+        "end": {
+          "line": 53,
+          "column": 8,
+          "offset": 472
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 3,
+      "children": [
+        {
+          "type": "text",
+          "value": "Code span",
+          "position": {
+            "start": {
+              "line": 55,
+              "column": 5,
+              "offset": 478
+            },
+            "end": {
+              "line": 55,
+              "column": 14,
+              "offset": 487
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 55,
+          "column": 1,
+          "offset": 474
+        },
+        "end": {
+          "line": 55,
+          "column": 14,
+          "offset": 487
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Here is an example of broken JSX: ",
+          "position": {
+            "start": {
+              "line": 57,
+              "column": 1,
+              "offset": 489
+            },
+            "end": {
+              "line": 57,
+              "column": 35,
+              "offset": 523
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "inlineCode",
+          "value": "<//>",
+          "position": {
+            "start": {
+              "line": 57,
+              "column": 35,
+              "offset": 523
+            },
+            "end": {
+              "line": 57,
+              "column": 45,
+              "offset": 533
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ", or here: ",
+          "position": {
+            "start": {
+              "line": 57,
+              "column": 45,
+              "offset": 533
+            },
+            "end": {
+              "line": 57,
+              "column": 56,
+              "offset": 544
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "inlineCode",
+          "value": "{",
+          "position": {
+            "start": {
+              "line": 57,
+              "column": 56,
+              "offset": 544
+            },
+            "end": {
+              "line": 57,
+              "column": 59,
+              "offset": 547
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ", and this: ",
+          "position": {
+            "start": {
+              "line": 57,
+              "column": 59,
+              "offset": 547
+            },
+            "end": {
+              "line": 57,
+              "column": 71,
+              "offset": 559
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "inlineCode",
+          "value": "<",
+          "position": {
+            "start": {
+              "line": 57,
+              "column": 71,
+              "offset": 559
+            },
+            "end": {
+              "line": 57,
+              "column": 78,
+              "offset": 566
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 57,
+              "column": 78,
+              "offset": 566
+            },
+            "end": {
+              "line": 57,
+              "column": 79,
+              "offset": 567
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 57,
+          "column": 1,
+          "offset": 489
+        },
+        "end": {
+          "line": 57,
+          "column": 79,
+          "offset": 567
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "And inside JSX: ",
+          "position": {
+            "start": {
+              "line": 59,
+              "column": 1,
+              "offset": 569
+            },
+            "end": {
+              "line": 59,
+              "column": 17,
+              "offset": 585
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": null,
+          "attributes": [],
+          "children": [
+            {
+              "type": "inlineCode",
+              "value": "<//>",
+              "position": {
+                "start": {
+                  "line": 59,
+                  "column": 19,
+                  "offset": 587
+                },
+                "end": {
+                  "line": 59,
+                  "column": 25,
+                  "offset": 593
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 59,
+              "column": 17,
+              "offset": 585
+            },
+            "end": {
+              "line": 59,
+              "column": 28,
+              "offset": 596
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ", or like so: ",
+          "position": {
+            "start": {
+              "line": 59,
+              "column": 28,
+              "offset": 596
+            },
+            "end": {
+              "line": 59,
+              "column": 42,
+              "offset": 610
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": "x",
+          "attributes": [],
+          "children": [
+            {
+              "type": "inlineCode",
+              "value": "< and {",
+              "position": {
+                "start": {
+                  "line": 59,
+                  "column": 45,
+                  "offset": 613
+                },
+                "end": {
+                  "line": 59,
+                  "column": 54,
+                  "offset": 622
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 59,
+              "column": 42,
+              "offset": 610
+            },
+            "end": {
+              "line": 59,
+              "column": 58,
+              "offset": 626
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 59,
+              "column": 58,
+              "offset": 626
+            },
+            "end": {
+              "line": 59,
+              "column": 59,
+              "offset": 627
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 59,
+          "column": 1,
+          "offset": 569
+        },
+        "end": {
+          "line": 59,
+          "column": 59,
+          "offset": 627
+        },
+        "indent": []
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 60,
+      "column": 1,
+      "offset": 628
+    }
+  }
+}

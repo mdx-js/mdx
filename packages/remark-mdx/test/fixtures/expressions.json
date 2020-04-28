@@ -1,0 +1,788 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Expressions in MD + JSX",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 3,
+              "offset": 2
+            },
+            "end": {
+              "line": 1,
+              "column": 26,
+              "offset": 25
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 26,
+          "offset": 25
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Attribute value expression",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 4,
+              "offset": 30
+            },
+            "end": {
+              "line": 3,
+              "column": 30,
+              "offset": 56
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 3,
+          "column": 1,
+          "offset": 27
+        },
+        "end": {
+          "line": 3,
+          "column": 30,
+          "offset": 56
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "X",
+      "attributes": [
+        {
+          "type": "mdxAttribute",
+          "name": "y",
+          "value": {
+            "type": "mdxValueExpression",
+            "value": "`\n  // Blank line in attribute\n\n  // …expression.\n`",
+            "position": {
+              "start": {
+                "line": 5,
+                "column": 6,
+                "offset": 63
+              },
+              "end": {
+                "line": 9,
+                "column": 3,
+                "offset": 116
+              }
+            }
+          },
+          "position": {
+            "start": {
+              "line": 5,
+              "column": 4,
+              "offset": 61
+            },
+            "end": {
+              "line": 9,
+              "column": 3,
+              "offset": 116
+            }
+          }
+        }
+      ],
+      "children": [],
+      "position": {
+        "start": {
+          "line": 5,
+          "column": 1,
+          "offset": 58
+        },
+        "end": {
+          "line": 9,
+          "column": 5,
+          "offset": 118
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 11,
+          "column": 1,
+          "offset": 120
+        },
+        "end": {
+          "line": 11,
+          "column": 6,
+          "offset": 125
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Can contain more braces: ",
+          "position": {
+            "start": {
+              "line": 13,
+              "column": 1,
+              "offset": 127
+            },
+            "end": {
+              "line": 13,
+              "column": 26,
+              "offset": 152
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": "x",
+          "attributes": [
+            {
+              "type": "mdxAttribute",
+              "name": "y",
+              "value": {
+                "type": "mdxValueExpression",
+                "value": "{z: true}",
+                "position": {
+                  "start": {
+                    "line": 13,
+                    "column": 31,
+                    "offset": 157
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 42,
+                    "offset": 168
+                  }
+                }
+              },
+              "position": {
+                "start": {
+                  "line": 13,
+                  "column": 29,
+                  "offset": 155
+                },
+                "end": {
+                  "line": 13,
+                  "column": 42,
+                  "offset": 168
+                }
+              }
+            }
+          ],
+          "children": [],
+          "position": {
+            "start": {
+              "line": 13,
+              "column": 26,
+              "offset": 152
+            },
+            "end": {
+              "line": 13,
+              "column": 44,
+              "offset": 170
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 13,
+          "column": 1,
+          "offset": 127
+        },
+        "end": {
+          "line": 13,
+          "column": 44,
+          "offset": 170
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Attribute expression",
+          "position": {
+            "start": {
+              "line": 15,
+              "column": 4,
+              "offset": 175
+            },
+            "end": {
+              "line": 15,
+              "column": 24,
+              "offset": 195
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 15,
+          "column": 1,
+          "offset": 172
+        },
+        "end": {
+          "line": 15,
+          "column": 24,
+          "offset": 195
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "X",
+      "attributes": [
+        {
+          "type": "mdxAttributeExpression",
+          "value": "/*stuff!*/",
+          "position": {
+            "start": {
+              "line": 17,
+              "column": 4,
+              "offset": 200
+            },
+            "end": {
+              "line": 17,
+              "column": 16,
+              "offset": 212
+            }
+          }
+        }
+      ],
+      "children": [],
+      "position": {
+        "start": {
+          "line": 17,
+          "column": 1,
+          "offset": 197
+        },
+        "end": {
+          "line": 17,
+          "column": 18,
+          "offset": 214
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 19,
+          "column": 1,
+          "offset": 216
+        },
+        "end": {
+          "line": 19,
+          "column": 6,
+          "offset": 221
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "More braces: ",
+          "position": {
+            "start": {
+              "line": 21,
+              "column": 1,
+              "offset": 223
+            },
+            "end": {
+              "line": 21,
+              "column": 14,
+              "offset": 236
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": "x",
+          "attributes": [
+            {
+              "type": "mdxAttributeExpression",
+              "value": "...{x: '1', z: \"zulu\"}",
+              "position": {
+                "start": {
+                  "line": 21,
+                  "column": 17,
+                  "offset": 239
+                },
+                "end": {
+                  "line": 21,
+                  "column": 41,
+                  "offset": 263
+                }
+              }
+            }
+          ],
+          "children": [],
+          "position": {
+            "start": {
+              "line": 21,
+              "column": 14,
+              "offset": 236
+            },
+            "end": {
+              "line": 21,
+              "column": 43,
+              "offset": 265
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 21,
+          "column": 1,
+          "offset": 223
+        },
+        "end": {
+          "line": 21,
+          "column": 43,
+          "offset": 265
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Expression",
+          "position": {
+            "start": {
+              "line": 23,
+              "column": 4,
+              "offset": 270
+            },
+            "end": {
+              "line": 23,
+              "column": 14,
+              "offset": 280
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 23,
+          "column": 1,
+          "offset": 267
+        },
+        "end": {
+          "line": 23,
+          "column": 14,
+          "offset": 280
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 3,
+      "children": [
+        {
+          "type": "text",
+          "value": "Direct",
+          "position": {
+            "start": {
+              "line": 25,
+              "column": 5,
+              "offset": 286
+            },
+            "end": {
+              "line": 25,
+              "column": 11,
+              "offset": 292
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 25,
+          "column": 1,
+          "offset": 282
+        },
+        "end": {
+          "line": 25,
+          "column": 11,
+          "offset": 292
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockExpression",
+      "value": "Math.PI",
+      "position": {
+        "start": {
+          "line": 27,
+          "column": 1,
+          "offset": 294
+        },
+        "end": {
+          "line": 29,
+          "column": 2,
+          "offset": 307
+        },
+        "indent": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 31,
+          "column": 1,
+          "offset": 309
+        },
+        "end": {
+          "line": 31,
+          "column": 6,
+          "offset": 314
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "More braces: ",
+          "position": {
+            "start": {
+              "line": 33,
+              "column": 1,
+              "offset": 316
+            },
+            "end": {
+              "line": 33,
+              "column": 14,
+              "offset": 329
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanExpression",
+          "value": "{a: 1 + 1}[\"a\"]",
+          "position": {
+            "start": {
+              "line": 33,
+              "column": 14,
+              "offset": 329
+            },
+            "end": {
+              "line": 33,
+              "column": 31,
+              "offset": 346
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 33,
+              "column": 31,
+              "offset": 346
+            },
+            "end": {
+              "line": 33,
+              "column": 32,
+              "offset": 347
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 33,
+          "column": 1,
+          "offset": 316
+        },
+        "end": {
+          "line": 33,
+          "column": 32,
+          "offset": 347
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 3,
+      "children": [
+        {
+          "type": "text",
+          "value": "Child",
+          "position": {
+            "start": {
+              "line": 35,
+              "column": 5,
+              "offset": 353
+            },
+            "end": {
+              "line": 35,
+              "column": 10,
+              "offset": 358
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 35,
+          "column": 1,
+          "offset": 349
+        },
+        "end": {
+          "line": 35,
+          "column": 10,
+          "offset": 358
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "X",
+      "attributes": [],
+      "children": [
+        {
+          "type": "mdxBlockExpression",
+          "value": "1 + 1",
+          "position": {
+            "start": {
+              "line": 38,
+              "column": 1,
+              "offset": 364
+            },
+            "end": {
+              "line": 40,
+              "column": 4,
+              "offset": 381
+            },
+            "indent": [
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 37,
+          "column": 1,
+          "offset": 360
+        },
+        "end": {
+          "line": 41,
+          "column": 5,
+          "offset": 386
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 43,
+          "column": 1,
+          "offset": 388
+        },
+        "end": {
+          "line": 43,
+          "column": 6,
+          "offset": 393
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "More ",
+          "position": {
+            "start": {
+              "line": 45,
+              "column": 1,
+              "offset": 395
+            },
+            "end": {
+              "line": 45,
+              "column": 6,
+              "offset": 400
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": null,
+          "attributes": [],
+          "children": [
+            {
+              "type": "text",
+              "value": "braces: ",
+              "position": {
+                "start": {
+                  "line": 45,
+                  "column": 8,
+                  "offset": 402
+                },
+                "end": {
+                  "line": 45,
+                  "column": 16,
+                  "offset": 410
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "mdxSpanExpression",
+              "value": "{a: 1 + 1}[\"a\"]",
+              "position": {
+                "start": {
+                  "line": 45,
+                  "column": 16,
+                  "offset": 410
+                },
+                "end": {
+                  "line": 45,
+                  "column": 33,
+                  "offset": 427
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 45,
+              "column": 6,
+              "offset": 400
+            },
+            "end": {
+              "line": 45,
+              "column": 36,
+              "offset": 430
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 45,
+              "column": 36,
+              "offset": 430
+            },
+            "end": {
+              "line": 45,
+              "column": 37,
+              "offset": 431
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 45,
+          "column": 1,
+          "offset": 395
+        },
+        "end": {
+          "line": 45,
+          "column": 37,
+          "offset": 431
+        },
+        "indent": []
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 46,
+      "column": 1,
+      "offset": 432
+    }
+  }
+}

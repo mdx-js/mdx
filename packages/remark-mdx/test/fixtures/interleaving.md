@@ -1,0 +1,98 @@
+# [Interleaving](https://github.com/mdx-js/mdx/issues/628)
+
+From [GitHub](https://github.com/mdx-js/mdx/issues/628#issue-466943193).
+
+* * *
+
+# Hello, <span>_world_</span>, from <>{props.name}</>!
+
+<Note>
+
+This _is_ **markdown**!
+
+</Note>
+
+* * *
+
+# Hello, from <>{props.name}</>
+
+<Note>
+
+Here's another expression: <>{props.thing}</>
+
+</Note>
+
+* * *
+
+# Hello, <>from {props.name}</>
+
+* * *
+
+# Hello, world!
+
+<div>
+  <div>
+
+# I should be an h1 inside two divs
+
+  </div>
+</div>
+
+Editorial note: the above example had an opening tag instead of a closing tag:
+`<div>` instead of `</div>`.
+
+* * *
+
+# Hello, world
+
+<SomeComponent>
+  {prop => {
+    const newValue = doStuff(prop)
+
+    return <h1>{newValue}</h1>
+  }}
+</SomeComponent>
+
+* * *
+
+# Hello, world!
+
+<SomeComponent
+  someProp={`
+    Here's a template string
+
+    with empty lines
+  `}
+/>
+
+* * *
+
+From [GitHub](https://github.com/mdx-js/mdx/issues/628#issuecomment-510525094).
+
+# Hello, <span>_world_</span>!
+
+<Note>
+
+This _is_ **markdown**!
+
+</Note>
+
+* * *
+
+From [GitHub](https://github.com/mdx-js/mdx/issues/628#issuecomment-510579387).
+
+# Hello, <>from {props.name}</>
+
+# Hello from {props.name}
+
+* * *
+
+From [GitHub](https://github.com/mdx-js/mdx/issues/628#issuecomment-510978023).
+
+<ListStyleOne>
+
+  -  Thing
+      -  Subthing and this word is <Red>Red</Red> right here.
+      -  Another subthing with a <Blue>colorful</Blue> word again.
+
+</ListStyleOne>

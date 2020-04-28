@@ -1,0 +1,1102 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Examples from React accessibility",
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 3,
+              "offset": 2
+            },
+            "end": {
+              "line": 1,
+              "column": 36,
+              "offset": 35
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 36,
+          "offset": 35
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "From ",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 37
+            },
+            "end": {
+              "line": 3,
+              "column": 6,
+              "offset": 42
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://reactjs.org/docs/accessibility.html",
+          "children": [
+            {
+              "type": "text",
+              "value": "React accessibility",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 7,
+                  "offset": 43
+                },
+                "end": {
+                  "line": 3,
+                  "column": 26,
+                  "offset": 62
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 6,
+              "offset": 42
+            },
+            "end": {
+              "line": 3,
+              "column": 72,
+              "offset": 108
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ":",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 72,
+              "offset": 108
+            },
+            "end": {
+              "line": 3,
+              "column": 73,
+              "offset": 109
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 3,
+          "column": 1,
+          "offset": 37
+        },
+        "end": {
+          "line": 3,
+          "column": 73,
+          "offset": 109
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "input",
+      "attributes": [
+        {
+          "type": "mdxAttribute",
+          "name": "type",
+          "value": "text",
+          "position": {
+            "start": {
+              "line": 6,
+              "column": 3,
+              "offset": 120
+            },
+            "end": {
+              "line": 6,
+              "column": 14,
+              "offset": 131
+            }
+          }
+        },
+        {
+          "type": "mdxAttribute",
+          "name": "aria-label",
+          "value": {
+            "type": "mdxValueExpression",
+            "value": "labelText",
+            "position": {
+              "start": {
+                "line": 7,
+                "column": 14,
+                "offset": 145
+              },
+              "end": {
+                "line": 7,
+                "column": 25,
+                "offset": 156
+              }
+            }
+          },
+          "position": {
+            "start": {
+              "line": 7,
+              "column": 3,
+              "offset": 134
+            },
+            "end": {
+              "line": 7,
+              "column": 25,
+              "offset": 156
+            }
+          }
+        },
+        {
+          "type": "mdxAttribute",
+          "name": "aria-required",
+          "value": "true",
+          "position": {
+            "start": {
+              "line": 8,
+              "column": 3,
+              "offset": 159
+            },
+            "end": {
+              "line": 8,
+              "column": 23,
+              "offset": 179
+            }
+          }
+        },
+        {
+          "type": "mdxAttribute",
+          "name": "onChange",
+          "value": {
+            "type": "mdxValueExpression",
+            "value": "onchangeHandler",
+            "position": {
+              "start": {
+                "line": 9,
+                "column": 12,
+                "offset": 191
+              },
+              "end": {
+                "line": 9,
+                "column": 29,
+                "offset": 208
+              }
+            }
+          },
+          "position": {
+            "start": {
+              "line": 9,
+              "column": 3,
+              "offset": 182
+            },
+            "end": {
+              "line": 9,
+              "column": 29,
+              "offset": 208
+            }
+          }
+        },
+        {
+          "type": "mdxAttribute",
+          "name": "value",
+          "value": {
+            "type": "mdxValueExpression",
+            "value": "inputValue",
+            "position": {
+              "start": {
+                "line": 10,
+                "column": 9,
+                "offset": 217
+              },
+              "end": {
+                "line": 10,
+                "column": 21,
+                "offset": 229
+              }
+            }
+          },
+          "position": {
+            "start": {
+              "line": 10,
+              "column": 3,
+              "offset": 211
+            },
+            "end": {
+              "line": 10,
+              "column": 21,
+              "offset": 229
+            }
+          }
+        },
+        {
+          "type": "mdxAttribute",
+          "name": "name",
+          "value": "name",
+          "position": {
+            "start": {
+              "line": 11,
+              "column": 3,
+              "offset": 232
+            },
+            "end": {
+              "line": 11,
+              "column": 14,
+              "offset": 243
+            }
+          }
+        }
+      ],
+      "children": [],
+      "position": {
+        "start": {
+          "line": 5,
+          "column": 1,
+          "offset": 111
+        },
+        "end": {
+          "line": 12,
+          "column": 3,
+          "offset": 246
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": null,
+      "attributes": [],
+      "children": [
+        {
+          "type": "mdxBlockElement",
+          "name": "dt",
+          "attributes": [],
+          "children": [
+            {
+              "type": "mdxBlockExpression",
+              "value": "item.term",
+              "position": {
+                "start": {
+                  "line": 15,
+                  "column": 7,
+                  "offset": 257
+                },
+                "end": {
+                  "line": 15,
+                  "column": 18,
+                  "offset": 268
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 15,
+              "column": 1,
+              "offset": 251
+            },
+            "end": {
+              "line": 15,
+              "column": 23,
+              "offset": 273
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxBlockElement",
+          "name": "dd",
+          "attributes": [],
+          "children": [
+            {
+              "type": "mdxBlockExpression",
+              "value": "item.description",
+              "position": {
+                "start": {
+                  "line": 16,
+                  "column": 7,
+                  "offset": 280
+                },
+                "end": {
+                  "line": 16,
+                  "column": 25,
+                  "offset": 298
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 16,
+              "column": 1,
+              "offset": 274
+            },
+            "end": {
+              "line": 16,
+              "column": 30,
+              "offset": 303
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 14,
+          "column": 1,
+          "offset": 248
+        },
+        "end": {
+          "line": 17,
+          "column": 4,
+          "offset": 307
+        },
+        "indent": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "dl",
+      "attributes": [],
+      "children": [
+        {
+          "type": "mdxBlockExpression",
+          "value": "props.items.map(item => (\n  <ListItem item={item} key={item.id} />\n))",
+          "position": {
+            "start": {
+              "line": 20,
+              "column": 1,
+              "offset": 314
+            },
+            "end": {
+              "line": 22,
+              "column": 6,
+              "offset": 391
+            },
+            "indent": [
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 19,
+          "column": 1,
+          "offset": 309
+        },
+        "end": {
+          "line": 23,
+          "column": 6,
+          "offset": 397
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "dl",
+      "attributes": [],
+      "children": [
+        {
+          "type": "mdxBlockExpression",
+          "value": "props.items.map(item => (\n  // Fragments should also have a `key` prop when mapping collections\n  <Fragment key={item.id}>\n    <dt>{item.term}</dt>\n    <dd>{item.description}</dd>\n  </Fragment>\n))",
+          "position": {
+            "start": {
+              "line": 26,
+              "column": 1,
+              "offset": 404
+            },
+            "end": {
+              "line": 32,
+              "column": 6,
+              "offset": 616
+            },
+            "indent": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 25,
+          "column": 1,
+          "offset": 399
+        },
+        "end": {
+          "line": 33,
+          "column": 6,
+          "offset": 622
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "label",
+      "attributes": [
+        {
+          "type": "mdxAttribute",
+          "name": "htmlFor",
+          "value": "namedInput",
+          "position": {
+            "start": {
+              "line": 35,
+              "column": 8,
+              "offset": 631
+            },
+            "end": {
+              "line": 35,
+              "column": 28,
+              "offset": 651
+            }
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Name:",
+              "position": {
+                "start": {
+                  "line": 35,
+                  "column": 29,
+                  "offset": 652
+                },
+                "end": {
+                  "line": 35,
+                  "column": 34,
+                  "offset": 657
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 35,
+              "column": 29,
+              "offset": 652
+            },
+            "end": {
+              "line": 35,
+              "column": 34,
+              "offset": 657
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 35,
+          "column": 1,
+          "offset": 624
+        },
+        "end": {
+          "line": 35,
+          "column": 42,
+          "offset": 665
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "input",
+      "attributes": [
+        {
+          "type": "mdxAttribute",
+          "name": "id",
+          "value": "namedInput",
+          "position": {
+            "start": {
+              "line": 36,
+              "column": 8,
+              "offset": 673
+            },
+            "end": {
+              "line": 36,
+              "column": 23,
+              "offset": 688
+            }
+          }
+        },
+        {
+          "type": "mdxAttribute",
+          "name": "type",
+          "value": "text",
+          "position": {
+            "start": {
+              "line": 36,
+              "column": 24,
+              "offset": 689
+            },
+            "end": {
+              "line": 36,
+              "column": 35,
+              "offset": 700
+            }
+          }
+        },
+        {
+          "type": "mdxAttribute",
+          "name": "name",
+          "value": "name",
+          "position": {
+            "start": {
+              "line": 36,
+              "column": 36,
+              "offset": 701
+            },
+            "end": {
+              "line": 36,
+              "column": 47,
+              "offset": 712
+            }
+          }
+        }
+      ],
+      "children": [],
+      "position": {
+        "start": {
+          "line": 36,
+          "column": 1,
+          "offset": 666
+        },
+        "end": {
+          "line": 36,
+          "column": 49,
+          "offset": 714
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "div",
+      "attributes": [
+        {
+          "type": "mdxAttribute",
+          "name": "ref",
+          "value": {
+            "type": "mdxValueExpression",
+            "value": "this.toggleContainer",
+            "position": {
+              "start": {
+                "line": 38,
+                "column": 10,
+                "offset": 725
+              },
+              "end": {
+                "line": 38,
+                "column": 32,
+                "offset": 747
+              }
+            }
+          },
+          "position": {
+            "start": {
+              "line": 38,
+              "column": 6,
+              "offset": 721
+            },
+            "end": {
+              "line": 38,
+              "column": 32,
+              "offset": 747
+            }
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": "mdxBlockElement",
+          "name": "button",
+          "attributes": [
+            {
+              "type": "mdxAttribute",
+              "name": "onClick",
+              "value": {
+                "type": "mdxValueExpression",
+                "value": "this.onClickHandler",
+                "position": {
+                  "start": {
+                    "line": 39,
+                    "column": 19,
+                    "offset": 767
+                  },
+                  "end": {
+                    "line": 39,
+                    "column": 40,
+                    "offset": 788
+                  }
+                }
+              },
+              "position": {
+                "start": {
+                  "line": 39,
+                  "column": 11,
+                  "offset": 759
+                },
+                "end": {
+                  "line": 39,
+                  "column": 40,
+                  "offset": 788
+                }
+              }
+            }
+          ],
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Select an option",
+                  "position": {
+                    "start": {
+                      "line": 39,
+                      "column": 41,
+                      "offset": 789
+                    },
+                    "end": {
+                      "line": 39,
+                      "column": 57,
+                      "offset": 805
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 39,
+                  "column": 41,
+                  "offset": 789
+                },
+                "end": {
+                  "line": 39,
+                  "column": 57,
+                  "offset": 805
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 39,
+              "column": 1,
+              "offset": 749
+            },
+            "end": {
+              "line": 39,
+              "column": 66,
+              "offset": 814
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxBlockExpression",
+          "value": "this.state.isOpen && (\n  <ul>\n    <li>Option 1</li>\n    <li>Option 2</li>\n    <li>Option 3</li>\n  </ul>\n)",
+          "position": {
+            "start": {
+              "line": 40,
+              "column": 1,
+              "offset": 815
+            },
+            "end": {
+              "line": 46,
+              "column": 5,
+              "offset": 936
+            },
+            "indent": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 38,
+          "column": 1,
+          "offset": 716
+        },
+        "end": {
+          "line": 47,
+          "column": 7,
+          "offset": 943
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "div",
+      "attributes": [
+        {
+          "type": "mdxAttribute",
+          "name": "onBlur",
+          "value": {
+            "type": "mdxValueExpression",
+            "value": "this.onBlurHandler",
+            "position": {
+              "start": {
+                "line": 49,
+                "column": 13,
+                "offset": 957
+              },
+              "end": {
+                "line": 49,
+                "column": 33,
+                "offset": 977
+              }
+            }
+          },
+          "position": {
+            "start": {
+              "line": 49,
+              "column": 6,
+              "offset": 950
+            },
+            "end": {
+              "line": 49,
+              "column": 33,
+              "offset": 977
+            }
+          }
+        },
+        {
+          "type": "mdxAttribute",
+          "name": "onFocus",
+          "value": {
+            "type": "mdxValueExpression",
+            "value": "this.onFocusHandler",
+            "position": {
+              "start": {
+                "line": 50,
+                "column": 14,
+                "offset": 991
+              },
+              "end": {
+                "line": 50,
+                "column": 35,
+                "offset": 1012
+              }
+            }
+          },
+          "position": {
+            "start": {
+              "line": 50,
+              "column": 6,
+              "offset": 983
+            },
+            "end": {
+              "line": 50,
+              "column": 35,
+              "offset": 1012
+            }
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": "mdxBlockElement",
+          "name": "button",
+          "attributes": [
+            {
+              "type": "mdxAttribute",
+              "name": "onClick",
+              "value": {
+                "type": "mdxValueExpression",
+                "value": "this.onClickHandler",
+                "position": {
+                  "start": {
+                    "line": 51,
+                    "column": 19,
+                    "offset": 1032
+                  },
+                  "end": {
+                    "line": 51,
+                    "column": 40,
+                    "offset": 1053
+                  }
+                }
+              },
+              "position": {
+                "start": {
+                  "line": 51,
+                  "column": 11,
+                  "offset": 1024
+                },
+                "end": {
+                  "line": 51,
+                  "column": 40,
+                  "offset": 1053
+                }
+              }
+            },
+            {
+              "type": "mdxAttribute",
+              "name": "aria-haspopup",
+              "value": "true",
+              "position": {
+                "start": {
+                  "line": 52,
+                  "column": 11,
+                  "offset": 1064
+                },
+                "end": {
+                  "line": 52,
+                  "column": 31,
+                  "offset": 1084
+                }
+              }
+            },
+            {
+              "type": "mdxAttribute",
+              "name": "aria-expanded",
+              "value": {
+                "type": "mdxValueExpression",
+                "value": "this.state.isOpen",
+                "position": {
+                  "start": {
+                    "line": 53,
+                    "column": 25,
+                    "offset": 1109
+                  },
+                  "end": {
+                    "line": 53,
+                    "column": 44,
+                    "offset": 1128
+                  }
+                }
+              },
+              "position": {
+                "start": {
+                  "line": 53,
+                  "column": 11,
+                  "offset": 1095
+                },
+                "end": {
+                  "line": 53,
+                  "column": 44,
+                  "offset": 1128
+                }
+              }
+            }
+          ],
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Select an option",
+                  "position": {
+                    "start": {
+                      "line": 54,
+                      "column": 1,
+                      "offset": 1130
+                    },
+                    "end": {
+                      "line": 55,
+                      "column": 3,
+                      "offset": 1153
+                    },
+                    "indent": [
+                      1
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 54,
+                  "column": 1,
+                  "offset": 1130
+                },
+                "end": {
+                  "line": 55,
+                  "column": 3,
+                  "offset": 1153
+                },
+                "indent": [
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 51,
+              "column": 1,
+              "offset": 1014
+            },
+            "end": {
+              "line": 55,
+              "column": 12,
+              "offset": 1162
+            },
+            "indent": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "type": "mdxBlockExpression",
+          "value": "this.state.isOpen && (\n  <ul>\n    <li>Option 1</li>\n    <li>Option 2</li>\n    <li>Option 3</li>\n  </ul>\n)",
+          "position": {
+            "start": {
+              "line": 56,
+              "column": 1,
+              "offset": 1163
+            },
+            "end": {
+              "line": 62,
+              "column": 5,
+              "offset": 1284
+            },
+            "indent": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 49,
+          "column": 1,
+          "offset": 945
+        },
+        "end": {
+          "line": 63,
+          "column": 7,
+          "offset": 1291
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 64,
+      "column": 1,
+      "offset": 1292
+    }
+  }
+}

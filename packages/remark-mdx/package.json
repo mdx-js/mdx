@@ -1,0 +1,87 @@
+{
+  "name": "remark-mdx",
+  "version": "0.0.0",
+  "description": "remark plugin to add support for mdx",
+  "license": "MIT",
+  "keywords": [
+    "unified",
+    "remark",
+    "remark-plugin",
+    "plugin",
+    "mdast",
+    "markdown",
+    "jsx",
+    "javascript",
+    "xml",
+    "mdx"
+  ],
+  "repository": "https://github.com/mdx-js/mdx/tree/master/packages/remark-mdx",
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "files": [
+    "lib/",
+    "index.js"
+  ],
+  "dependencies": {
+    "parse-entities": "^2.0.0",
+    "stringify-entities": "^3.0.0",
+    "strip-indent": "^3.0.0",
+    "unist-util-stringify-position": "^2.0.0"
+  },
+  "devDependencies": {
+    "nyc": "^15.0.0",
+    "prettier": "^2.0.0",
+    "remark-cli": "^8.0.0",
+    "remark-parse": "^8.0.2",
+    "remark-preset-wooorm": "^7.0.0",
+    "remark-stringify": "^8.0.0",
+    "tape": "^5.0.0",
+    "to-vfile": "^6.0.0",
+    "unified": "^9.0.0",
+    "unist-builder": "^2.0.0",
+    "xo": "^0.30.0"
+  },
+  "scripts": {
+    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
+    "test-api": "node test",
+    "test-coverage": "nyc --reporter lcov tape test/index.js",
+    "test": "npm run format && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "semi": false,
+    "trailingComma": "none"
+  },
+  "xo": {
+    "prettier": true,
+    "esnext": false,
+    "rules": {
+      "unicorn/no-fn-reference-in-iterator": "off",
+      "unicorn/no-hex-escape": "off",
+      "unicorn/escape-case": "off",
+      "no-self-compare": "off",
+      "no-lonely-if": "off"
+    }
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm"
+    ]
+  }
+}
