@@ -4,7 +4,7 @@ const wooorm = require('retext-preset-wooorm')
 
 module.exports = {
   plugins: [
-    './packages/remark-mdx',
+    './packages/remark-mdxjs',
     'preset-wooorm',
     'preset-prettier',
     [

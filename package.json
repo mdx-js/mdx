@@ -73,7 +73,7 @@
     "rehype-katex": "3.0.0",
     "remark-autolink-headings": "6.0.0",
     "remark-math": "2.0.1",
-    "remark-mdx": "^1.5.8",
+    "remark-mdxjs": "^1.5.8",
     "remark-parse": "8.0.1",
     "remark-preset-prettier": "0.4.0",
     "remark-preset-wooorm": "7.0.0",

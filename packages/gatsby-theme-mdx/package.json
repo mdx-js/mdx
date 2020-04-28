@@ -47,8 +47,8 @@
     "react-helmet": "6.0.0",
     "react-live": "2.2.2",
     "remark-emoji": "2.1.0",
-    "remark-mdx-remove-exports": "^1.6.0",
-    "remark-mdx-remove-imports": "^1.6.0",
+    "remark-mdxjs-remove-exports": "^1.6.0",
+    "remark-mdxjs-remove-imports": "^1.6.0",
     "remark-slug": "6.0.0",
     "theme-ui": "0.3.1"
   }

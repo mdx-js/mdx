@@ -1,4 +1,4 @@
-# [remark][]-[mdx][]
+# remark-mdxjs
 
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
@@ -11,7 +11,7 @@
 ## Installation
 
 ```sh
-npm install --save remark-mdx
+npm install --save remark-mdxjs
 ```
 
 ## Contribute

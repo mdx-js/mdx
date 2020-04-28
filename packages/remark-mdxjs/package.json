@@ -1,5 +1,5 @@
 {
-  "name": "remark-mdx",
+  "name": "remark-mdxjs",
   "version": "1.6.0",
   "description": "Support import, export, and JSX in markdown",
   "repository": "mdx-js/mdx",

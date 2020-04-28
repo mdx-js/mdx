@@ -1,6 +1,6 @@
 const unified = require('unified')
 const toMDAST = require('remark-parse')
-const remarkMdx = require('remark-mdx')
+const remarkMdxJs = require('remark-mdxjs')
 const footnotes = require('remark-footnotes')
 const squeeze = require('remark-squeeze-paragraphs')
 const visit = require('unist-util-visit')
@@ -29,7 +29,7 @@ function createMdxAstCompiler(options) {
 
   const fn = unified()
     .use(toMDAST, options)
-    .use(remarkMdx, options)
+    .use(remarkMdxJs, options)
     .use(footnotes, options)
     .use(squeeze, options)
     .use(toMDXAST, options)

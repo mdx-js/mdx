@@ -1,19 +1,19 @@
 const fs = require('fs')
 const path = require('path')
 const unified = require('unified')
-const remarkParse = require('remark-parse')
-const remarkStringify = require('remark-stringify')
-const remarkMdx = require('remark-mdx')
+const parse = require('remark-parse')
+const stringify = require('remark-stringify')
+const mdxjs = require('remark-mdxjs')
 
 const removeImports = require('..')
 
 const fixture = fs.readFileSync(path.join(__dirname, './fixture.md'), 'utf8')
 
-const stringify = mdx => {
+const serialize = mdx => {
   const result = unified()
-    .use(remarkParse)
-    .use(remarkStringify)
-    .use(remarkMdx)
+    .use(parse)
+    .use(stringify)
+    .use(mdxjs)
     .use(removeImports)
     .processSync(mdx)
 
@@ -21,7 +21,7 @@ const stringify = mdx => {
 }
 
 it('removes imports', () => {
-  const result = stringify(fixture)
+  const result = serialize(fixture)
 
   expect(result).toMatchSnapshot()
 })

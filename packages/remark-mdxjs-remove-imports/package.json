@@ -1,5 +1,5 @@
 {
-  "name": "remark-mdx-remove-imports",
+  "name": "remark-mdxjs-remove-imports",
   "version": "1.6.0",
   "description": "Remove imports from the MDX AST",
   "repository": "mdx-js/mdx",

@@ -11,7 +11,7 @@ Remove export nodes from the [MDXAST][]. This is useful for scenarios where the 
 [npm][]:
 
 ```shell
-npm install --save remark-mdx-remove-exports
+npm install --save remark-mdxjs-remove-exports
 ```
 
 ## Usage
@@ -35,11 +35,11 @@ And our script, `example.js`, looks as follows:
 ```javascript
 const vfile = require('to-vfile')
 const remark = require('remark')
-const mdx = require('remark-mdx')
-const removeExports = require('remark-mdx-remove-exports')
+const mdxjs = require('remark-mdxjs')
+const removeExports = require('remark-mdxjs-remove-exports')
 
 remark()
-  .use(mdx)
+  .use(mdxjs)
   .use(removeExports)
   .process(vfile.readSync('example.md'), function (err, file) {
     if (err) throw err
