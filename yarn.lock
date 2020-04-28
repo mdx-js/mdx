@@ -20214,7 +20214,12 @@ pretty@^2.0.0:
     extend-shallow "^2.0.1"
     js-beautify "^1.6.12"
 
-prism-react-renderer@1.0.2, prism-react-renderer@^1.0.1, prism-react-renderer@^1.0.2:
+prism-react-renderer@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.1.0.tgz#6fe1b33f1de1b23afbdb07663d135f9026eef4ad"
+  integrity sha512-WZAw+mBoxk1qZDD1h1WOg0BVHgyk9zqbuIBFNgP+Z71i515jGL0WZIN1FIF8EgOyh06x8Rr7HAUXxsRsoUZKyg==
+
+prism-react-renderer@^1.0.1, prism-react-renderer@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.0.2.tgz#3bb9a6a42f76fc049b03266298c7068fdd4b7ea9"
   integrity sha512-0++pJyRfu4v2OxI/Us/5RLui9ESDkTiLkVCtKuPZYdpB8UQWJpnJQhPrWab053XtsKW3oM0sD69uJ6N9exm1Ag==
