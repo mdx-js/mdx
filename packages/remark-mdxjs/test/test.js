@@ -2,6 +2,7 @@ const unified = require('unified')
 const remarkParse = require('remark-parse')
 const remarkStringify = require('remark-stringify')
 
+const remarkMdx = require('../../remark-mdx')
 const remarkMdxjs = require('..')
 const mdxAstToMdxHast = require('../../mdx/mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('../../mdx/mdx-hast-to-jsx')
@@ -41,6 +42,7 @@ const transpile = mdx => {
   const result = unified()
     .use(remarkParse)
     .use(remarkStringify)
+    .use(remarkMdx)
     .use(remarkMdxjs)
     .use(mdxAstToMdxHast)
     .use(mdxHastToJsx)
@@ -53,6 +55,7 @@ const parse = mdx => {
   const result = unified()
     .use(remarkParse)
     .use(remarkStringify)
+    .use(remarkMdx)
     .use(remarkMdxjs)
     .parse(mdx)
 
@@ -63,6 +66,7 @@ const stringify = mdx => {
   const result = unified()
     .use(remarkParse)
     .use(remarkStringify)
+    .use(remarkMdx)
     .use(remarkMdxjs)
     .processSync(mdx)
 

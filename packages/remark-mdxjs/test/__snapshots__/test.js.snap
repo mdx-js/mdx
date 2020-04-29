@@ -11,34 +11,36 @@ const makeShortcode = name => function MDXDefaultShortcode(props) {
 const Baz = makeShortcode(\\"Baz\\");
 const Paragraph = makeShortcode(\\"Paragraph\\");
 const Button = makeShortcode(\\"Button\\");
-const layoutProps = {
-  
-};
+const layoutProps = {};
 const MDXLayout = Foo
 export default function MDXContent({
   components,
   ...props
 }) {
   return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
-
-
-
-    <h1>{\`Hello, world! \`}<Foo bar={{
+    <h1>{\`Hello, world! \`}
+      <Foo bar={{
         baz: 'qux'
       }} mdxType=\\"Foo\\" /></h1>
     <Baz mdxType=\\"Baz\\">
-  Hi!
+      <p>{\`Hi!\`}</p>
     </Baz>
-    <Paragraph bg='red.500' color='white' mdxType=\\"Paragraph\\">Foo</Paragraph>
+    <Paragraph bg=\\"red.500\\" color=\\"white\\" mdxType=\\"Paragraph\\">
+      <p>{\`Foo\`}</p>
+    </Paragraph>
     <Button mdxType=\\"Button\\">
-  Hi!
+      <p>{\`Hi!\`}</p>
     </Button>
-    <>Foo</>
     <>
-  Foo
+      <p>{\`Foo\`}</p>
     </>
-    <h1>Hello, world!</h1>
-    </MDXLayout>;
+    <>
+      <p>{\`Foo\`}</p>
+    </>
+    <h1>
+      <p>{\`Hello, world!\`}</p>
+    </h1>
+  </MDXLayout>;
 }
 
 ;
@@ -126,6 +128,42 @@ Object {
           "value": "Hello, world! ",
         },
         Object {
+          "attributes": Array [
+            Object {
+              "name": "bar",
+              "position": Object {
+                "end": Object {
+                  "column": 42,
+                  "line": 6,
+                  "offset": 114,
+                },
+                "start": Object {
+                  "column": 22,
+                  "line": 6,
+                  "offset": 94,
+                },
+              },
+              "type": "mdxAttribute",
+              "value": Object {
+                "position": Object {
+                  "end": Object {
+                    "column": 42,
+                    "line": 6,
+                    "offset": 114,
+                  },
+                  "start": Object {
+                    "column": 26,
+                    "line": 6,
+                    "offset": 98,
+                  },
+                },
+                "type": "mdxValueExpression",
+                "value": "{ baz: 'qux' }",
+              },
+            },
+          ],
+          "children": Array [],
+          "name": "Foo",
           "position": Position {
             "end": Object {
               "column": 45,
@@ -139,8 +177,7 @@ Object {
               "offset": 89,
             },
           },
-          "type": "jsx",
-          "value": "<Foo bar={{ baz: 'qux' }} />",
+          "type": "mdxSpanElement",
         },
       ],
       "depth": 1,
@@ -160,6 +197,45 @@ Object {
       "type": "heading",
     },
     Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 6,
+                  "line": 9,
+                  "offset": 130,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 1,
+                  "line": 9,
+                  "offset": 125,
+                },
+              },
+              "type": "text",
+              "value": "Hi!",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 6,
+              "line": 9,
+              "offset": 130,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 1,
+              "line": 9,
+              "offset": 125,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": "Baz",
       "position": Position {
         "end": Object {
           "column": 7,
@@ -176,12 +252,83 @@ Object {
           "offset": 119,
         },
       },
-      "type": "jsx",
-      "value": "<Baz>
-  Hi!
-</Baz>",
+      "type": "mdxBlockElement",
     },
     Object {
+      "attributes": Array [
+        Object {
+          "name": "bg",
+          "position": Object {
+            "end": Object {
+              "column": 24,
+              "line": 12,
+              "offset": 162,
+            },
+            "start": Object {
+              "column": 12,
+              "line": 12,
+              "offset": 150,
+            },
+          },
+          "type": "mdxAttribute",
+          "value": "red.500",
+        },
+        Object {
+          "name": "color",
+          "position": Object {
+            "end": Object {
+              "column": 38,
+              "line": 12,
+              "offset": 176,
+            },
+            "start": Object {
+              "column": 25,
+              "line": 12,
+              "offset": 163,
+            },
+          },
+          "type": "mdxAttribute",
+          "value": "white",
+        },
+      ],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 42,
+                  "line": 12,
+                  "offset": 180,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 39,
+                  "line": 12,
+                  "offset": 177,
+                },
+              },
+              "type": "text",
+              "value": "Foo",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 42,
+              "line": 12,
+              "offset": 180,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 39,
+              "line": 12,
+              "offset": 177,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": "Paragraph",
       "position": Position {
         "end": Object {
           "column": 54,
@@ -195,10 +342,48 @@ Object {
           "offset": 139,
         },
       },
-      "type": "jsx",
-      "value": "<Paragraph bg='red.500' color='white'>Foo</Paragraph>",
+      "type": "mdxBlockElement",
     },
     Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 6,
+                  "line": 15,
+                  "offset": 208,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 1,
+                  "line": 15,
+                  "offset": 203,
+                },
+              },
+              "type": "text",
+              "value": "Hi!",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 6,
+              "line": 15,
+              "offset": 208,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 1,
+              "line": 15,
+              "offset": 203,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": "Button",
       "position": Position {
         "end": Object {
           "column": 10,
@@ -215,12 +400,48 @@ Object {
           "offset": 194,
         },
       },
-      "type": "jsx",
-      "value": "<Button>
-  Hi!
-</Button>",
+      "type": "mdxBlockElement",
     },
     Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 6,
+                  "line": 18,
+                  "offset": 225,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 3,
+                  "line": 18,
+                  "offset": 222,
+                },
+              },
+              "type": "text",
+              "value": "Foo",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 6,
+              "line": 18,
+              "offset": 225,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 18,
+              "offset": 222,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": null,
       "position": Position {
         "end": Object {
           "column": 9,
@@ -234,10 +455,48 @@ Object {
           "offset": 220,
         },
       },
-      "type": "jsx",
-      "value": "<>Foo</>",
+      "type": "mdxBlockElement",
     },
     Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 6,
+                  "line": 21,
+                  "offset": 238,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 1,
+                  "line": 21,
+                  "offset": 233,
+                },
+              },
+              "type": "text",
+              "value": "Foo",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 6,
+              "line": 21,
+              "offset": 238,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 1,
+              "line": 21,
+              "offset": 233,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": null,
       "position": Position {
         "end": Object {
           "column": 4,
@@ -254,12 +513,48 @@ Object {
           "offset": 230,
         },
       },
-      "type": "jsx",
-      "value": "<>
-  Foo
-</>",
+      "type": "mdxBlockElement",
     },
     Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 18,
+                  "line": 24,
+                  "offset": 261,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 5,
+                  "line": 24,
+                  "offset": 248,
+                },
+              },
+              "type": "text",
+              "value": "Hello, world!",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 18,
+              "line": 24,
+              "offset": 261,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 5,
+              "line": 24,
+              "offset": 248,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": "h1",
       "position": Position {
         "end": Object {
           "column": 23,
@@ -273,8 +568,7 @@ Object {
           "offset": 244,
         },
       },
-      "type": "jsx",
-      "value": "<h1>Hello, world!</h1>",
+      "type": "mdxBlockElement",
     },
   ],
   "position": Object {

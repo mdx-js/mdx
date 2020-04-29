@@ -26,7 +26,7 @@ it('Should output parseable JSX when using < or >', async () => {
   const result = await mdx(`
   # Hello, MDX
 
-  I <3 Markdown and JSX
+  I &lt;3 Markdown and JSX
   `)
 
   parse(result)
@@ -81,10 +81,10 @@ it('Should render blockquote correctly', async () => {
 })
 
 it('Should properly expose comments', async () => {
-  const result = await mdx('<!--foo-->', {
+  const result = await mdx('{/*foo*/}', {
     rehypePlugins: [
       () => tree => {
-        tree.children[0].value = 'bar'
+        tree.children[0].value = '/*bar*/'
       }
     ]
   })
@@ -95,7 +95,9 @@ it('Should properly expose comments', async () => {
 it('Should render HTML inside inlineCode correctly', async () => {
   const result = await mdx('`<div>`')
 
-  expect(result).toContain('<inlineCode parentName="p">{`<div>`}</inlineCode>')
+  expect(result).toContain(
+    'inlineCode {...{\n        "parentName": "p"\n      }}>{`<div>`}</inlineCode></p>'
+  )
 })
 
 it('Should preserve newlines in code blocks', async () => {
@@ -109,7 +111,7 @@ COPY start.sh /home/start.sh
     {rehypePlugins: [prism]}
   )
 
-  expect(result).toContain('{`# Add main script`}</span>{`\n`}')
+  expect(result).toContain('{`# Add main script`}</span>\n        {`\n`}')
 })
 
 it('Should preserve infostring in code blocks', async () => {
@@ -123,7 +125,7 @@ COPY start.sh /home/start.sh
   )
 
   expect(dropWhitespace(result)).toContain(
-    `{...{ "className": "language-dockerfile", "metastring": "exec registry=something.com", "exec": true, "registry": "something.com" }}`
+    `{...{ "className": "language-dockerfile", "metastring": "exec registry=something.com", "exec": true, "registry": "something.com", "parentName": "pre" }}`
   )
 })
 
@@ -141,39 +143,39 @@ console.log(1)
 
 it('Should support comments', async () => {
   const resultWithWhitespace = await mdx(`
-<!-- a Markdown comment -->
+{/* a Markdown comment */}
 A paragraph
 
-Some text <!-- an inline comment -->
+Some text {/* an inline comment */}
 
 \`\`\`md
-<!-- a code block string -->
+{/* a code block string */}
 \`\`\`
 
 <div>
   {/* a nested JSX comment */}
 </div>
 
-<!-- a comment above -->
+{/* a comment above */}
 - list item
-<!-- a comment below -->
+{/* a comment below */}
 
---> should be as-is
+*/} should be as-is
 
 <MyComp content={\`
-  <!-- a template literal -->
+  {/* a template literal */}
 \`}/>
   `)
 
   const result = dropWhitespace(resultWithWhitespace)
   expect(result).toContain('{ /* a Markdown comment */ }')
   expect(result).toContain('{ /* an inline comment */ }')
-  expect(result).toContain('<!-- a code block string -->')
+  expect(result).toContain('{/* a code block string */}')
   expect(result).toContain('{ /* a nested JSX comment */ }')
   expect(result).toContain('{ /* a comment above */ }')
   expect(result).toContain('{ /* a comment below */ }')
-  expect(result).toContain('--> should be as-is')
-  expect(result).toContain('<!-- a template literal -->')
+  expect(result).toContain('*/} should be as-is')
+  expect(result).toContain('{/* a template literal */}')
 })
 
 test('Should not forward MDX options to plugins', async () => {
@@ -307,11 +309,11 @@ test('Should parse and render footnotes', async () => {
   )
 
   expect(dropWhitespace(result)).toContain(
-    '<sup parentName="p" {...{ "id": "fnref-footnote" }}>'
+    '<sup {...{ "id": "fnref-footnote", "parentName": "p" }}>'
   )
 
   expect(dropWhitespace(result)).toContain(
-    '<li parentName="ol" {...{ "id": "fn-footnote" }}>'
+    '<li {...{ "id": "fn-footnote", "parentName": "ol" }}>'
   )
 }, 10000)
 
@@ -347,55 +349,88 @@ test('Should handle layout props', () => {
       ...props
     }) {
       return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
-
-
         <h1>{\`Hello, world!\`}</h1>
         <p>{\`I'm an awesome paragraph.\`}</p>
         {
           /* I'm a comment */
         }
-        <Foo bg='red' mdxType=\\"Foo\\">
-      <Bar mdxType=\\"Bar\\">hi</Bar>
-        {hello}
-        {
+        <Foo bg=\\"red\\" mdxType=\\"Foo\\">
+          <Bar mdxType=\\"Bar\\">
+            <p>{\`hi\`}</p>
+          </Bar>
+          {hello}
+          {
             /* another commment */
           }
         </Foo>
-        <pre><code parentName=\\"pre\\" {...{}}>{\`test codeblock
+        <pre><code {...{
+            \\"parentName\\": \\"pre\\"
+          }}>{\`test codeblock
     \`}</code></pre>
-        <pre><code parentName=\\"pre\\" {...{
-            \\"className\\": \\"language-js\\"
+        <pre><code {...{
+            \\"className\\": \\"language-js\\",
+            \\"parentName\\": \\"pre\\"
           }}>{\`module.exports = 'test'
     \`}</code></pre>
-        <pre><code parentName=\\"pre\\" {...{
-            \\"className\\": \\"language-sh\\"
+        <pre><code {...{
+            \\"className\\": \\"language-sh\\",
+            \\"parentName\\": \\"pre\\"
           }}>{\`npm i -g foo
     \`}</code></pre>
         <table>
-          <thead parentName=\\"table\\">
-            <tr parentName=\\"thead\\">
-              <th parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
+
+          <thead {...{
+            \\"parentName\\": \\"table\\"
+          }}>
+
+            <tr {...{
+              \\"parentName\\": \\"thead\\"
+            }}>
+
+              <th {...{
+                \\"align\\": \\"left\\",
+                \\"parentName\\": \\"tr\\"
               }}>{\`Test\`}</th>
-              <th parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
+
+
+              <th {...{
+                \\"align\\": \\"left\\",
+                \\"parentName\\": \\"tr\\"
               }}>{\`Table\`}</th>
+
             </tr>
+
           </thead>
-          <tbody parentName=\\"table\\">
-            <tr parentName=\\"tbody\\">
-              <td parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
+
+
+          <tbody {...{
+            \\"parentName\\": \\"table\\"
+          }}>
+
+            <tr {...{
+              \\"parentName\\": \\"tbody\\"
+            }}>
+
+              <td {...{
+                \\"align\\": \\"left\\",
+                \\"parentName\\": \\"tr\\"
               }}>{\`Col1\`}</td>
-              <td parentName=\\"tr\\" {...{
-                \\"align\\": \\"left\\"
+
+
+              <td {...{
+                \\"align\\": \\"left\\",
+                \\"parentName\\": \\"tr\\"
               }}>{\`Col2\`}</td>
+
             </tr>
+
           </tbody>
+
         </table>
 
-        <pre><code parentName=\\"pre\\" {...{
-            \\"className\\": \\"language-js\\"
+        <pre><code {...{
+            \\"className\\": \\"language-js\\",
+            \\"parentName\\": \\"pre\\"
           }}>{\`export const Button = styled.button\\\\\`
       font-size: 1rem;
       border-radius: 5px;
@@ -412,7 +447,7 @@ test('Should handle layout props', () => {
         \\\\\`};
     \\\\\`
     \`}</code></pre>
-        </MDXLayout>;
+      </MDXLayout>;
     }
 
     ;

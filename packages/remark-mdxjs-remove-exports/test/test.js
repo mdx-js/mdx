@@ -10,14 +10,14 @@ const removeExports = require('..')
 
 const fixture = fs.readFileSync(path.join(__dirname, './fixture.md'), 'utf8')
 
-const serialize = mdx => {
+const serialize = doc => {
   const result = unified()
     .use(parse)
     .use(stringify)
     .use(mdx)
     .use(mdxjs)
     .use(removeExports)
-    .processSync(mdx)
+    .processSync(doc)
 
   return result.contents
 }

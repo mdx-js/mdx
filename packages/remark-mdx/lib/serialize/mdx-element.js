@@ -6,6 +6,9 @@ var indent = require('../util/indent')
 
 module.exports = mdxElement
 
+// Expose helper to create tags.
+mdxElement.serializeTags = serializeTags
+
 var lineFeed = '\n'
 var space = ' '
 var slash = '/'
@@ -20,32 +23,35 @@ var valueCharacterReferenceOptions = {
 }
 
 function mdxElement(node) {
+  var tags = serializeTags(node)
+  var block = node.type === 'mdxBlockElement'
+  var content = this.all(node).join(block ? lineFeed + lineFeed : '')
+
+  if (block && content) {
+    content = lineFeed + indent(content) + lineFeed
+  }
+
+  return tags.open + content + (tags.close || '')
+}
+
+function serializeTags(node) {
   var block = node.type === 'mdxBlockElement'
   var name = String(node.name || '')
   var attributes = serializeAttributes(node.attributes || [], block)
-  var content = this.all(node).join(block ? lineFeed + lineFeed : '')
-  var selfClosing = name && content === ''
+  var selfClosing = name && node.children.length === 0
 
   if (name === '' && attributes !== '') {
     throw new Error('Cannot serialize fragment with attributes')
   }
 
-  if (block) {
-    content = content ? lineFeed + indent(content) + lineFeed : ''
+  return {
+    open: lessThan +
+      name +
+      attributes +
+      (selfClosing ? slash : '') +
+      greaterThan,
+    close: selfClosing ? null : lessThan + slash + name + greaterThan
   }
-
-  if (!selfClosing) {
-    content += lessThan + slash + name + greaterThan
-  }
-
-  return (
-    lessThan +
-    name +
-    attributes +
-    (content ? '' : slash) +
-    greaterThan +
-    content
-  )
 }
 
 function serializeAttributes(nodes, block) {

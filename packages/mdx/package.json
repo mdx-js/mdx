@@ -20,7 +20,6 @@
   "license": "MIT",
   "files": [
     "index.js",
-    "md-ast-to-mdx-ast.js",
     "mdx-ast-to-mdx-hast.js",
     "mdx-hast-to-jsx.js",
     "util.js"
@@ -40,9 +39,9 @@
     "@mdx-js/util": "^1.6.0",
     "babel-plugin-apply-mdx-type-prop": "^1.6.0",
     "babel-plugin-extract-import-names": "^1.6.0",
-    "camelcase-css": "2.0.1",
     "detab": "2.0.3",
     "hast-util-raw": "5.0.2",
+    "hast-to-hyperscript": "8.1.0",
     "lodash.uniq": "4.5.0",
     "mdast-util-to-hast": "8.2.0",
     "remark-footnotes": "1.0.0",
@@ -50,7 +49,6 @@
     "remark-mdxjs": "^1.6.0",
     "remark-parse": "8.0.1",
     "remark-squeeze-paragraphs": "4.0.0",
-    "style-to-object": "0.3.0",
     "unified": "9.0.0",
     "unist-builder": "2.0.3",
     "unist-util-visit": "2.0.2"

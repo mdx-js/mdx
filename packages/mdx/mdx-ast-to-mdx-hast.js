@@ -1,4 +1,5 @@
 const toHAST = require('mdast-util-to-hast')
+const all = require('mdast-util-to-hast/lib/all')
 const detab = require('detab')
 const u = require('unist-builder')
 
@@ -61,32 +62,38 @@ function mdxAstToMdxHast() {
           h(node, 'code', props, [u('text', value)])
         ])
       },
+      // To do: rename to `mdxJsImport`
       import(h, node) {
         return Object.assign({}, node, {
           type: 'import'
         })
       },
+      // To do: rename to `mdxJsExport`
       export(h, node) {
         return Object.assign({}, node, {
           type: 'export'
         })
       },
-      comment(h, node) {
+      mdxBlockElement(h, node) {
+        return Object.assign({}, node, {children: all(h, node)})
+      },
+      mdxSpanElement(h, node) {
+        return Object.assign({}, node, {children: all(h, node)})
+      },
+      mdxBlockExpression(h, node) {
         return Object.assign({}, node, {
-          type: 'comment'
+          type: 'mdxBlockExpression'
         })
       },
-      jsx(h, node) {
+      mdxSpanExpression(h, node) {
         return Object.assign({}, node, {
-          type: 'jsx'
+          type: 'mdxSpanExpression'
         })
       }
     }
 
     const hast = toHAST(tree, {
-      handlers,
-      // Enable passing of HTML nodes to HAST as raw nodes
-      allowDangerousHtml: true
+      handlers
     })
 
     return hast

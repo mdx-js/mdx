@@ -12922,6 +12922,18 @@ hasha@^5.0.0, hasha@^5.2.0:
     is-stream "^2.0.0"
     type-fest "^0.8.0"
 
+hast-to-hyperscript@8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/hast-to-hyperscript/-/hast-to-hyperscript-8.1.0.tgz#3b6dcff946e10f99a2d08eef443bfec248529866"
+  integrity sha512-NGZO5WbTxzmtMWT3wgfwCAvAofNuWovWFJ2HX0sp1xsUMafDktrijaUuR/dBFpQ0eo4nsXEE3pz17WVvYYXK4Q==
+  dependencies:
+    comma-separated-tokens "^1.0.0"
+    property-information "^5.0.0"
+    space-separated-tokens "^1.0.0"
+    style-to-object "^0.3.0"
+    unist-util-is "^4.0.0"
+    web-namespaces "^1.0.0"
+
 hast-to-hyperscript@^7.0.0:
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/hast-to-hyperscript/-/hast-to-hyperscript-7.0.4.tgz#7c4c037d9a8ea19b0a3fdb676a26448ad922353d"
