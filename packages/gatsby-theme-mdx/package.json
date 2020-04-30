@@ -36,7 +36,7 @@
     "gatsby-plugin-emotion": "4.2.2",
     "gatsby-plugin-fathom": "1.2.0",
     "gatsby-plugin-google-fonts": "1.0.1",
-    "gatsby-plugin-mdx": "1.1.10",
+    "gatsby-plugin-mdx": "1.2.4",
     "gatsby-plugin-page-creator": "2.2.3",
     "gatsby-plugin-react-helmet": "3.2.4",
     "gatsby-plugin-theme-ui": "0.3.0",
