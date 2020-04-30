@@ -22,7 +22,7 @@
     "docs-build": "gatsby build",
     "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
     "format": "yarn lint --fix",
-    "lint": "eslint . --cache --ext mdx -f friendly",
+    "lint": "eslint . --cache --ext js,jsx,md,mdx -f friendly",
     "now-build": "yarn build && yarn docs-build",
     "postinstall": "yarn-deduplicate || exit 0",
     "prepublishOnly": "yarn build",
