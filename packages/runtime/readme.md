@@ -62,8 +62,6 @@ abide by its terms.
 
 [MIT][] © [Compositor][] and [Vercel][]
 
-<!-- Definitions -->
-
 [build]: https://travis-ci.com/mdx-js/mdx
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
 [lerna]: https://lernajs.io/
