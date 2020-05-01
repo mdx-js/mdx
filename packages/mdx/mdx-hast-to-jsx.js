@@ -7,7 +7,7 @@ const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 
 // From https://github.com/wooorm/property-information/blob/ca74feb1fcd40753367c75b63c893353cd7d8c70/lib/html.js
-const spaceSeparated = [
+const spaceSeparatedProperties = [
   'acceptCharset',
   'accessKey',
   'autoComplete',
@@ -210,7 +210,7 @@ export default ${fnPostMdxTypeProp}`
     let props = ''
 
     if (node.properties) {
-      spaceSeparated.forEach(prop => {
+      spaceSeparatedProperties.forEach(prop => {
         if (Array.isArray(node.properties[prop])) {
           node.properties[prop] = node.properties[prop].join(' ')
         }
