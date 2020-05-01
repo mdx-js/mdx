@@ -6,6 +6,24 @@ const {paramCase, toTemplateLiteral} = require('@mdx-js/util')
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 
+// From https://github.com/wooorm/property-information/blob/ca74feb1fcd40753367c75b63c893353cd7d8c70/lib/html.js
+const spaceSeparatedProperties = [
+  'acceptCharset',
+  'accessKey',
+  'autoComplete',
+  'className',
+  'controlsList',
+  'headers',
+  'htmlFor',
+  'httpEquiv',
+  'itemProp',
+  'itemRef',
+  'itemType',
+  'ping',
+  'rel',
+  'sandbox',
+]
+
 // eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
   const {
@@ -191,10 +209,8 @@ export default ${fnPostMdxTypeProp}`
   if (node.type === 'element') {
     let props = ''
 
-    const shouldBeStrings = ['className', 'sandbox']
-
     if (node.properties) {
-      shouldBeStrings.forEach(prop => {
+      spaceSeparatedProperties.forEach(prop => {
         if (Array.isArray(node.properties[prop])) {
           node.properties[prop] = node.properties[prop].join(' ')
         }
