@@ -191,10 +191,26 @@ export default ${fnPostMdxTypeProp}`
   if (node.type === 'element') {
     let props = ''
 
-    const shouldBeStrings = ['className', 'sandbox']
-
     if (node.properties) {
-      shouldBeStrings.forEach(prop => {
+      // From https://github.com/wooorm/property-information/blob/ca74feb1fcd40753367c75b63c893353cd7d8c70/lib/html.js
+      const spaceSeparated = [
+        'acceptCharset',
+        'accessKey',
+        'autoComplete',
+        'className',
+        'controlsList',
+        'headers',
+        'htmlFor',
+        'httpEquiv',
+        'itemProp',
+        'itemRef',
+        'itemType',
+        'ping',
+        'rel',
+        'sandbox',
+      ]
+
+      spaceSeparated.forEach(prop => {
         if (Array.isArray(node.properties[prop])) {
           node.properties[prop] = node.properties[prop].join(' ')
         }
