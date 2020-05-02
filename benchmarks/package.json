@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "benchmarks",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^1.6.1",
+    "benchmark": "^2.1.4"
+  }
+}

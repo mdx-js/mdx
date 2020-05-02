@@ -10,7 +10,8 @@
   "private": true,
   "workspaces": [
     "examples/*",
-    "packages/*"
+    "packages/*",
+    "benchmarks"
   ],
   "engines": {
     "node": "12.x"
@@ -129,5 +130,6 @@
     "bracketSpacing": false,
     "semi": false,
     "trailingComma": "none"
-  }
+  },
+  "dependencies": {}
 }
