@@ -1,4 +1,4 @@
-# vue
+# `@mdx-js/vue` example with `MDXProvider`
 
 ## Project setup
 
