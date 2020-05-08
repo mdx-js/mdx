@@ -1,5 +1,5 @@
 {
-  "name": "@mdx-js/vue-loader",
+  "name": "vue-loader-example",
   "version": "0.1.0",
   "private": true,
   "scripts": {
