@@ -63,18 +63,20 @@ Here is a paragraph
 ```js
 import TomatoBox from 'tomato-box'
 
-export const author = "Fred Flintstone"
+export const author = 'Fred Flintstone'
 
 const layoutProps = {
   author
-};
+}
 
-export default function MDXContent({
-  components,
-  ...props
-}) {
+export default function MDXContent({components, ...props}) {
   return (
-    <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+    <MDXLayout
+      {...layoutProps}
+      {...props}
+      components={components}
+      mdxType="MDXLayout"
+    >
       <h1>{`Hello, world!`}</h1>
       <p>{`Here is a paragraph`}</p>
       <TomatoBox mdxType="TomatoBox" />

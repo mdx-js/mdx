@@ -4,10 +4,10 @@ One great feature about MDX is that you can use Markdown within your JSX compone
 
 ## Example
 
-Let's say you wanted to create a custom `<Note />` component. You could do something like this.
-
+Lets say you wanted to create a custom `<Note />` component. You could do something like this.
 
 Using MDX 2:
+
 ```.mdx
 import Note from './Note'
 
