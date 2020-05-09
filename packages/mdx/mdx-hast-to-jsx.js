@@ -21,7 +21,7 @@ const spaceSeparatedProperties = [
   'itemType',
   'ping',
   'rel',
-  'sandbox',
+  'sandbox'
 ]
 
 // eslint-disable-next-line complexity
