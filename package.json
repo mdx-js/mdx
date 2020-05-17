@@ -44,7 +44,7 @@
     "@mdx-js/vue": "^1.5.9",
     "@pkgr/rollup": "0.10.3",
     "@vue/babel-preset-jsx": "1.1.2",
-    "@vue/test-utils": "1.0.0-beta.33",
+    "@vue/test-utils": "1.0.3",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-loader": "8.1.0",
     "babel-plugin-macros": "2.8.0",
