@@ -83,7 +83,7 @@
     "retext-preset-wooorm": "2.0.0",
     "retext-sentence-spacing": "4.0.0",
     "rimraf": "3.0.2",
-    "typescript": "3.8.3",
+    "typescript": "3.9.3",
     "unified": "9.0.0",
     "vfile": "4.1.0",
     "vue": "2.6.11",
