@@ -1,34 +1,15 @@
-# `@mdx-js/vue-loader`
-
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
-Transform your MDX files into Vue components.
+`@mdx-js/vue` works together with the `@mdx-js/vue-loader` to map Vue components to HTML elements based on the Markdown syntax.
 
-`@mdx-js/vue-loader` is a webpack loader for [MDX][] files for Vue.js.
+This module also exports the `MDXProvider` that accepts an object with a map of all components you to be rendered in the HTML.
 
 ## Installation
 
-[npm][]:
-
-```sh
-npm i @mdx-js/vue-loader
-```
-
-In your webpack config:
-
-```js
-// ...
-module: {
-  rules: [
-    // ...
-    {
-      test: /\.mdx?$/,
-      use: ['babel-loader', '@mdx-js/vue-loader']
-    }
-  ]
-}
+```bash
+npm install --save @mdx-js/vue
 ```
 
 ## Usage
@@ -45,12 +26,37 @@ In your `main.js`:
 
 ```jsx
 import Vue from 'vue'
+import { MDXProvider } from '@mdx-js/vue'
 import HelloWorld from 'helloworld.md'
+
+const components: {
+  h1: props => ({
+    render(h) {
+      return (
+        <h1 style={{ color: 'tomato' }} {...props} >
+          {this.$slots.default}
+        </h1>
+      )
+    }
+  })
+}
 
 new Vue({
   el: '#app',
-  render: h => h(HelloWorld)
+  render(h) {
+    return (
+      <MDXProvider components={components}>
+        <HelloWorld />
+      </MDXProvider>
+    )
+  }
 }).$mount()
+```
+
+Yields:
+
+```html
+<h1 style="color:tomato">Hello, Vue!</h1>
 ```
 
 ## Contribute
@@ -67,7 +73,6 @@ abide by its terms.
 [MIT][] © [Compositor][] and [Vercel][]
 
 <!-- Definitions -->
-
 [build]: https://travis-ci.com/mdx-js/mdx
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
 [lerna]: https://lernajs.io/

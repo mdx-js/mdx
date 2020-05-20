@@ -48,8 +48,8 @@ With more complex input, we can see more interesting output:
 ```js
 import TomatoBox from 'tomato-box'
 
-export author = "Fred Flintstone"
-export default = props => <main {...props} />
+export const author = "Fred Flintstone"
+export default props => <main {...props} />
 
 # Hello, world!
 
@@ -63,21 +63,24 @@ Here is a paragraph
 ```js
 import TomatoBox from 'tomato-box'
 
-const MDXLayout = props => <main {...props} />
+export const author = 'Fred Flintstone'
 
 const layoutProps = {
-  author: 'Fred Flintstone'
+  author
 }
 
-export default function MDXContent(props) {
+export default function MDXContent({components, ...props}) {
   return (
-    <div name="wrapper" components={components}>
-      <MDXLayout {...layoutProps} {...props}>
-        <h1>{`Hello, world!`}</h1>
-        <p>{`Here is a paragraph`}</p>
-        <TomatoBox />
-      </MDXLayout>
-    </div>
+    <MDXLayout
+      {...layoutProps}
+      {...props}
+      components={components}
+      mdxType="MDXLayout"
+    >
+      <h1>{`Hello, world!`}</h1>
+      <p>{`Here is a paragraph`}</p>
+      <TomatoBox mdxType="TomatoBox" />
+    </MDXLayout>
   )
 }
 

@@ -7,6 +7,28 @@ const {toTemplateLiteral} = require('@mdx-js/util')
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 
+<<<<<<< HEAD
+=======
+// From https://github.com/wooorm/property-information/blob/ca74feb1fcd40753367c75b63c893353cd7d8c70/lib/html.js
+const spaceSeparatedProperties = [
+  'acceptCharset',
+  'accessKey',
+  'autoComplete',
+  'className',
+  'controlsList',
+  'headers',
+  'htmlFor',
+  'httpEquiv',
+  'itemProp',
+  'itemRef',
+  'itemType',
+  'ping',
+  'rel',
+  'sandbox'
+]
+
+// eslint-disable-next-line complexity
+>>>>>>> origin
 function toJSX(node, parentNode = {}, options = {}) {
   if (node.type === 'root') {
     return serializeRoot(node, options)
@@ -205,6 +227,7 @@ function serializeElement(node, options, parentNode) {
   delete props.key
   const data = parentName ? {...props, parentName} : props
 
+<<<<<<< HEAD
   const spread =
     Object.keys(data).length === 0 ? null : ' {...' + JSON.stringify(data) + '}'
 
@@ -215,6 +238,14 @@ function serializeElement(node, options, parentNode) {
     (content ? '>' + content + '</' + type + '>' : '/>')
   )
 }
+=======
+    if (node.properties) {
+      spaceSeparatedProperties.forEach(prop => {
+        if (Array.isArray(node.properties[prop])) {
+          node.properties[prop] = node.properties[prop].join(' ')
+        }
+      })
+>>>>>>> origin
 
 function serializeComponent(node, options) {
   let content = serializeChildren(node, options)

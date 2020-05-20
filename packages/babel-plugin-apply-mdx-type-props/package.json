@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-apply-mdx-type-prop",
-  "version": "1.6.0",
+  "version": "1.6.3",
   "description": "Apply the MDX type prop used in the MDX pragma",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "@babel/helper-plugin-utils": "7.8.3",
-    "@mdx-js/util": "^1.6.0"
+    "@mdx-js/util": "^1.6.3"
   }
 }
