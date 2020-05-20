@@ -7,8 +7,7 @@ const {toTemplateLiteral} = require('@mdx-js/util')
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 
-// eslint-disable-next-line complexity
-  function toJSX(node, parentNode = {}, options = {}) {
+function toJSX(node, parentNode = {}, options = {}) {
   if (node.type === 'root') {
     return serializeRoot(node, options)
   }
