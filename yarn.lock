@@ -2663,7 +2663,7 @@
     react "16.13.1"
     react-dom "16.13.1"
 
-"@mdx-js/util@^1.6.3", "@mdx-js/util@^1.6.4":
+"@mdx-js/util@^1.6.4":
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.4.tgz#ae31e83f2ccb30f122457ee436a015d654ac3c12"
   integrity sha512-cVGZ68yZwyJnOMhARAdgD1IhZ0bsbsKCvsj6I/XnJcT9hNV/8WXErSV98zFfZwH3LmSRPde58l9hln+zXdK/mQ==
@@ -23273,20 +23273,6 @@ remark-math@2.0.1:
   resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-2.0.1.tgz#6edc884ba3b40710c2ae31ce93cd88c9959ac8b9"
   integrity sha512-FokDg5BmlPbKaAdD4IfSVuRgYH6FBPeIn0zxZA6oZ6epc4qOSjoSJPyhsH0H/WKABuaCVMJuF5O2STti6UmBQw==
 
-remark-mdx@1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/remark-mdx/-/remark-mdx-1.6.3.tgz#92222ecd29159a2a08a09dd8255c3c8e39de454b"
-  integrity sha512-VLVTZgjZnmAAlp9RopHOnhuM0aLl0phmj70k2g8IdYHn+8E+E8hkbSKQJksQDoQU5YwY7iKqJn+uQC5y5BGedw==
-  dependencies:
-    "@babel/core" "7.9.6"
-    "@babel/helper-plugin-utils" "7.8.3"
-    "@babel/plugin-proposal-object-rest-spread" "7.9.6"
-    "@babel/plugin-syntax-jsx" "7.8.3"
-    "@mdx-js/util" "^1.6.3"
-    is-alphabetical "1.0.4"
-    remark-parse "8.0.2"
-    unified "9.0.0"
-
 remark-mdx@^1.5.8, remark-mdx@^1.6.4:
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/remark-mdx/-/remark-mdx-1.6.4.tgz#51c6eba0abb97591f0926c195e088bdb025c0b8a"
@@ -23300,17 +23286,6 @@ remark-mdx@^1.5.8, remark-mdx@^1.6.4:
     is-alphabetical "1.0.4"
     remark-parse "8.0.2"
     unified "9.0.0"
-
-remark-mdxjs@1.6.3:
-  version "2.0.0-next.0"
-  resolved "https://registry.yarnpkg.com/remark-mdxjs/-/remark-mdxjs-2.0.0-next.0.tgz#c22d762d25f2a62a0b39819c9dd1c5de8c380ab2"
-  integrity sha512-Ldu2tES7LSjv3rhj78g+kSpV62RhpCAa1zC97lVxzXKE3V5PVnuUhmXJNrbUBtOs8XP98b9qajFQ/KFUqw0zLA==
-  dependencies:
-    "@babel/core" "7.9.0"
-    "@babel/helper-plugin-utils" "7.8.3"
-    "@babel/plugin-proposal-object-rest-spread" "7.9.5"
-    "@babel/plugin-syntax-jsx" "7.8.3"
-    "@mdx-js/util" "^2.0.0-next.0"
 
 remark-message-control@^6.0.0:
   version "6.0.0"
