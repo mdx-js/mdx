@@ -1,10 +1,10 @@
 {
   "name": "vue-loader-example",
-  "version": "0.1.0",
+  "version": "1.6.2",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve"
   },
   "dependencies": {
     "core-js": "^3.6.4",

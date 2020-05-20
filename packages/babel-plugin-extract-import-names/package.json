@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-extract-import-names",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Extract import names",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
