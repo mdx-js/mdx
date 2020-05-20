@@ -1,6 +1,6 @@
 {
   "name": "vue-loader-example",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "private": true,
   "scripts": {
     "build": "vue-cli-service build",
