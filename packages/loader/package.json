@@ -15,11 +15,14 @@
     "Tim Neutkens <tim@vercel.com>",
     "Matija Marohnić <matija.marohnic@gmail.com>",
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
-    "JounQin <admin@1stg.me> (https://www.1stg.me)"
+    "JounQin <admin@1stg.me> (https://www.1stg.me)",
+    "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
+  "types": "types/index.d.ts",
   "files": [
-    "index.js"
+    "index.js",
+    "types/index.d.ts"
   ],
   "keywords": [
     "mdx",
@@ -31,6 +34,9 @@
     "webpack",
     "loader"
   ],
+  "scripts": {
+    "test-types": "dtslint types"
+  },
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-next.0",
     "@mdx-js/react": "^2.0.0-next.0",
