@@ -20095,10 +20095,10 @@ posthtml@^0.12.0:
     posthtml-parser "^0.4.1"
     posthtml-render "^1.1.5"
 
-preact-render-to-string@5.1.6:
-  version "5.1.6"
-  resolved "https://registry.yarnpkg.com/preact-render-to-string/-/preact-render-to-string-5.1.6.tgz#6e8f6c7d657743d8bb27c8ea3d5ac218354c87a4"
-  integrity sha512-/8mDzzfMrxx5tzJazKGdyYADrmjzBR3QJsvdZs03aV9VjeXpDrzDHs6dhzlMA1EsdCBq4cqioKjVKUs58uNckg==
+preact-render-to-string@5.1.8:
+  version "5.1.8"
+  resolved "https://registry.yarnpkg.com/preact-render-to-string/-/preact-render-to-string-5.1.8.tgz#5540f4c1b1fcf1e7c7dfb154d38053e717ca1fe4"
+  integrity sha512-9c2OFfOJ2Zi7ppMbHYC5lx1ebDFXpDGBMns9/YaKMgZGElUY90xTGmsKeNMqrNoDo7ImYPh715Ke6Ah/pdjW0g==
   dependencies:
     pretty-format "^3.8.0"
 
