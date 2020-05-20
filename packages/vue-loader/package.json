@@ -16,12 +16,15 @@
     "Matija Marohnić <matija.marohnic@gmail.com>",
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "JounQin <admin@1stg.me> (https://www.1stg.me)",
-    "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)"
+    "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
+    "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
   "files": [
-    "index.js"
+    "index.js",
+    "types/index.d.ts"
   ],
+  "types": "types/index.d.ts",
   "keywords": [
     "mdx",
     "markdown",
@@ -33,7 +36,8 @@
     "loader"
   ],
   "scripts": {
-    "no-test": "jest"
+    "no-test": "jest",
+    "test-types": "dtslint types"
   },
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-next.0",

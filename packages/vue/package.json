@@ -3,11 +3,17 @@
   "version": "2.0.0-next.0",
   "description": "MDX support for Vue components",
   "author": "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
+  "contributors": [
+    "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
+    "Christian Murphy <christian.murphy.42@gmail.com>"
+  ],
   "license": "MIT",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
+  "types": "types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "types/index.d.ts"
   ],
   "keywords": [
     "markdown",
@@ -20,7 +26,8 @@
     "build:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --copy-files",
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src -d dist/es --copy-files",
     "dev": "watch 'yarn build' src",
-    "test": "jest"
+    "test": "jest",
+    "test-types": "dtslint types"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["dom", "es6"],
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "jsx": "react",
+    "paths": {
+      "@mdx-js/mdx": ["index.d.ts"]
+    }
+  }
+}
