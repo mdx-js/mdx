@@ -5,8 +5,8 @@ import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 import * as Rebass from '@rebass/emotion'
 import {ThemeContext} from '@emotion/core'
 import {css} from 'theme-ui'
-import removeImports from 'remark-mdxjs-remove-imports'
-import removeExports from 'remark-mdxjs-remove-exports'
+import removeImports from 'remark-mdx-remove-imports'
+import removeExports from 'remark-mdx-remove-exports'
 
 import CodeBlock from './code-block'
 

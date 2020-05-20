@@ -1,17 +1,17 @@
-# [remark][]-[mdx][]-remove-imports
+# [remark][]-[mdx][]-remove-exports
 
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
-Remove import nodes from the [MDXAST][]. This is useful for scenarios where the imports aren’t needed like an MDX playground.
+Remove export nodes from the [MDXAST][]. This is useful for scenarios where the exports aren’t needed like an MDX playground.
 
 ## Installation
 
 [npm][]:
 
 ```shell
-npm install --save remark-mdxjs-remove-imports
+npm install --save remark-mdx-remove-exports
 ```
 
 ## Usage
@@ -37,12 +37,12 @@ const vfile = require('to-vfile')
 const remark = require('remark')
 const mdx = require('remark-mdx')
 const mdxjs = require('remark-mdxjs')
-const removeImports = require('remark-mdxjs-remove-imports')
+const removeExports = require('remark-mdx-remove-exports')
 
 remark()
   .use(mdx)
   .use(mdxjs)
-  .use(removeImports)
+  .use(removeExports)
   .process(vfile.readSync('example.md'), function (err, file) {
     if (err) throw err
     console.log(String(file))
@@ -52,7 +52,9 @@ remark()
 Now, running `node example` yields:
 
 ```markdown
-export default props => <div {...props} />
+import { Donut } from 'rebass'
+
+import OtherThing from 'other-place'
 
 # Hello, world!
 
