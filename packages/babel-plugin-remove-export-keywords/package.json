@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-remove-export-keywords",
-  "version": "1.6.3",
+  "version": "2.0.0-next.0",
   "description": "Remove plugin export keywords",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",

@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-html-attributes-to-jsx",
-  "version": "1.6.3",
+  "version": "2.0.0-next.0",
   "description": "Coerce HTML attributes into something JSX and React friendly",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "@babel/types": "7.9.6",
-    "@mdx-js/util": "^1.6.3",
+    "@mdx-js/util": "^2.0.0-next.0",
     "camelcase-css": "2.0.1",
     "style-to-object": "0.3.0"
   }
