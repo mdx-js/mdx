@@ -1,0 +1,601 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`correctly transpiles 1`] = `
+"import Foo from './bar'
+
+export { Baz } from './foo';
+const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
+  return <div {...props}/>
+};
+const Baz = makeShortcode(\\"Baz\\");
+const Paragraph = makeShortcode(\\"Paragraph\\");
+const Button = makeShortcode(\\"Button\\");
+const layoutProps = {};
+const MDXLayout = Foo
+export default function MDXContent({
+  components,
+  ...props
+}) {
+  return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
+    <h1>{\`Hello, world! \`}
+      <Foo bar={{
+        baz: 'qux'
+      }} mdxType=\\"Foo\\" /></h1>
+    <Baz mdxType=\\"Baz\\">
+      <p>{\`Hi!\`}</p>
+    </Baz>
+    <Paragraph bg=\\"red.500\\" color=\\"white\\" mdxType=\\"Paragraph\\">
+      <p>{\`Foo\`}</p>
+    </Paragraph>
+    <Button mdxType=\\"Button\\">
+      <p>{\`Hi!\`}</p>
+    </Button>
+    <>
+      <p>{\`Foo\`}</p>
+    </>
+    <>
+      <p>{\`Foo\`}</p>
+    </>
+    <h1>
+      <p>{\`Hello, world!\`}</p>
+    </h1>
+  </MDXLayout>;
+}
+
+;
+MDXContent.isMDXComponent = true;"
+`;
+
+exports[`maintains the proper positional info 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 1,
+          "line": 3,
+          "offset": 25,
+        },
+        "indent": Array [
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 2,
+          "offset": 1,
+        },
+      },
+      "type": "import",
+      "value": "import Foo from './bar'
+",
+    },
+    Object {
+      "position": Position {
+        "end": Object {
+          "column": 1,
+          "line": 4,
+          "offset": 53,
+        },
+        "indent": Array [
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 3,
+          "offset": 25,
+        },
+      },
+      "type": "export",
+      "value": "export { Baz } from './foo'
+",
+    },
+    Object {
+      "default": true,
+      "position": Position {
+        "end": Object {
+          "column": 19,
+          "line": 4,
+          "offset": 71,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 4,
+          "offset": 53,
+        },
+      },
+      "type": "export",
+      "value": "export default Foo",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Position {
+            "end": Object {
+              "column": 17,
+              "line": 6,
+              "offset": 89,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 6,
+              "offset": 75,
+            },
+          },
+          "type": "text",
+          "value": "Hello, world! ",
+        },
+        Object {
+          "attributes": Array [
+            Object {
+              "name": "bar",
+              "position": Object {
+                "end": Object {
+                  "column": 42,
+                  "line": 6,
+                  "offset": 114,
+                },
+                "start": Object {
+                  "column": 22,
+                  "line": 6,
+                  "offset": 94,
+                },
+              },
+              "type": "mdxAttribute",
+              "value": Object {
+                "position": Object {
+                  "end": Object {
+                    "column": 42,
+                    "line": 6,
+                    "offset": 114,
+                  },
+                  "start": Object {
+                    "column": 26,
+                    "line": 6,
+                    "offset": 98,
+                  },
+                },
+                "type": "mdxValueExpression",
+                "value": "{ baz: 'qux' }",
+              },
+            },
+          ],
+          "children": Array [],
+          "name": "Foo",
+          "position": Position {
+            "end": Object {
+              "column": 45,
+              "line": 6,
+              "offset": 117,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 17,
+              "line": 6,
+              "offset": 89,
+            },
+          },
+          "type": "mdxSpanElement",
+        },
+      ],
+      "depth": 1,
+      "position": Position {
+        "end": Object {
+          "column": 45,
+          "line": 6,
+          "offset": 117,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 6,
+          "offset": 73,
+        },
+      },
+      "type": "heading",
+    },
+    Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 6,
+                  "line": 9,
+                  "offset": 130,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 1,
+                  "line": 9,
+                  "offset": 125,
+                },
+              },
+              "type": "text",
+              "value": "Hi!",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 6,
+              "line": 9,
+              "offset": 130,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 1,
+              "line": 9,
+              "offset": 125,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": "Baz",
+      "position": Position {
+        "end": Object {
+          "column": 7,
+          "line": 10,
+          "offset": 137,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 8,
+          "offset": 119,
+        },
+      },
+      "type": "mdxBlockElement",
+    },
+    Object {
+      "attributes": Array [
+        Object {
+          "name": "bg",
+          "position": Object {
+            "end": Object {
+              "column": 24,
+              "line": 12,
+              "offset": 162,
+            },
+            "start": Object {
+              "column": 12,
+              "line": 12,
+              "offset": 150,
+            },
+          },
+          "type": "mdxAttribute",
+          "value": "red.500",
+        },
+        Object {
+          "name": "color",
+          "position": Object {
+            "end": Object {
+              "column": 38,
+              "line": 12,
+              "offset": 176,
+            },
+            "start": Object {
+              "column": 25,
+              "line": 12,
+              "offset": 163,
+            },
+          },
+          "type": "mdxAttribute",
+          "value": "white",
+        },
+      ],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 42,
+                  "line": 12,
+                  "offset": 180,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 39,
+                  "line": 12,
+                  "offset": 177,
+                },
+              },
+              "type": "text",
+              "value": "Foo",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 42,
+              "line": 12,
+              "offset": 180,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 39,
+              "line": 12,
+              "offset": 177,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": "Paragraph",
+      "position": Position {
+        "end": Object {
+          "column": 54,
+          "line": 12,
+          "offset": 192,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 12,
+          "offset": 139,
+        },
+      },
+      "type": "mdxBlockElement",
+    },
+    Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 6,
+                  "line": 15,
+                  "offset": 208,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 1,
+                  "line": 15,
+                  "offset": 203,
+                },
+              },
+              "type": "text",
+              "value": "Hi!",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 6,
+              "line": 15,
+              "offset": 208,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 1,
+              "line": 15,
+              "offset": 203,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": "Button",
+      "position": Position {
+        "end": Object {
+          "column": 10,
+          "line": 16,
+          "offset": 218,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 14,
+          "offset": 194,
+        },
+      },
+      "type": "mdxBlockElement",
+    },
+    Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 6,
+                  "line": 18,
+                  "offset": 225,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 3,
+                  "line": 18,
+                  "offset": 222,
+                },
+              },
+              "type": "text",
+              "value": "Foo",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 6,
+              "line": 18,
+              "offset": 225,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 3,
+              "line": 18,
+              "offset": 222,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": null,
+      "position": Position {
+        "end": Object {
+          "column": 9,
+          "line": 18,
+          "offset": 228,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 18,
+          "offset": 220,
+        },
+      },
+      "type": "mdxBlockElement",
+    },
+    Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 6,
+                  "line": 21,
+                  "offset": 238,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 1,
+                  "line": 21,
+                  "offset": 233,
+                },
+              },
+              "type": "text",
+              "value": "Foo",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 6,
+              "line": 21,
+              "offset": 238,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 1,
+              "line": 21,
+              "offset": 233,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": null,
+      "position": Position {
+        "end": Object {
+          "column": 4,
+          "line": 22,
+          "offset": 242,
+        },
+        "indent": Array [
+          1,
+          1,
+        ],
+        "start": Object {
+          "column": 1,
+          "line": 20,
+          "offset": 230,
+        },
+      },
+      "type": "mdxBlockElement",
+    },
+    Object {
+      "attributes": Array [],
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Position {
+                "end": Object {
+                  "column": 18,
+                  "line": 24,
+                  "offset": 261,
+                },
+                "indent": Array [],
+                "start": Object {
+                  "column": 5,
+                  "line": 24,
+                  "offset": 248,
+                },
+              },
+              "type": "text",
+              "value": "Hello, world!",
+            },
+          ],
+          "position": Position {
+            "end": Object {
+              "column": 18,
+              "line": 24,
+              "offset": 261,
+            },
+            "indent": Array [],
+            "start": Object {
+              "column": 5,
+              "line": 24,
+              "offset": 248,
+            },
+          },
+          "type": "paragraph",
+        },
+      ],
+      "name": "h1",
+      "position": Position {
+        "end": Object {
+          "column": 23,
+          "line": 24,
+          "offset": 266,
+        },
+        "indent": Array [],
+        "start": Object {
+          "column": 1,
+          "line": 24,
+          "offset": 244,
+        },
+      },
+      "type": "mdxBlockElement",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 1,
+      "line": 25,
+      "offset": 267,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`removes newlines between imports and exports 1`] = `
+"import Foo1 from \\"./foo\\"
+import Foo2 from \\"./foo\\"
+import Foo3 from \\"./foo\\"
+
+export const foo = \\"bar\\"
+
+export default props => <article {...props} />
+
+export const fred = \\"flintstone\\"
+"
+`;

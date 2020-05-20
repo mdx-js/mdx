@@ -1,251 +1,37 @@
 const {transformSync} = require('@babel/core')
-const styleToObject = require('style-to-object')
-const camelCaseCSS = require('camelcase-css')
 const uniq = require('lodash.uniq')
-const {paramCase, toTemplateLiteral} = require('@mdx-js/util')
+const {serializeTags} = require('remark-mdx/lib/serialize/mdx-element')
+const serializeMdxExpression = require('remark-mdx/lib/serialize/mdx-expression')
+const toH = require('hast-to-hyperscript')
+const {toTemplateLiteral} = require('@mdx-js/util')
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 
-// From https://github.com/wooorm/property-information/blob/ca74feb1fcd40753367c75b63c893353cd7d8c70/lib/html.js
-const spaceSeparatedProperties = [
-  'acceptCharset',
-  'accessKey',
-  'autoComplete',
-  'className',
-  'controlsList',
-  'headers',
-  'htmlFor',
-  'httpEquiv',
-  'itemProp',
-  'itemRef',
-  'itemType',
-  'ping',
-  'rel',
-  'sandbox'
-]
-
-// eslint-disable-next-line complexity
 function toJSX(node, parentNode = {}, options = {}) {
-  const {
-    // Default options
-    skipExport = false,
-    preserveNewlines = false,
-    wrapExport
-  } = options
-  let children = ''
-
-  if (node.properties != null) {
-    // Turn style strings into JSX-friendly style object
-    if (typeof node.properties.style === 'string') {
-      let styleObject = {}
-      styleToObject(node.properties.style, function (name, value) {
-        styleObject[camelCaseCSS(name)] = value
-      })
-      node.properties.style = styleObject
-    }
-
-    // Transform class property to JSX-friendly className
-    if (node.properties.class) {
-      node.properties.className = node.properties.class
-      delete node.properties.class
-    }
-
-    // AriaProperty => aria-property
-    // dataProperty => data-property
-    const paramCaseRe = /^(aria[A-Z])|(data[A-Z])/
-    node.properties = Object.entries(node.properties).reduce(
-      (properties, [key, value]) =>
-        Object.assign({}, properties, {
-          [paramCaseRe.test(key) ? paramCase(key) : key]: value
-        }),
-      {}
-    )
-  }
-
   if (node.type === 'root') {
-    const importNodes = []
-    const exportNodes = []
-    const jsxNodes = []
-    let layout
-    for (const childNode of node.children) {
-      if (childNode.type === 'import') {
-        importNodes.push(childNode)
-        continue
-      }
-
-      if (childNode.type === 'export') {
-        if (childNode.default) {
-          layout = childNode.value
-            .replace(/^export\s+default\s+/, '')
-            .replace(/;\s*$/, '')
-          continue
-        }
-
-        exportNodes.push(childNode)
-        continue
-      }
-
-      jsxNodes.push(childNode)
-    }
-
-    const exportNames = exportNodes
-      .map(node =>
-        node.value.match(/^export\s*(var|const|let|class|function)?\s*(\w+)/)
-      )
-      .map(match => (Array.isArray(match) ? match[2] : null))
-      .filter(Boolean)
-
-    const importStatements = importNodes
-      .map(childNode => toJSX(childNode, node))
-      .join('\n')
-    const exportStatements = exportNodes
-      .map(childNode => toJSX(childNode, node))
-      .join('\n')
-    const layoutProps = `const layoutProps = {
-  ${exportNames.join(',\n')}
-};`
-    const mdxLayout = `const MDXLayout = ${layout ? layout : '"wrapper"'}`
-
-    const fn = `function MDXContent({ components, ...props }) {
-  return (
-    <MDXLayout
-      {...layoutProps}
-      {...props}
-      components={components}>
-${jsxNodes.map(childNode => toJSX(childNode, node)).join('')}
-    </MDXLayout>
-  )
-};
-MDXContent.isMDXComponent = true`
-
-    // Check JSX nodes against imports
-    const babelPluginExtractImportNamesInstance = new BabelPluginExtractImportNames()
-    transformSync(importStatements, {
-      configFile: false,
-      babelrc: false,
-      plugins: [
-        require('@babel/plugin-syntax-jsx'),
-        require('@babel/plugin-syntax-object-rest-spread'),
-        babelPluginExtractImportNamesInstance.plugin
-      ]
-    })
-    const importNames = babelPluginExtractImportNamesInstance.state.names
-
-    const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
-    const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
-
-    const fnPostMdxTypeProp = transformSync(fn, {
-      configFile: false,
-      babelrc: false,
-      plugins: [
-        require('@babel/plugin-syntax-jsx'),
-        require('@babel/plugin-syntax-object-rest-spread'),
-        babelPluginApplyMdxPropInstance.plugin
-      ]
-    }).code
-
-    const exportStatementsPostMdxTypeProps = transformSync(exportStatements, {
-      configFile: false,
-      babelrc: false,
-      plugins: [
-        require('@babel/plugin-syntax-jsx'),
-        require('@babel/plugin-syntax-object-rest-spread'),
-        babelPluginApplyMdxPropToExportsInstance.plugin
-      ]
-    }).code
-
-    const allJsxNames = [
-      ...babelPluginApplyMdxPropInstance.state.names,
-      ...babelPluginApplyMdxPropToExportsInstance.state.names
-    ]
-    const jsxNames = allJsxNames.filter(name => name !== 'MDXLayout')
-
-    const importExportNames = importNames.concat(exportNames)
-    const fakedModulesForGlobalScope =
-      `const makeShortcode = name => function MDXDefaultShortcode(props) {
-  console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
-  return <div {...props}/>
-};
-` +
-      uniq(jsxNames)
-        .filter(name => !importExportNames.includes(name))
-        .map(name => `const ${name} = makeShortcode("${name}");`)
-        .join('\n')
-
-    const moduleBase = `${importStatements}
-${exportStatementsPostMdxTypeProps}
-${fakedModulesForGlobalScope}
-${layoutProps}
-${mdxLayout}`
-
-    if (skipExport) {
-      return `${moduleBase}
-${fnPostMdxTypeProp}`
-    }
-
-    if (wrapExport) {
-      return `${moduleBase}
-${fnPostMdxTypeProp}
-export default ${wrapExport}(MDXContent)`
-    }
-
-    return `${moduleBase}
-export default ${fnPostMdxTypeProp}`
-  }
-
-  // Recursively walk through children
-  if (node.children) {
-    children = node.children
-      .map(childNode => {
-        const childOptions = Object.assign({}, options, {
-          // Tell all children inside <pre> tags to preserve newlines as text nodes
-          preserveNewlines: preserveNewlines || node.tagName === 'pre'
-        })
-        return toJSX(childNode, node, childOptions)
-      })
-      .join('')
+    return serializeRoot(node, options)
   }
 
   if (node.type === 'element') {
-    let props = ''
-
-    if (node.properties) {
-      spaceSeparatedProperties.forEach(prop => {
-        if (Array.isArray(node.properties[prop])) {
-          node.properties[prop] = node.properties[prop].join(' ')
-        }
-      })
-
-      if (Object.keys(node.properties).length > 0) {
-        props = JSON.stringify(node.properties)
-      }
-    }
-
-    return `<${node.tagName}${
-      parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''
-    }${props ? ` {...${props}}` : ''}>${children}</${node.tagName}>`
+    return serializeElement(node, options, parentNode)
   }
 
   // Wraps text nodes inside template string, so that we don't run into escaping issues.
   if (node.type === 'text') {
-    // Don't wrap newlines unless specifically instructed to by the flag,
-    // to avoid issues like React warnings caused by text nodes in tables.
-    const shouldPreserveNewlines =
-      preserveNewlines || parentNode.tagName === 'p'
-
-    if (node.value === '\n' && !shouldPreserveNewlines) {
-      return node.value
-    }
-
-    return toTemplateLiteral(node.value)
+    return serializeText(node, options, parentNode)
   }
 
-  if (node.type === 'comment') {
-    return `{/*${node.value}*/}`
+  if (node.type === 'mdxBlockExpression' || node.type === 'mdxSpanExpression') {
+    return serializeMdxExpression(node)
   }
 
-  if (node.type === 'import' || node.type === 'export' || node.type === 'jsx') {
-    return node.value
+  // To do: pass `parentName` in?
+  if (node.type === 'mdxBlockElement' || node.type === 'mdxSpanElement') {
+    return serializeComponent(node, options, parentNode)
+  }
+
+  if (node.type === 'import' || node.type === 'export') {
+    return serializeEsSyntax(node)
   }
 }
 
@@ -259,3 +45,228 @@ module.exports = compile
 exports = compile
 exports.toJSX = toJSX
 exports.default = compile
+
+function serializeRoot(node, options) {
+  const {
+    // Default options
+    skipExport = false,
+    wrapExport
+  } = options
+
+  const groups = {import: [], export: [], rest: []}
+
+  for (const child of node.children) {
+    let kind = 'rest'
+
+    if (child.type === 'import' || child.type === 'export') {
+      kind = child.type
+    }
+
+    groups[kind].push(child)
+  }
+
+  let layout
+
+  // Find a default export, assumes there’s zero or one.
+  groups.export = groups.export.filter(child => {
+    if (child.default) {
+      layout = child.value
+        .replace(/^export\s+default\s+/, '')
+        .replace(/;\s*$/, '')
+      return false
+    }
+
+    return true
+  })
+
+  const exportNames = groups.export
+    .map(node =>
+      node.value.match(/^export\s*(var|const|let|class|function)?\s*(\w+)/)
+    )
+    .map(match => (Array.isArray(match) ? match[2] : null))
+    .filter(Boolean)
+
+  const importStatements = groups.import
+    .map(childNode => toJSX(childNode, node))
+    .join('\n')
+
+  const exportStatements = groups.export
+    .map(childNode => toJSX(childNode, node))
+    .join('\n')
+
+  let layoutProps = 'const layoutProps = {'
+
+  if (exportNames.length !== 0) {
+    layoutProps += '\n  ' + exportNames.join(',\n  ') + '\n'
+  }
+
+  layoutProps += '};'
+
+  const mdxLayout = `const MDXLayout = ${layout ? layout : '"wrapper"'}`
+
+  const doc = groups.rest
+    .map(childNode => toJSX(childNode, node, options))
+    .join('')
+    .replace(/^\n+|\n+$/, '')
+
+  const fn = `function MDXContent({ components, ...props }) {
+return (
+  <MDXLayout {...layoutProps} {...props} components={components}>
+${doc}
+  </MDXLayout>
+)
+};
+MDXContent.isMDXComponent = true`
+
+  // Check JSX nodes against imports
+  const babelPluginExtractImportNamesInstance = new BabelPluginExtractImportNames()
+  transformSync(importStatements, {
+    configFile: false,
+    babelrc: false,
+    plugins: [
+      require('@babel/plugin-syntax-jsx'),
+      require('@babel/plugin-syntax-object-rest-spread'),
+      babelPluginExtractImportNamesInstance.plugin
+    ]
+  })
+  const importNames = babelPluginExtractImportNamesInstance.state.names
+
+  const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
+  const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
+
+  const fnPostMdxTypeProp = transformSync(fn, {
+    configFile: false,
+    babelrc: false,
+    plugins: [
+      require('@babel/plugin-syntax-jsx'),
+      require('@babel/plugin-syntax-object-rest-spread'),
+      babelPluginApplyMdxPropInstance.plugin
+    ]
+  }).code
+
+  const exportStatementsPostMdxTypeProps = transformSync(exportStatements, {
+    configFile: false,
+    babelrc: false,
+    plugins: [
+      require('@babel/plugin-syntax-jsx'),
+      require('@babel/plugin-syntax-object-rest-spread'),
+      babelPluginApplyMdxPropToExportsInstance.plugin
+    ]
+  }).code
+
+  const allJsxNames = [
+    ...babelPluginApplyMdxPropInstance.state.names,
+    ...babelPluginApplyMdxPropToExportsInstance.state.names
+  ]
+  const jsxNames = allJsxNames.filter(name => name !== 'MDXLayout')
+
+  const importExportNames = importNames.concat(exportNames)
+  const fakedModulesForGlobalScope =
+    `const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+  return <div {...props}/>
+};
+` +
+    uniq(jsxNames)
+      .filter(name => !importExportNames.includes(name))
+      .map(name => `const ${name} = makeShortcode("${name}");`)
+      .join('\n')
+
+  const moduleBase = `${importStatements}
+${exportStatementsPostMdxTypeProps}
+${fakedModulesForGlobalScope}
+${layoutProps}
+${mdxLayout}`
+
+  if (skipExport) {
+    return `${moduleBase}
+${fnPostMdxTypeProp}`
+  }
+
+  if (wrapExport) {
+    return `${moduleBase}
+${fnPostMdxTypeProp}
+export default ${wrapExport}(MDXContent)`
+  }
+
+  return `${moduleBase}
+export default ${fnPostMdxTypeProp}`
+}
+
+function serializeElement(node, options, parentNode) {
+  const parentName = parentNode.tagName
+  const {type, props} = toH(
+    fakeReactCreateElement,
+    Object.assign({}, node, {children: []}),
+    {prefix: false}
+  )
+  const content = serializeChildren(node, options)
+
+  delete props.key
+  const data = parentName ? {...props, parentName} : props
+
+  const spread =
+    Object.keys(data).length === 0 ? null : ' {...' + JSON.stringify(data) + '}'
+
+  return (
+    '<' +
+    type +
+    (spread ? ' ' + spread : '') +
+    (content ? '>' + content + '</' + type + '>' : '/>')
+  )
+}
+
+function serializeComponent(node, options) {
+  let content = serializeChildren(node, options)
+  const tags = serializeTags(
+    Object.assign({}, node, {children: content ? ['!'] : []})
+  )
+
+  if (node.type === 'mdxBlockElement' && content) {
+    content = '\n' + content + '\n'
+  }
+
+  return tags.open + content + (tags.close || '')
+}
+
+function serializeText(node, options, parentNode) {
+  const preserveNewlines = options.preserveNewlines
+  // Don't wrap newlines unless specifically instructed to by the flag,
+  // to avoid issues like React warnings caused by text nodes in tables.
+  const shouldPreserveNewlines = preserveNewlines || parentNode.tagName === 'p'
+
+  if (node.value === '\n' && !shouldPreserveNewlines) {
+    return node.value
+  }
+
+  return toTemplateLiteral(node.value)
+}
+
+function serializeEsSyntax(node) {
+  return node.value
+}
+
+function serializeChildren(node, options) {
+  const children = node.children || []
+  const childOptions = Object.assign({}, options, {
+    // Tell all children inside <pre> tags to preserve newlines as text nodes
+    preserveNewlines: options.preserveNewlines || node.tagName === 'pre'
+  })
+
+  return children
+    .map(childNode => {
+      return toJSX(childNode, node, childOptions)
+    })
+    .join('\n')
+}
+
+// We only do this for the props, so we’re ignoring children.
+function fakeReactCreateElement(name, props) {
+  return {
+    type: name,
+    props: props,
+    // Needed for `toH` to think this is React.
+    key: null,
+    _owner: null
+  }
+}

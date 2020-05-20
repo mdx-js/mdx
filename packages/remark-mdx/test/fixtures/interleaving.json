@@ -1,0 +1,2335 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/mdx-js/mdx/issues/628",
+          "children": [
+            {
+              "type": "text",
+              "value": "Interleaving",
+              "position": {
+                "start": {
+                  "line": 1,
+                  "column": 4,
+                  "offset": 3
+                },
+                "end": {
+                  "line": 1,
+                  "column": 16,
+                  "offset": 15
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 1,
+              "column": 3,
+              "offset": 2
+            },
+            "end": {
+              "line": 1,
+              "column": 59,
+              "offset": 58
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 1,
+          "column": 1,
+          "offset": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 59,
+          "offset": 58
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "From ",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 1,
+              "offset": 60
+            },
+            "end": {
+              "line": 3,
+              "column": 6,
+              "offset": 65
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/mdx-js/mdx/issues/628#issue-466943193",
+          "children": [
+            {
+              "type": "text",
+              "value": "GitHub",
+              "position": {
+                "start": {
+                  "line": 3,
+                  "column": 7,
+                  "offset": 66
+                },
+                "end": {
+                  "line": 3,
+                  "column": 13,
+                  "offset": 72
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 6,
+              "offset": 65
+            },
+            "end": {
+              "line": 3,
+              "column": 72,
+              "offset": 131
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 3,
+              "column": 72,
+              "offset": 131
+            },
+            "end": {
+              "line": 3,
+              "column": 73,
+              "offset": 132
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 3,
+          "column": 1,
+          "offset": 60
+        },
+        "end": {
+          "line": 3,
+          "column": 73,
+          "offset": 132
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 5,
+          "column": 1,
+          "offset": 134
+        },
+        "end": {
+          "line": 5,
+          "column": 6,
+          "offset": 139
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hello, ",
+          "position": {
+            "start": {
+              "line": 7,
+              "column": 3,
+              "offset": 143
+            },
+            "end": {
+              "line": 7,
+              "column": 10,
+              "offset": 150
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": "span",
+          "attributes": [],
+          "children": [
+            {
+              "type": "emphasis",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "world",
+                  "position": {
+                    "start": {
+                      "line": 7,
+                      "column": 17,
+                      "offset": 157
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 22,
+                      "offset": 162
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 7,
+                  "column": 16,
+                  "offset": 156
+                },
+                "end": {
+                  "line": 7,
+                  "column": 23,
+                  "offset": 163
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 7,
+              "column": 10,
+              "offset": 150
+            },
+            "end": {
+              "line": 7,
+              "column": 30,
+              "offset": 170
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ", from ",
+          "position": {
+            "start": {
+              "line": 7,
+              "column": 30,
+              "offset": 170
+            },
+            "end": {
+              "line": 7,
+              "column": 37,
+              "offset": 177
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": null,
+          "attributes": [],
+          "children": [
+            {
+              "type": "mdxSpanExpression",
+              "value": "props.name",
+              "position": {
+                "start": {
+                  "line": 7,
+                  "column": 39,
+                  "offset": 179
+                },
+                "end": {
+                  "line": 7,
+                  "column": 51,
+                  "offset": 191
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 7,
+              "column": 37,
+              "offset": 177
+            },
+            "end": {
+              "line": 7,
+              "column": 54,
+              "offset": 194
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": "!",
+          "position": {
+            "start": {
+              "line": 7,
+              "column": 54,
+              "offset": 194
+            },
+            "end": {
+              "line": 7,
+              "column": 55,
+              "offset": 195
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 7,
+          "column": 1,
+          "offset": 141
+        },
+        "end": {
+          "line": 7,
+          "column": 55,
+          "offset": 195
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "Note",
+      "attributes": [],
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "This ",
+              "position": {
+                "start": {
+                  "line": 11,
+                  "column": 1,
+                  "offset": 205
+                },
+                "end": {
+                  "line": 11,
+                  "column": 6,
+                  "offset": 210
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "emphasis",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "is",
+                  "position": {
+                    "start": {
+                      "line": 11,
+                      "column": 7,
+                      "offset": 211
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 9,
+                      "offset": 213
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 11,
+                  "column": 6,
+                  "offset": 210
+                },
+                "end": {
+                  "line": 11,
+                  "column": 10,
+                  "offset": 214
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "text",
+              "value": " ",
+              "position": {
+                "start": {
+                  "line": 11,
+                  "column": 10,
+                  "offset": 214
+                },
+                "end": {
+                  "line": 11,
+                  "column": 11,
+                  "offset": 215
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "strong",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "markdown",
+                  "position": {
+                    "start": {
+                      "line": 11,
+                      "column": 13,
+                      "offset": 217
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 21,
+                      "offset": 225
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 11,
+                  "column": 11,
+                  "offset": 215
+                },
+                "end": {
+                  "line": 11,
+                  "column": 23,
+                  "offset": 227
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "text",
+              "value": "!",
+              "position": {
+                "start": {
+                  "line": 11,
+                  "column": 23,
+                  "offset": 227
+                },
+                "end": {
+                  "line": 11,
+                  "column": 24,
+                  "offset": 228
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 11,
+              "column": 1,
+              "offset": 205
+            },
+            "end": {
+              "line": 11,
+              "column": 24,
+              "offset": 228
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "offset": 197
+        },
+        "end": {
+          "line": 13,
+          "column": 8,
+          "offset": 237
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 15,
+          "column": 1,
+          "offset": 239
+        },
+        "end": {
+          "line": 15,
+          "column": 6,
+          "offset": 244
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hello, from ",
+          "position": {
+            "start": {
+              "line": 17,
+              "column": 3,
+              "offset": 248
+            },
+            "end": {
+              "line": 17,
+              "column": 15,
+              "offset": 260
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": null,
+          "attributes": [],
+          "children": [
+            {
+              "type": "mdxSpanExpression",
+              "value": "props.name",
+              "position": {
+                "start": {
+                  "line": 17,
+                  "column": 17,
+                  "offset": 262
+                },
+                "end": {
+                  "line": 17,
+                  "column": 29,
+                  "offset": 274
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 17,
+              "column": 15,
+              "offset": 260
+            },
+            "end": {
+              "line": 17,
+              "column": 32,
+              "offset": 277
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 17,
+          "column": 1,
+          "offset": 246
+        },
+        "end": {
+          "line": 17,
+          "column": 32,
+          "offset": 277
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "Note",
+      "attributes": [],
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Here's another expression: ",
+              "position": {
+                "start": {
+                  "line": 21,
+                  "column": 1,
+                  "offset": 287
+                },
+                "end": {
+                  "line": 21,
+                  "column": 28,
+                  "offset": 314
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "mdxSpanElement",
+              "name": null,
+              "attributes": [],
+              "children": [
+                {
+                  "type": "mdxSpanExpression",
+                  "value": "props.thing",
+                  "position": {
+                    "start": {
+                      "line": 21,
+                      "column": 30,
+                      "offset": 316
+                    },
+                    "end": {
+                      "line": 21,
+                      "column": 43,
+                      "offset": 329
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 21,
+                  "column": 28,
+                  "offset": 314
+                },
+                "end": {
+                  "line": 21,
+                  "column": 46,
+                  "offset": 332
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 21,
+              "column": 1,
+              "offset": 287
+            },
+            "end": {
+              "line": 21,
+              "column": 46,
+              "offset": 332
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 19,
+          "column": 1,
+          "offset": 279
+        },
+        "end": {
+          "line": 23,
+          "column": 8,
+          "offset": 341
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 25,
+          "column": 1,
+          "offset": 343
+        },
+        "end": {
+          "line": 25,
+          "column": 6,
+          "offset": 348
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hello, ",
+          "position": {
+            "start": {
+              "line": 27,
+              "column": 3,
+              "offset": 352
+            },
+            "end": {
+              "line": 27,
+              "column": 10,
+              "offset": 359
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": null,
+          "attributes": [],
+          "children": [
+            {
+              "type": "text",
+              "value": "from ",
+              "position": {
+                "start": {
+                  "line": 27,
+                  "column": 12,
+                  "offset": 361
+                },
+                "end": {
+                  "line": 27,
+                  "column": 17,
+                  "offset": 366
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "mdxSpanExpression",
+              "value": "props.name",
+              "position": {
+                "start": {
+                  "line": 27,
+                  "column": 17,
+                  "offset": 366
+                },
+                "end": {
+                  "line": 27,
+                  "column": 29,
+                  "offset": 378
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 27,
+              "column": 10,
+              "offset": 359
+            },
+            "end": {
+              "line": 27,
+              "column": 32,
+              "offset": 381
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 27,
+          "column": 1,
+          "offset": 350
+        },
+        "end": {
+          "line": 27,
+          "column": 32,
+          "offset": 381
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 29,
+          "column": 1,
+          "offset": 383
+        },
+        "end": {
+          "line": 29,
+          "column": 6,
+          "offset": 388
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hello, world!",
+          "position": {
+            "start": {
+              "line": 31,
+              "column": 3,
+              "offset": 392
+            },
+            "end": {
+              "line": 31,
+              "column": 16,
+              "offset": 405
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 31,
+          "column": 1,
+          "offset": 390
+        },
+        "end": {
+          "line": 31,
+          "column": 16,
+          "offset": 405
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "div",
+      "attributes": [],
+      "children": [
+        {
+          "type": "mdxBlockElement",
+          "name": "div",
+          "attributes": [],
+          "children": [
+            {
+              "type": "heading",
+              "depth": 1,
+              "children": [
+                {
+                  "type": "text",
+                  "value": "I should be an h1 inside two divs",
+                  "position": {
+                    "start": {
+                      "line": 36,
+                      "column": 3,
+                      "offset": 424
+                    },
+                    "end": {
+                      "line": 36,
+                      "column": 36,
+                      "offset": 457
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 36,
+                  "column": 1,
+                  "offset": 422
+                },
+                "end": {
+                  "line": 36,
+                  "column": 36,
+                  "offset": 457
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 34,
+              "column": 1,
+              "offset": 413
+            },
+            "end": {
+              "line": 38,
+              "column": 9,
+              "offset": 467
+            },
+            "indent": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 33,
+          "column": 1,
+          "offset": 407
+        },
+        "end": {
+          "line": 39,
+          "column": 7,
+          "offset": 474
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Editorial note: the above example had an opening tag instead of a closing tag:\n",
+          "position": {
+            "start": {
+              "line": 41,
+              "column": 1,
+              "offset": 476
+            },
+            "end": {
+              "line": 42,
+              "column": 1,
+              "offset": 555
+            },
+            "indent": [
+              1
+            ]
+          }
+        },
+        {
+          "type": "inlineCode",
+          "value": "<div>",
+          "position": {
+            "start": {
+              "line": 42,
+              "column": 1,
+              "offset": 555
+            },
+            "end": {
+              "line": 42,
+              "column": 8,
+              "offset": 562
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": " instead of ",
+          "position": {
+            "start": {
+              "line": 42,
+              "column": 8,
+              "offset": 562
+            },
+            "end": {
+              "line": 42,
+              "column": 20,
+              "offset": 574
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "inlineCode",
+          "value": "</div>",
+          "position": {
+            "start": {
+              "line": 42,
+              "column": 20,
+              "offset": 574
+            },
+            "end": {
+              "line": 42,
+              "column": 28,
+              "offset": 582
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 42,
+              "column": 28,
+              "offset": 582
+            },
+            "end": {
+              "line": 42,
+              "column": 29,
+              "offset": 583
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 41,
+          "column": 1,
+          "offset": 476
+        },
+        "end": {
+          "line": 42,
+          "column": 29,
+          "offset": 583
+        },
+        "indent": [
+          1
+        ]
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 44,
+          "column": 1,
+          "offset": 585
+        },
+        "end": {
+          "line": 44,
+          "column": 6,
+          "offset": 590
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hello, world",
+          "position": {
+            "start": {
+              "line": 46,
+              "column": 3,
+              "offset": 594
+            },
+            "end": {
+              "line": 46,
+              "column": 15,
+              "offset": 606
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 46,
+          "column": 1,
+          "offset": 592
+        },
+        "end": {
+          "line": 46,
+          "column": 15,
+          "offset": 606
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "SomeComponent",
+      "attributes": [],
+      "children": [
+        {
+          "type": "mdxBlockExpression",
+          "value": "prop => {\n  const newValue = doStuff(prop)\n\n  return <h1>{newValue}</h1>\n}",
+          "position": {
+            "start": {
+              "line": 49,
+              "column": 1,
+              "offset": 624
+            },
+            "end": {
+              "line": 53,
+              "column": 5,
+              "offset": 708
+            },
+            "indent": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 48,
+          "column": 1,
+          "offset": 608
+        },
+        "end": {
+          "line": 54,
+          "column": 17,
+          "offset": 725
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 56,
+          "column": 1,
+          "offset": 727
+        },
+        "end": {
+          "line": 56,
+          "column": 6,
+          "offset": 732
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hello, world!",
+          "position": {
+            "start": {
+              "line": 58,
+              "column": 3,
+              "offset": 736
+            },
+            "end": {
+              "line": 58,
+              "column": 16,
+              "offset": 749
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 58,
+          "column": 1,
+          "offset": 734
+        },
+        "end": {
+          "line": 58,
+          "column": 16,
+          "offset": 749
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "SomeComponent",
+      "attributes": [
+        {
+          "type": "mdxAttribute",
+          "name": "someProp",
+          "value": {
+            "type": "mdxValueExpression",
+            "value": "`\n  Here's a template string\n\n  with empty lines\n`",
+            "position": {
+              "start": {
+                "line": 61,
+                "column": 12,
+                "offset": 777
+              },
+              "end": {
+                "line": 65,
+                "column": 5,
+                "offset": 835
+              }
+            }
+          },
+          "position": {
+            "start": {
+              "line": 61,
+              "column": 3,
+              "offset": 768
+            },
+            "end": {
+              "line": 65,
+              "column": 5,
+              "offset": 835
+            }
+          }
+        }
+      ],
+      "children": [],
+      "position": {
+        "start": {
+          "line": 60,
+          "column": 1,
+          "offset": 751
+        },
+        "end": {
+          "line": 66,
+          "column": 3,
+          "offset": 838
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 68,
+          "column": 1,
+          "offset": 840
+        },
+        "end": {
+          "line": 68,
+          "column": 6,
+          "offset": 845
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "From ",
+          "position": {
+            "start": {
+              "line": 70,
+              "column": 1,
+              "offset": 847
+            },
+            "end": {
+              "line": 70,
+              "column": 6,
+              "offset": 852
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/mdx-js/mdx/issues/628#issuecomment-510525094",
+          "children": [
+            {
+              "type": "text",
+              "value": "GitHub",
+              "position": {
+                "start": {
+                  "line": 70,
+                  "column": 7,
+                  "offset": 853
+                },
+                "end": {
+                  "line": 70,
+                  "column": 13,
+                  "offset": 859
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 70,
+              "column": 6,
+              "offset": 852
+            },
+            "end": {
+              "line": 70,
+              "column": 79,
+              "offset": 925
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 70,
+              "column": 79,
+              "offset": 925
+            },
+            "end": {
+              "line": 70,
+              "column": 80,
+              "offset": 926
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 70,
+          "column": 1,
+          "offset": 847
+        },
+        "end": {
+          "line": 70,
+          "column": 80,
+          "offset": 926
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hello, ",
+          "position": {
+            "start": {
+              "line": 72,
+              "column": 3,
+              "offset": 930
+            },
+            "end": {
+              "line": 72,
+              "column": 10,
+              "offset": 937
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": "span",
+          "attributes": [],
+          "children": [
+            {
+              "type": "emphasis",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "world",
+                  "position": {
+                    "start": {
+                      "line": 72,
+                      "column": 17,
+                      "offset": 944
+                    },
+                    "end": {
+                      "line": 72,
+                      "column": 22,
+                      "offset": 949
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 72,
+                  "column": 16,
+                  "offset": 943
+                },
+                "end": {
+                  "line": 72,
+                  "column": 23,
+                  "offset": 950
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 72,
+              "column": 10,
+              "offset": 937
+            },
+            "end": {
+              "line": 72,
+              "column": 30,
+              "offset": 957
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": "!",
+          "position": {
+            "start": {
+              "line": 72,
+              "column": 30,
+              "offset": 957
+            },
+            "end": {
+              "line": 72,
+              "column": 31,
+              "offset": 958
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 72,
+          "column": 1,
+          "offset": 928
+        },
+        "end": {
+          "line": 72,
+          "column": 31,
+          "offset": 958
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "Note",
+      "attributes": [],
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "This ",
+              "position": {
+                "start": {
+                  "line": 76,
+                  "column": 1,
+                  "offset": 968
+                },
+                "end": {
+                  "line": 76,
+                  "column": 6,
+                  "offset": 973
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "emphasis",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "is",
+                  "position": {
+                    "start": {
+                      "line": 76,
+                      "column": 7,
+                      "offset": 974
+                    },
+                    "end": {
+                      "line": 76,
+                      "column": 9,
+                      "offset": 976
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 76,
+                  "column": 6,
+                  "offset": 973
+                },
+                "end": {
+                  "line": 76,
+                  "column": 10,
+                  "offset": 977
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "text",
+              "value": " ",
+              "position": {
+                "start": {
+                  "line": 76,
+                  "column": 10,
+                  "offset": 977
+                },
+                "end": {
+                  "line": 76,
+                  "column": 11,
+                  "offset": 978
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "strong",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "markdown",
+                  "position": {
+                    "start": {
+                      "line": 76,
+                      "column": 13,
+                      "offset": 980
+                    },
+                    "end": {
+                      "line": 76,
+                      "column": 21,
+                      "offset": 988
+                    },
+                    "indent": []
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 76,
+                  "column": 11,
+                  "offset": 978
+                },
+                "end": {
+                  "line": 76,
+                  "column": 23,
+                  "offset": 990
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "text",
+              "value": "!",
+              "position": {
+                "start": {
+                  "line": 76,
+                  "column": 23,
+                  "offset": 990
+                },
+                "end": {
+                  "line": 76,
+                  "column": 24,
+                  "offset": 991
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 76,
+              "column": 1,
+              "offset": 968
+            },
+            "end": {
+              "line": 76,
+              "column": 24,
+              "offset": 991
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 74,
+          "column": 1,
+          "offset": 960
+        },
+        "end": {
+          "line": 78,
+          "column": 8,
+          "offset": 1000
+        },
+        "indent": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 80,
+          "column": 1,
+          "offset": 1002
+        },
+        "end": {
+          "line": 80,
+          "column": 6,
+          "offset": 1007
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "From ",
+          "position": {
+            "start": {
+              "line": 82,
+              "column": 1,
+              "offset": 1009
+            },
+            "end": {
+              "line": 82,
+              "column": 6,
+              "offset": 1014
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/mdx-js/mdx/issues/628#issuecomment-510579387",
+          "children": [
+            {
+              "type": "text",
+              "value": "GitHub",
+              "position": {
+                "start": {
+                  "line": 82,
+                  "column": 7,
+                  "offset": 1015
+                },
+                "end": {
+                  "line": 82,
+                  "column": 13,
+                  "offset": 1021
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 82,
+              "column": 6,
+              "offset": 1014
+            },
+            "end": {
+              "line": 82,
+              "column": 79,
+              "offset": 1087
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 82,
+              "column": 79,
+              "offset": 1087
+            },
+            "end": {
+              "line": 82,
+              "column": 80,
+              "offset": 1088
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 82,
+          "column": 1,
+          "offset": 1009
+        },
+        "end": {
+          "line": 82,
+          "column": 80,
+          "offset": 1088
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hello, ",
+          "position": {
+            "start": {
+              "line": 84,
+              "column": 3,
+              "offset": 1092
+            },
+            "end": {
+              "line": 84,
+              "column": 10,
+              "offset": 1099
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanElement",
+          "name": null,
+          "attributes": [],
+          "children": [
+            {
+              "type": "text",
+              "value": "from ",
+              "position": {
+                "start": {
+                  "line": 84,
+                  "column": 12,
+                  "offset": 1101
+                },
+                "end": {
+                  "line": 84,
+                  "column": 17,
+                  "offset": 1106
+                },
+                "indent": []
+              }
+            },
+            {
+              "type": "mdxSpanExpression",
+              "value": "props.name",
+              "position": {
+                "start": {
+                  "line": 84,
+                  "column": 17,
+                  "offset": 1106
+                },
+                "end": {
+                  "line": 84,
+                  "column": 29,
+                  "offset": 1118
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 84,
+              "column": 10,
+              "offset": 1099
+            },
+            "end": {
+              "line": 84,
+              "column": 32,
+              "offset": 1121
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 84,
+          "column": 1,
+          "offset": 1090
+        },
+        "end": {
+          "line": 84,
+          "column": 32,
+          "offset": 1121
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "heading",
+      "depth": 1,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hello from ",
+          "position": {
+            "start": {
+              "line": 86,
+              "column": 3,
+              "offset": 1125
+            },
+            "end": {
+              "line": 86,
+              "column": 14,
+              "offset": 1136
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "mdxSpanExpression",
+          "value": "props.name",
+          "position": {
+            "start": {
+              "line": 86,
+              "column": 14,
+              "offset": 1136
+            },
+            "end": {
+              "line": 86,
+              "column": 26,
+              "offset": 1148
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 86,
+          "column": 1,
+          "offset": 1123
+        },
+        "end": {
+          "line": 86,
+          "column": 26,
+          "offset": 1148
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "thematicBreak",
+      "position": {
+        "start": {
+          "line": 88,
+          "column": 1,
+          "offset": 1150
+        },
+        "end": {
+          "line": 88,
+          "column": 6,
+          "offset": 1155
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "From ",
+          "position": {
+            "start": {
+              "line": 90,
+              "column": 1,
+              "offset": 1157
+            },
+            "end": {
+              "line": 90,
+              "column": 6,
+              "offset": 1162
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "link",
+          "title": null,
+          "url": "https://github.com/mdx-js/mdx/issues/628#issuecomment-510978023",
+          "children": [
+            {
+              "type": "text",
+              "value": "GitHub",
+              "position": {
+                "start": {
+                  "line": 90,
+                  "column": 7,
+                  "offset": 1163
+                },
+                "end": {
+                  "line": 90,
+                  "column": 13,
+                  "offset": 1169
+                },
+                "indent": []
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 90,
+              "column": 6,
+              "offset": 1162
+            },
+            "end": {
+              "line": 90,
+              "column": 79,
+              "offset": 1235
+            },
+            "indent": []
+          }
+        },
+        {
+          "type": "text",
+          "value": ".",
+          "position": {
+            "start": {
+              "line": 90,
+              "column": 79,
+              "offset": 1235
+            },
+            "end": {
+              "line": 90,
+              "column": 80,
+              "offset": 1236
+            },
+            "indent": []
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 90,
+          "column": 1,
+          "offset": 1157
+        },
+        "end": {
+          "line": 90,
+          "column": 80,
+          "offset": 1236
+        },
+        "indent": []
+      }
+    },
+    {
+      "type": "mdxBlockElement",
+      "name": "ListStyleOne",
+      "attributes": [],
+      "children": [
+        {
+          "type": "list",
+          "ordered": false,
+          "start": null,
+          "spread": false,
+          "children": [
+            {
+              "type": "listItem",
+              "spread": false,
+              "checked": null,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Thing",
+                      "position": {
+                        "start": {
+                          "line": 94,
+                          "column": 6,
+                          "offset": 1259
+                        },
+                        "end": {
+                          "line": 94,
+                          "column": 11,
+                          "offset": 1264
+                        },
+                        "indent": []
+                      }
+                    }
+                  ],
+                  "position": {
+                    "start": {
+                      "line": 94,
+                      "column": 6,
+                      "offset": 1259
+                    },
+                    "end": {
+                      "line": 94,
+                      "column": 11,
+                      "offset": 1264
+                    },
+                    "indent": []
+                  }
+                },
+                {
+                  "type": "list",
+                  "ordered": false,
+                  "start": null,
+                  "spread": false,
+                  "children": [
+                    {
+                      "type": "listItem",
+                      "spread": false,
+                      "checked": null,
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Subthing and this word is ",
+                              "position": {
+                                "start": {
+                                  "line": 95,
+                                  "column": 10,
+                                  "offset": 1274
+                                },
+                                "end": {
+                                  "line": 95,
+                                  "column": 36,
+                                  "offset": 1300
+                                },
+                                "indent": []
+                              }
+                            },
+                            {
+                              "type": "mdxSpanElement",
+                              "name": "Red",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "Red",
+                                  "position": {
+                                    "start": {
+                                      "line": 95,
+                                      "column": 41,
+                                      "offset": 1305
+                                    },
+                                    "end": {
+                                      "line": 95,
+                                      "column": 44,
+                                      "offset": 1308
+                                    },
+                                    "indent": []
+                                  }
+                                }
+                              ],
+                              "position": {
+                                "start": {
+                                  "line": 95,
+                                  "column": 36,
+                                  "offset": 1300
+                                },
+                                "end": {
+                                  "line": 95,
+                                  "column": 50,
+                                  "offset": 1314
+                                },
+                                "indent": []
+                              }
+                            },
+                            {
+                              "type": "text",
+                              "value": " right here.",
+                              "position": {
+                                "start": {
+                                  "line": 95,
+                                  "column": 50,
+                                  "offset": 1314
+                                },
+                                "end": {
+                                  "line": 95,
+                                  "column": 62,
+                                  "offset": 1326
+                                },
+                                "indent": []
+                              }
+                            }
+                          ],
+                          "position": {
+                            "start": {
+                              "line": 95,
+                              "column": 10,
+                              "offset": 1274
+                            },
+                            "end": {
+                              "line": 95,
+                              "column": 62,
+                              "offset": 1326
+                            },
+                            "indent": []
+                          }
+                        }
+                      ],
+                      "position": {
+                        "start": {
+                          "line": 95,
+                          "column": 6,
+                          "offset": 1270
+                        },
+                        "end": {
+                          "line": 95,
+                          "column": 62,
+                          "offset": 1326
+                        },
+                        "indent": []
+                      }
+                    },
+                    {
+                      "type": "listItem",
+                      "spread": false,
+                      "checked": null,
+                      "children": [
+                        {
+                          "type": "paragraph",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "Another subthing with a ",
+                              "position": {
+                                "start": {
+                                  "line": 96,
+                                  "column": 10,
+                                  "offset": 1336
+                                },
+                                "end": {
+                                  "line": 96,
+                                  "column": 34,
+                                  "offset": 1360
+                                },
+                                "indent": []
+                              }
+                            },
+                            {
+                              "type": "mdxSpanElement",
+                              "name": "Blue",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "value": "colorful",
+                                  "position": {
+                                    "start": {
+                                      "line": 96,
+                                      "column": 40,
+                                      "offset": 1366
+                                    },
+                                    "end": {
+                                      "line": 96,
+                                      "column": 48,
+                                      "offset": 1374
+                                    },
+                                    "indent": []
+                                  }
+                                }
+                              ],
+                              "position": {
+                                "start": {
+                                  "line": 96,
+                                  "column": 34,
+                                  "offset": 1360
+                                },
+                                "end": {
+                                  "line": 96,
+                                  "column": 55,
+                                  "offset": 1381
+                                },
+                                "indent": []
+                              }
+                            },
+                            {
+                              "type": "text",
+                              "value": " word again.",
+                              "position": {
+                                "start": {
+                                  "line": 96,
+                                  "column": 55,
+                                  "offset": 1381
+                                },
+                                "end": {
+                                  "line": 96,
+                                  "column": 67,
+                                  "offset": 1393
+                                },
+                                "indent": []
+                              }
+                            }
+                          ],
+                          "position": {
+                            "start": {
+                              "line": 96,
+                              "column": 10,
+                              "offset": 1336
+                            },
+                            "end": {
+                              "line": 96,
+                              "column": 67,
+                              "offset": 1393
+                            },
+                            "indent": []
+                          }
+                        }
+                      ],
+                      "position": {
+                        "start": {
+                          "line": 96,
+                          "column": 6,
+                          "offset": 1332
+                        },
+                        "end": {
+                          "line": 96,
+                          "column": 67,
+                          "offset": 1393
+                        },
+                        "indent": []
+                      }
+                    }
+                  ],
+                  "position": {
+                    "start": {
+                      "line": 95,
+                      "column": 6,
+                      "offset": 1270
+                    },
+                    "end": {
+                      "line": 96,
+                      "column": 67,
+                      "offset": 1393
+                    },
+                    "indent": [
+                      6
+                    ]
+                  }
+                }
+              ],
+              "position": {
+                "start": {
+                  "line": 94,
+                  "column": 1,
+                  "offset": 1254
+                },
+                "end": {
+                  "line": 96,
+                  "column": 67,
+                  "offset": 1393
+                },
+                "indent": [
+                  1,
+                  1
+                ]
+              }
+            }
+          ],
+          "position": {
+            "start": {
+              "line": 94,
+              "column": 1,
+              "offset": 1254
+            },
+            "end": {
+              "line": 96,
+              "column": 67,
+              "offset": 1393
+            },
+            "indent": [
+              1,
+              1
+            ]
+          }
+        }
+      ],
+      "position": {
+        "start": {
+          "line": 92,
+          "column": 1,
+          "offset": 1238
+        },
+        "end": {
+          "line": 98,
+          "column": 16,
+          "offset": 1410
+        },
+        "indent": [
+          1,
+          6,
+          10,
+          10,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "position": {
+    "start": {
+      "line": 1,
+      "column": 1,
+      "offset": 0
+    },
+    "end": {
+      "line": 99,
+      "column": 1,
+      "offset": 1411
+    }
+  }
+}

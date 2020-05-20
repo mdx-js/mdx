@@ -1,11 +1,11 @@
 const unified = require('unified')
 const toMDAST = require('remark-parse')
 const remarkMdx = require('remark-mdx')
+const remarkMdxJs = require('remark-mdxjs')
 const footnotes = require('remark-footnotes')
 const squeeze = require('remark-squeeze-paragraphs')
 const visit = require('unist-util-visit')
 const raw = require('hast-util-raw')
-const toMDXAST = require('./md-ast-to-mdx-ast')
 const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
 
@@ -30,9 +30,9 @@ function createMdxAstCompiler(options) {
   const fn = unified()
     .use(toMDAST, options)
     .use(remarkMdx, options)
+    .use(remarkMdxJs, options)
     .use(footnotes, options)
     .use(squeeze, options)
-    .use(toMDXAST, options)
 
   plugins.forEach(plugin => {
     // Handle [plugin, pluginOptions] syntax

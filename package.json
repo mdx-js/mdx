@@ -22,7 +22,7 @@
     "docs-build": "gatsby build",
     "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
     "format": "yarn lint --fix",
-    "lint": "eslint . --cache --ext js,jsx,md,mdx -f friendly",
+    "lint": "eslint . --cache --ext js,jsx -f friendly",
     "now-build": "yarn build && yarn docs-build",
     "postinstall": "yarn-deduplicate || exit 0",
     "prepublishOnly": "yarn build",
@@ -30,7 +30,7 @@
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "lerna publish --force-publish=\"*\" --dist-tag next --preid rc",
-    "test": "jest --runInBand --detectOpenHandles"
+    "test": "jest --runInBand --detectOpenHandles && nyc --reporter lcov tape packages/remark-mdx/test/index.js"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
@@ -38,10 +38,10 @@
     "@babel/preset-env": "7.9.6",
     "@babel/preset-react": "7.9.4",
     "@mapbox/rehype-prism": "0.4.0",
-    "@mdx-js/mdx": "^1.6.2",
-    "@mdx-js/react": "^1.6.2",
-    "@mdx-js/test-util": "^1.6.2",
-    "@mdx-js/vue": "^1.6.2",
+    "@mdx-js/mdx": "^1.6.3",
+    "@mdx-js/react": "^1.6.3",
+    "@mdx-js/test-util": "^1.6.3",
+    "@mdx-js/vue": "^1.6.3",
     "@pkgr/rollup": "0.10.3",
     "@vue/babel-preset-jsx": "1.1.2",
     "@vue/test-utils": "1.0.3",
@@ -73,8 +73,9 @@
     "rehype-katex": "3.0.0",
     "remark-autolink-headings": "6.0.0",
     "remark-math": "2.0.1",
-    "remark-mdx": "^1.6.2",
-    "remark-parse": "8.0.2",
+    "remark-mdx": "1.6.3",
+    "remark-mdxjs": "1.6.3",
+    "remark-parse": "8.0.1",
     "remark-preset-prettier": "0.4.0",
     "remark-preset-wooorm": "7.0.0",
     "remark-slug": "6.0.0",
@@ -103,7 +104,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "#pre-commit": "lint-staged"
     }
   },
   "jest": {

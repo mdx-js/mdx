@@ -2,6 +2,7 @@ import React from 'react'
 import CodePreview from './code-preview'
 import CodeBlock from './code-block'
 import Link from './link'
+import Redirect from './redirect'
 
 const heading = Tag => props => (
   <Tag {...props}>
@@ -35,5 +36,6 @@ export default {
   h3: heading('h3'),
   h4: heading('h4'),
   h5: heading('h5'),
-  h6: heading('h6')
+  h6: heading('h6'),
+  Redirect
 }
