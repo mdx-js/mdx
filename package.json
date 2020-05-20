@@ -30,8 +30,9 @@
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "lerna publish --force-publish=\"*\" --dist-tag next --preid rc",
-    "test": "yarn test-jest && yarn test-types",
-    "test-jest": "jest --runInBand --detectOpenHandles && nyc --reporter lcov tape packages/remark-mdx/test/index.js",
+    "test": "yarn test-jest && yarn test-parser && yarn test-types",
+    "test-jest": "jest --runInBand --detectOpenHandles",
+    "test-parser": "nyc --reporter lcov tape packages/remark-mdx/test/index.js",
     "test-types": "lerna run test-types"
   },
   "devDependencies": {
