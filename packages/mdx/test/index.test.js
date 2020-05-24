@@ -427,4 +427,5 @@ test('Should handle layout props', () => {
 it('Should render namespaced element appropriately', async () => {
   const result = await mdx(fixtureNamespaceImport)
   expect(result).toContain('<Foo.default mdxType')
+  expect(result).toContain('<Foo.bar ')
 })
