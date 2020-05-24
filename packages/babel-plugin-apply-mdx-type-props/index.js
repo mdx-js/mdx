@@ -12,7 +12,7 @@ class BabelPluginApplyMdxTypeProp {
 
       return {
         visitor: {
-          JSXOpeningElement(path) {
+          JSXOpeningElement(path, state) {
             const jsxName = path.node.name.name
 
             if (startsWithCapitalLetter(jsxName)) {
@@ -24,6 +24,15 @@ class BabelPluginApplyMdxTypeProp {
                   t.stringLiteral(jsxName)
                 )
               )
+
+              const {namespacedImports} = state.opts
+              const isNamespaceImport =
+                namespacedImports &&
+                namespacedImports.find(s => s.includes(jsxName))
+
+              if (isNamespaceImport) {
+                path.node.name.name += '.default'
+              }
             }
           }
         }

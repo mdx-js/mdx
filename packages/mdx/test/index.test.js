@@ -16,6 +16,10 @@ const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.mdx')
 )
 
+const fixtureNamespaceImport = fs.readFileSync(
+  path.join(__dirname, './fixtures/namespace-import.mdx')
+)
+
 it('Should output parseable JSX', async () => {
   const result = await mdx('Hello World')
 
@@ -418,4 +422,9 @@ test('Should handle layout props', () => {
     ;
     MDXContent.isMDXComponent = true;"
   `)
+})
+
+it('Should render namespaced element appropriately', async () => {
+  const result = await mdx(fixtureNamespaceImport)
+  expect(result).toContain('<Foo.default mdxType')
 })

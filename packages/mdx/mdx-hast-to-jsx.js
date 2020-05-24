@@ -134,13 +134,17 @@ MDXContent.isMDXComponent = true`
     const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
     const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
 
+    const namespacedImports = importStatements
+      .split('\n')
+      .filter(i => i.includes('* as'))
+
     const fnPostMdxTypeProp = transformSync(fn, {
       configFile: false,
       babelrc: false,
       plugins: [
         require('@babel/plugin-syntax-jsx'),
         require('@babel/plugin-syntax-object-rest-spread'),
-        babelPluginApplyMdxPropInstance.plugin
+        [babelPluginApplyMdxPropInstance.plugin, {namespacedImports}]
       ]
     }).code
 
@@ -150,7 +154,7 @@ MDXContent.isMDXComponent = true`
       plugins: [
         require('@babel/plugin-syntax-jsx'),
         require('@babel/plugin-syntax-object-rest-spread'),
-        babelPluginApplyMdxPropToExportsInstance.plugin
+        [babelPluginApplyMdxPropToExportsInstance.plugin, {namespacedImports}]
       ]
     }).code
 
