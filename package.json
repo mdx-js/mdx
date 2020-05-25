@@ -42,7 +42,7 @@
     "@mdx-js/react": "^1.6.2",
     "@mdx-js/test-util": "^1.6.2",
     "@mdx-js/vue": "^1.6.2",
-    "@pkgr/rollup": "0.10.3",
+    "@pkgr/rollup": "0.10.4",
     "@vue/babel-preset-jsx": "1.1.2",
     "@vue/test-utils": "1.0.3",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
