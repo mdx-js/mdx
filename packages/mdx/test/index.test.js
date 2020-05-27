@@ -16,6 +16,14 @@ const fixtureBlogPost = fs.readFileSync(
   path.join(__dirname, './fixtures/blog-post.mdx')
 )
 
+const fixtureWithoutShortcode = fs.readFileSync(
+  path.join(__dirname, './fixtures/without-shortcode.mdx')
+)
+
+const fixtureWithShortcode = fs.readFileSync(
+  path.join(__dirname, './fixtures/with-shortcode.mdx')
+)
+
 it('Should output parseable JSX', async () => {
   const result = await mdx('Hello World')
 
@@ -43,16 +51,6 @@ it('Should match sample blog post snapshot', async () => {
 
   expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
     "/* @jsx mdx */
-
-    const makeShortcode = (name) =>
-      function MDXDefaultShortcode(props) {
-        console.warn(
-          \\"Component \\" +
-            name +
-            \\" was not imported, exported, or provided by MDXProvider as global scope\\"
-        );
-        return <div {...props} />;
-      };
 
     const layoutProps = {};
     const MDXLayout = \\"wrapper\\";
@@ -333,9 +331,10 @@ test('Should handle layout props', () => {
       authors: ['fred', 'sally']
     };
     const makeShortcode = name => function MDXDefaultShortcode(props) {
-      console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
-      return <div {...props}/>
-    };
+          console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
+          return <div {...props}/>
+        };
+        
     const Foo = makeShortcode(\\"Foo\\");
     const Bar = makeShortcode(\\"Bar\\");
     const layoutProps = {
@@ -418,4 +417,14 @@ test('Should handle layout props', () => {
     ;
     MDXContent.isMDXComponent = true;"
   `)
+})
+
+test('Should not add shortCodes definition if no shortCodes present', async () => {
+  const result = await mdx(fixtureWithoutShortcode)
+  expect(result).not.toContain('const makeShortcode = name')
+})
+
+test('Should contain shortcode definition', async () => {
+  const result = await mdx(fixtureWithShortcode)
+  expect(result).toContain('const makeShortcode = name')
 })
