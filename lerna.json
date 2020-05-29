@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/lerna",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,

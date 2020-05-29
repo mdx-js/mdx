@@ -1,6 +1,6 @@
 {
   "name": "react-static-example-basic",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "private": true,
   "scripts": {
     "build": "react-static build",
@@ -11,7 +11,7 @@
     "start": "react-static start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.4",
+    "@mdx-js/loader": "^1.6.5",
     "@reach/router": "^1.3.3",
     "axios": "^0.19.2",
     "react": "^16.13.1",

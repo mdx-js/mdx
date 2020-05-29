@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/parcel-plugin-mdx",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "Parcel plugin for MDX",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -36,7 +36,7 @@
     "react": "^16.9.0"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.6.4",
+    "@mdx-js/mdx": "^1.6.5",
     "parcel-bundler": "^1.12.4"
   }
 }
