@@ -172,7 +172,7 @@ MDXContent.isMDXComponent = true`
       .join('\n')
     const fakedModules =
       (fakedModulesForGlobalScope &&
-        [shortCodeDef, fakedModulesForGlobalScope].join('\n')) ||
+        [shortCodeDef, fakedModulesForGlobalScope].join('')) ||
       ''
     const moduleBase = `${importStatements}
 ${exportStatementsPostMdxTypeProps}

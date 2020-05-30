@@ -334,7 +334,6 @@ test('Should handle layout props', () => {
           console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
           return <div {...props}/>
         };
-        
     const Foo = makeShortcode(\\"Foo\\");
     const Bar = makeShortcode(\\"Bar\\");
     const layoutProps = {

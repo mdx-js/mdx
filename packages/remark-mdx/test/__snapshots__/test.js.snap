@@ -8,7 +8,6 @@ const makeShortcode = name => function MDXDefaultShortcode(props) {
       console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
       return <div {...props}/>
     };
-    
 const Baz = makeShortcode(\\"Baz\\");
 const Paragraph = makeShortcode(\\"Paragraph\\");
 const Button = makeShortcode(\\"Button\\");
