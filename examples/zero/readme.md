@@ -2,7 +2,7 @@
 
 ```shell
 npm install
-npm run dev
+npm start
 ```
 
 [See documentation](https://mdxjs.com/getting-started/zero)
