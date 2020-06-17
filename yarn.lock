@@ -9970,10 +9970,10 @@ eslint-config-react-tools@1.1.7:
     eslint-plugin-jsx-a11y "^6.0.3"
     eslint-plugin-react "^7.7.0"
 
-eslint-config-xo@0.29.1:
-  version "0.29.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-xo/-/eslint-config-xo-0.29.1.tgz#876e29b2f4711f2fd365885b09b9536b6ef328dc"
-  integrity sha512-RDjeKh8CV0/EH4utW/6uOkwJJOOU+rX3uE5eUBOamcLNe4lNjyo8kSt3B6DzAm1L/1tWGikI7LFNVY9gG7PDQw==
+eslint-config-xo@0.31.0:
+  version "0.31.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-xo/-/eslint-config-xo-0.31.0.tgz#83c426af16f47b6e667876152b402d02d4e53211"
+  integrity sha512-bSFmDVrIVZoA0TnNtUEp4KIdPYuEquq3XCWruiU0eflMx2BtxQtASUuMAVqUg3rDZaHguaCY50/WtTH6IZSPdg==
   dependencies:
     confusing-browser-globals "1.0.9"
 
