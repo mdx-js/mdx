@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "MDX support for Vue components",
   "author": "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
   "license": "MIT",
