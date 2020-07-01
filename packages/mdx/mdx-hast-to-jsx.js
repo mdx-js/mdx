@@ -121,6 +121,7 @@ MDXContent.isMDXComponent = true`
     // Check JSX nodes against imports
     const babelPluginExtractImportNamesInstance = new BabelPluginExtractImportNames()
     transformSync(importStatements, {
+      filename: options.file.path,
       configFile: false,
       babelrc: false,
       plugins: [
@@ -135,6 +136,7 @@ MDXContent.isMDXComponent = true`
     const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
 
     const fnPostMdxTypeProp = transformSync(fn, {
+      filename: options.file.path,
       configFile: false,
       babelrc: false,
       plugins: [
@@ -145,6 +147,7 @@ MDXContent.isMDXComponent = true`
     }).code
 
     const exportStatementsPostMdxTypeProps = transformSync(exportStatements, {
+      filename: options.file.path,
       configFile: false,
       babelrc: false,
       plugins: [
@@ -250,8 +253,8 @@ export default ${fnPostMdxTypeProp}`
 }
 
 function compile(options = {}) {
-  this.Compiler = function (tree) {
-    return toJSX(tree, {}, options)
+  this.Compiler = function (tree, file) {
+    return toJSX(tree, {}, { file, ...options })
   }
 }
 
