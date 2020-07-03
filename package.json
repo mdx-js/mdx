@@ -50,7 +50,7 @@
     "babel-plugin-macros": "2.8.0",
     "babel-plugin-remove-export-keywords": "^1.6.2",
     "babel-plugin-transform-vue-jsx": "4.0.1",
-    "eslint": "7.2.0",
+    "eslint": "7.4.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-config-xo": "0.31.0",
     "eslint-formatter-friendly": "7.0.0",
