@@ -29,4 +29,16 @@ module.exports = withMDX({
 })
 ```
 
+### Typescript support
+
+```js
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/
+})
+
+module.exports = withMDX({
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']
+})
+```
+
 [next-plugin]: https://github.com/vercel/next.js/tree/canary/packages/next-mdx
