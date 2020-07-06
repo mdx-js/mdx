@@ -52,7 +52,7 @@
     "babel-plugin-transform-vue-jsx": "4.0.1",
     "eslint": "7.2.0",
     "eslint-config-prettier": "6.11.0",
-    "eslint-config-xo": "0.31.0",
+    "eslint-config-xo": "0.32.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.21.2",
     "eslint-plugin-mdx": "1.6.9",
