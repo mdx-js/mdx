@@ -47,9 +47,9 @@ it('Should match sample blog post snapshot', async () => {
     const makeShortcode = (name) =>
       function MDXDefaultShortcode(props) {
         console.warn(
-          \\"Component \\" +
+          \\"Component '\\" +
             name +
-            \\" was not imported, exported, or provided by MDXProvider as global scope\\"
+            \\"' was not imported, exported, or provided by MDXProvider as global scope\\"
         );
         return <div {...props} />;
       };
@@ -333,7 +333,7 @@ test('Should handle layout props', () => {
       authors: ['fred', 'sally']
     };
     const makeShortcode = name => function MDXDefaultShortcode(props) {
-      console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
+      console.warn(\\"Component '\\" + name + \\"' was not imported, exported, or provided by MDXProvider as global scope\\")
       return <div {...props}/>
     };
     const Foo = makeShortcode(\\"Foo\\");
