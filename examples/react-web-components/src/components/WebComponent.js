@@ -22,7 +22,7 @@ export const RenderCounter = () => {
   useEffect(() => {
     window.customElements.define('i-counter', ImperativeCounter)
   }, [])
-  
+
   const counterElement = useRef(null)
   return (
     <div>
