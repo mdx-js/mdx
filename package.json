@@ -98,6 +98,7 @@
     "@babel/preset-typescript": "^7.9.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "remark-retext": "4.0.0",
     "retext-sentence-spacing": "4.0.0",
     "theme-ui": "0.3.1"
   },
