@@ -1,5 +1,4 @@
-import React, {useContext} from 'react'
-import {ThemeContext} from '@emotion/core'
+import React from 'react'
 import Highlight, {defaultProps} from 'prism-react-renderer'
 import github from 'prism-react-renderer/themes/github'
 export default ({children, language, className: outerClassName}) => {
