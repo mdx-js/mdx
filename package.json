@@ -33,8 +33,8 @@
     "test": "jest --runInBand --detectOpenHandles"
   },
   "devDependencies": {
-    "@babel/core": "7.10.4",
-    "@babel/plugin-syntax-jsx": "7.8.3",
+    "@babel/core": "7.10.5",
+    "@babel/plugin-syntax-jsx": "7.10.4",
     "@babel/preset-env": "7.10.4",
     "@babel/preset-react": "7.10.4",
     "@mapbox/rehype-prism": "0.4.0",
@@ -92,7 +92,7 @@
     "yarn-deduplicate": "2.1.1"
   },
   "resolutions": {
-    "@babel/core": "7.10.4",
+    "@babel/core": "7.10.5",
     "@babel/preset-env": "7.10.4",
     "@babel/preset-react": "7.10.4",
     "@babel/preset-typescript": "^7.9.0",
