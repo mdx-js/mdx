@@ -10610,15 +10610,15 @@ eslint-loader@^2.2.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-mdx@^1.6.9:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.7.0.tgz#9a4d92d38e6dbb80dddf0ccf70e74c8ecbc3e4be"
-  integrity sha512-92pxUaau8BxE1cblg5uMBE0MgVIianJiB7QuCdSz1WBNYP93HxxdBIxY8s5USEO9XnKlB7ZOuNKxfjboqphEmQ==
+eslint-mdx@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.7.1.tgz#616c6f39025c2beb55a24f0c4ce94949e1288134"
+  integrity sha512-xcwxSopOn1LWn2lJyIkpT3osdSpqHdtLsC5ovNfY6QNlaBN8UZ+yT14XgmqURKqqGKwSeLOgfRDsXKbupDoN9g==
   dependencies:
-    espree "^6.2.1"
-    remark-mdx "^1.6.0"
+    espree "^7.1.0"
+    remark-mdx "^1.6.5"
     remark-parse "^8.0.2"
-    tslib "^1.11.1"
+    tslib "^2.0.0"
     unified "^9.0.0"
 
 eslint-module-utils@^2.4.1, eslint-module-utils@^2.6.0:
@@ -10710,20 +10710,20 @@ eslint-plugin-jsx-a11y@6.2.3, eslint-plugin-jsx-a11y@^6.0.3, eslint-plugin-jsx-a
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-mdx@1.6.9:
-  version "1.6.9"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.6.9.tgz#9b1d3ce3862730c77394b2c468b526196ca065bf"
-  integrity sha512-MVSeIdvpIkH7FmmIBRo/GLjsYxTziKtosCSmLCrxTF5gtwbNXjxkT0HoKx+XL1cbCvg7vgu1Ic7VjpCVtdU41w==
+eslint-plugin-mdx@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.7.1.tgz#24693ec1c88e91da364ec209d99354085dfd1f4b"
+  integrity sha512-l8EzaTIYtgzUG0Tur2u0swPRFT73YbG7oQUP6qnMTHGXrqjO9aDF8lsMfDRyUPvLBJJJua0DFraCIvHyFPrPeg==
   dependencies:
     cosmiconfig "^6.0.0"
-    eslint-mdx "^1.6.9"
-    eslint-plugin-react "^7.19.0"
-    remark-mdx "^1.5.8"
-    remark-parse "^8.0.0"
+    eslint-mdx "^1.7.1"
+    eslint-plugin-react "^7.20.0"
+    remark-mdx "^1.6.5"
+    remark-parse "^8.0.2"
     remark-stringify "^8.0.0"
-    tslib "^1.11.1"
+    tslib "^2.0.0"
     unified "^9.0.0"
-    vfile "^4.1.0"
+    vfile "^4.1.1"
   optionalDependencies:
     rebass "^4.0.7"
 
@@ -10757,7 +10757,7 @@ eslint-plugin-react@7.19.0:
     string.prototype.matchall "^4.0.2"
     xregexp "^4.3.0"
 
-eslint-plugin-react@7.20.0, eslint-plugin-react@^7.19.0, eslint-plugin-react@^7.20.0, eslint-plugin-react@^7.7.0:
+eslint-plugin-react@7.20.0, eslint-plugin-react@^7.20.0, eslint-plugin-react@^7.7.0:
   version "7.20.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.20.0.tgz#f98712f0a5e57dfd3e5542ef0604b8739cd47be3"
   integrity sha512-rqe1abd0vxMjmbPngo4NaYxTcR3Y4Hrmc/jg4T+sYz63yqlmJRknpEQfmWY+eDWPuMmix6iUIK+mv0zExjeLgA==
@@ -10950,7 +10950,7 @@ espree@^5.0.1:
     acorn-jsx "^5.0.0"
     eslint-visitor-keys "^1.0.0"
 
-espree@^6.1.2, espree@^6.2.1:
+espree@^6.1.2:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/espree/-/espree-6.2.1.tgz#77fc72e1fd744a2052c20f38a5b575832e82734a"
   integrity sha512-ysCxRQY3WaXJz9tdbWOwuWr5Y/XrPTGX9Kiz3yoUXwW0VZ4w30HTkQLaGx/+ttFjF8i+ACbArnB4ce68a9m5hw==
@@ -23041,7 +23041,7 @@ remark-message-control@^6.0.0:
     mdast-comment-marker "^1.0.0"
     unified-message-control "^3.0.0"
 
-remark-parse@8.0.2, remark-parse@^8.0.0, remark-parse@^8.0.2:
+remark-parse@8.0.2, remark-parse@^8.0.2:
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/remark-parse/-/remark-parse-8.0.2.tgz#5999bc0b9c2e3edc038800a64ff103d0890b318b"
   integrity sha512-eMI6kMRjsAGpMXXBAywJwiwAse+KNpmt+BK55Oofy4KvBZEqUDj6mWbGLJZrujoPIPPxDXzn3T9baRlpsm2jnQ==
@@ -26129,7 +26129,7 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tslib@^1.10.0, tslib@^1.11.1, tslib@^1.11.2, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.10.0, tslib@^1.11.2, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
@@ -27031,7 +27031,7 @@ vfile-message@^1.0.0:
   dependencies:
     unist-util-stringify-position "^1.1.1"
 
-vfile@4.1.1, vfile@^4.0.0, vfile@^4.1.0:
+vfile@4.1.1, vfile@^4.0.0, vfile@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/vfile/-/vfile-4.1.1.tgz#282d28cebb609183ac51703001bc18b3e3f17de9"
   integrity sha512-lRjkpyDGjVlBA7cDQhQ+gNcvB1BGaTHYuSOcY3S7OhDmBtnzX95FhtZZDecSTDm6aajFymyve6S5DN4ZHGezdQ==
