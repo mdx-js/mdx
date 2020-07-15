@@ -93,7 +93,7 @@ describe('@mdx-js/vue', () => {
     expect(mount(Content).html()).toEqual('<div>undefined</div>')
 
     expect(console.warn).toHaveBeenCalledWith(
-      'Component Component was not imported, exported, or provided by MDXProvider as global scope'
+      'Component `Component` was not imported, exported, or provided by MDXProvider as global scope'
     )
 
     console.warn = warn
