@@ -163,7 +163,7 @@ MDXContent.isMDXComponent = true`
     const importExportNames = importNames.concat(exportNames)
     const fakedModulesForGlobalScope =
       `const makeShortcode = name => function MDXDefaultShortcode(props) {
-  console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+  console.warn("Component '" + name + "' was not imported, exported, or provided by MDXProvider as global scope")
   return <div {...props}/>
 };
 ` +

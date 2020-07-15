@@ -68,9 +68,9 @@ stubbed `Button`:
 const makeShortcode = name =>
   function MDXDefaultShortcode(props) {
     console.warn(
-      'Component ' +
+      "Component '" +
         name +
-        ' was not imported, exported, or provided by MDXProvider as global scope'
+        "' was not imported, exported, or provided by MDXProvider as global scope"
     )
     return <div {...props} />
   }
