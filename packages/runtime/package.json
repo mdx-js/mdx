@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/runtime",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "description": "Parse and render MDX in a runtime environment",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -38,8 +38,8 @@
     "react": "^16.9.0"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.6.6",
-    "@mdx-js/react": "^1.6.6",
+    "@mdx-js/mdx": "^1.6.7",
+    "@mdx-js/react": "^1.6.7",
     "buble-jsx-only": "^0.19.8"
   }
 }

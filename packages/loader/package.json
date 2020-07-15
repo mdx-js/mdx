@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/loader",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "description": "Loader for MDX",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -32,8 +32,8 @@
     "loader"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^1.6.6",
-    "@mdx-js/react": "^1.6.6",
+    "@mdx-js/mdx": "^1.6.7",
+    "@mdx-js/react": "^1.6.7",
     "loader-utils": "2.0.0"
   }
 }
