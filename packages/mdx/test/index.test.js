@@ -526,7 +526,7 @@ describe('@mdx-js/mdx', () => {
     )
 
     expect(console.warn).toHaveBeenCalledWith(
-      'Component Y was not imported, exported, or provided by MDXProvider as global scope'
+      'Component `Y` was not imported, exported, or provided by MDXProvider as global scope'
     )
 
     console.warn = warn

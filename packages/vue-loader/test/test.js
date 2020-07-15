@@ -75,8 +75,6 @@ describe('@mdx-js/vue-loader', () => {
       remarkPlugins: [require('remark-slug')]
     })
 
-    expect(mount(run(file.source)).html()).toEqual(
-      '<h1 id="hello-world">Hello, world!</h1>'
-    )
+    expect(mount(run(file.source)).html()).toEqual('<h1>Hello, world!</h1>')
   })
 })
