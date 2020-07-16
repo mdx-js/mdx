@@ -11,16 +11,16 @@
     "start": "webpack-dev-server"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.4",
-    "@babel/preset-env": "^7.9.5",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@mdx-js/loader": "^1.6.7",
     "@mdx-js/mdx": "^1.6.7",
     "babel-loader": "^8.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }
