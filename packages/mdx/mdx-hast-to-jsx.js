@@ -88,6 +88,7 @@ MDXContent.isMDXComponent = true`
     .join('\n')
 
   transformSync(importsAndExports, {
+    filename: options.filename,
     configFile: false,
     babelrc: false,
     plugins: [
@@ -106,6 +107,7 @@ MDXContent.isMDXComponent = true`
   const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
 
   const fnPostMdxTypeProp = transformSync(fn, {
+    filename: options.filename,
     configFile: false,
     babelrc: false,
     plugins: [
@@ -118,6 +120,7 @@ MDXContent.isMDXComponent = true`
   const exportStatementsPostMdxTypeProps = transformSync(
     exportStatements.join('\n'),
     {
+      filename: options.filename,
       configFile: false,
       babelrc: false,
       plugins: [
@@ -248,8 +251,8 @@ function toTemplateLiteral(value) {
 }
 
 function compile(options = {}) {
-  function compiler(tree) {
-    return toJSX(tree, undefined, options)
+  function compiler(tree, file) {
+    return toJSX(tree, undefined, {filename: file.path, ...options})
   }
 
   this.Compiler = compiler
