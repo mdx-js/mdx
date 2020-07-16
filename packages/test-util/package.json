@@ -32,13 +32,13 @@
     "test-types": "dtslint types"
   },
   "dependencies": {
-    "@babel/core": "7.9.6",
-    "@babel/plugin-proposal-object-rest-spread": "7.9.6",
-    "@babel/plugin-transform-react-jsx": "7.9.4",
+    "@babel/core": "7.10.5",
+    "@babel/plugin-proposal-object-rest-spread": "7.10.4",
+    "@babel/plugin-transform-react-jsx": "7.10.4",
     "@mdx-js/mdx": "^2.0.0-next.1",
     "@mdx-js/react": "^2.0.0-next.1",
-    "@types/babel__core": "7.1.7",
-    "@types/react": "16.9.35",
+    "@types/babel__core": "7.1.9",
+    "@types/react": "16.9.43",
     "babel-plugin-remove-export-keywords": "^2.0.0-next.1",
     "react": "16.13.1",
     "react-dom": "16.13.1"

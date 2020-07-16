@@ -32,10 +32,10 @@
     "mdxast"
   ],
   "peerDependencies": {
-    "preact": "^10.3.2"
+    "preact": "^10.4.6"
   },
   "devDependencies": {
     "preact": "10.4.1",
-    "preact-render-to-string": "5.1.8"
+    "preact-render-to-string": "5.1.10"
   }
 }

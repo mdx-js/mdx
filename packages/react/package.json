@@ -38,6 +38,6 @@
     "test-types": "dtslint types"
   },
   "peerDependencies": {
-    "react": "^16.9.0"
+    "react": "^16.13.1"
   }
 }

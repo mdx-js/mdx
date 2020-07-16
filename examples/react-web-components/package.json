@@ -9,8 +9,8 @@
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-next.1",
     "@mdx-js/react": "^2.0.0-next.1",
-    "gatsby": "^2.20.27",
-    "gatsby-plugin-mdx": "^1.1.9",
+    "gatsby": "^2.24.3",
+    "gatsby-plugin-mdx": "^1.2.26",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }

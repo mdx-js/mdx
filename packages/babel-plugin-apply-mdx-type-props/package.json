@@ -26,10 +26,10 @@
     "babel"
   ],
   "peerDependencies": {
-    "@babel/core": "^7.0.0"
+    "@babel/core": "^7.10.5"
   },
   "dependencies": {
-    "@babel/helper-plugin-utils": "7.8.3",
+    "@babel/helper-plugin-utils": "7.10.4",
     "@mdx-js/util": "^2.0.0-next.1"
   }
 }

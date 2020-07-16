@@ -41,7 +41,7 @@
     "test-types": "dtslint types"
   },
   "peerDependencies": {
-    "react": "^16.9.0"
+    "react": "^16.13.1"
   },
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-next.1",
