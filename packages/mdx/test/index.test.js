@@ -421,17 +421,9 @@ test('Should handle layout props', () => {
 })
 
 it('Should include file name in Babel error', async () => {
-  expect(async () => {
+  try {
     await mdx(`<br>`, {filepath: '/path/to/file.mdx'})
-  }).rejects.toThrowErrorMatchingInlineSnapshot(`
-    "/path/to/file.mdx: Unterminated JSX contents (8:16)
-
-    [0m [90m  6 | [39m      components[33m=[39m{components}[33m>[39m[0m
-    [0m [90m  7 | [39m[33m<[39m[33mbr[39m[33m>[39m[0m
-    [0m[31m[1m>[22m[39m[90m  8 | [39m    [33m<[39m[33m/[39m[33mMDXLayout[39m[33m>[39m[0m
-    [0m [90m    | [39m                [31m[1m^[22m[39m[0m
-    [0m [90m  9 | [39m  )[0m
-    [0m [90m 10 | [39m}[33m;[39m[0m
-    [0m [90m 11 | [39m[33mMDXContent[39m[33m.[39misMDXComponent [33m=[39m [36mtrue[39m[0m"
-  `)
+  } catch (e) {
+    expect(e.toString()).toMatch(`file.mdx: Unterminated JSX contents (8:16)`)
+  }
 })

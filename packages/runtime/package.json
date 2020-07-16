@@ -35,7 +35,7 @@
     "mdxast"
   ],
   "peerDependencies": {
-    "react": "^16.9.0"
+    "react": "^16.13.1"
   },
   "dependencies": {
     "@mdx-js/mdx": "^1.6.7",
