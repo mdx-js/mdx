@@ -421,13 +421,9 @@ test('Should handle layout props', () => {
 })
 
 it('Should include file name in Babel error', async () => {
-  const filepath = '/path/to/file.mdx'
-
   try {
-    await mdx(`<br>`, {filepath})
+    await mdx(`<br>`, {filepath: '/path/to/file.mdx'})
   } catch (e) {
-    expect(e.toString()).toMatch(
-      `${filepath}: Unterminated JSX contents (8:16)`
-    )
+    expect(e.toString()).toMatch(`file.mdx: Unterminated JSX contents (8:16)`)
   }
 })
