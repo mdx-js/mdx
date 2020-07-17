@@ -6,6 +6,7 @@ const toH = require('hast-to-hyperscript')
 const {toTemplateLiteral} = require('@mdx-js/util')
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
+const BabelPluginExtractExportNames = require('babel-plugin-extract-export-names')
 
 function toJSX(node, parentNode = {}, options = {}) {
   if (node.type === 'root') {
@@ -79,13 +80,6 @@ function serializeRoot(node, options) {
     return true
   })
 
-  const exportNames = groups.export
-    .map(node =>
-      node.value.match(/^export\s*(var|const|let|class|function)?\s*(\w+)/)
-    )
-    .map(match => (Array.isArray(match) ? match[2] : null))
-    .filter(Boolean)
-
   const importStatements = groups.import
     .map(childNode => toJSX(childNode, node))
     .join('\n')
@@ -93,14 +87,6 @@ function serializeRoot(node, options) {
   const exportStatements = groups.export
     .map(childNode => toJSX(childNode, node))
     .join('\n')
-
-  let layoutProps = 'const layoutProps = {'
-
-  if (exportNames.length !== 0) {
-    layoutProps += '\n  ' + exportNames.join(',\n  ') + '\n'
-  }
-
-  layoutProps += '};'
 
   const mdxLayout = `const MDXLayout = ${layout ? layout : '"wrapper"'}`
 
@@ -120,16 +106,20 @@ MDXContent.isMDXComponent = true`
 
   // Check JSX nodes against imports
   const babelPluginExtractImportNamesInstance = new BabelPluginExtractImportNames()
-  transformSync(importStatements, {
+  const babelPluginExtractExportNamesInstance = new BabelPluginExtractExportNames()
+  const importsAndExports = [importStatements, exportStatements].join('\n')
+  transformSync(importsAndExports, {
     configFile: false,
     babelrc: false,
     plugins: [
       require('@babel/plugin-syntax-jsx'),
       require('@babel/plugin-syntax-object-rest-spread'),
-      babelPluginExtractImportNamesInstance.plugin
+      babelPluginExtractImportNamesInstance.plugin,
+      babelPluginExtractExportNamesInstance.plugin
     ]
   })
   const importNames = babelPluginExtractImportNamesInstance.state.names
+  const exportNames = babelPluginExtractExportNamesInstance.state.names
 
   const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
   const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
@@ -153,6 +143,15 @@ MDXContent.isMDXComponent = true`
       babelPluginApplyMdxPropToExportsInstance.plugin
     ]
   }).code
+
+  // TODO: Remove layout props entirely
+  let layoutProps = 'const layoutProps = {'
+
+  if (exportNames.length !== 0) {
+    layoutProps += '\n  ' + exportNames.join(',\n  ') + '\n'
+  }
+
+  layoutProps += '};'
 
   const allJsxNames = [
     ...babelPluginApplyMdxPropInstance.state.names,

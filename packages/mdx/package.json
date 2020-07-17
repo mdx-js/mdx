@@ -45,6 +45,7 @@
     "@mdx-js/util": "^2.0.0-next.1",
     "babel-plugin-apply-mdx-type-prop": "^2.0.0-next.1",
     "babel-plugin-extract-import-names": "^2.0.0-next.1",
+    "babel-plugin-extract-export-names": "^2.0.0-next.1",
     "camelcase-css": "2.0.1",
     "detab": "2.0.3",
     "hast-to-hyperscript": "9.0.0",
