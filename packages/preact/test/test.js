@@ -1,6 +1,5 @@
 /* @jsx h */
 import {render} from 'preact-render-to-string'
-// eslint-disable-next-line
 import {h} from 'preact'
 
 import {MDXProvider} from '../src/context'

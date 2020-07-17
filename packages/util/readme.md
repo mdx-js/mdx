@@ -12,8 +12,6 @@ yarn add @mdx-js/util
 
 [MIT][] © [John Otander][author]
 
-<!-- Definitions -->
-
 [mit]: license
 [mdx]: https://github.com/mdx-js/mdx
 [author]: https://johno.com

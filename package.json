@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "r -f cjs,esm -o dist --exclude 'babel-plugin-*,create-mdx,*loader,mdx,parcel-plugin-mdx,remark-*,*util'",
-    "clean": "lerna exec \"rimraf dist node_modules\"",
+    "clean": "lerna exec \"rimraf dist node_modules\" && gatsby clean",
     "docs": "gatsby develop",
     "docs-build": "gatsby build",
     "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",

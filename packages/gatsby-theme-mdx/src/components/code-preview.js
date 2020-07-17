@@ -14,7 +14,7 @@ const transformCode = isMDX => src => {
   let transpiledMDX
   try {
     transpiledMDX = mdx.sync(src, {skipExport: true})
-  } catch (e) {
+  } catch (_e) {
     return ''
   }
 
