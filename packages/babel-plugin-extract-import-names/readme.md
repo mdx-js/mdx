@@ -1,7 +1,7 @@
 # `babel-plugin-extract-import-names`
 
 Babel plugin that extracts all variable names from
-import statements. Used by the [MDX](https://mdxjs.com)
+import statements.Used by the [MDX](https://mdxjs.com)
 pragma.
 
 ## Installation
