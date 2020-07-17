@@ -10,8 +10,11 @@ class BabelPluginExtractExportNames {
       const {types: t} = api
 
       const handleDeclarations = node => {
-        const {declarations} = node.declaration || {}
+        if (!node.declaration) {
+          return
+        }
 
+        const {declarations} = node.declaration
         if (!declarations) {
           return
         }
