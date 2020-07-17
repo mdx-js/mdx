@@ -29,9 +29,9 @@
     "@babel/core": "7.10.5",
     "@babel/plugin-proposal-object-rest-spread": "7.10.4",
     "@babel/plugin-transform-react-jsx": "7.10.4",
-    "@mdx-js/mdx": "^1.6.11",
-    "@mdx-js/react": "^1.6.11",
-    "babel-plugin-remove-export-keywords": "^1.6.11",
+    "@mdx-js/mdx": "1.6.11",
+    "@mdx-js/react": "1.6.11",
+    "babel-plugin-remove-export-keywords": "1.6.11",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   }
