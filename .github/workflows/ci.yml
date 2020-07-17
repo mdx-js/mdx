@@ -39,11 +39,9 @@ jobs:
         env:
           CI: 'true'
 
-      - name: Build and Lint
+      - name: Build
         if: matrix.os != 'windows-latest'
-        run: |
-          yarn build
-          yarn lint
+        run: yarn build
 
       - name: Test
         run: yarn test

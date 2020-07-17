@@ -1,0 +1,27 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  default:
+    name: Lint JS and MDX files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Setup yarn
+        run: |
+          curl -o- -L https://yarnpkg.com/install.sh | bash
+          export PATH="$HOME/.yarn/bin:$PATH"
+
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile
+        env:
+          CI: 'true'
+
+      - name: Lint
+        run: yarn lint
