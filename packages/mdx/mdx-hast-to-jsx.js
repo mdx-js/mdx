@@ -120,7 +120,8 @@ MDXContent.isMDXComponent = true`
 
     // Check JSX nodes against imports
     const babelPluginExtractImportNamesInstance = new BabelPluginExtractImportNames()
-    let filename = options && options.file && options.file.path ? options.file.path : ""
+    const filename =
+      options && options.file && options.file.path ? options.file.path : ''
     transformSync(importStatements, {
       filename,
       configFile: false,
