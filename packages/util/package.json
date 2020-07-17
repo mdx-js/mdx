@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/util",
-  "version": "2.0.0-next.2",
+  "version": "2.0.0-next.3",
   "description": "Utilities for MDX libraries",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -30,5 +30,6 @@
   ],
   "scripts": {
     "test-types": "dtslint types"
-  }
+  },
+  "gitHead": "fa091d2a041ce3d1ccead308d14596ce927c7bc2"
 }

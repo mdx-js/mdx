@@ -1,6 +1,6 @@
 {
   "name": "remark-mdxjs",
-  "version": "2.0.0-next.2",
+  "version": "2.0.0-next.3",
   "description": "Support import, export, and JSX in markdown",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -35,6 +35,7 @@
     "@babel/helper-plugin-utils": "7.10.4",
     "@babel/plugin-proposal-object-rest-spread": "7.10.4",
     "@babel/plugin-syntax-jsx": "7.10.4",
-    "@mdx-js/util": "^2.0.0-next.2"
-  }
+    "@mdx-js/util": "^2.0.0-next.3"
+  },
+  "gitHead": "fa091d2a041ce3d1ccead308d14596ce927c7bc2"
 }

@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx-remove-exports",
-  "version": "2.0.0-next.2",
+  "version": "2.0.0-next.3",
   "description": "Remove exports from the MDX AST",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -37,5 +37,6 @@
   },
   "dependencies": {
     "unist-util-remove": "2.0.0"
-  }
+  },
+  "gitHead": "fa091d2a041ce3d1ccead308d14596ce927c7bc2"
 }

@@ -1,6 +1,6 @@
 {
   "name": "create-mdx",
-  "version": "2.0.0-next.2",
+  "version": "2.0.0-next.3",
   "description": "Initialize an MDX project",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -36,5 +36,6 @@
   ],
   "dependencies": {
     "initit": "1.0.0-2"
-  }
+  },
+  "gitHead": "fa091d2a041ce3d1ccead308d14596ce927c7bc2"
 }
