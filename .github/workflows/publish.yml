@@ -1,0 +1,35 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  default:
+    name: Publish CI tagged release for MDX
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Setup yarn
+        run: |
+          curl -o- -L https://yarnpkg.com/install.sh | bash
+          export PATH="$HOME/.yarn/bin:$PATH"
+
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile
+        env:
+          CI: 'true'
+
+      - name: Build
+        run: yarn build
+
+      - name: Publish CI tag to npm
+        if: github.event_name == 'push' && github.ref	== 'refs/heads/master'
+        run: |
+          npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
+          yarn publish-ci
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
