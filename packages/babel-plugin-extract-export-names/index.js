@@ -10,7 +10,7 @@ class BabelPluginExtractExportNames {
       const {types: t} = api
 
       const handleDeclarations = node => {
-        const { declarations } = node.declaration || {}
+        const {declarations} = node.declaration || {}
 
         if (!declarations) {
           return
@@ -18,15 +18,15 @@ class BabelPluginExtractExportNames {
 
         declarations.forEach(declaration => {
           if (t.isIdentifier(declaration.id)) {
-            // export const foo = 'bar'
+            // Export const foo = 'bar'
             names.push(declaration.id.name)
           } else if (t.isArrayPattern(declaration.id)) {
-            // export const [ a, b ] = []
+            // Export const [ a, b ] = []
             declaration.id.elements.forEach(decl => {
               names.push(decl.name)
             })
           } else if (t.isObjectPattern(declaration.id)) {
-            // export const { a, b } = {}
+            // Export const { a, b } = {}
             declaration.id.properties.forEach(decl => {
               names.push(decl.key.name)
             })
@@ -35,7 +35,7 @@ class BabelPluginExtractExportNames {
       }
 
       const handleSpecifiers = node => {
-        const { specifiers = [] } = node
+        const {specifiers = []} = node
 
         if (!specifiers) {
           return

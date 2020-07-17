@@ -38,6 +38,19 @@ describe('babel-plugin-extract-export-names', () => {
   test('adds export names to state', () => {
     const result = transform(FIXTURE)
 
-    expect(result.state.names).toEqual(['foo', 'foo2', 'foo3', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'Super'])
+    expect(result.state.names).toEqual([
+      'foo',
+      'foo2',
+      'foo3',
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'Super'
+    ])
   })
 })
