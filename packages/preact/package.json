@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/preact",
-  "version": "2.0.0-next.1",
+  "version": "2.0.0-next.2",
   "description": "Preact implementation for MDX",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
