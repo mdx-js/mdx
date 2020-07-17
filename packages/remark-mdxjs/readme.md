@@ -27,8 +27,6 @@ abide by its terms.
 
 [MIT][] © [Titus Wormer][author] and [John Otander][author2]
 
-<!-- Definitions -->
-
 [build]: https://travis-ci.com/mdx-js/mdx
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
 [lerna]: https://lernajs.io/

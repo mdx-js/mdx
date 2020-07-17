@@ -21,3 +21,5 @@ packages/remark-mdx
 # tmp
 examples/vue
 packages/vue
+
+readme.md

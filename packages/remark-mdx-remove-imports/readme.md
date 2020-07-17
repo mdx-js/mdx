@@ -4,7 +4,8 @@
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
-Remove import nodes from the [MDXAST][]. This is useful for scenarios where the imports aren’t needed like an MDX playground.
+Remove import nodes from the [MDXAST][].
+This is useful for scenarios where the imports aren’t needed, like an MDX playground.
 
 ## Installation
 
@@ -71,8 +72,6 @@ abide by its terms.
 ## License
 
 [MIT][] © [John Otander][johno]
-
-<!-- Definitions -->
 
 [build]: https://travis-ci.com/mdx-js/mdx
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master

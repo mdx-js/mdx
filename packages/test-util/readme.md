@@ -6,8 +6,6 @@ Test utility functions used in [MDX][].
 
 [MIT][] © [John Otander][author]
 
-<!-- Definitions -->
-
 [mit]: license
 [mdx]: https://github.com/mdx-js/mdx
 [author]: https://johno.com

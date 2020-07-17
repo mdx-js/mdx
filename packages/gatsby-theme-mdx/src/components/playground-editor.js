@@ -18,7 +18,7 @@ const transformCode = src => {
       skipExport: true,
       remarkPlugins: [removeImports, removeExports]
     })
-  } catch (e) {
+  } catch (_e) {
     return ''
   }
 

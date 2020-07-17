@@ -144,7 +144,6 @@ MDXContent.isMDXComponent = true`
     ]
   }).code
 
-  // TODO: Remove layout props entirely
   let layoutProps = 'const layoutProps = {'
 
   if (exportNames.length !== 0) {

@@ -93,33 +93,31 @@ A nice example of this is [mdx-deck][], a great way to create slides with MDX.
 
 ## Sponsors
 
-<!--lint ignore no-html maximum-line-length-->
-
 <table>
   <tr valign="top">
     <td width="20%" align="center">
-      <a href="https://vercel.com"><img src="https://avatars1.githubusercontent.com/u/14985020?s=400&v=4"></a>
-      <br><br>🥇
+      <a href="https://vercel.com"><img src="https://avatars1.githubusercontent.com/u/14985020?s=400&v=4" /></a>
+      <br /><br />🥇
       <a href="https://vercel.com">Vercel</a>
     </td>
     <td width="20%" align="center">
-      <a href="https://www.gatsbyjs.org"><img src="https://avatars1.githubusercontent.com/u/12551863?s=400&v=4"></a>
-      <br><br>🥇
+      <a href="https://www.gatsbyjs.org"><img src="https://avatars1.githubusercontent.com/u/12551863?s=400&v=4" /></a>
+      <br /><br />🥇
       <a href="https://www.gatsbyjs.org">Gatsby</a>
     </td>
     <td width="20%" align="center">
-      <a href="https://www.netlify.com"><img src="https://avatars1.githubusercontent.com/u/7892489?s=400&v=4"></a>
-      <br><br>🥇
+      <a href="https://www.netlify.com"><img src="https://avatars1.githubusercontent.com/u/7892489?s=400&v=4" /></a>
+      <br /><br />🥇
       <a href="https://www.netlify.com">Netlify</a>
     </td>
     <td width="20%" align="center">
-      <a href="https://www.holloway.com"><img src="https://avatars1.githubusercontent.com/u/35904294?s=400&v=4"></a>
-      <br><br>
+      <a href="https://www.holloway.com"><img src="https://avatars1.githubusercontent.com/u/35904294?s=400&v=4" /></a>
+      <br /><br />
       <a href="https://www.holloway.com">Holloway</a>
     </td>
     <td width="20%" align="center">
-      <br><br><br><br>
-      <a href="https://opencollective.com/unified"><strong>You?</strong>
+      <br /><br /><br /><br />
+      <a href="https://opencollective.com/unified"><strong>You?</strong></a>
     </td>
   </tr>
 </table>
