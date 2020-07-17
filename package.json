@@ -134,5 +134,8 @@
     "bracketSpacing": false,
     "semi": false,
     "trailingComma": "none"
+  },
+  "dependencies": {
+    "gatsby-plugin-mdx": "^1.2.27"
   }
 }
