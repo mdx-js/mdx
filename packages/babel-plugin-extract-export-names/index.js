@@ -38,7 +38,7 @@ class BabelPluginExtractExportNames {
       }
 
       const handleSpecifiers = node => {
-        const {specifiers = []} = node
+        const {specifiers} = node
 
         if (!specifiers) {
           return
