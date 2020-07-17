@@ -251,8 +251,8 @@ function toTemplateLiteral(value) {
 }
 
 function compile(options = {}) {
-  function compiler(tree, file = {}) {
-    return toJSX(tree, undefined, {filename: file.path, ...options})
+  function compiler(tree, file) {
+    return toJSX(tree, undefined, {filename: (file || {}).path, ...options})
   }
 
   this.Compiler = compiler
