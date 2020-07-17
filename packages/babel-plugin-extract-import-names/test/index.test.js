@@ -21,7 +21,7 @@ const transform = str => {
   }
 }
 
-describe('babel-plugin-add-mdx-type-prop', () => {
+describe('babel-plugin-extract-import-names', () => {
   test('adds import names to state', () => {
     const result = transform(FIXTURE)
 
