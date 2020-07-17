@@ -253,8 +253,8 @@ export default ${fnPostMdxTypeProp}`
 }
 
 function compile(options = {}) {
-  this.Compiler = function (tree, file = {}) {
-    return toJSX(tree, {}, {file, ...options})
+  this.Compiler = function (tree, file) {
+    return toJSX(tree, {}, {file: file || {}, ...options})
   }
 }
 
