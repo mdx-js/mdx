@@ -1,6 +1,6 @@
 {
   "name": "webpack-example",
-  "version": "1.6.11",
+  "version": "1.6.12",
   "description": "",
   "author": "Brent Jackson",
   "license": "MIT",
@@ -14,8 +14,8 @@
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
-    "@mdx-js/loader": "^1.6.11",
-    "@mdx-js/mdx": "^1.6.11",
+    "@mdx-js/loader": "^1.6.12",
+    "@mdx-js/mdx": "^1.6.12",
     "babel-loader": "^8.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

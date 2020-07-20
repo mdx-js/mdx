@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-mdx",
-  "version": "1.6.11",
+  "version": "1.6.12",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
@@ -23,9 +23,9 @@
     "@blocks/kit": "0.0.28",
     "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",
-    "@mdx-js/mdx": "1.6.11",
-    "@mdx-js/react": "1.6.11",
-    "@mdx-js/runtime": "1.6.11",
+    "@mdx-js/mdx": "^1.6.12",
+    "@mdx-js/react": "^1.6.12",
+    "@mdx-js/runtime": "^1.6.12",
     "@reach/router": "1.3.4",
     "@reach/skip-nav": "0.10.5",
     "@rebass/emotion": "3.2.0",
@@ -47,8 +47,8 @@
     "react-helmet": "6.1.0",
     "react-live": "2.2.2",
     "remark-emoji": "2.1.0",
-    "remark-mdx-remove-exports": "1.6.11",
-    "remark-mdx-remove-imports": "1.6.11",
+    "remark-mdx-remove-exports": "^1.6.12",
+    "remark-mdx-remove-imports": "^1.6.12",
     "remark-slug": "6.0.0",
     "theme-ui": "0.3.1"
   }

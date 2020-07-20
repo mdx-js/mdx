@@ -1,6 +1,6 @@
 {
   "name": "terminal-example",
-  "version": "1.6.11",
+  "version": "1.6.12",
   "license": "MIT",
   "private": true,
   "main": "index.js",
@@ -8,9 +8,9 @@
     "start": "node ."
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.6.11",
-    "@mdx-js/react": "^1.6.11",
-    "@mdx-js/runtime": "^1.6.11",
+    "@mdx-js/mdx": "^1.6.12",
+    "@mdx-js/react": "^1.6.12",
+    "@mdx-js/runtime": "^1.6.12",
     "import-jsx": "^4.0.0",
     "ink": "^2.7.1",
     "react": "^16.13.1"
