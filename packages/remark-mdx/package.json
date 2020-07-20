@@ -39,7 +39,7 @@
     "@babel/plugin-syntax-jsx": "7.10.4",
     "@mdx-js/util": "1.6.13",
     "is-alphabetical": "1.0.4",
-    "remark-parse": "8.0.2",
+    "remark-parse": "8.0.3",
     "unified": "9.0.0"
   }
 }
