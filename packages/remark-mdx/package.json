@@ -37,7 +37,7 @@
     "@babel/helper-plugin-utils": "7.10.4",
     "@babel/plugin-proposal-object-rest-spread": "7.10.4",
     "@babel/plugin-syntax-jsx": "7.10.4",
-    "@mdx-js/util": "^1.6.11",
+    "@mdx-js/util": "1.6.11",
     "is-alphabetical": "1.0.4",
     "remark-parse": "8.0.2",
     "unified": "9.0.0"
