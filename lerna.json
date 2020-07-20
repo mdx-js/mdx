@@ -6,6 +6,7 @@
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
+  "exact": true,
   "command": {
     "publish": {
       "ignoreChanges": [
