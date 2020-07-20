@@ -4,6 +4,7 @@
   "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,
+  "exact": true,
   "command": {
     "publish": {
       "ignoreChanges": ["**/docs/**", "**/examples/**", "**/test/**", "**/*.md"]
