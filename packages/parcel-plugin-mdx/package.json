@@ -36,7 +36,7 @@
     "react": "^16.13.1"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.6.12",
+    "@mdx-js/mdx": "1.6.12",
     "parcel-bundler": "^1.12.4"
   }
 }

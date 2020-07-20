@@ -38,8 +38,8 @@
     "react": "^16.13.1"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.6.12",
-    "@mdx-js/react": "^1.6.12",
+    "@mdx-js/mdx": "1.6.12",
+    "@mdx-js/react": "1.6.12",
     "buble-jsx-only": "^0.19.8"
   }
 }

@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "@babel/helper-plugin-utils": "7.10.4",
-    "@mdx-js/util": "^1.6.12"
+    "@mdx-js/util": "1.6.12"
   }
 }
