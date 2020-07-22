@@ -21,6 +21,17 @@ npm i -S @mdx-js/runtime
 
 ## Usage
 
+### Props
+
+The MDX Runtime component accepts two props:
+
+| Name         | Description                                                      |
+| ------------ | ---------------------------------------------------------------- |
+| `components` | Globally available components for the runtime                    |
+| `scope`      | Variables that are accessible in the JSX portion of the document |
+
+### Example code
+
 ```jsx
 import React from 'react'
 import MDX from '@mdx-js/runtime'
@@ -40,6 +51,8 @@ const mdx = `
 # Hello, world!
 
 <Demo />
+
+<div>Here is the scope variable: {some}</div>
 `
 
 export default () => (
