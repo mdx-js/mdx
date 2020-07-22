@@ -47,7 +47,7 @@
     "mdast-util-to-hast": "9.1.0",
     "remark-footnotes": "1.0.0",
     "remark-mdx": "1.6.13",
-    "remark-parse": "8.0.2",
+    "remark-parse": "8.0.3",
     "remark-squeeze-paragraphs": "4.0.0",
     "style-to-object": "0.3.0",
     "unified": "9.0.0",
