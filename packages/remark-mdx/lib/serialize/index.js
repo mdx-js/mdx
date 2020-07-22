@@ -2,6 +2,7 @@
 
 var mdxExpression = require('./mdx-expression')
 var mdxElement = require('./mdx-element')
+var link = require('./link')
 var text = require('./text')
 
 module.exports = serialize
@@ -18,5 +19,6 @@ function serialize(compiler) {
   visitors.mdxBlockExpression = mdxExpression
   visitors.mdxSpanElement = mdxElement
   visitors.mdxBlockElement = mdxElement
+  visitors.link = link
   visitors.text = text
 }
