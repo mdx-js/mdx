@@ -4,15 +4,15 @@ import {h} from 'preact'
 
 import {MDXProvider} from '../src/context'
 import Fixture from './fixture'
+import SandboxFixture from './sandbox-fixture'
 
 const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
 const H2 = props => <h2 style={{color: 'rebeccapurple'}} {...props} />
 const CustomH2 = props => <h2 style={{color: 'papayawhip'}} {...props} />
 const CustomDelete = props => <del style={{color: 'crimson'}} {...props} />
+const Layout = ({children}) => <div id="layout">{children}</div>
 
-it('Should allow components to be passed via context', () => {
-  const Layout = ({children}) => <div id="layout">{children}</div>
-
+it('allows components to be passed via context', () => {
   const result = render(
     <MDXProvider components={{h1: H1, wrapper: Layout}}>
       <Fixture />
@@ -26,7 +26,7 @@ it('Should allow components to be passed via context', () => {
   expect(result).toMatch(/style="color: tomato;"/)
 })
 
-it('Should merge components when there is nested context', () => {
+it('merges components when there is nested context', () => {
   const components = {h1: H1, h2: H2}
 
   const result = render(
@@ -37,14 +37,14 @@ it('Should merge components when there is nested context', () => {
     </MDXProvider>
   )
 
-  // MDXTag picks up original component context
+  // MDX pragma picks up original component context
   expect(result).toMatch(/style="color: tomato;"/)
 
-  // MDXTag picks up overridden component context
+  // MDX pragma picks up overridden component context
   expect(result).toMatch(/style="color: papayawhip;"/)
 })
 
-it('Should allow removing of context components using the functional form', () => {
+it('allows removing of context components using the functional form', () => {
   const components = {h1: H1, h2: H2}
 
   const result = render(
@@ -55,20 +55,48 @@ it('Should allow removing of context components using the functional form', () =
     </MDXProvider>
   )
 
-  // MDXTag does not pick up original component context
+  // MDX pragma does not pick up original component context
   expect(result).not.toMatch(/style="color:tomato"/)
 
-  // MDXTag picks up overridden component context
+  // MDX pragma picks up overridden component context
   expect(result).toMatch(/style="color: papayawhip;"/)
 })
 
-it('Should pass prop components along', () => {
+it('allows removing of context components when disableParentContext is set to true', () => {
+  const components = {h1: H1}
+
+  const result = render(
+    <MDXProvider components={components}>
+      <MDXProvider disableParentContext={true}>
+        <Fixture />
+      </MDXProvider>
+    </MDXProvider>
+  )
+
+  // MDX pragma does not pick up original component context
+  expect(result).not.toMatch(/style="color:tomato"/)
+})
+
+it('allows removing of context components from a composed component', () => {
+  const components = {h1: H1}
+
+  const result = render(
+    <MDXProvider components={components}>
+      <SandboxFixture />
+    </MDXProvider>
+  )
+
+  // MDX pragma does not pick up original component context
+  expect(result).not.toMatch(/tomato/)
+})
+
+it('passes prop components along', () => {
   const result = render(<Fixture />)
 
   expect(result).toMatch(/h3, h4/)
 })
 
-it('Should render custom del', () => {
+it('renders custom del', () => {
   const result = render(
     <MDXProvider components={{del: CustomDelete}}>
       <Fixture />
