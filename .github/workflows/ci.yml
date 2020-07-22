@@ -7,8 +7,8 @@ jobs:
     name: Build and Test on ${{ matrix.os }} with Node.js ${{ matrix.node }}
     strategy:
       matrix:
-        os: [macOS-latest, ubuntu-latest, windows-latest]
-        node: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
+        node: [10, 14]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v1
