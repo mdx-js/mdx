@@ -31,6 +31,17 @@ yarn add @mdx-js/runtime
 
 Say we have the following scripts, `example.jsx`:
 
+### Props
+
+The MDX Runtime component accepts two props:
+
+| Name         | Description                                                      |
+| ------------ | ---------------------------------------------------------------- |
+| `components` | Globally available components for the runtime                    |
+| `scope`      | Variables that are accessible in the JSX portion of the document |
+
+### Example code
+
 ```jsx
 import React from 'react'
 import {renderToString} from 'react-dom/server'
@@ -54,6 +65,8 @@ const children = `
 {1 + somethingInScope}
 
 <Demo />
+
+<div>Here is the scope variable: {some}</div>
 `
 
 const result = renderToString(
