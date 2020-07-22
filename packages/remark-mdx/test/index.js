@@ -1305,6 +1305,16 @@ test('stringify', function (t) {
   t.equal(
     basic.stringify(
       u('paragraph', [
+        u('link', {url: 'https://mdxjs.com'}, [u('text', 'https://mdxjs.com')])
+      ])
+    ),
+    '[https://mdxjs.com](https://mdxjs.com)',
+    'should write out a url as the raw value'
+  )
+
+  t.equal(
+    basic.stringify(
+      u('paragraph', [
         u('text', 'Alpha '),
         u('mdxSpanElement', [
           u('text', 'bravo '),
