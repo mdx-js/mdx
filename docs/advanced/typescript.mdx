@@ -1,63 +1,41 @@
 # TypeScript
 
-Below are some basic typings to get started with:
+MDX provides typings for many of the core packages.
 
-```tsx
-declare module '@mdx-js/react' {
-  import * as React from 'react'
-
-  type ComponentType =
-    | 'a'
-    | 'blockquote'
-    | 'code'
-    | 'delete'
-    | 'em'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'hr'
-    | 'img'
-    | 'inlineCode'
-    | 'li'
-    | 'ol'
-    | 'p'
-    | 'pre'
-    | 'strong'
-    | 'sup'
-    | 'table'
-    | 'td'
-    | 'thematicBreak'
-    | 'tr'
-    | 'ul'
-
-  export type Components = {
-    [key in ComponentType]?: React.ComponentType<{children: React.ReactNode}>
-  }
-
-  export interface MDXProviderProps {
-    children: React.ReactNode
-    components: Components
-  }
-  export class MDXProvider extends React.Component<MDXProviderProps> {}
-}
-```
-
-If you want to improve upon the types we would _love_ a PR to
+If you want to improve upon the types, we would _love_ a PR to
 improve the developer experience for TypeScript users.
 
 ---
 
-If you’re getting errors from TypeScript related to imports with an `*.mdx`
-extension, create an `mdx.d.ts` file in your types directory and include it
-inside your `tsconfig.json`.
+## Typings for Components and Utilities
+
+- `@mdx-js/mdx`
+- `@mdx-js/react`
+- `@mdx-js/runtime`
+- `@mdx-js/vue`
+- `@mdx-js/util`
+- `remark-mdx`
+- `remark-mdx-remove-exports`
+- `remark-mdx-remove-imports`
+
+Include types, no additional setup needed.
+
+---
+
+## Typings for MDX imports
+
+### React and Webpack
+
+Add an _mdx.d.ts_ file with the below content, and ensure it is included by the _tsconfig.json_.
 
 ```tsx
-// types/mdx.d.ts
-declare module '*.mdx' {
-  let MDXComponent: (props: any) => JSX.Element
-  export default MDXComponent
-}
+/// <reference types="@mdx-js/loader" />
+```
+
+### Vue and Webpack
+
+Add an _mdx.d.ts_ file with the below content, and ensure it is included by the _tsconfig.json_.
+
+```tsx
+/// <reference types="@mdx-js/vue-loader" />
 ```
