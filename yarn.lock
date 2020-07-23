@@ -1366,11 +1366,11 @@
     parsimmon "^1.13.0"
 
 "@definitelytyped/header-parser@latest":
-  version "0.0.40"
-  resolved "https://registry.yarnpkg.com/@definitelytyped/header-parser/-/header-parser-0.0.40.tgz#9b07f942f43a907b839840d4d63c3312bae16b28"
-  integrity sha512-XtlZMA3SoUcCLa8v3n9SzOqnrr6ZyiAtAV+CPcttvNAyd2l4sLcN72+3SHVHpH9z8HhTKaR6OC1PzzFoZXqNiA==
+  version "0.0.41"
+  resolved "https://registry.yarnpkg.com/@definitelytyped/header-parser/-/header-parser-0.0.41.tgz#1ca59961fcb69d838fd09a23f485484acd67ceec"
+  integrity sha512-Q7YjpPYQPqntnLD/ntOZ2IF4hgevNOFz/SBNgfwTU6T7rDIdA5sKpp+U6wgDVNu4uEOBRApILsr6BUi4IGMaPg==
   dependencies:
-    "@definitelytyped/typescript-versions" "^0.0.40"
+    "@definitelytyped/typescript-versions" "^0.0.41"
     "@types/parsimmon" "^1.10.1"
     parsimmon "^1.13.0"
 
@@ -1379,17 +1379,17 @@
   resolved "https://registry.yarnpkg.com/@definitelytyped/typescript-versions/-/typescript-versions-0.0.34.tgz#6167363d378670ad7ef9485b7cff7d198106dcdf"
   integrity sha512-7IqWcbHKYbfY8Lt7AigXDa29cbz3gynzBHMjwMUCeLnex8D682M6OW8uBLouvVHCr+YENL58tQB3dn0Zos8mFQ==
 
-"@definitelytyped/typescript-versions@^0.0.40", "@definitelytyped/typescript-versions@latest":
-  version "0.0.40"
-  resolved "https://registry.yarnpkg.com/@definitelytyped/typescript-versions/-/typescript-versions-0.0.40.tgz#e7888b5bd0355777f78c76c50b13b9b1aa78b18e"
-  integrity sha512-bhgrKayF1LRHlWgvsMtH1sa/y3JzJhsEVZiZE3xdoWyv9NjZ76dpGvXTNix2dz5585KgQJLP+cKeIdZbwHnCUA==
+"@definitelytyped/typescript-versions@^0.0.41", "@definitelytyped/typescript-versions@latest":
+  version "0.0.41"
+  resolved "https://registry.yarnpkg.com/@definitelytyped/typescript-versions/-/typescript-versions-0.0.41.tgz#f4f260fea072ebdd3adaa7339fff727039520838"
+  integrity sha512-T4QRF8RHvxvnOzaGlitPqrRXHTpmR5sVkUivluIPG4PNK6Kd0E9ZZIdLOGRDFbPAlVbV0k+nLaB3vSuljio/sg==
 
 "@definitelytyped/utils@latest":
-  version "0.0.40"
-  resolved "https://registry.yarnpkg.com/@definitelytyped/utils/-/utils-0.0.40.tgz#83a0acb220fb8a84f0332467af26861797e5b039"
-  integrity sha512-XDPvPnw57xeN0Fho67EB+KAQNwzhp8xXS0SlhjPxrpAJSuAkLPlr3mz3OHMIt2HuNCBbBUvpnN+jsVTG6N39XQ==
+  version "0.0.41"
+  resolved "https://registry.yarnpkg.com/@definitelytyped/utils/-/utils-0.0.41.tgz#99245d81441b8b32667a067c8420850e6b8e0671"
+  integrity sha512-vphBOwkffjrU7HeTQtVafkDqG2f6DE7sTJiBnN9hMg5bmYd2E+p1TeBm+wu7Dy+4itKM0YXzUAv4h+hglkDtew==
   dependencies:
-    "@definitelytyped/typescript-versions" "^0.0.40"
+    "@definitelytyped/typescript-versions" "^0.0.41"
     "@types/node" "^12.12.29"
     charm "^1.0.2"
     fs-extra "^8.1.0"
@@ -3826,9 +3826,9 @@
   integrity sha512-Z4U8yDAl5TFkmYsZdFPdjeMa57NOvnaf1tljHzhouaPEp7LCj2JKkejpI1ODviIAQuW4CcQmxkQ77rnLsOOoKw==
 
 "@types/node@^12.12.29":
-  version "12.12.50"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.50.tgz#e9b2e85fafc15f2a8aa8fdd41091b983da5fd6ee"
-  integrity sha512-5ImO01Fb8YsEOYpV+aeyGYztcYcjGsBvN4D7G5r1ef2cuQOpymjWNQi5V0rKHE6PC2ru3HkoUr/Br2/8GUA84w==
+  version "12.12.51"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.51.tgz#446a67af8c5ff98947d7cef296484c6ad47ddb16"
+  integrity sha512-6ILqt8iNThALrxDv2Q4LyYFQxULQz96HKNIFd4s9QRQaiHINYeUpLqeU/2IU7YMtvipG1fQVAy//vY8/fX1Y9w==
 
 "@types/node@^8.5.7":
   version "8.10.61"
