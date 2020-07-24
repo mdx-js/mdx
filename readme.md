@@ -184,7 +184,6 @@ Join us on [Spectrum][]!
 [compositor]: https://compositor.io
 [vercel]: https://vercel.com
 [clearbit]: https://clearbit.com
-[announcement]: https://medium.com/unifiedjs/collectively-evolving-through-crowdsourcing-22c359ea95cc
 [contribute]: #contribute
 [contributing]: https://mdxjs.com/contributing
 [support]: https://mdxjs.com/support
