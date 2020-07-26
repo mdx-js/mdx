@@ -13,3 +13,5 @@ artifacts
 .*cache
 public
 .npmrc
+.nyc_output
+coverage
