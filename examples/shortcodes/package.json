@@ -1,6 +1,6 @@
 {
   "name": "shortcodes-example",
-  "version": "2.0.0-next.4",
+  "version": "2.0.0-next.5",
   "private": true,
   "scripts": {
     "build": "gatsby build",
@@ -9,8 +9,8 @@
   "dependencies": {
     "@blocks/kit": "^0.0.28",
     "@emotion/core": "^10.0.28",
-    "@mdx-js/mdx": "^2.0.0-next.4",
-    "@mdx-js/react": "^2.0.0-next.4",
+    "@mdx-js/mdx": "^2.0.0-next.5",
+    "@mdx-js/react": "^2.0.0-next.5",
     "gatsby": "^2.24.3",
     "gatsby-plugin-mdx": "^1.2.26",
     "react": "^16.13.1",

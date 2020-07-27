@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/runtime",
-  "version": "2.0.0-next.4",
+  "version": "2.0.0-next.5",
   "description": "Parse and render MDX in a runtime environment",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -44,8 +44,8 @@
     "react": "^16.13.1"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0-next.4",
-    "@mdx-js/react": "^2.0.0-next.4",
+    "@mdx-js/mdx": "^2.0.0-next.5",
+    "@mdx-js/react": "^2.0.0-next.5",
     "buble-jsx-only": "^0.19.8"
   },
   "gitHead": "fa091d2a041ce3d1ccead308d14596ce927c7bc2"

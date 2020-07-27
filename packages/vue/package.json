@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue",
-  "version": "2.0.0-next.4",
+  "version": "2.0.0-next.5",
   "description": "MDX support for Vue components",
   "author": "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
   "contributors": [
