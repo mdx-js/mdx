@@ -1,14 +1,14 @@
 {
   "name": "react-web-components-example",
-  "version": "2.0.0-next.5",
+  "version": "2.0.0-next.6",
   "private": true,
   "scripts": {
     "build": "gatsby build",
     "start": "gatsby develop"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0-next.5",
-    "@mdx-js/react": "^2.0.0-next.5",
+    "@mdx-js/mdx": "^2.0.0-next.6",
+    "@mdx-js/react": "^2.0.0-next.6",
     "gatsby": "^2.24.3",
     "gatsby-plugin-mdx": "^1.2.26",
     "react": "^16.13.1",

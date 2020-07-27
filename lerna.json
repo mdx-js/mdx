@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/lerna",
-  "version": "2.0.0-next.5",
+  "version": "2.0.0-next.6",
   "packages": [
     "packages/*"
   ],
