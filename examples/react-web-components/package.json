@@ -1,14 +1,14 @@
 {
   "name": "react-web-components-example",
-  "version": "1.6.15",
+  "version": "1.6.16",
   "private": true,
   "scripts": {
     "build": "gatsby build",
     "start": "gatsby develop"
   },
   "dependencies": {
-    "@mdx-js/mdx": "1.6.15",
-    "@mdx-js/react": "1.6.15",
+    "@mdx-js/mdx": "1.6.16",
+    "@mdx-js/react": "1.6.16",
     "gatsby": "^2.24.3",
     "gatsby-plugin-mdx": "^1.2.26",
     "react": "^16.13.1",
