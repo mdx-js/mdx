@@ -165,20 +165,23 @@ MDXContent.isMDXComponent = true`
     const jsxNames = allJsxNames.filter(name => name !== 'MDXLayout')
 
     const importExportNames = importNames.concat(exportNames)
-    const fakedModulesForGlobalScope =
-      `const makeShortcode = name => function MDXDefaultShortcode(props) {
-  console.warn("Component '" + name + "' was not imported, exported, or provided by MDXProvider as global scope")
-  return <div {...props}/>
-};
-` +
-      uniq(jsxNames)
-        .filter(name => !importExportNames.includes(name))
-        .map(name => `const ${name} = makeShortcode("${name}");`)
-        .join('\n')
+    const shortCodeDef = `const makeShortcode = name => function MDXDefaultShortcode(props) {
+      console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+      return <div {...props}/>
+    };
+`
+    const fakedModulesForGlobalScope = uniq(jsxNames)
+      .filter(name => !importExportNames.includes(name))
+      .map(name => `const ${name} = makeShortcode("${name}");`)
+      .join('\n')
+    const fakedModules =
+      (fakedModulesForGlobalScope &&
+        [shortCodeDef, fakedModulesForGlobalScope].join('')) ||
+      ''
 
     const moduleBase = `${importStatements}
 ${exportStatementsPostMdxTypeProps}
-${fakedModulesForGlobalScope}
+${fakedModules}
 ${layoutProps}
 ${mdxLayout}`
 
