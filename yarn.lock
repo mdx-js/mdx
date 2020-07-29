@@ -6126,7 +6126,7 @@ babel-preset-flow@^6.23.0:
   dependencies:
     babel-plugin-transform-flow-strip-types "^6.22.0"
 
-babel-preset-gatsby@^0.5.3, babel-preset-gatsby@^0.5.4:
+babel-preset-gatsby@^0.5.4:
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/babel-preset-gatsby/-/babel-preset-gatsby-0.5.4.tgz#a24f1d1a8b772ff229203b3739054bdc2e4153e1"
   integrity sha512-9n2qPnqiwpnkTM588uidovrf9k86353zEJ4hWCUyD/e2Up8zNSExA27BNp3sAq4KcNl3c8tDpuwWQQQf4aNn2g==
@@ -7418,7 +7418,7 @@ chokidar@3.4.0:
   optionalDependencies:
     fsevents "~2.1.2"
 
-"chokidar@>=2.0.0 <4.0.0", chokidar@^3.0.2, chokidar@^3.3.0, chokidar@^3.4.0, chokidar@^3.4.1:
+"chokidar@>=2.0.0 <4.0.0", chokidar@^3.0.2, chokidar@^3.3.0, chokidar@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.4.1.tgz#e905bdecf10eaa0a0b1db0c664481cc4cbc22ba1"
   integrity sha512-TQTJyr2stihpC4Sya9hs2Xh+O2wf+igjL36Y75xx2WdHuiICcn/XJza46Jwt0eT5hVpQOzo3FpY3cj3RVYLX0g==
@@ -11603,7 +11603,7 @@ functions-have-names@^1.2.0:
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.1.tgz#a981ac397fa0c9964551402cdc5533d7a4d52f91"
   integrity sha512-j48B/ZI7VKs3sgeI2cZp7WXWmZXu7Iq5pl5/vptV5N2mq+DGFuS/ulaDjtaoLpYzuD6u8UgrUKHfgo7fDTSiBA==
 
-gatsby-cli@^2.12.65, gatsby-cli@^2.12.67:
+gatsby-cli@^2.12.67:
   version "2.12.67"
   resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-2.12.67.tgz#560feec04bc2c8d033f659960609089f004e1390"
   integrity sha512-HylSJ/wIDmfxX/TYSg9nynub+qjcWglIphkk3NOZTT9eVv5jFBqqAQ8BwU+ZzaVaheYNXCCQF4IfH/INPazQpg==
@@ -11648,7 +11648,7 @@ gatsby-cli@^2.12.65, gatsby-cli@^2.12.67:
     yargs "^15.3.1"
     yurnalist "^1.1.2"
 
-gatsby-core-utils@^1.3.13, gatsby-core-utils@^1.3.14:
+gatsby-core-utils@^1.3.14:
   version "1.3.14"
   resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-1.3.14.tgz#a830412a9edb87544bc0d1ad9c2556d33aa0d157"
   integrity sha512-jfC+x5rrYUfl70MHRLsOtsXqdlqIbQGVDKXrvp6IPIUP8TKU6XIpYktF0Yd4ldJIWmGZTa062RWUOd2DFBHVSw==
@@ -11660,7 +11660,7 @@ gatsby-core-utils@^1.3.13, gatsby-core-utils@^1.3.14:
     proper-lockfile "^4.1.1"
     xdg-basedir "^4.0.0"
 
-gatsby-graphiql-explorer@^0.4.11, gatsby-graphiql-explorer@^0.4.12:
+gatsby-graphiql-explorer@^0.4.12:
   version "0.4.12"
   resolved "https://registry.yarnpkg.com/gatsby-graphiql-explorer/-/gatsby-graphiql-explorer-0.4.12.tgz#9c7a3c9c562e7bb8e3e24bf7c8ac4b319d0ce64b"
   integrity sha512-kHVHzGvebZlUGeGOoAAJVdLWAXftZiYeOk6EitWFkXEZtYxpgXM5Pum9qDMCzUCJ6pzS8r9U5IBJncjMal3ScQ==
@@ -11683,7 +11683,7 @@ gatsby-link@^2.4.13:
     "@types/reach__router" "^1.3.3"
     prop-types "^15.7.2"
 
-gatsby-page-utils@^0.2.18, gatsby-page-utils@^0.2.19:
+gatsby-page-utils@^0.2.19:
   version "0.2.19"
   resolved "https://registry.yarnpkg.com/gatsby-page-utils/-/gatsby-page-utils-0.2.19.tgz#1614783a1d4c7c368d83cabbacf6c0ac4d3baae8"
   integrity sha512-aGF6OVXpQy0odwn4kwiSXhdOcFlLl2Vx5mWYupjEkGzcZjwUjloOj800DIoH4yZmuGNQVrfpBag5ta50VKrtiQ==
@@ -11776,7 +11776,7 @@ gatsby-plugin-mdx@1.2.30, gatsby-plugin-mdx@^1.2.26:
     unist-util-remove "^1.0.3"
     unist-util-visit "^1.4.1"
 
-gatsby-plugin-page-creator@2.3.19, gatsby-plugin-page-creator@^2.3.18, gatsby-plugin-page-creator@^2.3.19:
+gatsby-plugin-page-creator@2.3.19, gatsby-plugin-page-creator@^2.3.19:
   version "2.3.19"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-page-creator/-/gatsby-plugin-page-creator-2.3.19.tgz#53e00600b95b563f78b64f956494d08ca14033ff"
   integrity sha512-BMEIjg+B05eWeZutgV3bP2o7WZyC3lmZzAhGwWfEi0IYy0zRtH3jRNPCv1qrcyXKI6n5GFUhas4NGiRHmc7vLg==
@@ -11821,7 +11821,7 @@ gatsby-react-router-scroll@^3.0.12:
   dependencies:
     "@babel/runtime" "^7.10.3"
 
-gatsby-recipes@^0.1.55, gatsby-recipes@^0.1.57:
+gatsby-recipes@^0.1.57:
   version "0.1.57"
   resolved "https://registry.yarnpkg.com/gatsby-recipes/-/gatsby-recipes-0.1.57.tgz#965b0941fbe7606186d76cb99e48ff35171685c0"
   integrity sha512-r+WWfiNl84WRT8hzOsG+SImfuvOT/XjfigfwihK4CeYQ/hJjZBsfpKnkXsxkSAZ/C7OGpeOqv59vKvKCO/XT8w==
@@ -11909,7 +11909,7 @@ gatsby-source-filesystem@2.3.23:
     valid-url "^1.0.9"
     xstate "^4.11.0"
 
-gatsby-telemetry@^1.3.22, gatsby-telemetry@^1.3.23:
+gatsby-telemetry@^1.3.23:
   version "1.3.23"
   resolved "https://registry.yarnpkg.com/gatsby-telemetry/-/gatsby-telemetry-1.3.23.tgz#16ebbf29e7744209a6bd6a59ab7746764e13cb1a"
   integrity sha512-Zhfgo2WCsSR7aWS7L9/WWmHJcEMhBhJa/eIt9BtU5rp9vCBQOgu7jbf8EweVnpYMH7JFQTsOhW51CEVd13HY1Q==
