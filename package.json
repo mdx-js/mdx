@@ -59,7 +59,7 @@
     "eslint-plugin-mdx": "1.7.1",
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-react": "7.20.3",
-    "gatsby": "2.24.9",
+    "gatsby": "2.24.14",
     "hast-util-select": "4.0.0",
     "husky": "4.2.5",
     "jest": "26.1.0",
