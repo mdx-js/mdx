@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useEffect} from 'react'
 
 class ImperativeCounter extends HTMLElement {
   constructor() {
@@ -18,9 +18,11 @@ class ImperativeCounter extends HTMLElement {
   }
 }
 
-window.customElements.define('i-counter', ImperativeCounter)
-
 export const RenderCounter = () => {
+  useEffect(() => {
+    window.customElements.define('i-counter', ImperativeCounter)
+  }, [])
+
   const counterElement = useRef(null)
   return (
     <div>

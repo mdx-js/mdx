@@ -1,6 +1,6 @@
 {
   "name": "next-example",
-  "version": "1.6.1",
+  "version": "1.6.15",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -8,10 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.1",
-    "@mdx-js/mdx": "^1.6.1",
-    "@next/mdx": "^9.3.5",
-    "next": "^9.3.5",
+    "@mdx-js/loader": "1.6.15",
+    "@mdx-js/mdx": "1.6.15",
+    "@next/mdx": "^9.4.4",
+    "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "remark-emoji": "^2.1.0",

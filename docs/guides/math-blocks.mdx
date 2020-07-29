@@ -1,6 +1,6 @@
 # Math blocks
 
-You can render math blocks via [remark-math](https://github.com/remarkjs/remark-math/blob/master/packages/remark-math) and [rehype-katex](https://github.com/remarkjs/remark-math/blob/master/packages/rehype-katex). remark-math parses math blocks and rehype-katex transforms the blocks into html elements with classes for styling.Also, you need to apply css style of KaTeX by yourself to render them properly.
+You can render math blocks via [remark-math](https://github.com/remarkjs/remark-math/tree/main/packages/remark-math) and [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex). remark-math parses math blocks and rehype-katex transforms the blocks into html elements with classes for styling. Also, you need to apply css style of KaTeX by yourself to render them properly.
 
 First, link a stylesheet and use the `$` syntax:
 
@@ -42,8 +42,22 @@ module.exports = {
           {
             resolve: '@mdx-js/loader',
             options: {
-              remarkPlugins: [remarkMath],
-              rehypePlugins: [rehypeKatex]
+              remarkPlugins: [
+                [
+                  remarkMath,
+                  {
+                    /* options */
+                  }
+                ]
+              ],
+              rehypePlugins: [
+                [
+                  rehypeKatex,
+                  {
+                    /* options */
+                  }
+                ]
+              ]
             }
           }
         ]

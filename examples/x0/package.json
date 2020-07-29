@@ -1,6 +1,6 @@
 {
   "name": "x0-example",
-  "version": "1.6.1",
+  "version": "1.6.15",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -9,6 +9,6 @@
   "dependencies": {
     "@compositor/x0": "^6.0.7",
     "@rebass/markdown": "^1.0.0",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.1"
   }
 }

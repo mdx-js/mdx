@@ -1,12 +1,12 @@
 {
   "name": "zero-example",
-  "version": "1.6.1",
+  "version": "1.6.15",
   "license": "MIT",
   "private": true,
   "scripts": {
     "start": "zero"
   },
   "dependencies": {
-    "zero": "^1.1.20"
+    "zero": "^1.1.22"
   }
 }

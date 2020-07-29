@@ -76,8 +76,7 @@ prevent you from doing unnecessary work.
 ## Running the tests
 
 1.  `yarn`
-2.  `yarn bootstrap`
-3.  `yarn test`
+2.  `yarn test`
 
 Tests for an individual package can be run as a yarn workspace:
 `yarn workspace remark-mdx test`. To see what packages ar available to test
@@ -86,7 +85,7 @@ you can list out all workspaces with `yarn workspaces info`.
 ## Running the docs site
 
 1.  `yarn`
-2.  `yarn bootstrap`
+2.  `yarn build`
 3.  `yarn docs`
 
 ## Submitting an issue
@@ -127,11 +126,7 @@ MDX is a monorepo that uses [lerna][].
 In order to release a new version you can follow these steps:
 
 - Draft a release for the next version (vX.X.X)
-- Release a prerelease
-  - `yarn lerna publish`
-  - Select prepatch/preminor/premajor
-  - Sanity check in a project or two with the prerelease
-- `yarn lerna publish`
+- `yarn && yarn test && yarn run publish`
 - Publish release on GitHub
 
 ## Troubleshooting

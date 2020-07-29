@@ -1,18 +1,18 @@
 {
   "name": "vue-loader-example",
-  "version": "0.1.0",
+  "version": "1.6.15",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve"
   },
   "dependencies": {
-    "core-js": "^3.6.4",
+    "core-js": "^3.6.5",
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-service": "~4.3.0",
+    "@vue/cli-plugin-babel": "~4.4.6",
+    "@vue/cli-service": "~4.4.6",
     "vue-template-compiler": "^2.6.11"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx",
-  "version": "1.6.1",
+  "version": "1.6.15",
   "description": "Support import, export, and JSX in markdown",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -33,13 +33,13 @@
     "mdxast"
   ],
   "dependencies": {
-    "@babel/core": "7.9.0",
-    "@babel/helper-plugin-utils": "7.8.3",
-    "@babel/plugin-proposal-object-rest-spread": "7.9.5",
-    "@babel/plugin-syntax-jsx": "7.8.3",
-    "@mdx-js/util": "^1.6.1",
+    "@babel/core": "7.10.5",
+    "@babel/helper-plugin-utils": "7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "7.10.4",
+    "@babel/plugin-syntax-jsx": "7.10.4",
+    "@mdx-js/util": "1.6.15",
     "is-alphabetical": "1.0.4",
-    "remark-parse": "8.0.2",
-    "unified": "9.0.0"
+    "remark-parse": "8.0.3",
+    "unified": "9.1.0"
   }
 }

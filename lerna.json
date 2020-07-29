@@ -1,9 +1,10 @@
 {
   "$schema": "http://json.schemastore.org/lerna",
-  "version": "1.6.1",
+  "version": "1.6.15",
   "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,
+  "exact": true,
   "command": {
     "publish": {
       "ignoreChanges": ["**/docs/**", "**/examples/**", "**/test/**", "**/*.md"]

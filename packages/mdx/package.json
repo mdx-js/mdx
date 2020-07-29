@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "1.6.1",
+  "version": "1.6.15",
   "description": "Parse MDX and transpile to JSX",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -34,24 +34,24 @@
     "mdxast"
   ],
   "dependencies": {
-    "@babel/core": "7.9.0",
-    "@babel/plugin-syntax-jsx": "7.8.3",
+    "@babel/core": "7.10.5",
+    "@babel/plugin-syntax-jsx": "7.10.4",
     "@babel/plugin-syntax-object-rest-spread": "7.8.3",
-    "@mdx-js/util": "^1.6.1",
-    "babel-plugin-apply-mdx-type-prop": "^1.6.1",
-    "babel-plugin-extract-import-names": "^1.6.1",
+    "@mdx-js/util": "1.6.15",
+    "babel-plugin-apply-mdx-type-prop": "1.6.15",
+    "babel-plugin-extract-import-names": "1.6.15",
     "camelcase-css": "2.0.1",
     "detab": "2.0.3",
-    "hast-util-raw": "5.0.2",
+    "hast-util-raw": "6.0.0",
     "lodash.uniq": "4.5.0",
-    "mdast-util-to-hast": "8.2.0",
+    "mdast-util-to-hast": "9.1.0",
     "remark-footnotes": "1.0.0",
-    "remark-mdx": "^1.6.1",
-    "remark-parse": "8.0.2",
+    "remark-mdx": "1.6.15",
+    "remark-parse": "8.0.3",
     "remark-squeeze-paragraphs": "4.0.0",
     "style-to-object": "0.3.0",
-    "unified": "9.0.0",
+    "unified": "9.1.0",
     "unist-builder": "2.0.3",
-    "unist-util-visit": "2.0.2"
+    "unist-util-visit": "2.0.3"
   }
 }

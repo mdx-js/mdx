@@ -427,3 +427,11 @@ test('Should contain shortcode definition', async () => {
   const result = await mdx(fixtureWithShortcode)
   expect(result).toContain('const makeShortcode = name')
 })
+
+it('Should include file name in Babel error', async () => {
+  try {
+    await mdx(`<br>`, {filepath: '/path/to/file.mdx'})
+  } catch (e) {
+    expect(e.toString()).toMatch(`file.mdx: Unterminated JSX contents (8:16)`)
+  }
+})
