@@ -40,6 +40,6 @@
     "@mdx-js/util": "1.6.14",
     "is-alphabetical": "1.0.4",
     "remark-parse": "8.0.3",
-    "unified": "9.0.0"
+    "unified": "9.1.0"
   }
 }
