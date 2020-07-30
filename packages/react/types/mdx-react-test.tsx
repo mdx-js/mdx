@@ -16,9 +16,15 @@ const MDXProvideExample = () => (
   </MDXProvider>
 )
 
+const MDXProviderWithDisabledContextExample = () => (
+  <MDXProvider components={{}} disableParentContext={true}>
+    <h1>Hello, world!</h1>
+  </MDXProvider>
+)
+
 const WithMDXComponentsExample = () =>
   withMDXComponents(({components}: ComponentsProp) => {
-    components // $ExpectType ComponentDictionary
+    components // $ExpectType ComponentDictionary | undefined
     return <div />
   })
 
@@ -29,7 +35,7 @@ const UseMDXComponentsExample = () => {
 
 const UseMDXContextExample = () => {
   const {components} = React.useContext(MDXContext)
-  components // $ExpectType ComponentDictionary
+  components // $ExpectType ComponentDictionary | undefined
 }
 
 const MDXCreateElementExample = () => mdx('mdx', {title: 'example'}, [])

@@ -23,7 +23,13 @@ interface ComponentsProp {
   /**
    * Mapping of names for JSX components to React components
    */
-  components: ComponentDictionary
+  components?: ComponentDictionary,
+  /**
+   * Turn off outer component context
+   *
+   * @defaultValue false
+   */
+  disableParentContext?: boolean
 }
 
 /**
