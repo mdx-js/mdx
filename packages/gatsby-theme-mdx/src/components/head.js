@@ -16,7 +16,8 @@ export default ({
     fullTitle = title + ' | MDX'
   }
 
-  const imagePath = image === 'OgConf' ? OgConf : Og
+  const relativeImagePath = image === 'OgConf' ? OgConf : Og
+  const imagePath = `https://mdxjs.com${relativeImagePath}`
 
   return (
     <Helmet
