@@ -2,7 +2,6 @@
 import React from 'react'
 import {Global} from '@emotion/core'
 import {ThemeProvider, css, jsx} from 'theme-ui'
-import {Twitter} from 'react-feather'
 
 import baseComponents from './mdx-components'
 import baseTheme from './theme'
@@ -62,7 +61,7 @@ const Speaker = props => {
           lineHeight: 1,
           fontFamily: 'monospace',
           fontSize: [1, 2],
-          color: 'muted',
+          color: 'muted'
         },
         img: {
           maxWidth: '100%'
@@ -134,7 +133,7 @@ const confTheme = {
     h2: {
       mt: 5,
       mb: -2,
-      fontFamily: 'monospace',
+      fontFamily: 'monospace'
     },
     h3: {
       fontFamily: 'monospace',
@@ -145,7 +144,7 @@ const confTheme = {
       fontSize: [2, 3, 4]
     },
     a: {
-      color: '#794AD9', //'#BF1CDA',
+      color: '#794AD9', // '#BF1CDA',
       fontWeight: 600,
       '&:hover': {
         color: '#794AD9'
