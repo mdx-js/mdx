@@ -230,7 +230,7 @@ export default props => {
       <ThemeProvider theme={theme} components={components}>
         {styles}
         <Root>
-          <Head title={title} description={description} skipBreadcrumb={true} />
+          <Head title={title} description={description} image='OgConf' skipBreadcrumb={true} />
           <Main>
             <Container className="searchable-content">
               {props.children}

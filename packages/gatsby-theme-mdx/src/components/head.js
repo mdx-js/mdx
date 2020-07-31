@@ -1,8 +1,8 @@
 import React from 'react'
 import {Helmet} from 'react-helmet'
-import {Favicon, Favicon16, Favicon32, Og} from '../assets'
+import {Favicon, Favicon16, Favicon32, Og, OgConf} from '../assets'
 
-export default ({title, skipBreadcrumb, description = 'Markdown for the component era'}) => {
+export default ({title, image, skipBreadcrumb, description = 'Markdown for the component era'}) => {
   let fullTitle
 
   if (title === 'MDX' || skipBreadcrumb) {
@@ -11,8 +11,11 @@ export default ({title, skipBreadcrumb, description = 'Markdown for the componen
     fullTitle = title + ' | MDX'
   }
 
+  const imagePath = image === 'OgConf' ? OgConf : Og
+
   return (
     <Helmet
+      defer={false}
       htmlAttributes={{ lang: 'en' }}
       meta={[
         {
@@ -33,7 +36,7 @@ export default ({title, skipBreadcrumb, description = 'Markdown for the componen
         },
         {
           property: 'og:image',
-          content: Og
+          content: imagePath
         },
         {
           name: `twitter:card`,
@@ -49,7 +52,7 @@ export default ({title, skipBreadcrumb, description = 'Markdown for the componen
         },
         {
           name: 'twitter:image',
-          content: Og
+          content: imagePath
         }
       ]}
     >
