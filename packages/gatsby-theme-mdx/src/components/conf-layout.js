@@ -126,7 +126,7 @@ const confComponents = {
 const confTheme = {
   styles: {
     h1: {
-      fontSize: [60, 80, 100],
+      fontSize: [40, 80, 100],
       fontFamily: 'monospace',
       mb: 0,
       lineHeight: 1
