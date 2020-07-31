@@ -10,15 +10,12 @@ const makeShortcode = name => function MDXDefaultShortcode(props) {
 };
 const Paragraph = makeShortcode(\\"Paragraph\\");
 const Button = makeShortcode(\\"Button\\");
-const layoutProps = {
-  Baz
-};
 const MDXLayout = Foo
 export default function MDXContent({
   components,
   ...props
 }) {
-  return <MDXLayout {...layoutProps} {...props} components={components} mdxType=\\"MDXLayout\\">
+  return <MDXLayout {...props} components={components} mdxType=\\"MDXLayout\\">
     <h1>{\`Hello, world! \`}
       <Foo bar={{
         baz: 'qux'

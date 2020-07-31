@@ -97,7 +97,7 @@ function serializeRoot(node, options) {
 
   const fn = `function MDXContent({ components, ...props }) {
 return (
-  <MDXLayout {...layoutProps} {...props} components={components}>
+  <MDXLayout {...props} components={components}>
 ${doc}
   </MDXLayout>
 )
@@ -144,14 +144,6 @@ MDXContent.isMDXComponent = true`
     ]
   }).code
 
-  let layoutProps = 'const layoutProps = {'
-
-  if (exportNames.length !== 0) {
-    layoutProps += '\n  ' + exportNames.join(',\n  ') + '\n'
-  }
-
-  layoutProps += '};'
-
   const allJsxNames = [
     ...babelPluginApplyMdxPropInstance.state.names,
     ...babelPluginApplyMdxPropToExportsInstance.state.names
@@ -173,7 +165,6 @@ MDXContent.isMDXComponent = true`
   const moduleBase = `${importStatements}
 ${exportStatementsPostMdxTypeProps}
 ${fakedModulesForGlobalScope}
-${layoutProps}
 ${mdxLayout}`
 
   if (skipExport) {
