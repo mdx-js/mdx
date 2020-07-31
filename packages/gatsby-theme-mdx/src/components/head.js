@@ -2,7 +2,12 @@ import React from 'react'
 import {Helmet} from 'react-helmet'
 import {Favicon, Favicon16, Favicon32, Og, OgConf} from '../assets'
 
-export default ({title, image, skipBreadcrumb, description = 'Markdown for the component era'}) => {
+export default ({
+  title,
+  image,
+  skipBreadcrumb,
+  description = 'Markdown for the component era'
+}) => {
   let fullTitle
 
   if (title === 'MDX' || skipBreadcrumb) {
@@ -16,7 +21,7 @@ export default ({title, image, skipBreadcrumb, description = 'Markdown for the c
   return (
     <Helmet
       defer={false}
-      htmlAttributes={{ lang: 'en' }}
+      htmlAttributes={{lang: 'en'}}
       meta={[
         {
           name: 'description',

@@ -223,14 +223,19 @@ export default props => {
     ...confComponents
   }
 
-  const { title, description } = props._frontmatter
+  const {title, description} = props._frontmatter
 
   return (
     <>
       <ThemeProvider theme={theme} components={components}>
         {styles}
         <Root>
-          <Head title={title} description={description} image='OgConf' skipBreadcrumb={true} />
+          <Head
+            title={title}
+            description={description}
+            image="OgConf"
+            skipBreadcrumb={true}
+          />
           <Main>
             <Container className="searchable-content">
               {props.children}
