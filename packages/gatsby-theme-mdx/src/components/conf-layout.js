@@ -3,6 +3,7 @@ import React from 'react'
 import {Global} from '@emotion/core'
 import {ThemeProvider, css, jsx} from 'theme-ui'
 
+import Head from './head'
 import baseComponents from './mdx-components'
 import baseTheme from './theme'
 
@@ -222,11 +223,19 @@ export default props => {
     ...confComponents
   }
 
+  const {title, description} = props._frontmatter
+
   return (
     <>
       <ThemeProvider theme={theme} components={components}>
         {styles}
         <Root>
+          <Head
+            title={title}
+            description={description}
+            image="OgConf"
+            skipBreadcrumb={true}
+          />
           <Main>
             <Container className="searchable-content">
               {props.children}
