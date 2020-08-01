@@ -9,6 +9,10 @@ suite
   .on('cycle', e => {
     results.push(e.target.toString())
   })
+  .on('error', function (e) {
+    console.error(e.target.error)
+    process.exit(1)
+  })
   .on('complete', function () {
     console.log('Benchmark complete')
   })
