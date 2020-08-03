@@ -12,7 +12,7 @@ declare namespace mdx {
     footnotes?: boolean
 
     /**
-     * skip the addition of 'export default' statement when serialize
+     * skip the addition of 'export default' statement when serializing
      * to JSX
      * @default false
      */
