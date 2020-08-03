@@ -29,6 +29,20 @@ module.exports = withMDX({
 })
 ```
 
+### Providing MDX Plugins
+
+In `next.config.js` you can also provide MDX plugins from remark and rehype
+
+```js
+const withMDX = require('@next/mdx')({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: []
+  }
+})
+module.exports = withMDX()
+```
+
 ### Typescript support
 
 ```js
