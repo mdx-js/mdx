@@ -19,7 +19,7 @@ declare namespace mdx {
     skipExport?: boolean
 
     /**
-     * wrap 'export default' statement with provided string when serialize
+     * wrap 'export default' statement with provided string when serializing
      * to JSX
      */
     wrapExport?: string
