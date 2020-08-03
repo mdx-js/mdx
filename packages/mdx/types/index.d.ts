@@ -12,6 +12,19 @@ declare namespace mdx {
     footnotes?: boolean
 
     /**
+     * skip the addition of 'export default' statement when serialize
+     * to JSX
+     * @default false
+     */
+    skipExport?: boolean
+
+    /**
+     * wrap 'export default' statement with provided string when serialize
+     * to JSX
+     */
+    wrapExport?: string
+
+    /**
      * remark plugins to transform markdown content
      *
      * @default []
