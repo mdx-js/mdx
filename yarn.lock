@@ -3408,7 +3408,7 @@
     "@theme-ui/css" "^0.3.1"
     deepmerge "^4.2.2"
 
-"@theme-ui/components@^0.3.1":
+"@theme-ui/components@0.3.1", "@theme-ui/components@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@theme-ui/components/-/components-0.3.1.tgz#fe023e156c1e1c076d5f2258466426e94adc2765"
   integrity sha512-uG4dUM61s4tWv6N34uxs5VIh24bJyA/7TrYJ75WDiI+s72zbcNG7aGRpvX/hSZnAhxjdXpuskdEM3eEgOabdEg==
