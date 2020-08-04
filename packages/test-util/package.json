@@ -26,8 +26,8 @@
     "mdxast"
   ],
   "dependencies": {
-    "@babel/core": "7.10.5",
-    "@babel/plugin-proposal-object-rest-spread": "7.10.4",
+    "@babel/core": "7.11.1",
+    "@babel/plugin-proposal-object-rest-spread": "7.11.0",
     "@babel/plugin-transform-react-jsx": "7.10.4",
     "@mdx-js/mdx": "1.6.16",
     "@mdx-js/react": "1.6.16",
