@@ -29,7 +29,7 @@
     "babel"
   ],
   "dependencies": {
-    "@babel/types": "7.10.5",
+    "@babel/types": "7.11.0",
     "@mdx-js/util": "1.6.16",
     "camelcase-css": "2.0.1",
     "style-to-object": "0.3.0"
