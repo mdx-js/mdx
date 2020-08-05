@@ -1,5 +1,6 @@
 module.exports = {
   plugins: [
+    'remark-frontmatter',
     './packages/remark-mdx',
     'preset-wooorm',
     'preset-prettier',

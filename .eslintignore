@@ -15,9 +15,6 @@ packages/**/test/**/*.mdx
 packages/gatsby-theme-mdx/src/components/header.js
 packages/gatsby-theme-mdx/src/components/layout.js
 packages/gatsby-theme-mdx/src/components/search.js
-packages/gatsby-theme-mdx/src/pages/conf.mdx
-packages/gatsby-theme-mdx/src/pages/conf/confirm.mdx
-packages/gatsby-theme-mdx/src/pages/conf/confirmed.mdx
 
 packages/remark-mdx
 
