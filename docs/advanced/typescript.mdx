@@ -38,8 +38,12 @@ declare module '@mdx-js/react' {
     | 'tr'
     | 'ul'
 
+  export type ComponentProps = React.HTMLProps<Element> & {
+    metastring?: string;
+  };
+
   export type Components = {
-    [key in ComponentType]?: React.ComponentType<{children: React.ReactNode}>
+    [key in ComponentType]?: React.ComponentType<ComponentProps>
   }
 
   export interface MDXProviderProps {
