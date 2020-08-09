@@ -39,8 +39,8 @@ declare module '@mdx-js/react' {
     | 'ul'
 
   export type ComponentProps = React.HTMLProps<Element> & {
-    metastring?: string;
-  };
+    metastring?: string
+  }
 
   export type Components = {
     [key in ComponentType]?: React.ComponentType<ComponentProps>
