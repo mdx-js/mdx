@@ -47,9 +47,9 @@ const scope = {
   some: 'value'
 }
 
-// Provide optional remark plugins array
+//Provide optional remark plugins array
 const remarkPlugins = []
-//e.g. 
+//example:
 //add to top: import admonitions from "remark-admonitions";
 //const remarkPlugins = [admonitions]
 
