@@ -47,6 +47,12 @@ const scope = {
   some: 'value'
 }
 
+// Provide optional remark plugins array
+const remarkPlugins = []
+//e.g. 
+//add to top: import admonitions from "remark-admonitions";
+//const remarkPlugins = [admonitions]
+
 const mdx = `
 # Hello, world!
 
@@ -56,7 +62,7 @@ const mdx = `
 `
 
 export default () => (
-  <MDX components={components} scope={scope}>
+  <MDX components={components} scope={scope} remarkPlugins={remarkPlugins}>
     {mdx}
   </MDX>
 )
