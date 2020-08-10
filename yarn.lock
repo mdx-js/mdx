@@ -10359,10 +10359,10 @@ eslint-loader@^2.2.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-mdx@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.7.1.tgz#616c6f39025c2beb55a24f0c4ce94949e1288134"
-  integrity sha512-xcwxSopOn1LWn2lJyIkpT3osdSpqHdtLsC5ovNfY6QNlaBN8UZ+yT14XgmqURKqqGKwSeLOgfRDsXKbupDoN9g==
+eslint-mdx@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.8.1.tgz#75316e06f0217627b3361e6968b0bc84cedfdced"
+  integrity sha512-SWxV/T/51v3zLvLJjgKJpyDuA/pyl1oTNhhXKJ2VbN/W1T7nsRFtWtTzywJbhJ21UytDDiRkJ5Z0wmRz17ilqw==
   dependencies:
     espree "^7.1.0"
     remark-mdx "^1.6.5"
@@ -10476,13 +10476,13 @@ eslint-plugin-jsx-a11y@^6.0.3, eslint-plugin-jsx-a11y@^6.3.1:
     jsx-ast-utils "^2.4.1"
     language-tags "^1.0.5"
 
-eslint-plugin-mdx@1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.7.1.tgz#24693ec1c88e91da364ec209d99354085dfd1f4b"
-  integrity sha512-l8EzaTIYtgzUG0Tur2u0swPRFT73YbG7oQUP6qnMTHGXrqjO9aDF8lsMfDRyUPvLBJJJua0DFraCIvHyFPrPeg==
+eslint-plugin-mdx@1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.8.1.tgz#203e906e0cc4c322d9a810d00beae1201a298d44"
+  integrity sha512-fo0I0M50xUGag247cAsI8YlOYmAsleLf1OnSbXugqtIMEBfIIl3H0+ZvdQNTmFfg9NqHnd+HBMbNmP8KJJ8luQ==
   dependencies:
     cosmiconfig "^6.0.0"
-    eslint-mdx "^1.7.1"
+    eslint-mdx "^1.8.1"
     eslint-plugin-react "^7.20.0"
     remark-mdx "^1.6.5"
     remark-parse "^8.0.2"
