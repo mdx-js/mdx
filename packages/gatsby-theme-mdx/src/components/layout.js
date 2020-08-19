@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {Link} from 'gatsby'
 import {Global} from '@emotion/core'
 import {ThemeProvider, css} from 'theme-ui'
 
@@ -27,6 +28,31 @@ const styles = (
       }
     })}
   />
+)
+
+const MDXConf = () => (
+  <div
+    css={css({
+      bg: '#fcb42d',
+      boxSizing: 'border-box'
+    })}
+  >
+    <Link
+      css={css({
+        color: 'text',
+        textDecoration: 'none',
+        fontWeight: 'bold',
+        fontSize: [2, 3, 3],
+        width: '100%',
+        display: 'flex',
+        p: 3
+      })}
+      to="/conf">
+      <span aria-label="tada">🎉</span>
+      <span css={css({ ml: 2 })}>MDX Conf &mdash; August 24th, 2020</span>
+      <span css={css({ ml: 'auto' })}>&rarr;</span>
+    </Link>
+  </div>
 )
 
 const Root = props => (
@@ -167,6 +193,7 @@ export default props => {
       <ThemeProvider theme={theme} components={components}>
         <SkipNavLink />
         {styles}
+        <MDXConf />
         <Root>
           <Overlay open={menuOpen} onClick={closeMenu} />
           <Header toggleMenu={toggleMenu} dark={dark} setDark={setDark} />
