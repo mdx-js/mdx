@@ -7,7 +7,7 @@
 # MDX: Markdown for the component era 🚀
 
 [![Build Status][build-badge]][build]
-[![Join the community on Spectrum][spectrum-badge]][spectrum]
+[![Chat][chat-badge]][chat]
 
 [MDX][website] is an authorable format that lets you seamlessly use JSX in your markdown documents.
 You can import components, like interactive charts or notifications, and export
@@ -158,7 +158,7 @@ By interacting with this repository, organisation, or community you agree to
 abide by its terms.
 
 Want to chat with the community and contributors?
-Join us on [Spectrum][]!
+Join us on [GH Discussions][chat]!
 
 ## License
 
@@ -166,8 +166,8 @@ Join us on [Spectrum][]!
 
 [build]: https://github.com/mdx-js/mdx/actions?query=workflow%3A%22CI%22
 [build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
-[spectrum]: https://spectrum.chat/mdx
-[spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[chat]: https://github.com/mdx-js/mdx/discussions
 [intro]: https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u
 [tweet]: https://twitter.com/chrisbiscardi/status/1022304288326864896
 [remark-plugins]: https://github.com/remarkjs/remark/blob/master/doc/plugins.md

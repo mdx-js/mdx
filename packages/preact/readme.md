@@ -2,7 +2,7 @@
 
 [![Build Status][build-badge]][build]
 [![lerna][lerna-badge]][lerna]
-[![Join the community on Spectrum][spectrum-badge]][spectrum]
+[![Chat][chat-badge]][chat]
 
 Map components to HTML elements based on the Markdown syntax.
 Serves as the Preact implementation for [MDX][].
@@ -67,8 +67,8 @@ abide by its terms.
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
 [lerna]: https://lernajs.io/
 [lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
-[spectrum]: https://spectrum.chat/mdx
-[spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[chat]: https://github.com/mdx-js/mdx/discussions
 [contributing]: https://mdxjs.com/contributing
 [support]: https://mdxjs.com/support
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
