@@ -15,13 +15,16 @@
     "Tim Neutkens <tim@vercel.com>",
     "Matija Marohnić <matija.marohnic@gmail.com>",
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
-    "JounQin <admin@1stg.me> (https://www.1stg.me)"
+    "JounQin <admin@1stg.me> (https://www.1stg.me)",
+    "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
+  "types": "types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "types/index.d.ts"
   ],
   "keywords": [
     "mdx",
@@ -31,6 +34,9 @@
     "remark",
     "mdxast"
   ],
+  "scripts": {
+    "test-types": "dtslint types"
+  },
   "peerDependencies": {
     "preact": "^10.4.6"
   },
