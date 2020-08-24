@@ -144,6 +144,9 @@ const confTheme = {
       maxWidth: ['100%', '32em'],
       fontSize: [2, 3, 4]
     },
+    li: {
+      fontSize: [2, 3, 4]
+    },
     a: {
       color: '#794AD9', // '#BF1CDA',
       fontWeight: 600,
