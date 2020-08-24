@@ -25,10 +25,11 @@ npm i -S @mdx-js/runtime
 
 The MDX Runtime component accepts two props:
 
-| Name         | Description                                                      |
-| ------------ | ---------------------------------------------------------------- |
-| `components` | Globally available components for the runtime                    |
-| `scope`      | Variables that are accessible in the JSX portion of the document |
+| Name            | Description                                                      |
+| ----------------| ---------------------------------------------------------------- |
+| `components`    | Globally available components for the runtime                    |
+| `scope`         | Variables that are accessible in the JSX portion of the document |
+| `remarkPlugins` | Array of remark plugins                                          |
 
 ### Example code
 
@@ -47,12 +48,6 @@ const scope = {
   some: 'value'
 }
 
-//Provide optional remark plugins array
-const remarkPlugins = []
-//example:
-//add to top: import admonitions from "remark-admonitions";
-//const remarkPlugins = [admonitions]
-
 const mdx = `
 # Hello, world!
 
@@ -62,7 +57,7 @@ const mdx = `
 `
 
 export default () => (
-  <MDX components={components} scope={scope} remarkPlugins={remarkPlugins}>
+  <MDX components={components} scope={scope}>
     {mdx}
   </MDX>
 )
