@@ -86,3 +86,21 @@ module.exports = withMDX({
   pageExtensions: ['js', 'jsx', 'md', 'mdx']
 })
 ```
+
+If you're using MDX with Gatsby.js, you can use `gatsby-plugin-mdx` with the following configuration:
+```
+//gatsby-config.js
+const plugins = [
+{
+    resolve: 'gatsby-plugin-mdx',
+    options: {
+      gatsbyRemarkPlugins: [
+        {
+          resolve:'gatsby-remark-katex',
+        }
+      ],
+      extensions: [".mdx", ".md"]
+    }
+  },
+];
+```
