@@ -23,11 +23,13 @@ export const useMDXComponents = components => {
 
 export const MDXProvider = props => {
   const allComponents = useMDXComponents(props.components)
+  
+  const Context = MDXContext || props.context;
 
   return (
-    <MDXContext.Provider value={allComponents}>
+    <Context.Provider value={allComponents}>
       {props.children}
-    </MDXContext.Provider>
+    </Context.Provider>
   )
 }
 
