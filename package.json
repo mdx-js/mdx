@@ -62,7 +62,7 @@
     "gatsby": "2.24.14",
     "hast-util-select": "4.0.0",
     "husky": "4.2.5",
-    "jest": "26.3.0",
+    "jest": "26.4.2",
     "lerna": "3.22.1",
     "lint-staged": "10.2.11",
     "memory-fs": "0.5.0",
