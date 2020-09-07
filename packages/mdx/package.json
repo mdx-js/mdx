@@ -44,7 +44,7 @@
     "detab": "2.0.3",
     "hast-util-raw": "6.0.0",
     "lodash.uniq": "4.5.0",
-    "mdast-util-to-hast": "9.1.0",
+    "mdast-util-to-hast": "9.1.1",
     "remark-footnotes": "1.0.0",
     "remark-mdx": "1.6.16",
     "remark-parse": "8.0.3",
