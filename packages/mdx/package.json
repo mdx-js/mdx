@@ -50,7 +50,7 @@
     "remark-parse": "8.0.3",
     "remark-squeeze-paragraphs": "4.0.0",
     "style-to-object": "0.3.0",
-    "unified": "9.1.0",
+    "unified": "9.2.0",
     "unist-builder": "2.0.3",
     "unist-util-visit": "2.0.3"
   }

@@ -86,7 +86,7 @@
     "retext-sentence-spacing": "4.0.0",
     "rimraf": "3.0.2",
     "typescript": "3.9.7",
-    "unified": "9.1.0",
+    "unified": "9.2.0",
     "vfile": "4.1.1",
     "vue": "2.6.11",
     "vue-template-compiler": "2.6.11",
