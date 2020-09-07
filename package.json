@@ -87,7 +87,7 @@
     "rimraf": "3.0.2",
     "typescript": "3.9.7",
     "unified": "9.1.0",
-    "vfile": "4.1.1",
+    "vfile": "4.2.0",
     "vue": "2.6.11",
     "vue-template-compiler": "2.6.11",
     "webpack": "4.44.0",
