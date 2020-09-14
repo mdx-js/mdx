@@ -16,7 +16,7 @@
     "node": "12.x"
   },
   "scripts": {
-    "build": "r -f cjs,esm -o dist --exclude 'babel-plugin-*,create-mdx,*loader,mdx,parcel-plugin-mdx,remark-*,*util'",
+    "build": "r -f cjs,esm -o dist --exclude 'babel-plugin-*,create-mdx,*loader,mdx,parcel-plugin-mdx,remark-*,*util' && cp packages/preact/dist/esm.js packages/preact/dist/esm.mjs",
     "clean": "lerna exec \"rimraf dist node_modules\"",
     "docs": "gatsby develop",
     "docs-build": "gatsby build",
