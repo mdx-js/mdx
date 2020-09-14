@@ -20,6 +20,10 @@
   "license": "MIT",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
+  "exports": {
+    "import": "./dist/esm.mjs",
+    "require": "./dist/cjs.js"
+  },
   "files": [
     "dist"
   ],
