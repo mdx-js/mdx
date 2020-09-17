@@ -160,9 +160,9 @@ abide by its terms.
 
 [collective]: https://opencollective.com/unified
 
-[chat-badge]: https://img.shields.io/badge/chat-spectrum-7b16ff.svg
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 
-[chat]: https://spectrum.chat/unified/remark
+[chat]: https://github.com/mdx-js/mdx/discussions
 
 [npm]: https://docs.npmjs.com/cli/install
 
