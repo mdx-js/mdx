@@ -32,7 +32,7 @@
     "parcel"
   ],
   "peerDependencies": {
-    "@mdx-js/react": "^1.6.7",
+    "@mdx-js/react": "^1.6.17",
     "react": "^16.13.1"
   },
   "dependencies": {

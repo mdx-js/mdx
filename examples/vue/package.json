@@ -8,13 +8,13 @@
     "start": "yarn serve"
   },
   "dependencies": {
-    "vue": "^2.6.11"
+    "vue": "^2.6.12"
   },
   "devDependencies": {
     "@mdx-js/vue-loader": "1.6.17",
-    "@vue/cli-plugin-babel": "^4.4.6",
-    "@vue/cli-service": "^4.4.6",
-    "vue-template-compiler": "^2.6.11"
+    "@vue/cli-plugin-babel": "^4.5.6",
+    "@vue/cli-service": "^4.5.6",
+    "vue-template-compiler": "^2.6.12"
   },
   "browserslist": [
     "> 1%",
