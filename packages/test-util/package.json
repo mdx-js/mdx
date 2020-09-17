@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/test-util",
-  "version": "1.6.17",
+  "version": "1.6.18",
   "description": "Testing utilities for MDX libraries",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -29,9 +29,9 @@
     "@babel/core": "7.11.6",
     "@babel/plugin-proposal-object-rest-spread": "7.11.0",
     "@babel/plugin-transform-react-jsx": "7.10.4",
-    "@mdx-js/mdx": "1.6.17",
-    "@mdx-js/react": "1.6.17",
-    "babel-plugin-remove-export-keywords": "1.6.17",
+    "@mdx-js/mdx": "1.6.18",
+    "@mdx-js/react": "1.6.18",
+    "babel-plugin-remove-export-keywords": "1.6.18",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   }

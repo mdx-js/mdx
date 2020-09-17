@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue-loader",
-  "version": "1.6.17",
+  "version": "1.6.18",
   "description": "Vue loader for MDX",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -36,8 +36,8 @@
     "no-test": "jest"
   },
   "dependencies": {
-    "@mdx-js/mdx": "1.6.17",
-    "@mdx-js/vue": "1.6.17",
+    "@mdx-js/mdx": "1.6.18",
+    "@mdx-js/vue": "1.6.18",
     "loader-utils": "2.0.0"
   }
 }

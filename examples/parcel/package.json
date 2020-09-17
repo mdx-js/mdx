@@ -1,12 +1,12 @@
 {
   "name": "parcel",
-  "version": "1.6.17",
+  "version": "1.6.18",
   "private": true,
   "scripts": {
     "start": "parcel index.html --no-cache"
   },
   "dependencies": {
-    "@mdx-js/react": "1.6.17",
+    "@mdx-js/react": "1.6.18",
     "@mdx-js/tag": "^0.20.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
@@ -15,7 +15,7 @@
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
-    "@mdx-js/parcel-plugin-mdx": "1.6.17",
+    "@mdx-js/parcel-plugin-mdx": "1.6.18",
     "parcel-bundler": "^1.12.4"
   }
 }
