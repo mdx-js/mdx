@@ -15,6 +15,20 @@ const withMDX = require('@next/mdx')()
 module.exports = withMDX()
 ```
 
+### Treat `.mdx` files as pages
+
+To have Next.js treat `.mdx` files in the pages directory as pages use the `pageExtensions` property:
+
+```js
+// next.config.js
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+})
+module.exports = withMDX({
+  pageExtensions: ['js', 'jsx', 'mdx'],
+})
+```
+
 ### Use MDX for `.md` files
 
 The Next.js MDX plugin allows for you to also use MDX parsing for `.md` files:
