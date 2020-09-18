@@ -1,6 +1,6 @@
 {
   "name": "vue-example",
-  "version": "2.0.0-next.7",
+  "version": "2.0.0-next.8",
   "private": true,
   "scripts": {
     "build": "vue-cli-service build",
@@ -11,7 +11,7 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@mdx-js/vue-loader": "^2.0.0-next.7",
+    "@mdx-js/vue-loader": "^2.0.0-next.8",
     "@vue/cli-plugin-babel": "^4.4.6",
     "@vue/cli-service": "^4.4.6",
     "vue-template-compiler": "^2.6.11"
