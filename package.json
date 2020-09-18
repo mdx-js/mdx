@@ -16,7 +16,7 @@
     "node": "12.x"
   },
   "scripts": {
-    "build": "r -f cjs,esm -o dist --exclude 'babel-plugin-*,create-mdx,*loader,mdx,parcel-plugin-mdx,remark-*,*util'",
+    "build": "r -f cjs,esm -o dist --exclude 'babel-plugin-*,create-mdx,*loader,mdx,parcel-plugin-mdx,remark-*,*util,@mdx-js/preact' && yarn workspace @mdx-js/preact build",
     "clean": "lerna exec \"rimraf dist node_modules\" && gatsby clean",
     "docs": "gatsby develop",
     "docs-build": "gatsby build",
@@ -36,6 +36,7 @@
     "test-parser": "nyc --reporter lcov tape packages/remark-mdx/test/index.js",
     "test-types": "lerna run test-types"
   },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.10.5",
     "@babel/plugin-syntax-jsx": "7.10.4",
@@ -71,6 +72,7 @@
     "lerna": "3.22.1",
     "lint-staged": "10.2.11",
     "memory-fs": "0.5.0",
+    "microbundle": "^0.12.3",
     "prettier": "2.0.5",
     "prettier-plugin-pkg": "0.7.0",
     "react": "16.13.1",
@@ -136,6 +138,5 @@
     "bracketSpacing": false,
     "semi": false,
     "trailingComma": "none"
-  },
-  "dependencies": {}
+  }
 }
