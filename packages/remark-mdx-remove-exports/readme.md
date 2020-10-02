@@ -1,7 +1,6 @@
 # [remark][]-[mdx][]-remove-exports
 
 [![Build Status][build-badge]][build]
-[![lerna][lerna-badge]][lerna]
 [![Chat][chat-badge]][chat]
 
 Deprecated!
@@ -20,8 +19,6 @@ used as `remove(tree, 'mdxjsEsm')`.
 
 [build]: https://travis-ci.com/mdx-js/mdx
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
-[lerna]: https://lernajs.io/
-[lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 [chat]: https://github.com/mdx-js/mdx/discussions
 [contributing]: https://mdxjs.com/contributing

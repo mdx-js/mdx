@@ -1,7 +1,6 @@
 # remark-mdxjs
 
 [![Build Status][build-badge]][build]
-[![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
 Deprecated!
@@ -15,8 +14,6 @@ The previous behavior is now in `remark-mdx`.
 
 [build]: https://travis-ci.com/mdx-js/mdx
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
-[lerna]: https://lernajs.io/
-[lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
 [spectrum]: https://spectrum.chat/mdx
 [spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
 [contributing]: https://mdxjs.com/contributing
