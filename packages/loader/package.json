@@ -35,5 +35,8 @@
     "@mdx-js/mdx": "1.6.19",
     "@mdx-js/react": "1.6.19",
     "loader-utils": "2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
   }
 }
