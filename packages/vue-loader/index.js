@@ -1,5 +1,6 @@
 const {getOptions} = require('loader-utils')
 const mdx = require('@mdx-js/mdx')
+const path = require('path')
 
 module.exports = async function (content) {
   const callback = this.async()
@@ -15,7 +16,9 @@ module.exports = async function (content) {
   }
 
   const code = `// vue babel plugin doesn't support pragma replacement
-import { mdx } from '@mdx-js/vue'
+import { mdx } from '${path
+    .dirname(require.resolve('@mdx-js/vue/package.json'))
+    .replace(/\\/g, '/')}'
 let h;
 ${result}
 

@@ -27,5 +27,9 @@ const testFixture = async fixture => {
 
 test('it loads markdown and returns a component', async () => {
   const generatedCode = await testFixture('fixture.md')
-  expect(generatedCode).toContain('require("@mdx-js/vue")')
+  expect(generatedCode).toContain(
+    `require("${path
+      .dirname(require.resolve('@mdx-js/vue/package.json'))
+      .replace(/\\/g, '/')}")`
+  )
 })
