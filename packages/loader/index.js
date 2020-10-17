@@ -1,10 +1,23 @@
 const {getOptions} = require('loader-utils')
 const mdx = require('@mdx-js/mdx')
+const path = require('path')
 
-const DEFAULT_RENDERER = `
-import React from 'react'
-import { mdx } from '@mdx-js/react'
+let defaultRenderer = null
+
+function getDefaultRenderer() {
+  if (!defaultRenderer) {
+    defaultRenderer = `
+import React from '${path.dirname(
+      require.resolve('react/package.json').replace(/\\/g, '/')
+    )}'
+import { mdx } from '${path
+      .dirname(require.resolve('@mdx-js/react/package.json'))
+      .replace(/\\/g, '/')}'
 `
+  }
+
+  return defaultRenderer
+}
 
 const loader = async function (content) {
   const callback = this.async()
@@ -20,7 +33,7 @@ const loader = async function (content) {
     return callback(err)
   }
 
-  const {renderer = DEFAULT_RENDERER} = options
+  const {renderer = getDefaultRenderer()} = options
 
   const code = `${renderer}\n${result}`
   return callback(null, code)
