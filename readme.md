@@ -121,8 +121,8 @@ Support this effort and give back by sponsoring on [OpenCollective][collective]!
   <a href="https://themeisle.com"><img src="https://avatars1.githubusercontent.com/u/58979018?s=128&v=4" width="64"></a>
 </td>
 <td width="10%" align="center">
-  <a href="https://boostio.co">BoostIO</a><br><br>
-  <a href="https://boostio.co"><img src="https://avatars1.githubusercontent.com/u/13612118?s=128&v=4" width="64"></a>
+  <a href="https://boosthub.io">Boost Hub</a><br><br>
+  <a href="https://boosthub.io"><img src="https://images.opencollective.com/boosthub/6318083/logo/128.png" width="64"></a>
 </td>
 <td width="10%" align="center">
   <a href="https://expo.io">Expo</a><br><br>
