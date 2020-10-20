@@ -5,7 +5,8 @@ const squeeze = require('remark-squeeze-paragraphs')
 const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
 
-const pragma = `/* @jsx mdx */`
+const pragma = `/* @jsxRuntime classic */
+/* @jsx mdx */`
 
 function createMdxAstCompiler(options = {}) {
   return unified()
