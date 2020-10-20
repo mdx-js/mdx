@@ -50,7 +50,8 @@ it('Should match sample blog post snapshot', async () => {
   const result = await mdx(`# Hello World`)
 
   expect(prettier.format(result, {parser: 'babel'})).toMatchInlineSnapshot(`
-    "/* @jsx mdx */
+    "/* @jsxRuntime classic */
+    /* @jsx mdx */
 
     const layoutProps = {};
     const MDXLayout = \\"wrapper\\";
@@ -323,7 +324,8 @@ test('Should handle layout props', () => {
   const result = mdx.sync(fixtureBlogPost)
 
   expect(result).toMatchInlineSnapshot(`
-    "/* @jsx mdx */
+    "/* @jsxRuntime classic */
+    /* @jsx mdx */
     import { Baz } from './Fixture'
     import { Buz } from './Fixture'
     export const foo = {
