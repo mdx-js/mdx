@@ -64,7 +64,7 @@
     "husky": "4.3.0",
     "jest": "26.4.2",
     "lerna": "3.22.1",
-    "lint-staged": "10.4.0",
+    "lint-staged": "10.5.1",
     "memory-fs": "0.5.0",
     "prettier": "2.1.2",
     "prettier-plugin-pkg": "0.8.0",
