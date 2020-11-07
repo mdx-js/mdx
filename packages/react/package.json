@@ -46,7 +46,7 @@
     "test": "yarn test-coverage && yarn test-types"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
+    "react": "^16.13.1 || ^17.0.0"
   },
   "devDependencies": {
     "microbundle": "^0.12.0",
