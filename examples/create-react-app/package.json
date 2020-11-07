@@ -1,6 +1,6 @@
 {
   "name": "create-react-app",
-  "version": "1.6.19",
+  "version": "1.6.20",
   "private": true,
   "scripts": {
     "build": "react-scripts build",
