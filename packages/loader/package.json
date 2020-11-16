@@ -35,7 +35,9 @@
     "loader"
   ],
   "scripts": {
-    "test-types": "dtslint types"
+    "test-api": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "npm run test-api && npm run test-types"
   },
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-next.8",

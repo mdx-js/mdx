@@ -24,8 +24,7 @@
     "index.js",
     "mdx-ast-to-mdx-hast.js",
     "mdx-hast-to-jsx.js",
-    "types/index.d.ts",
-    "util.js"
+    "types/index.d.ts"
   ],
   "keywords": [
     "mdx",
@@ -36,13 +35,14 @@
     "mdxast"
   ],
   "scripts": {
-    "test-types": "dtslint types"
+    "test-api": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "npm run test-api && npm run test-types"
   },
   "dependencies": {
     "@babel/core": "7.10.5",
     "@babel/plugin-syntax-jsx": "7.10.4",
     "@babel/plugin-syntax-object-rest-spread": "7.8.3",
-    "@mdx-js/util": "^2.0.0-next.8",
     "babel-plugin-apply-mdx-type-prop": "^2.0.0-next.8",
     "babel-plugin-extract-export-names": "^2.0.0-next.8",
     "babel-plugin-extract-import-names": "^2.0.0-next.8",

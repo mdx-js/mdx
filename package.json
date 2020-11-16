@@ -30,11 +30,7 @@
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
-    "test": "yarn test-jest && yarn test-parser",
-    "test-all": "yarn test && yarn test-types",
-    "test-jest": "jest --runInBand --detectOpenHandles",
-    "test-parser": "nyc --reporter lcov tape packages/remark-mdx/test/index.js",
-    "test-types": "lerna run test-types"
+    "test": "lerna run test --no-private"
   },
   "dependencies": {},
   "devDependencies": {
@@ -45,7 +41,6 @@
     "@mapbox/rehype-prism": "0.5.0",
     "@mdx-js/mdx": "^1.6.7",
     "@mdx-js/react": "^1.6.7",
-    "@mdx-js/test-util": "^1.6.7",
     "@mdx-js/vue": "^1.6.7",
     "@pkgr/rollup": "0.10.4",
     "@vue/babel-preset-jsx": "1.1.2",
@@ -81,8 +76,8 @@
     "rehype-katex": "3.0.0",
     "remark-autolink-headings": "6.0.1",
     "remark-math": "2.0.1",
-    "remark-mdx": "2.0.0-next.0",
-    "remark-mdxjs": "2.0.0-next.0",
+    "remark-mdx": "2.0.0-next.8",
+    "remark-mdxjs": "2.0.0-next.8",
     "remark-parse": "8.0.2",
     "remark-preset-prettier": "0.4.0",
     "remark-preset-wooorm": "7.0.0",

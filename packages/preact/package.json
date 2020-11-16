@@ -37,7 +37,8 @@
     "mdxast"
   ],
   "scripts": {
-    "build": "microbundle -f modern,es,cjs src/index.js"
+    "build": "microbundle -f modern,es,cjs src/index.js",
+    "test": "jest test --coverage"
   },
   "peerDependencies": {
     "preact": "^10.4.6"

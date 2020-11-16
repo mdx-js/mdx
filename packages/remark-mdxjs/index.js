@@ -1,4 +1,3 @@
-const {isImportOrExport, EMPTY_NEWLINE} = require('@mdx-js/util')
 const extractImportsAndExports = require('./extract-imports-and-exports')
 
 module.exports = mdxjs
@@ -6,6 +5,10 @@ module.exports = mdxjs
 mdxjs.default = mdxjs
 
 tokenizeEsSyntax.locator = tokenizeEsSyntaxLocator
+
+function isImportOrExport(value) {
+  return /^(export|import)\s/.test(value)
+}
 
 function mdxjs() {
   const parser = this.Parser
@@ -45,7 +48,7 @@ function stringifyEsSyntax(node) {
 }
 
 function tokenizeEsSyntax(eat, value) {
-  const index = value.indexOf(EMPTY_NEWLINE)
+  const index = value.indexOf('\n\n')
   const subvalue = index !== -1 ? value.slice(0, index) : value
 
   if (isImportOrExport(subvalue)) {

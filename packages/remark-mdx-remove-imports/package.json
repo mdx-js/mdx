@@ -33,7 +33,9 @@
     "mdxast"
   ],
   "scripts": {
-    "test-types": "dtslint types"
+    "test-api": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "npm run test-api && npm run test-types"
   },
   "dependencies": {
     "unist-util-remove": "2.0.0"

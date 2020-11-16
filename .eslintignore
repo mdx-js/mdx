@@ -18,8 +18,7 @@ packages/gatsby-theme-mdx/src/components/search.js
 
 packages/remark-mdx
 
-# tmp
+# tmp - this doesn’t make sense at all
 examples/vue
-packages/vue
 
 readme.md

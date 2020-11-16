@@ -34,8 +34,10 @@
     "@babel/core": "7.10.5",
     "@babel/helper-plugin-utils": "7.10.4",
     "@babel/plugin-proposal-object-rest-spread": "7.10.4",
-    "@babel/plugin-syntax-jsx": "7.10.4",
-    "@mdx-js/util": "^2.0.0-next.8"
+    "@babel/plugin-syntax-jsx": "7.10.4"
+  },
+  "scripts": {
+    "test": "jest test --coverage"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

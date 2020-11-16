@@ -15,3 +15,4 @@ public
 .npmrc
 .nyc_output/
 coverage/
+.yarn

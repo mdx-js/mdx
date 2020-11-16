@@ -45,11 +45,8 @@ function serializeTags(node) {
   }
 
   return {
-    open: lessThan +
-      name +
-      attributes +
-      (selfClosing ? slash : '') +
-      greaterThan,
+    open:
+      lessThan + name + attributes + (selfClosing ? slash : '') + greaterThan,
     close: selfClosing ? null : lessThan + slash + name + greaterThan
   }
 }

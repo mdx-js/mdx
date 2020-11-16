@@ -27,6 +27,7 @@ const MDXCreateElement = forwardRef((props, ref) => {
     DEFAULTS[type] ||
     originalType
 
+  /* istanbul ignore if - To do: what is this useful for? */
   if (propComponents) {
     return h(Component, {
       ref,
@@ -52,6 +53,7 @@ export default function (type, props) {
 
     const newProps = {}
     for (let key in props) {
+      /* istanbul ignore else - folks putting stuff in `prototype`. */
       if (hasOwnProperty.call(props, key)) {
         newProps[key] = props[key]
       }

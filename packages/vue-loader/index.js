@@ -1,6 +1,30 @@
 const {getOptions} = require('loader-utils')
 const mdx = require('@mdx-js/mdx')
 
+const prefix = `// Vue babel plugin doesn't support pragma replacement
+import {mdx} from '@mdx-js/vue'
+let h
+`
+
+const suffix = `export default {
+  name: 'Mdx',
+  inject: {
+    $mdxComponents: {
+      default: () => () => ({})
+    }
+  },
+  computed: {
+    components() {
+      return this.$mdxComponents()
+    }
+  },
+  render(createElement) {
+    h = mdx.bind({createElement, components: this.components})
+    return MDXContent({components: this.components})
+  }
+}
+`
+
 module.exports = async function (content) {
   const callback = this.async()
   const options = Object.assign({}, getOptions(this), {
@@ -14,28 +38,9 @@ module.exports = async function (content) {
     return callback(err)
   }
 
-  const code = `// vue babel plugin doesn't support pragma replacement
-import { mdx } from '@mdx-js/vue'
-let h;
+  const code = `${prefix}
 ${result}
+${suffix}`
 
-export default {
-  name: 'Mdx',
-  inject: {
-    $mdxComponents: {
-      default: () => () => ({})
-    }
-  },
-  computed: {
-    components() {
-      return this.$mdxComponents()
-    }
-  },
-  render(createElement) {
-    h = mdx.bind({ createElement, components: this.components })
-    return MDXContent({ components: this.components })
-  }
-}
-   `
   return callback(null, code)
 }

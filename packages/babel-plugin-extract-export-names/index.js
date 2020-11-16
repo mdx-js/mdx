@@ -23,12 +23,16 @@ class BabelPluginExtractExportNames {
           if (t.isIdentifier(declaration.id)) {
             // Export const foo = 'bar'
             names.push(declaration.id.name)
-          } else if (t.isArrayPattern(declaration.id)) {
+          }
+
+          if (t.isArrayPattern(declaration.id)) {
             // Export const [ a, b ] = []
             declaration.id.elements.forEach(decl => {
               names.push(decl.name)
             })
-          } else if (t.isObjectPattern(declaration.id)) {
+          }
+
+          if (t.isObjectPattern(declaration.id)) {
             // Export const { a, b } = {}
             declaration.id.properties.forEach(decl => {
               names.push(decl.key.name)
@@ -38,16 +42,14 @@ class BabelPluginExtractExportNames {
       }
 
       const handleSpecifiers = node => {
-        const {specifiers} = node
-
-        if (!specifiers) {
-          return
-        }
+        /* istanbul ignore next - seems to always exist, maybe for older Babel? */
+        const specifiers = node.specifiers || []
 
         specifiers.forEach(specifier => {
+          /* istanbul ignore if - Can’t seem to get coverage for this branch, something’s up. */
           if (t.isExportDefaultSpecifier(specifier)) {
             names.push(specifier.exported.name)
-          } else {
+          } else if (specifier.local) {
             names.push(specifier.local.name)
           }
         })

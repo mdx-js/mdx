@@ -8,7 +8,7 @@
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
-  "main": "dist/cjs.js",
+  "main": "dist/index.js",
   "module": "dist/esm.js",
   "types": "types/index.d.ts",
   "files": [
@@ -25,9 +25,9 @@
     "build": "yarn build:cjs && yarn build:es",
     "build:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --copy-files",
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src -d dist/es --copy-files",
-    "dev": "watch 'yarn build' src",
-    "test": "jest",
-    "test-types": "dtslint types"
+    "test-api": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "npm run test-api && npm run test-types"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -35,6 +35,10 @@
     "@babel/preset-env": "7.10.4",
     "cross-env": "^7.0.2",
     "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "hastscript": "^6.0.0",
+    "hast-to-hyperscript": "^9.0.0"
   },
   "babel": {
     "presets": [
