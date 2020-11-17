@@ -17,7 +17,7 @@ const defaults = {
 
 const own = {}.hasOwnProperty
 
-export default function (type, props, ...children) {
+export default function createMdxElement(type, props, ...children) {
   let node
 
   if (own.call(this.components, type)) {
