@@ -22,16 +22,15 @@
     "docs-build": "gatsby build",
     "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
     "format": "yarn lint --fix",
-    "lint": "eslint . --cache --ext js,jsx,md,mdx -f friendly",
+    "lint": "eslint . --cache --ext js,jsx,mdx -f friendly",
     "now-build": "yarn build && yarn docs-build",
     "postinstall": "yarn-deduplicate || exit 0",
     "prepublishOnly": "yarn build",
-    "pretest": "yarn build",
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
     "test-only": "lerna run test --no-private",
-    "test": "lerna run test --no-private"
+    "test": "yarn build && yarn lint && yarn test-only"
   },
   "dependencies": {},
   "devDependencies": {
