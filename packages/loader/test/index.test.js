@@ -4,9 +4,9 @@ const path = require('path')
 const webpack = require('webpack')
 const MemoryFs = require('memory-fs')
 const React = require('react')
+const {renderToString} = require('react-dom/server')
 const _extends = require('@babel/runtime/helpers/extends')
 const _objectWithoutProperties = require('@babel/runtime/helpers/objectWithoutProperties')
-const {renderToString} = require('react-dom/server')
 const {mdx} = require('../../react')
 
 const transform = (filePath, options) => {

@@ -3,8 +3,8 @@ const path = require('path')
 const unified = require('unified')
 const parse = require('remark-parse')
 const stringify = require('remark-stringify')
-const mdx = require('remark-mdx')
-const mdxjs = require('remark-mdxjs')
+const mdx = require('../../remark-mdx')
+const mdxjs = require('../../remark-mdxjs')
 
 const removeImports = require('..')
 

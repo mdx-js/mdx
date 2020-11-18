@@ -44,5 +44,12 @@
     "@mdx-js/react": "^2.0.0-next.8",
     "loader-utils": "2.0.0"
   },
+  "devDependencies": {
+    "memory-fs": "^0.5.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "remark-slug": "^6.0.0",
+    "webpack": "^4.0.0"
+  },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

@@ -1,5 +1,6 @@
 /* @jsx React.createElement */
 /* @jsxFrag React.Fragment */
+import path from 'path'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import {transformAsync as babelTransform} from '@babel/core'
@@ -15,7 +16,7 @@ const run = async value => {
     configFile: false,
     plugins: [
       '@babel/plugin-transform-react-jsx',
-      'babel-plugin-remove-export-keywords'
+      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
     ]
   })
 

@@ -13,7 +13,7 @@ const renderWithReact = async (mdxCode, {components} = {}) => {
     plugins: [
       '@babel/plugin-transform-react-jsx',
       '@babel/plugin-proposal-object-rest-spread',
-      'babel-plugin-remove-export-keywords'
+      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
     ]
   }).code
 

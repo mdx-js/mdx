@@ -39,5 +39,11 @@
   "scripts": {
     "test": "jest test --coverage"
   },
+  "devDependencies": {
+    "remark-parse": "^8.0.0",
+    "remark-stringify": "^8.0.0",
+    "unified": "^9.2.0",
+    "vfile": "^4.2.0"
+  },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

@@ -1,6 +1,7 @@
 /* @jsx h */
 /* @jsxFrag Fragment */
-import {h, Fragment} from 'preact' // eslint-disable-line no-unused-vars
+import path from 'path'
+import {h, Fragment} from 'preact'
 import {render} from 'preact-render-to-string'
 import {transformAsync as babelTransform} from '@babel/core'
 import mdxTransform from '../../mdx'
@@ -15,7 +16,7 @@ const run = async value => {
     configFile: false,
     plugins: [
       '@babel/plugin-transform-react-jsx',
-      'babel-plugin-remove-export-keywords'
+      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
     ]
   })
 

@@ -58,7 +58,6 @@
     "unist-builder": "^2.0.3",
     "xo": "^0.32.1"
   },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1",
   "nyc": {
     "check-coverage": true,
     "lines": 100,
@@ -92,5 +91,6 @@
       "unicorn/no-hex-escape": "off",
       "unicorn/prefer-optional-catch-binding": "off"
     }
-  }
+  },
+  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

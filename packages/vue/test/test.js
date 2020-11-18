@@ -1,4 +1,4 @@
-import regeneratorRuntime from 'regenerator-runtime' // eslint-disable-line no-unused-vars
+import path from 'path'
 import {mount} from '@vue/test-utils'
 import mdxTransform from '../../mdx'
 import {transformAsync as babelTransform} from '@babel/core'
@@ -15,7 +15,7 @@ const run = async value => {
       // Here we use react-jsx, which does support a pragma.
       // `vue-loader` tests with `babel-plugin-transform-vue-jsx`.
       '@babel/plugin-transform-react-jsx',
-      'babel-plugin-remove-export-keywords'
+      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
     ]
   })
 
