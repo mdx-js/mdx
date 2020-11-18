@@ -92,7 +92,8 @@ function sync(mdx, options = {}) {
 
   const {contents} = compiler.processSync(fileOpts)
 
-  return `/* @jsx mdx */
+  return `/* @jsxRuntime classic */
+/* @jsx mdx */
 ${contents}`
 }
 
@@ -106,7 +107,8 @@ async function compile(mdx, options = {}) {
 
   const {contents} = await compiler.process(fileOpts)
 
-  return `/* @jsx mdx */
+  return `/* @jsxRuntime classic */
+/* @jsx mdx */
 ${contents}`
 }
 
