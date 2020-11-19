@@ -42,11 +42,12 @@ class BabelPluginExtractExportNames {
       }
 
       const handleSpecifiers = node => {
-        /* istanbul ignore next - seems to always exist, maybe for older Babel? */
+        /* istanbul ignore next - To do: remove default next major. */
         const specifiers = node.specifiers || []
 
         specifiers.forEach(specifier => {
-          /* istanbul ignore if - Can’t seem to get coverage for this branch, something’s up. */
+          /* istanbul ignore if - To do: see tests for possible broken cases.
+           * Fixing those and removing this branch in a major. */
           if (t.isExportDefaultSpecifier(specifier)) {
             names.push(specifier.exported.name)
           } else if (specifier.local) {

@@ -12,9 +12,6 @@
     "examples/*",
     "packages/*"
   ],
-  "engines": {
-    "node": ">=12"
-  },
   "scripts": {
     "build": "lerna run build --no-private --ignore gatsby-theme-mdx",
     "clean": "lerna exec \"rimraf dist node_modules\" && gatsby clean",
