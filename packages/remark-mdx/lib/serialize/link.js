@@ -15,10 +15,6 @@ var rightSquareBracket = ']'
 var leftParenthesis = '('
 var rightParenthesis = ')'
 
-// Expression for a protocol:
-// See <https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Generic_syntax>.
-var protocol = /^[a-z][a-z+.-]+:\/?/i
-
 // Stringify a link.
 //
 // With MDX we don't support <https://mdxjs.com> style links, which is the default

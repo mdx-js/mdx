@@ -1,7 +1,12 @@
 const styleToObject = require('style-to-object')
 const camelCaseCSS = require('camelcase-css')
 const t = require('@babel/types')
-const {paramCase: camelCase} = require('@mdx-js/util')
+
+const camelCase = string =>
+  string
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/([a-z])([0-9])/g, '$1-$2')
+    .toLowerCase()
 
 const TRANSLATIONS = require('./translations')
 

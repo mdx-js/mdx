@@ -1,12 +1,8 @@
 # [@mdx-js/util][mdx]
 
-Utility functions used in [MDX][] libraries.
+Deprecated!
 
-## Installation
-
-```sh
-yarn add @mdx-js/util
-```
+Created for but no longer used in [MDX](https://mdxjs.com).
 
 ## License
 

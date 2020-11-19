@@ -1,6 +1,5 @@
 /* @jsx h */
-// eslint-disable-next-line
-import { createContext, h } from "preact";
+import {createContext, h} from 'preact'
 import {useContext} from 'preact/hooks'
 
 const isFunction = obj => typeof obj === 'function'

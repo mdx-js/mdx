@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "@mdx-js/test-util",
   "version": "2.0.0-next.8",
   "description": "Testing utilities for MDX libraries",
@@ -29,19 +30,10 @@
     "mdxast"
   ],
   "scripts": {
-    "test-types": "dtslint types"
+    "test-api": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "npm run test-api && npm run test-types"
   },
-  "dependencies": {
-    "@babel/core": "7.10.5",
-    "@babel/plugin-proposal-object-rest-spread": "7.10.4",
-    "@babel/plugin-transform-react-jsx": "7.10.4",
-    "@mdx-js/mdx": "^2.0.0-next.8",
-    "@mdx-js/react": "^2.0.0-next.8",
-    "@types/babel__core": "7.1.9",
-    "@types/react": "16.9.43",
-    "babel-plugin-remove-export-keywords": "^2.0.0-next.8",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
-  },
+  "dependencies": {},
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

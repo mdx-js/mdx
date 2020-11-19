@@ -1,6 +1,8 @@
 # [@mdx-js/test-util][mdx]
 
-Test utility functions used in [MDX][].
+Deprecated!
+
+Created for but no longer used in [MDX](https://mdxjs.com).
 
 ## License
 

@@ -1,77 +1,88 @@
 # `@mdx-js/vue-loader`
 
-[![Build Status][build-badge]][build]
-[![lerna][lerna-badge]][lerna]
-[![Join the community on Spectrum][spectrum-badge]][spectrum]
+[![Build][build-badge]][build]
+[![Downloads][downloads-badge]][downloads]
+[![Sponsors][sponsors-badge]][opencollective]
+[![Backers][backers-badge]][opencollective]
+[![Chat][chat-badge]][chat]
 
-Transform your MDX files into Vue components.
+Webpack loader for [MDX][] with [Vue][].
 
-`@mdx-js/vue-loader` is a webpack loader for [MDX][] files for Vue.js.
-
-## Installation
+## Install
 
 [npm][]:
 
 ```sh
-npm i @mdx-js/vue-loader
+npm install --save-dev @mdx-js/vue-loader
 ```
 
-In your webpack config:
+[yarn][]:
+
+```sh
+yarn add --dev @mdx-js/vue-loader
+```
+
+## Use
 
 ```js
-// ...
+// …
 module: {
   rules: [
-    // ...
+    // …
     {
-      test: /\.mdx?$/,
+      test: /\.mdx$/,
       use: ['babel-loader', '@mdx-js/vue-loader']
     }
   ]
 }
 ```
 
-## Usage
+You’ll probably want to configure Babel to use `babel-plugin-transform-vue-jsx`
+or so.
 
-In your Markdown file:
+All options given to `mdx-js/vue-loader` are passed to MDX itself:
 
-```markdown
-<!-- helloworld.md -->
-
-# Hello, Vue!
-```
-
-In your `main.js`:
-
-```jsx
-import Vue from 'vue'
-import HelloWorld from 'helloworld.md'
-
-new Vue({
-  el: '#app',
-  render: h => h(HelloWorld)
-}).$mount()
+```js
+// …
+{
+  test: /\.mdx$/,
+  use: [
+    // …
+    {
+      loader: '@mdx-js/vue-loader',
+      options: {
+        remarkPlugins: [require('remark-slug'), require('remark-toc')],
+        rehypePlugins: [require('rehype-autolink-headings')]
+      }
+    }
+  ]
+}
 ```
 
 ## Contribute
 
-See the [Support][] and [Contributing][] guidelines on the MDX website for ways
-to (get) help.
+See [Contributing on `mdxjs.com`][contributing] for ways to get started.
+See [Support][] for ways to get help.
 
-This project has a [Code of Conduct][coc].
-By interacting with this repository, organisation, or community you agree to
+This project has a [code of conduct][coc].
+By interacting with this repository, organization, or community you agree to
 abide by its terms.
 
 ## License
 
 [MIT][] © [Compositor][] and [Vercel][]
 
-[build]: https://travis-ci.com/mdx-js/mdx
-[build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
-[lerna]: https://lernajs.io/
-[lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
-[spectrum]: https://spectrum.chat/mdx
-[spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
+[build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
+[build]: https://github.com/mdx-js/mdx/actions
+[downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/vue-loader.svg
+[downloads]: https://www.npmjs.com/package/@mdx-js/vue-loader
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+[opencollective]: https://opencollective.com/unified
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[chat]: https://github.com/mdx-js/mdx/discussions
+[npm]: https://docs.npmjs.com/cli/install
+[yarn]: https://yarnpkg.com/cli/add
 [contributing]: https://mdxjs.com/contributing
 [support]: https://mdxjs.com/support
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
@@ -79,4 +90,4 @@ abide by its terms.
 [compositor]: https://compositor.io
 [vercel]: https://vercel.com
 [mdx]: https://github.com/mdx-js/mdx
-[npm]: https://docs.npmjs.com/cli/install
+[vue]: https://vuejs.org

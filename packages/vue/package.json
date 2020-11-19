@@ -8,8 +8,12 @@
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
-  "main": "dist/cjs.js",
-  "module": "dist/esm.js",
+  "main": "dist/mdx-vue.js",
+  "module": "dist/mdx-vue.es.js",
+  "exports": {
+    "import": "./dist/mdx-vue.modern.js",
+    "require": "./dist/mdx-vue.js"
+  },
   "types": "types/index.d.ts",
   "files": [
     "dist",
@@ -22,27 +26,19 @@
     "remark"
   ],
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es",
-    "build:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --copy-files",
-    "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src -d dist/es --copy-files",
-    "dev": "watch 'yarn build' src",
-    "test": "jest",
-    "test-types": "dtslint types"
+    "build": "microbundle -f modern,es,cjs src",
+    "test-api": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "npm run test-api && npm run test-types"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "7.10.5",
-    "@babel/preset-env": "7.10.4",
-    "cross-env": "^7.0.2",
-    "watch": "^1.0.2"
+    "@vue/test-utils": "^1.1.1",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "microbundle": "^0.12.0"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ],
-    "exclude": [
-      "node_modules"
-    ]
+  "dependencies": {
+    "hast-to-hyperscript": "^9.0.0",
+    "hastscript": "^6.0.0"
   },
   "jest": {
     "testEnvironment": "jsdom"

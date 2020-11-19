@@ -1,11 +1,19 @@
 const fs = require('fs')
 const path = require('path')
+const babel = require('@babel/core')
 const {select} = require('hast-util-select')
 const prism = require('@mapbox/rehype-prism')
 const math = require('remark-math')
 const katex = require('rehype-katex')
 const prettier = require('prettier')
-const {parse} = require('@mdx-js/test-util')
+
+const parse = code =>
+  babel.parse(code, {
+    plugins: [
+      '@babel/plugin-syntax-jsx',
+      '@babel/plugin-proposal-object-rest-spread'
+    ]
+  })
 
 const mdx = require('../')
 

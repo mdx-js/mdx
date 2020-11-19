@@ -1,7 +1,38 @@
 const fs = require('fs')
 const path = require('path')
+const babel = require('@babel/core')
 const React = require('react')
-const {renderWithReact} = require('@mdx-js/test-util')
+const {renderToStaticMarkup} = require('react-dom/server')
+const mdx = require('..')
+const {MDXProvider, mdx: createElement} = require('../../react')
+
+const renderWithReact = async (mdxCode, {components} = {}) => {
+  const jsx = await mdx(mdxCode, {skipExport: true})
+
+  const code = babel.transform(jsx, {
+    plugins: [
+      '@babel/plugin-transform-react-jsx',
+      '@babel/plugin-proposal-object-rest-spread',
+      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
+    ]
+  }).code
+
+  const fn = new Function( // eslint-disable-line no-new-func
+    'React',
+    'mdx',
+    `${code}; return React.createElement(MDXContent)`
+  )
+
+  const element = fn(React, createElement)
+
+  const elementWithProvider = React.createElement(
+    MDXProvider,
+    {components},
+    element
+  )
+
+  return renderToStaticMarkup(elementWithProvider)
+}
 
 const EXPORT_SHORTCODE_FIXTURE = fs.readFileSync(
   path.join(__dirname, './fixtures/export-with-shortcode.mdx')

@@ -3,6 +3,12 @@ import {transform} from 'buble-jsx-only'
 import mdx from '@mdx-js/mdx'
 import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 
+const suffix = `return React.createElement(
+  MDXProvider,
+  {components},
+  React.createElement(MDXContent, props)
+)`
+
 export default ({
   scope = {},
   components = {},
@@ -27,29 +33,13 @@ export default ({
     })
     .trim()
 
-  let code
-  try {
-    code = transform(jsx, {
-      objectAssign: 'Object.assign'
-    }).code
-  } catch (err) {
-    console.error(err)
-    throw err
-  }
+  const code = transform(jsx, {objectAssign: 'Object.assign'}).code
 
   const keys = Object.keys(fullScope)
   const values = Object.values(fullScope)
+
   // eslint-disable-next-line no-new-func
-  const fn = new Function(
-    '_fn',
-    'React',
-    ...keys,
-    `${code}
+  const fn = new Function('React', ...keys, `${code}\n\n${suffix}`)
 
-    return React.createElement(MDXProvider, { components },
-      React.createElement(MDXContent, props)
-    );`
-  )
-
-  return fn({}, React, ...values)
+  return fn(React, ...values)
 }

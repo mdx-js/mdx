@@ -33,7 +33,7 @@
     "mdx"
   ],
   "scripts": {
-    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
+    "format": "remark . -qfo && prettier . --write && xo --fix",
     "test": "npm run format && npm run test-coverage",
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test/index.js",
@@ -78,14 +78,18 @@
     ]
   },
   "xo": {
-    "prettier": true,
     "esnext": false,
+    "prettier": true,
+    "ignore": [
+      "types/"
+    ],
     "rules": {
+      "no-self-compare": "off",
+      "no-lonely-if": "off",
+      "unicorn/escape-case": "off",
       "unicorn/no-fn-reference-in-iterator": "off",
       "unicorn/no-hex-escape": "off",
-      "unicorn/escape-case": "off",
-      "no-self-compare": "off",
-      "no-lonely-if": "off"
+      "unicorn/prefer-optional-catch-binding": "off"
     }
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"

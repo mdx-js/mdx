@@ -1,25 +1,12 @@
 const {getOptions} = require('loader-utils')
 const mdx = require('@mdx-js/mdx')
 
-module.exports = async function (content) {
-  const callback = this.async()
-  const options = Object.assign({}, getOptions(this), {
-    filepath: this.resourcePath
-  })
-  let result
+const prefix = `// Vue babel plugin doesn't support pragma replacement
+import {mdx} from '@mdx-js/vue'
+let h
+`
 
-  try {
-    result = await mdx(content, {...options, skipExport: true})
-  } catch (err) {
-    return callback(err)
-  }
-
-  const code = `// vue babel plugin doesn't support pragma replacement
-import { mdx } from '@mdx-js/vue'
-let h;
-${result}
-
-export default {
+const suffix = `export default {
   name: 'Mdx',
   inject: {
     $mdxComponents: {
@@ -32,10 +19,30 @@ export default {
     }
   },
   render(createElement) {
-    h = mdx.bind({ createElement, components: this.components })
-    return MDXContent({ components: this.components })
+    h = mdx.bind({createElement, components: this.components})
+    return MDXContent({components: this.components})
   }
 }
-   `
+`
+
+module.exports = mdxLoader
+
+async function mdxLoader(content) {
+  const callback = this.async()
+  const options = Object.assign({}, getOptions(this), {
+    filepath: this.resourcePath
+  })
+  let result
+
+  try {
+    result = await mdx(content, {...options, skipExport: true})
+  } catch (err) {
+    return callback(err)
+  }
+
+  const code = `${prefix}
+${result}
+${suffix}`
+
   return callback(null, code)
 }

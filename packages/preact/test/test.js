@@ -1,107 +1,225 @@
 /* @jsx h */
+/* @jsxFrag Fragment */
+import path from 'path'
+import {h, Fragment} from 'preact'
 import {render} from 'preact-render-to-string'
-import {h} from 'preact'
+import {transformAsync as babelTransform} from '@babel/core'
+import mdxTransform from '../../mdx'
+import {MDXProvider, withMDXComponents, mdx} from '../src'
 
-import {MDXProvider} from '../src/context'
-import Fixture from './fixture'
-import SandboxFixture from './sandbox-fixture'
+const run = async value => {
+  // Turn the serialized MDX code into serialized JSX…
+  const doc = await mdxTransform(value, {skipExport: true})
 
-const H1 = props => <h1 style={{color: 'tomato'}} {...props} />
-const H2 = props => <h2 style={{color: 'rebeccapurple'}} {...props} />
-const CustomH2 = props => <h2 style={{color: 'papayawhip'}} {...props} />
-const CustomDelete = props => <del style={{color: 'crimson'}} {...props} />
-const Layout = ({children}) => <div id="layout">{children}</div>
+  // …and that into serialized JS.
+  const {code} = await babelTransform(doc, {
+    configFile: false,
+    plugins: [
+      '@babel/plugin-transform-react-jsx',
+      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
+    ]
+  })
 
-it('allows components to be passed via context', () => {
-  const result = render(
-    <MDXProvider components={{h1: H1, wrapper: Layout}}>
-      <Fixture />
-    </MDXProvider>
-  )
+  // …and finally run it, returning the component.
+  // eslint-disable-next-line no-new-func
+  return new Function('mdx', `${code}; return MDXContent`)(mdx)
+}
 
-  // Layout is rendered
-  expect(result).toMatch(/id="layout"/)
+describe('@mdx-js/preact', () => {
+  test('should evaluate MDX code', async () => {
+    const Content = await run('# hi')
 
-  // H1 is rendered
-  expect(result).toMatch(/style="color: tomato;"/)
+    expect(render(<Content />)).toEqual('<h1>hi</h1>')
+  })
+
+  test('should evaluate some more complex MDX code (text, inline)', async () => {
+    const Content = await run(
+      '*a* **b** `c` <abbr title="Markdown + JSX">MDX</abbr>'
+    )
+
+    expect(render(<Content />)).toEqual(
+      '<p><em>a</em> <strong>b</strong> <code>c</code> <abbr title="Markdown + JSX">MDX</abbr></p>'
+    )
+  })
+
+  test('should evaluate some more complex MDX code (flow, block)', async () => {
+    const Content = await run('***\n> * 1. a')
+
+    expect(render(<Content />)).toEqual(
+      '<hr /><blockquote><ul><li><ol><li>a</li></ol></li></ul></blockquote>'
+    )
+  })
+
+  test('should warn on missing components', async () => {
+    const Content = await run('<Component />')
+    const warn = console.warn
+    console.warn = jest.fn()
+
+    expect(render(<Content />)).toEqual('<div></div>')
+
+    expect(console.warn).toHaveBeenCalledWith(
+      'Component Component was not imported, exported, or provided by MDXProvider as global scope'
+    )
+
+    console.warn = warn
+  })
+
+  test('should support components defined in MDX', async () => {
+    const Content = await run('export const A = () => <b>!</b>\n\n<A />')
+
+    expect(render(<Content />)).toEqual('<b>!</b>')
+  })
+
+  test('should not crash if weird values could come from JSX', async () => {
+    // As JSX is function calls, that function can also be used directly in
+    // MDX. Definitely not a great idea, but it’s an easy way to pass in funky
+    // values.
+    const Content = await run('{mdx(1)}')
+
+    expect(render(<Content />)).toEqual('<1></1>')
+  })
 })
 
-it('merges components when there is nested context', () => {
-  const components = {h1: H1, h2: H2}
+describe('MDXProvider', () => {
+  test('should support `components` with `MDXProvider`', async () => {
+    const Content = await run('# hi')
 
-  const result = render(
-    <MDXProvider components={components}>
-      <MDXProvider components={{h2: CustomH2}}>
-        <Fixture />
-      </MDXProvider>
-    </MDXProvider>
-  )
+    expect(
+      render(
+        <MDXProvider
+          components={{
+            h1: props => <h1 style={{color: 'tomato'}} {...props} />
+          }}
+        >
+          <Content />
+        </MDXProvider>
+      )
+    ).toEqual('<h1 style="color: tomato;">hi</h1>')
+  })
 
-  // MDX pragma picks up original component context
-  expect(result).toMatch(/style="color: tomato;"/)
+  test('should support `wrapper` in `components`', async () => {
+    const Content = await run('# hi')
 
-  // MDX pragma picks up overridden component context
-  expect(result).toMatch(/style="color: papayawhip;"/)
+    expect(
+      render(
+        <MDXProvider
+          components={{
+            wrapper: props => <div id="layout" {...props} />
+          }}
+        >
+          <Content />
+        </MDXProvider>
+      )
+    ).toEqual('<div id="layout"><h1>hi</h1></div>')
+  })
+
+  test('should support dots in component names (such as `ol.li`) for a direct child “selector”', async () => {
+    const Content = await run('* a\n1. b')
+
+    expect(
+      render(
+        <MDXProvider
+          components={{
+            'ol.li': props => <li className="ordered" {...props} />
+          }}
+        >
+          <Content />
+        </MDXProvider>
+      )
+    ).toEqual('<ul><li>a</li></ul><ol><li class="ordered">b</li></ol>')
+  })
+
+  test('should combine components in nested `MDXProvider`s', async () => {
+    const Content = await run('# hi\n## hello')
+
+    expect(
+      render(
+        <MDXProvider
+          components={{
+            h1: props => <h1 style={{color: 'tomato'}} {...props} />,
+            h2: props => <h2 style={{color: 'rebeccapurple'}} {...props} />
+          }}
+        >
+          <MDXProvider
+            components={{
+              h2: props => <h2 style={{color: 'papayawhip'}} {...props} />
+            }}
+          >
+            <Content />
+          </MDXProvider>
+        </MDXProvider>
+      )
+    ).toEqual(
+      '<h1 style="color: tomato;">hi</h1><h2 style="color: papayawhip;">hello</h2>'
+    )
+  })
+
+  test('should support components as a function', async () => {
+    const Content = await run('# hi\n## hello')
+
+    expect(
+      render(
+        <MDXProvider
+          components={{
+            h1: props => <h1 style={{color: 'tomato'}} {...props} />,
+            h2: props => <h2 style={{color: 'rebeccapurple'}} {...props} />
+          }}
+        >
+          <MDXProvider
+            components={_outerComponents => ({
+              h2: props => <h2 style={{color: 'papayawhip'}} {...props} />
+            })}
+          >
+            <Content />
+          </MDXProvider>
+        </MDXProvider>
+      )
+    ).toEqual('<h1>hi</h1><h2 style="color: papayawhip;">hello</h2>')
+  })
+
+  test('should support a `disableParentContext` prop (sandbox)', async () => {
+    const Content = await run('# hi')
+
+    expect(
+      render(
+        <MDXProvider
+          components={{
+            h1: props => <h1 style={{color: 'tomato'}} {...props} />
+          }}
+        >
+          <MDXProvider disableParentContext={true}>
+            <Content />
+          </MDXProvider>
+        </MDXProvider>
+      )
+    ).toEqual('<h1>hi</h1>')
+  })
 })
 
-it('allows removing of context components using the functional form', () => {
-  const components = {h1: H1, h2: H2}
+describe('withComponents', () => {
+  test('should support `withComponents`', async () => {
+    const Content = await run('# hi\n## hello')
+    const With = withMDXComponents(props => {
+      return <>{props.children}</>
+    })
 
-  const result = render(
-    <MDXProvider components={components}>
-      <MDXProvider components={_outerComponents => ({h2: CustomH2})}>
-        <Fixture />
-      </MDXProvider>
-    </MDXProvider>
-  )
-
-  // MDX pragma does not pick up original component context
-  expect(result).not.toMatch(/style="color:tomato"/)
-
-  // MDX pragma picks up overridden component context
-  expect(result).toMatch(/style="color: papayawhip;"/)
-})
-
-it('allows removing of context components when disableParentContext is set to true', () => {
-  const components = {h1: H1}
-
-  const result = render(
-    <MDXProvider components={components}>
-      <MDXProvider disableParentContext={true}>
-        <Fixture />
-      </MDXProvider>
-    </MDXProvider>
-  )
-
-  // MDX pragma does not pick up original component context
-  expect(result).not.toMatch(/style="color:tomato"/)
-})
-
-it('allows removing of context components from a composed component', () => {
-  const components = {h1: H1}
-
-  const result = render(
-    <MDXProvider components={components}>
-      <SandboxFixture />
-    </MDXProvider>
-  )
-
-  // MDX pragma does not pick up original component context
-  expect(result).not.toMatch(/tomato/)
-})
-
-it('passes prop components along', () => {
-  const result = render(<Fixture />)
-
-  expect(result).toMatch(/h3, h4/)
-})
-
-it('renders custom del', () => {
-  const result = render(
-    <MDXProvider components={{del: CustomDelete}}>
-      <Fixture />
-    </MDXProvider>
-  )
-
-  expect(result).toMatch(/style="color: crimson;"/)
+    // To do: should this use the `h2` component too?
+    expect(
+      render(
+        <MDXProvider
+          components={{
+            h1: props => <h1 style={{color: 'tomato'}} {...props} />
+          }}
+        >
+          <With
+            components={{
+              h2: props => <h2 style={{color: 'papayawhip'}} {...props} />
+            }}
+          >
+            <Content />
+          </With>
+        </MDXProvider>
+      )
+    ).toEqual('<h1 style="color: tomato;">hi</h1><h2>hello</h2>')
+  })
 })

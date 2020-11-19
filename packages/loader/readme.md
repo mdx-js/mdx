@@ -1,74 +1,100 @@
 # `@mdx-js/loader`
 
-[![Build Status][build-badge]][build]
-[![lerna][lerna-badge]][lerna]
-[![Join the community on Spectrum][spectrum-badge]][spectrum]
+[![Build][build-badge]][build]
+[![Downloads][downloads-badge]][downloads]
+[![Sponsors][sponsors-badge]][opencollective]
+[![Backers][backers-badge]][opencollective]
+[![Chat][chat-badge]][chat]
 
 Webpack loader for [MDX][].
 
-## Installation
+## Install
 
 [npm][]:
 
 ```sh
-npm i -D @mdx-js/loader
+npm install --save-dev @mdx-js/loader
 ```
 
-## Usage
+[yarn][]:
+
+```sh
+yarn add --dev @mdx-js/loader
+```
+
+## Use
 
 ```js
-// ...
+// …
 module: {
   rules: [
-    // ...
+    // …
     {
-      test: /\.mdx?$/,
+      test: /\.mdx$/,
       use: ['babel-loader', '@mdx-js/loader']
     }
   ]
 }
 ```
 
-The `renderer` option specifies a string that will be prepended to the generated
-source allowing for the use of any `createElement` implementation.
-By default, that string is:
+You’ll probably want to configure Babel to use `@babel/preset-react` or so, but
+that’s not required.
+
+All options given to `mdx-js/loader`, except for `renderer` (see below), are
+passed to MDX itself:
+
+```js
+// …
+{
+  test: /\.mdx$/,
+  use: [
+    // …
+    {
+      loader: '@mdx-js/loader',
+      options: {
+        remarkPlugins: [require('remark-slug'), require('remark-toc')],
+        rehypePlugins: [require('rehype-autolink-headings')]
+      }
+    }
+  ]
+}
+```
+
+The `renderer` option specifies a string that is added at the start of the
+generated source, so you can use a different `createElement` implementation.
+By default, that value is:
 
 ```js
 import React from 'react'
 import {mdx} from '@mdx-js/react'
 ```
 
-Using the `renderer` option, one can swap out React for another implementation.
-The example below wraps a generic JSX compatible function named `h`.
+Here a fictional alternative `createElement` is used:
 
 ```js
 const renderer = `
-import { h } from 'generic-implementation'
+import {h} from 'generic-implementation'
 
-const mdx = (function (createElement) {
-  return function (name, props, ...children) {
-    if (typeof name === 'string') {
-      if (name === 'wrapper') return children.map(createElement)
-      if (name === 'inlineCode') return createElement('code', props, ...children)
-    }
+const mdx = (name, props, ...children) => {
+  if (name === 'wrapper') return children.map(createElement)
+  if (name === 'inlineCode') return h('code', props, ...children)
 
-    return createElement(name, props, ...children)
-  }
-}(h))
+  return h(name, props, ...children)
+}
 `
 
-// ...
+// …
 module: {
   rules: [
-    // ...
+    // …
     {
-      test: /\.mdx?$/,
+      test: /\.mdx$/,
       use: [
         'babel-loader',
         {
-          loader: '@mdx-js/loader'
+          loader: '@mdx-js/loader',
           options: {
-            renderer,
+            renderer
           }
         }
       ]
@@ -77,27 +103,32 @@ module: {
 }
 ```
 
-For more information on why this is required, see [this post](https://mdxjs.com/blog/custom-pragma).
+For more information on why this is required, see [this post][custom-pragma].
 
 ## Contribute
 
-See the [Support][] and [Contributing][] guidelines on the MDX website for ways
-to (get) help.
+See [Contributing on `mdxjs.com`][contributing] for ways to get started.
+See [Support][] for ways to get help.
 
-This project has a [Code of Conduct][coc].
-By interacting with this repository, organisation, or community you agree to
+This project has a [code of conduct][coc].
+By interacting with this repository, organization, or community you agree to
 abide by its terms.
 
 ## License
 
 [MIT][] © [Compositor][] and [Vercel][]
 
-[build]: https://travis-ci.com/mdx-js/mdx
-[build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
-[lerna]: https://lernajs.io/
-[lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
-[spectrum]: https://spectrum.chat/mdx
-[spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
+[build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
+[build]: https://github.com/mdx-js/mdx/actions
+[downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/loader.svg
+[downloads]: https://www.npmjs.com/package/@mdx-js/loader
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+[opencollective]: https://opencollective.com/unified
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[chat]: https://github.com/mdx-js/mdx/discussions
+[npm]: https://docs.npmjs.com/cli/install
+[yarn]: https://yarnpkg.com/cli/add
 [contributing]: https://mdxjs.com/contributing
 [support]: https://mdxjs.com/support
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
@@ -105,4 +136,4 @@ abide by its terms.
 [compositor]: https://compositor.io
 [vercel]: https://vercel.com
 [mdx]: https://github.com/mdx-js/mdx
-[npm]: https://docs.npmjs.com/cli/install
+[custom-pragma]: https://mdxjs.com/blog/custom-pragma

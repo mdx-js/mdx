@@ -18,8 +18,7 @@ packages/gatsby-theme-mdx/src/components/search.js
 
 packages/remark-mdx
 
-# tmp
+# To do: Vue should be checked.
 examples/vue
-packages/vue
 
 readme.md
