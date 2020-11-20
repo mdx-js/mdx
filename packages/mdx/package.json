@@ -49,24 +49,21 @@
     "babel-plugin-apply-mdx-type-prop": "^2.0.0-next.8",
     "babel-plugin-extract-export-names": "^2.0.0-next.8",
     "babel-plugin-extract-import-names": "^2.0.0-next.8",
-    "camelcase-css": "2.0.1",
     "detab": "2.0.3",
     "hast-to-hyperscript": "9.0.0",
-    "hast-util-raw": "6.0.0",
     "lodash.uniq": "4.5.0",
     "mdast-util-to-hast": "9.1.0",
-    "remark-footnotes": "1.0.0",
     "remark-mdx": "^2.0.0-next.8",
     "remark-mdxjs": "^2.0.0-next.8",
     "remark-parse": "8.0.2",
     "remark-squeeze-paragraphs": "4.0.0",
     "unified": "9.0.0",
-    "unist-builder": "2.0.3",
-    "unist-util-visit": "2.0.3"
+    "unist-builder": "2.0.3"
   },
   "devDependencies": {
     "@mapbox/rehype-prism": "^0.5.0",
     "hast-util-select": "^4.0.0",
+    "remark-footnotes": "1.0.0",
     "rehype-katex": "^4.0.0",
     "remark-math": "^3.0.0"
   },

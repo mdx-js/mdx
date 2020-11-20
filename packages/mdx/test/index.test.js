@@ -3,8 +3,9 @@ const path = require('path')
 const babel = require('@babel/core')
 const {select} = require('hast-util-select')
 const prism = require('@mapbox/rehype-prism')
-const math = require('remark-math')
 const katex = require('rehype-katex')
+const footnotes = require('remark-footnotes')
+const math = require('remark-math')
 const prettier = require('prettier')
 
 const parse = code =>
@@ -307,7 +308,8 @@ test('Should process filepath and pass it to the plugins', async () => {
 
 test('Should parse and render footnotes', async () => {
   const result = await mdx(
-    'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote'
+    'This is a paragraph with a [^footnote]\n\n[^footnote]: Here is the footnote',
+    {remarkPlugins: [footnotes]}
   )
 
   expect(dropWhitespace(result)).toContain(
