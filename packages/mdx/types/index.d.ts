@@ -5,11 +5,10 @@ import {Plugin, Compiler, Processor} from 'unified'
 declare namespace mdx {
   interface Options {
     /**
-     * support footnotes
-     *
-     * @default true
+     * Path on disk to processed file
+     * @default undefined
      */
-    footnotes?: boolean
+    filepath?: string
 
     /**
      * skip the addition of 'export default' statement when serializing
@@ -37,13 +36,6 @@ declare namespace mdx {
      * @default []
      */
     rehypePlugins?: Plugin[]
-
-    /**
-     * compilers to customize output
-     *
-     * @default []
-     */
-    compilers?: Compiler[]
   }
 
   /**
