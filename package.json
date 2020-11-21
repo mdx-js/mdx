@@ -26,8 +26,9 @@
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
-    "test-only": "lerna run test --no-private",
-    "test": "yarn build && yarn lint && yarn test-only"
+    "test-mini": "lerna run test-api --no-private",
+    "test-complete": "lerna run test --no-private",
+    "test": "yarn build && yarn lint && yarn test-complete"
   },
   "dependencies": {},
   "devDependencies": {

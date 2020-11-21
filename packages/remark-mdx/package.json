@@ -34,10 +34,10 @@
   ],
   "scripts": {
     "format": "remark . -qfo && prettier . --write && xo --fix",
-    "test": "npm run format && npm run test-coverage",
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test/index.js",
-    "test-types": "dtslint types"
+    "test-types": "dtslint types",
+    "test": "yarn format && yarn test-coverage && yarn test-types"
   },
   "dependencies": {
     "parse-entities": "^2.0.0",
