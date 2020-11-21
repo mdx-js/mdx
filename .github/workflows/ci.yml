@@ -23,12 +23,8 @@ jobs:
         run: yarn --frozen-lockfile
         env:
           CI: 'true'
-      - name: Test (max)
-        if: contains(matrix.os, 'ubuntu')
+      - name: Test
         run: yarn test
-      - name: Test (min)
-        if: contains(matrix.os, 'windows')
-        run: yarn build && yarn test-mini
       # To do: macos isn’t used anymore
       - name: Publish CI tag to npm
         if: matrix.node == 12 && matrix.os == 'macOS-latest' && github.event_name == 'push' && github.ref	== 'refs/heads/master'
