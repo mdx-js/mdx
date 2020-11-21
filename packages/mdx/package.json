@@ -61,8 +61,6 @@
     "unist-builder": "2.0.3"
   },
   "devDependencies": {
-    "@mapbox/rehype-prism": "^0.5.0",
-    "hast-util-select": "^4.0.0",
     "remark-footnotes": "1.0.0",
     "rehype-katex": "^4.0.0",
     "remark-math": "^3.0.0"
