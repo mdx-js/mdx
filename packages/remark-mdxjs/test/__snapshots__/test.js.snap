@@ -1,51 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`correctly transpiles 1`] = `
-"import Foo from './bar'
+exports[`Handles an import that is later exported 1`] = `
+Array [
+  Object {
+    "type": "import",
+    "value": "import Layout from './Foo'
 
-export { Baz } from './foo';
-const makeShortcode = name => function MDXDefaultShortcode(props) {
-  console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
-  return <div {...props}/>
-};
-const Paragraph = makeShortcode(\\"Paragraph\\");
-const Button = makeShortcode(\\"Button\\");
-const MDXLayout = Foo
-export default function MDXContent({
-  components,
-  ...props
-}) {
-  return <MDXLayout {...props} components={components} mdxType=\\"MDXLayout\\">
-    <h1>{\`Hello, world! \`}
-      <Foo bar={{
-        baz: 'qux'
-      }} mdxType=\\"Foo\\" /></h1>
-    <Baz mdxType=\\"Baz\\">
-      <p>{\`Hi!\`}</p>
-    </Baz>
-    <Paragraph bg=\\"red.500\\" color=\\"white\\" mdxType=\\"Paragraph\\">
-      <p>{\`Foo\`}</p>
-    </Paragraph>
-    <Button mdxType=\\"Button\\">
-      <p>{\`Hi!\`}</p>
-    </Button>
-    <>
-      <p>{\`Foo\`}</p>
-    </>
-    <>
-      <p>{\`Foo\`}</p>
-    </>
-    <h1>
-      <p>{\`Hello, world!\`}</p>
-    </h1>
-  </MDXLayout>;
-}
-
-;
-MDXContent.isMDXComponent = true;"
+",
+  },
+  Object {
+    "default": true,
+    "type": "export",
+    "value": "export default Layout",
+  },
+]
 `;
 
-exports[`maintains the proper positional info 1`] = `
+exports[`Handles basic usecase of default export 1`] = `
+Array [
+  Object {
+    "default": true,
+    "type": "export",
+    "value": "export default props => <article {...props} />",
+  },
+]
+`;
+
+exports[`Handles const exports 1`] = `
+Array [
+  Object {
+    "type": "export",
+    "value": "export const metadata = { some: \\"stuff\\" }",
+  },
+]
+`;
+
+exports[`Handles export all 1`] = `
+Array [
+  Object {
+    "type": "export",
+    "value": "export * from './foo'",
+  },
+]
+`;
+
+exports[`Handles multiline default exports 1`] = `
+Array [
+  Object {
+    "default": true,
+    "type": "export",
+    "value": "export default props => (
+  <main {...props} />
+)",
+  },
+]
+`;
+
+exports[`Handles multiline exports 1`] = `
+Array [
+  Object {
+    "type": "export",
+    "value": "export const metadata = {
+  some: \\"stuff\\"
+}",
+  },
+]
+`;
+
+exports[`Separates import from the default export 1`] = `
+Array [
+  Object {
+    "type": "import",
+    "value": "import Foo from './foo'
+",
+  },
+  Object {
+    "default": true,
+    "type": "export",
+    "value": "export default props => <article {...props} />",
+  },
+]
+`;
+
+exports[`should maintain the proper positional info 1`] = `
 Object {
   "children": Array [
     Object {
@@ -585,7 +622,7 @@ Object {
 }
 `;
 
-exports[`removes newlines between imports and exports 1`] = `
+exports[`should remove newlines between imports and exports 1`] = `
 "import Foo1 from \\"./foo\\"
 import Foo2 from \\"./foo\\"
 import Foo3 from \\"./foo\\"
@@ -596,4 +633,49 @@ export default props => <article {...props} />
 
 export const fred = \\"flintstone\\"
 "
+`;
+
+exports[`should transpile 1`] = `
+"import Foo from './bar'
+
+export { Baz } from './foo';
+const makeShortcode = name => function MDXDefaultShortcode(props) {
+  console.warn(\\"Component \\" + name + \\" was not imported, exported, or provided by MDXProvider as global scope\\")
+  return <div {...props}/>
+};
+const Paragraph = makeShortcode(\\"Paragraph\\");
+const Button = makeShortcode(\\"Button\\");
+const MDXLayout = Foo
+export default function MDXContent({
+  components,
+  ...props
+}) {
+  return <MDXLayout {...props} components={components} mdxType=\\"MDXLayout\\">
+    <h1>{\`Hello, world! \`}
+      <Foo bar={{
+        baz: 'qux'
+      }} mdxType=\\"Foo\\" /></h1>
+    <Baz mdxType=\\"Baz\\">
+      <p>{\`Hi!\`}</p>
+    </Baz>
+    <Paragraph bg=\\"red.500\\" color=\\"white\\" mdxType=\\"Paragraph\\">
+      <p>{\`Foo\`}</p>
+    </Paragraph>
+    <Button mdxType=\\"Button\\">
+      <p>{\`Hi!\`}</p>
+    </Button>
+    <>
+      <p>{\`Foo\`}</p>
+    </>
+    <>
+      <p>{\`Foo\`}</p>
+    </>
+    <h1>
+      <p>{\`Hello, world!\`}</p>
+    </h1>
+  </MDXLayout>;
+}
+
+;
+MDXContent.isMDXComponent = true;"
 `;

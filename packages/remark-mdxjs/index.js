@@ -1,23 +1,20 @@
 const extractImportsAndExports = require('./extract-imports-and-exports')
 
 module.exports = mdxjs
-
 mdxjs.default = mdxjs
 
-tokenizeEsSyntax.locator = tokenizeEsSyntaxLocator
-
-function isImportOrExport(value) {
-  return /^(export|import)\s/.test(value)
-}
+tokenizeEsSyntax.notInBlock = true
 
 function mdxjs() {
   const parser = this.Parser
   const compiler = this.Compiler
 
+  // If `remark-parse` seems to be attached.
   if (parser && parser.prototype && parser.prototype.blockTokenizers) {
     attachParser(parser)
   }
 
+  // If `remark-stringify` seems to be attached.
   if (compiler && compiler.prototype && compiler.prototype.visitors) {
     attachCompiler(compiler)
   }
@@ -28,8 +25,6 @@ function attachParser(parser) {
   const methods = parser.prototype.blockMethods
 
   blocks.esSyntax = tokenizeEsSyntax
-
-  tokenizeEsSyntax.notInBlock = true
 
   methods.splice(methods.indexOf('paragraph'), 0, 'esSyntax')
 }
@@ -51,12 +46,8 @@ function tokenizeEsSyntax(eat, value) {
   const index = value.indexOf('\n\n')
   const subvalue = index !== -1 ? value.slice(0, index) : value
 
-  if (isImportOrExport(subvalue)) {
+  if (/^(export|import)\s/.test(value)) {
     const nodes = extractImportsAndExports(subvalue, this.file)
     nodes.map(node => eat(node.value)(node))
   }
-}
-
-function tokenizeEsSyntaxLocator(value, _fromIndex) {
-  return isImportOrExport(value) ? -1 : 1
 }
