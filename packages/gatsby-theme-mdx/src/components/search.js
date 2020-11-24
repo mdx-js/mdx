@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import {navigate} from 'gatsby'
 import {css} from 'theme-ui'
 import SearchIcon from './search-icon'
+import theme from './theme'
 
 const loadJs = () => import('./docsearch.min.js')
 
@@ -18,7 +19,7 @@ const important = styles => {
   return next
 }
 
-const styles = theme =>
+const styles = () =>
   important(
     css({
       display: 'flex',
@@ -42,7 +43,7 @@ const styles = theme =>
           }
         }
       }
-    })(theme)
+    })
   )
 
 export default props => {
@@ -130,8 +131,7 @@ export default props => {
         placeholder="Search"
         className="docsearch-input"
         title="Type `s` to search"
-        css={theme =>
-          css({
+        css={css({
             appearance: 'none',
             fontSize: 1,
             m: 0,
@@ -147,7 +147,7 @@ export default props => {
               outline: 'none',
               borderColor: theme.colors.primary
             }
-          })(theme)
+          })
         }
       />
     </form>

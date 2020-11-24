@@ -1502,6 +1502,9 @@ test('fixtures', function (t) {
         }
       }
 
+      // Windows.
+      expectedDoc = expectedDoc.replace(/\r\n/g, '\n')
+
       t.deepLooseEqual(tree, expected, input.stem + ' (tree)')
       t.deepEqual(doc, expectedDoc, input.stem + ' (doc)')
       t.deepEqual(reparsed, treeB, input.stem + ' (re)')

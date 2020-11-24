@@ -29,7 +29,9 @@
     "@babel/helper-plugin-utils": "7.10.4"
   },
   "scripts": {
-    "test": "jest test --coverage"
+    "test-api": "jest test",
+    "test-coverage": "jest test --coverage",
+    "test": "yarn test-coverage"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }
