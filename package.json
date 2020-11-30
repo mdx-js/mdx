@@ -34,10 +34,10 @@
     "test": "jest --runInBand --detectOpenHandles"
   },
   "devDependencies": {
-    "@babel/core": "7.11.6",
-    "@babel/plugin-syntax-jsx": "7.10.4",
-    "@babel/preset-env": "7.11.5",
-    "@babel/preset-react": "7.10.4",
+    "@babel/core": "7.12.9",
+    "@babel/plugin-syntax-jsx": "7.12.1",
+    "@babel/preset-env": "7.12.7",
+    "@babel/preset-react": "7.12.7",
     "@mapbox/rehype-prism": "0.5.0",
     "@mdx-js/mdx": "^1.6.17",
     "@mdx-js/react": "^1.6.17",
@@ -47,7 +47,7 @@
     "@vue/babel-preset-jsx": "1.2.4",
     "@vue/test-utils": "1.1.0",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
-    "babel-loader": "8.1.0",
+    "babel-loader": "8.2.2",
     "babel-plugin-macros": "2.8.0",
     "babel-plugin-remove-export-keywords": "^1.6.17",
     "babel-plugin-transform-vue-jsx": "4.0.1",
@@ -94,9 +94,9 @@
     "yarn-deduplicate": "3.1.0"
   },
   "resolutions": {
-    "@babel/core": "7.11.6",
-    "@babel/preset-env": "7.11.5",
-    "@babel/preset-react": "7.10.4",
+    "@babel/core": "7.12.9",
+    "@babel/preset-env": "7.12.7",
+    "@babel/preset-react": "7.12.7",
     "@babel/preset-typescript": "^7.9.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
