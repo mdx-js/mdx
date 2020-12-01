@@ -16,8 +16,13 @@
     "Matija Marohnić <matija.marohnic@gmail.com>",
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "JounQin <admin@1stg.me> (https://www.1stg.me)",
-    "Chris Biscardi <chris@christopherbiscardi.com> (https://www.christopherbiscardi.com)"
+    "Chris Biscardi <chris@christopherbiscardi.com> (https://www.christopherbiscardi.com)",
+    "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
+  "license": "MIT",
+  "main": "dist/cjs.js",
+  "module": "dist/esm.js",
+  "types": "types/index.d.ts",
   "license": "MIT",
   "main": "dist/mdx-preact.js",
   "module": "dist/mdx-preact.es.js",
@@ -26,7 +31,8 @@
     "require": "./dist/mdx-preact.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "types/index.d.ts"
   ],
   "keywords": [
     "mdx",
@@ -38,7 +44,8 @@
   ],
   "scripts": {
     "build": "microbundle -f modern,es,cjs src/index.js",
-    "test": "jest test --coverage"
+    "test": "jest test --coverage",
+    "test-types": "dtslint types"
   },
   "peerDependencies": {
     "preact": "^10.4.6"
