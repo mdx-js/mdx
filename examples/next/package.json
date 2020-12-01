@@ -1,6 +1,6 @@
 {
   "name": "next-example",
-  "version": "1.6.21",
+  "version": "1.6.22",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -8,8 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "1.6.21",
-    "@mdx-js/mdx": "1.6.21",
+    "@mdx-js/loader": "1.6.22",
+    "@mdx-js/mdx": "1.6.22",
     "@next/mdx": "^9.5.3",
     "next": "^9.5.3",
     "react": "^16.13.1",
