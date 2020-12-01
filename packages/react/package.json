@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/react",
-  "version": "2.0.0-next.7",
+  "version": "2.0.0-next.8",
   "description": "React implementation for MDX",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -19,8 +19,12 @@
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
-  "main": "dist/cjs.js",
-  "module": "dist/esm.js",
+  "main": "dist/mdx-react.js",
+  "module": "dist/mdx-react.es.js",
+  "exports": {
+    "import": "./dist/mdx-react.modern.js",
+    "require": "./dist/mdx-react.js"
+  },
   "types": "types/index.d.ts",
   "files": [
     "dist",
@@ -35,10 +39,19 @@
     "mdxast"
   ],
   "scripts": {
-    "test-types": "dtslint types"
+    "build": "microbundle -f modern,es,cjs src/index.js",
+    "test-api": "jest test",
+    "test-coverage": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "yarn test-coverage && yarn test-types"
   },
   "peerDependencies": {
     "react": "^16.13.1"
+  },
+  "devDependencies": {
+    "microbundle": "^0.12.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

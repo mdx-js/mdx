@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx",
-  "version": "2.0.0-next.7",
+  "version": "2.0.0-next.8",
   "description": "remark plugin to add support for mdx",
   "repository": "https://github.com/mdx-js/mdx/tree/master/packages/remark-mdx",
   "bugs": "https://github.com/mdx-js/mdx/issues",
@@ -33,11 +33,11 @@
     "mdx"
   ],
   "scripts": {
-    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
-    "test": "npm run format && npm run test-coverage",
+    "format": "remark . -qfo && prettier . --write && xo --fix",
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test/index.js",
-    "test-types": "dtslint types"
+    "test-types": "dtslint types",
+    "test": "yarn format && yarn test-coverage && yarn test-types"
   },
   "dependencies": {
     "parse-entities": "^2.0.0",
@@ -78,14 +78,18 @@
     ]
   },
   "xo": {
-    "prettier": true,
     "esnext": false,
+    "prettier": true,
+    "ignore": [
+      "types/"
+    ],
     "rules": {
+      "no-self-compare": "off",
+      "no-lonely-if": "off",
+      "unicorn/escape-case": "off",
       "unicorn/no-fn-reference-in-iterator": "off",
       "unicorn/no-hex-escape": "off",
-      "unicorn/escape-case": "off",
-      "no-self-compare": "off",
-      "no-lonely-if": "off"
+      "unicorn/prefer-optional-catch-binding": "off"
     }
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"

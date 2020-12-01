@@ -1,3 +1,5 @@
+/* @jsx React.createElement */
+/* @jsxFrag React.Fragment */
 import React from 'react'
 
 const isFunction = obj => typeof obj === 'function'

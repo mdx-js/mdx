@@ -1,6 +1,5 @@
 const {transformSync} = require('@babel/core')
 const declare = require('@babel/helper-plugin-utils').declare
-
 const syntaxJsxPlugin = require('@babel/plugin-syntax-jsx')
 const proposalObjectRestSpreadPlugin = require('@babel/plugin-proposal-object-rest-spread')
 
@@ -32,6 +31,7 @@ class BabelPluginExtractImportsAndExports {
             // Imports that are used in exports can end up as
             // ImportDeclarations with no start/end metadata,
             // these can be ignored
+            /* istanbul ignore if - To do: find a test to reproduce this. */
             if (start === undefined) {
               return
             }

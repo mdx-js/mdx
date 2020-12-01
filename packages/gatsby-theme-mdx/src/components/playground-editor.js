@@ -111,7 +111,7 @@ export default ({code, onChange = () => {}, scope = {}, ...props}) => {
           css={css({
             p: 3,
             border: '1px solid',
-            borderColor: theme.colors.lightgray,
+            borderColor: '#f6f6f6',
             width: '50%'
           })}
         />

@@ -1,6 +1,7 @@
 const {types: t} = require('@babel/core')
 const {declare} = require('@babel/helper-plugin-utils')
-const {startsWithCapitalLetter} = require('@mdx-js/util')
+
+const startsWithCapitalLetter = str => /^[A-Z]/.test(str)
 
 class BabelPluginApplyMdxTypeProp {
   constructor() {

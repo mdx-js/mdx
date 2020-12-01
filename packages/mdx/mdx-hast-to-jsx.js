@@ -3,7 +3,6 @@ const uniq = require('lodash.uniq')
 const {serializeTags} = require('remark-mdx/lib/serialize/mdx-element')
 const serializeMdxExpression = require('remark-mdx/lib/serialize/mdx-expression')
 const toH = require('hast-to-hyperscript')
-const {toTemplateLiteral} = require('@mdx-js/util')
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 const BabelPluginExtractExportNames = require('babel-plugin-extract-export-names')
@@ -36,17 +35,6 @@ function toJSX(node, parentNode = {}, options = {}) {
   }
 }
 
-function compile(options = {}) {
-  this.Compiler = function (tree) {
-    return toJSX(tree, {}, options)
-  }
-}
-
-module.exports = compile
-exports = compile
-exports.toJSX = toJSX
-exports.default = compile
-
 function serializeRoot(node, options) {
   const {
     // Default options
@@ -57,38 +45,28 @@ function serializeRoot(node, options) {
   const groups = {import: [], export: [], rest: []}
 
   for (const child of node.children) {
-    let kind = 'rest'
-
-    if (child.type === 'import' || child.type === 'export') {
-      kind = child.type
-    }
-
-    groups[kind].push(child)
+    groups[
+      child.type === 'import' || child.type === 'export' ? child.type : 'rest'
+    ].push(child)
   }
 
-  let layout
-
   // Find a default export, assumes there’s zero or one.
-  groups.export = groups.export.filter(child => {
-    if (child.default) {
-      layout = child.value
+  const defaultExport = groups.export.find(child => child.default)
+
+  const layout = defaultExport
+    ? defaultExport.value
         .replace(/^export\s+default\s+/, '')
         .replace(/;\s*$/, '')
-      return false
-    }
-
-    return true
-  })
+    : null
 
   const importStatements = groups.import
     .map(childNode => toJSX(childNode, node))
     .join('\n')
 
   const exportStatements = groups.export
+    .filter(child => !child.default)
     .map(childNode => toJSX(childNode, node))
     .join('\n')
-
-  const mdxLayout = `const MDXLayout = ${layout ? layout : '"wrapper"'}`
 
   const doc = groups.rest
     .map(childNode => toJSX(childNode, node, options))
@@ -108,6 +86,7 @@ MDXContent.isMDXComponent = true`
   const babelPluginExtractImportNamesInstance = new BabelPluginExtractImportNames()
   const babelPluginExtractExportNamesInstance = new BabelPluginExtractExportNames()
   const importsAndExports = [importStatements, exportStatements].join('\n')
+
   transformSync(importsAndExports, {
     configFile: false,
     babelrc: false,
@@ -118,9 +97,11 @@ MDXContent.isMDXComponent = true`
       babelPluginExtractExportNamesInstance.plugin
     ]
   })
+
   const importNames = babelPluginExtractImportNamesInstance.state.names
   const exportNames = babelPluginExtractExportNamesInstance.state.names
 
+  // Add `mdxType` props.
   const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
   const babelPluginApplyMdxPropToExportsInstance = new BabelPluginApplyMdxProp()
 
@@ -165,7 +146,7 @@ MDXContent.isMDXComponent = true`
   const moduleBase = `${importStatements}
 ${exportStatementsPostMdxTypeProps}
 ${fakedModulesForGlobalScope}
-${mdxLayout}`
+const MDXLayout = ${layout || '"wrapper"'}`
 
   if (skipExport) {
     return `${moduleBase}
@@ -219,12 +200,12 @@ function serializeComponent(node, options) {
 }
 
 function serializeText(node, options, parentNode) {
-  const preserveNewlines = options.preserveNewlines
   // Don't wrap newlines unless specifically instructed to by the flag,
   // to avoid issues like React warnings caused by text nodes in tables.
-  const shouldPreserveNewlines = preserveNewlines || parentNode.tagName === 'p'
+  const preserveNewlines =
+    options.preserveNewlines || parentNode.tagName === 'p'
 
-  if (node.value === '\n' && !shouldPreserveNewlines) {
+  if (node.value === '\n' && !preserveNewlines) {
     return node.value
   }
 
@@ -242,11 +223,7 @@ function serializeChildren(node, options) {
     preserveNewlines: options.preserveNewlines || node.tagName === 'pre'
   })
 
-  return children
-    .map(childNode => {
-      return toJSX(childNode, node, childOptions)
-    })
-    .join('\n')
+  return children.map(child => toJSX(child, node, childOptions)).join('\n')
 }
 
 // We only do this for the props, so we’re ignoring children.
@@ -259,3 +236,28 @@ function fakeReactCreateElement(name, props) {
     _owner: null
   }
 }
+
+function toTemplateLiteral(value) {
+  const escaped = value
+    .replace(/\\(?!\$)/g, '\\\\') // Escape all "\" to avoid unwanted escaping in text nodes
+    // and ignore "\$" since it's already escaped and is common
+    // with prettier https://github.com/mdx-js/mdx/issues/606
+    .replace(/`/g, '\\`') // Escape "`"" since
+    .replace(/(\\\$)/g, '\\$1') // Escape \$ so render it as it is
+    .replace(/(\\\$)(\{)/g, '\\$1\\$2') // Escape \${} so render it as it is
+    .replace(/\$\{/g, '\\${') // Escape ${} in text so that it doesn't eval
+
+  return '{`' + escaped + '`}'
+}
+
+function compile(options = {}) {
+  function compiler(tree) {
+    return toJSX(tree, undefined, options)
+  }
+
+  this.Compiler = compiler
+}
+
+module.exports = compile
+compile.default = compile
+compile.toJSX = toJSX

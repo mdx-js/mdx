@@ -1,59 +1,23 @@
-# `babel-plugin-html-attributes-to-jsx`
+# babel-plugin-html-attributes-to-jsx
 
-Coerce HTML attributes into something JSX and React
-friendly.Used by [MDX](https://mdxjs.com).
+[![Build][build-badge]][build]
+[![Downloads][downloads-badge]][downloads]
+[![Sponsors][sponsors-badge]][opencollective]
+[![Backers][backers-badge]][opencollective]
+[![Chat][chat-badge]][chat]
 
-## Installation
+Deprecated!
 
-```sh
-yarn add babel-plugin-html-attributes-to-jsx
-```
+Coerce HTML attributes into React properties.
+Created for but no longer used in [MDX](https://mdxjs.com).
 
-## Usage
-
-```js
-const babel = require('@babel/core')
-
-const plugin = require('babel-plugin-html-attributes-to-jsx')
-
-const jsx = `
-export const Foo = () => (
-  <div srcset="foo">
-    <Button />
-  </div>
-)
-`
-
-const plugin = new BabelPluginHtmlAttributesToJsx()
-
-const result = babel.transform(jsx, {
-  configFile: false,
-  plugins: ['@babel/plugin-syntax-jsx', plugin]
-})
-
-console.log(result.code)
-```
-
-### Input
-
-```js
-export const Foo = () => (
-  <div srcset="foo">
-    <Button />
-  </div>
-)
-```
-
-### Output
-
-```js
-const Foo = () => (
-  <div srcSet="foo">
-    <Button />
-  </div>
-)
-```
-
-## License
-
-MIT
+[build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
+[build]: https://github.com/mdx-js/mdx/actions
+[downloads-badge]: https://img.shields.io/npm/dm/babel-plugin-html-attributes-to-jsx.svg
+[downloads]: https://www.npmjs.com/package/babel-plugin-html-attributes-to-jsx
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+[opencollective]: https://opencollective.com/unified
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[chat]: https://github.com/mdx-js/mdx/discussions
+[mdx]: https://mdxjs.com

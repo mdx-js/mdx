@@ -1314,6 +1314,28 @@ test('stringify', function (t) {
 
   t.equal(
     basic.stringify(
+      u('paragraph', [u('link', {url: 'https://mdxjs.com'}, [])])
+    ),
+    '[](https://mdxjs.com)',
+    'should support links w/o content'
+  )
+
+  t.equal(
+    basic.stringify(u('paragraph', [u('link', {}, [u('text', '')])])),
+    '[](<>)',
+    'should support links w/o url'
+  )
+
+  t.equal(
+    basic.stringify(
+      u('paragraph', [u('link', {url: 'a', title: 'b'}, [u('text', 'c')])])
+    ),
+    '[c](a "b")',
+    'should support links w/ title'
+  )
+
+  t.equal(
+    basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
         u('mdxSpanElement', [
@@ -1479,6 +1501,9 @@ test('fixtures', function (t) {
           vfile.writeSync({path: fpExpectedDoc, contents: expectedDoc})
         }
       }
+
+      // Windows.
+      expectedDoc = expectedDoc.replace(/\r\n/g, '\n')
 
       t.deepLooseEqual(tree, expected, input.stem + ' (tree)')
       t.deepEqual(doc, expectedDoc, input.stem + ' (doc)')

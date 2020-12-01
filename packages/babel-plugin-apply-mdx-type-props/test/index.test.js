@@ -2,27 +2,10 @@ const babel = require('@babel/core')
 
 const BabelPluginApplyMdxTypeProp = require('..')
 
-const FIXTURE = `export const Foo = () => <div>
-  <Button />
-</div>;
-export default (() => <>
-  <h1>Hello!</h1>
-  <TomatoBox />
-</>);
-`
-
-const EXPECTED = `export const Foo = () => <div>
-  <Button mdxType="Button" />
-</div>;
-export default (() => <>
-  <h1>Hello!</h1>
-  <TomatoBox mdxType="TomatoBox" />
-</>);`
-
-const transform = str => {
+const transform = value => {
   const plugin = new BabelPluginApplyMdxTypeProp()
 
-  const result = babel.transform(str, {
+  const result = babel.transformSync(value, {
     configFile: false,
     plugins: [require('@babel/plugin-syntax-jsx'), plugin.plugin]
   })
@@ -34,15 +17,40 @@ const transform = str => {
 }
 
 describe('babel-plugin-add-mdx-type-prop', () => {
-  test('adds mdxType to custom components', () => {
-    const result = transform(FIXTURE)
-
-    expect(result.code).toEqual(EXPECTED)
+  test('should add `mdxType` to components', () => {
+    expect(transform('var d = <div><Button /></div>').code).toEqual(
+      'var d = <div><Button mdxType="Button" /></div>;'
+    )
   })
 
-  test('adds component names to state', () => {
-    const result = transform(FIXTURE)
+  test('should support (as in, ignore) fragments', () => {
+    expect(transform('var d = <><Button /></>').code).toEqual(
+      'var d = <><Button mdxType="Button" /></>;'
+    )
+  })
 
-    expect(result.state.names).toEqual(['Button', 'TomatoBox'])
+  // To do: this should probably be handled
+  test('should *not* support dot notation (object methods)', () => {
+    expect(transform('var d = <><a.b /></>').code).toEqual(
+      'var d = <><a.b /></>;'
+    )
+  })
+
+  test('should track used component names in state', () => {
+    expect(transform('var d = <Button />').state.names).toEqual(['Button'])
+  })
+
+  test('should track all component names', () => {
+    expect(
+      transform('var d = <><Button /><div /><TomatoBox /></>').state.names
+    ).toEqual(['Button', 'TomatoBox'])
+  })
+
+  // To do: is this useful?
+  test('should track duplicate component names', () => {
+    expect(transform('var d = <><Button /><Button /></>').state.names).toEqual([
+      'Button',
+      'Button'
+    ])
   })
 })

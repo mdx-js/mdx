@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx-remove-imports",
-  "version": "2.0.0-next.7",
+  "version": "2.0.0-next.8",
   "description": "Remove imports from the MDX AST",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -33,10 +33,18 @@
     "mdxast"
   ],
   "scripts": {
-    "test-types": "dtslint types"
+    "test-api": "jest test",
+    "test-coverage": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "yarn test-coverage && yarn test-types"
   },
   "dependencies": {
     "unist-util-remove": "2.0.0"
+  },
+  "devDependencies": {
+    "remark-parse": "^8.0.0",
+    "remark-stringify": "^8.0.0",
+    "unified": "^9.2.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

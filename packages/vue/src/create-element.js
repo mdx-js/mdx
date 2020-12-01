@@ -1,61 +1,71 @@
+import h from 'hastscript'
+import toH from 'hast-to-hyperscript'
+
 /**
  * MDX default components
  */
-const DEFAULTS = {
+const defaults = {
   inlineCode: 'code',
-  wrapper: 'div'
-}
-
-/**
- * Renders final tag/component
- * @param {Vue.Component|String} type Element or tag to render
- * @param {Object|Array} props Props and attributes for element
- * @param {Array} children Array of child nodes for component
- * @returns {Vue.VNode} VNode of final rendered element
- */
-export default function(type, props, children) {
-
-  const h = this.createElement
-  const components = this.components
-  const defaults = Object.keys(DEFAULTS)
-
-  let tag
-  let elProps = props
-
-  // We check context to see if the element/tag
-  // is provided in the MDXProvider context.
-  if (Object.keys(components).includes(type)) {
-    // We check to see if props is of type object.
-    // If it is, then we pass them into the MDXContext component
-    const componentProps = typeof props === 'object' ? props : undefined
-    tag = components[type](componentProps)
-
-  } else if (defaults.includes(type)) {
-
-    tag = DEFAULTS[type]
-    // Remove components object from attrs
-    const { components, ...attrs } = elProps.attrs
-    elProps = {
-      attrs
-    }
-
-  // Render final tag if component is not provided in context
-  } else {
-    tag = type
-
-    if (['a', 'input', 'img'].includes(tag)) {
-      const { attrs, ...domProps } = elProps
-      const data = {
-        attrs: attrs,
-        domProps
-      }
-
-      elProps = {
-        ...elProps,
-        ...data
-      }
+  wrapper: {
+    name: 'MDXWrapper',
+    render: function (h) {
+      const children = this.$slots.default
+      return children.length === 1 ? children : h('div', {}, children)
     }
   }
+}
 
-  return h(tag, elProps, children)
+const own = {}.hasOwnProperty
+
+export default function createMdxElement(type, props, ...children) {
+  let node
+
+  if (own.call(this.components, type)) {
+    type = this.components[type]
+  } else if (own.call(defaults, type)) {
+    type = defaults[type]
+  }
+
+  if (props && typeof props === 'object' && !Array.isArray(props)) {
+    // Empty.
+  } else {
+    children.unshift(props)
+    props = {}
+  }
+
+  children = children
+    .flatMap(d => (d == null ? [] : d))
+    .map(d =>
+      typeof d === 'number' || typeof d === 'string'
+        ? this.createElement('d', {}, String(d)).children[0]
+        : d
+    )
+
+  if (typeof type === 'string') {
+    node = toH(
+      this.createElement,
+      h(
+        type,
+        Object.assign({}, props, {
+          components: null,
+          mdxType: null,
+          parentName: null
+        })
+      ),
+      {prefix: false}
+    )
+    node.children = children
+    return node
+  }
+
+  // Just a render function.
+  if (typeof type === 'function') {
+    /* istanbul ignore next - V8 is really good at inferring names, but add a name anyway. */
+    const name = type.displayName || type.name || 'mdxFunction'
+
+    type = {name, render: type}
+  }
+
+  // Vue component.
+  return this.createElement(type, {props}, children)
 }

@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/runtime",
-  "version": "2.0.0-next.7",
+  "version": "2.0.0-next.8",
   "description": "Parse and render MDX in a runtime environment",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -38,15 +38,23 @@
     "mdxast"
   ],
   "scripts": {
-    "test-types": "dtslint types"
+    "test-api": "jest test",
+    "test-coverage": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "yarn test-coverage && yarn test-types"
   },
   "peerDependencies": {
     "react": "^16.13.1"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0-next.7",
-    "@mdx-js/react": "^2.0.0-next.7",
+    "@mdx-js/mdx": "^2.0.0-next.8",
+    "@mdx-js/react": "^2.0.0-next.8",
     "buble-jsx-only": "^0.19.8"
+  },
+  "devDependencies": {
+    "rehype-add-classes": "^1.0.0",
+    "remark-autolink-headings": "^6.0.0",
+    "remark-slug": "^6.0.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

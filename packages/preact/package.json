@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/preact",
-  "version": "2.0.0-next.7",
+  "version": "2.0.0-next.8",
   "description": "Preact implementation for MDX",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -16,12 +16,20 @@
     "Matija Marohnić <matija.marohnic@gmail.com>",
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "JounQin <admin@1stg.me> (https://www.1stg.me)",
+    "Chris Biscardi <chris@christopherbiscardi.com> (https://www.christopherbiscardi.com)",
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
   "types": "types/index.d.ts",
+  "license": "MIT",
+  "main": "dist/mdx-preact.js",
+  "module": "dist/mdx-preact.es.js",
+  "exports": {
+    "import": "./dist/mdx-preact.modern.js",
+    "require": "./dist/mdx-preact.js"
+  },
   "files": [
     "dist",
     "types/index.d.ts"
@@ -35,14 +43,17 @@
     "mdxast"
   ],
   "scripts": {
+    "build": "microbundle -f modern,es,cjs src/index.js",
+    "test": "jest test --coverage",
     "test-types": "dtslint types"
   },
   "peerDependencies": {
     "preact": "^10.4.6"
   },
   "devDependencies": {
-    "preact": "10.4.1",
-    "preact-render-to-string": "5.1.10"
+    "microbundle": "^0.12.0",
+    "preact": "^10.5.0",
+    "preact-render-to-string": "^5.1.10"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

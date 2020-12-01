@@ -3,10 +3,10 @@ const mdx = require('@mdx-js/mdx')
 
 const DEFAULT_RENDERER = `
 import React from 'react'
-import { mdx } from '@mdx-js/react'
+import {mdx} from '@mdx-js/react'
 `
 
-const loader = async function (content) {
+module.exports = async function (content) {
   const callback = this.async()
   const options = Object.assign({}, getOptions(this), {
     filepath: this.resourcePath
@@ -25,5 +25,3 @@ const loader = async function (content) {
   const code = `${renderer}\n${result}`
   return callback(null, code)
 }
-
-module.exports = loader

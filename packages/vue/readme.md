@@ -1,88 +1,98 @@
-[![Build Status][build-badge]][build]
-[![lerna][lerna-badge]][lerna]
-[![Join the community on Spectrum][spectrum-badge]][spectrum]
+# `@mdx-js/vue`
 
-`@mdx-js/vue` works together with the `@mdx-js/vue-loader` to map Vue components to HTML elements based on the Markdown syntax.
+[![Build][build-badge]][build]
+[![Downloads][downloads-badge]][downloads]
+[![Sponsors][sponsors-badge]][opencollective]
+[![Backers][backers-badge]][opencollective]
+[![Chat][chat-badge]][chat]
 
-This module also exports the `MDXProvider` that accepts an object with a map of all components you to be rendered in the HTML.
+Vue renderer for [MDX][]: JSX in Markdown.
 
-## Installation
+## Install
 
-```bash
-npm install --save @mdx-js/vue
+[npm][]:
+
+```sh
+npm install @mdx-js/vue
 ```
 
-## Usage
+[yarn][]:
 
-In your Markdown file:
+```sh
+yarn add @mdx-js/vue
+```
+
+## Use
+
+Say we have the following code in `example.mdx`:
 
 ```markdown
-<!-- helloworld.md -->
-
-# Hello, Vue!
+# Hello, world! {1 + 1}
 ```
 
-In your `main.js`:
+And our script, `example.jsx`:
 
 ```jsx
 import Vue from 'vue'
-import { MDXProvider } from '@mdx-js/vue'
-import HelloWorld from 'helloworld.md'
+import {MDXProvider} from '@mdx-js/vue'
+import Example from './example.mdx'
 
-const components: {
-  h1: props => ({
+const components = {
+  h1: {
     render(h) {
-      return (
-        <h1 style={{ color: 'tomato' }} {...props} >
-          {this.$slots.default}
-        </h1>
-      )
+      return h('h1', {style: {color: 'tomato'}}, this.$slots.default)
     }
-  })
+  }
 }
 
 new Vue({
   el: '#app',
   render(h) {
-    return (
-      <MDXProvider components={components}>
-        <HelloWorld />
-      </MDXProvider>
-    )
+    return h(MDXProvider, {props: {components}}, Example)
   }
 }).$mount()
 ```
 
-Yields:
+Now, building, bundling, and finally running it, yields:
 
 ```html
-<h1 style="color:tomato">Hello, Vue!</h1>
+<div>
+  <h1 style="color: tomato;">Hello, world! 2</h1>
+</div>
 ```
+
+Note that you must configure whatever you use to load `.mdx` files to work with
+Vue.
+That can be done with `@mdx-js/vue-loader` in webpack.
 
 ## Contribute
 
-See the [Support][] and [Contributing][] guidelines on the MDX website for ways
-to (get) help.
+See [Contributing on `mdxjs.com`][contributing] for ways to get started.
+See [Support][] for ways to get help.
 
-This project has a [Code of Conduct][coc].
-By interacting with this repository, organisation, or community you agree to
+This project has a [code of conduct][coc].
+By interacting with this repository, organization, or community you agree to
 abide by its terms.
 
 ## License
 
 [MIT][] © [Compositor][] and [Vercel][]
 
-[build]: https://travis-ci.com/mdx-js/mdx
-[build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
-[lerna]: https://lernajs.io/
-[lerna-badge]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
-[spectrum]: https://spectrum.chat/mdx
-[spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
+[build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
+[build]: https://github.com/mdx-js/mdx/actions
+[downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/vue.svg
+[downloads]: https://www.npmjs.com/package/@mdx-js/vue
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+[opencollective]: https://opencollective.com/unified
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[chat]: https://github.com/mdx-js/mdx/discussions
+[mdx]: https://mdxjs.com
+[npm]: https://docs.npmjs.com/cli/install
+[yarn]: https://yarnpkg.com/cli/add
 [contributing]: https://mdxjs.com/contributing
 [support]: https://mdxjs.com/support
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 [mit]: license
 [compositor]: https://compositor.io
 [vercel]: https://vercel.com
-[mdx]: https://github.com/mdx-js/mdx
-[npm]: https://docs.npmjs.com/cli/install
