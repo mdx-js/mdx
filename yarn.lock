@@ -14954,10 +14954,10 @@ hast-util-raw@6.0.1:
     xtend "^4.0.0"
     zwitch "^1.0.0"
 
-hast-util-select@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/hast-util-select/-/hast-util-select-4.0.1.tgz#bca4e008e8fe84910bf280d15907e27f38737dd6"
-  integrity sha512-hoYtggddij36sDkOIQUy5OAiqfLE7SKNqKgdPFfoCxPe+BA/VtqoQ/mfPcR4YLDILxyHQDRLiExAjgEGAfSMNA==
+hast-util-select@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/hast-util-select/-/hast-util-select-4.0.2.tgz#ae3ef2860e02cda2ad3a2e72b47c1f5e8f44e9e7"
+  integrity sha512-8EEG2//bN5rrzboPWD2HdS3ugLijNioS1pqOTIolXNf67xxShYw4SQEmVXd3imiBG+U2bC2nVTySr/iRAA7Cjg==
   dependencies:
     bcp-47-match "^1.0.0"
     comma-separated-tokens "^1.0.0"
@@ -14968,7 +14968,7 @@ hast-util-select@4.0.1:
     hast-util-to-string "^1.0.0"
     hast-util-whitespace "^1.0.0"
     not "^0.1.0"
-    nth-check "^1.0.0"
+    nth-check "^2.0.0"
     property-information "^5.0.0"
     space-separated-tokens "^1.0.0"
     unist-util-visit "^2.0.0"
@@ -20347,12 +20347,19 @@ npmlog@^4.1.2:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-nth-check@^1.0.0, nth-check@^1.0.1, nth-check@^1.0.2, nth-check@~1.0.1:
+nth-check@^1.0.1, nth-check@^1.0.2, nth-check@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nth-check/-/nth-check-1.0.2.tgz#b2bd295c37e3dd58a3bf0700376663ba4d9cf05c"
   integrity sha512-WeBOdju8SnzPN5vTUJYxYUxLeXpCaVP5i5e0LF8fg7WORF2Wd7wFX/pk0tYZk7s8T+J7VLy0Da6J1+wCT0AtHg==
   dependencies:
     boolbase "~1.0.0"
+
+nth-check@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/nth-check/-/nth-check-2.0.0.tgz#1bb4f6dac70072fc313e8c9cd1417b5074c0a125"
+  integrity sha512-i4sc/Kj8htBrAiH1viZ0TgU8Y5XqCaV/FziYK6TBczxmeKm3AEFWqqF3195yKudrarqy7Zu80Ra5dobFjn9X/Q==
+  dependencies:
+    boolbase "^1.0.0"
 
 null-loader@^3.0.0:
   version "3.0.0"

@@ -60,7 +60,7 @@
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-react": "7.21.5",
     "gatsby": "2.25.3",
-    "hast-util-select": "4.0.1",
+    "hast-util-select": "4.0.2",
     "husky": "4.3.0",
     "jest": "26.6.3",
     "lerna": "3.22.1",
