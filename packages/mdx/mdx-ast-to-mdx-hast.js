@@ -53,16 +53,8 @@ function mdxAstToMdxHast() {
             h(node, 'code', props, [u('text', value)])
           ])
         },
-        // To do: rename to `mdxJsImport`
-        import(h, node) {
-          return Object.assign({}, node, {type: 'import'})
-        },
-        // To do: rename to `mdxJsExport`
-        export(h, node) {
-          return Object.assign({}, node, {type: 'export'})
-        },
         mdxjsEsm(h, node) {
-          return Object.assign({}, node, {type: 'mdxjsEsm'})
+          return node
         },
         mdxJsxFlowElement(h, node) {
           return Object.assign({}, node, {children: all(h, node)})
@@ -71,10 +63,10 @@ function mdxAstToMdxHast() {
           return Object.assign({}, node, {children: all(h, node)})
         },
         mdxFlowExpression(h, node) {
-          return Object.assign({}, node, {type: 'mdxFlowExpression'})
+          return node
         },
         mdxTextExpression(h, node) {
-          return Object.assign({}, node, {type: 'mdxTextExpression'})
+          return node
         }
       }
     })
