@@ -63,20 +63,22 @@ describe('@mdx-js/runtime', () => {
     expect(() => {
       renderToString(<MDX children={'<//>'} />)
     }).toThrow(
-      'Unexpected character `/` (U+002F) before name, expected an opening tag first as there are no open elements'
+      'Unexpected character `/` (U+002F) before name, expected a character that can start a name'
     )
   })
 
   it('should crash if non-syntactical JSX in JS is used', async () => {
     expect(() => {
       renderToString(<MDX children={'{<//>}'} />)
-    }).toThrow('Unexpected token')
+    }).toThrow(
+      'Could not parse expression with acorn: SyntaxError: Unexpected token'
+    )
   })
 
   it('should crash if non-syntactical JS is used', async () => {
     expect(() => {
       renderToString(<MDX children={'{1..2}'} />)
-    }).toThrow('Unexpected token')
+    }).toThrow('Unexpected content after expression')
   })
 
   it('should crash if JS can’t be evaluated', async () => {

@@ -8,20 +8,41 @@ let vfile = require('to-vfile')
 let unified = require('unified')
 let parse = require('remark-parse')
 let stringify = require('remark-stringify')
+let remove = require('unist-util-remove-position')
+let visit = require('unist-util-visit')
 let mdx = require('..')
 
 let base = path.join(__dirname, 'fixtures')
 
 test('parse', function (t) {
-  let basic = unified().use(parse, {position: false}).use(mdx)
+  let basic = unified().use(parse).use(mdx)
+
+  t.test('MDX vs. MDX.js', function (t) {
+    t.deepEqual(
+      clean(unified().use(parse).use(mdx, {js: false}).parse('{1 + /* } */ 2}').children[0]),
+      u('paragraph', [
+        u('mdxTextExpression', '1 + /* '),
+        u('text', ' */ 2}')
+      ]),
+      'should count braces in agnostic mode (`js: false`)'
+    )
+
+    t.deepEqual(
+      clean(unified().use(parse).use(mdx).parse('{1 + /* } */ 2}').children[0]),
+      u('mdxFlowExpression', {data: {estree: null}}, '1 + /* } */ 2'),
+      'should parse expressions in gnostic mode (default)'
+    )
+
+    t.end()
+  })
 
   t.test('basics', function (t) {
     t.deepEqual(
-      basic.parse('Alpha <b/> charlie.'),
+      clean(basic.parse('Alpha <b/> charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'b', attributes: []}, []),
+          u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
           u('text', ' charlie.')
         ])
       ]),
@@ -29,11 +50,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b></b> charlie.'),
+      clean(basic.parse('Alpha <b></b> charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'b', attributes: []}, []),
+          u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
           u('text', ' charlie.')
         ])
       ]),
@@ -41,11 +62,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <></> charlie.'),
+      clean(basic.parse('Alpha <></> charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: null, attributes: []}, []),
+          u('mdxJsxTextElement', {name: null, attributes: []}, []),
           u('text', ' charlie.')
         ])
       ]),
@@ -53,11 +74,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b>*bravo*</b> charlie.'),
+      clean(basic.parse('Alpha <b>*bravo*</b> charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'b', attributes: []}, [
+          u('mdxJsxTextElement', {name: 'b', attributes: []}, [
             u('emphasis', [u('text', 'bravo')])
           ]),
           u('text', ' charlie.')
@@ -67,11 +88,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha {1 + 1} charlie.'),
+      clean(basic.parse('Alpha {1 + 1} charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanExpression', '1 + 1'),
+          u('mdxTextExpression', {data: {estree: null}}, '1 + 1'),
           u('text', ' charlie.')
         ])
       ]),
@@ -86,7 +107,7 @@ test('parse', function (t) {
       function () {
         basic.parse('Alpha <b> charlie.')
       },
-      /Unexpected end of file in element, expected a corresponding MDX closing tag for `<b>` \(1:7-1:10\)/,
+      /Cannot close `paragraph` \(1:1-1:19\): a different token \(`mdxJsxTextTag`, 1:7-1:10\) is open/,
       'should crash on an unclosed element'
     )
 
@@ -94,16 +115,16 @@ test('parse', function (t) {
       function () {
         basic.parse('Alpha <> charlie.')
       },
-      /Unexpected end of file in element, expected a corresponding MDX closing tag for `<>` \(1:7-1:9\)/,
+      /Cannot close `paragraph` \(1:1-1:18\): a different token \(`mdxJsxTextTag`, 1:7-1:9\) is open/,
       'should crash on an unclosed fragment'
     )
 
     t.deepEqual(
-      basic.parse('Alpha < \t>bravo</>.'),
+      clean(basic.parse('Alpha < \t>bravo</>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: null, attributes: []}, [
+          u('mdxJsxTextElement', {name: null, attributes: []}, [
             u('text', 'bravo')
           ]),
           u('text', '.')
@@ -113,11 +134,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha < \nb\t>bravo</b>.'),
+      clean(basic.parse('Alpha < \nb\t>bravo</b>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'b', attributes: []}, [
+          u('mdxJsxTextElement', {name: 'b', attributes: []}, [
             u('text', 'bravo')
           ]),
           u('text', '.')
@@ -143,11 +164,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <π /> bravo.'),
+      clean(basic.parse('Alpha <π /> bravo.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'π', attributes: []}, []),
+          u('mdxJsxTextElement', {name: 'π', attributes: []}, []),
           u('text', ' bravo.')
         ])
       ]),
@@ -163,11 +184,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <a\u200cb /> bravo.'),
+      clean(basic.parse('Alpha <a\u200cb /> bravo.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'a\u200cb', attributes: []}, []),
+          u('mdxJsxTextElement', {name: 'a\u200cb', attributes: []}, []),
           u('text', ' bravo.')
         ])
       ]),
@@ -183,11 +204,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <a-->bravo</a-->.'),
+      clean(basic.parse('Alpha <a-->bravo</a-->.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'a--', attributes: []}, [
+          u('mdxJsxTextElement', {name: 'a--', attributes: []}, [
             u('text', 'bravo')
           ]),
           u('text', '.')
@@ -205,11 +226,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <abc . def.ghi>bravo</abc.def . ghi>.'),
+      clean(basic.parse('Alpha <abc . def.ghi>bravo</abc.def . ghi>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'abc.def.ghi', attributes: []}, [
+          u('mdxJsxTextElement', {name: 'abc.def.ghi', attributes: []}, [
             u('text', 'bravo')
           ]),
           u('text', '.')
@@ -219,11 +240,11 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <svg: rect>bravo</  svg :rect>.'),
+      clean(basic.parse('Alpha <svg: rect>bravo</  svg :rect>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'svg:rect', attributes: []}, [
+          u('mdxJsxTextElement', {name: 'svg:rect', attributes: []}, [
             u('text', 'bravo')
           ]),
           u('text', '.')
@@ -289,17 +310,25 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b {...props} {...rest}>charlie</b>.'),
+      clean(basic.parse('Alpha <b {...props} {...rest}>charlie</b>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'b',
               attributes: [
-                u('mdxAttributeExpression', '...props'),
-                u('mdxAttributeExpression', '...rest')
+                u(
+                  'mdxJsxExpressionAttribute',
+                  {data: {estree: null}},
+                  '...props'
+                ),
+                u(
+                  'mdxJsxExpressionAttribute',
+                  {data: {estree: null}},
+                  '...rest'
+                )
               ]
             },
             [u('text', 'charlie')]
@@ -311,14 +340,16 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('<a{...b}/>.'),
+      clean(basic.parse('<a{...b}/>.')),
       u('root', [
         u('paragraph', [
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'a',
-              attributes: [u('mdxAttributeExpression', '...b')]
+              attributes: [
+                u('mdxJsxExpressionAttribute', {data: {estree: null}}, '...b')
+              ]
             },
             []
           ),
@@ -329,14 +360,16 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('<a.b{...c}/>.'),
+      clean(basic.parse('<a.b{...c}/>.')),
       u('root', [
         u('paragraph', [
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'a.b',
-              attributes: [u('mdxAttributeExpression', '...c')]
+              attributes: [
+                u('mdxJsxExpressionAttribute', {data: {estree: null}}, '...c')
+              ]
             },
             []
           ),
@@ -347,14 +380,16 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('<a:b{...c}/>.'),
+      clean(basic.parse('<a:b{...c}/>.')),
       u('root', [
         u('paragraph', [
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'a:b',
-              attributes: [u('mdxAttributeExpression', '...c')]
+              attributes: [
+                u('mdxJsxExpressionAttribute', {data: {estree: null}}, '...c')
+              ]
             },
             []
           ),
@@ -365,17 +400,17 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b c{...d}/>.'),
+      clean(basic.parse('Alpha <b c{...d}/>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'b',
               attributes: [
-                u('mdxAttribute', {name: 'c', value: null}),
-                u('mdxAttributeExpression', '...d')
+                u('mdxJsxAttribute', {name: 'c', value: null}),
+                u('mdxJsxExpressionAttribute', {data: {estree: null}}, '...d')
               ]
             },
             []
@@ -387,17 +422,17 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b c:d{...e}/>.'),
+      clean(basic.parse('Alpha <b c:d{...e}/>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'b',
               attributes: [
-                u('mdxAttribute', {name: 'c:d', value: null}),
-                u('mdxAttributeExpression', '...e')
+                u('mdxJsxAttribute', {name: 'c:d', value: null}),
+                u('mdxJsxExpressionAttribute', {data: {estree: null}}, '...e')
               ]
             },
             []
@@ -409,18 +444,22 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b alpha {...props} bravo>charlie</b>.'),
+      clean(basic.parse('Alpha <b alpha {...props} bravo>charlie</b>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'b',
               attributes: [
-                u('mdxAttribute', {name: 'alpha', value: null}),
-                u('mdxAttributeExpression', '...props'),
-                u('mdxAttribute', {name: 'bravo', value: null})
+                u('mdxJsxAttribute', {name: 'alpha', value: null}),
+                u(
+                  'mdxJsxExpressionAttribute',
+                  {data: {estree: null}},
+                  '...props'
+                ),
+                u('mdxJsxAttribute', {name: 'bravo', value: null})
               ]
             },
             [u('text', 'charlie')]
@@ -432,18 +471,21 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b c     d="d"\t\tefg=\'e\'>charlie</b>.'),
+      clean(
+        basic.parse('Alpha <b c     d="d"\t\tefg=\'e\'>charlie</b>.'),
+        true
+      ),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'b',
               attributes: [
-                u('mdxAttribute', {name: 'c', value: null}),
-                u('mdxAttribute', {name: 'd'}, 'd'),
-                u('mdxAttribute', {name: 'efg'}, 'e')
+                u('mdxJsxAttribute', {name: 'c', value: null}),
+                u('mdxJsxAttribute', {name: 'd'}, 'd'),
+                u('mdxJsxAttribute', {name: 'efg'}, 'e')
               ]
             },
             [u('text', 'charlie')]
@@ -466,7 +508,7 @@ test('parse', function (t) {
       function () {
         basic.parse('Alpha <b {...')
       },
-      /Unexpected end of file in attribute expression, expected a corresponding closing brace for `{`/,
+      /Unexpected end of file in expression, expected a corresponding closing brace for `{`/,
       'should crash on a missing closing brace in attribute expression'
     )
 
@@ -479,17 +521,20 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b xml :\tlang\n= "de-CH" foo:bar>charlie</b>.'),
+      clean(
+        basic.parse('Alpha <b xml :\tlang\n= "de-CH" foo:bar>charlie</b>.'),
+        true
+      ),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'b',
               attributes: [
-                u('mdxAttribute', {name: 'xml:lang'}, 'de-CH'),
-                u('mdxAttribute', {name: 'foo:bar', value: null})
+                u('mdxJsxAttribute', {name: 'xml:lang'}, 'de-CH'),
+                u('mdxJsxAttribute', {name: 'foo:bar', value: null})
               ]
             },
             [u('text', 'charlie')]
@@ -501,19 +546,19 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b a b : c d : e = "f" g/>.'),
+      clean(basic.parse('Alpha <b a b : c d : e = "f" g/>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'b',
               attributes: [
-                u('mdxAttribute', {name: 'a', value: null}),
-                u('mdxAttribute', {name: 'b:c', value: null}),
-                u('mdxAttribute', {name: 'd:e'}, 'f'),
-                u('mdxAttribute', {name: 'g', value: null})
+                u('mdxJsxAttribute', {name: 'a', value: null}),
+                u('mdxJsxAttribute', {name: 'b:c', value: null}),
+                u('mdxJsxAttribute', {name: 'd:e'}, 'f'),
+                u('mdxJsxAttribute', {name: 'g', value: null})
               ]
             },
             []
@@ -557,18 +602,22 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <b c={1 + 1}>charlie</b>.'),
+      clean(basic.parse('Alpha <b c={1 + 1}>charlie</b>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'b',
               attributes: [
-                u('mdxAttribute', {
+                u('mdxJsxAttribute', {
                   name: 'c',
-                  value: u('mdxValueExpression', '1 + 1')
+                  value: u(
+                    'mdxJsxAttributeValueExpression',
+                    {data: {estree: null}},
+                    '1 + 1'
+                  )
                 })
               ]
             },
@@ -608,7 +657,7 @@ test('parse', function (t) {
       function () {
         basic.parse('Alpha <a b={> charlie.')
       },
-      /Unexpected end of file in attribute value expression, expected a corresponding closing brace for `{`/,
+      /Unexpected end of file in expression, expected a corresponding closing brace for `{`/,
       'should crash on a missing closing brace in an attribute value expression'
     )
 
@@ -621,16 +670,16 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('<a b=""c/>.'),
+      clean(basic.parse('<a b=""c/>.')),
       u('root', [
         u('paragraph', [
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'a',
               attributes: [
-                u('mdxAttribute', {name: 'b'}, ''),
-                u('mdxAttribute', {name: 'c', value: null})
+                u('mdxJsxAttribute', {name: 'b'}, ''),
+                u('mdxJsxAttribute', {name: 'c', value: null})
               ]
             },
             []
@@ -642,16 +691,16 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('<a{...b}c/>.'),
+      clean(basic.parse('<a{...b}c/>.')),
       u('root', [
         u('paragraph', [
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'a',
               attributes: [
-                u('mdxAttributeExpression', '...b'),
-                u('mdxAttribute', {name: 'c', value: null})
+                u('mdxJsxExpressionAttribute', {data: {estree: null}}, '...b'),
+                u('mdxJsxAttribute', {name: 'c', value: null})
               ]
             },
             []
@@ -671,10 +720,10 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('<a/ \t>.'),
+      clean(basic.parse('<a/ \t>.')),
       u('root', [
         u('paragraph', [
-          u('mdxSpanElement', {name: 'a', attributes: []}, []),
+          u('mdxJsxTextElement', {name: 'a', attributes: []}, []),
           u('text', '.')
         ])
       ]),
@@ -706,19 +755,19 @@ test('parse', function (t) {
     }, 'should *not* crash on opening curly in tick code in an element')
 
     t.doesNotThrow(function () {
-      basic.parse('<>```\n<\n```</>')
+      basic.parse('<>\n```\n<\n```\n</>')
     }, 'should *not* crash on opening angle in tick block code in an element')
 
     t.doesNotThrow(function () {
-      basic.parse('<>```\n{\n```</>')
-    }, 'should *not* crash on opening curly in tick code in an element')
+      basic.parse('<>\n```\n{\n```\n</>')
+    }, 'should *not* crash on opening curly in tick block code in an element')
 
     t.doesNotThrow(function () {
-      basic.parse('<>~~~\n<\n~~~</>')
+      basic.parse('<>\n~~~\n<\n~~~\n</>')
     }, 'should *not* crash on opening angle in tilde block code in an element')
 
     t.doesNotThrow(function () {
-      basic.parse('<>~~~\n{\n~~~</>')
+      basic.parse('<>\n~~~\n{\n~~~\n</>')
     }, 'should *not* crash on opening curly in tilde block code in an element')
 
     t.doesNotThrow(function () {
@@ -729,75 +778,23 @@ test('parse', function (t) {
       basic.parse('Alpha <>~~ ~~~ ~~</>')
     }, 'should *not* crash on tildes in tilde code in an element')
 
-    t.throws(
-      function () {
-        basic.parse('Alpha <>`')
-      },
-      /Unexpected end of file in code, expected a corresponding fence for `` ` ``/,
-      'should crash on unclosed tick code (eof in opening)'
-    )
-
-    t.throws(
-      function () {
-        basic.parse('Alpha <>` charlie.')
-      },
-      /Unexpected end of file in code, expected a corresponding fence for `` ` ``/,
-      'should crash on unclosed tick code (eof in content)'
-    )
-
-    t.throws(
-      function () {
-        basic.parse('Alpha <>`` `charlie`')
-      },
-      /Unexpected end of file in code, expected a corresponding fence for `` ` ``/,
-      'should crash on unclosed tick code (eof in closing)'
-    )
-
-    t.throws(
-      function () {
-        basic.parse('Alpha <>` charlie.`')
-      },
-      /Unexpected end of file in element, expected a corresponding MDX closing tag for `<>` \(1:7-1:9\)/,
-      'should crash directly after closed tick code (eof after close)'
-    )
+    t.doesNotThrow(function () {
+      basic.parse('Alpha <>`</>')
+    }, 'should *not* crash on unclosed tick code')
 
     t.throws(
       function () {
         basic.parse('<>\n~~~')
       },
-      /Unexpected end of file in code, expected a corresponding fence for `~`/,
-      'should crash on unclosed tilde code (eof in opening)'
-    )
-
-    t.throws(
-      function () {
-        basic.parse('<>\n~~~\ncharlie.')
-      },
-      /Unexpected end of file in code, expected a corresponding fence for `~`/,
-      'should crash on unclosed tilde code (eof in content)'
-    )
-
-    t.throws(
-      function () {
-        basic.parse('<>\n~~~\n~charlie~\n~')
-      },
-      /Unexpected end of file in code, expected a corresponding fence for `~`/,
-      'should crash on unclosed tilde code (eof in closing)'
-    )
-
-    t.throws(
-      function () {
-        basic.parse('<>\n~~~\ncharlie.\n~~~')
-      },
-      /Unexpected end of file in element, expected a corresponding MDX closing tag for `<>` \(1:1-1:3\)/,
-      'should crash directly after closed tilde code (eof after close)'
+      /Cannot close document, a token \(`mdxJsxFlowTag`, 1:1-1:3\) is still open/,
+      'should crash on unclosed flow after unclosed tilde code'
     )
 
     t.throws(
       function () {
         basic.parse('Alpha </> charlie.')
       },
-      /Unexpected character `\/` \(U\+002F\) before name, expected an opening tag first as there are no open elements/,
+      /Unexpected closing slash `\/` in tag, expected an open tag first/,
       'should crash on closing tag without open elements'
     )
 
@@ -805,63 +802,63 @@ test('parse', function (t) {
       function () {
         basic.parse('Alpha <></b> charlie.')
       },
-      /Unexpected closing tag `<\/b>`, expected corresponding MDX closing tag for `<>`/,
+      /Unexpected closing tag `<\/b>`, expected corresponding closing tag for `<>` \(1:7-1:9\)/,
       'should crash on mismatched tags (1)'
     )
     t.throws(
       function () {
         basic.parse('Alpha <b></> charlie.')
       },
-      /Unexpected closing tag `<\/>`, expected corresponding MDX closing tag for `<b>`/,
+      /Unexpected closing tag `<\/>`, expected corresponding closing tag for `<b>` \(1:7-1:10\)/,
       'should crash on mismatched tags (2)'
     )
     t.throws(
       function () {
         basic.parse('Alpha <a.b></a> charlie.')
       },
-      /Unexpected closing tag `<\/a>`, expected corresponding MDX closing tag for `<a.b>`/,
+      /Unexpected closing tag `<\/a>`, expected corresponding closing tag for `<a.b>` \(1:7-1:12\)/,
       'should crash on mismatched tags (3)'
     )
     t.throws(
       function () {
         basic.parse('Alpha <a></a.b> charlie.')
       },
-      /Unexpected closing tag `<\/a.b>`, expected corresponding MDX closing tag for `<a>`/,
+      /Unexpected closing tag `<\/a.b>`, expected corresponding closing tag for `<a>` \(1:7-1:10\)/,
       'should crash on mismatched tags (4)'
     )
     t.throws(
       function () {
         basic.parse('Alpha <a.b></a.c> charlie.')
       },
-      /Unexpected closing tag `<\/a.c>`, expected corresponding MDX closing tag for `<a.b>`/,
+      /Unexpected closing tag `<\/a.c>`, expected corresponding closing tag for `<a.b>` \(1:7-1:12\)/,
       'should crash on mismatched tags (5)'
     )
     t.throws(
       function () {
         basic.parse('Alpha <a:b></a> charlie.')
       },
-      /Unexpected closing tag `<\/a>`, expected corresponding MDX closing tag for `<a:b>`/,
+      /Unexpected closing tag `<\/a>`, expected corresponding closing tag for `<a:b>` \(1:7-1:12\)/,
       'should crash on mismatched tags (6)'
     )
     t.throws(
       function () {
         basic.parse('Alpha <a></a:b> charlie.')
       },
-      /Unexpected closing tag `<\/a:b>`, expected corresponding MDX closing tag for `<a>`/,
+      /Unexpected closing tag `<\/a:b>`, expected corresponding closing tag for `<a>` \(1:7-1:10\)/,
       'should crash on mismatched tags (7)'
     )
     t.throws(
       function () {
         basic.parse('Alpha <a:b></a:c> charlie.')
       },
-      /Unexpected closing tag `<\/a:c>`, expected corresponding MDX closing tag for `<a:b>`/,
+      /Unexpected closing tag `<\/a:c>`, expected corresponding closing tag for `<a:b>` \(1:7-1:12\)/,
       'should crash on mismatched tags (8)'
     )
     t.throws(
       function () {
         basic.parse('Alpha <a:b></a.b> charlie.')
       },
-      /Unexpected closing tag `<\/a.b>`, expected corresponding MDX closing tag for `<a:b>`/,
+      /Unexpected closing tag `<\/a.b>`, expected corresponding closing tag for `<a:b>` \(1:7-1:12\)/,
       'should crash on mismatched tags (9)'
     )
 
@@ -869,7 +866,7 @@ test('parse', function (t) {
       function () {
         basic.parse('Alpha <a>bravo</a/> charlie.')
       },
-      /Unexpected character `\/` \(U\+002F\) on closing tag before tag end, expected the end of the tag/,
+      /Unexpected self-closing slash `\/` in closing tag, expected the end of the tag/,
       'should crash on a self-closing closing tag'
     )
 
@@ -877,18 +874,18 @@ test('parse', function (t) {
       function () {
         basic.parse('Alpha <a>bravo</a b> charlie.')
       },
-      /Unexpected character `b` \(U\+0062\) on closing tag after name, expected the end of the tag instead of attributes on a closing tag/,
+      /Unexpected attribute in closing tag, expected the end of the tag/,
       'should crash on a closing tag with attributes'
     )
 
     t.deepEqual(
-      basic.parse('Alpha <>bravo <>charlie</> delta</>.'),
+      clean(basic.parse('Alpha <>bravo <>charlie</> delta</>.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: null, attributes: []}, [
+          u('mdxJsxTextElement', {name: null, attributes: []}, [
             u('text', 'bravo '),
-            u('mdxSpanElement', {name: null, attributes: []}, [
+            u('mdxJsxTextElement', {name: null, attributes: []}, [
               u('text', 'charlie')
             ]),
             u('text', ' delta')
@@ -900,18 +897,21 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse(
-        '<x y="Character references can be used: &quot;, &apos;, &lt;, &gt;, &#x7B;, and &#x7D;, they can be named, decimal, or hexadecimal: &copy; &#8800; &#x1D306;" />.'
+      clean(
+        basic.parse(
+          '<x y="Character references can be used: &quot;, &apos;, &lt;, &gt;, &#x7B;, and &#x7D;, they can be named, decimal, or hexadecimal: &copy; &#8800; &#x1D306;" />.'
+        ),
+        true
       ),
       u('root', [
         u('paragraph', [
           u(
-            'mdxSpanElement',
+            'mdxJsxTextElement',
             {
               name: 'x',
               attributes: [
                 u(
-                  'mdxAttribute',
+                  'mdxJsxAttribute',
                   {name: 'y'},
                   'Character references can be used: ", \', <, >, {, and }, they can be named, decimal, or hexadecimal: © ≠ 𝌆'
                 )
@@ -926,31 +926,19 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse(
-        '<x>Character references can be used: &quot;, &apos;, &lt;, &gt;, &#x7B;, and &#x7D;, they can be named, decimal, or hexadecimal: &copy; &#8800; &#x1D306;</x>.'
+      clean(
+        basic.parse(
+          '<x>Character references can be used: &quot;, &apos;, &lt;, &gt;, &#x7B;, and &#x7D;, they can be named, decimal, or hexadecimal: &copy; &#8800; &#x1D306;</x>.'
+        ),
+        true
       ),
       u('root', [
         u('paragraph', [
-          u('mdxSpanElement', {name: 'x', attributes: []}, [
-            u('text', 'Character references can be used: '),
-            // Note: remark splits these up to retain positional info.
-            u('text', '"'),
-            u('text', ', '),
-            u('text', "'"),
-            u('text', ', '),
-            u('text', '<'),
-            u('text', ', '),
-            u('text', '>'),
-            u('text', ', '),
-            u('text', '{'),
-            u('text', ', and '),
-            u('text', '}'),
-            u('text', ', they can be named, decimal, or hexadecimal: '),
-            u('text', '©'),
-            u('text', ' '),
-            u('text', '≠'),
-            u('text', ' '),
-            u('text', '𝌆')
+          u('mdxJsxTextElement', {name: 'x', attributes: []}, [
+            u(
+              'text',
+              'Character references can be used: ", \', <, >, {, and }, they can be named, decimal, or hexadecimal: © ≠ 팆'
+            )
           ]),
           u('text', '.')
         ])
@@ -959,21 +947,21 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('Alpha <x />'),
+      clean(basic.parse('Alpha <x />')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'x', attributes: []}, [])
+          u('mdxJsxTextElement', {name: 'x', attributes: []}, [])
         ])
       ]),
       'should parse as inline if the opening is not the first thing'
     )
 
     t.deepEqual(
-      basic.parse('<x />.'),
+      clean(basic.parse('<x />.')),
       u('root', [
         u('paragraph', [
-          u('mdxSpanElement', {name: 'x', attributes: []}, []),
+          u('mdxJsxTextElement', {name: 'x', attributes: []}, []),
           u('text', '.')
         ])
       ]),
@@ -981,27 +969,27 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('<x />'),
-      u('root', [u('mdxBlockElement', {name: 'x', attributes: []}, [])]),
+      clean(basic.parse('<x />')),
+      u('root', [u('mdxJsxFlowElement', {name: 'x', attributes: []}, [])]),
       'should parse as block if the opening is the first, and the closing the last, thing'
     )
 
     t.deepEqual(
-      basic.parse('<x />\t '),
-      u('root', [u('mdxBlockElement', {name: 'x', attributes: []}, [])]),
+      clean(basic.parse('<x />\t ')),
+      u('root', [u('mdxJsxFlowElement', {name: 'x', attributes: []}, [])]),
       'should parse as block if the opening is the first, and the closing the last, thing (ignoring final whitespace)'
     )
 
     t.deepEqual(
-      basic.parse('\t <x />'),
-      u('root', [u('mdxBlockElement', {name: 'x', attributes: []}, [])]),
+      clean(basic.parse('\t <x />')),
+      u('root', [u('mdxJsxFlowElement', {name: 'x', attributes: []}, [])]),
       'should parse as block if the opening is the first, and the closing the last, thing (ignoring initial whitespace)'
     )
 
     t.deepEqual(
-      basic.parse('<x>\n# Heading\n</x>'),
+      clean(basic.parse('<x>\n# Heading\n</x>')),
       u('root', [
-        u('mdxBlockElement', {name: 'x', attributes: []}, [
+        u('mdxJsxFlowElement', {name: 'x', attributes: []}, [
           u('heading', {depth: 1}, [u('text', 'Heading')])
         ])
       ]),
@@ -1009,46 +997,54 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('<x>Paragraph</x>'),
+      clean(basic.parse('<x>Paragraph</x>')),
       u('root', [
-        u('mdxBlockElement', {name: 'x', attributes: []}, [
-          u('paragraph', [u('text', 'Paragraph')])
+        u('paragraph', [
+          u('mdxJsxTextElement', {name: 'x', attributes: []}, [
+            u('text', 'Paragraph')
+          ])
         ])
       ]),
       'should parse content in blocks as block (2)'
     )
 
     t.deepEqual(
-      basic.parse('Alpha {1 + 1}'),
+      clean(basic.parse('Alpha {1 + 1}')),
       u('root', [
-        u('paragraph', [u('text', 'Alpha '), u('mdxSpanExpression', '1 + 1')])
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxTextExpression', {data: {estree: null}}, '1 + 1')
+        ])
       ]),
       'should parse expressions as inline if the opening is not the first thing'
     )
 
     t.deepEqual(
-      basic.parse('{1 + 1}.'),
+      clean(basic.parse('{1 + 1}.')),
       u('root', [
-        u('paragraph', [u('mdxSpanExpression', '1 + 1'), u('text', '.')])
+        u('paragraph', [
+          u('mdxTextExpression', {data: {estree: null}}, '1 + 1'),
+          u('text', '.')
+        ])
       ]),
       'should parse expressions as inline if the closing is not the last thing'
     )
 
     t.deepEqual(
-      basic.parse('{1 + 1}'),
-      u('root', [u('mdxBlockExpression', '1 + 1')]),
+      clean(basic.parse('{1 + 1}')),
+      u('root', [u('mdxFlowExpression', {data: {estree: null}}, '1 + 1')]),
       'should parse expressions as block if the opening is the first, and the closing the last, thing'
     )
 
     t.deepEqual(
-      basic.parse('{1 + 1}\t '),
-      u('root', [u('mdxBlockExpression', '1 + 1')]),
+      clean(basic.parse('{1 + 1}\t ')),
+      u('root', [u('mdxFlowExpression', {data: {estree: null}}, '1 + 1')]),
       'should parse expressions as block if the opening is the first, and the closing the last, thing (ignoring final whitespace)'
     )
 
     t.deepEqual(
-      basic.parse('\t {1 + 1}'),
-      u('root', [u('mdxBlockExpression', '1 + 1')]),
+      clean(basic.parse('\t {1 + 1}')),
+      u('root', [u('mdxFlowExpression', {data: {estree: null}}, '1 + 1')]),
       'should parse expressions as block if the opening is the first, and the closing the last, thing (ignoring initial whitespace)'
     )
 
@@ -1057,11 +1053,11 @@ test('parse', function (t) {
 
   t.test('interplay', function (t) {
     t.deepEqual(
-      basic.parse('Alpha <b>\nbravo\n</b> charlie.'),
+      clean(basic.parse('Alpha <b>\nbravo\n</b> charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxSpanElement', {name: 'b', attributes: []}, [
+          u('mdxJsxTextElement', {name: 'b', attributes: []}, [
             u('text', '\nbravo\n')
           ]),
           u('text', ' charlie.')
@@ -1071,12 +1067,14 @@ test('parse', function (t) {
     )
 
     t.deepEqual(
-      basic.parse('<x># Hello, *{name}*!</x>'),
+      clean(basic.parse('<x># Hello, *{name}*!</x>')),
       u('root', [
-        u('mdxBlockElement', {name: 'x', attributes: []}, [
-          u('heading', {depth: 1}, [
-            u('text', 'Hello, '),
-            u('emphasis', [u('mdxSpanExpression', 'name')]),
+        u('paragraph', [
+          u('mdxJsxTextElement', {name: 'x', attributes: []}, [
+            u('text', '# Hello, '),
+            u('emphasis', [
+              u('mdxTextExpression', {data: {estree: null}}, 'name')
+            ]),
             u('text', '!')
           ])
         ])
@@ -1097,13 +1095,13 @@ test('stringify', function (t) {
     function () {
       basic.stringify(
         u(
-          'mdxSpanElement',
-          {attributes: [u('mdxAttribute', {name: 'bravo'})]},
+          'mdxJsxTextElement',
+          {attributes: [u('mdxJsxAttribute', {name: 'bravo'})]},
           []
         )
       )
     },
-    /Cannot serialize fragment with attributes/,
+    /Cannot serialize fragment w\/ attributes/,
     'should crash when serializing a boolean attribute on a fragment'
   )
 
@@ -1111,13 +1109,13 @@ test('stringify', function (t) {
     function () {
       basic.stringify(
         u(
-          'mdxSpanElement',
-          {attributes: [u('mdxAttribute', {name: 'bravo'}, 'bravo')]},
+          'mdxJsxTextElement',
+          {attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]},
           []
         )
       )
     },
-    /Cannot serialize fragment with attributes/,
+    /Cannot serialize fragment w\/ attributes/,
     'should crash when serializing an attribute on a fragment'
   )
 
@@ -1125,13 +1123,13 @@ test('stringify', function (t) {
     function () {
       basic.stringify(
         u(
-          'mdxSpanElement',
-          {attributes: [u('mdxAttribute', {name: 'br:avo'}, 'bravo')]},
+          'mdxJsxTextElement',
+          {attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]},
           []
         )
       )
     },
-    /Cannot serialize fragment with attributes/,
+    /Cannot serialize fragment w\/ attributes/,
     'should crash when serializing a prefixed attribute on a fragment'
   )
 
@@ -1139,13 +1137,13 @@ test('stringify', function (t) {
     function () {
       basic.stringify(
         u(
-          'mdxSpanElement',
-          {attributes: [u('mdxAttributeExpression', '...props')]},
+          'mdxJsxTextElement',
+          {attributes: [u('mdxJsxExpressionAttribute', '...props')]},
           []
         )
       )
     },
-    /Cannot serialize fragment with attributes/,
+    /Cannot serialize fragment w\/ attributes/,
     'should crash when serializing an attribute expression on a fragment'
   )
 
@@ -1153,12 +1151,16 @@ test('stringify', function (t) {
     function () {
       basic.stringify(
         u(
-          'mdxSpanElement',
+          'mdxJsxTextElement',
           {
             attributes: [
-              u('mdxAttribute', {
+              u('mdxJsxAttribute', {
                 name: 'b',
-                value: u('mdxValueExpression', '1 + 1')
+                value: u(
+                  'mdxJsxAttributeValueExpression',
+                  {data: {estree: null}},
+                  '1 + 1'
+                )
               })
             ]
           },
@@ -1166,7 +1168,7 @@ test('stringify', function (t) {
         )
       )
     },
-    /Cannot serialize fragment with attributes/,
+    /Cannot serialize fragment w\/ attributes/,
     'should crash when serializing an attribute value expression on a fragment'
   )
 
@@ -1174,13 +1176,13 @@ test('stringify', function (t) {
     function () {
       basic.stringify(
         u(
-          'mdxSpanElement',
-          {name: 'x', attributes: [u('mdxAttribute', {value: 'bravo'})]},
+          'mdxJsxTextElement',
+          {name: 'x', attributes: [u('mdxJsxAttribute', {value: 'bravo'})]},
           []
         )
       )
     },
-    /Cannot serialize attribute without name/,
+    /Cannot serialize attribute w\/o name/,
     'should crash when serializing an attribute w/o name'
   )
 
@@ -1188,11 +1190,11 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxSpanElement', []),
+        u('mdxJsxTextElement', []),
         u('text', ' charlie.')
       ])
     ),
-    'Alpha <></> charlie.',
+    'Alpha <></> charlie.\n',
     'should serialize an empty nameless fragment'
   )
 
@@ -1200,11 +1202,11 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxSpanElement', {name: 'b'}, []),
+        u('mdxJsxTextElement', {name: 'b'}, []),
         u('text', ' charlie.')
       ])
     ),
-    'Alpha <b/> charlie.',
+    'Alpha <b/> charlie.\n',
     'should serialize a tag with a name'
   )
 
@@ -1213,14 +1215,14 @@ test('stringify', function (t) {
       u('paragraph', [
         u('text', 'Alpha '),
         u(
-          'mdxSpanElement',
-          {name: 'b', attributes: [u('mdxAttribute', {name: 'bravo'})]},
+          'mdxJsxTextElement',
+          {name: 'b', attributes: [u('mdxJsxAttribute', {name: 'bravo'})]},
           []
         ),
         u('text', ' charlie.')
       ])
     ),
-    'Alpha <b bravo/> charlie.',
+    'Alpha <b bravo/> charlie.\n',
     'should serialize a boolean attribute (element)'
   )
 
@@ -1229,17 +1231,17 @@ test('stringify', function (t) {
       u('paragraph', [
         u('text', 'Alpha '),
         u(
-          'mdxSpanElement',
+          'mdxJsxTextElement',
           {
             name: 'b',
-            attributes: [u('mdxAttribute', {name: 'bravo'}, 'bravo')]
+            attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]
           },
           []
         ),
         u('text', ' charlie.')
       ])
     ),
-    'Alpha <b bravo="bravo"/> charlie.',
+    'Alpha <b bravo="bravo"/> charlie.\n',
     'should serialize an attribute (element)'
   )
 
@@ -1248,17 +1250,17 @@ test('stringify', function (t) {
       u('paragraph', [
         u('text', 'Alpha '),
         u(
-          'mdxSpanElement',
+          'mdxJsxTextElement',
           {
             name: 'b',
-            attributes: [u('mdxAttribute', {name: 'br:avo'}, 'bravo')]
+            attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]
           },
           []
         ),
         u('text', ' charlie.')
       ])
     ),
-    'Alpha <b br:avo="bravo"/> charlie.',
+    'Alpha <b br:avo="bravo"/> charlie.\n',
     'should serialize a prefixed attribute (element)'
   )
 
@@ -1267,14 +1269,14 @@ test('stringify', function (t) {
       u('paragraph', [
         u('text', 'Alpha '),
         u(
-          'mdxSpanElement',
-          {name: 'b', attributes: [u('mdxAttributeExpression', '...props')]},
+          'mdxJsxTextElement',
+          {name: 'b', attributes: [u('mdxJsxExpressionAttribute', '...props')]},
           []
         ),
         u('text', ' charlie.')
       ])
     ),
-    'Alpha <b {...props}/> charlie.',
+    'Alpha <b {...props}/> charlie.\n',
     'should serialize a attribute expression (element)'
   )
 
@@ -1283,13 +1285,17 @@ test('stringify', function (t) {
       u('paragraph', [
         u('text', 'Alpha '),
         u(
-          'mdxSpanElement',
+          'mdxJsxTextElement',
           {
             name: 'b',
             attributes: [
-              u('mdxAttribute', {
+              u('mdxJsxAttribute', {
                 name: 'b',
-                value: u('mdxValueExpression', '1 + 1')
+                value: u(
+                  'mdxJsxAttributeValueExpression',
+                  {data: {estree: null}},
+                  '1 + 1'
+                )
               })
             ]
           },
@@ -1298,7 +1304,7 @@ test('stringify', function (t) {
         u('text', ' charlie.')
       ])
     ),
-    'Alpha <b b={1 + 1}/> charlie.',
+    'Alpha <b b={1 + 1}/> charlie.\n',
     'should serialize an expression attribute (element)'
   )
 
@@ -1308,7 +1314,7 @@ test('stringify', function (t) {
         u('link', {url: 'https://mdxjs.com'}, [u('text', 'https://mdxjs.com')])
       ])
     ),
-    '[https://mdxjs.com](https://mdxjs.com)',
+    '[https://mdxjs.com](https://mdxjs.com)\n',
     'should write out a url as the raw value'
   )
 
@@ -1316,13 +1322,13 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [u('link', {url: 'https://mdxjs.com'}, [])])
     ),
-    '[](https://mdxjs.com)',
+    '[](https://mdxjs.com)\n',
     'should support links w/o content'
   )
 
   t.equal(
     basic.stringify(u('paragraph', [u('link', {}, [u('text', '')])])),
-    '[](<>)',
+    '[]()\n',
     'should support links w/o url'
   )
 
@@ -1330,7 +1336,7 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [u('link', {url: 'a', title: 'b'}, [u('text', 'c')])])
     ),
-    '[c](a "b")',
+    '[c](a "b")\n',
     'should support links w/ title'
   )
 
@@ -1338,7 +1344,7 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxSpanElement', [
+        u('mdxJsxTextElement', [
           u('text', 'bravo '),
           u('strong', [u('text', 'charlie')]),
           u('text', ' delta')
@@ -1346,19 +1352,19 @@ test('stringify', function (t) {
         u('text', ' echo.')
       ])
     ),
-    'Alpha <>bravo **charlie** delta</> echo.',
-    'should serialize a content'
+    'Alpha <>bravo **charlie** delta</> echo.\n',
+    'should serialize content'
   )
 
   t.equal(
     basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxSpanElement', [u('text', '1 < 3')]),
+        u('mdxJsxTextElement', [u('text', '1 < 3')]),
         u('text', ' bravo.')
       ])
     ),
-    'Alpha <>1 &lt; 3</> bravo.',
+    'Alpha <>1 \\< 3</> bravo.\n',
     'should encode `<` in text'
   )
 
@@ -1366,11 +1372,11 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxSpanElement', [u('text', '1 > 3')]),
+        u('mdxJsxTextElement', [u('text', '1 > 3')]),
         u('text', ' bravo.')
       ])
     ),
-    'Alpha <>1 > 3</> bravo.',
+    'Alpha <>1 > 3</> bravo.\n',
     'should *not* encode `>` in text'
   )
 
@@ -1378,11 +1384,11 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [
         u(
-          'mdxSpanElement',
+          'mdxJsxTextElement',
           {
             name: 'x',
             attributes: [
-              u('mdxAttribute', {
+              u('mdxJsxAttribute', {
                 name: 'y',
                 value: '", \', <, >, {, }, ©, ≠, and 𝌆.'
               })
@@ -1393,14 +1399,14 @@ test('stringify', function (t) {
         u('text', '.')
       ])
     ),
-    '<x y="&quot;, \', <, >, {, }, ©, ≠, and 𝌆."/>.',
+    '<x y="&#x22;, \', <, >, {, }, ©, ≠, and 𝌆."/>.\n',
     'should encode `"` in attribute values, but no other character references.'
   )
 
   t.deepEqual(
     basic.stringify(
       u('paragraph', [
-        u('mdxSpanElement', {name: 'x'}, [
+        u('mdxJsxTextElement', {name: 'x'}, [
           u(
             'text',
             'Character references can be used: ", \', <, >, {, and }, they can be named, decimal, or hexadecimal: © ≠ 𝌆'
@@ -1409,7 +1415,7 @@ test('stringify', function (t) {
         u('text', '.')
       ])
     ),
-    '<x>Character references can be used: ", \', &lt;, >, &#x7B;, and }, they can be named, decimal, or hexadecimal: © ≠ 𝌆</x>.',
+    '<x>Character references can be used: ", \', \\<, >, \\{, and }, they can be named, decimal, or hexadecimal: © ≠ 𝌆</x>.\n',
     'should encode `"`, `\'`, `<`, and `{` in text, but no other character references.'
   )
 
@@ -1417,11 +1423,11 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxSpanElement', [u('text', '1 { 3')]),
+        u('mdxJsxTextElement', [u('text', '1 { 3')]),
         u('text', ' bravo.')
       ])
     ),
-    'Alpha <>1 &#x7B; 3</> bravo.',
+    'Alpha <>1 \\{ 3</> bravo.\n',
     'should encode `{` in text'
   )
 
@@ -1429,11 +1435,11 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxSpanElement', [u('text', '1 } 3')]),
+        u('mdxJsxTextElement', [u('text', '1 } 3')]),
         u('text', ' bravo.')
       ])
     ),
-    'Alpha <>1 } 3</> bravo.',
+    'Alpha <>1 } 3</> bravo.\n',
     'should *not* encode `}` in text'
   )
 
@@ -1441,11 +1447,11 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxSpanExpression'),
+        u('mdxTextExpression'),
         u('text', ' bravo.')
       ])
     ),
-    'Alpha {} bravo.',
+    'Alpha {} bravo.\n',
     'should serialize empty expressions'
   )
 
@@ -1453,11 +1459,11 @@ test('stringify', function (t) {
     basic.stringify(
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxSpanExpression', '1 + 1'),
+        u('mdxTextExpression', '1 + 1'),
         u('text', ' bravo.')
       ])
     ),
-    'Alpha {1 + 1} bravo.',
+    'Alpha {1 + 1} bravo.\n',
     'should serialize expressions'
   )
 
@@ -1468,16 +1474,15 @@ test('fixtures', function (t) {
   fs.readdirSync(base)
     .filter((d) => /\.md$/.test(d))
     .forEach((name) => {
-      let position = unified().use(parse).use(stringify).use(mdx)
-      let noPosition = unified().use(parse, {position: false}).use(mdx)
+      console.log(name)
+      let proc = unified().use(parse).use(stringify).use(mdx)
       let fpIn = path.join(base, name)
       let fpExpected = fpIn.replace(/\.md$/, '.json')
       let fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
       let input = vfile.readSync(fpIn)
-      let tree = position.parse(input)
-      let doc = position.stringify(tree)
-      let treeB = noPosition.parse(input)
-      let reparsed = noPosition.parse(doc)
+      let tree = proc.parse(input)
+      let doc = proc.stringify(tree)
+      let reparsed
       let expected
       let expectedDoc
 
@@ -1490,6 +1495,8 @@ test('fixtures', function (t) {
           contents: JSON.stringify(expected, null, 2) + '\n'
         })
       }
+
+      t.deepLooseEqual(tree, expected, input.stem + ' (tree)')
 
       try {
         expectedDoc = String(vfile.readSync(fpExpectedDoc))
@@ -1505,10 +1512,51 @@ test('fixtures', function (t) {
       // Windows.
       expectedDoc = expectedDoc.replace(/\r\n/g, '\n')
 
-      t.deepLooseEqual(tree, expected, input.stem + ' (tree)')
       t.deepEqual(doc, expectedDoc, input.stem + ' (doc)')
-      t.deepEqual(reparsed, treeB, input.stem + ' (re)')
+
+      reparsed = proc.parse(doc)
+
+      t.deepEqual(clean(reparsed), clean(tree), input.stem + ' (re)')
     })
 
   t.end()
 })
+
+function clean(tree) {
+  remove(tree, true)
+  cleanEstree(tree)
+  return tree
+}
+
+function cleanEstree(tree) {
+  visit(
+    tree,
+    [
+      'mdxjsEsm',
+      'mdxTextExpression',
+      'mdxFlowExpression',
+      'mdxJsxTextElement',
+      'mdxJsxFlowElement'
+    ],
+    onvisit
+  )
+  return tree
+
+  function onvisit(node) {
+    if (node.data && node.data.estree) {
+      node.data.estree = null
+    }
+
+    if (
+      node.type === 'mdxJsxTextElement' ||
+      node.type === 'mdxJsxFlowElement'
+    ) {
+      node.attributes.forEach(onattribute)
+    }
+  }
+
+  function onattribute(node) {
+    onvisit(node)
+    if (node.value) onvisit(node.value)
+  }
+}

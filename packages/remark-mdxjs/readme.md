@@ -4,24 +4,10 @@
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
-> :warning: This project is currently in alpha
+Deprecated!
 
-[MDX][] syntax support for [remark][].
-
-## Installation
-
-```sh
-npm install --save remark-mdxjs
-```
-
-## Contribute
-
-See the [Support][] and [Contributing][] guidelines on the MDX website for ways
-to (get) help.
-
-This project has a [Code of Conduct][coc].
-By interacting with this repository, organisation, or community you agree to
-abide by its terms.
+Created for but no longer used in the [MDX](https://mdxjs.com)@2 alpha.
+The previous behavior is now in `remark-mdx`.
 
 ## License
 

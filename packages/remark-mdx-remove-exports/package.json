@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "remark-mdx-remove-exports",
   "version": "2.0.0-next.8",
   "description": "Remove exports from the MDX AST",
@@ -42,8 +43,8 @@
     "unist-util-remove": "2.0.0"
   },
   "devDependencies": {
-    "remark-parse": "^8.0.0",
-    "remark-stringify": "^8.0.0",
+    "remark-parse": "^9.0.0",
+    "remark-stringify": "^9.0.1",
     "unified": "^9.2.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"

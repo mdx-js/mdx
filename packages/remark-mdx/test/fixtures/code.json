@@ -18,8 +18,7 @@
               "line": 1,
               "column": 26,
               "offset": 25
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -33,8 +32,7 @@
           "line": 1,
           "column": 26,
           "offset": 25
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -54,8 +52,7 @@
               "line": 3,
               "column": 9,
               "offset": 35
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -69,8 +66,7 @@
           "line": 3,
           "column": 9,
           "offset": 35
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -90,8 +86,7 @@
               "line": 5,
               "column": 16,
               "offset": 52
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -105,8 +100,7 @@
           "line": 5,
           "column": 16,
           "offset": 52
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -125,8 +119,7 @@
               "line": 7,
               "column": 34,
               "offset": 87
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -140,8 +133,7 @@
           "line": 7,
           "column": 34,
           "offset": 87
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -159,11 +151,7 @@
           "line": 11,
           "column": 4,
           "offset": 104
-        },
-        "indent": [
-          1,
-          1
-        ]
+        }
       }
     },
     {
@@ -182,10 +170,7 @@
               "line": 14,
               "column": 81,
               "offset": 224
-            },
-            "indent": [
-              1
-            ]
+            }
           }
         }
       ],
@@ -199,14 +184,11 @@
           "line": 14,
           "column": 81,
           "offset": 224
-        },
-        "indent": [
-          1
-        ]
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "X",
       "attributes": [],
       "children": [
@@ -225,11 +207,7 @@
               "line": 19,
               "column": 4,
               "offset": 245
-            },
-            "indent": [
-              1,
-              1
-            ]
+            }
           }
         }
       ],
@@ -243,13 +221,7 @@
           "line": 20,
           "column": 5,
           "offset": 250
-        },
-        "indent": [
-          1,
-          1,
-          1,
-          1
-        ]
+        }
       }
     },
     {
@@ -268,8 +240,7 @@
               "line": 22,
               "column": 4,
               "offset": 255
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -283,12 +254,11 @@
           "line": 22,
           "column": 4,
           "offset": 255
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "X",
       "attributes": [],
       "children": [
@@ -299,19 +269,15 @@
           "value": "<//>",
           "position": {
             "start": {
-              "line": 24,
-              "column": 4,
-              "offset": 260
+              "line": 25,
+              "column": 3,
+              "offset": 263
             },
             "end": {
-              "line": 26,
-              "column": 4,
-              "offset": 275
-            },
-            "indent": [
-              1,
-              1
-            ]
+              "line": 27,
+              "column": 6,
+              "offset": 282
+            }
           }
         }
       ],
@@ -322,14 +288,10 @@
           "offset": 257
         },
         "end": {
-          "line": 26,
-          "column": 8,
-          "offset": 279
-        },
-        "indent": [
-          1,
-          1
-        ]
+          "line": 28,
+          "column": 5,
+          "offset": 287
+        }
       }
     },
     {
@@ -340,35 +302,33 @@
           "value": "Or:",
           "position": {
             "start": {
-              "line": 28,
+              "line": 30,
               "column": 1,
-              "offset": 281
+              "offset": 289
             },
             "end": {
-              "line": 28,
+              "line": 30,
               "column": 4,
-              "offset": 284
-            },
-            "indent": []
+              "offset": 292
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 28,
+          "line": 30,
           "column": 1,
-          "offset": 281
+          "offset": 289
         },
         "end": {
-          "line": 28,
+          "line": 30,
           "column": 4,
-          "offset": 284
-        },
-        "indent": []
+          "offset": 292
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "X",
       "attributes": [],
       "children": [
@@ -379,38 +339,29 @@
           "value": "<//>",
           "position": {
             "start": {
-              "line": 31,
+              "line": 33,
               "column": 1,
-              "offset": 290
+              "offset": 298
             },
             "end": {
-              "line": 33,
+              "line": 35,
               "column": 6,
-              "offset": 306
-            },
-            "indent": [
-              1,
-              1
-            ]
+              "offset": 314
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 30,
+          "line": 32,
           "column": 1,
-          "offset": 286
+          "offset": 294
         },
         "end": {
-          "line": 33,
-          "column": 10,
-          "offset": 310
-        },
-        "indent": [
-          1,
-          1,
-          1
-        ]
+          "line": 36,
+          "column": 5,
+          "offset": 319
+        }
       }
     },
     {
@@ -422,31 +373,29 @@
           "value": "Indented code",
           "position": {
             "start": {
-              "line": 35,
+              "line": 38,
               "column": 5,
-              "offset": 316
+              "offset": 325
             },
             "end": {
-              "line": 35,
+              "line": 38,
               "column": 18,
-              "offset": 329
-            },
-            "indent": []
+              "offset": 338
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 35,
+          "line": 38,
           "column": 1,
-          "offset": 312
+          "offset": 321
         },
         "end": {
-          "line": 35,
+          "line": 38,
           "column": 18,
-          "offset": 329
-        },
-        "indent": []
+          "offset": 338
+        }
       }
     },
     {
@@ -457,40 +406,38 @@
           "value": "Not code!",
           "position": {
             "start": {
-              "line": 37,
-              "column": 1,
-              "offset": 331
-            },
-            "end": {
-              "line": 37,
-              "column": 14,
+              "line": 40,
+              "column": 5,
               "offset": 344
             },
-            "indent": []
+            "end": {
+              "line": 40,
+              "column": 14,
+              "offset": 353
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 37,
-          "column": 1,
-          "offset": 331
-        },
-        "end": {
-          "line": 37,
-          "column": 14,
+          "line": 40,
+          "column": 5,
           "offset": 344
         },
-        "indent": []
+        "end": {
+          "line": 40,
+          "column": 14,
+          "offset": 353
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "A",
       "attributes": [],
       "children": [
         {
-          "type": "mdxBlockElement",
+          "type": "mdxJsxFlowElement",
           "name": "B",
           "attributes": [],
           "children": [
@@ -502,87 +449,71 @@
                   "value": "Nor this!",
                   "position": {
                     "start": {
-                      "line": 41,
-                      "column": 1,
-                      "offset": 356
+                      "line": 44,
+                      "column": 5,
+                      "offset": 369
                     },
                     "end": {
-                      "line": 42,
-                      "column": 3,
-                      "offset": 372
-                    },
-                    "indent": [
-                      1
-                    ]
+                      "line": 44,
+                      "column": 14,
+                      "offset": 378
+                    }
                   }
                 }
               ],
               "position": {
                 "start": {
-                  "line": 41,
-                  "column": 1,
-                  "offset": 356
+                  "line": 44,
+                  "column": 5,
+                  "offset": 369
                 },
                 "end": {
-                  "line": 42,
-                  "column": 3,
-                  "offset": 372
-                },
-                "indent": [
-                  1
-                ]
+                  "line": 44,
+                  "column": 14,
+                  "offset": 378
+                }
               }
             }
           ],
           "position": {
             "start": {
-              "line": 40,
-              "column": 1,
-              "offset": 350
+              "line": 43,
+              "column": 3,
+              "offset": 361
             },
             "end": {
-              "line": 42,
+              "line": 45,
               "column": 7,
-              "offset": 376
-            },
-            "indent": [
-              1,
-              1
-            ]
+              "offset": 385
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 39,
+          "line": 42,
           "column": 1,
-          "offset": 346
+          "offset": 355
         },
         "end": {
-          "line": 43,
+          "line": 46,
           "column": 5,
-          "offset": 381
-        },
-        "indent": [
-          1,
-          1,
-          1,
-          1
-        ]
+          "offset": 390
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "A",
       "attributes": [],
       "children": [
         {
-          "type": "mdxBlockElement",
+          "type": "mdxJsxFlowElement",
           "name": "B",
           "attributes": [],
           "children": [
             {
-              "type": "mdxBlockElement",
+              "type": "mdxJsxFlowElement",
               "name": "C",
               "attributes": [],
               "children": [
@@ -594,95 +525,71 @@
                       "value": "Nor this, these are all paragraphs.",
                       "position": {
                         "start": {
-                          "line": 48,
-                          "column": 1,
-                          "offset": 401
+                          "line": 51,
+                          "column": 7,
+                          "offset": 416
                         },
                         "end": {
-                          "line": 49,
-                          "column": 5,
-                          "offset": 447
-                        },
-                        "indent": [
-                          1
-                        ]
+                          "line": 51,
+                          "column": 42,
+                          "offset": 451
+                        }
                       }
                     }
                   ],
                   "position": {
                     "start": {
-                      "line": 48,
-                      "column": 1,
-                      "offset": 401
+                      "line": 51,
+                      "column": 7,
+                      "offset": 416
                     },
                     "end": {
-                      "line": 49,
-                      "column": 5,
-                      "offset": 447
-                    },
-                    "indent": [
-                      1
-                    ]
+                      "line": 51,
+                      "column": 42,
+                      "offset": 451
+                    }
                   }
                 }
               ],
               "position": {
                 "start": {
-                  "line": 47,
-                  "column": 1,
-                  "offset": 393
+                  "line": 50,
+                  "column": 5,
+                  "offset": 406
                 },
                 "end": {
-                  "line": 49,
+                  "line": 52,
                   "column": 9,
-                  "offset": 451
-                },
-                "indent": [
-                  1,
-                  1
-                ]
+                  "offset": 460
+                }
               }
             }
           ],
           "position": {
             "start": {
-              "line": 46,
-              "column": 1,
-              "offset": 387
+              "line": 49,
+              "column": 3,
+              "offset": 398
             },
             "end": {
-              "line": 50,
+              "line": 53,
               "column": 7,
-              "offset": 458
-            },
-            "indent": [
-              1,
-              1,
-              1,
-              1
-            ]
+              "offset": 467
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 45,
+          "line": 48,
           "column": 1,
-          "offset": 383
+          "offset": 392
         },
         "end": {
-          "line": 51,
+          "line": 54,
           "column": 5,
-          "offset": 463
-        },
-        "indent": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ]
+          "offset": 472
+        }
       }
     },
     {
@@ -694,31 +601,29 @@
           "value": "Span",
           "position": {
             "start": {
-              "line": 53,
+              "line": 56,
               "column": 4,
-              "offset": 468
+              "offset": 477
             },
             "end": {
-              "line": 53,
+              "line": 56,
               "column": 8,
-              "offset": 472
-            },
-            "indent": []
+              "offset": 481
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 53,
+          "line": 56,
           "column": 1,
-          "offset": 465
+          "offset": 474
         },
         "end": {
-          "line": 53,
+          "line": 56,
           "column": 8,
-          "offset": 472
-        },
-        "indent": []
+          "offset": 481
+        }
       }
     },
     {
@@ -730,31 +635,29 @@
           "value": "Code span",
           "position": {
             "start": {
-              "line": 55,
+              "line": 58,
               "column": 5,
-              "offset": 478
-            },
-            "end": {
-              "line": 55,
-              "column": 14,
               "offset": 487
             },
-            "indent": []
+            "end": {
+              "line": 58,
+              "column": 14,
+              "offset": 496
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 55,
+          "line": 58,
           "column": 1,
-          "offset": 474
+          "offset": 483
         },
         "end": {
-          "line": 55,
+          "line": 58,
           "column": 14,
-          "offset": 487
-        },
-        "indent": []
+          "offset": 496
+        }
       }
     },
     {
@@ -765,16 +668,15 @@
           "value": "Here is an example of broken JSX: ",
           "position": {
             "start": {
-              "line": 57,
+              "line": 60,
               "column": 1,
-              "offset": 489
+              "offset": 498
             },
             "end": {
-              "line": 57,
+              "line": 60,
               "column": 35,
-              "offset": 523
-            },
-            "indent": []
+              "offset": 532
+            }
           }
         },
         {
@@ -782,16 +684,15 @@
           "value": "<//>",
           "position": {
             "start": {
-              "line": 57,
+              "line": 60,
               "column": 35,
-              "offset": 523
+              "offset": 532
             },
             "end": {
-              "line": 57,
+              "line": 60,
               "column": 45,
-              "offset": 533
-            },
-            "indent": []
+              "offset": 542
+            }
           }
         },
         {
@@ -799,16 +700,15 @@
           "value": ", or here: ",
           "position": {
             "start": {
-              "line": 57,
+              "line": 60,
               "column": 45,
-              "offset": 533
+              "offset": 542
             },
             "end": {
-              "line": 57,
+              "line": 60,
               "column": 56,
-              "offset": 544
-            },
-            "indent": []
+              "offset": 553
+            }
           }
         },
         {
@@ -816,16 +716,15 @@
           "value": "{",
           "position": {
             "start": {
-              "line": 57,
+              "line": 60,
               "column": 56,
-              "offset": 544
+              "offset": 553
             },
             "end": {
-              "line": 57,
+              "line": 60,
               "column": 59,
-              "offset": 547
-            },
-            "indent": []
+              "offset": 556
+            }
           }
         },
         {
@@ -833,16 +732,15 @@
           "value": ", and this: ",
           "position": {
             "start": {
-              "line": 57,
+              "line": 60,
               "column": 59,
-              "offset": 547
+              "offset": 556
             },
             "end": {
-              "line": 57,
+              "line": 60,
               "column": 71,
-              "offset": 559
-            },
-            "indent": []
+              "offset": 568
+            }
           }
         },
         {
@@ -850,16 +748,15 @@
           "value": "<",
           "position": {
             "start": {
-              "line": 57,
+              "line": 60,
               "column": 71,
-              "offset": 559
+              "offset": 568
             },
             "end": {
-              "line": 57,
+              "line": 60,
               "column": 78,
-              "offset": 566
-            },
-            "indent": []
+              "offset": 575
+            }
           }
         },
         {
@@ -867,31 +764,29 @@
           "value": ".",
           "position": {
             "start": {
-              "line": 57,
+              "line": 60,
               "column": 78,
-              "offset": 566
+              "offset": 575
             },
             "end": {
-              "line": 57,
+              "line": 60,
               "column": 79,
-              "offset": 567
-            },
-            "indent": []
+              "offset": 576
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 57,
+          "line": 60,
           "column": 1,
-          "offset": 489
+          "offset": 498
         },
         "end": {
-          "line": 57,
+          "line": 60,
           "column": 79,
-          "offset": 567
-        },
-        "indent": []
+          "offset": 576
+        }
       }
     },
     {
@@ -902,20 +797,19 @@
           "value": "And inside JSX: ",
           "position": {
             "start": {
-              "line": 59,
+              "line": 62,
               "column": 1,
-              "offset": 569
+              "offset": 578
             },
             "end": {
-              "line": 59,
+              "line": 62,
               "column": 17,
-              "offset": 585
-            },
-            "indent": []
+              "offset": 594
+            }
           }
         },
         {
-          "type": "mdxSpanElement",
+          "type": "mdxJsxTextElement",
           "name": null,
           "attributes": [],
           "children": [
@@ -924,31 +818,29 @@
               "value": "<//>",
               "position": {
                 "start": {
-                  "line": 59,
+                  "line": 62,
                   "column": 19,
-                  "offset": 587
+                  "offset": 596
                 },
                 "end": {
-                  "line": 59,
+                  "line": 62,
                   "column": 25,
-                  "offset": 593
-                },
-                "indent": []
+                  "offset": 602
+                }
               }
             }
           ],
           "position": {
             "start": {
-              "line": 59,
+              "line": 62,
               "column": 17,
-              "offset": 585
+              "offset": 594
             },
             "end": {
-              "line": 59,
+              "line": 62,
               "column": 28,
-              "offset": 596
-            },
-            "indent": []
+              "offset": 605
+            }
           }
         },
         {
@@ -956,20 +848,19 @@
           "value": ", or like so: ",
           "position": {
             "start": {
-              "line": 59,
+              "line": 62,
               "column": 28,
-              "offset": 596
+              "offset": 605
             },
             "end": {
-              "line": 59,
+              "line": 62,
               "column": 42,
-              "offset": 610
-            },
-            "indent": []
+              "offset": 619
+            }
           }
         },
         {
-          "type": "mdxSpanElement",
+          "type": "mdxJsxTextElement",
           "name": "x",
           "attributes": [],
           "children": [
@@ -978,31 +869,29 @@
               "value": "< and {",
               "position": {
                 "start": {
-                  "line": 59,
+                  "line": 62,
                   "column": 45,
-                  "offset": 613
-                },
-                "end": {
-                  "line": 59,
-                  "column": 54,
                   "offset": 622
                 },
-                "indent": []
+                "end": {
+                  "line": 62,
+                  "column": 54,
+                  "offset": 631
+                }
               }
             }
           ],
           "position": {
             "start": {
-              "line": 59,
+              "line": 62,
               "column": 42,
-              "offset": 610
+              "offset": 619
             },
             "end": {
-              "line": 59,
+              "line": 62,
               "column": 58,
-              "offset": 626
-            },
-            "indent": []
+              "offset": 635
+            }
           }
         },
         {
@@ -1010,31 +899,29 @@
           "value": ".",
           "position": {
             "start": {
-              "line": 59,
+              "line": 62,
               "column": 58,
-              "offset": 626
+              "offset": 635
             },
             "end": {
-              "line": 59,
+              "line": 62,
               "column": 59,
-              "offset": 627
-            },
-            "indent": []
+              "offset": 636
+            }
           }
         }
       ],
       "position": {
         "start": {
-          "line": 59,
+          "line": 62,
           "column": 1,
-          "offset": 569
+          "offset": 578
         },
         "end": {
-          "line": 59,
+          "line": 62,
           "column": 59,
-          "offset": 627
-        },
-        "indent": []
+          "offset": 636
+        }
       }
     }
   ],
@@ -1045,9 +932,9 @@
       "offset": 0
     },
     "end": {
-      "line": 60,
+      "line": 63,
       "column": 1,
-      "offset": 628
+      "offset": 637
     }
   }
 }

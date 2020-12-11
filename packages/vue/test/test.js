@@ -71,13 +71,13 @@ describe('@mdx-js/vue', () => {
         '  <hr>\n' +
         '  <blockquote>\n' +
         '    <p>a</p>\n' +
-        '    <ul>\n' +
-        '      <li>b</li>\n' +
-        '    </ul>\n' +
-        '    <ol>\n' +
-        '      <li>c</li>\n' +
-        '    </ol>\n' +
         '  </blockquote>\n' +
+        '  <ul>\n' +
+        '    <li>b</li>\n' +
+        '  </ul>\n' +
+        '  <ol>\n' +
+        '    <li>c</li>\n' +
+        '  </ol>\n' +
         '</div>'
     )
   })

@@ -4,70 +4,15 @@
 [![lerna][lerna-badge]][lerna]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
-Remove import nodes from the [MDXAST][].
-This is useful for scenarios where the imports aren’t needed, like an MDX playground.
+Deprecated!
 
-## Installation
+Created for but no longer used in [MDX](https://mdxjs.com).
 
-[npm][]:
-
-```shell
-npm install --save remark-mdx-remove-imports
-```
-
-## Usage
-
-Say we have the following MDX file, `example.mdx`:
-
-```markdown
-import { Donut } from 'rebass'
-
-import OtherThing from 'other-place'
-
-export default props => <div {...props} />
-
-# Hello, world!
-
-This is a paragraph
-```
-
-And our script, `example.js`, looks as follows:
-
-```javascript
-const vfile = require('to-vfile')
-const remark = require('remark')
-const mdx = require('remark-mdx')
-const mdxjs = require('remark-mdxjs')
-const removeImports = require('remark-mdx-remove-imports')
-
-remark()
-  .use(mdx)
-  .use(mdxjs)
-  .use(removeImports)
-  .process(vfile.readSync('example.md'), function (err, file) {
-    if (err) throw err
-    console.log(String(file))
-  })
-```
-
-Now, running `node example` yields:
-
-```markdown
-export default props => <div {...props} />
-
-# Hello, world!
-
-This is a paragraph
-```
-
-## Contribute
-
-See the [Support][] and [Contributing][] guidelines on the MDX website for ways
-to (get) help.
-
-This project has a [Code of Conduct][coc].
-By interacting with this repository, organisation, or community you agree to
-abide by its terms.
+Used to removes MDX@1 `import` nodes.
+MDX@2 includes `mdxjsEsm` nodes for both import/exports.
+Those can be removed with
+[`unist-util-remove`](https://github.com/syntax-tree/unist-util-remove)
+used as `remove(tree, 'mdxjsEsm')`.
 
 ## License
 

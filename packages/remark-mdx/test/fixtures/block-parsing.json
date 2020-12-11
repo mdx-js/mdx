@@ -23,8 +23,7 @@
                   "line": 1,
                   "column": 17,
                   "offset": 16
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -38,8 +37,7 @@
               "line": 1,
               "column": 60,
               "offset": 59
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -53,8 +51,7 @@
           "line": 1,
           "column": 60,
           "offset": 59
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -73,8 +70,7 @@
               "line": 3,
               "column": 6,
               "offset": 66
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -95,8 +91,7 @@
                   "line": 3,
                   "column": 13,
                   "offset": 73
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -110,8 +105,7 @@
               "line": 3,
               "column": 79,
               "offset": 139
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -127,8 +121,7 @@
               "line": 3,
               "column": 80,
               "offset": 140
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -142,17 +135,16 @@
           "line": 3,
           "column": 80,
           "offset": 140
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "Row",
       "attributes": [],
       "children": [
         {
-          "type": "mdxBlockElement",
+          "type": "mdxJsxFlowElement",
           "name": "Col",
           "attributes": [],
           "children": [
@@ -183,8 +175,7 @@
                               "line": 7,
                               "column": 12,
                               "offset": 167
-                            },
-                            "indent": []
+                            }
                           }
                         }
                       ],
@@ -198,23 +189,21 @@
                           "line": 7,
                           "column": 12,
                           "offset": 167
-                        },
-                        "indent": []
+                        }
                       }
                     }
                   ],
                   "position": {
                     "start": {
                       "line": 7,
-                      "column": 1,
-                      "offset": 156
+                      "column": 3,
+                      "offset": 158
                     },
                     "end": {
                       "line": 7,
                       "column": 12,
                       "offset": 167
-                    },
-                    "indent": []
+                    }
                   }
                 },
                 {
@@ -238,8 +227,7 @@
                               "line": 8,
                               "column": 8,
                               "offset": 175
-                            },
-                            "indent": []
+                            }
                           }
                         }
                       ],
@@ -253,23 +241,21 @@
                           "line": 8,
                           "column": 8,
                           "offset": 175
-                        },
-                        "indent": []
+                        }
                       }
                     }
                   ],
                   "position": {
                     "start": {
                       "line": 8,
-                      "column": 1,
-                      "offset": 168
+                      "column": 3,
+                      "offset": 170
                     },
                     "end": {
                       "line": 8,
                       "column": 8,
                       "offset": 175
-                    },
-                    "indent": []
+                    }
                   }
                 },
                 {
@@ -293,8 +279,7 @@
                               "line": 9,
                               "column": 8,
                               "offset": 183
-                            },
-                            "indent": []
+                            }
                           }
                         }
                       ],
@@ -308,68 +293,53 @@
                           "line": 9,
                           "column": 8,
                           "offset": 183
-                        },
-                        "indent": []
+                        }
                       }
                     }
                   ],
                   "position": {
                     "start": {
                       "line": 9,
-                      "column": 1,
-                      "offset": 176
+                      "column": 3,
+                      "offset": 178
                     },
                     "end": {
-                      "line": 10,
-                      "column": 3,
-                      "offset": 186
-                    },
-                    "indent": [
-                      1
-                    ]
+                      "line": 9,
+                      "column": 8,
+                      "offset": 183
+                    }
                   }
                 }
               ],
               "position": {
                 "start": {
                   "line": 7,
-                  "column": 1,
-                  "offset": 156
+                  "column": 3,
+                  "offset": 158
                 },
                 "end": {
-                  "line": 10,
-                  "column": 3,
-                  "offset": 186
-                },
-                "indent": [
-                  1,
-                  1,
-                  1
-                ]
+                  "line": 9,
+                  "column": 8,
+                  "offset": 183
+                }
               }
             }
           ],
           "position": {
             "start": {
               "line": 6,
-              "column": 1,
-              "offset": 148
+              "column": 3,
+              "offset": 150
             },
             "end": {
               "line": 10,
-              "column": 11,
-              "offset": 194
-            },
-            "indent": [
-              5,
-              5,
-              5,
-              3
-            ]
+              "column": 9,
+              "offset": 192
+            }
           }
         },
         {
-          "type": "mdxBlockElement",
+          "type": "mdxJsxFlowElement",
           "name": "Col",
           "attributes": [],
           "children": [
@@ -392,8 +362,7 @@
                           "line": 12,
                           "column": 12,
                           "offset": 212
-                        },
-                        "indent": []
+                        }
                       }
                     }
                   ],
@@ -407,43 +376,35 @@
                       "line": 12,
                       "column": 14,
                       "offset": 214
-                    },
-                    "indent": []
+                    }
                   }
                 }
               ],
               "position": {
                 "start": {
                   "line": 12,
-                  "column": 1,
-                  "offset": 201
+                  "column": 3,
+                  "offset": 203
                 },
                 "end": {
-                  "line": 13,
-                  "column": 3,
-                  "offset": 217
-                },
-                "indent": [
-                  1
-                ]
+                  "line": 12,
+                  "column": 14,
+                  "offset": 214
+                }
               }
             }
           ],
           "position": {
             "start": {
               "line": 11,
-              "column": 1,
-              "offset": 193
+              "column": 3,
+              "offset": 195
             },
             "end": {
               "line": 13,
               "column": 9,
               "offset": 223
-            },
-            "indent": [
-              1,
-              1
-            ]
+            }
           }
         }
       ],
@@ -457,18 +418,7 @@
           "line": 14,
           "column": 7,
           "offset": 230
-        },
-        "indent": [
-          1,
-          5,
-          5,
-          5,
-          3,
-          1,
-          1,
-          1,
-          1
-        ]
+        }
       }
     },
     {
@@ -487,8 +437,7 @@
               "line": 16,
               "column": 6,
               "offset": 237
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -509,8 +458,7 @@
                   "line": 16,
                   "column": 13,
                   "offset": 244
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -524,8 +472,7 @@
               "line": 16,
               "column": 79,
               "offset": 310
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -539,12 +486,11 @@
           "line": 16,
           "column": 79,
           "offset": 310
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "Col",
       "attributes": [],
       "children": [
@@ -575,8 +521,7 @@
                           "line": 20,
                           "column": 6,
                           "offset": 324
-                        },
-                        "indent": []
+                        }
                       }
                     }
                   ],
@@ -590,8 +535,7 @@
                       "line": 20,
                       "column": 6,
                       "offset": 324
-                    },
-                    "indent": []
+                    }
                   }
                 }
               ],
@@ -605,8 +549,7 @@
                   "line": 20,
                   "column": 6,
                   "offset": 324
-                },
-                "indent": []
+                }
               }
             },
             {
@@ -618,25 +561,13 @@
                   "type": "paragraph",
                   "children": [
                     {
-                      "type": "mdxSpanElement",
+                      "type": "mdxJsxTextElement",
                       "name": "Icon",
                       "attributes": [
                         {
-                          "type": "mdxAttribute",
+                          "type": "mdxJsxAttribute",
                           "name": "name",
-                          "value": "hero",
-                          "position": {
-                            "start": {
-                              "line": 21,
-                              "column": 9,
-                              "offset": 333
-                            },
-                            "end": {
-                              "line": 21,
-                              "column": 20,
-                              "offset": 344
-                            }
-                          }
+                          "value": "hero"
                         }
                       ],
                       "children": [],
@@ -650,8 +581,7 @@
                           "line": 21,
                           "column": 23,
                           "offset": 347
-                        },
-                        "indent": []
+                        }
                       }
                     },
                     {
@@ -667,8 +597,7 @@
                           "line": 21,
                           "column": 24,
                           "offset": 348
-                        },
-                        "indent": []
+                        }
                       }
                     },
                     {
@@ -687,8 +616,7 @@
                               "line": 21,
                               "column": 57,
                               "offset": 381
-                            },
-                            "indent": []
+                            }
                           }
                         }
                       ],
@@ -702,8 +630,7 @@
                           "line": 21,
                           "column": 59,
                           "offset": 383
-                        },
-                        "indent": []
+                        }
                       }
                     }
                   ],
@@ -717,8 +644,7 @@
                       "line": 21,
                       "column": 59,
                       "offset": 383
-                    },
-                    "indent": []
+                    }
                   }
                 }
               ],
@@ -732,8 +658,7 @@
                   "line": 21,
                   "column": 59,
                   "offset": 383
-                },
-                "indent": []
+                }
               }
             },
             {
@@ -760,8 +685,7 @@
                               "line": 22,
                               "column": 12,
                               "offset": 395
-                            },
-                            "indent": []
+                            }
                           }
                         }
                       ],
@@ -775,8 +699,7 @@
                           "line": 22,
                           "column": 14,
                           "offset": 397
-                        },
-                        "indent": []
+                        }
                       }
                     }
                   ],
@@ -790,8 +713,7 @@
                       "line": 22,
                       "column": 14,
                       "offset": 397
-                    },
-                    "indent": []
+                    }
                   }
                 }
               ],
@@ -805,8 +727,7 @@
                   "line": 22,
                   "column": 14,
                   "offset": 397
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -820,11 +741,7 @@
               "line": 22,
               "column": 14,
               "offset": 397
-            },
-            "indent": [
-              1,
-              1
-            ]
+            }
           }
         }
       ],
@@ -838,15 +755,7 @@
           "line": 24,
           "column": 7,
           "offset": 405
-        },
-        "indent": [
-          1,
-          3,
-          3,
-          3,
-          1,
-          1
-        ]
+        }
       }
     },
     {
@@ -865,8 +774,7 @@
               "line": 26,
               "column": 15,
               "offset": 421
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -887,8 +795,7 @@
                   "line": 26,
                   "column": 20,
                   "offset": 426
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -902,8 +809,7 @@
               "line": 26,
               "column": 86,
               "offset": 492
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -919,8 +825,7 @@
               "line": 26,
               "column": 87,
               "offset": 493
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -934,8 +839,7 @@
           "line": 26,
           "column": 87,
           "offset": 493
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -955,8 +859,7 @@
               "line": 28,
               "column": 16,
               "offset": 510
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -970,43 +873,58 @@
           "line": 28,
           "column": 16,
           "offset": 510
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "Foo",
       "attributes": [
         {
-          "type": "mdxAttribute",
+          "type": "mdxJsxAttribute",
           "name": "stuff",
           "value": {
-            "type": "mdxValueExpression",
-            "value": "`\nHere is a template literal\n\nwith an empty line\n  `",
-            "position": {
-              "start": {
-                "line": 31,
-                "column": 9,
-                "offset": 525
-              },
-              "end": {
-                "line": 35,
-                "column": 5,
-                "offset": 579
+            "type": "mdxJsxAttributeValueExpression",
+            "value": "`\nHere is a template literal\n\nwith an empty line\n`",
+            "data": {
+              "estree": {
+                "type": "TemplateLiteral",
+                "start": 0,
+                "end": 52,
+                "loc": {
+                  "start": {
+                    "line": 1,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 3
+                  }
+                },
+                "expressions": [],
+                "quasis": [
+                  {
+                    "type": "TemplateElement",
+                    "start": 1,
+                    "end": 51,
+                    "loc": {
+                      "start": {
+                        "line": 1,
+                        "column": 1
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 2
+                      }
+                    },
+                    "value": {
+                      "raw": "\nHere is a template literal\n\nwith an empty line\n  ",
+                      "cooked": "\nHere is a template literal\n\nwith an empty line\n  "
+                    },
+                    "tail": true
+                  }
+                ]
               }
-            }
-          },
-          "position": {
-            "start": {
-              "line": 31,
-              "column": 3,
-              "offset": 519
-            },
-            "end": {
-              "line": 35,
-              "column": 5,
-              "offset": 579
             }
           }
         }
@@ -1022,15 +940,7 @@
           "line": 36,
           "column": 3,
           "offset": 582
-        },
-        "indent": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ]
+        }
       }
     },
     {
@@ -1050,17 +960,16 @@
               "line": 38,
               "column": 10,
               "offset": 593
-            },
-            "indent": []
+            }
           }
         },
         {
-          "type": "mdxSpanElement",
+          "type": "mdxJsxTextElement",
           "name": null,
           "attributes": [],
           "children": [
             {
-              "type": "mdxSpanExpression",
+              "type": "mdxTextExpression",
               "value": "props.name",
               "position": {
                 "start": {
@@ -1072,8 +981,58 @@
                   "line": 38,
                   "column": 24,
                   "offset": 607
-                },
-                "indent": []
+                }
+              },
+              "data": {
+                "estree": {
+                  "type": "MemberExpression",
+                  "start": 0,
+                  "end": 10,
+                  "loc": {
+                    "start": {
+                      "line": 1,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 10
+                    }
+                  },
+                  "object": {
+                    "type": "Identifier",
+                    "start": 0,
+                    "end": 5,
+                    "loc": {
+                      "start": {
+                        "line": 1,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 5
+                      }
+                    },
+                    "name": "props"
+                  },
+                  "property": {
+                    "type": "Identifier",
+                    "start": 6,
+                    "end": 10,
+                    "loc": {
+                      "start": {
+                        "line": 1,
+                        "column": 6
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 10
+                      }
+                    },
+                    "name": "name"
+                  },
+                  "computed": false,
+                  "optional": false
+                }
               }
             }
           ],
@@ -1087,8 +1046,7 @@
               "line": 38,
               "column": 27,
               "offset": 610
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1102,8 +1060,7 @@
           "line": 38,
           "column": 27,
           "offset": 610
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1122,8 +1079,7 @@
               "line": 40,
               "column": 9,
               "offset": 620
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1137,8 +1093,7 @@
           "line": 40,
           "column": 9,
           "offset": 620
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1158,8 +1113,7 @@
               "line": 42,
               "column": 16,
               "offset": 637
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1173,35 +1127,176 @@
           "line": 42,
           "column": 16,
           "offset": 637
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "Foo",
       "attributes": [],
       "children": [
         {
-          "type": "mdxBlockExpression",
-          "value": "const num = 1+1\n\nreturn <h2>{num}</h2>",
+          "type": "mdxFlowExpression",
+          "value": "\n<h2>{1+1}</h2>\n",
           "position": {
             "start": {
-              "line": 44,
-              "column": 6,
-              "offset": 644
+              "line": 45,
+              "column": 3,
+              "offset": 647
             },
             "end": {
-              "line": 48,
-              "column": 2,
-              "offset": 690
-            },
-            "indent": [
-              1,
-              1,
-              1,
-              1
-            ]
+              "line": 47,
+              "column": 4,
+              "offset": 671
+            }
+          },
+          "data": {
+            "estree": {
+              "type": "JSXElement",
+              "start": 5,
+              "end": 19,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 4
+                },
+                "end": {
+                  "line": 2,
+                  "column": 18
+                }
+              },
+              "openingElement": {
+                "type": "JSXOpeningElement",
+                "start": 5,
+                "end": 9,
+                "loc": {
+                  "start": {
+                    "line": 2,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 8
+                  }
+                },
+                "attributes": [],
+                "name": {
+                  "type": "JSXIdentifier",
+                  "start": 6,
+                  "end": 8,
+                  "loc": {
+                    "start": {
+                      "line": 2,
+                      "column": 5
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 7
+                    }
+                  },
+                  "name": "h2"
+                },
+                "selfClosing": false
+              },
+              "closingElement": {
+                "type": "JSXClosingElement",
+                "start": 14,
+                "end": 19,
+                "loc": {
+                  "start": {
+                    "line": 2,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 18
+                  }
+                },
+                "name": {
+                  "type": "JSXIdentifier",
+                  "start": 16,
+                  "end": 18,
+                  "loc": {
+                    "start": {
+                      "line": 2,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 17
+                    }
+                  },
+                  "name": "h2"
+                }
+              },
+              "children": [
+                {
+                  "type": "JSXExpressionContainer",
+                  "start": 9,
+                  "end": 14,
+                  "loc": {
+                    "start": {
+                      "line": 2,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 13
+                    }
+                  },
+                  "expression": {
+                    "type": "BinaryExpression",
+                    "start": 10,
+                    "end": 13,
+                    "loc": {
+                      "start": {
+                        "line": 2,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 12
+                      }
+                    },
+                    "left": {
+                      "type": "Literal",
+                      "start": 10,
+                      "end": 11,
+                      "loc": {
+                        "start": {
+                          "line": 2,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 10
+                        }
+                      },
+                      "value": 1,
+                      "raw": "1"
+                    },
+                    "operator": "+",
+                    "right": {
+                      "type": "Literal",
+                      "start": 12,
+                      "end": 13,
+                      "loc": {
+                        "start": {
+                          "line": 2,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 12
+                        }
+                      },
+                      "value": 1,
+                      "raw": "1"
+                    }
+                  }
+                }
+              ]
+            }
           }
         }
       ],
@@ -1213,15 +1308,9 @@
         },
         "end": {
           "line": 48,
-          "column": 8,
-          "offset": 696
-        },
-        "indent": [
-          1,
-          1,
-          1,
-          1
-        ]
+          "column": 7,
+          "offset": 678
+        }
       }
     }
   ],
@@ -1234,7 +1323,7 @@
     "end": {
       "line": 49,
       "column": 1,
-      "offset": 697
+      "offset": 679
     }
   }
 }

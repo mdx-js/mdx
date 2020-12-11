@@ -18,8 +18,7 @@
               "line": 1,
               "column": 18,
               "offset": 17
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -33,8 +32,7 @@
           "line": 1,
           "column": 18,
           "offset": 17
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -53,8 +51,7 @@
               "line": 3,
               "column": 58,
               "offset": 76
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -68,8 +65,7 @@
           "line": 3,
           "column": 58,
           "offset": 76
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -89,8 +85,7 @@
               "line": 5,
               "column": 9,
               "offset": 86
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -104,8 +99,7 @@
           "line": 5,
           "column": 9,
           "offset": 86
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -125,8 +119,7 @@
               "line": 7,
               "column": 14,
               "offset": 101
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -140,17 +133,16 @@
           "line": 7,
           "column": 14,
           "offset": 101
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
-      "name": "X",
-      "attributes": [],
+      "type": "paragraph",
       "children": [
         {
-          "type": "paragraph",
+          "type": "mdxJsxTextElement",
+          "name": "X",
+          "attributes": [],
           "children": [
             {
               "type": "text",
@@ -165,12 +157,11 @@
                   "line": 9,
                   "column": 14,
                   "offset": 116
-                },
-                "indent": []
+                }
               }
             },
             {
-              "type": "mdxSpanElement",
+              "type": "mdxJsxTextElement",
               "name": "y",
               "attributes": [],
               "children": [
@@ -187,8 +178,7 @@
                       "line": 9,
                       "column": 23,
                       "offset": 125
-                    },
-                    "indent": []
+                    }
                   }
                 }
               ],
@@ -202,8 +192,7 @@
                   "line": 9,
                   "column": 27,
                   "offset": 129
-                },
-                "indent": []
+                }
               }
             },
             {
@@ -219,12 +208,11 @@
                   "line": 9,
                   "column": 29,
                   "offset": 131
-                },
-                "indent": []
+                }
               }
             },
             {
-              "type": "mdxSpanElement",
+              "type": "mdxJsxTextElement",
               "name": "z",
               "attributes": [],
               "children": [],
@@ -238,8 +226,7 @@
                   "line": 9,
                   "column": 33,
                   "offset": 135
-                },
-                "indent": []
+                }
               }
             },
             {
@@ -255,12 +242,11 @@
                   "line": 9,
                   "column": 35,
                   "offset": 137
-                },
-                "indent": []
+                }
               }
             },
             {
-              "type": "mdxSpanExpression",
+              "type": "mdxTextExpression",
               "value": "1 + 1",
               "position": {
                 "start": {
@@ -272,8 +258,59 @@
                   "line": 9,
                   "column": 42,
                   "offset": 144
-                },
-                "indent": []
+                }
+              },
+              "data": {
+                "estree": {
+                  "type": "BinaryExpression",
+                  "start": 0,
+                  "end": 5,
+                  "loc": {
+                    "start": {
+                      "line": 1,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 5
+                    }
+                  },
+                  "left": {
+                    "type": "Literal",
+                    "start": 0,
+                    "end": 1,
+                    "loc": {
+                      "start": {
+                        "line": 1,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 1
+                      }
+                    },
+                    "value": 1,
+                    "raw": "1"
+                  },
+                  "operator": "+",
+                  "right": {
+                    "type": "Literal",
+                    "start": 4,
+                    "end": 5,
+                    "loc": {
+                      "start": {
+                        "line": 1,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 5
+                      }
+                    },
+                    "value": 1,
+                    "raw": "1"
+                  }
+                }
               }
             },
             {
@@ -289,23 +326,21 @@
                   "line": 9,
                   "column": 43,
                   "offset": 145
-                },
-                "indent": []
+                }
               }
             }
           ],
           "position": {
             "start": {
               "line": 9,
-              "column": 4,
-              "offset": 106
+              "column": 1,
+              "offset": 103
             },
             "end": {
               "line": 9,
-              "column": 43,
-              "offset": 145
-            },
-            "indent": []
+              "column": 47,
+              "offset": 149
+            }
           }
         }
       ],
@@ -319,8 +354,7 @@
           "line": 9,
           "column": 47,
           "offset": 149
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -340,12 +374,11 @@
               "line": 11,
               "column": 12,
               "offset": 162
-            },
-            "indent": []
+            }
           }
         },
         {
-          "type": "mdxSpanElement",
+          "type": "mdxJsxTextElement",
           "name": "x",
           "attributes": [],
           "children": [],
@@ -359,8 +392,7 @@
               "line": 11,
               "column": 16,
               "offset": 166
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -374,49 +406,45 @@
           "line": 11,
           "column": 16,
           "offset": 166
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
-      "name": "X",
-      "attributes": [],
+      "type": "paragraph",
       "children": [
         {
-          "type": "heading",
-          "depth": 6,
+          "type": "mdxJsxTextElement",
+          "name": "X",
+          "attributes": [],
           "children": [
             {
               "type": "text",
-              "value": "heading",
+              "value": "###### heading",
               "position": {
                 "start": {
                   "line": 13,
-                  "column": 11,
-                  "offset": 178
+                  "column": 4,
+                  "offset": 171
                 },
                 "end": {
                   "line": 13,
                   "column": 18,
                   "offset": 185
-                },
-                "indent": []
+                }
               }
             }
           ],
           "position": {
             "start": {
               "line": 13,
-              "column": 4,
-              "offset": 171
+              "column": 1,
+              "offset": 168
             },
             "end": {
               "line": 13,
-              "column": 18,
-              "offset": 185
-            },
-            "indent": []
+              "column": 22,
+              "offset": 189
+            }
           }
         }
       ],
@@ -430,8 +458,7 @@
           "line": 13,
           "column": 22,
           "offset": 189
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -451,8 +478,7 @@
               "line": 15,
               "column": 16,
               "offset": 206
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -466,39 +492,20 @@
           "line": 15,
           "column": 16,
           "offset": 206
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
-      "name": "X",
-      "attributes": [],
+      "type": "paragraph",
       "children": [
         {
-          "type": "blockquote",
+          "type": "mdxJsxTextElement",
+          "name": "X",
+          "attributes": [],
           "children": [
             {
-              "type": "paragraph",
-              "children": [
-                {
-                  "type": "text",
-                  "value": "a block quote!",
-                  "position": {
-                    "start": {
-                      "line": 17,
-                      "column": 4,
-                      "offset": 211
-                    },
-                    "end": {
-                      "line": 17,
-                      "column": 18,
-                      "offset": 225
-                    },
-                    "indent": []
-                  }
-                }
-              ],
+              "type": "text",
+              "value": "> a block quote!",
               "position": {
                 "start": {
                   "line": 17,
@@ -507,25 +514,23 @@
                 },
                 "end": {
                   "line": 17,
-                  "column": 18,
-                  "offset": 225
-                },
-                "indent": []
+                  "column": 20,
+                  "offset": 227
+                }
               }
             }
           ],
           "position": {
             "start": {
               "line": 17,
-              "column": 4,
-              "offset": 211
+              "column": 1,
+              "offset": 208
             },
             "end": {
               "line": 17,
-              "column": 20,
-              "offset": 227
-            },
-            "indent": []
+              "column": 24,
+              "offset": 231
+            }
           }
         }
       ],
@@ -539,8 +544,7 @@
           "line": 17,
           "column": 24,
           "offset": 231
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -550,7 +554,7 @@
           "type": "paragraph",
           "children": [
             {
-              "type": "mdxSpanElement",
+              "type": "mdxJsxTextElement",
               "name": "x",
               "attributes": [],
               "children": [
@@ -567,8 +571,7 @@
                       "line": 19,
                       "column": 7,
                       "offset": 239
-                    },
-                    "indent": []
+                    }
                   }
                 }
               ],
@@ -582,8 +585,7 @@
                   "line": 19,
                   "column": 11,
                   "offset": 243
-                },
-                "indent": []
+                }
               }
             },
             {
@@ -599,8 +601,7 @@
                   "line": 19,
                   "column": 24,
                   "offset": 256
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -614,8 +615,7 @@
               "line": 19,
               "column": 24,
               "offset": 256
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -629,8 +629,7 @@
           "line": 19,
           "column": 24,
           "offset": 256
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -650,8 +649,7 @@
               "line": 21,
               "column": 9,
               "offset": 266
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -665,8 +663,7 @@
           "line": 21,
           "column": 9,
           "offset": 266
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -681,12 +678,12 @@
           "checked": null,
           "children": [
             {
-              "type": "mdxBlockElement",
-              "name": "X",
-              "attributes": [],
+              "type": "paragraph",
               "children": [
                 {
-                  "type": "paragraph",
+                  "type": "mdxJsxTextElement",
+                  "name": "X",
+                  "attributes": [],
                   "children": [
                     {
                       "type": "text",
@@ -701,12 +698,11 @@
                           "line": 23,
                           "column": 13,
                           "offset": 280
-                        },
-                        "indent": []
+                        }
                       }
                     },
                     {
-                      "type": "mdxSpanElement",
+                      "type": "mdxJsxTextElement",
                       "name": "y",
                       "attributes": [],
                       "children": [
@@ -723,8 +719,7 @@
                               "line": 23,
                               "column": 22,
                               "offset": 289
-                            },
-                            "indent": []
+                            }
                           }
                         }
                       ],
@@ -738,23 +733,21 @@
                           "line": 23,
                           "column": 26,
                           "offset": 293
-                        },
-                        "indent": []
+                        }
                       }
                     }
                   ],
                   "position": {
                     "start": {
                       "line": 23,
-                      "column": 8,
-                      "offset": 275
+                      "column": 5,
+                      "offset": 272
                     },
                     "end": {
                       "line": 23,
-                      "column": 26,
-                      "offset": 293
-                    },
-                    "indent": []
+                      "column": 30,
+                      "offset": 297
+                    }
                   }
                 }
               ],
@@ -768,8 +761,7 @@
                   "line": 23,
                   "column": 30,
                   "offset": 297
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -783,8 +775,7 @@
               "line": 23,
               "column": 30,
               "offset": 297
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -793,25 +784,93 @@
           "checked": null,
           "children": [
             {
-              "type": "mdxBlockElement",
-              "name": "X",
-              "attributes": [],
+              "type": "paragraph",
               "children": [
                 {
-                  "type": "mdxBlockExpression",
-                  "value": "1 + 1",
+                  "type": "mdxJsxTextElement",
+                  "name": "X",
+                  "attributes": [],
+                  "children": [
+                    {
+                      "type": "mdxTextExpression",
+                      "value": "1 + 1",
+                      "position": {
+                        "start": {
+                          "line": 24,
+                          "column": 8,
+                          "offset": 305
+                        },
+                        "end": {
+                          "line": 24,
+                          "column": 15,
+                          "offset": 312
+                        }
+                      },
+                      "data": {
+                        "estree": {
+                          "type": "BinaryExpression",
+                          "start": 0,
+                          "end": 5,
+                          "loc": {
+                            "start": {
+                              "line": 1,
+                              "column": 0
+                            },
+                            "end": {
+                              "line": 1,
+                              "column": 5
+                            }
+                          },
+                          "left": {
+                            "type": "Literal",
+                            "start": 0,
+                            "end": 1,
+                            "loc": {
+                              "start": {
+                                "line": 1,
+                                "column": 0
+                              },
+                              "end": {
+                                "line": 1,
+                                "column": 1
+                              }
+                            },
+                            "value": 1,
+                            "raw": "1"
+                          },
+                          "operator": "+",
+                          "right": {
+                            "type": "Literal",
+                            "start": 4,
+                            "end": 5,
+                            "loc": {
+                              "start": {
+                                "line": 1,
+                                "column": 4
+                              },
+                              "end": {
+                                "line": 1,
+                                "column": 5
+                              }
+                            },
+                            "value": 1,
+                            "raw": "1"
+                          }
+                        }
+                      }
+                    }
+                  ],
                   "position": {
                     "start": {
                       "line": 24,
-                      "column": 8,
-                      "offset": 305
+                      "column": 5,
+                      "offset": 302
                     },
                     "end": {
                       "line": 24,
-                      "column": 15,
-                      "offset": 312
-                    },
-                    "indent": []
+                      "column": 19,
+                      "offset": 316
+                    }
                   }
                 }
               ],
@@ -825,8 +884,7 @@
                   "line": 24,
                   "column": 19,
                   "offset": 316
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -840,8 +898,7 @@
               "line": 24,
               "column": 19,
               "offset": 316
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -855,10 +912,7 @@
           "line": 24,
           "column": 19,
           "offset": 316
-        },
-        "indent": [
-          1
-        ]
+        }
       }
     },
     {
@@ -878,8 +932,7 @@
               "line": 26,
               "column": 10,
               "offset": 327
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -893,96 +946,20 @@
           "line": 26,
           "column": 10,
           "offset": 327
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "X",
       "attributes": [],
       "children": [
         {
-          "type": "table",
-          "align": [
-            null,
-            null
-          ],
+          "type": "paragraph",
           "children": [
             {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "children": [
-                    {
-                      "type": "text",
-                      "value": "#",
-                      "position": {
-                        "start": {
-                          "line": 29,
-                          "column": 3,
-                          "offset": 335
-                        },
-                        "end": {
-                          "line": 29,
-                          "column": 4,
-                          "offset": 336
-                        },
-                        "indent": []
-                      }
-                    }
-                  ],
-                  "position": {
-                    "start": {
-                      "line": 29,
-                      "column": 3,
-                      "offset": 335
-                    },
-                    "end": {
-                      "line": 29,
-                      "column": 4,
-                      "offset": 336
-                    },
-                    "indent": []
-                  }
-                },
-                {
-                  "type": "tableCell",
-                  "children": [
-                    {
-                      "type": "text",
-                      "value": "Nato",
-                      "position": {
-                        "start": {
-                          "line": 29,
-                          "column": 7,
-                          "offset": 339
-                        },
-                        "end": {
-                          "line": 29,
-                          "column": 11,
-                          "offset": 343
-                        },
-                        "indent": []
-                      }
-                    }
-                  ],
-                  "position": {
-                    "start": {
-                      "line": 29,
-                      "column": 7,
-                      "offset": 339
-                    },
-                    "end": {
-                      "line": 29,
-                      "column": 42,
-                      "offset": 374
-                    },
-                    "indent": []
-                  }
-                }
-              ],
+              "type": "text",
+              "value": "| # | Nato                                |\n| - | ----------------------------------- |\n| 1 | Alpha ",
               "position": {
                 "start": {
                   "line": 29,
@@ -990,259 +967,94 @@
                   "offset": 333
                 },
                 "end": {
-                  "line": 29,
-                  "column": 44,
-                  "offset": 376
-                },
-                "indent": []
+                  "line": 31,
+                  "column": 13,
+                  "offset": 433
+                }
               }
             },
             {
-              "type": "tableRow",
+              "type": "mdxJsxTextElement",
+              "name": "note",
+              "attributes": [],
               "children": [
                 {
-                  "type": "tableCell",
-                  "children": [
-                    {
-                      "type": "text",
-                      "value": "1",
-                      "position": {
-                        "start": {
-                          "line": 31,
-                          "column": 3,
-                          "offset": 423
-                        },
-                        "end": {
-                          "line": 31,
-                          "column": 4,
-                          "offset": 424
-                        },
-                        "indent": []
-                      }
-                    }
-                  ],
+                  "type": "text",
+                  "value": "sometimes ",
                   "position": {
                     "start": {
                       "line": 31,
-                      "column": 3,
-                      "offset": 423
+                      "column": 19,
+                      "offset": 439
                     },
                     "end": {
                       "line": 31,
-                      "column": 4,
-                      "offset": 424
-                    },
-                    "indent": []
+                      "column": 29,
+                      "offset": 449
+                    }
                   }
                 },
                 {
-                  "type": "tableCell",
+                  "type": "emphasis",
                   "children": [
                     {
                       "type": "text",
-                      "value": "Alpha ",
+                      "value": "Alfa",
                       "position": {
                         "start": {
                           "line": 31,
-                          "column": 7,
-                          "offset": 427
+                          "column": 30,
+                          "offset": 450
                         },
                         "end": {
                           "line": 31,
-                          "column": 13,
-                          "offset": 433
-                        },
-                        "indent": []
-                      }
-                    },
-                    {
-                      "type": "mdxSpanElement",
-                      "name": "note",
-                      "attributes": [],
-                      "children": [
-                        {
-                          "type": "text",
-                          "value": "sometimes ",
-                          "position": {
-                            "start": {
-                              "line": 31,
-                              "column": 19,
-                              "offset": 439
-                            },
-                            "end": {
-                              "line": 31,
-                              "column": 29,
-                              "offset": 449
-                            },
-                            "indent": []
-                          }
-                        },
-                        {
-                          "type": "emphasis",
-                          "children": [
-                            {
-                              "type": "text",
-                              "value": "Alfa",
-                              "position": {
-                                "start": {
-                                  "line": 31,
-                                  "column": 30,
-                                  "offset": 450
-                                },
-                                "end": {
-                                  "line": 31,
-                                  "column": 34,
-                                  "offset": 454
-                                },
-                                "indent": []
-                              }
-                            }
-                          ],
-                          "position": {
-                            "start": {
-                              "line": 31,
-                              "column": 29,
-                              "offset": 449
-                            },
-                            "end": {
-                              "line": 31,
-                              "column": 35,
-                              "offset": 455
-                            },
-                            "indent": []
-                          }
+                          "column": 34,
+                          "offset": 454
                         }
-                      ],
-                      "position": {
-                        "start": {
-                          "line": 31,
-                          "column": 13,
-                          "offset": 433
-                        },
-                        "end": {
-                          "line": 31,
-                          "column": 42,
-                          "offset": 462
-                        },
-                        "indent": []
                       }
                     }
                   ],
                   "position": {
                     "start": {
                       "line": 31,
-                      "column": 7,
-                      "offset": 427
+                      "column": 29,
+                      "offset": 449
                     },
                     "end": {
                       "line": 31,
-                      "column": 42,
-                      "offset": 462
-                    },
-                    "indent": []
+                      "column": 35,
+                      "offset": 455
+                    }
                   }
                 }
               ],
               "position": {
                 "start": {
                   "line": 31,
-                  "column": 1,
-                  "offset": 421
+                  "column": 13,
+                  "offset": 433
                 },
                 "end": {
                   "line": 31,
-                  "column": 44,
-                  "offset": 464
-                },
-                "indent": []
+                  "column": 42,
+                  "offset": 462
+                }
               }
             },
             {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "children": [
-                    {
-                      "type": "text",
-                      "value": "2",
-                      "position": {
-                        "start": {
-                          "line": 32,
-                          "column": 3,
-                          "offset": 467
-                        },
-                        "end": {
-                          "line": 32,
-                          "column": 4,
-                          "offset": 468
-                        },
-                        "indent": []
-                      }
-                    }
-                  ],
-                  "position": {
-                    "start": {
-                      "line": 32,
-                      "column": 3,
-                      "offset": 467
-                    },
-                    "end": {
-                      "line": 32,
-                      "column": 4,
-                      "offset": 468
-                    },
-                    "indent": []
-                  }
-                },
-                {
-                  "type": "tableCell",
-                  "children": [
-                    {
-                      "type": "text",
-                      "value": "Bravo",
-                      "position": {
-                        "start": {
-                          "line": 32,
-                          "column": 7,
-                          "offset": 471
-                        },
-                        "end": {
-                          "line": 32,
-                          "column": 12,
-                          "offset": 476
-                        },
-                        "indent": []
-                      }
-                    }
-                  ],
-                  "position": {
-                    "start": {
-                      "line": 32,
-                      "column": 7,
-                      "offset": 471
-                    },
-                    "end": {
-                      "line": 32,
-                      "column": 42,
-                      "offset": 506
-                    },
-                    "indent": []
-                  }
-                }
-              ],
+              "type": "text",
+              "value": " |\n| 2 | Bravo                               |",
               "position": {
                 "start": {
-                  "line": 32,
-                  "column": 1,
-                  "offset": 465
+                  "line": 31,
+                  "column": 42,
+                  "offset": 462
                 },
                 "end": {
                   "line": 32,
                   "column": 44,
                   "offset": 508
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -1256,12 +1068,7 @@
               "line": 32,
               "column": 44,
               "offset": 508
-            },
-            "indent": [
-              1,
-              1,
-              1
-            ]
+            }
           }
         }
       ],
@@ -1275,14 +1082,7 @@
           "line": 33,
           "column": 5,
           "offset": 513
-        },
-        "indent": [
-          1,
-          1,
-          1,
-          1,
-          1
-        ]
+        }
       }
     },
     {
@@ -1302,8 +1102,7 @@
               "line": 35,
               "column": 16,
               "offset": 530
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1317,8 +1116,7 @@
           "line": 35,
           "column": 16,
           "offset": 530
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1337,8 +1135,7 @@
               "line": 37,
               "column": 15,
               "offset": 546
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1352,8 +1149,7 @@
           "line": 37,
           "column": 15,
           "offset": 546
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1373,8 +1169,7 @@
               "line": 39,
               "column": 18,
               "offset": 565
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1388,8 +1183,7 @@
           "line": 39,
           "column": 18,
           "offset": 565
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1408,8 +1202,7 @@
               "line": 41,
               "column": 15,
               "offset": 581
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1423,8 +1216,7 @@
           "line": 41,
           "column": 15,
           "offset": 581
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1444,8 +1236,7 @@
               "line": 43,
               "column": 15,
               "offset": 597
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1459,8 +1250,7 @@
           "line": 43,
           "column": 15,
           "offset": 597
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1479,8 +1269,7 @@
               "line": 45,
               "column": 5,
               "offset": 603
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1494,8 +1283,7 @@
           "line": 45,
           "column": 5,
           "offset": 603
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1515,8 +1303,7 @@
               "line": 47,
               "column": 8,
               "offset": 612
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1530,8 +1317,7 @@
           "line": 47,
           "column": 8,
           "offset": 612
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1551,8 +1337,7 @@
               "line": 49,
               "column": 29,
               "offset": 642
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1566,8 +1351,7 @@
           "line": 49,
           "column": 29,
           "offset": 642
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1586,15 +1370,14 @@
               "line": 51,
               "column": 23,
               "offset": 666
-            },
-            "indent": []
+            }
           }
         },
         {
           "type": "emphasis",
           "children": [
             {
-              "type": "mdxSpanElement",
+              "type": "mdxJsxTextElement",
               "name": "x",
               "attributes": [],
               "children": [
@@ -1611,8 +1394,7 @@
                       "line": 51,
                       "column": 37,
                       "offset": 680
-                    },
-                    "indent": []
+                    }
                   }
                 },
                 {
@@ -1631,8 +1413,7 @@
                           "line": 51,
                           "column": 45,
                           "offset": 688
-                        },
-                        "indent": []
+                        }
                       }
                     }
                   ],
@@ -1646,13 +1427,12 @@
                       "line": 51,
                       "column": 47,
                       "offset": 690
-                    },
-                    "indent": []
+                    }
                   }
                 },
                 {
                   "type": "text",
-                  "value": ", and ",
+                  "value": ", and ~~deletions~~",
                   "position": {
                     "start": {
                       "line": 51,
@@ -1661,45 +1441,9 @@
                     },
                     "end": {
                       "line": 51,
-                      "column": 53,
-                      "offset": 696
-                    },
-                    "indent": []
-                  }
-                },
-                {
-                  "type": "delete",
-                  "children": [
-                    {
-                      "type": "text",
-                      "value": "deletions",
-                      "position": {
-                        "start": {
-                          "line": 51,
-                          "column": 55,
-                          "offset": 698
-                        },
-                        "end": {
-                          "line": 51,
-                          "column": 64,
-                          "offset": 707
-                        },
-                        "indent": []
-                      }
-                    }
-                  ],
-                  "position": {
-                    "start": {
-                      "line": 51,
-                      "column": 53,
-                      "offset": 696
-                    },
-                    "end": {
-                      "line": 51,
                       "column": 66,
                       "offset": 709
-                    },
-                    "indent": []
+                    }
                   }
                 }
               ],
@@ -1713,8 +1457,7 @@
                   "line": 51,
                   "column": 70,
                   "offset": 713
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -1728,8 +1471,7 @@
               "line": 51,
               "column": 71,
               "offset": 714
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -1745,8 +1487,7 @@
               "line": 51,
               "column": 72,
               "offset": 715
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1760,8 +1501,7 @@
           "line": 51,
           "column": 72,
           "offset": 715
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1781,8 +1521,7 @@
               "line": 53,
               "column": 14,
               "offset": 730
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1796,8 +1535,7 @@
           "line": 53,
           "column": 14,
           "offset": 730
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1816,8 +1554,7 @@
               "line": 55,
               "column": 15,
               "offset": 746
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1831,8 +1568,7 @@
           "line": 55,
           "column": 15,
           "offset": 746
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1852,8 +1588,7 @@
               "line": 57,
               "column": 10,
               "offset": 757
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1867,8 +1602,7 @@
           "line": 57,
           "column": 10,
           "offset": 757
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1887,8 +1621,7 @@
               "line": 59,
               "column": 5,
               "offset": 763
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1902,8 +1635,7 @@
           "line": 59,
           "column": 5,
           "offset": 763
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1923,8 +1655,7 @@
               "line": 61,
               "column": 15,
               "offset": 779
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -1938,8 +1669,7 @@
           "line": 61,
           "column": 15,
           "offset": 779
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -1951,7 +1681,7 @@
           "url": "#",
           "children": [
             {
-              "type": "mdxSpanElement",
+              "type": "mdxJsxTextElement",
               "name": "x",
               "attributes": [],
               "children": [
@@ -1968,8 +1698,7 @@
                       "line": 63,
                       "column": 10,
                       "offset": 790
-                    },
-                    "indent": []
+                    }
                   }
                 }
               ],
@@ -1983,8 +1712,7 @@
                   "line": 63,
                   "column": 14,
                   "offset": 794
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -1998,8 +1726,7 @@
               "line": 63,
               "column": 18,
               "offset": 798
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -2015,12 +1742,11 @@
               "line": 63,
               "column": 20,
               "offset": 800
-            },
-            "indent": []
+            }
           }
         },
         {
-          "type": "mdxSpanElement",
+          "type": "mdxJsxTextElement",
           "name": "y",
           "attributes": [],
           "children": [
@@ -2039,8 +1765,7 @@
                   "line": 63,
                   "column": 35,
                   "offset": 815
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -2054,8 +1779,7 @@
               "line": 63,
               "column": 39,
               "offset": 819
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -2071,8 +1795,7 @@
               "line": 63,
               "column": 46,
               "offset": 826
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -2081,7 +1804,7 @@
           "url": "#",
           "children": [
             {
-              "type": "mdxSpanElement",
+              "type": "mdxJsxTextElement",
               "name": "z",
               "attributes": [],
               "children": [
@@ -2100,10 +1823,7 @@
                       "line": 64,
                       "column": 10,
                       "offset": 860
-                    },
-                    "indent": [
-                      1
-                    ]
+                    }
                   }
                 }
               ],
@@ -2117,10 +1837,7 @@
                   "line": 64,
                   "column": 14,
                   "offset": 864
-                },
-                "indent": [
-                  1
-                ]
+                }
               }
             }
           ],
@@ -2134,10 +1851,7 @@
               "line": 64,
               "column": 18,
               "offset": 868
-            },
-            "indent": [
-              1
-            ]
+            }
           }
         },
         {
@@ -2153,23 +1867,19 @@
               "line": 64,
               "column": 23,
               "offset": 873
-            },
-            "indent": []
+            }
           }
         },
         {
           "type": "linkReference",
-          "identifier": "<>{\"references\"}</>",
-          "label": "<>{\"references\"}</>",
-          "referenceType": "collapsed",
           "children": [
             {
-              "type": "mdxSpanElement",
+              "type": "mdxJsxTextElement",
               "name": null,
               "attributes": [],
               "children": [
                 {
-                  "type": "mdxSpanExpression",
+                  "type": "mdxTextExpression",
                   "value": "\"references\"",
                   "position": {
                     "start": {
@@ -2181,8 +1891,26 @@
                       "line": 64,
                       "column": 40,
                       "offset": 890
-                    },
-                    "indent": []
+                    }
+                  },
+                  "data": {
+                    "estree": {
+                      "type": "Literal",
+                      "start": 0,
+                      "end": 12,
+                      "loc": {
+                        "start": {
+                          "line": 1,
+                          "column": 0
+                        },
+                        "end": {
+                          "line": 1,
+                          "column": 12
+                        }
+                      },
+                      "value": "references",
+                      "raw": "\"references\""
+                    }
                   }
                 }
               ],
@@ -2196,8 +1924,7 @@
                   "line": 64,
                   "column": 43,
                   "offset": 893
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -2209,11 +1936,13 @@
             },
             "end": {
               "line": 64,
-              "column": 46,
-              "offset": 896
-            },
-            "indent": []
-          }
+              "column": 47,
+              "offset": 897
+            }
+          },
+          "identifier": "x",
+          "label": "x",
+          "referenceType": "full"
         },
         {
           "type": "text",
@@ -2221,15 +1950,14 @@
           "position": {
             "start": {
               "line": 64,
-              "column": 46,
-              "offset": 896
-            },
-            "end": {
-              "line": 64,
               "column": 47,
               "offset": 897
             },
-            "indent": []
+            "end": {
+              "line": 64,
+              "column": 48,
+              "offset": 898
+            }
           }
         }
       ],
@@ -2241,12 +1969,28 @@
         },
         "end": {
           "line": 64,
-          "column": 47,
-          "offset": 897
+          "column": 48,
+          "offset": 898
+        }
+      }
+    },
+    {
+      "type": "definition",
+      "identifier": "x",
+      "label": "x",
+      "title": null,
+      "url": "",
+      "position": {
+        "start": {
+          "line": 66,
+          "column": 1,
+          "offset": 900
         },
-        "indent": [
-          1
-        ]
+        "end": {
+          "line": 66,
+          "column": 8,
+          "offset": 907
+        }
       }
     }
   ],
@@ -2257,9 +2001,9 @@
       "offset": 0
     },
     "end": {
-      "line": 65,
+      "line": 67,
       "column": 1,
-      "offset": 898
+      "offset": 908
     }
   }
 }

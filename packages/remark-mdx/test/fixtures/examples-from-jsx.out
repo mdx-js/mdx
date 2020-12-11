@@ -4,9 +4,12 @@ From [jsx](https://facebook.github.io/jsx/).
 
 <Dropdown>
   A dropdown list
-  <Menu><MenuItem>Do Something</MenuItem>
-  <MenuItem>Do Something Fun!</MenuItem>
-  <MenuItem>Do Something Else</MenuItem></Menu>
+
+  <Menu>
+    <MenuItem>Do Something</MenuItem>
+    <MenuItem>Do Something Fun!</MenuItem>
+    <MenuItem>Do Something Else</MenuItem>
+  </Menu>
 </Dropdown>
 
 <Box>
@@ -14,7 +17,7 @@ From [jsx](https://facebook.github.io/jsx/).
     shouldShowAnswer(user) ?
     <Answer value={false}>no</Answer> :
     <Box.Comment>
-       Text Content
+    Text Content
     </Box.Comment>
   }
 </Box>

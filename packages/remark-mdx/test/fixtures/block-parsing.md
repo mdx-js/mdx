@@ -41,8 +41,8 @@ Weeeeee!
 
 # Hello, world!
 
-<Foo>{
-  const num = 1+1
-
-  return <h2>{num}</h2>
-}</Foo>
+<Foo>
+  {
+    <h2>{1+1}</h2>
+  }
+</Foo>

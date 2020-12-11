@@ -14,7 +14,7 @@ Can contain more braces: <x y={{z: true}}/>
 
 ## Attribute expression
 
-<X {/*stuff!*/}/>
+<X {/*stuff!*/...d}/>
 
 * * *
 

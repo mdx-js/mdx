@@ -17,7 +17,6 @@
   "types": "types/index.d.ts",
   "files": [
     "index.js",
-    "lib/",
     "types/index.d.ts"
   ],
   "keywords": [
@@ -40,22 +39,22 @@
     "test": "yarn format && yarn test-coverage && yarn test-types"
   },
   "dependencies": {
-    "parse-entities": "^2.0.0",
-    "remark-stringify": "^8.1.0",
-    "stringify-entities": "^3.0.1",
-    "strip-indent": "^3.0.0",
-    "unist-util-stringify-position": "^2.0.3"
+    "mdast-util-mdx": "^0.1.1",
+    "micromark-extension-mdx": "^0.1.0",
+    "micromark-extension-mdxjs": "^0.1.0"
   },
   "devDependencies": {
     "nyc": "^15.1.0",
     "prettier": "^2.0.5",
-    "remark-cli": "^8.0.0",
-    "remark-parse": "^8.0.2",
-    "remark-preset-wooorm": "^7.0.0",
+    "remark-cli": "^9.0.0",
+    "remark-parse": "^9.0.0",
+    "remark-stringify": "^9.0.1",
+    "remark-preset-wooorm": "^8.0.0",
     "tape": "^5.0.1",
     "to-vfile": "^6.1.0",
     "unified": "^9.0.0",
     "unist-builder": "^2.0.3",
+    "unist-util-remove-position": "^3.0.0",
     "xo": "^0.32.1"
   },
   "nyc": {

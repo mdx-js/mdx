@@ -3,20 +3,20 @@
 ## Attribute value expression
 
 <X y={`
-    // Blank line in attribute
+  // Blank line in attribute
 
-    // …expression.
+  // …expression.
   `}/>
 
-* * *
+***
 
 Can contain more braces: <x y={{z: true}}/>
 
 ## Attribute expression
 
-<X {/*stuff!*/}/>
+<X {/*stuff!*/...d}/>
 
-* * *
+***
 
 More braces: <x {...{x: '1', z: "zulu"}}/>
 
@@ -28,7 +28,7 @@ More braces: <x {...{x: '1', z: "zulu"}}/>
   Math.PI
 }
 
-* * *
+***
 
 More braces: {{a: 1 + 1}["a"]}.
 
@@ -40,6 +40,6 @@ More braces: {{a: 1 + 1}["a"]}.
   }
 </X>
 
-* * *
+***
 
 More <>braces: {{a: 1 + 1}["a"]}</>.

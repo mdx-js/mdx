@@ -61,4 +61,6 @@ N/A.
 ### References
 
 [<x>links</x>](#), <y>![images](#)</y>, even [<z>![an image in jsx in
-links](#)</z>](#), or [<>{"references"}</>][].
+links](#)</z>](#), or [<>{"references"}</>][x].
+
+[x]: <>

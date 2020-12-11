@@ -34,21 +34,29 @@
 
 ### Children
 
-<Tag>Paragraph.
+<Tag>
+Paragraph.
 
-> Block quote</Tag>
+> Block quote
+</Tag>
 
-<Tag prop>Paragraph.
+<Tag prop>
+Paragraph.
 
-> Block quote</Tag>
+> Block quote
+</Tag>
 
-<Tag alpha bravo>Paragraph.
+<Tag alpha bravo>
+Paragraph.
 
-> Block quote</Tag>
+> Block quote
+</Tag>
 
-<Tag alpha="bravo" charlie delta={"echo"} {...props}>Paragraph.
+<Tag alpha="bravo" charlie delta={"echo"} {...props}>
+Paragraph.
 
-> Block quote</Tag>
+> Block quote
+</Tag>
 
 ## Span
 

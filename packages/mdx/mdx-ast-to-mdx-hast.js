@@ -61,17 +61,20 @@ function mdxAstToMdxHast() {
         export(h, node) {
           return Object.assign({}, node, {type: 'export'})
         },
-        mdxBlockElement(h, node) {
+        mdxjsEsm(h, node) {
+          return Object.assign({}, node, {type: 'mdxjsEsm'})
+        },
+        mdxJsxFlowElement(h, node) {
           return Object.assign({}, node, {children: all(h, node)})
         },
-        mdxSpanElement(h, node) {
+        mdxJsxTextElement(h, node) {
           return Object.assign({}, node, {children: all(h, node)})
         },
-        mdxBlockExpression(h, node) {
-          return Object.assign({}, node, {type: 'mdxBlockExpression'})
+        mdxFlowExpression(h, node) {
+          return Object.assign({}, node, {type: 'mdxFlowExpression'})
         },
-        mdxSpanExpression(h, node) {
-          return Object.assign({}, node, {type: 'mdxSpanExpression'})
+        mdxTextExpression(h, node) {
+          return Object.assign({}, node, {type: 'mdxTextExpression'})
         }
       }
     })

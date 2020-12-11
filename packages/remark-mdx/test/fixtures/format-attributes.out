@@ -40,29 +40,13 @@
 
 ### Child
 
-<Tag>
-  Paragraph.
-</Tag>
+<Tag>Paragraph.</Tag>
 
-<Tag prop>
-  Paragraph.
-</Tag>
+<Tag prop>Paragraph.</Tag>
 
-<Tag
-  alpha
-  bravo
->
-  Paragraph.
-</Tag>
+<Tag alpha bravo>Paragraph.</Tag>
 
-<Tag
-  alpha="bravo"
-  charlie
-  delta={"echo"}
-  {...props}
->
-  Paragraph.
-</Tag>
+<Tag alpha="bravo" charlie delta={"echo"} {...props}>Paragraph.</Tag>
 
 ### Children
 
@@ -122,20 +106,20 @@
 
 ### Child
 
-<tag>_Emphasis_</tag>.
+<tag>*Emphasis*</tag>.
 
-<tag prop>_Emphasis_</tag>.
+<tag prop>*Emphasis*</tag>.
 
-<tag alpha bravo>_Emphasis_</tag>.
+<tag alpha bravo>*Emphasis*</tag>.
 
-<tag alpha="bravo" charlie delta={"echo"} {...props}>_Emphasis_</tag>.
+<tag alpha="bravo" charlie delta={"echo"} {...props}>*Emphasis*</tag>.
 
 ### Children
 
-<tag>_Emphasis_ and **importance**</tag>.
+<tag>*Emphasis* and **importance**</tag>.
 
-<tag prop>_Emphasis_ and **importance**</tag>.
+<tag prop>*Emphasis* and **importance**</tag>.
 
-<tag alpha bravo>_Emphasis_ and **importance**</tag>.
+<tag alpha bravo>*Emphasis* and **importance**</tag>.
 
-<tag alpha="bravo" charlie delta={"echo"} {...props}>_Emphasis_ and **importance**</tag>.
+<tag alpha="bravo" charlie delta={"echo"} {...props}>*Emphasis* and **importance**</tag>.
