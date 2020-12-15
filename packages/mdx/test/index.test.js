@@ -33,7 +33,7 @@ describe('@mdx-js/mdx', () => {
   it('should generate JSX', async () => {
     const result = await mdx('Hello World')
 
-    expect(result).toMatch(/<p>\{`Hello World`\}<\/p>/)
+    expect(result).toMatch(/<p>\{"Hello World"\}<\/p>/)
   })
 
   it('should generate runnable JSX', async () => {
@@ -304,6 +304,32 @@ describe('@mdx-js/mdx', () => {
     )
   })
 
+  it('should support an empty document', async () => {
+    const Content = await run('')
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(<></>)
+    )
+  })
+
+  it('should support an ignored node instead of a `root`', async () => {
+    const plugin = () => () => ({type: 'doctype', name: 'html'})
+    const Content = await run('', {rehypePlugins: [plugin]})
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(<></>)
+    )
+  })
+
+  it('should support an element instead of a `root`', async () => {
+    const plugin = () => () => ({type: 'element', tagName: 'x', children: []})
+    const Content = await run('', {rehypePlugins: [plugin]})
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(<x />)
+    )
+  })
+
   it('should support imports', async () => {
     expect.assertions(2)
 
@@ -526,7 +552,8 @@ describe('@mdx-js/mdx', () => {
     )
 
     expect(console.warn).toHaveBeenCalledWith(
-      'Component `Y` was not imported, exported, or provided by MDXProvider as global scope'
+      'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
+      'Y'
     )
 
     console.warn = warn
@@ -542,7 +569,7 @@ describe('@mdx-js/mdx', () => {
     )
   })
 
-  it('should ignore unknown nodes in mdxhast', async () => {
+  it('should crash on unknown nodes in mdxhast', async () => {
     const plugin = () => tree => {
       // A leaf.
       tree.children.push({type: 'unknown', value: 'y'})
@@ -554,28 +581,9 @@ describe('@mdx-js/mdx', () => {
       })
     }
 
-    const Content = await run('x', {rehypePlugins: [plugin]})
-
-    expect(renderToStaticMarkup(<Content />)).toEqual(
-      renderToStaticMarkup(<p>x</p>)
-    )
-  })
-
-  it('should support `element` nodes w/o `children` in mdxhast', async () => {
-    const plugin = () => tree => {
-      tree.children.push({type: 'element', tagName: 'y', properties: {}})
-    }
-
-    const Content = await run('x', {rehypePlugins: [plugin]})
-
-    expect(renderToStaticMarkup(<Content />)).toEqual(
-      renderToStaticMarkup(
-        <>
-          <p>x</p>
-          <y />
-        </>
-      )
-    )
+    expect(() => {
+      mdx.sync('x', {rehypePlugins: [plugin]})
+    }).toThrow(/Cannot handle unknown node `unknown`/)
   })
 
   it('should support `element` nodes w/o `properties` in mdxhast', async () => {
@@ -606,7 +614,7 @@ describe('@mdx-js/mdx', () => {
 
     expect(resultDefault).toEqual(resultFalse)
     expect(resultTrue).toMatch(/\nfunction MDXContent/)
-    expect(resultFalse).toMatch(/export default function MDXContent/)
+    expect(resultFalse).toMatch(/export default MDXContent/)
   })
 
   it('should support `wrapExport` to wrap the exported value', async () => {
@@ -616,7 +624,7 @@ describe('@mdx-js/mdx', () => {
 
     expect(resultDefault).toEqual(resultNull)
     expect(resultValue).toMatch(/export default y\(MDXContent\)/)
-    expect(resultNull).toMatch(/export default function MDXContent/)
+    expect(resultNull).toMatch(/export default MDXContent/)
   })
 
   it('should expose an `isMDXComponent` field on the component', async () => {
@@ -658,24 +666,24 @@ describe('@mdx-js/mdx', () => {
 
 describe('default', () => {
   it('should be async', async () => {
-    expect(mdx('x')).resolves.toMatch(/<p>{`x`}<\/p>/)
+    expect(mdx('x')).resolves.toMatch(/<p>{"x"}<\/p>/)
   })
 
   it('should support `remarkPlugins`', async () => {
     expect(mdx('$x$', {remarkPlugins: [math]})).resolves.toMatch(
-      /"className": "math math-inline",/
+      /className="math math-inline"/
     )
   })
 })
 
 describe('sync', () => {
   it('should be sync', () => {
-    expect(mdx.sync('x')).toMatch(/<p>{`x`}<\/p>/)
+    expect(mdx.sync('x')).toMatch(/<p>{"x"}<\/p>/)
   })
 
   it('should support `remarkPlugins`', () => {
     expect(mdx.sync('$x$', {remarkPlugins: [math]})).toMatch(
-      /"className": "math math-inline",/
+      /className="math math-inline"/
     )
   })
 })
@@ -719,7 +727,7 @@ describe('createMdxAstCompiler', () => {
 describe('createCompiler', () => {
   it('should create a unified processor', () => {
     expect(String(mdx.createCompiler().processSync('x'))).toMatch(
-      /<p>{`x`}<\/p>/
+      /<p>{"x"}<\/p>/
     )
   })
 })
@@ -757,26 +765,13 @@ describe('mdx-hast-to-jsx', () => {
     const tree = {
       type: 'root',
       children: [
-        {
-          type: 'element',
-          tagName: 'x',
-          children: [{type: 'mdxTextExpression', value: '1 + 1'}]
-        }
+        {type: 'element', tagName: 'x', children: [{type: 'text', value: 'a'}]}
       ]
     }
 
     const doc = unified().use(toJsx).stringify(tree)
 
-    expect(doc).toMatch(/export default function MDXContent/)
-    expect(doc).toMatch(/<x>\{1 \+ 1}<\/x>/)
-  })
-})
-
-describe('mdx-hast-to-jsx.toJSX', () => {
-  it('should be a function that serializes mdxhast nodes', () => {
-    expect(toJsx.toJSX({type: 'element', tagName: 'x'})).toEqual('<x/>')
-    expect(toJsx.toJSX({type: 'mdxTextExpression', value: '1 + 1'})).toEqual(
-      '{1 + 1}'
-    )
+    expect(doc).toMatch(/export default MDXContent/)
+    expect(doc).toMatch(/<x>\{"a"}<\/x>/)
   })
 })

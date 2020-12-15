@@ -1,6 +1,7 @@
 import path from 'path'
 import {mount} from '@vue/test-utils'
 import mdxTransform from '../../mdx'
+import vueMergeProps from 'babel-helper-vue-jsx-merge-props'
 import {transformAsync as babelTransform} from '@babel/core'
 import {MDXProvider, mdx} from '../src'
 
@@ -12,9 +13,7 @@ const run = async value => {
   const {code} = await babelTransform(doc, {
     configFile: false,
     plugins: [
-      // Here we use react-jsx, which does support a pragma.
-      // `vue-loader` tests with `babel-plugin-transform-vue-jsx`.
-      '@babel/plugin-transform-react-jsx',
+      'babel-plugin-transform-vue-jsx',
       path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
     ]
   })
@@ -22,9 +21,13 @@ const run = async value => {
   // …and finally run it, returning the component.
   // eslint-disable-next-line no-new-func
   return new Function(
-    'unboundMdx',
-    `let mdx;
-    ${code};
+    'mdx',
+    '_mergeJSXProps',
+    `let h;
+    ${code.replace(
+      /import _mergeJSXProps from "babel-helper-vue-jsx-merge-props";/,
+      ''
+    )};
 
     return {
       name: 'Mdx',
@@ -39,11 +42,11 @@ const run = async value => {
         }
       },
       render(createElement) {
-        mdx = unboundMdx.bind({ createElement, components: this.components })
-        return MDXContent({ components: this.components })
+        h = mdx.bind({createElement, components: this.components})
+        return MDXContent({components: this.components})
       }
     }`
-  )(mdx)
+  )(mdx, vueMergeProps)
 }
 
 describe('@mdx-js/vue', () => {
@@ -87,13 +90,11 @@ describe('@mdx-js/vue', () => {
     const warn = console.warn
     console.warn = jest.fn()
 
-    // The literal `undefined` is because the shortcode injected by `mdx-js/mdx`,
-    // combined with react-jsx, yields a for Vue unexpected value: a function
-    // instead of props.
-    expect(mount(Content).html()).toEqual('<div>undefined</div>')
+    expect(mount(Content).html()).toEqual('<div></div>')
 
     expect(console.warn).toHaveBeenCalledWith(
-      'Component `Component` was not imported, exported, or provided by MDXProvider as global scope'
+      'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
+      'Component'
     )
 
     console.warn = warn
@@ -161,7 +162,7 @@ describe('MDXProvider', () => {
         }
       }).html()
     ).toEqual(
-      '<div>\n  <p><i style="font-weight: bold;">a</i> and <i style="font-weight: bold;">c</i>.</p>\n</div>'
+      '<div>\n  <p><i style="font-weight: bold;">a</i> and <i style="font-weight: bold;" id="b">c</i>.</p>\n</div>'
     )
 
     console.error = error

@@ -1,6 +1,3 @@
-import h from 'hastscript'
-import toH from 'hast-to-hyperscript'
-
 /**
  * MDX default components
  */
@@ -17,13 +14,15 @@ const defaults = {
 
 const own = {}.hasOwnProperty
 
-export default function createMdxElement(type, props, ...children) {
-  let node
-
+export default function createMdxElement(type, props, children) {
   if (own.call(this.components, type)) {
     type = this.components[type]
   } else if (own.call(defaults, type)) {
     type = defaults[type]
+  }
+
+  if (!children) {
+    children = []
   }
 
   if (props && typeof props === 'object' && !Array.isArray(props)) {
@@ -33,29 +32,17 @@ export default function createMdxElement(type, props, ...children) {
     props = {}
   }
 
-  children = children
-    .flatMap(d => (d == null ? [] : d))
-    .map(d =>
-      typeof d === 'number' || typeof d === 'string'
-        ? this.createElement('d', {}, String(d)).children[0]
-        : d
-    )
+  children = children.map(d =>
+    typeof d === 'number' || typeof d === 'string'
+      ? this.createElement('d', {}, String(d)).children[0]
+      : d
+  )
 
-  if (typeof type === 'string') {
-    node = toH(
-      this.createElement,
-      h(
-        type,
-        Object.assign({}, props, {
-          components: null,
-          mdxType: null,
-          parentName: null
-        })
-      ),
-      {prefix: false}
-    )
-    node.children = children
-    return node
+  if (props.attrs) {
+    // Vue places the special MDX props in `props.attrs`, move them back into
+    // `props`.
+    const {components, mdxType, parentName, ...attrs} = props.attrs
+    props = {...props, components, mdxType, parentName, attrs}
   }
 
   // Just a render function.
@@ -67,5 +54,5 @@ export default function createMdxElement(type, props, ...children) {
   }
 
   // Vue component.
-  return this.createElement(type, {props}, children)
+  return this.createElement(type, props, children)
 }

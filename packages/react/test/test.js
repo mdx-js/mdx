@@ -58,7 +58,8 @@ describe('@mdx-js/react', () => {
     expect(renderToString(<Content />)).toEqual('<div></div>')
 
     expect(console.warn).toHaveBeenCalledWith(
-      'Component `Component` was not imported, exported, or provided by MDXProvider as global scope'
+      'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
+      'Component'
     )
 
     console.warn = warn

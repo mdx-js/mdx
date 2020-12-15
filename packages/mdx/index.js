@@ -2,6 +2,7 @@ const unified = require('unified')
 const remarkParse = require('remark-parse')
 const remarkMdx = require('remark-mdx')
 const squeeze = require('remark-squeeze-paragraphs')
+const minifyWhitespace = require('rehype-minify-whitespace')
 const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
 
@@ -20,6 +21,7 @@ function createMdxAstCompiler(options = {}) {
 function createCompiler(options = {}) {
   return createMdxAstCompiler(options)
     .use(options.rehypePlugins)
+    .use(minifyWhitespace, {newlines: true})
     .use(mdxHastToJsx, options)
 }
 

@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "babel-plugin-transform-vue-jsx": "^4.0.0",
     "memory-fs": "^0.5.0",
     "rehype-autolink-headings": "^5.0.0",

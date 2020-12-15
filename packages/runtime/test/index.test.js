@@ -70,9 +70,7 @@ describe('@mdx-js/runtime', () => {
   it('should crash if non-syntactical JSX in JS is used', async () => {
     expect(() => {
       renderToString(<MDX children={'{<//>}'} />)
-    }).toThrow(
-      'Could not parse expression with acorn: SyntaxError: Unexpected token'
-    )
+    }).toThrow('Could not parse expression with acorn: Unexpected token')
   })
 
   it('should crash if non-syntactical JS is used', async () => {

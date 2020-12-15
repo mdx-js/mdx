@@ -278,6 +278,51 @@
           "column": 49,
           "offset": 224
         }
+      },
+      "data": {
+        "estree": {
+          "type": "Program",
+          "start": 177,
+          "end": 223,
+          "body": [],
+          "sourceType": "module",
+          "comments": [
+            {
+              "type": "Block",
+              "value": " starts an expression, it must be closed: ",
+              "start": 177,
+              "end": 223,
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 1
+                },
+                "end": {
+                  "line": 7,
+                  "column": 47
+                }
+              },
+              "range": [
+                177,
+                223
+              ]
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 7,
+              "column": 1
+            },
+            "end": {
+              "line": 7,
+              "column": 47
+            }
+          },
+          "range": [
+            177,
+            223
+          ]
+        }
       }
     },
     {
