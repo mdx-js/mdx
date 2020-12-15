@@ -12,42 +12,27 @@ From [React accessibility](https://reactjs.org/docs/accessibility.html):
 />
 
 <>
-  <dt>
-    {
-      item.term
-    }
-  </dt>
-
-  <dd>
-    {
-      item.description
-    }
-  </dd>
+  <dt>{item.term}</dt>
+  <dd>{item.description}</dd>
 </>
 
 <dl>
-  {
-    props.items.map(item => (
-      <ListItem item={item} key={item.id} />
-    ))
-  }
+  {props.items.map(item => (
+    <ListItem item={item} key={item.id} />
+    ))}
 </dl>
 
 <dl>
-  {
-    props.items.map(item => (
-      // Fragments should also have a `key` prop when mapping collections
-      <Fragment key={item.id}>
-        <dt>{item.term}</dt>
-        <dd>{item.description}</dd>
-      </Fragment>
-    ))
-  }
+  {props.items.map(item => (
+    // Fragments should also have a `key` prop when mapping collections
+    <Fragment key={item.id}>
+    <dt>{item.term}</dt>
+    <dd>{item.description}</dd>
+    </Fragment>
+    ))}
 </dl>
 
-<label htmlFor="namedInput">
-  Name:
-</label>
+<label htmlFor="namedInput">Name:</label>
 
 <input
   id="namedInput"
@@ -56,19 +41,15 @@ From [React accessibility](https://reactjs.org/docs/accessibility.html):
 />
 
 <div ref={this.toggleContainer}>
-  <button onClick={this.onClickHandler}>
-    Select an option
-  </button>
+  <button onClick={this.onClickHandler}>Select an option</button>
 
-  {
-    this.state.isOpen && (
-      <ul>
-        <li>Option 1</li>
-        <li>Option 2</li>
-        <li>Option 3</li>
-      </ul>
-    )
-  }
+  {this.state.isOpen && (
+    <ul>
+    <li>Option 1</li>
+    <li>Option 2</li>
+    <li>Option 3</li>
+    </ul>
+    )}
 </div>
 
 <div
@@ -83,13 +64,11 @@ From [React accessibility](https://reactjs.org/docs/accessibility.html):
     Select an option
   </button>
 
-  {
-    this.state.isOpen && (
-      <ul>
-        <li>Option 1</li>
-        <li>Option 2</li>
-        <li>Option 3</li>
-      </ul>
-    )
-  }
+  {this.state.isOpen && (
+    <ul>
+    <li>Option 1</li>
+    <li>Option 2</li>
+    <li>Option 3</li>
+    </ul>
+    )}
 </div>

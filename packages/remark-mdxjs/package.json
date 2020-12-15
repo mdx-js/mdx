@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "remark-mdxjs",
   "version": "2.0.0-next.8",
   "description": "Support import, export, and JSX in markdown",
@@ -31,10 +32,8 @@
     "mdxast"
   ],
   "dependencies": {
-    "@babel/core": "7.10.5",
-    "@babel/helper-plugin-utils": "7.10.4",
-    "@babel/plugin-proposal-object-rest-spread": "7.10.4",
-    "@babel/plugin-syntax-jsx": "7.10.4"
+    "mdast-util-mdx": "^0.1.0",
+    "micromark-extension-mdxjs": "^0.1.0"
   },
   "scripts": {
     "test-api": "jest test",
@@ -43,10 +42,9 @@
     "test": "yarn test-coverage"
   },
   "devDependencies": {
-    "remark-parse": "^8.0.0",
-    "remark-stringify": "^8.0.0",
-    "unified": "^9.2.0",
-    "vfile": "^4.2.0"
+    "remark-parse": "^9.0.0",
+    "remark-stringify": "^9.0.1",
+    "unified": "^9.2.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

@@ -13,15 +13,11 @@ From [React JSX in depth](https://reactjs.org/docs/jsx-in-depth.html):
 
 <MyComponents.DatePicker color="blue"/>
 
-<div>
-  Hello {props.toWhat}
-</div>
+<div>Hello {props.toWhat}</div>
 
 <MyComponent foo={1 + 2 + 3 + 4}/>
 
-<div>
-  {props.number} is an {description} number
-</div>
+<div>{props.number} is an {description} number</div>
 
 <MyComponent message="hello world"/>
 
@@ -56,17 +52,11 @@ From [React JSX in depth](https://reactjs.org/docs/jsx-in-depth.html):
   </Button>
 </div>
 
-<MyComponent>
-  Hello world!
-</MyComponent>
+<MyComponent>Hello world!</MyComponent>
 
-<div>
-  This is valid HTML & JSX at the same time.
-</div>
+<div>This is valid HTML & JSX at the same time.</div>
 
-<div>
-  Hello World
-</div>
+<div>Hello World</div>
 
 <div>
   Hello World
@@ -91,88 +81,51 @@ From [React JSX in depth](https://reactjs.org/docs/jsx-in-depth.html):
   Here is a list:
 
   <ul>
-    <li>
-      Item 1
-    </li>
-
-    <li>
-      Item 2
-    </li>
+    <li>Item 1</li>
+    <li>Item 2</li>
   </ul>
 </div>
 
-<MyComponent>
-  foo
-</MyComponent>
+<MyComponent>foo</MyComponent>
 
-<MyComponent>
-  {
-    'foo'
-  }
-</MyComponent>
+<MyComponent>{'foo'}</MyComponent>
 
 <ul>
-  {
-    todos.map((message) => <Item key={message} message={message} />)
-  }
+  {todos.map((message) => <Item key={message} message={message} />)}
 </ul>
 
-<div>
-  Hello {props.addressee}!
-</div>
+<div>Hello {props.addressee}!</div>
 
 <Repeat numTimes={10}>
-  {
-    (index) => <div key={index}>This is item {index} in the list</div>
-  }
+  {(index) => <div key={index}>This is item {index} in the list</div>}
 </Repeat>
 
 <div/>
 
 <div/>
 
-<div>
-  {
-    false
-  }
-</div>
+<div>{false}</div>
+
+<div>{null}</div>
+
+<div>{undefined}</div>
+
+<div>{true}</div>
 
 <div>
-  {
-    null
-  }
-</div>
-
-<div>
-  {
-    undefined
-  }
-</div>
-
-<div>
-  {
-    true
-  }
-</div>
-
-<div>
-  {
-    showHeader && <Header />
-  }
+  {showHeader && <Header />}
 
   <Content/>
 </div>
 
 <div>
-  {
-    props.messages.length &&
+  {props.messages.length &&
     <MessageList messages={props.messages} />
   }
 </div>
 
 <div>
-  {
-    props.messages.length > 0 &&
+  {props.messages.length > 0 &&
     <MessageList messages={props.messages} />
   }
 </div>

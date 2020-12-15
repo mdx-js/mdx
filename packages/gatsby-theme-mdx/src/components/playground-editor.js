@@ -5,10 +5,11 @@ import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 import * as Rebass from '@rebass/emotion'
 import {ThemeContext} from '@emotion/core'
 import {css} from 'theme-ui'
-import removeImports from 'remark-mdx-remove-imports'
-import removeExports from 'remark-mdx-remove-exports'
+import remove from 'unist-util-remove'
 
 import CodeBlock from './code-block'
+
+const removeEsm = () => tree => remove(tree, 'mdxjsEsm')
 
 const transformCode = src => {
   let transpiledMDX = ''
@@ -16,7 +17,7 @@ const transformCode = src => {
   try {
     transpiledMDX = mdx.sync(src, {
       skipExport: true,
-      remarkPlugins: [removeImports, removeExports]
+      remarkPlugins: [removeEsm]
     })
   } catch (_e) {
     return ''

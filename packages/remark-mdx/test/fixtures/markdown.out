@@ -6,41 +6,29 @@ Note that code is weird, it’s checked in another fixture.
 
 ### Paragraph
 
-<X>
-  Block and <y>inline</y>, <z/>, {1 + 1}.
-</X>
+<X>Block and <y>inline</y>, <z/>, {1 + 1}.</X>
 
 ### Heading<x/>
 
-<X>
-  ###### heading
-</X>
+<X>###### heading</X>
 
 ### Block quote
 
-<X>
-  > a block quote!
-</X>
+<X>> a block quote!</X>
 
 > <x>A</x> block quote.
 
 ### List
 
--   <X>
-      Item <y>inline</y>
-    </X>
--   <X>
-      {
-        1 + 1
-      }
-    </X>
+*   <X>Item <y>inline</y></X>
+*   <X>{1 + 1}</X>
 
 ### Table
 
 <X>
   | # | Nato                                |
   | - | ----------------------------------- |
-  | 1 | Alpha <note>sometimes _Alfa_</note> |
+  | 1 | Alpha <note>sometimes *Alfa*</note> |
   | 2 | Bravo                               |
 </X>
 
@@ -60,7 +48,7 @@ N/A.
 
 ### Emphasis, strong, delete
 
-You can mix and match _<x>emphasis, **strong**, and ~~deletions~~</x>_.
+You can mix and match *<x>emphasis, **strong**, and ~~deletions~~</x>*.
 
 ### Code span
 
@@ -73,4 +61,6 @@ N/A.
 ### References
 
 [<x>links</x>](#), <y>![images](#)</y>, even [<z>![an image in jsx in
-links](#)</z>](#), or [<>{"references"}</>][].
+links](#)</z>](#), or [<>{"references"}</>][x].
+
+[x]: <>

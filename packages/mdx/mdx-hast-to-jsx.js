@@ -1,11 +1,16 @@
 const {transformSync} = require('@babel/core')
 const uniq = require('lodash.uniq')
-const {serializeTags} = require('remark-mdx/lib/serialize/mdx-element')
-const serializeMdxExpression = require('remark-mdx/lib/serialize/mdx-expression')
+const encode = require('stringify-entities/light')
 const toH = require('hast-to-hyperscript')
+const recast = require('recast')
 const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
 const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
 const BabelPluginExtractExportNames = require('babel-plugin-extract-export-names')
+
+// To do: `recast` might be heavy (have to check), and `astring` might be a good
+// alternative.
+// However, `astring` doesn’t support JSX.
+// When we start compiling JSX away, `astring` might be a good fit though.
 
 function toJSX(node, parentNode = {}, options = {}) {
   if (node.type === 'root') {
@@ -21,17 +26,13 @@ function toJSX(node, parentNode = {}, options = {}) {
     return serializeText(node, options, parentNode)
   }
 
-  if (node.type === 'mdxBlockExpression' || node.type === 'mdxSpanExpression') {
+  if (node.type === 'mdxFlowExpression' || node.type === 'mdxTextExpression') {
     return serializeMdxExpression(node)
   }
 
   // To do: pass `parentName` in?
-  if (node.type === 'mdxBlockElement' || node.type === 'mdxSpanElement') {
+  if (node.type === 'mdxJsxFlowElement' || node.type === 'mdxJsxTextElement') {
     return serializeComponent(node, options, parentNode)
-  }
-
-  if (node.type === 'import' || node.type === 'export') {
-    return serializeEsSyntax(node)
   }
 }
 
@@ -42,31 +43,28 @@ function serializeRoot(node, options) {
     wrapExport
   } = options
 
-  const groups = {import: [], export: [], rest: []}
+  const groups = {mdxjsEsm: [], rest: []}
 
-  for (const child of node.children) {
-    groups[
-      child.type === 'import' || child.type === 'export' ? child.type : 'rest'
-    ].push(child)
-  }
+  node.children.forEach(child => {
+    groups[child.type === 'mdxjsEsm' ? child.type : 'rest'].push(child)
+  })
 
   // Find a default export, assumes there’s zero or one.
-  const defaultExport = groups.export.find(child => child.default)
+  const importStatements = []
+  const exportStatements = []
+  let layout
 
-  const layout = defaultExport
-    ? defaultExport.value
-        .replace(/^export\s+default\s+/, '')
-        .replace(/;\s*$/, '')
-    : null
-
-  const importStatements = groups.import
-    .map(childNode => toJSX(childNode, node))
-    .join('\n')
-
-  const exportStatements = groups.export
-    .filter(child => !child.default)
-    .map(childNode => toJSX(childNode, node))
-    .join('\n')
+  groups.mdxjsEsm.forEach(child => {
+    child.data.estree.body.forEach(eschild => {
+      if (eschild.type === 'ImportDeclaration') {
+        importStatements.push(recast.prettyPrint(eschild).code)
+      } else if (eschild.type === 'ExportDefaultDeclaration') {
+        layout = recast.prettyPrint(eschild.declaration).code
+      } else {
+        exportStatements.push(recast.prettyPrint(eschild).code)
+      }
+    })
+  })
 
   const doc = groups.rest
     .map(childNode => toJSX(childNode, node, options))
@@ -85,7 +83,9 @@ MDXContent.isMDXComponent = true`
   // Check JSX nodes against imports
   const babelPluginExtractImportNamesInstance = new BabelPluginExtractImportNames()
   const babelPluginExtractExportNamesInstance = new BabelPluginExtractExportNames()
-  const importsAndExports = [importStatements, exportStatements].join('\n')
+  const importsAndExports = []
+    .concat(importStatements, exportStatements)
+    .join('\n')
 
   transformSync(importsAndExports, {
     configFile: false,
@@ -115,15 +115,18 @@ MDXContent.isMDXComponent = true`
     ]
   }).code
 
-  const exportStatementsPostMdxTypeProps = transformSync(exportStatements, {
-    configFile: false,
-    babelrc: false,
-    plugins: [
-      require('@babel/plugin-syntax-jsx'),
-      require('@babel/plugin-syntax-object-rest-spread'),
-      babelPluginApplyMdxPropToExportsInstance.plugin
-    ]
-  }).code
+  const exportStatementsPostMdxTypeProps = transformSync(
+    exportStatements.join('\n'),
+    {
+      configFile: false,
+      babelrc: false,
+      plugins: [
+        require('@babel/plugin-syntax-jsx'),
+        require('@babel/plugin-syntax-object-rest-spread'),
+        babelPluginApplyMdxPropToExportsInstance.plugin
+      ]
+    }
+  ).code
 
   const allJsxNames = [
     ...babelPluginApplyMdxPropInstance.state.names,
@@ -187,12 +190,10 @@ function serializeElement(node, options, parentNode) {
 }
 
 function serializeComponent(node, options) {
+  const tags = serializeTags(node)
   let content = serializeChildren(node, options)
-  const tags = serializeTags(
-    Object.assign({}, node, {children: content ? ['!'] : []})
-  )
 
-  if (node.type === 'mdxBlockElement' && content) {
+  if (node.type === 'mdxJsxFlowElement' && content) {
     content = '\n' + content + '\n'
   }
 
@@ -210,10 +211,6 @@ function serializeText(node, options, parentNode) {
   }
 
   return toTemplateLiteral(node.value)
-}
-
-function serializeEsSyntax(node) {
-  return node.value
 }
 
 function serializeChildren(node, options) {
@@ -261,3 +258,91 @@ function compile(options = {}) {
 module.exports = compile
 compile.default = compile
 compile.toJSX = toJSX
+
+// To do: this is all extracted (and simplified) from `mdast-util-mdx-jsx` for
+// now.
+// We can remove it when we drop JSX!
+
+const eol = /\r?\n|\r/g
+
+function serializeTags(node) {
+  const selfClosing = node.name && (!node.children || !node.children.length)
+  const attributes = []
+  let index = -1
+  let attribute
+  let result
+
+  // None.
+  if (node.attributes && node.attributes.length) {
+    if (!node.name) {
+      throw new Error('Cannot serialize fragment w/ attributes')
+    }
+
+    while (++index < node.attributes.length) {
+      attribute = node.attributes[index]
+
+      if (attribute.type === 'mdxJsxExpressionAttribute') {
+        result = '{' + (attribute.value || '') + '}'
+      } else {
+        if (!attribute.name) {
+          throw new Error('Cannot serialize attribute w/o name')
+        }
+
+        result =
+          attribute.name +
+          (attribute.value == null
+            ? ''
+            : '=' +
+              (typeof attribute.value === 'object'
+                ? '{' + (attribute.value.value || '') + '}'
+                : '"' + encode(attribute.value, {subset: ['"']}) + '"'))
+      }
+
+      attributes.push(result)
+    }
+  }
+
+  return {
+    open:
+      '<' +
+      (node.name || '') +
+      (node.type === 'mdxJsxFlowElement' && attributes.length > 1
+        ? // Flow w/ multiple attributes.
+          '\n' + indent(attributes.join('\n')) + '\n'
+        : attributes.length // Text or flow w/ a single attribute.
+        ? ' ' + dedentStart(indent(attributes.join(' ')))
+        : '') +
+      (selfClosing ? '/' : '') +
+      '>',
+    close: selfClosing ? '' : '</' + (node.name || '') + '>'
+  }
+}
+
+function serializeMdxExpression(node) {
+  const value = node.value || ''
+  return '{' + (node.type === 'mdxFlowExpression' ? indent(value) : value) + '}'
+}
+
+function dedentStart(value) {
+  return value.replace(/^ +/, '')
+}
+
+function indent(value) {
+  const result = []
+  let start = 0
+  let match
+
+  while ((match = eol.exec(value))) {
+    one(value.slice(start, match.index))
+    result.push(match[0])
+    start = match.index + match[0].length
+  }
+
+  one(value.slice(start))
+
+  return result.join('')
+
+  function one(slice) {
+    result.push((slice ? '  ' : '') + slice)
+  }
+}

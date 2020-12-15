@@ -4,15 +4,13 @@ The characters `>` and `}` don’t need to be handled differently: >, }.
 
 Those characters are also fine in JSX elements: <>> and }</>.
 
-{
-  /* starts an expression, it must be closed: */
-}
+{/* starts an expression, it must be closed: */}
 
-If you don’t want an expression, encode it, like so: &#x7B;.
+If you don’t want an expression, encode it, like so: \{.
 
 <starts a="tag, which must be properly closed: "/>
 
-If you don’t want a tag, encode it, like so: &lt;.
+If you don’t want a tag, encode it, like so: \<.
 
 Those characters are fine in code: `< and {`.
 They’re fine in JSX elements, in code, too: <>`< and {`</>.

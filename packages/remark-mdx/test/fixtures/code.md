@@ -21,16 +21,19 @@ We can’t use character references, because those don’t work in markdown code
 
 Or:
 
-<X>```jsx
-<//>
-```</X>
+<X>
+  ```jsx
+  <//>
+  ```
+</X>
 
 Or:
 
 <X>
 ~~~~~
 <//>
-~~~~~</X>
+~~~~~
+</X>
 
 ### Indented code
 

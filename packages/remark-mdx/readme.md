@@ -72,20 +72,20 @@ Now, running `node example` yields:
       depth: 1,
       children: [
         {type: 'text', value: 'Hello, '},
-        {type: 'mdxSpanExpression', value: 'data.to'}
+        {type: 'mdxTextExpression', value: 'data.to'}
       ]
     },
     {
-      type: 'mdxBlockElement',
+      type: 'mdxJsxFlowElement',
       name: 'Body',
       attributes: [],
-      children: [{type: 'mdxBlockExpression', value: 'message'}]
+      children: [{type: 'mdxFlowExpression', value: 'message'}]
     },
     {
       type: 'paragraph',
       children: [
         {type: 'text', value: 'Best, '},
-        {type: 'mdxSpanExpression', value: 'data.from'}
+        {type: 'mdxTextExpression', value: 'data.from'}
       ]
     }
   ]

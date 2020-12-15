@@ -8,6 +8,7 @@ const mdx = require('..')
 const toMdxHast = require('../mdx-ast-to-mdx-hast')
 const toJsx = require('../mdx-hast-to-jsx')
 const footnotes = require('remark-footnotes')
+const gfm = require('remark-gfm')
 const math = require('remark-math')
 const katex = require('rehype-katex')
 
@@ -257,7 +258,9 @@ describe('@mdx-js/mdx', () => {
   })
 
   it('should support tables in markdown', async () => {
-    const Content = await run('| A | B |\n| :- | -: |\n| a | b |')
+    const Content = await run('| A | B |\n| :- | -: |\n| a | b |', {
+      remarkPlugins: [gfm]
+    })
 
     expect(renderToStaticMarkup(<Content />)).toEqual(
       renderToStaticMarkup(
@@ -305,13 +308,14 @@ describe('@mdx-js/mdx', () => {
     expect.assertions(2)
 
     const plugin = () => tree => {
-      expect(tree.children[0]).toEqual({
-        type: 'import',
+      // Ignore the subtree at `data.estree`.
+      expect(Object.assign({}, tree.children[0], {data: undefined})).toEqual({
+        type: 'mdxjsEsm',
         value: 'import X from "y"',
+        data: undefined,
         position: {
           start: {line: 1, column: 1, offset: 0},
-          end: {line: 1, column: 18, offset: 17},
-          indent: []
+          end: {line: 1, column: 18, offset: 17}
         }
       })
     }
@@ -324,7 +328,9 @@ describe('@mdx-js/mdx', () => {
   it('should crash on incorrect imports', async () => {
     expect(() => {
       mdx.sync('import a')
-    }).toThrow(/unknown: Unexpected token/)
+    }).toThrow(
+      /Could not parse import\/exports with acorn: SyntaxError: Unexpected token/
+    )
   })
 
   it('should support import as a word when it’s not the top level', async () => {
@@ -348,13 +354,14 @@ describe('@mdx-js/mdx', () => {
     expect.assertions(2)
 
     const plugin = () => tree => {
-      expect(tree.children[0]).toEqual({
-        type: 'export',
+      // Ignore the subtree at `data.estree`.
+      expect(Object.assign({}, tree.children[0], {data: undefined})).toEqual({
+        type: 'mdxjsEsm',
         value: 'export const A = () => <b>!</b>',
+        data: undefined,
         position: {
           start: {line: 1, column: 1, offset: 0},
-          end: {line: 1, column: 32, offset: 31},
-          indent: []
+          end: {line: 1, column: 32, offset: 31}
         }
       })
     }
@@ -369,7 +376,9 @@ describe('@mdx-js/mdx', () => {
   it('should crash on incorrect exports', async () => {
     expect(() => {
       mdx.sync('export a')
-    }).toThrow(/unknown: Unexpected token/)
+    }).toThrow(
+      /Could not parse import\/exports with acorn: SyntaxError: Unexpected token/
+    )
   })
 
   it('should support export as a word when it’s not the top level', async () => {
@@ -443,7 +452,7 @@ describe('@mdx-js/mdx', () => {
 
   it('should support semicolons in the default export', async () => {
     const Content = await run(
-      'export default props => <section {...props} />;;\n\nx'
+      'export default props => <section {...props} />;\n\nx'
     )
 
     expect(renderToStaticMarkup(<Content />)).toEqual(
@@ -641,11 +650,8 @@ describe('@mdx-js/mdx', () => {
   it('should support an escaped dollar in text', async () => {
     const Content = await run('\\$')
 
-    // To do: should be `$` according to CM.
-    // Old GFM and the version of remark used in MDX do not support this, but
-    // CommonMark and latest remark do.
     expect(renderToStaticMarkup(<Content />)).toEqual(
-      renderToStaticMarkup(<p>\$</p>)
+      renderToStaticMarkup(<p>$</p>)
     )
   })
 })
@@ -725,7 +731,7 @@ describe('mdx-ast-to-mdx-hast', () => {
       children: [
         {
           type: 'paragraph',
-          children: [{type: 'mdxSpanExpression', value: '1 + 1'}]
+          children: [{type: 'mdxTextExpression', value: '1 + 1'}]
         }
       ]
     }
@@ -739,7 +745,7 @@ describe('mdx-ast-to-mdx-hast', () => {
           type: 'element',
           tagName: 'p',
           properties: {},
-          children: [{type: 'mdxSpanExpression', value: '1 + 1'}]
+          children: [{type: 'mdxTextExpression', value: '1 + 1'}]
         }
       ]
     })
@@ -754,7 +760,7 @@ describe('mdx-hast-to-jsx', () => {
         {
           type: 'element',
           tagName: 'x',
-          children: [{type: 'mdxSpanExpression', value: '1 + 1'}]
+          children: [{type: 'mdxTextExpression', value: '1 + 1'}]
         }
       ]
     }
@@ -769,7 +775,7 @@ describe('mdx-hast-to-jsx', () => {
 describe('mdx-hast-to-jsx.toJSX', () => {
   it('should be a function that serializes mdxhast nodes', () => {
     expect(toJsx.toJSX({type: 'element', tagName: 'x'})).toEqual('<x/>')
-    expect(toJsx.toJSX({type: 'mdxSpanExpression', value: '1 + 1'})).toEqual(
+    expect(toJsx.toJSX({type: 'mdxTextExpression', value: '1 + 1'})).toEqual(
       '{1 + 1}'
     )
   })

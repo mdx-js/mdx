@@ -4,9 +4,9 @@ From [GitHub](https://github.com/mdx-js/mdx/issues/195#issuecomment-506745859).
 
 <Row>
   <Col>
-    -   some md
-    -   asd
-    -   asd
+    *   some md
+    *   asd
+    *   asd
   </Col>
 
   <Col>
@@ -17,9 +17,9 @@ From [GitHub](https://github.com/mdx-js/mdx/issues/195#issuecomment-506745859).
 From [GitHub](https://github.com/mdx-js/mdx/issues/195#issuecomment-507167800)
 
 <Col>
-  -   osm
-  -   <Icon name="hero"/> **This will be plain text, not MD**
-  -   **some md**
+  *   osm
+  *   <Icon name="hero"/> **This will be plain text, not MD**
+  *   **some md**
 </Col>
 
 A couple from [John](https://github.com/mdx-js/mdx/issues/195#issuecomment-613509708):
@@ -30,7 +30,7 @@ A couple from [John](https://github.com/mdx-js/mdx/issues/195#issuecomment-61350
   Here is a template literal
 
   with an empty line
-    `}/>
+  `}/>
 
 # Hello, <>{props.name}</>
 
@@ -40,8 +40,6 @@ Weeeeee!
 
 <Foo>
   {
-    const num = 1+1
-
-    return <h2>{num}</h2>
+    <h2>{1+1}</h2>
   }
 </Foo>

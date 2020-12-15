@@ -17,8 +17,7 @@
               "line": 1,
               "column": 16,
               "offset": 15
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -34,8 +33,7 @@
               "line": 1,
               "column": 19,
               "offset": 18
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -51,8 +49,7 @@
               "line": 1,
               "column": 24,
               "offset": 23
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -68,8 +65,7 @@
               "line": 1,
               "column": 27,
               "offset": 26
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -85,8 +81,7 @@
               "line": 1,
               "column": 71,
               "offset": 70
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -100,8 +95,7 @@
           "line": 1,
           "column": 71,
           "offset": 70
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -123,8 +117,7 @@
                   "line": 3,
                   "column": 12,
                   "offset": 83
-                },
-                "indent": []
+                }
               }
             },
             {
@@ -140,8 +133,7 @@
                   "line": 3,
                   "column": 15,
                   "offset": 86
-                },
-                "indent": []
+                }
               }
             },
             {
@@ -157,8 +149,7 @@
                   "line": 3,
                   "column": 40,
                   "offset": 111
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -172,8 +163,7 @@
               "line": 3,
               "column": 40,
               "offset": 111
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -187,8 +177,7 @@
           "line": 3,
           "column": 40,
           "offset": 111
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -207,12 +196,11 @@
               "line": 5,
               "column": 49,
               "offset": 161
-            },
-            "indent": []
+            }
           }
         },
         {
-          "type": "mdxSpanElement",
+          "type": "mdxJsxTextElement",
           "name": null,
           "attributes": [],
           "children": [
@@ -229,8 +217,7 @@
                   "line": 5,
                   "column": 58,
                   "offset": 170
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -244,8 +231,7 @@
               "line": 5,
               "column": 61,
               "offset": 173
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -261,8 +247,7 @@
               "line": 5,
               "column": 62,
               "offset": 174
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -276,12 +261,11 @@
           "line": 5,
           "column": 62,
           "offset": 174
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockExpression",
+      "type": "mdxFlowExpression",
       "value": "/* starts an expression, it must be closed: */",
       "position": {
         "start": {
@@ -293,8 +277,7 @@
           "line": 7,
           "column": 49,
           "offset": 224
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -302,7 +285,7 @@
       "children": [
         {
           "type": "text",
-          "value": "If you don’t want an expression, encode it, like so: ",
+          "value": "If you don’t want an expression, encode it, like so: {.",
           "position": {
             "start": {
               "line": 9,
@@ -311,44 +294,9 @@
             },
             "end": {
               "line": 9,
-              "column": 54,
-              "offset": 279
-            },
-            "indent": []
-          }
-        },
-        {
-          "type": "text",
-          "value": "{",
-          "position": {
-            "start": {
-              "line": 9,
-              "column": 54,
-              "offset": 279
-            },
-            "end": {
-              "line": 9,
-              "column": 60,
-              "offset": 285
-            },
-            "indent": []
-          }
-        },
-        {
-          "type": "text",
-          "value": ".",
-          "position": {
-            "start": {
-              "line": 9,
-              "column": 60,
-              "offset": 285
-            },
-            "end": {
-              "line": 9,
               "column": 61,
               "offset": 286
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -362,30 +310,17 @@
           "line": 9,
           "column": 61,
           "offset": 286
-        },
-        "indent": []
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "starts",
       "attributes": [
         {
-          "type": "mdxAttribute",
+          "type": "mdxJsxAttribute",
           "name": "a",
-          "value": "tag, which must be properly closed: ",
-          "position": {
-            "start": {
-              "line": 11,
-              "column": 9,
-              "offset": 296
-            },
-            "end": {
-              "line": 11,
-              "column": 49,
-              "offset": 336
-            }
-          }
+          "value": "tag, which must be properly closed: "
         }
       ],
       "children": [],
@@ -399,8 +334,7 @@
           "line": 11,
           "column": 51,
           "offset": 338
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -408,7 +342,7 @@
       "children": [
         {
           "type": "text",
-          "value": "If you don’t want a tag, encode it, like so: ",
+          "value": "If you don’t want a tag, encode it, like so: <.",
           "position": {
             "start": {
               "line": 13,
@@ -417,44 +351,9 @@
             },
             "end": {
               "line": 13,
-              "column": 46,
-              "offset": 385
-            },
-            "indent": []
-          }
-        },
-        {
-          "type": "text",
-          "value": "<",
-          "position": {
-            "start": {
-              "line": 13,
-              "column": 46,
-              "offset": 385
-            },
-            "end": {
-              "line": 13,
-              "column": 50,
-              "offset": 389
-            },
-            "indent": []
-          }
-        },
-        {
-          "type": "text",
-          "value": ".",
-          "position": {
-            "start": {
-              "line": 13,
-              "column": 50,
-              "offset": 389
-            },
-            "end": {
-              "line": 13,
               "column": 51,
               "offset": 390
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -468,8 +367,7 @@
           "line": 13,
           "column": 51,
           "offset": 390
-        },
-        "indent": []
+        }
       }
     },
     {
@@ -488,8 +386,7 @@
               "line": 15,
               "column": 36,
               "offset": 427
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -505,8 +402,7 @@
               "line": 15,
               "column": 45,
               "offset": 436
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -522,14 +418,11 @@
               "line": 16,
               "column": 45,
               "offset": 482
-            },
-            "indent": [
-              1
-            ]
+            }
           }
         },
         {
-          "type": "mdxSpanElement",
+          "type": "mdxJsxTextElement",
           "name": null,
           "attributes": [],
           "children": [
@@ -546,8 +439,7 @@
                   "line": 16,
                   "column": 56,
                   "offset": 493
-                },
-                "indent": []
+                }
               }
             }
           ],
@@ -561,8 +453,7 @@
               "line": 16,
               "column": 59,
               "offset": 496
-            },
-            "indent": []
+            }
           }
         },
         {
@@ -578,10 +469,7 @@
               "line": 17,
               "column": 17,
               "offset": 514
-            },
-            "indent": [
-              1
-            ]
+            }
           }
         }
       ],
@@ -595,15 +483,11 @@
           "line": 17,
           "column": 17,
           "offset": 514
-        },
-        "indent": [
-          1,
-          1
-        ]
+        }
       }
     },
     {
-      "type": "mdxBlockElement",
+      "type": "mdxJsxFlowElement",
       "name": "B",
       "attributes": [],
       "children": [
@@ -615,18 +499,14 @@
           "position": {
             "start": {
               "line": 20,
-              "column": 1,
-              "offset": 520
+              "column": 3,
+              "offset": 522
             },
             "end": {
               "line": 22,
               "column": 6,
               "offset": 541
-            },
-            "indent": [
-              1,
-              1
-            ]
+            }
           }
         },
         {
@@ -637,18 +517,14 @@
           "position": {
             "start": {
               "line": 24,
-              "column": 1,
-              "offset": 543
+              "column": 3,
+              "offset": 545
             },
             "end": {
               "line": 26,
               "column": 6,
               "offset": 570
-            },
-            "indent": [
-              1,
-              1
-            ]
+            }
           }
         },
         {
@@ -660,15 +536,14 @@
               "position": {
                 "start": {
                   "line": 28,
-                  "column": 1,
-                  "offset": 572
+                  "column": 3,
+                  "offset": 574
                 },
                 "end": {
                   "line": 28,
                   "column": 10,
                   "offset": 581
-                },
-                "indent": []
+                }
               }
             },
             {
@@ -684,8 +559,7 @@
                   "line": 28,
                   "column": 25,
                   "offset": 596
-                },
-                "indent": []
+                }
               }
             },
             {
@@ -701,23 +575,21 @@
                   "line": 28,
                   "column": 26,
                   "offset": 597
-                },
-                "indent": []
+                }
               }
             }
           ],
           "position": {
             "start": {
               "line": 28,
-              "column": 1,
-              "offset": 572
+              "column": 3,
+              "offset": 574
             },
             "end": {
               "line": 28,
               "column": 26,
               "offset": 597
-            },
-            "indent": []
+            }
           }
         }
       ],
@@ -731,19 +603,7 @@
           "line": 29,
           "column": 5,
           "offset": 602
-        },
-        "indent": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ]
+        }
       }
     }
   ],

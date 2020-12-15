@@ -3,25 +3,22 @@
 To make this example more readable, uppercase letters are used when JSX is
 parsed as a block, wheres lowercase letters are used for inline JSX.
 
-This is inline, it’s a paragraph, because `</x>` is followed by `.`.
+This is inline, it’s a paragraph, because `<x>` is followed by `_`.
 
-<x>_alpha<y/>_</x>.
+<x>_alpha<y/>_</x>
 
-This is a block, thus its contents is also a block, resulting in a heading: it
-doesn’t matter that there are no enters.
+This is inline too, not a heading:
 
-<X># heading</X>
+<x># hea
+ding</x>
 
-Here we also have a block.
-And an inline.
+This is a block: there is nothing before or after the tags.
 
-<X># heading <y>inline</y></X>
+<X>
+  One paragraph.
 
-This isn’t very readable, but it is a block, with two paragraphs:
-
-<X>One paragraph.
-
-Two paragraph.</X>
+  Two paragraph.
+</X>
 
 Blocks can be self-closing:
 

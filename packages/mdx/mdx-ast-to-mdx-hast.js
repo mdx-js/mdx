@@ -53,25 +53,20 @@ function mdxAstToMdxHast() {
             h(node, 'code', props, [u('text', value)])
           ])
         },
-        // To do: rename to `mdxJsImport`
-        import(h, node) {
-          return Object.assign({}, node, {type: 'import'})
+        mdxjsEsm(h, node) {
+          return node
         },
-        // To do: rename to `mdxJsExport`
-        export(h, node) {
-          return Object.assign({}, node, {type: 'export'})
-        },
-        mdxBlockElement(h, node) {
+        mdxJsxFlowElement(h, node) {
           return Object.assign({}, node, {children: all(h, node)})
         },
-        mdxSpanElement(h, node) {
+        mdxJsxTextElement(h, node) {
           return Object.assign({}, node, {children: all(h, node)})
         },
-        mdxBlockExpression(h, node) {
-          return Object.assign({}, node, {type: 'mdxBlockExpression'})
+        mdxFlowExpression(h, node) {
+          return node
         },
-        mdxSpanExpression(h, node) {
-          return Object.assign({}, node, {type: 'mdxSpanExpression'})
+        mdxTextExpression(h, node) {
+          return node
         }
       }
     })
