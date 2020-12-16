@@ -140,10 +140,10 @@ Support this effort and give back by sponsoring on [OpenCollective][collective]!
 
 ## Authors
 
-- [John Otander][john] ([@4lpine][4lpine]) – [Compositor][] + [Clearbit][]
+- [John Otander][john] ([@4lpine][4lpine]) – [Components AI](https://components.ai)
 - [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [Vercel][]
 - [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [Vercel][]
-- [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Compositor][]
+- [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Gatsby](https://gatsbyjs.com)
 
 ## Related
 
@@ -184,9 +184,7 @@ Join us on [GH Discussions][chat]!
 [rauchg]: https://twitter.com/rauchg
 [timneutkens]: https://twitter.com/timneutkens
 [jxnblk]: https://twitter.com/jxnblk
-[compositor]: https://compositor.io
 [vercel]: https://vercel.com
-[clearbit]: https://clearbit.com
 [contribute]: #contribute
 [contributing]: https://mdxjs.com/contributing
 [support]: https://mdxjs.com/support
