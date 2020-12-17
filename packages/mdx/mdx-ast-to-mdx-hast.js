@@ -1,17 +1,24 @@
 const toHast = require('mdast-util-to-hast')
-const all = require('mdast-util-to-hast/lib/all')
 const detab = require('detab')
 const u = require('unist-builder')
 
 function mdxAstToMdxHast() {
   return tree => {
     return toHast(tree, {
+      passThrough: [
+        'mdxFlowExpression',
+        'mdxJsxFlowElement',
+        'mdxJsxTextElement',
+        'mdxTextExpression',
+        'mdxjsEsm'
+      ],
       handlers: {
-        // `inlineCode` gets passed as `code` by the HAST transform.
-        // This makes sure it ends up being `inlineCode`
+        // Use a custom `inlineCode` element for inline code.
         inlineCode(h, node) {
           return h(node, 'inlineCode', [{type: 'text', value: node.value}])
         },
+        // Add a custom `metastring` attribute to `code` elements,
+        // and support it also as a key/value attribute setter.
         code(h, node) {
           const value = node.value ? detab(node.value + '\n') : ''
           const lang = node.lang
@@ -52,21 +59,6 @@ function mdxAstToMdxHast() {
           return h(node.position, 'pre', [
             h(node, 'code', props, [u('text', value)])
           ])
-        },
-        mdxjsEsm(h, node) {
-          return node
-        },
-        mdxJsxFlowElement(h, node) {
-          return Object.assign({}, node, {children: all(h, node)})
-        },
-        mdxJsxTextElement(h, node) {
-          return Object.assign({}, node, {children: all(h, node)})
-        },
-        mdxFlowExpression(h, node) {
-          return node
-        },
-        mdxTextExpression(h, node) {
-          return node
         }
       }
     })
