@@ -1,51 +1,5 @@
 {
   "private": true,
   "name": "remark-mdx-remove-exports",
-  "version": "2.0.0-next.8",
-  "description": "Remove exports from the MDX AST",
-  "repository": "mdx-js/mdx",
-  "homepage": "https://mdxjs.com",
-  "bugs": "https://github.com/mdx-js/mdx/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
-  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
-  "contributors": [
-    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
-    "Tim Neutkens <tim@vercel.com>",
-    "Matija Marohnić <matija.marohnic@gmail.com>",
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
-    "JounQin <admin@1stg.me> (https://www.1stg.me)",
-    "Christian Murphy <christian.murphy.42@gmail.com>"
-  ],
-  "license": "MIT",
-  "types": "types/index.d.ts",
-  "files": [
-    "index.js",
-    "types/index.d.ts"
-  ],
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "mdxast"
-  ],
-  "scripts": {
-    "test-api": "jest test",
-    "test-coverage": "jest test --coverage",
-    "test-types": "dtslint types",
-    "test": "yarn test-coverage && yarn test-types"
-  },
-  "dependencies": {
-    "unist-util-remove": "2.0.0"
-  },
-  "devDependencies": {
-    "remark-parse": "^9.0.0",
-    "remark-stringify": "^9.0.1",
-    "unified": "^9.2.0"
-  },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }
