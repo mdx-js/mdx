@@ -196,21 +196,67 @@
             "value": "\"echo\"",
             "data": {
               "estree": {
-                "type": "Literal",
-                "start": 0,
-                "end": 6,
+                "type": "Program",
+                "start": 127,
+                "end": 133,
+                "body": [
+                  {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                      "type": "Literal",
+                      "start": 127,
+                      "end": 133,
+                      "loc": {
+                        "start": {
+                          "line": 13,
+                          "column": 34
+                        },
+                        "end": {
+                          "line": 13,
+                          "column": 40
+                        }
+                      },
+                      "value": "echo",
+                      "raw": "\"echo\"",
+                      "range": [
+                        127,
+                        133
+                      ]
+                    },
+                    "start": 127,
+                    "end": 133,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 34
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 40
+                      }
+                    },
+                    "range": [
+                      127,
+                      133
+                    ]
+                  }
+                ],
+                "sourceType": "module",
+                "comments": [],
                 "loc": {
                   "start": {
-                    "line": 1,
-                    "column": 0
+                    "line": 13,
+                    "column": 34
                   },
                   "end": {
-                    "line": 1,
-                    "column": 6
+                    "line": 13,
+                    "column": 40
                   }
                 },
-                "value": "echo",
-                "raw": "\"echo\""
+                "range": [
+                  127,
+                  133
+                ]
               }
             }
           }
@@ -220,35 +266,106 @@
           "value": "...props",
           "data": {
             "estree": {
-              "type": "SpreadElement",
-              "start": 3,
-              "end": 11,
+              "type": "Program",
+              "start": 136,
+              "end": 144,
+              "body": [
+                {
+                  "type": "ExpressionStatement",
+                  "expression": {
+                    "type": "ObjectExpression",
+                    "start": 136,
+                    "end": 144,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 43
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 51
+                      }
+                    },
+                    "properties": [
+                      {
+                        "type": "SpreadElement",
+                        "start": 136,
+                        "end": 144,
+                        "loc": {
+                          "start": {
+                            "line": 13,
+                            "column": 43
+                          },
+                          "end": {
+                            "line": 13,
+                            "column": 51
+                          }
+                        },
+                        "argument": {
+                          "type": "Identifier",
+                          "start": 139,
+                          "end": 144,
+                          "loc": {
+                            "start": {
+                              "line": 13,
+                              "column": 46
+                            },
+                            "end": {
+                              "line": 13,
+                              "column": 51
+                            }
+                          },
+                          "name": "props",
+                          "range": [
+                            139,
+                            144
+                          ]
+                        },
+                        "range": [
+                          136,
+                          144
+                        ]
+                      }
+                    ],
+                    "range": [
+                      136,
+                      144
+                    ]
+                  },
+                  "start": 136,
+                  "end": 144,
+                  "loc": {
+                    "start": {
+                      "line": 13,
+                      "column": 43
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 51
+                    }
+                  },
+                  "range": [
+                    136,
+                    144
+                  ]
+                }
+              ],
+              "sourceType": "module",
+              "comments": [],
               "loc": {
                 "start": {
-                  "line": 1,
-                  "column": 3
+                  "line": 13,
+                  "column": 43
                 },
                 "end": {
-                  "line": 1,
-                  "column": 11
+                  "line": 13,
+                  "column": 51
                 }
               },
-              "argument": {
-                "type": "Identifier",
-                "start": 6,
-                "end": 11,
-                "loc": {
-                  "start": {
-                    "line": 1,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 11
-                  }
-                },
-                "name": "props"
-              }
+              "range": [
+                136,
+                144
+              ]
             }
           }
         }
@@ -394,21 +511,67 @@
             "value": "\"echo\"",
             "data": {
               "estree": {
-                "type": "Literal",
-                "start": 0,
-                "end": 6,
+                "type": "Program",
+                "start": 250,
+                "end": 256,
+                "body": [
+                  {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                      "type": "Literal",
+                      "start": 250,
+                      "end": 256,
+                      "loc": {
+                        "start": {
+                          "line": 23,
+                          "column": 34
+                        },
+                        "end": {
+                          "line": 23,
+                          "column": 40
+                        }
+                      },
+                      "value": "echo",
+                      "raw": "\"echo\"",
+                      "range": [
+                        250,
+                        256
+                      ]
+                    },
+                    "start": 250,
+                    "end": 256,
+                    "loc": {
+                      "start": {
+                        "line": 23,
+                        "column": 34
+                      },
+                      "end": {
+                        "line": 23,
+                        "column": 40
+                      }
+                    },
+                    "range": [
+                      250,
+                      256
+                    ]
+                  }
+                ],
+                "sourceType": "module",
+                "comments": [],
                 "loc": {
                   "start": {
-                    "line": 1,
-                    "column": 0
+                    "line": 23,
+                    "column": 34
                   },
                   "end": {
-                    "line": 1,
-                    "column": 6
+                    "line": 23,
+                    "column": 40
                   }
                 },
-                "value": "echo",
-                "raw": "\"echo\""
+                "range": [
+                  250,
+                  256
+                ]
               }
             }
           }
@@ -418,35 +581,106 @@
           "value": "...props",
           "data": {
             "estree": {
-              "type": "SpreadElement",
-              "start": 3,
-              "end": 11,
+              "type": "Program",
+              "start": 259,
+              "end": 267,
+              "body": [
+                {
+                  "type": "ExpressionStatement",
+                  "expression": {
+                    "type": "ObjectExpression",
+                    "start": 259,
+                    "end": 267,
+                    "loc": {
+                      "start": {
+                        "line": 23,
+                        "column": 43
+                      },
+                      "end": {
+                        "line": 23,
+                        "column": 51
+                      }
+                    },
+                    "properties": [
+                      {
+                        "type": "SpreadElement",
+                        "start": 259,
+                        "end": 267,
+                        "loc": {
+                          "start": {
+                            "line": 23,
+                            "column": 43
+                          },
+                          "end": {
+                            "line": 23,
+                            "column": 51
+                          }
+                        },
+                        "argument": {
+                          "type": "Identifier",
+                          "start": 262,
+                          "end": 267,
+                          "loc": {
+                            "start": {
+                              "line": 23,
+                              "column": 46
+                            },
+                            "end": {
+                              "line": 23,
+                              "column": 51
+                            }
+                          },
+                          "name": "props",
+                          "range": [
+                            262,
+                            267
+                          ]
+                        },
+                        "range": [
+                          259,
+                          267
+                        ]
+                      }
+                    ],
+                    "range": [
+                      259,
+                      267
+                    ]
+                  },
+                  "start": 259,
+                  "end": 267,
+                  "loc": {
+                    "start": {
+                      "line": 23,
+                      "column": 43
+                    },
+                    "end": {
+                      "line": 23,
+                      "column": 51
+                    }
+                  },
+                  "range": [
+                    259,
+                    267
+                  ]
+                }
+              ],
+              "sourceType": "module",
+              "comments": [],
               "loc": {
                 "start": {
-                  "line": 1,
-                  "column": 3
+                  "line": 23,
+                  "column": 43
                 },
                 "end": {
-                  "line": 1,
-                  "column": 11
+                  "line": 23,
+                  "column": 51
                 }
               },
-              "argument": {
-                "type": "Identifier",
-                "start": 6,
-                "end": 11,
-                "loc": {
-                  "start": {
-                    "line": 1,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 11
-                  }
-                },
-                "name": "props"
-              }
+              "range": [
+                259,
+                267
+              ]
             }
           }
         }
@@ -697,21 +931,67 @@
                 "value": "\"echo\"",
                 "data": {
                   "estree": {
-                    "type": "Literal",
-                    "start": 0,
-                    "end": 6,
+                    "type": "Program",
+                    "start": 408,
+                    "end": 414,
+                    "body": [
+                      {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                          "type": "Literal",
+                          "start": 408,
+                          "end": 414,
+                          "loc": {
+                            "start": {
+                              "line": 33,
+                              "column": 34
+                            },
+                            "end": {
+                              "line": 33,
+                              "column": 40
+                            }
+                          },
+                          "value": "echo",
+                          "raw": "\"echo\"",
+                          "range": [
+                            408,
+                            414
+                          ]
+                        },
+                        "start": 408,
+                        "end": 414,
+                        "loc": {
+                          "start": {
+                            "line": 33,
+                            "column": 34
+                          },
+                          "end": {
+                            "line": 33,
+                            "column": 40
+                          }
+                        },
+                        "range": [
+                          408,
+                          414
+                        ]
+                      }
+                    ],
+                    "sourceType": "module",
+                    "comments": [],
                     "loc": {
                       "start": {
-                        "line": 1,
-                        "column": 0
+                        "line": 33,
+                        "column": 34
                       },
                       "end": {
-                        "line": 1,
-                        "column": 6
+                        "line": 33,
+                        "column": 40
                       }
                     },
-                    "value": "echo",
-                    "raw": "\"echo\""
+                    "range": [
+                      408,
+                      414
+                    ]
                   }
                 }
               }
@@ -721,35 +1001,106 @@
               "value": "...props",
               "data": {
                 "estree": {
-                  "type": "SpreadElement",
-                  "start": 3,
-                  "end": 11,
+                  "type": "Program",
+                  "start": 417,
+                  "end": 425,
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "ObjectExpression",
+                        "start": 417,
+                        "end": 425,
+                        "loc": {
+                          "start": {
+                            "line": 33,
+                            "column": 43
+                          },
+                          "end": {
+                            "line": 33,
+                            "column": 51
+                          }
+                        },
+                        "properties": [
+                          {
+                            "type": "SpreadElement",
+                            "start": 417,
+                            "end": 425,
+                            "loc": {
+                              "start": {
+                                "line": 33,
+                                "column": 43
+                              },
+                              "end": {
+                                "line": 33,
+                                "column": 51
+                              }
+                            },
+                            "argument": {
+                              "type": "Identifier",
+                              "start": 420,
+                              "end": 425,
+                              "loc": {
+                                "start": {
+                                  "line": 33,
+                                  "column": 46
+                                },
+                                "end": {
+                                  "line": 33,
+                                  "column": 51
+                                }
+                              },
+                              "name": "props",
+                              "range": [
+                                420,
+                                425
+                              ]
+                            },
+                            "range": [
+                              417,
+                              425
+                            ]
+                          }
+                        ],
+                        "range": [
+                          417,
+                          425
+                        ]
+                      },
+                      "start": 417,
+                      "end": 425,
+                      "loc": {
+                        "start": {
+                          "line": 33,
+                          "column": 43
+                        },
+                        "end": {
+                          "line": 33,
+                          "column": 51
+                        }
+                      },
+                      "range": [
+                        417,
+                        425
+                      ]
+                    }
+                  ],
+                  "sourceType": "module",
+                  "comments": [],
                   "loc": {
                     "start": {
-                      "line": 1,
-                      "column": 3
+                      "line": 33,
+                      "column": 43
                     },
                     "end": {
-                      "line": 1,
-                      "column": 11
+                      "line": 33,
+                      "column": 51
                     }
                   },
-                  "argument": {
-                    "type": "Identifier",
-                    "start": 6,
-                    "end": 11,
-                    "loc": {
-                      "start": {
-                        "line": 1,
-                        "column": 6
-                      },
-                      "end": {
-                        "line": 1,
-                        "column": 11
-                      }
-                    },
-                    "name": "props"
-                  }
+                  "range": [
+                    417,
+                    425
+                  ]
                 }
               }
             }
@@ -1178,21 +1529,67 @@
             "value": "\"echo\"",
             "data": {
               "estree": {
-                "type": "Literal",
-                "start": 0,
-                "end": 6,
+                "type": "Program",
+                "start": 630,
+                "end": 636,
+                "body": [
+                  {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                      "type": "Literal",
+                      "start": 630,
+                      "end": 636,
+                      "loc": {
+                        "start": {
+                          "line": 55,
+                          "column": 34
+                        },
+                        "end": {
+                          "line": 55,
+                          "column": 40
+                        }
+                      },
+                      "value": "echo",
+                      "raw": "\"echo\"",
+                      "range": [
+                        630,
+                        636
+                      ]
+                    },
+                    "start": 630,
+                    "end": 636,
+                    "loc": {
+                      "start": {
+                        "line": 55,
+                        "column": 34
+                      },
+                      "end": {
+                        "line": 55,
+                        "column": 40
+                      }
+                    },
+                    "range": [
+                      630,
+                      636
+                    ]
+                  }
+                ],
+                "sourceType": "module",
+                "comments": [],
                 "loc": {
                   "start": {
-                    "line": 1,
-                    "column": 0
+                    "line": 55,
+                    "column": 34
                   },
                   "end": {
-                    "line": 1,
-                    "column": 6
+                    "line": 55,
+                    "column": 40
                   }
                 },
-                "value": "echo",
-                "raw": "\"echo\""
+                "range": [
+                  630,
+                  636
+                ]
               }
             }
           }
@@ -1202,35 +1599,106 @@
           "value": "...props",
           "data": {
             "estree": {
-              "type": "SpreadElement",
-              "start": 3,
-              "end": 11,
+              "type": "Program",
+              "start": 639,
+              "end": 647,
+              "body": [
+                {
+                  "type": "ExpressionStatement",
+                  "expression": {
+                    "type": "ObjectExpression",
+                    "start": 639,
+                    "end": 647,
+                    "loc": {
+                      "start": {
+                        "line": 55,
+                        "column": 43
+                      },
+                      "end": {
+                        "line": 55,
+                        "column": 51
+                      }
+                    },
+                    "properties": [
+                      {
+                        "type": "SpreadElement",
+                        "start": 639,
+                        "end": 647,
+                        "loc": {
+                          "start": {
+                            "line": 55,
+                            "column": 43
+                          },
+                          "end": {
+                            "line": 55,
+                            "column": 51
+                          }
+                        },
+                        "argument": {
+                          "type": "Identifier",
+                          "start": 642,
+                          "end": 647,
+                          "loc": {
+                            "start": {
+                              "line": 55,
+                              "column": 46
+                            },
+                            "end": {
+                              "line": 55,
+                              "column": 51
+                            }
+                          },
+                          "name": "props",
+                          "range": [
+                            642,
+                            647
+                          ]
+                        },
+                        "range": [
+                          639,
+                          647
+                        ]
+                      }
+                    ],
+                    "range": [
+                      639,
+                      647
+                    ]
+                  },
+                  "start": 639,
+                  "end": 647,
+                  "loc": {
+                    "start": {
+                      "line": 55,
+                      "column": 43
+                    },
+                    "end": {
+                      "line": 55,
+                      "column": 51
+                    }
+                  },
+                  "range": [
+                    639,
+                    647
+                  ]
+                }
+              ],
+              "sourceType": "module",
+              "comments": [],
               "loc": {
                 "start": {
-                  "line": 1,
-                  "column": 3
+                  "line": 55,
+                  "column": 43
                 },
                 "end": {
-                  "line": 1,
-                  "column": 11
+                  "line": 55,
+                  "column": 51
                 }
               },
-              "argument": {
-                "type": "Identifier",
-                "start": 6,
-                "end": 11,
-                "loc": {
-                  "start": {
-                    "line": 1,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 11
-                  }
-                },
-                "name": "props"
-              }
+              "range": [
+                639,
+                647
+              ]
             }
           }
         }
@@ -1596,21 +2064,67 @@
                 "value": "\"echo\"",
                 "data": {
                   "estree": {
-                    "type": "Literal",
-                    "start": 0,
-                    "end": 6,
+                    "type": "Program",
+                    "start": 789,
+                    "end": 795,
+                    "body": [
+                      {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                          "type": "Literal",
+                          "start": 789,
+                          "end": 795,
+                          "loc": {
+                            "start": {
+                              "line": 71,
+                              "column": 34
+                            },
+                            "end": {
+                              "line": 71,
+                              "column": 40
+                            }
+                          },
+                          "value": "echo",
+                          "raw": "\"echo\"",
+                          "range": [
+                            789,
+                            795
+                          ]
+                        },
+                        "start": 789,
+                        "end": 795,
+                        "loc": {
+                          "start": {
+                            "line": 71,
+                            "column": 34
+                          },
+                          "end": {
+                            "line": 71,
+                            "column": 40
+                          }
+                        },
+                        "range": [
+                          789,
+                          795
+                        ]
+                      }
+                    ],
+                    "sourceType": "module",
+                    "comments": [],
                     "loc": {
                       "start": {
-                        "line": 1,
-                        "column": 0
+                        "line": 71,
+                        "column": 34
                       },
                       "end": {
-                        "line": 1,
-                        "column": 6
+                        "line": 71,
+                        "column": 40
                       }
                     },
-                    "value": "echo",
-                    "raw": "\"echo\""
+                    "range": [
+                      789,
+                      795
+                    ]
                   }
                 }
               }
@@ -1620,35 +2134,106 @@
               "value": "...props",
               "data": {
                 "estree": {
-                  "type": "SpreadElement",
-                  "start": 3,
-                  "end": 11,
+                  "type": "Program",
+                  "start": 798,
+                  "end": 806,
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "ObjectExpression",
+                        "start": 798,
+                        "end": 806,
+                        "loc": {
+                          "start": {
+                            "line": 71,
+                            "column": 43
+                          },
+                          "end": {
+                            "line": 71,
+                            "column": 51
+                          }
+                        },
+                        "properties": [
+                          {
+                            "type": "SpreadElement",
+                            "start": 798,
+                            "end": 806,
+                            "loc": {
+                              "start": {
+                                "line": 71,
+                                "column": 43
+                              },
+                              "end": {
+                                "line": 71,
+                                "column": 51
+                              }
+                            },
+                            "argument": {
+                              "type": "Identifier",
+                              "start": 801,
+                              "end": 806,
+                              "loc": {
+                                "start": {
+                                  "line": 71,
+                                  "column": 46
+                                },
+                                "end": {
+                                  "line": 71,
+                                  "column": 51
+                                }
+                              },
+                              "name": "props",
+                              "range": [
+                                801,
+                                806
+                              ]
+                            },
+                            "range": [
+                              798,
+                              806
+                            ]
+                          }
+                        ],
+                        "range": [
+                          798,
+                          806
+                        ]
+                      },
+                      "start": 798,
+                      "end": 806,
+                      "loc": {
+                        "start": {
+                          "line": 71,
+                          "column": 43
+                        },
+                        "end": {
+                          "line": 71,
+                          "column": 51
+                        }
+                      },
+                      "range": [
+                        798,
+                        806
+                      ]
+                    }
+                  ],
+                  "sourceType": "module",
+                  "comments": [],
                   "loc": {
                     "start": {
-                      "line": 1,
-                      "column": 3
+                      "line": 71,
+                      "column": 43
                     },
                     "end": {
-                      "line": 1,
-                      "column": 11
+                      "line": 71,
+                      "column": 51
                     }
                   },
-                  "argument": {
-                    "type": "Identifier",
-                    "start": 6,
-                    "end": 11,
-                    "loc": {
-                      "start": {
-                        "line": 1,
-                        "column": 6
-                      },
-                      "end": {
-                        "line": 1,
-                        "column": 11
-                      }
-                    },
-                    "name": "props"
-                  }
+                  "range": [
+                    798,
+                    806
+                  ]
                 }
               }
             }
@@ -1926,21 +2511,67 @@
                 "value": "\"echo\"",
                 "data": {
                   "estree": {
-                    "type": "Literal",
-                    "start": 0,
-                    "end": 6,
+                    "type": "Program",
+                    "start": 916,
+                    "end": 922,
+                    "body": [
+                      {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                          "type": "Literal",
+                          "start": 916,
+                          "end": 922,
+                          "loc": {
+                            "start": {
+                              "line": 81,
+                              "column": 34
+                            },
+                            "end": {
+                              "line": 81,
+                              "column": 40
+                            }
+                          },
+                          "value": "echo",
+                          "raw": "\"echo\"",
+                          "range": [
+                            916,
+                            922
+                          ]
+                        },
+                        "start": 916,
+                        "end": 922,
+                        "loc": {
+                          "start": {
+                            "line": 81,
+                            "column": 34
+                          },
+                          "end": {
+                            "line": 81,
+                            "column": 40
+                          }
+                        },
+                        "range": [
+                          916,
+                          922
+                        ]
+                      }
+                    ],
+                    "sourceType": "module",
+                    "comments": [],
                     "loc": {
                       "start": {
-                        "line": 1,
-                        "column": 0
+                        "line": 81,
+                        "column": 34
                       },
                       "end": {
-                        "line": 1,
-                        "column": 6
+                        "line": 81,
+                        "column": 40
                       }
                     },
-                    "value": "echo",
-                    "raw": "\"echo\""
+                    "range": [
+                      916,
+                      922
+                    ]
                   }
                 }
               }
@@ -1950,35 +2581,106 @@
               "value": "...props",
               "data": {
                 "estree": {
-                  "type": "SpreadElement",
-                  "start": 3,
-                  "end": 11,
+                  "type": "Program",
+                  "start": 925,
+                  "end": 933,
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "ObjectExpression",
+                        "start": 925,
+                        "end": 933,
+                        "loc": {
+                          "start": {
+                            "line": 81,
+                            "column": 43
+                          },
+                          "end": {
+                            "line": 81,
+                            "column": 51
+                          }
+                        },
+                        "properties": [
+                          {
+                            "type": "SpreadElement",
+                            "start": 925,
+                            "end": 933,
+                            "loc": {
+                              "start": {
+                                "line": 81,
+                                "column": 43
+                              },
+                              "end": {
+                                "line": 81,
+                                "column": 51
+                              }
+                            },
+                            "argument": {
+                              "type": "Identifier",
+                              "start": 928,
+                              "end": 933,
+                              "loc": {
+                                "start": {
+                                  "line": 81,
+                                  "column": 46
+                                },
+                                "end": {
+                                  "line": 81,
+                                  "column": 51
+                                }
+                              },
+                              "name": "props",
+                              "range": [
+                                928,
+                                933
+                              ]
+                            },
+                            "range": [
+                              925,
+                              933
+                            ]
+                          }
+                        ],
+                        "range": [
+                          925,
+                          933
+                        ]
+                      },
+                      "start": 925,
+                      "end": 933,
+                      "loc": {
+                        "start": {
+                          "line": 81,
+                          "column": 43
+                        },
+                        "end": {
+                          "line": 81,
+                          "column": 51
+                        }
+                      },
+                      "range": [
+                        925,
+                        933
+                      ]
+                    }
+                  ],
+                  "sourceType": "module",
+                  "comments": [],
                   "loc": {
                     "start": {
-                      "line": 1,
-                      "column": 3
+                      "line": 81,
+                      "column": 43
                     },
                     "end": {
-                      "line": 1,
-                      "column": 11
+                      "line": 81,
+                      "column": 51
                     }
                   },
-                  "argument": {
-                    "type": "Identifier",
-                    "start": 6,
-                    "end": 11,
-                    "loc": {
-                      "start": {
-                        "line": 1,
-                        "column": 6
-                      },
-                      "end": {
-                        "line": 1,
-                        "column": 11
-                      }
-                    },
-                    "name": "props"
-                  }
+                  "range": [
+                    925,
+                    933
+                  ]
                 }
               }
             }
@@ -2358,21 +3060,67 @@
                 "value": "\"echo\"",
                 "data": {
                   "estree": {
-                    "type": "Literal",
-                    "start": 0,
-                    "end": 6,
+                    "type": "Program",
+                    "start": 1078,
+                    "end": 1084,
+                    "body": [
+                      {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                          "type": "Literal",
+                          "start": 1078,
+                          "end": 1084,
+                          "loc": {
+                            "start": {
+                              "line": 91,
+                              "column": 34
+                            },
+                            "end": {
+                              "line": 91,
+                              "column": 40
+                            }
+                          },
+                          "value": "echo",
+                          "raw": "\"echo\"",
+                          "range": [
+                            1078,
+                            1084
+                          ]
+                        },
+                        "start": 1078,
+                        "end": 1084,
+                        "loc": {
+                          "start": {
+                            "line": 91,
+                            "column": 34
+                          },
+                          "end": {
+                            "line": 91,
+                            "column": 40
+                          }
+                        },
+                        "range": [
+                          1078,
+                          1084
+                        ]
+                      }
+                    ],
+                    "sourceType": "module",
+                    "comments": [],
                     "loc": {
                       "start": {
-                        "line": 1,
-                        "column": 0
+                        "line": 91,
+                        "column": 34
                       },
                       "end": {
-                        "line": 1,
-                        "column": 6
+                        "line": 91,
+                        "column": 40
                       }
                     },
-                    "value": "echo",
-                    "raw": "\"echo\""
+                    "range": [
+                      1078,
+                      1084
+                    ]
                   }
                 }
               }
@@ -2382,35 +3130,106 @@
               "value": "...props",
               "data": {
                 "estree": {
-                  "type": "SpreadElement",
-                  "start": 3,
-                  "end": 11,
+                  "type": "Program",
+                  "start": 1087,
+                  "end": 1095,
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "ObjectExpression",
+                        "start": 1087,
+                        "end": 1095,
+                        "loc": {
+                          "start": {
+                            "line": 91,
+                            "column": 43
+                          },
+                          "end": {
+                            "line": 91,
+                            "column": 51
+                          }
+                        },
+                        "properties": [
+                          {
+                            "type": "SpreadElement",
+                            "start": 1087,
+                            "end": 1095,
+                            "loc": {
+                              "start": {
+                                "line": 91,
+                                "column": 43
+                              },
+                              "end": {
+                                "line": 91,
+                                "column": 51
+                              }
+                            },
+                            "argument": {
+                              "type": "Identifier",
+                              "start": 1090,
+                              "end": 1095,
+                              "loc": {
+                                "start": {
+                                  "line": 91,
+                                  "column": 46
+                                },
+                                "end": {
+                                  "line": 91,
+                                  "column": 51
+                                }
+                              },
+                              "name": "props",
+                              "range": [
+                                1090,
+                                1095
+                              ]
+                            },
+                            "range": [
+                              1087,
+                              1095
+                            ]
+                          }
+                        ],
+                        "range": [
+                          1087,
+                          1095
+                        ]
+                      },
+                      "start": 1087,
+                      "end": 1095,
+                      "loc": {
+                        "start": {
+                          "line": 91,
+                          "column": 43
+                        },
+                        "end": {
+                          "line": 91,
+                          "column": 51
+                        }
+                      },
+                      "range": [
+                        1087,
+                        1095
+                      ]
+                    }
+                  ],
+                  "sourceType": "module",
+                  "comments": [],
                   "loc": {
                     "start": {
-                      "line": 1,
-                      "column": 3
+                      "line": 91,
+                      "column": 43
                     },
                     "end": {
-                      "line": 1,
-                      "column": 11
+                      "line": 91,
+                      "column": 51
                     }
                   },
-                  "argument": {
-                    "type": "Identifier",
-                    "start": 6,
-                    "end": 11,
-                    "loc": {
-                      "start": {
-                        "line": 1,
-                        "column": 6
-                      },
-                      "end": {
-                        "line": 1,
-                        "column": 11
-                      }
-                    },
-                    "name": "props"
-                  }
+                  "range": [
+                    1087,
+                    1095
+                  ]
                 }
               }
             }
@@ -2971,21 +3790,67 @@
                 "value": "\"echo\"",
                 "data": {
                   "estree": {
-                    "type": "Literal",
-                    "start": 0,
-                    "end": 6,
+                    "type": "Program",
+                    "start": 1310,
+                    "end": 1316,
+                    "body": [
+                      {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                          "type": "Literal",
+                          "start": 1310,
+                          "end": 1316,
+                          "loc": {
+                            "start": {
+                              "line": 101,
+                              "column": 34
+                            },
+                            "end": {
+                              "line": 101,
+                              "column": 40
+                            }
+                          },
+                          "value": "echo",
+                          "raw": "\"echo\"",
+                          "range": [
+                            1310,
+                            1316
+                          ]
+                        },
+                        "start": 1310,
+                        "end": 1316,
+                        "loc": {
+                          "start": {
+                            "line": 101,
+                            "column": 34
+                          },
+                          "end": {
+                            "line": 101,
+                            "column": 40
+                          }
+                        },
+                        "range": [
+                          1310,
+                          1316
+                        ]
+                      }
+                    ],
+                    "sourceType": "module",
+                    "comments": [],
                     "loc": {
                       "start": {
-                        "line": 1,
-                        "column": 0
+                        "line": 101,
+                        "column": 34
                       },
                       "end": {
-                        "line": 1,
-                        "column": 6
+                        "line": 101,
+                        "column": 40
                       }
                     },
-                    "value": "echo",
-                    "raw": "\"echo\""
+                    "range": [
+                      1310,
+                      1316
+                    ]
                   }
                 }
               }
@@ -2995,35 +3860,106 @@
               "value": "...props",
               "data": {
                 "estree": {
-                  "type": "SpreadElement",
-                  "start": 3,
-                  "end": 11,
+                  "type": "Program",
+                  "start": 1319,
+                  "end": 1327,
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "ObjectExpression",
+                        "start": 1319,
+                        "end": 1327,
+                        "loc": {
+                          "start": {
+                            "line": 101,
+                            "column": 43
+                          },
+                          "end": {
+                            "line": 101,
+                            "column": 51
+                          }
+                        },
+                        "properties": [
+                          {
+                            "type": "SpreadElement",
+                            "start": 1319,
+                            "end": 1327,
+                            "loc": {
+                              "start": {
+                                "line": 101,
+                                "column": 43
+                              },
+                              "end": {
+                                "line": 101,
+                                "column": 51
+                              }
+                            },
+                            "argument": {
+                              "type": "Identifier",
+                              "start": 1322,
+                              "end": 1327,
+                              "loc": {
+                                "start": {
+                                  "line": 101,
+                                  "column": 46
+                                },
+                                "end": {
+                                  "line": 101,
+                                  "column": 51
+                                }
+                              },
+                              "name": "props",
+                              "range": [
+                                1322,
+                                1327
+                              ]
+                            },
+                            "range": [
+                              1319,
+                              1327
+                            ]
+                          }
+                        ],
+                        "range": [
+                          1319,
+                          1327
+                        ]
+                      },
+                      "start": 1319,
+                      "end": 1327,
+                      "loc": {
+                        "start": {
+                          "line": 101,
+                          "column": 43
+                        },
+                        "end": {
+                          "line": 101,
+                          "column": 51
+                        }
+                      },
+                      "range": [
+                        1319,
+                        1327
+                      ]
+                    }
+                  ],
+                  "sourceType": "module",
+                  "comments": [],
                   "loc": {
                     "start": {
-                      "line": 1,
-                      "column": 3
+                      "line": 101,
+                      "column": 43
                     },
                     "end": {
-                      "line": 1,
-                      "column": 11
+                      "line": 101,
+                      "column": 51
                     }
                   },
-                  "argument": {
-                    "type": "Identifier",
-                    "start": 6,
-                    "end": 11,
-                    "loc": {
-                      "start": {
-                        "line": 1,
-                        "column": 6
-                      },
-                      "end": {
-                        "line": 1,
-                        "column": 11
-                      }
-                    },
-                    "name": "props"
-                  }
+                  "range": [
+                    1319,
+                    1327
+                  ]
                 }
               }
             }

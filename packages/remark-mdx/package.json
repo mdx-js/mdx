@@ -40,8 +40,8 @@
   },
   "dependencies": {
     "mdast-util-mdx": "^0.1.1",
-    "micromark-extension-mdx": "^0.1.0",
-    "micromark-extension-mdxjs": "^0.1.0"
+    "micromark-extension-mdx": "^0.2.0",
+    "micromark-extension-mdxjs": "^0.3.0"
   },
   "devDependencies": {
     "nyc": "^15.1.0",

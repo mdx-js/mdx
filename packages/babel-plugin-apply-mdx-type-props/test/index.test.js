@@ -19,7 +19,7 @@ const transform = value => {
 describe('babel-plugin-add-mdx-type-prop', () => {
   test('should add `mdxType` to components', () => {
     expect(transform('var d = <div><Button /></div>').code).toEqual(
-      'var d = <div><Button mdxType="Button" /></div>;'
+      'var d = <div><Button parentName="div" mdxType="Button" /></div>;'
     )
   })
 

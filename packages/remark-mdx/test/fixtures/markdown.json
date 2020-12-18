@@ -262,54 +262,108 @@
               },
               "data": {
                 "estree": {
-                  "type": "BinaryExpression",
-                  "start": 0,
-                  "end": 5,
+                  "type": "Program",
+                  "start": 138,
+                  "end": 143,
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "BinaryExpression",
+                        "start": 138,
+                        "end": 143,
+                        "left": {
+                          "type": "Literal",
+                          "start": 138,
+                          "end": 139,
+                          "value": 1,
+                          "raw": "1",
+                          "loc": {
+                            "start": {
+                              "line": 9,
+                              "column": 35
+                            },
+                            "end": {
+                              "line": 9,
+                              "column": 36
+                            }
+                          },
+                          "range": [
+                            138,
+                            139
+                          ]
+                        },
+                        "operator": "+",
+                        "right": {
+                          "type": "Literal",
+                          "start": 142,
+                          "end": 143,
+                          "value": 1,
+                          "raw": "1",
+                          "loc": {
+                            "start": {
+                              "line": 9,
+                              "column": 39
+                            },
+                            "end": {
+                              "line": 9,
+                              "column": 40
+                            }
+                          },
+                          "range": [
+                            142,
+                            143
+                          ]
+                        },
+                        "loc": {
+                          "start": {
+                            "line": 9,
+                            "column": 35
+                          },
+                          "end": {
+                            "line": 9,
+                            "column": 40
+                          }
+                        },
+                        "range": [
+                          138,
+                          143
+                        ]
+                      },
+                      "start": 138,
+                      "end": 143,
+                      "loc": {
+                        "start": {
+                          "line": 9,
+                          "column": 35
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 40
+                        }
+                      },
+                      "range": [
+                        138,
+                        143
+                      ]
+                    }
+                  ],
+                  "sourceType": "module",
+                  "comments": [],
                   "loc": {
                     "start": {
-                      "line": 1,
-                      "column": 0
+                      "line": 9,
+                      "column": 35
                     },
                     "end": {
-                      "line": 1,
-                      "column": 5
+                      "line": 9,
+                      "column": 40
                     }
                   },
-                  "left": {
-                    "type": "Literal",
-                    "start": 0,
-                    "end": 1,
-                    "loc": {
-                      "start": {
-                        "line": 1,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 1,
-                        "column": 1
-                      }
-                    },
-                    "value": 1,
-                    "raw": "1"
-                  },
-                  "operator": "+",
-                  "right": {
-                    "type": "Literal",
-                    "start": 4,
-                    "end": 5,
-                    "loc": {
-                      "start": {
-                        "line": 1,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 1,
-                        "column": 5
-                      }
-                    },
-                    "value": 1,
-                    "raw": "1"
-                  }
+                  "range": [
+                    138,
+                    143
+                  ]
                 }
               }
             },
@@ -808,54 +862,108 @@
                       },
                       "data": {
                         "estree": {
-                          "type": "BinaryExpression",
-                          "start": 0,
-                          "end": 5,
+                          "type": "Program",
+                          "start": 306,
+                          "end": 311,
+                          "body": [
+                            {
+                              "type": "ExpressionStatement",
+                              "expression": {
+                                "type": "BinaryExpression",
+                                "start": 306,
+                                "end": 311,
+                                "left": {
+                                  "type": "Literal",
+                                  "start": 306,
+                                  "end": 307,
+                                  "value": 1,
+                                  "raw": "1",
+                                  "loc": {
+                                    "start": {
+                                      "line": 24,
+                                      "column": 8
+                                    },
+                                    "end": {
+                                      "line": 24,
+                                      "column": 9
+                                    }
+                                  },
+                                  "range": [
+                                    306,
+                                    307
+                                  ]
+                                },
+                                "operator": "+",
+                                "right": {
+                                  "type": "Literal",
+                                  "start": 310,
+                                  "end": 311,
+                                  "value": 1,
+                                  "raw": "1",
+                                  "loc": {
+                                    "start": {
+                                      "line": 24,
+                                      "column": 12
+                                    },
+                                    "end": {
+                                      "line": 24,
+                                      "column": 13
+                                    }
+                                  },
+                                  "range": [
+                                    310,
+                                    311
+                                  ]
+                                },
+                                "loc": {
+                                  "start": {
+                                    "line": 24,
+                                    "column": 8
+                                  },
+                                  "end": {
+                                    "line": 24,
+                                    "column": 13
+                                  }
+                                },
+                                "range": [
+                                  306,
+                                  311
+                                ]
+                              },
+                              "start": 306,
+                              "end": 311,
+                              "loc": {
+                                "start": {
+                                  "line": 24,
+                                  "column": 8
+                                },
+                                "end": {
+                                  "line": 24,
+                                  "column": 13
+                                }
+                              },
+                              "range": [
+                                306,
+                                311
+                              ]
+                            }
+                          ],
+                          "sourceType": "module",
+                          "comments": [],
                           "loc": {
                             "start": {
-                              "line": 1,
-                              "column": 0
+                              "line": 24,
+                              "column": 8
                             },
                             "end": {
-                              "line": 1,
-                              "column": 5
+                              "line": 24,
+                              "column": 13
                             }
                           },
-                          "left": {
-                            "type": "Literal",
-                            "start": 0,
-                            "end": 1,
-                            "loc": {
-                              "start": {
-                                "line": 1,
-                                "column": 0
-                              },
-                              "end": {
-                                "line": 1,
-                                "column": 1
-                              }
-                            },
-                            "value": 1,
-                            "raw": "1"
-                          },
-                          "operator": "+",
-                          "right": {
-                            "type": "Literal",
-                            "start": 4,
-                            "end": 5,
-                            "loc": {
-                              "start": {
-                                "line": 1,
-                                "column": 4
-                              },
-                              "end": {
-                                "line": 1,
-                                "column": 5
-                              }
-                            },
-                            "value": 1,
-                            "raw": "1"
-                          }
+                          "range": [
+                            306,
+                            311
+                          ]
                         }
                       }
                     }
@@ -1895,21 +2003,67 @@
                   },
                   "data": {
                     "estree": {
-                      "type": "Literal",
-                      "start": 0,
-                      "end": 12,
+                      "type": "Program",
+                      "start": 877,
+                      "end": 889,
+                      "body": [
+                        {
+                          "type": "ExpressionStatement",
+                          "expression": {
+                            "type": "Literal",
+                            "start": 877,
+                            "end": 889,
+                            "value": "references",
+                            "raw": "\"references\"",
+                            "loc": {
+                              "start": {
+                                "line": 64,
+                                "column": 26
+                              },
+                              "end": {
+                                "line": 64,
+                                "column": 38
+                              }
+                            },
+                            "range": [
+                              877,
+                              889
+                            ]
+                          },
+                          "start": 877,
+                          "end": 889,
+                          "loc": {
+                            "start": {
+                              "line": 64,
+                              "column": 26
+                            },
+                            "end": {
+                              "line": 64,
+                              "column": 38
+                            }
+                          },
+                          "range": [
+                            877,
+                            889
+                          ]
+                        }
+                      ],
+                      "sourceType": "module",
+                      "comments": [],
                       "loc": {
                         "start": {
-                          "line": 1,
-                          "column": 0
+                          "line": 64,
+                          "column": 26
                         },
                         "end": {
-                          "line": 1,
-                          "column": 12
+                          "line": 64,
+                          "column": 38
                         }
                       },
-                      "value": "references",
-                      "raw": "\"references\""
+                      "range": [
+                        877,
+                        889
+                      ]
                     }
                   }
                 }
