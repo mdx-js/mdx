@@ -19,11 +19,11 @@ test('parse', function (t) {
 
   t.test('MDX vs. MDX.js', function (t) {
     t.deepEqual(
-      clean(unified().use(parse).use(mdx, {js: false}).parse('{1 + /* } */ 2}').children[0]),
-      u('paragraph', [
-        u('mdxTextExpression', '1 + /* '),
-        u('text', ' */ 2}')
-      ]),
+      clean(
+        unified().use(parse).use(mdx, {js: false}).parse('{1 + /* } */ 2}')
+          .children[0]
+      ),
+      u('paragraph', [u('mdxTextExpression', '1 + /* '), u('text', ' */ 2}')]),
       'should count braces in agnostic mode (`js: false`)'
     )
 

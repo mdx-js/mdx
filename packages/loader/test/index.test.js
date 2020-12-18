@@ -11,6 +11,7 @@ const {mdx} = require('../../react')
 
 const transform = (filePath, options) => {
   return new Promise((resolve, reject) => {
+    // Webpack 5: const fs = new MemoryFs()
     const compiler = webpack({
       context: __dirname,
       entry: filePath,
@@ -38,12 +39,17 @@ const transform = (filePath, options) => {
       }
     })
 
+    // Webpack 5: compiler.outputFileSystem = fs
     compiler.outputFileSystem = new MemoryFs()
 
     compiler.run((err, stats) => {
       if (err) {
         reject(err)
       } else {
+        // Webpack 5:
+        // resolve(
+        //   {source: fs.readFileSync(path.join(__dirname, '..', 'dist', 'main.js'), 'utf8')}
+        // )
         resolve(stats.toJson().modules.find(m => m.name === filePath))
       }
     })
@@ -51,6 +57,11 @@ const transform = (filePath, options) => {
 }
 
 const run = value => {
+  // Webpack 5 (replace everything in this function with):
+  // const val = 'return ' + value.replace(/__webpack_require__\(0\)/, 'return $&')
+  //
+  // // eslint-disable-next-line no-new-func
+  // return new Function(val)().default
   // Replace import/exports w/ parameters and return value.
   const val = value
     .replace(

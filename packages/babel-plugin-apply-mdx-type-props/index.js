@@ -1,4 +1,3 @@
-const {types: t} = require('@babel/core')
 const {declare} = require('@babel/helper-plugin-utils')
 
 const startsWithCapitalLetter = str => /^[A-Z]/.test(str)
@@ -10,6 +9,7 @@ class BabelPluginApplyMdxTypeProp {
 
     this.plugin = declare(api => {
       api.assertVersion(7)
+      const {types: t} = api
 
       return {
         visitor: {
