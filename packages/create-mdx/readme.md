@@ -21,7 +21,7 @@ npm init mdx gatsby "my-new-project"
 
 Create a new [MDX][] project.
 Defaults to the [Next][] example, but `type` can also be `create-react-app`,
-`parcel`, `razzle`, or `x0`.
+`parcel`, or `razzle`.
 Name can be any name but defaults to `next-mdx`.
 
 ## Contribute
