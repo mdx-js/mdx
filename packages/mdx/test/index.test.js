@@ -476,6 +476,33 @@ describe('@mdx-js/mdx', () => {
     )
   })
 
+  it('should support a default export from an import', async () => {
+    let result = await mdx('import a from "b"\nexport default a')
+    expect(result).toMatch(/import a from "b"/)
+    expect(result).toMatch(/const MDXLayout = a/)
+
+    result = await mdx('export {default} from "a"')
+    expect(result).toMatch(/import MDXLayout from "a"/)
+
+    // These are not export defaults: they imports default but export as
+    // something else.
+    result = await mdx('export {default as a} from "b"')
+    expect(result).toMatch(/export { default as a } from "b"/)
+    expect(result).toMatch(/const MDXLayout = "wrapper"/)
+    result = await mdx('export {default as a, b} from "c"')
+    expect(result).toMatch(/export { default as a, b } from "c"/)
+    expect(result).toMatch(/const MDXLayout = "wrapper"/)
+
+    // These are export defaults.
+    result = await mdx('export {a as default} from "b"')
+    expect(result).toMatch(/import { a as MDXLayout } from "b"/)
+    expect(result).not.toMatch(/const MDXLayout/)
+    result = await mdx('export {a as default, b} from "c"')
+    expect(result).toMatch(/export { b } from "c"/)
+    expect(result).toMatch(/import { a as MDXLayout } from "c"/)
+    expect(result).not.toMatch(/const MDXLayout/)
+  })
+
   it('should support semicolons in the default export', async () => {
     const Content = await run(
       'export default props => <section {...props} />;\n\nx'

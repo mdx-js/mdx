@@ -16,13 +16,40 @@ function serializeEstree(estree, options) {
 
   let layout
   let children = []
+  let mdxLayoutDefault
 
   // Find the `export default`, the JSX expression, and leave the rest
   // (import/exports) as they are.
   estree.body = estree.body.filter(child => {
+    // ```js
+    // export default a = 1
+    // ```
     if (child.type === 'ExportDefaultDeclaration') {
       layout = child.declaration
       return false
+    }
+
+    // ```js
+    // export {default} from "a"
+    // export {default as a} from "b"
+    // export {default as a, b} from "c"
+    // export {a as default} from "b"
+    // export {a as default, b} from "c"
+    // ```
+    if (child.type === 'ExportNamedDeclaration' && child.source) {
+      // Remove `default` or `as default`, but not `default as`, specifier.
+      child.specifiers = child.specifiers.filter(specifier => {
+        if (specifier.exported.name === 'default') {
+          mdxLayoutDefault = {local: specifier.local, source: child.source}
+          return false
+        }
+
+        return true
+      })
+
+      // Keep the export if there are other specifiers, drop it if there was
+      // just a default.
+      return child.specifiers.length > 0
     }
 
     if (
@@ -42,7 +69,7 @@ function serializeEstree(estree, options) {
 
   estree.body = [
     ...estree.body,
-    ...createMdxLayout(layout),
+    ...createMdxLayout(layout, mdxLayoutDefault),
     ...createMdxContent(children)
   ]
 
@@ -200,23 +227,36 @@ function createMdxContent(children) {
   ]
 }
 
-function createMdxLayout(declaration) {
+function createMdxLayout(declaration, mdxLayoutDefault) {
+  const id = {type: 'Identifier', name: 'MDXLayout'}
+  const init = {type: 'Literal', value: 'wrapper', raw: '"wrapper"'}
+
   return [
-    {
-      type: 'VariableDeclaration',
-      declarations: [
-        {
-          type: 'VariableDeclarator',
-          id: {type: 'Identifier', name: 'MDXLayout'},
-          init: declaration || {
+    mdxLayoutDefault
+      ? {
+          type: 'ImportDeclaration',
+          specifiers: [
+            mdxLayoutDefault.local.name === 'default'
+              ? {type: 'ImportDefaultSpecifier', local: id}
+              : {
+                  type: 'ImportSpecifier',
+                  imported: mdxLayoutDefault.local,
+                  local: id
+                }
+          ],
+          source: {
             type: 'Literal',
-            value: 'wrapper',
-            raw: '"wrapper"'
+            value: mdxLayoutDefault.source.value,
+            raw: mdxLayoutDefault.source.raw
           }
         }
-      ],
-      kind: 'const'
-    }
+      : {
+          type: 'VariableDeclaration',
+          declarations: [
+            {type: 'VariableDeclarator', id: id, init: declaration || init}
+          ],
+          kind: 'const'
+        }
   ]
 }
 
