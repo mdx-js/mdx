@@ -1,35 +1,4 @@
 {
   "private": true,
-  "name": "@mdx-js/test-util",
-  "version": "2.0.0-next.8",
-  "description": "Testing utilities for MDX libraries",
-  "repository": "mdx-js/mdx",
-  "homepage": "https://mdxjs.com",
-  "bugs": "https://github.com/mdx-js/mdx/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
-  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
-  "contributors": [
-    "JounQin <admin@1stg.me> (https://www.1stg.me)",
-    "Christian Murphy <christian.murphy.42@gmail.com>"
-  ],
-  "license": "MIT",
-  "types": "types/index.d.ts",
-  "files": [
-    "index.js",
-    "types/index.d.ts"
-  ],
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "mdxast"
-  ],
-  "scripts": {},
-  "dependencies": {},
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  "name": "@mdx-js/test-util"
 }
