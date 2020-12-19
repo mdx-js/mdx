@@ -35,7 +35,11 @@ async function mdxLoader(content) {
   let result
 
   try {
-    result = await mdx(content, {...options, skipExport: true})
+    result = await mdx(content, {
+      ...options,
+      skipExport: true,
+      mdxFragment: false
+    })
   } catch (err) {
     return callback(err)
   }

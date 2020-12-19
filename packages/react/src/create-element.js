@@ -40,7 +40,7 @@ const MDXCreateElement = React.forwardRef((props, ref) => {
 
 MDXCreateElement.displayName = 'MDXCreateElement'
 
-export default function (type, props) {
+function mdx(type, props) {
   const args = arguments
   const mdxType = props && props.mdxType
 
@@ -72,3 +72,7 @@ export default function (type, props) {
 
   return React.createElement.apply(null, args)
 }
+
+mdx.Fragment = React.Fragment
+
+export default mdx

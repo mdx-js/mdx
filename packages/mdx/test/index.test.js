@@ -564,23 +564,17 @@ describe('@mdx-js/mdx', () => {
   })
 
   it('should not crash but issue a warning when an undefined component is used', async () => {
-    const Content = await run('x <Y /> z')
+    const Content = await run('w <X>y</X> z')
     const warn = console.warn
     console.warn = jest.fn()
 
-    // To do: a fragment would probably be better?
-    // Maybe the components children?
     expect(renderToStaticMarkup(<Content />)).toEqual(
-      renderToStaticMarkup(
-        <p>
-          x <div /> z
-        </p>
-      )
+      renderToStaticMarkup(<p>w y z</p>)
     )
 
     expect(console.warn).toHaveBeenCalledWith(
       'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
-      'Y'
+      'X'
     )
 
     console.warn = warn
