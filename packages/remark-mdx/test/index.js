@@ -1472,8 +1472,8 @@ test('stringify', function (t) {
 
 test('fixtures', function (t) {
   fs.readdirSync(base)
-    .filter((d) => /\.md$/.test(d))
-    .forEach((name) => {
+    .filter(d => /\.md$/.test(d))
+    .forEach(name => {
       console.log(name)
       let proc = unified().use(parse).use(stringify).use(mdx)
       let fpIn = path.join(base, name)
