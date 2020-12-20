@@ -1,11 +1,7 @@
-const {transformFromAstSync} = require('@babel/core')
-const generate = require('@babel/generator').default
-const uniq = require('lodash.uniq')
 const toEstree = require('hast-util-to-estree')
-const estreeToBabel = require('estree-to-babel')
-const BabelPluginApplyMdxProp = require('babel-plugin-apply-mdx-type-prop')
-const BabelPluginExtractImportNames = require('babel-plugin-extract-import-names')
-const BabelPluginExtractExportNames = require('babel-plugin-extract-export-names')
+const walk = require('estree-walker').walk
+const periscopic = require('periscopic')
+const estreeToJs = require('./estree-to-js')
 
 function serializeEstree(estree, options) {
   const {
@@ -67,47 +63,76 @@ function serializeEstree(estree, options) {
     return true
   })
 
+  // Find everything that’s defined in the top-level scope.
+  // Do this here because `estree` currently only includes import/exports
+  // and we don’t have to walk all the JSX to figure out the top scope.
+  const inTopScope = [
+    'MDXLayout',
+    'MDXContent',
+    ...periscopic.analyze(estree).scope.declarations.keys()
+  ]
+
   estree.body = [
     ...estree.body,
     ...createMdxLayout(layout, mdxLayoutDefault),
     ...createMdxContent(children)
   ]
 
-  // Now, transform the whole with Babel.
-  const babelTree = estreeToBabel(estree)
+  // Add `mdxType`, `parentName` props to JSX elements.
+  const magicShortcodes = []
+  const stack = []
 
-  // Get all the identifiers that are imported or exported (as those might be
-  // component names).
-  const babelPluginExtractImportNamesInstance = new BabelPluginExtractImportNames()
-  const babelPluginExtractExportNamesInstance = new BabelPluginExtractExportNames()
-  // Get all used JSX identifiers (`mdxType` props).
-  const babelPluginApplyMdxPropInstance = new BabelPluginApplyMdxProp()
+  walk(estree, {
+    enter: function (node) {
+      if (
+        node.type === 'JSXElement' &&
+        // To do: support members (`<x.y>`).
+        node.openingElement.name.type === 'JSXIdentifier'
+      ) {
+        const name = node.openingElement.name.name
 
-  // Mutate the Babel AST.
-  transformFromAstSync(babelTree, '', {
-    filename: options.filename,
-    ast: false,
-    code: false,
-    cloneInputAst: false,
-    configFile: false,
-    babelrc: false,
-    plugins: [
-      babelPluginExtractImportNamesInstance.plugin,
-      babelPluginExtractExportNamesInstance.plugin,
-      babelPluginApplyMdxPropInstance.plugin
-    ]
+        if (stack.length > 1) {
+          const parentName = stack[stack.length - 1]
+
+          node.openingElement.attributes.push({
+            type: 'JSXAttribute',
+            name: {type: 'JSXIdentifier', name: 'parentName'},
+            value: {
+              type: 'Literal',
+              value: parentName,
+              raw: JSON.stringify(parentName)
+            }
+          })
+        }
+
+        const head = name.charAt(0)
+
+        // A component.
+        if (head === head.toUpperCase() && name !== 'MDXLayout') {
+          node.openingElement.attributes.push({
+            type: 'JSXAttribute',
+            name: {type: 'JSXIdentifier', name: 'mdxType'},
+            value: {type: 'Literal', value: name, raw: JSON.stringify(name)}
+          })
+
+          if (!inTopScope.includes(name) && !magicShortcodes.includes(name)) {
+            magicShortcodes.push(name)
+          }
+        }
+
+        stack.push(name)
+      }
+    },
+    leave: function (node) {
+      if (
+        node.type === 'JSXElement' &&
+        // To do: support members (`<x.y>`).
+        node.openingElement.name.type === 'JSXIdentifier'
+      ) {
+        stack.pop()
+      }
+    }
   })
-
-  const importExportNames = babelPluginExtractImportNamesInstance.state.names.concat(
-    babelPluginExtractExportNamesInstance.state.names
-  )
-  const jsxNames = babelPluginApplyMdxPropInstance.state.names.filter(
-    name => name !== 'MDXLayout'
-  )
-
-  const shortcodes = createMakeShortcodeHelper(
-    uniq(jsxNames).filter(name => !importExportNames.includes(name))
-  )
 
   const exports = []
 
@@ -125,21 +150,18 @@ function serializeEstree(estree, options) {
     exports.push({type: 'ExportDefaultDeclaration', declaration: declaration})
   }
 
-  babelTree.program.body = [
-    ...shortcodes,
-    ...babelTree.program.body,
+  estree.body = [
+    ...createMakeShortcodeHelper(magicShortcodes),
+    ...estree.body,
     ...exports
   ]
 
-  return generate(babelTree).code
+  return estreeToJs(estree)
 }
 
 function compile(options = {}) {
   function compiler(tree, file) {
-    return serializeEstree(toEstree(tree), {
-      filename: (file || {}).path,
-      ...options
-    })
+    return serializeEstree(toEstree(tree), {filename: file.path, ...options})
   }
 
   this.Compiler = compiler
@@ -260,7 +282,6 @@ function createMdxLayout(declaration, mdxLayoutDefault) {
   ]
 }
 
-// Note: this creates a Babel AST, not an estree.
 function createMakeShortcodeHelper(names) {
   const func = {
     type: 'VariableDeclaration',
@@ -298,8 +319,7 @@ function createMakeShortcodeHelper(names) {
                     },
                     arguments: [
                       {
-                        // Note: Babel!
-                        type: 'StringLiteral',
+                        type: 'Literal',
                         value:
                           'Component `%s` was not imported, exported, or provided by MDXProvider as global scope'
                       },
@@ -344,8 +364,7 @@ function createMakeShortcodeHelper(names) {
         init: {
           type: 'CallExpression',
           callee: {type: 'Identifier', name: 'makeShortcode'},
-          // Note: Babel!
-          arguments: [{type: 'StringLiteral', value: String(name)}]
+          arguments: [{type: 'Literal', value: String(name)}]
         }
       }
     ],

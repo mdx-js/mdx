@@ -487,19 +487,19 @@ describe('@mdx-js/mdx', () => {
     // These are not export defaults: they imports default but export as
     // something else.
     result = await mdx('export {default as a} from "b"')
-    expect(result).toMatch(/export { default as a } from "b"/)
+    expect(result).toMatch(/export {default as a} from "b"/)
     expect(result).toMatch(/const MDXLayout = "wrapper"/)
     result = await mdx('export {default as a, b} from "c"')
-    expect(result).toMatch(/export { default as a, b } from "c"/)
+    expect(result).toMatch(/export {default as a, b} from "c"/)
     expect(result).toMatch(/const MDXLayout = "wrapper"/)
 
     // These are export defaults.
     result = await mdx('export {a as default} from "b"')
-    expect(result).toMatch(/import { a as MDXLayout } from "b"/)
+    expect(result).toMatch(/import {a as MDXLayout} from "b"/)
     expect(result).not.toMatch(/const MDXLayout/)
     result = await mdx('export {a as default, b} from "c"')
-    expect(result).toMatch(/export { b } from "c"/)
-    expect(result).toMatch(/import { a as MDXLayout } from "c"/)
+    expect(result).toMatch(/export {b} from "c"/)
+    expect(result).toMatch(/import {a as MDXLayout} from "c"/)
     expect(result).not.toMatch(/const MDXLayout/)
   })
 
@@ -687,6 +687,30 @@ describe('@mdx-js/mdx', () => {
 
     expect(renderToStaticMarkup(<Content />)).toEqual(
       renderToStaticMarkup(<p>$</p>)
+    )
+  })
+
+  it('should support an empty expression in JSX', async () => {
+    const Content = await run('<x>{}</x>')
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <p>
+          <x />
+        </p>
+      )
+    )
+  })
+
+  it('should support a more complex expression in JSX', async () => {
+    const Content = await run('<x>{(() => 1 + 2)(1)}</x>')
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <p>
+          <x>3</x>
+        </p>
+      )
     )
   })
 })
