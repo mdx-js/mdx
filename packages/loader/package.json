@@ -43,7 +43,7 @@
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-next.8",
     "@mdx-js/react": "^2.0.0-next.8",
-    "loader-utils": "2.0.0"
+    "loader-utils": "^2.0.0"
   },
   "devDependencies": {
     "memory-fs": "^0.5.0",

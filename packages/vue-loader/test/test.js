@@ -5,6 +5,7 @@ const {mount} = require('@vue/test-utils')
 const vueMergeProps = require('babel-helper-vue-jsx-merge-props')
 const {mdx} = require('../../vue')
 
+// See `loader`’s tests for how to upgrade these to webpack 5.
 const transform = (filePath, options) => {
   return new Promise((resolve, reject) => {
     const compiler = webpack({

@@ -23,7 +23,7 @@
     "babel"
   ],
   "dependencies": {
-    "@babel/helper-plugin-utils": "7.10.4"
+    "@babel/helper-plugin-utils": "^7.10.4"
   },
   "scripts": {
     "test-api": "jest test",
