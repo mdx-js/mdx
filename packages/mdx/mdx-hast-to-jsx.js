@@ -151,7 +151,10 @@ function serializeEstree(estree, options) {
   }
 
   estree.body = [
-    ...createMakeShortcodeHelper(magicShortcodes),
+    ...createMakeShortcodeHelper(
+      magicShortcodes,
+      options.mdxFragment === false
+    ),
     ...estree.body,
     ...exports
   ]
@@ -282,7 +285,7 @@ function createMdxLayout(declaration, mdxLayoutDefault) {
   ]
 }
 
-function createMakeShortcodeHelper(names) {
+function createMakeShortcodeHelper(names, useElement) {
   const func = {
     type: 'VariableDeclaration',
     declarations: [
@@ -329,22 +332,39 @@ function createMakeShortcodeHelper(names) {
                 },
                 {
                   type: 'ReturnStatement',
-                  argument: {
-                    type: 'JSXElement',
-                    openingElement: {
-                      type: 'JSXOpeningElement',
-                      attributes: [
-                        {
-                          type: 'JSXSpreadAttribute',
-                          argument: {type: 'Identifier', name: 'props'}
-                        }
-                      ],
-                      name: {type: 'JSXIdentifier', name: 'div'},
-                      selfClosing: true
-                    },
-                    closingElement: null,
-                    children: []
-                  }
+                  argument: useElement
+                    ? {
+                        type: 'JSXElement',
+                        openingElement: {
+                          type: 'JSXOpeningElement',
+                          attributes: [
+                            {
+                              type: 'JSXSpreadAttribute',
+                              argument: {type: 'Identifier', name: 'props'}
+                            }
+                          ],
+                          name: {type: 'JSXIdentifier', name: 'div'},
+                          selfClosing: true
+                        },
+                        closingElement: null,
+                        children: []
+                      }
+                    : {
+                        type: 'JSXFragment',
+                        openingFragment: {type: 'JSXOpeningFragment'},
+                        closingFragment: {type: 'JSXClosingFragment'},
+                        children: [
+                          {
+                            type: 'JSXExpressionContainer',
+                            expression: {
+                              type: 'MemberExpression',
+                              object: {type: 'Identifier', name: 'props'},
+                              property: {type: 'Identifier', name: 'children'},
+                              computed: false
+                            }
+                          }
+                        ]
+                      }
                 }
               ]
             }

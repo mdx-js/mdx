@@ -44,8 +44,10 @@
   ],
   "scripts": {
     "build": "microbundle -f modern,es,cjs src/index.js",
-    "test": "jest test --coverage",
-    "test-types": "dtslint types"
+    "test-api": "jest test",
+    "test-coverage": "jest test --coverage",
+    "test-types": "dtslint types",
+    "test": "yarn test-coverage && yarn test-types"
   },
   "peerDependencies": {
     "preact": "^10.4.6"

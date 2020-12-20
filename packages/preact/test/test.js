@@ -55,7 +55,7 @@ describe('@mdx-js/preact', () => {
     const warn = console.warn
     console.warn = jest.fn()
 
-    expect(render(<Content />)).toEqual('<div></div>')
+    expect(render(<Content />)).toEqual('')
 
     expect(console.warn).toHaveBeenCalledWith(
       'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',

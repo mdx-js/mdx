@@ -7,7 +7,8 @@ const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
 
 const pragma = `/* @jsxRuntime classic */
-/* @jsx mdx */`
+/* @jsx mdx */
+/* @jsxFrag mdx.Fragment */`
 
 function createMdxAstCompiler(options = {}) {
   return unified()

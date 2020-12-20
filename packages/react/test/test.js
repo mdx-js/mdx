@@ -51,11 +51,11 @@ describe('@mdx-js/react', () => {
   })
 
   test('should warn on missing components', async () => {
-    const Content = await run('<Component />')
+    const Content = await run('<Component>x</Component>')
     const warn = console.warn
     console.warn = jest.fn()
 
-    expect(renderToString(<Content />)).toEqual('<div></div>')
+    expect(renderToString(<Content />)).toEqual('<p>x</p>')
 
     expect(console.warn).toHaveBeenCalledWith(
       'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
