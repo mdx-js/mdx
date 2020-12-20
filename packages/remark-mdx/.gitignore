@@ -1,6 +1,0 @@
-.DS_Store
-*.log
-.nyc_output/
-coverage/
-node_modules/
-yarn.lock
