@@ -5,13 +5,16 @@ module.exports = estreeToJs
 const customGenerator = Object.assign({}, astring.baseGenerator, {
   JSXAttribute: JSXAttribute,
   JSXClosingElement: JSXClosingElement,
+  JSXClosingFragment: JSXClosingFragment,
   JSXElement: JSXElement,
   JSXEmptyExpression: JSXEmptyExpression,
   JSXExpressionContainer: JSXExpressionContainer,
+  JSXFragment: JSXFragment,
   JSXIdentifier: JSXIdentifier,
   JSXMemberExpression: JSXMemberExpression,
   JSXNamespacedName: JSXNamespacedName,
   JSXOpeningElement: JSXOpeningElement,
+  JSXOpeningFragment: JSXOpeningFragment,
   JSXSpreadAttribute: JSXSpreadAttribute,
   JSXText: JSXText
 })
@@ -36,6 +39,11 @@ function JSXClosingElement(node, state) {
   this[node.name.type](node.name, state)
 }
 
+// `</>`
+function JSXClosingFragment(node, state) {
+  state.write('</>')
+}
+
 // `<div></div>`
 function JSXElement(node, state) {
   state.write('<')
@@ -54,6 +62,24 @@ function JSXElement(node, state) {
   } else {
     state.write(' />')
   }
+}
+
+// `<></>`
+function JSXFragment(node, state) {
+  this[node.openingFragment.type](node.openingElement, state)
+
+  let index = -1
+
+  while (++index < node.children.length) {
+    this[node.children[index].type](node.children[index], state)
+  }
+
+  /* istanbul ignore if - incorrect tree. */
+  if (!node.closingFragment) {
+    throw new Error('Cannot handle fragment w/o closing tag')
+  }
+
+  this[node.closingFragment.type](node.closingElement, state)
 }
 
 // `{}`
@@ -75,6 +101,11 @@ function JSXOpeningElement(node, state) {
   while (++index < node.attributes.length) {
     this[node.attributes[index].type](node.attributes[index], state)
   }
+}
+
+// `<>`
+function JSXOpeningFragment(node, state) {
+  state.write('<>')
 }
 
 // `div`
