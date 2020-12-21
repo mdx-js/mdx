@@ -49,9 +49,9 @@
     "react": "^16.13.1 || ^17.0.0"
   },
   "devDependencies": {
-    "microbundle": "^0.12.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "microbundle": "0.12.4",
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

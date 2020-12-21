@@ -33,9 +33,9 @@
     "test": "yarn test-coverage && yarn test-types"
   },
   "devDependencies": {
-    "@vue/test-utils": "^1.1.1",
-    "babel-helper-vue-jsx-merge-props": "^2.0.0",
-    "microbundle": "^0.12.0"
+    "@vue/test-utils": "1.1.2",
+    "babel-helper-vue-jsx-merge-props": "2.0.3",
+    "microbundle": "0.12.4"
   },
   "dependencies": {},
   "jest": {

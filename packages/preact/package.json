@@ -53,9 +53,9 @@
     "preact": "^10.4.6"
   },
   "devDependencies": {
-    "microbundle": "^0.12.0",
-    "preact": "^10.5.0",
-    "preact-render-to-string": "^5.1.10"
+    "microbundle": "0.12.4",
+    "preact": "10.5.7",
+    "preact-render-to-string": "5.1.12"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }
