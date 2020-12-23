@@ -1,5 +1,6 @@
 const toEstree = require('hast-util-to-estree')
 const walk = require('estree-walker').walk
+const buildJsx = require('estree-util-build-jsx')
 const periscopic = require('periscopic')
 const estreeToJs = require('./estree-to-js')
 
@@ -7,6 +8,7 @@ function serializeEstree(estree, options) {
   const {
     // Default options
     skipExport = false,
+    keepJsx = false,
     wrapExport
   } = options
 
@@ -150,6 +152,13 @@ function serializeEstree(estree, options) {
     exports.push({type: 'ExportDefaultDeclaration', declaration: declaration})
   }
 
+  // Add JSX pragma comments.
+  estree.comments.unshift(
+    {type: 'Block', value: '@jsxRuntime classic'},
+    {type: 'Block', value: '@jsx mdx'},
+    {type: 'Block', value: '@jsxFrag mdx.Fragment'}
+  )
+
   estree.body = [
     ...createMakeShortcodeHelper(
       magicShortcodes,
@@ -158,6 +167,10 @@ function serializeEstree(estree, options) {
     ...estree.body,
     ...exports
   ]
+
+  if (!keepJsx) {
+    buildJsx(estree)
+  }
 
   return estreeToJs(estree)
 }

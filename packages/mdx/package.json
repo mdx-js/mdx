@@ -47,6 +47,7 @@
     "astring": "^1.4.0",
     "detab": "^2.0.0",
     "estree-walker": "^2.0.0",
+    "estree-util-build-jsx": "^1.0.0",
     "hast-util-to-estree": "^1.1.0",
     "mdast-util-to-hast": "^10.1.0",
     "periscopic": "^2.0.0",

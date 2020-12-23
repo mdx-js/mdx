@@ -38,7 +38,8 @@ async function mdxLoader(content) {
     result = await mdx(content, {
       ...options,
       skipExport: true,
-      mdxFragment: false
+      mdxFragment: false,
+      keepJsx: true
     })
   } catch (err) {
     return callback(err)

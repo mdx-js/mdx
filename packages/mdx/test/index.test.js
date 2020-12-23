@@ -19,7 +19,6 @@ const run = async (value, options = {}) => {
   const {code} = await babel.transformAsync(doc, {
     configFile: false,
     plugins: [
-      '@babel/plugin-transform-react-jsx',
       path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
     ]
   })
@@ -30,13 +29,19 @@ const run = async (value, options = {}) => {
 }
 
 describe('@mdx-js/mdx', () => {
-  it('should generate JSX', async () => {
+  it('should generate JS (by default)', async () => {
     const result = await mdx('Hello World')
+
+    expect(result).toMatch(/mdx\("p", null, "Hello World"\)/)
+  })
+
+  it('should generate JSX (`keepJsx: true`)', async () => {
+    const result = await mdx('Hello World', {keepJsx: true})
 
     expect(result).toMatch(/<p>\{"Hello World"\}<\/p>/)
   })
 
-  it('should generate runnable JSX', async () => {
+  it('should generate runnable JS', async () => {
     const Content = await run('Hello World')
 
     expect(renderToStaticMarkup(<Content />)).toEqual(
@@ -396,7 +401,7 @@ describe('@mdx-js/mdx', () => {
       rehypePlugins: [plugin]
     })
 
-    expect(result).toMatch(/export const A = \(\) => <b>!<\/b>/)
+    expect(result).toMatch(/export const A = \(\) => mdx\("b", null, "!"\)/)
   })
 
   it('should crash on incorrect exports', async () => {
@@ -711,24 +716,24 @@ describe('@mdx-js/mdx', () => {
 
 describe('default', () => {
   it('should be async', async () => {
-    expect(mdx('x')).resolves.toMatch(/<p>{"x"}<\/p>/)
+    expect(mdx('x')).resolves.toMatch(/mdx\("p", null, "x"\)/)
   })
 
   it('should support `remarkPlugins`', async () => {
     expect(mdx('$x$', {remarkPlugins: [math]})).resolves.toMatch(
-      /className="math math-inline"/
+      /className: "math math-inline"/
     )
   })
 })
 
 describe('sync', () => {
   it('should be sync', () => {
-    expect(mdx.sync('x')).toMatch(/<p>{"x"}<\/p>/)
+    expect(mdx.sync('x')).toMatch(/mdx\("p", null, "x"\)/)
   })
 
   it('should support `remarkPlugins`', () => {
     expect(mdx.sync('$x$', {remarkPlugins: [math]})).toMatch(
-      /className="math math-inline"/
+      /className: "math math-inline"/
     )
   })
 })
@@ -772,7 +777,7 @@ describe('createMdxAstCompiler', () => {
 describe('createCompiler', () => {
   it('should create a unified processor', () => {
     expect(String(mdx.createCompiler().processSync('x'))).toMatch(
-      /<p>{"x"}<\/p>/
+      /mdx\("p", null, "x"\)/
     )
   })
 })
@@ -817,6 +822,6 @@ describe('mdx-hast-to-jsx', () => {
     const doc = unified().use(toJsx).stringify(tree)
 
     expect(doc).toMatch(/export default MDXContent/)
-    expect(doc).toMatch(/<x>\{"a"}<\/x>/)
+    expect(doc).toMatch(/mdx\("x", null, "a"\)/)
   })
 })

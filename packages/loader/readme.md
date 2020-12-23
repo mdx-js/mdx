@@ -31,14 +31,14 @@ module: {
     // …
     {
       test: /\.mdx$/,
-      use: ['babel-loader', '@mdx-js/loader']
+      use: ['@mdx-js/loader']
     }
   ]
 }
 ```
 
-You’ll probably want to configure Babel to use `@babel/preset-react` or so, but
-that’s not required.
+You might want to add `babel-loader` there too if you have modern JS features
+that you want to compile down.
 
 All options given to `mdx-js/loader`, except for `renderer` (see below), are
 passed to MDX itself:

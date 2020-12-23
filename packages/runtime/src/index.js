@@ -1,5 +1,4 @@
 import React from 'react'
-import {transform} from 'buble-jsx-only'
 import mdx from '@mdx-js/mdx'
 import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 
@@ -25,7 +24,7 @@ export default ({
     ...scope
   }
 
-  const jsx = mdx
+  const js = mdx
     .sync(children, {
       remarkPlugins,
       rehypePlugins,
@@ -33,13 +32,11 @@ export default ({
     })
     .trim()
 
-  const code = transform(jsx, {objectAssign: 'Object.assign'}).code
-
   const keys = Object.keys(fullScope)
   const values = Object.values(fullScope)
 
   // eslint-disable-next-line no-new-func
-  const fn = new Function('React', ...keys, `${code}\n\n${suffix}`)
+  const fn = new Function('React', ...keys, `${js}\n\n${suffix}`)
 
   return fn(React, ...values)
 }

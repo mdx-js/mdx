@@ -7,7 +7,11 @@ import {MDXProvider, mdx} from '../src'
 
 const run = async value => {
   // Turn the serialized MDX code into serialized JSX…
-  const doc = await mdxTransform(value, {skipExport: true, mdxFragment: false})
+  const doc = await mdxTransform(value, {
+    skipExport: true,
+    mdxFragment: false,
+    keepJsx: true
+  })
 
   // …and that into serialized JS.
   const {code} = await babelTransform(doc, {

@@ -15,7 +15,6 @@ const run = async value => {
   const {code} = await babelTransform(doc, {
     configFile: false,
     plugins: [
-      '@babel/plugin-transform-react-jsx',
       path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
     ]
   })

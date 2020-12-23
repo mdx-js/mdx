@@ -20,20 +20,7 @@ const transform = (filePath, options) => {
         rules: [
           {
             test: /\.mdx$/,
-            use: [
-              {
-                loader: 'babel-loader',
-                options: {
-                  configFile: false,
-                  plugins: [
-                    '@babel/plugin-transform-runtime',
-                    '@babel/plugin-syntax-jsx',
-                    '@babel/plugin-transform-react-jsx'
-                  ]
-                }
-              },
-              {loader: path.resolve(__dirname, '..'), options}
-            ]
+            use: [{loader: path.resolve(__dirname, '..'), options}]
           }
         ]
       }
@@ -64,13 +51,8 @@ const run = value => {
   // return new Function(val)().default
   // Replace import/exports w/ parameters and return value.
   const val = value
-    .replace(
-      /import _objectWithoutProperties from "@babel\/runtime\/helpers\/objectWithoutProperties";/,
-      ''
-    )
-    .replace(/import _extends from "@babel\/runtime\/helpers\/extends";/, '')
-    .replace(/import React from 'react';/, '')
-    .replace(/import \{ mdx } from '@mdx-js\/react';/, '')
+    .replace(/import React from 'react'/, '')
+    .replace(/import \{mdx} from '@mdx-js\/react'/, '')
     .replace(/export default/, 'return')
 
   // eslint-disable-next-line no-new-func

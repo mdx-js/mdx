@@ -20,7 +20,7 @@ const customGenerator = Object.assign({}, astring.baseGenerator, {
 })
 
 function estreeToJs(estree) {
-  return astring.generate(estree, {generator: customGenerator})
+  return astring.generate(estree, {generator: customGenerator, comments: true})
 }
 
 // `attr="something"`
