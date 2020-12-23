@@ -22,8 +22,12 @@
   "engines": {
     "node": ">=8"
   },
-  "main": "dist/cjs.js",
-  "module": "dist/esm.js",
+  "main": "dist/mdx-runtime.js",
+  "module": "dist/mdx-runtime.es.js",
+  "exports": {
+    "import": "./dist/mdx-runtime.modern.js",
+    "require": "./dist/mdx-runtime.js"
+  },
   "types": "types/index.d.ts",
   "files": [
     "dist",
@@ -38,6 +42,7 @@
     "mdxast"
   ],
   "scripts": {
+    "build": "microbundle -f modern,es,cjs src/index.js",
     "test-api": "jest test",
     "test-coverage": "jest test --coverage",
     "test-types": "dtslint types",
@@ -52,6 +57,7 @@
     "buble-jsx-only": "^0.19.8"
   },
   "devDependencies": {
+    "microbundle": "^0.12.0",
     "rehype-add-classes": "^1.0.0",
     "remark-autolink-headings": "^6.0.0",
     "remark-slug": "^6.0.0"
