@@ -1,23 +1,23 @@
 const React = require('react')
-const {render, Color, Box, Text} = require('ink')
+const {render, Box, Text} = require('ink')
 const MDX = require('@mdx-js/runtime')
 const {MDXProvider} = require('@mdx-js/react')
 
 const MDXContent = `
 # Hello, world!
 
-From <Color bgBlack white bold>    MDX!    </Color>
+From <Text backgroundColor="black" color="white" bold>MDX!</Text>
 
 <Box marginTop={1}>
-  <Color bgCyan white bold>
+  <Text backgroundColor="cyan" color="white" bold>
     I'm a cyan box!
-  </Color>
+  </Text>
 </Box>
 `
 
 const components = {
   Box,
-  Color,
+  Text,
   h1: ({children}) => (
     <Text underline bold>
       {children}

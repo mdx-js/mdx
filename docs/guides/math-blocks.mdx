@@ -36,7 +36,7 @@ module.exports = {
     rules: [
       // ...
       {
-        test: /.mdx?$/,
+        test: /.mdx$/,
         use: [
           'babel-loader',
           {
@@ -75,7 +75,7 @@ const remarkMath = require('remark-math')
 const rehypeKatex = require('rehype-katex')
 
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
+  extension: /\.mdx$/,
   options: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex]

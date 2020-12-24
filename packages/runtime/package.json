@@ -49,7 +49,7 @@
     "test": "yarn test-coverage && yarn test-types"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
+    "react": ">=16"
   },
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-next.8",

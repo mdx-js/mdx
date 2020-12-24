@@ -25,6 +25,8 @@ export default {
       }
     ]
   },
+  // See <https://github.com/react-static/react-static/tree/master/packages/react-static-plugin-mdx>
+  // for more info.
   plugins: [
     'react-static-plugin-mdx',
     [
