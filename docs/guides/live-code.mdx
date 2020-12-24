@@ -5,7 +5,7 @@ If you haven’t read the syntax highlighting guide it’s recommended start the
 # Live code
 
 An increasingly common approach for live code editors is to overload the
-code block.This is often done so that the code shows up nicely when rendered
+code block. This is often done so that the code shows up nicely when rendered
 to GitHub and it’s a nice usage of meta strings.
 
 ## Code block meta string
@@ -15,6 +15,7 @@ be automatically passed as props to your code block.
 
 ````md
 ```js live=true
+
 ```
 ````
 
@@ -88,7 +89,7 @@ export default props => (
 ## Using the MDXProvider context for rendering
 
 With the react-live editor you can ensure that your MDX components
-in context are rendered in the preview.In order to do this you
+in context are rendered in the preview. In order to do this you
 can use the MDX custom pragma.
 
 To achieve this, import the pragma:
