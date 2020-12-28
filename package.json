@@ -48,7 +48,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.0",
     "gatsby": "^2.24.3",
-    "gatsby-plugin-mdx": "^1.2.27",
+    "gatsby-plugin-mdx": "^1.2.0",
     "husky": "^4.3.0",
     "jest": "^26.6.0",
     "lerna": "^3.22.1",

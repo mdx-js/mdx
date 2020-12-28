@@ -8,7 +8,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.mdx?$/,
+        test: /\.mdx$/,
         use: ['babel-loader', '@mdx-js/loader']
       }
     ]

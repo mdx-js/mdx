@@ -3,7 +3,7 @@ module.exports = {
     module: {
       rules: [
         {
-          test: /.mdx?$/,
+          test: /.mdx$/,
           use: ['babel-loader', '@mdx-js/vue-loader']
         }
       ]

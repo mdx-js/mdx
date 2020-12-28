@@ -33,11 +33,16 @@
   ],
   "peerDependencies": {
     "@mdx-js/react": "^1.6.7",
-    "react": "^16.13.1"
+    "react": ">=16"
   },
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-next.8",
     "parcel-bundler": "^1.12.4"
+  },
+  "scripts": {
+    "test-api": "jest test",
+    "test-coverage": "jest test --coverage",
+    "test": "yarn test-coverage"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

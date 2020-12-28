@@ -1,4 +1,4 @@
-# Web components + React + MDX
+# Gatsby + React + MDX + Web components
 
 ```sh
 yarn

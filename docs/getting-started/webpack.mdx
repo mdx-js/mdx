@@ -28,7 +28,7 @@ module.exports = {
       // ...
 
       {
-        test: /\.mdx?$/,
+        test: /\.mdx$/,
         use: ['babel-loader', '@mdx-js/loader']
       }
     ]
@@ -55,7 +55,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.mdx?$/,
+        test: /\.mdx$/,
         use: [
           {
             loader: 'babel-loader'

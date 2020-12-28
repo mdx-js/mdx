@@ -2,10 +2,15 @@ const {Asset} = require('parcel-bundler')
 
 const mdx = require('@mdx-js/mdx')
 
+const prefix = `import React from 'react'
+import {mdx} from '@mdx-js/react'
+`
+
 class MDXAsset extends Asset {
-  constructor(name, pkg, options) {
-    super(name, pkg, options)
+  constructor(name, options) {
+    super(name, options)
     this.type = 'js'
+    this.hmrPageReload = true
   }
 
   async generate() {
@@ -14,18 +19,8 @@ class MDXAsset extends Asset {
       {packageKey: 'mdx'}
     )
     const compiled = await mdx(this.contents, config)
-    const fullCode = `/* @jsx mdx */
-import React from 'react';
-import { mdx } from '@mdx-js/react'
-${compiled}
-`
-    return [
-      {
-        type: 'js',
-        value: fullCode,
-        sourceMap: undefined
-      }
-    ]
+
+    return [{type: 'js', value: prefix + compiled}]
   }
 }
 

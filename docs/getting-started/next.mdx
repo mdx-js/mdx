@@ -22,7 +22,7 @@ To have Next.js treat `.mdx` files in the pages directory as pages use the `page
 ```js
 // next.config.js
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/
+  extension: /\.mdx$/
 })
 module.exports = withMDX({
   pageExtensions: ['js', 'jsx', 'mdx']
@@ -35,7 +35,7 @@ The Next.js MDX plugin allows for you to also use MDX parsing for `.md` files:
 
 ```js
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/
+  extension: /\.mdx$/
 })
 
 module.exports = withMDX({
@@ -61,7 +61,7 @@ module.exports = withMDX()
 
 ```js
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/
+  extension: /\.mdx$/
 })
 
 module.exports = withMDX({
