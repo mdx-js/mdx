@@ -11,8 +11,8 @@ will be documented here.
 ## Composition
 
 The [MDXProvider](https://mdxjs.com/getting-started/#mdxprovider) provides
-a way to map components to be rendered for a given Markdown element.So,
-this allows you to choose a specific component for the `code` block.To
+a way to map components to be rendered for a given Markdown element. So,
+this allows you to choose a specific component for the `code` block. To
 get started you can wrap your app in the MDXProvider and add in a component
 to ensure it’s being picked up:
 
@@ -41,7 +41,7 @@ any code block found in your MDX files.
 ### prism-react-renderer
 
 Now that you have a custom component being rendered for code blocks you can
-choose any React component library to handle the syntax highlighting.A solid
+choose any React component library to handle the syntax highlighting. A solid
 library to choose is [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer).
 
 You can install it with:
@@ -53,7 +53,7 @@ yarn add prism-react-renderer
 #### Build a CodeBlock component
 
 You can essentially cut and paste the entire example into a new
-component file.The only big difference is the MDX will pass in the
+component file. The only big difference is the MDX will pass in the
 code string as `children` so you will need to destructure that prop
 and pass it to Highlight as the `code` prop.
 
@@ -81,9 +81,9 @@ export default ({children}) => {
 }
 ```
 
-Now you should see syntax highlighting in your MDX files.However, right now
-`javascript` is hardcoded as the language.You will need to take the language
-from the code fence and pass it to Highlight directly.MDX will pass the language
+Now you should see syntax highlighting in your MDX files. However, right now
+`javascript` is hardcoded as the language. You will need to take the language
+from the code fence and pass it to Highlight directly. MDX will pass the language
 as `className` so you can pull out the language with:
 
 ```js
@@ -122,7 +122,7 @@ export default ({children, className}) => {
 ## Remark plugin
 
 In addition to composition you can use any plugin from the remark
-ecosystem.One solid library for syntax highlighting is
+ecosystem. One solid library for syntax highlighting is
 [@mapbox/rehype-prism](https://github.com/mapbox/rehype-prism).
 
 ```js
