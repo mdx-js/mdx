@@ -18,7 +18,7 @@ yarn add @mdx-js/vue-loader
 
 ## Configuring webpack
 
-In a [Vue CLI](https://cli.vuejs.org/) you need to add a `webpack.config.js` that
+In a [Vue CLI](https://cli.vuejs.org/) you need to add a `vue.config.js` that
 uses the MDX loader for vue:
 
 ```js
@@ -27,7 +27,7 @@ module.exports = {
     module: {
       rules: [
         {
-          test: /.mdx?$/,
+          test: /\.mdx$/,
           use: ['babel-loader', '@mdx-js/vue-loader']
         }
       ]
