@@ -23,10 +23,8 @@ describe('MDXAsset', () => {
     const results = await asset.process()
     const result = results[0]
 
-    expect(result.value).toContain('<h1>{"Test"}</h1>')
+    expect(result.value).toContain('mdx("h1", null, "Test")')
 
-    expect(result.value).toContain(
-      '<Component parentName="p" mdxType="Component">{"component"}</Component>'
-    )
+    expect(result.value).toContain('mdx(Component')
   })
 })
