@@ -67,8 +67,7 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "/.cache/",
-      "<rootDir>/examples/create-react-app"
+      "/.cache/"
     ],
     "testEnvironment": "node"
   },
