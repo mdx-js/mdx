@@ -1,50 +1,102 @@
 # Create React App
 
-Please note there’s a [known bug][] with
-the macro so live reloading doesn’t
-currently work.
-
-With Create React App you will need to use
-[`mdx.macro`][mdx-macro].
+First, create a new app with [CRA][] and change directory to enter it:
 
 ```sh
 npx create-react-app my-app
-yarn add mdx.macro
+cd my-app
 ```
 
-Then create the following `src/App.js`:
+Second, we need to configure some build tools.
+Install [`@mdx-js/loader`][loader] and [`babel-loader`][babel-loader] as dev
+dependencies:
+
+```sh
+yarn add @mdx-js/loader babel-loader --dev
+```
+
+Also make sure that JSX in MDX is handled by Babel by creating a `.babelrc` JSON
+file in the project root of `my-app`:
+
+```json
+{
+  "presets": ["@babel/preset-react"]
+}
+```
+
+Third, we can add our MDX content.
+Create an MDX file `Content.mdx` in the `src/` folder:
+
+```mdx
+export const Box = () => (
+  <div style={{padding: 20, backgroundColor: 'tomato'}} />
+)
+
+# Hello, world!
+
+This is **markdown** with <span style={{color: "red"}}>JSX</span>: MDX!
+
+<Box />
+```
+
+And to use that MDX content in the app, replace the contents of `App.js` in the
+`src/` folder with:
 
 ```js
-// src/App.js
+/* eslint-disable import/no-webpack-loader-syntax */
+import Content from '!babel-loader!@mdx-js/loader!./Content.mdx'
 
-import React, {lazy, Component, Suspense} from 'react'
-import {importMDX} from 'mdx.macro'
-
-const Content = lazy(() => importMDX('./Content.mdx'))
-
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Content />
-        </Suspense>
-      </div>
-    )
-  }
+function App() {
+  return <Content />
 }
 
 export default App
 ```
 
-And then create the following `src/Content.mdx`:
+We’re almost done!
+To start the development server, run:
 
-```md
-# Hello, world!
+```sh
+yarn start
 ```
 
-[See the full example][cra-example]
+**…but you will probably get this error**:
 
-[mdx-macro]: https://www.npmjs.com/package/mdx.macro
-[cra-example]: https://github.com/mdx-js/mdx/tree/master/examples/create-react-app
-[known bug]: https://github.com/facebook/create-react-app/issues/5580
+```txt
+$ react-scripts start
+
+There might be a problem with the project dependency tree.
+It is likely not a bug in Create React App, but something you need to fix locally.
+
+The react-scripts package provided by Create React App requires a dependency:
+
+  "babel-loader": "$VERSION"
+…
+```
+
+CRA expects a certain `babel-loader` version but MDX also needs one.
+To fix the error, make sure the two `babel-loader` versions match, by running
+the following:
+
+```sh
+yarn add babel-loader@$VERSION --dev
+```
+
+(where `$VERSION` is the version number printed in the error message, such as
+`8.1.0`).
+
+Then, running `yarn start` again should do the trick! ✨
+
+If you’re still seeing errors and you’re using TypeScript, then [this
+guide][typescript] might help.
+
+Finally, see [Support][] if you’re still running into problems.
+
+[cra]: https://github.com/facebook/create-react-app
+[loader]: https://github.com/mdx-js/mdx/tree/main/packages/loader
+[babel-loader]: https://webpack.js.org/loaders/babel-loader/
+
+<!-- To do: update to point to website if that’s working -->
+
+[typescript]: https://github.com/mdx-js/mdx/blob/main/docs/advanced/typescript.mdx
+[support]: https://mdxjs.com/support

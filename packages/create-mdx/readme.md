@@ -20,8 +20,8 @@ npm init mdx gatsby "my-new-project"
 ### `npm init mdx [type=next] [name=next-mdx]`
 
 Create a new [MDX][] project.
-Defaults to the [Next][] example, but `type` can also be `create-react-app`,
-`parcel`, or `razzle`.
+Defaults to the [Next][] example, but `type` can also be `webpack`, `parcel`,
+`gatsby`, `react-static`, or `razzle`.
 Name can be any name but defaults to `next-mdx`.
 
 ## Contribute
@@ -45,7 +45,6 @@ abide by its terms.
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 [chat]: https://github.com/mdx-js/mdx/discussions
 [mdx]: https://mdxjs.com
-[npm]: https://docs.npmjs.com/cli/install
 [contributing]: https://mdxjs.com/contributing
 [support]: https://mdxjs.com/support
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
