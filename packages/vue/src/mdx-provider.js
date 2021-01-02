@@ -4,8 +4,8 @@ const MDXProvider = {
   provide() {
     return {$mdxComponents: () => this.components}
   },
-  render(h) {
-    return h('div', this.$slots.default)
+  render() {
+    return this.$slots.default
   }
 }
 

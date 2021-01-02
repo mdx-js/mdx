@@ -3,7 +3,6 @@ const {Asset} = require('parcel-bundler')
 const mdx = require('@mdx-js/mdx')
 
 const prefix = `import React from 'react'
-import {mdx} from '@mdx-js/react'
 `
 
 class MDXAsset extends Asset {

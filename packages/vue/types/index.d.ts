@@ -1,5 +1,7 @@
 // TypeScript Version: 3.4
 
+// To do: remove this and type the `MDXProvider` component.
+
 import {CreateElement} from 'vue'
 
 /**

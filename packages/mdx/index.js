@@ -6,10 +6,6 @@ const minifyWhitespace = require('rehype-minify-whitespace')
 const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
 const mdxHastToJsx = require('./mdx-hast-to-jsx')
 
-const pragma = `/* @jsxRuntime classic */
-/* @jsx mdx */
-/* @jsxFrag mdx.Fragment */`
-
 function createMdxAstCompiler(options = {}) {
   return unified()
     .use(remarkParse)
@@ -37,13 +33,13 @@ function createConfig(mdx, options) {
 }
 
 function sync(mdx, options = {}) {
-  const file = createCompiler(options).processSync(createConfig(mdx, options))
-  return pragma + '\n' + String(file)
+  return String(createCompiler(options).processSync(createConfig(mdx, options)))
 }
 
 async function compile(mdx, options = {}) {
-  const file = await createCompiler(options).process(createConfig(mdx, options))
-  return pragma + '\n' + String(file)
+  return String(
+    await createCompiler(options).process(createConfig(mdx, options))
+  )
 }
 
 module.exports = compile

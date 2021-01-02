@@ -5,8 +5,7 @@ import {
   Consumer,
   ComponentType,
   FunctionComponent,
-  ReactElement,
-  createElement
+  ReactElement
 } from 'react'
 
 /**
@@ -61,17 +60,11 @@ declare function withMDXComponents(
   child: ComponentType<ComponentsProp>
 ): ReactElement | null
 
-/**
- * React createElement function wrapped with handler for MDX content
- */
-declare const mdx: typeof createElement
-
 export {
   ComponentDictionary,
   ComponentsProp,
   MDXContext,
   MDXProvider,
   useMDXComponents,
-  withMDXComponents,
-  mdx
+  withMDXComponents
 }

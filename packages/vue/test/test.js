@@ -1,13 +1,20 @@
 import path from 'path'
 import {mount} from '@vue/test-utils'
 import mdxTransform from '../../mdx'
-import vueMergeProps from 'babel-helper-vue-jsx-merge-props'
 import {transformAsync as babelTransform} from '@babel/core'
-import {MDXProvider, mdx} from '../src'
+import {MDXProvider} from '../src'
 
 const run = async value => {
   // Turn the serialized MDX code into serialized JSX…
-  const doc = await mdxTransform(value, {skipExport: true, mdxFragment: false})
+  const doc = await mdxTransform(value, {
+    skipExport: true,
+    mdxFragment: false,
+    mdxProviderImportSource: null,
+    // Don’t add the comments.
+    jsxRuntime: null,
+    pragma: null,
+    pragmaFrag: null
+  })
 
   // …and that into serialized JS.
   const {code} = await babelTransform(doc, {
@@ -21,13 +28,8 @@ const run = async value => {
   // …and finally run it, returning the component.
   // eslint-disable-next-line no-new-func
   return new Function(
-    'mdx',
-    '_mergeJSXProps',
     `let h;
-    ${code.replace(
-      /import _mergeJSXProps from "babel-helper-vue-jsx-merge-props";/,
-      ''
-    )};
+    ${code};
 
     return {
       name: 'Mdx',
@@ -42,18 +44,18 @@ const run = async value => {
         }
       },
       render(createElement) {
-        h = mdx.bind({createElement, components: this.components})
+        h = createElement
         return MDXContent({components: this.components})
       }
     }`
-  )(mdx, vueMergeProps)
+  )()
 }
 
 describe('@mdx-js/vue', () => {
   test('should evaluate MDX code', async () => {
     const Content = await run('# hi')
 
-    expect(mount(Content).html()).toEqual('<h1>hi</h1>')
+    expect(mount(Content).html()).toEqual('<div>\n  <h1>hi</h1>\n</div>')
   })
 
   test('should evaluate some more complex MDX code (text, inline)', async () => {
@@ -62,7 +64,7 @@ describe('@mdx-js/vue', () => {
     )
 
     expect(mount(Content).html()).toEqual(
-      '<p><em>a</em> <strong>b</strong> <code>c</code> <abbr title="Markdown + JSX">MDX</abbr></p>'
+      '<div>\n  <p><em>a</em> <strong>b</strong> <code>c</code> <abbr title="Markdown + JSX">MDX</abbr></p>\n</div>'
     )
   })
 
@@ -90,7 +92,7 @@ describe('@mdx-js/vue', () => {
     const warn = console.warn
     console.warn = jest.fn()
 
-    expect(mount(Content).html()).toEqual('<div></div>')
+    expect(mount(Content).html()).toEqual('<div>\n  <!---->\n</div>')
 
     expect(console.warn).toHaveBeenCalledWith(
       'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
@@ -105,7 +107,7 @@ describe('@mdx-js/vue', () => {
       'export const A = {render() { return <b>!</b> }}\n\n<A />'
     )
 
-    expect(mount(Content).html()).toEqual('<b>!</b>')
+    expect(mount(Content).html()).toEqual('<div><b>!</b></div>')
   })
 })
 
@@ -119,7 +121,7 @@ describe('MDXProvider', () => {
   })
 
   test('should support `components`', async () => {
-    const Content = await run('*a* and <em id="b">c</em>.')
+    const Content = await run('*a* and <em id="b">c</em> and <Custom />.')
 
     expect(
       mount(MDXProvider, {
@@ -136,36 +138,19 @@ describe('MDXProvider', () => {
                   this.$slots.default
                 )
               }
+            },
+            Custom: {
+              name: 'Custom',
+              render: function (h) {
+                return h('br')
+              }
             }
           }
         }
       }).html()
     ).toEqual(
-      '<div>\n  <p><i style="font-weight: bold;">a</i> and <i id="b" style="font-weight: bold;">c</i>.</p>\n</div>'
+      '<div>\n  <p><i style="font-weight: bold;">a</i> and <i id="b" style="font-weight: bold;">c</i> and <br>.</p>\n</div>'
     )
-  })
-
-  test('should support functional `components`', async () => {
-    const Content = await run('*a* and <em id="b">c</em>.')
-    const error = console.error
-    console.error = jest.fn() // Ignore the warnings that Vue emits.
-
-    expect(
-      mount(MDXProvider, {
-        slots: {default: [Content]},
-        propsData: {
-          components: {
-            em: function (h) {
-              return h('i', {style: {fontWeight: 'bold'}}, this.$slots.default)
-            }
-          }
-        }
-      }).html()
-    ).toEqual(
-      '<div>\n  <p><i style="font-weight: bold;">a</i> and <i style="font-weight: bold;" id="b">c</i>.</p>\n</div>'
-    )
-
-    console.error = error
   })
 
   test('should support the readme example', async () => {

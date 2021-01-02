@@ -7,6 +7,11 @@
         "useBuiltIns": "usage"
       }
     ],
-    "@babel/react"
+    [
+      "@babel/react",
+      {
+        "throwIfNamespace": false
+      }
+    ]
   ]
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {transform} from 'buble-jsx-only'
 import mdx from '@mdx-js/mdx'
-import {MDXProvider, mdx as createElement} from '@mdx-js/react'
+import {MDXProvider, useMDXComponents} from '@mdx-js/react'
 
 const suffix = `return React.createElement(
   MDXProvider,
@@ -18,8 +18,9 @@ export default ({
   ...props
 }) => {
   const fullScope = {
-    mdx: createElement,
+    React,
     MDXProvider,
+    __provideComponents: useMDXComponents,
     components,
     props,
     ...scope
@@ -31,7 +32,7 @@ export default ({
       rehypePlugins,
       skipExport: true
     })
-    .trim()
+    .replace(/import \{.+?\} from "@mdx-js\/react";/g, '')
 
   const code = transform(jsx, {objectAssign: 'Object.assign'}).code
 
@@ -39,7 +40,7 @@ export default ({
   const values = Object.values(fullScope)
 
   // eslint-disable-next-line no-new-func
-  const fn = new Function('React', ...keys, `${code}\n\n${suffix}`)
+  const fn = new Function(...keys, `${code}\n\n${suffix}`)
 
-  return fn(React, ...values)
+  return fn(...values)
 }

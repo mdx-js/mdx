@@ -1,10 +1,7 @@
 const {getOptions} = require('loader-utils')
 const mdx = require('@mdx-js/mdx')
 
-const DEFAULT_RENDERER = `
-import React from 'react'
-import {mdx} from '@mdx-js/react'
-`
+const DEFAULT_RENDERER = 'import React from "react"'
 
 module.exports = async function (content) {
   const callback = this.async()

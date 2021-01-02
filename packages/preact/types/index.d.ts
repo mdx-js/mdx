@@ -1,7 +1,6 @@
 // TypeScript Version: 3.4
 
 import {
-  h,
   Context,
   AnyComponent,
   FunctionComponent
@@ -53,17 +52,11 @@ declare function withMDXComponents(
   child: AnyComponent<ComponentsProp>
 ): ReactElement | null
 
-/**
- * Preact hyperscript function wrapped with handler for MDX content
- */
-declare const mdx: typeof h
-
 export {
   ComponentDictionary,
   ComponentsProp,
   MDXContext,
   MDXProvider,
   useMDXComponents,
-  withMDXComponents,
-  mdx
+  withMDXComponents
 }

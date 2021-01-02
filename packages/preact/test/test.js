@@ -5,11 +5,17 @@ import {h, Fragment} from 'preact'
 import {render} from 'preact-render-to-string'
 import {transformAsync as babelTransform} from '@babel/core'
 import mdxTransform from '../../mdx'
-import {MDXProvider, withMDXComponents, mdx} from '../src'
+import {MDXProvider, useMDXComponents, withMDXComponents} from '../src'
 
 const run = async value => {
   // Turn the serialized MDX code into serialized JSX…
-  const doc = await mdxTransform(value, {skipExport: true})
+  let doc = await mdxTransform(value, {
+    skipExport: true,
+    pragma: 'h',
+    pragmaFrag: 'Fragment'
+  })
+
+  doc = doc.replace(/import \{.+?\} from "@mdx-js\/react";/g, '')
 
   // …and that into serialized JS.
   const {code} = await babelTransform(doc, {
@@ -22,7 +28,12 @@ const run = async value => {
 
   // …and finally run it, returning the component.
   // eslint-disable-next-line no-new-func
-  return new Function('mdx', `${code}; return MDXContent`)(mdx)
+  return new Function(
+    'h',
+    'Fragment',
+    '__provideComponents',
+    `${code}; return MDXContent`
+  )(h, Fragment, useMDXComponents)
 }
 
 describe('@mdx-js/preact', () => {
@@ -69,15 +80,6 @@ describe('@mdx-js/preact', () => {
     const Content = await run('export const A = () => <b>!</b>\n\n<A />')
 
     expect(render(<Content />)).toEqual('<b>!</b>')
-  })
-
-  test('should not crash if weird values could come from JSX', async () => {
-    // As JSX is function calls, that function can also be used directly in
-    // MDX. Definitely not a great idea, but it’s an easy way to pass in funky
-    // values.
-    const Content = await run('{mdx(1)}')
-
-    expect(render(<Content />)).toEqual('<1></1>')
   })
 })
 

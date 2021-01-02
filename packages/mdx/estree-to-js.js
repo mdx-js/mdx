@@ -1,4 +1,5 @@
 const astring = require('astring')
+const stringifyEntities = require('stringify-entities/light')
 
 module.exports = estreeToJs
 
@@ -20,7 +21,7 @@ const customGenerator = Object.assign({}, astring.baseGenerator, {
 })
 
 function estreeToJs(estree) {
-  return astring.generate(estree, {generator: customGenerator})
+  return astring.generate(estree, {generator: customGenerator, comments: true})
 }
 
 // `attr="something"`
@@ -30,7 +31,16 @@ function JSXAttribute(node, state) {
 
   if (node.value != null) {
     state.write('=')
-    this[node.value.type](node.value, state)
+
+    // Encode double quotes in attribute values.
+    if (node.value.type === 'Literal' && typeof node.value.value === 'string') {
+      state.write(
+        '"' + stringifyEntities(node.value.value, {subset: ['"']}) + '"',
+        node
+      )
+    } else {
+      this[node.value.type](node.value, state)
+    }
   }
 }
 

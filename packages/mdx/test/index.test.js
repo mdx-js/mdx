@@ -2,8 +2,10 @@ const path = require('path')
 const babel = require('@babel/core')
 const unified = require('unified')
 const React = require('react')
+const reactRuntime = require('react/jsx-runtime')
+const emotionRuntime = require('@emotion/react/jsx-runtime')
 const {renderToStaticMarkup} = require('react-dom/server')
-const {mdx: mdxReact, MDXProvider} = require('../../react')
+const {MDXProvider, useMDXComponents} = require('../../react')
 const mdx = require('..')
 const toMdxHast = require('../mdx-ast-to-mdx-hast')
 const toJsx = require('../mdx-hast-to-jsx')
@@ -13,27 +15,36 @@ const math = require('remark-math')
 const katex = require('rehype-katex')
 
 const run = async (value, options = {}) => {
-  const doc = await mdx(value, {...options, skipExport: true})
+  let doc = await mdx(value, {...options, skipExport: true})
+
+  // Remove the import.
+  doc = doc.replace(/import \{.+?\} from "@mdx-js\/react";/g, '')
 
   // …and that into serialized JS.
   const {code} = await babel.transformAsync(doc, {
     configFile: false,
     plugins: [
-      '@babel/plugin-transform-react-jsx',
+      ['@babel/plugin-transform-react-jsx', {throwIfNamespace: false}],
       path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
     ]
   })
 
   // …and finally run it, returning the component.
   // eslint-disable-next-line no-new-func
-  return new Function('mdx', `${code}; return MDXContent`)(mdxReact)
+  return new Function(
+    'React',
+    '__provideComponents',
+    `${code}; return MDXContent`
+  )(React, useMDXComponents)
 }
 
 describe('@mdx-js/mdx', () => {
   it('should generate JSX', async () => {
     const result = await mdx('Hello World')
 
-    expect(result).toMatch(/<p>\{"Hello World"\}<\/p>/)
+    expect(result).toMatch(
+      /<__components\.p>\{"Hello World"\}<\/__components\.p>/
+    )
   })
 
   it('should generate runnable JSX', async () => {
@@ -488,10 +499,10 @@ describe('@mdx-js/mdx', () => {
     // something else.
     result = await mdx('export {default as a} from "b"')
     expect(result).toMatch(/export {default as a} from "b"/)
-    expect(result).toMatch(/const MDXLayout = "wrapper"/)
+    expect(result).toMatch(/wrapper: MDXLayout/)
     result = await mdx('export {default as a, b} from "c"')
     expect(result).toMatch(/export {default as a, b} from "c"/)
-    expect(result).toMatch(/const MDXLayout = "wrapper"/)
+    expect(result).toMatch(/wrapper: MDXLayout/)
 
     // These are export defaults.
     result = await mdx('export {a as default} from "b"')
@@ -542,7 +553,7 @@ describe('@mdx-js/mdx', () => {
   })
 
   it('should support overwriting missing compile-time components at run-time', async () => {
-    const Content = await run('x <Y /> z')
+    const Content = await run('x <Y /> z <Y>w</Y>.')
 
     expect(
       renderToStaticMarkup(
@@ -557,10 +568,63 @@ describe('@mdx-js/mdx', () => {
     ).toEqual(
       renderToStaticMarkup(
         <p>
-          x <span style={{color: 'tomato'}} /> z
+          x <span style={{color: 'tomato'}} /> z{' '}
+          <span style={{color: 'tomato'}}>w</span>.
         </p>
       )
     )
+  })
+
+  it('should not be able to overwrite markdown constructs with an export', async () => {
+    const Content = await run('export const em = () => <i>!</i>\n\n*?*')
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <p>
+          <em>?</em>
+        </p>
+      )
+    )
+  })
+
+  it('should prefer provided components over inline exported components', async () => {
+    const Content = await run('export const Em = () => <i>!</i>\n\n<Em>?</Em>')
+
+    expect(
+      renderToStaticMarkup(
+        <MDXProvider
+          components={{
+            Em: () => <b>.</b>
+          }}
+        >
+          <Content />
+        </MDXProvider>
+      )
+    ).toEqual(
+      renderToStaticMarkup(
+        <p>
+          <i>!</i>
+        </p>
+      )
+    )
+  })
+
+  it('should overwrite components in inline exports with provided components', async () => {
+    const Content = await run(
+      'export const Component = () => <X>!</X>\n\n<Component />'
+    )
+
+    expect(
+      renderToStaticMarkup(
+        <MDXProvider
+          components={{
+            X: () => <b>.</b>
+          }}
+        >
+          <Content />
+        </MDXProvider>
+      )
+    ).toEqual(renderToStaticMarkup(<b>.</b>))
   })
 
   it('should not crash but issue a warning when an undefined component is used', async () => {
@@ -580,6 +644,30 @@ describe('@mdx-js/mdx', () => {
     console.warn = warn
   })
 
+  it('should not use a fragment to wrap missing components w/ `mdxFragment: false`', async () => {
+    const Content = await run('<X>a</X>', {mdxFragment: false})
+
+    const warn = console.warn
+    console.warn = jest.fn()
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <div>
+          <p>
+            <div>a</div>
+          </p>
+        </div>
+      )
+    )
+
+    expect(console.warn).toHaveBeenCalledWith(
+      'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
+      'X'
+    )
+
+    console.warn = warn
+  })
+
   it('should support `.` in component names for members', async () => {
     const Content = await run(
       'export var x = {y: props => <b {...props} />}\n\n<x.y />'
@@ -587,6 +675,163 @@ describe('@mdx-js/mdx', () => {
 
     expect(renderToStaticMarkup(<Content />)).toEqual(
       renderToStaticMarkup(<b />)
+    )
+  })
+
+  it('should support given member components', async () => {
+    const Content = await run('<x.y.z>*em*</x.y.z>, <x.y.w />')
+
+    expect(
+      renderToStaticMarkup(
+        <Content
+          components={{
+            x: {
+              y: {
+                w: ({children}) => <i>{children}</i>,
+                z: ({children}) => <b>{children}</b>
+              }
+            }
+          }}
+        />
+      )
+    ).toEqual(
+      renderToStaticMarkup(
+        <p>
+          <b>
+            <em>em</em>
+          </b>
+          {', '}
+          <i />
+        </p>
+      )
+    )
+  })
+
+  it('should support provided member components', async () => {
+    const Content = await run('<x.y.z>*em*</x.y.z>')
+
+    expect(
+      renderToStaticMarkup(
+        <MDXProvider
+          components={{
+            x: {y: {z: ({children}) => <b>{children}</b>}}
+          }}
+        >
+          <Content />
+        </MDXProvider>
+      )
+    ).toEqual(
+      renderToStaticMarkup(
+        <p>
+          <b>
+            <em>em</em>
+          </b>
+        </p>
+      )
+    )
+  })
+
+  it('should crash on missing member components', async () => {
+    const Content = await run('<x.y.z />')
+
+    expect(() => {
+      renderToStaticMarkup(<Content />)
+    }).toThrow(/Cannot read property 'y' of undefined/)
+  })
+
+  it('should support namespace tags', async () => {
+    const Content = await run('<xml:thing>*em*</xml:thing>')
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      /* eslint-disable react/jsx-no-undef */
+      renderToStaticMarkup(
+        <p>
+          <xml:thing>
+            <em>em</em>
+          </xml:thing>
+        </p>
+      )
+      /* eslint-enable react/jsx-no-undef */
+    )
+  })
+
+  it('should support given parent-child components', async () => {
+    const Content = await run('* a\n1. b\n> c')
+
+    expect(
+      renderToStaticMarkup(
+        <Content
+          components={{
+            'ol.li': ({children}) => <i style={{color: 'red'}}>{children}</i>,
+            'blockquote.p': ({children}) => <div>{children}</div>
+          }}
+        />
+      )
+    ).toEqual(
+      renderToStaticMarkup(
+        <>
+          <ul>
+            <li>a</li>
+          </ul>
+          <ol>
+            <i style={{color: 'red'}}>b</i>
+          </ol>
+          <blockquote>
+            <div>c</div>
+          </blockquote>
+        </>
+      )
+    )
+  })
+
+  it('should support providing the child component for potential parent-child components', async () => {
+    const Content = await run('* a\n1. b')
+
+    expect(
+      renderToStaticMarkup(
+        <Content
+          components={{
+            li: ({children}) => <i style={{color: 'red'}}>{children}</i>
+          }}
+        />
+      )
+    ).toEqual(
+      renderToStaticMarkup(
+        <>
+          <ul>
+            <i style={{color: 'red'}}>a</i>
+          </ul>
+          <ol>
+            <i style={{color: 'red'}}>b</i>
+          </ol>
+        </>
+      )
+    )
+  })
+
+  it('should support providing a child component and a parent-child component', async () => {
+    const Content = await run('* a\n1. b')
+
+    expect(
+      renderToStaticMarkup(
+        <Content
+          components={{
+            'ul.li': ({children}) => <i style={{color: 'blue'}}>{children}</i>,
+            li: ({children}) => <i style={{color: 'red'}}>{children}</i>
+          }}
+        />
+      )
+    ).toEqual(
+      renderToStaticMarkup(
+        <>
+          <ul>
+            <i style={{color: 'blue'}}>a</i>
+          </ul>
+          <ol>
+            <i style={{color: 'red'}}>b</i>
+          </ol>
+        </>
+      )
     )
   })
 
@@ -654,6 +899,25 @@ describe('@mdx-js/mdx', () => {
     expect(Content.isMDXComponent).toEqual(true)
   })
 
+  it('should handle quotes in attribute values', async () => {
+    const Content = await run(
+      '```x"y"z\ncode()\n```\n\n<em title="a&quot;b">c</em>'
+    )
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <>
+          <pre>
+            <code className='language-x"y"z'>code(){'\n'}</code>
+          </pre>
+          <p>
+            <em title='a"b'>c</em>
+          </p>
+        </>
+      )
+    )
+  })
+
   it('should escape what could look like template literal placeholders in text', async () => {
     /* eslint-disable no-template-curly-in-string */
     const Content = await run('`${x}`')
@@ -707,11 +971,148 @@ describe('@mdx-js/mdx', () => {
       )
     )
   })
+
+  it('should work w/o `mdxProviderImportSource`', async () => {
+    const doc = await mdx('<X />\n*em*', {mdxProviderImportSource: null})
+
+    expect(doc).not.toMatch(/__provideComponents/)
+  })
+
+  it('should warn on missing components w/o `mdxProviderImportSource`', async () => {
+    const Content = await run('<X />\n*em*', {mdxProviderImportSource: null})
+
+    const warn = console.warn
+    console.warn = jest.fn()
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <p>
+          <em>em</em>
+        </p>
+      )
+    )
+
+    expect(console.warn).toHaveBeenCalledWith(
+      'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
+      'X'
+    )
+
+    console.warn = warn
+  })
+
+  it('should support inline components w/o `mdxProviderImportSource`', async () => {
+    const Content = await run(
+      'export const X = props => <><s>{props.children}</s><em>.</em></>\n\n<X />\n',
+      {mdxProviderImportSource: null}
+    )
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <>
+          <s></s>
+          <em>.</em>
+        </>
+      )
+    )
+  })
+
+  it('should work w/o `jsxRuntime`', async () => {
+    const doc = await mdx('<X />\n*em*', {jsxRuntime: null})
+
+    expect(doc).not.toMatch(/@jsxRuntime/)
+  })
+
+  it('should support the automatic runtime', async () => {
+    let doc = await mdx('*Emphasis*, **strong**, `code`.', {
+      skipExport: true,
+      jsxRuntime: 'automatic'
+    })
+
+    // Compile JSX away.
+    let {code} = await babel.transformAsync(doc, {
+      configFile: false,
+      plugins: ['@babel/plugin-transform-react-jsx']
+    })
+
+    // Remove the imports.
+    code = code
+      .replace(/import \{.+?} from "react\/jsx-runtime";/g, '')
+      .replace(/import \{.+?} from "@mdx-js\/react";/g, '')
+
+    // eslint-disable-next-line no-new-func
+    const Content = new Function(
+      '_Fragment',
+      '_jsxs',
+      '_jsx',
+      '__provideComponents',
+      `${code}; return MDXContent`
+    )(
+      reactRuntime.Fragment,
+      reactRuntime.jsxs,
+      reactRuntime.jsx,
+      useMDXComponents
+    )
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <p>
+          <em>Emphasis</em>
+          {', '}
+          <strong>strong</strong>
+          {', '}
+          <code>code</code>.
+        </p>
+      )
+    )
+  })
+
+  it('should support a `jsxImportSource`', async () => {
+    let doc = await mdx('*Emphasis* & <span css={{color: "tomato"}} />', {
+      skipExport: true,
+      jsxImportSource: '@emotion/react'
+    })
+
+    // Compile JSX away.
+    let {code} = await babel.transformAsync(doc, {
+      configFile: false,
+      plugins: ['@babel/plugin-transform-react-jsx']
+    })
+
+    code = code
+      .replace(/import \{.+?} from "@emotion\/react\/jsx-runtime";/g, '')
+      .replace(/import \{.+?} from "@mdx-js\/react";/g, '')
+
+    // eslint-disable-next-line no-new-func
+    const Content = new Function(
+      '_Fragment',
+      '_jsxs',
+      '_jsx',
+      '__provideComponents',
+      `${code}; return MDXContent`
+    )(
+      emotionRuntime.Fragment,
+      emotionRuntime.jsxs,
+      emotionRuntime.jsx,
+      useMDXComponents
+    )
+
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <p>
+          <em>Emphasis</em>
+          {' & '}
+          <span className="css-nbs1qc-MDXContent"></span>
+        </p>
+      )
+    )
+  })
 })
 
 describe('default', () => {
   it('should be async', async () => {
-    expect(mdx('x')).resolves.toMatch(/<p>{"x"}<\/p>/)
+    expect(mdx('x')).resolves.toMatch(
+      /<__components\.p>\{"x"\}<\/__components\.p>/
+    )
   })
 
   it('should support `remarkPlugins`', async () => {
@@ -723,7 +1124,7 @@ describe('default', () => {
 
 describe('sync', () => {
   it('should be sync', () => {
-    expect(mdx.sync('x')).toMatch(/<p>{"x"}<\/p>/)
+    expect(mdx.sync('x')).toMatch(/<__components\.p>\{"x"\}<\/__components\.p>/)
   })
 
   it('should support `remarkPlugins`', () => {
@@ -772,7 +1173,7 @@ describe('createMdxAstCompiler', () => {
 describe('createCompiler', () => {
   it('should create a unified processor', () => {
     expect(String(mdx.createCompiler().processSync('x'))).toMatch(
-      /<p>{"x"}<\/p>/
+      /<__components\.p>\{"x"\}<\/__components\.p>/
     )
   })
 })

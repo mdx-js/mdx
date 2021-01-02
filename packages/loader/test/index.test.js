@@ -5,9 +5,7 @@ const webpack = require('webpack')
 const MemoryFs = require('memory-fs')
 const React = require('react')
 const {renderToString} = require('react-dom/server')
-const _extends = require('@babel/runtime/helpers/extends')
-const _objectWithoutProperties = require('@babel/runtime/helpers/objectWithoutProperties')
-const {mdx} = require('../../react')
+const {useMDXComponents} = require('../../react')
 
 const transform = (filePath, options) => {
   return new Promise((resolve, reject) => {
@@ -57,30 +55,18 @@ const transform = (filePath, options) => {
 }
 
 const run = value => {
-  // Webpack 5 (replace everything in this function with):
-  // const val = 'return ' + value.replace(/__webpack_require__\(0\)/, 'return $&')
-  //
-  // // eslint-disable-next-line no-new-func
-  // return new Function(val)().default
   // Replace import/exports w/ parameters and return value.
   const val = value
-    .replace(
-      /import _objectWithoutProperties from "@babel\/runtime\/helpers\/objectWithoutProperties";/,
-      ''
-    )
-    .replace(/import _extends from "@babel\/runtime\/helpers\/extends";/, '')
-    .replace(/import React from 'react';/, '')
-    .replace(/import \{ mdx } from '@mdx-js\/react';/, '')
+    .replace(/import "core-js\/.+";/g, '')
+    .replace(/import React from "react";/, '')
+    .replace(/import \{.+?\} from "@mdx-js\/react";/g, '')
     .replace(/export default/, 'return')
 
   // eslint-disable-next-line no-new-func
-  return new Function(
-    'mdx',
-    'React',
-    '_extends',
-    '_objectWithoutProperties',
-    val
-  )(mdx, React, _extends, _objectWithoutProperties)
+  return new Function('React', '__provideComponents', val)(
+    React,
+    useMDXComponents
+  )
 }
 
 describe('@mdx-js/loader', () => {
