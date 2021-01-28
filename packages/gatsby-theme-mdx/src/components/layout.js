@@ -164,7 +164,11 @@ const Container = props => (
 export default props => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [dark, setDark] = useState(() => {
-    return window.localStorage.getItem('dark') === 'true'
+    if (typeof window === `undefined`) return false
+
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)')
+      .matches
+    return window.localStorage.getItem('dark') === 'true' || prefersDarkMode
   })
 
   useEffect(() => {
