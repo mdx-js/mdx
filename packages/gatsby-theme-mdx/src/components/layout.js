@@ -47,10 +47,11 @@ const MDXConf = () => (
         display: 'flex',
         p: 3
       })}
-      to="/conf">
+      to="/conf"
+    >
       <span aria-label="tada">🎉</span>
-      <span css={css({ ml: 2 })}>MDX Conf &mdash; August 24th, 2020</span>
-      <span css={css({ ml: 'auto' })}>&rarr;</span>
+      <span css={css({ml: 2})}>MDX Conf &mdash; August 24th, 2020</span>
+      <span css={css({ml: 'auto'})}>&rarr;</span>
     </Link>
   </div>
 )
@@ -162,14 +163,13 @@ const Container = props => (
 
 export default props => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(() => {
+    if (typeof window === `undefined`) return false
 
-  useEffect(() => {
-    const initialDark = window.localStorage.getItem('dark') === 'true'
-    if (initialDark !== dark) {
-      setDark(initialDark)
-    }
-  }, [])
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)')
+      .matches
+    return window.localStorage.getItem('dark') === 'true' || prefersDarkMode
+  })
 
   useEffect(() => {
     window.localStorage.setItem('dark', dark)
