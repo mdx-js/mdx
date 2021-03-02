@@ -1,3 +1,6 @@
 module.exports = {
-  plugins: ['gatsby-theme-mdx']
+  plugins: [
+    // It is not supported to use gatsby-theme-mdx@2 temporarily
+    'gatsby-theme-mdx1'
+  ]
 }

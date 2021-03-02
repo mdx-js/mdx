@@ -17,10 +17,10 @@
     "clean": "lerna exec \"rimraf dist node_modules\" && gatsby clean",
     "docs": "gatsby develop",
     "docs-build": "gatsby build",
-    "docs-deploy": "now && now alias $(pbpaste) mdxjs.com && now alias $(pbpaste) www.mdxjs.com",
+    "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
     "format": "yarn lint --fix",
     "lint": "eslint . --cache --ext js,jsx -f friendly",
-    "now-build": "yarn build && yarn docs-build",
+    "vercel-build": "yarn build && yarn docs-build",
     "postinstall": "yarn-deduplicate || exit 0",
     "prepublishOnly": "yarn build",
     "publish": "lerna publish --force-publish=\"*\"",
@@ -38,6 +38,7 @@
     "@babel/preset-env": "^7.12.0",
     "@babel/preset-react": "^7.12.0",
     "babel-loader": "^8.2.0",
+    "babel-preset-gatsby-package": "^0.12.0",
     "dtslint": "^4.0.0",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^7.0.0",
@@ -48,7 +49,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.0",
     "gatsby": "^2.24.3",
-    "gatsby-plugin-mdx": "^1.2.0",
+    "gatsby-theme-mdx1": "npm:gatsby-theme-mdx@^1.0.0",
     "husky": "^4.3.0",
     "jest": "^26.6.0",
     "lerna": "^3.22.1",
@@ -59,6 +60,10 @@
     "rimraf": "^3.0.0",
     "typescript": "^4.0.0",
     "yarn-deduplicate": "^3.0.0"
+  },
+  "resolutions": {
+    "gatsby-plugin-mdx/@mdx-js/mdx": "^1.0.0",
+    "gatsby-plugin-mdx/@mdx-js/react": "^1.0.0"
   },
   "husky": {
     "hooks": {

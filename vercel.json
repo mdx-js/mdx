@@ -1,12 +1,12 @@
 {
   "version": 2,
   "name": "mdx",
-  "alias": ["mdxjs.com"],
+  "alias": ["mdxjs.com", "v2.mdxjs.com"],
   "public": true,
   "builds": [
     {
       "src": "package.json",
-      "use": "@now/static-build",
+      "use": "@vercel/static-build",
       "config": {
         "distDir": "public"
       }
