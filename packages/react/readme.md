@@ -42,7 +42,7 @@ import Example from './example.mdx'
 const h1 = props => <h1 style={{color: 'tomato'}} {...props} />
 
 console.log(
-  render(
+  renderToString(
     <MDXProvider components={{h1}}>
       <Example />
     </MDXProvider>
