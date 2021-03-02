@@ -26,7 +26,7 @@ npm i -S @mdx-js/runtime
 The MDX Runtime component accepts two props:
 
 | Name            | Description                                                      |
-| ----------------| ---------------------------------------------------------------- |
+| --------------- | ---------------------------------------------------------------- |
 | `components`    | Globally available components for the runtime                    |
 | `scope`         | Variables that are accessible in the JSX portion of the document |
 | `remarkPlugins` | Array of remark plugins                                          |

@@ -50,8 +50,12 @@ overrides:
     extends:
       - plugin:mdx/recommended
       - plugin:mdx/overrides
+    globals:
+      Speaker: false
+      SpeakerList: false
     rules:
       import/no-extraneous-dependencies: 0
+      no-warning-comments: 0
 
   - files:
       - '**/test/**/*.js'

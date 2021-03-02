@@ -184,6 +184,7 @@ Join us on [GH Discussions][chat]!
 [rauchg]: https://twitter.com/rauchg
 [timneutkens]: https://twitter.com/timneutkens
 [jxnblk]: https://twitter.com/jxnblk
+[compositor]: https://compositor.io
 [vercel]: https://vercel.com
 [contribute]: #contribute
 [contributing]: https://mdxjs.com/contributing
