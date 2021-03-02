@@ -1177,6 +1177,13 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@7.12.13":
+  version "7.12.13"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.13.tgz#0a21452352b02542db0ffb928ac2d3ca7cb6d66d"
+  integrity sha512-8+3UMPBrjFa/6TtKi/7sehPKqfAm4g6K+YQjyyFOLUTxzOngcRZTlAVY8sc2CORJYqdHQY8gRPHmn+qo15rCBw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@7.12.5", "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.11.0", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.4.2", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   version "7.12.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
@@ -10908,6 +10915,13 @@ gatsby-plugin-fathom@1.3.0:
   dependencies:
     "@babel/runtime" "7.9.6"
     react "16.x"
+
+gatsby-plugin-fathom@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-fathom/-/gatsby-plugin-fathom-2.1.0.tgz#4bb695ecc53c26e81e6b35fd406e6c4ad033be6c"
+  integrity sha512-zD6so5Z/Y+UM52kgelwC6hyNW8n9Xu3ApVrRKcENdljVvIkZmYYzfig3QIi5IVzEQtAsxLKihI6cjqp7+/z85g==
+  dependencies:
+    "@babel/runtime" "7.12.13"
 
 gatsby-plugin-google-fonts@1.0.1:
   version "1.0.1"
