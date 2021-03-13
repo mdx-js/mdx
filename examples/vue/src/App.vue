@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {MDXProvider} from '@mdx-js/vue'
+import {MDXProvider} from '@mdx-js/vue-loader'
 import HelloWorld from './components/HelloWorld'
 import Test from './test.mdx'
 
