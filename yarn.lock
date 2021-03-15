@@ -8432,6 +8432,13 @@ detab@2.0.4, detab@^2.0.0:
   dependencies:
     repeat-string "^1.5.4"
 
+detab@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/detab/-/detab-3.0.0.tgz#6f55dd99a3a71f240f5687982afa2cf2c6777b50"
+  integrity sha512-8czHjLdGPRgMLtV1Wb+LcuxcEDdA0wz3uKFVxgtAIAvRob96BHT1ietft23B3+GsOtbA73QkPLkBjwoZ+Hf41A==
+  dependencies:
+    repeat-string "^1.6.0"
+
 detect-file@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/detect-file/-/detect-file-1.0.0.tgz#f0d66d03672a825cb1b73bdb3fe62310c8e552b7"
@@ -21821,7 +21828,7 @@ repeat-element@^1.1.2:
   resolved "https://registry.yarnpkg.com/repeat-element/-/repeat-element-1.1.3.tgz#782e0d825c0c5a3bb39731f84efee6b742e6b1ce"
   integrity sha512-ahGq0ZnV5m5XtZLMb+vP76kcAM5nkLqk0lpqAuojSKGgQtn4eRi4ZZGm2olo2zKFH+sMsWaqOCW1dqAnOru72g==
 
-repeat-string@^1.0.0, repeat-string@^1.5.2, repeat-string@^1.5.4, repeat-string@^1.6.1:
+repeat-string@^1.0.0, repeat-string@^1.5.2, repeat-string@^1.5.4, repeat-string@^1.6.0, repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
