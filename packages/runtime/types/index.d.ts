@@ -1,31 +1,9 @@
-// TypeScript Version: 3.5
-
-import {FunctionComponent} from 'react'
-import {Options} from '@mdx-js/mdx'
-import {ComponentsProp} from '@mdx-js/react'
-
-/**
- * Properties for the MDX Runtime component
- */
-export interface MDXRuntimeProps
-  extends Omit<Options, 'footnotes' | 'compilers'>,
-    Partial<ComponentsProp> {
-  /**
-   * MDX text
-   */
-  children?: string
-
-  /**
-   * Values in usable in MDX scope
-   */
-  scope?: {
-    [variableName: string]: unknown
-  }
-}
-
-/**
- * Renders child MDX text as a React component
- */
-declare const mdxRuntime: FunctionComponent<MDXRuntimeProps>
-
-export default mdxRuntime
+declare function _default({ scope, components, remarkPlugins, rehypePlugins, children, ...props }: {
+    [x: string]: any;
+    scope?: {};
+    components?: {};
+    remarkPlugins?: any[];
+    rehypePlugins?: any[];
+    children: any;
+}): any;
+export default _default;
