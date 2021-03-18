@@ -1,6 +1,6 @@
 {
   "name": "razzle",
-  "version": "2.0.0-next.8",
+  "version": "2.0.0-next.9",
   "private": true,
   "scripts": {
     "build": "razzle build",
@@ -9,7 +9,7 @@
     "test": "razzle test --env=jsdom"
   },
   "dependencies": {
-    "@mdx-js/react": "^2.0.0-next.8",
+    "@mdx-js/react": "2.0.0-next.9",
     "express": "^4.17.1",
     "razzle": "^3.1.5",
     "razzle-plugin-mdx": "^3.1.5",

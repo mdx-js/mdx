@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "2.0.0-next.8",
+  "version": "2.0.0-next.9",
   "description": "Parse MDX and transpile to JSX",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -51,16 +51,16 @@
     "mdast-util-to-hast": "^10.1.0",
     "periscopic": "^2.0.0",
     "rehype-minify-whitespace": "^4.0.0",
-    "remark-mdx": "^2.0.0-next.8",
+    "remark-mdx": "2.0.0-next.9",
     "remark-parse": "^9.0.0",
     "remark-squeeze-paragraphs": "^4.0.0",
     "unified": "^9.2.0",
     "unist-builder": "^2.0.0"
   },
   "devDependencies": {
+    "rehype-katex": "^4.0.0",
     "remark-footnotes": "^3.0.0",
     "remark-gfm": "^1.0.0",
-    "rehype-katex": "^4.0.0",
     "remark-math": "^4.0.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"

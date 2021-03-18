@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue",
-  "version": "2.0.0-next.8",
+  "version": "2.0.0-next.9",
   "description": "MDX support for Vue components",
   "author": "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
   "contributors": [
@@ -37,7 +37,6 @@
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "microbundle": "^0.13.0"
   },
-  "dependencies": {},
   "jest": {
     "testEnvironment": "jsdom"
   },

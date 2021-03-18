@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/preact",
-  "version": "2.0.0-next.8",
+  "version": "2.0.0-next.9",
   "description": "Preact implementation for MDX",
   "repository": "mdx-js/mdx",
   "homepage": "https://mdxjs.com",
@@ -20,12 +20,9 @@
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
-  "main": "dist/cjs.js",
-  "module": "dist/esm.js",
-  "types": "types/index.d.ts",
-  "license": "MIT",
   "main": "dist/mdx-preact.js",
   "module": "dist/mdx-preact.es.js",
+  "types": "types/index.d.ts",
   "exports": {
     "import": "./dist/mdx-preact.modern.js",
     "require": "./dist/mdx-preact.js"
