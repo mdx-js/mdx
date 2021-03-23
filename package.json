@@ -21,7 +21,7 @@
     "format": "yarn lint --fix",
     "lint": "eslint . --cache --ext md,mdx,js,jsx -f friendly",
     "vercel-build": "yarn build && yarn docs-build",
-    "postinstall": "yarn-deduplicate || exit 0",
+    "postinstall": "yarn-deduplicate --strategy fewer && node scripts/patch || exit 0",
     "prepublishOnly": "yarn build",
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",

@@ -1,5 +1,8 @@
+import '@reach/skip-nav/styles.css'
+
 import React from 'react'
 import {SkipNavLink as Link} from '@reach/skip-nav'
+
 export {SkipNavContent} from '@reach/skip-nav'
 
 export const SkipNavLink = props => (
