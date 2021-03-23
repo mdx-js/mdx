@@ -1,4 +1,5 @@
 .next
 dist
 node_modules
+changelog.md
 *.min.*

@@ -33,6 +33,10 @@ rules:
   import/no-extraneous-dependencies: error
   prettier/prettier: error
   no-console: off
+  import/no-unresolved:
+    - error
+    - ignore:
+        - '@mdx-js/react'
   react/prop-types: off
   react/display-name: off
   react/no-children-prop: off
@@ -43,13 +47,13 @@ settings:
     version: 16.3.2
 
 overrides:
-  - files: '*.mdx'
+  - files: '*.{md,mdx}'
     extends:
       - plugin:mdx/recommended
       - plugin:mdx/overrides
     rules:
       import/no-extraneous-dependencies: 0
-      prettier/prettier: 0
+      prettier/prettier: 2
 
   - files:
       - '**/test/**/*.js'
