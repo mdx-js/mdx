@@ -137,7 +137,7 @@ title: Hello, MDX
 ---
 
 I &lt;3 Markdown and JSX {/* < must be escaped for \`@mdx-js/mdx@2\` */}
-`.trimStart() // `trimStart` is required for `remark-frontmatter@3`
+`.trimStart() // there should be no space before frontmatter for `remark-frontmatter@3`, this can be guaranteed with `trimStart`
 )
 
 function extractFrontmatter() {
