@@ -19,3 +19,9 @@ mdx.createMdxAstCompiler({skipExport: false}) // $ExpectType Processor<Settings>
 mdx.createMdxAstCompiler({wrapExport: 'React.memo'}) // $ExpectType Processor<Settings>
 mdx.createMdxAstCompiler({rehypePlugins: [() => () => ({type: 'test'})]}) // $ExpectType Processor<Settings>
 mdx.createMdxAstCompiler({remarkPlugins: [() => () => ({type: 'test'})]}) // $ExpectType Processor<Settings>
+
+mdx.createCompiler() // $ExpectType Processor<Settings>
+mdx.createCompiler({skipExport: false}) // $ExpectType Processor<Settings>
+mdx.createCompiler({wrapExport: 'React.memo'}) // $ExpectType Processor<Settings>
+mdx.createCompiler({rehypePlugins: [() => () => ({type: 'test'})]}) // $ExpectType Processor<Settings>
+mdx.createCompiler({remarkPlugins: [() => () => ({type: 'test'})]}) // $ExpectType Processor<Settings>
