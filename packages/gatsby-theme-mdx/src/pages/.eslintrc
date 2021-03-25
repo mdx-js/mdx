@@ -3,8 +3,8 @@
     {
       "files": "./conf.mdx",
       "globals": {
-        "Speaker": false,
-        "SpeakerList": false
+        "Speaker": "readonly",
+        "SpeakerList": "readonly"
       }
     }
   ]
