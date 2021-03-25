@@ -6,20 +6,24 @@ const fs = require('fs')
 
 const headerFilename = 'node_modules/gatsby-theme-mdx1/src/components/header.js'
 
-fs.writeFileSync(
-  headerFilename,
-  fs
-    .readFileSync(headerFilename, 'utf8')
-    .replace(
-      `import pkg from '@mdx-js/mdx/package.json'`,
-      `import pkg from '../../../../packages/mdx/package.json'`
+const mdxPkgImport = "import pkg from '@mdx-js/mdx/package.json'"
+
+const headerContent = fs.readFileSync(headerFilename, 'utf8')
+
+if (headerContent.includes(mdxPkgImport)) {
+  fs.writeFileSync(
+    headerFilename,
+    headerContent.replace(
+      mdxPkgImport,
+      "import pkg from '../../../../packages/mdx/package.json'"
     )
-)
+  )
+}
 
 const skipNavFilename =
   'node_modules/gatsby-theme-mdx1/src/components/skip-nav.js'
 
-const skipNavStyles = 'import "@reach/skip-nav/styles.css"'
+const skipNavStyles = "import '@reach/skip-nav/styles.css'"
 
 const skipNavContent = fs.readFileSync(skipNavFilename, 'utf8')
 
