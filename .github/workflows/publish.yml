@@ -1,6 +1,6 @@
 name: CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   default:
@@ -8,15 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # for lerna
 
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v2
         with:
           node-version: 14
-
-      - name: Setup yarn
-        run: |
-          curl -o- -L https://yarnpkg.com/install.sh | bash
-          export PATH="$HOME/.yarn/bin:$PATH"
 
       - name: Install Dependencies
         run: yarn --frozen-lockfile
@@ -27,7 +24,7 @@ jobs:
         run: yarn build
 
       - name: Publish CI tag to npm
-        if: github.event_name == 'push' && github.ref	== 'refs/heads/master'
+        if: github.ref	== 'refs/heads/main'
         run: |
           npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
           yarn publish-ci
