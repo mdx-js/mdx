@@ -53,7 +53,7 @@ overrides:
       - plugin:mdx/overrides
     rules:
       import/no-extraneous-dependencies: 0
-      prettier/prettier: 2
+      prettier/prettier: error
 
   - files:
       - '**/test/**/*.js'
