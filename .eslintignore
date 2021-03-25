@@ -22,5 +22,4 @@ packages/remark-mdx/test/fixtures/**/*.md
 # To do: Vue should be checked.
 examples/vue
 
-changelog.md
 readme.md
