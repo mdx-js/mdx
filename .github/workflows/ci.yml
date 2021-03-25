@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   default:
-    name: Build and Test on ${{ matrix.os }} with Node.js ${{ matrix.node }}
+    name: Test on ${{ matrix.os }} with Node.js ${{ matrix.node }}
     strategy:
       matrix:
         os:
@@ -25,11 +25,3 @@ jobs:
           CI: 'true'
       - name: Test
         run: yarn test
-      # To do: macos isn’t used anymore
-      - name: Publish CI tag to npm
-        if: matrix.node == 12 && matrix.os == 'macOS-latest' && github.event_name == 'push' && github.ref	== 'refs/heads/master'
-        run: |
-          npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
-          yarn publish-ci
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
