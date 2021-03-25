@@ -164,7 +164,7 @@ Join us on [GH Discussions][chat]!
 
 ## License
 
-[MIT][] © [Components AI][] and [Vercel][]
+[MIT][] © [Vercel][]
 
 [collective]: https://opencollective.com/unified
 [build]: https://github.com/mdx-js/mdx/actions?query=workflow%3A%22CI%22
