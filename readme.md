@@ -140,7 +140,7 @@ Support this effort and give back by sponsoring on [OpenCollective][collective]!
 
 ## Authors
 
-- [John Otander][john] ([@4lpine][4lpine]) – [Components AI](https://components.ai)
+- [John Otander][john] ([@4lpine][4lpine]) – [Components AI][]
 - [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [Vercel][]
 - [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [Vercel][]
 - [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Gatsby](https://gatsbyjs.com)
@@ -164,7 +164,7 @@ Join us on [GH Discussions][chat]!
 
 ## License
 
-[MIT][] © [Compositor][] and [Vercel][]
+[MIT][] © [Components AI][] and [Vercel][]
 
 [collective]: https://opencollective.com/unified
 [build]: https://github.com/mdx-js/mdx/actions?query=workflow%3A%22CI%22
@@ -184,6 +184,7 @@ Join us on [GH Discussions][chat]!
 [rauchg]: https://twitter.com/rauchg
 [timneutkens]: https://twitter.com/timneutkens
 [jxnblk]: https://twitter.com/jxnblk
+[components ai]: https://components.ai
 [vercel]: https://vercel.com
 [contribute]: #contribute
 [contributing]: https://mdxjs.com/contributing
