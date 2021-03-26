@@ -41,7 +41,7 @@
     "babel-preset-gatsby-package": "^0.12.0",
     "dtslint": "^4.0.0",
     "eslint": "^7.13.0",
-    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-prettier": "^8.0.0",
     "eslint-config-xo": "^0.33.0",
     "eslint-formatter-friendly": "^7.0.0",
     "eslint-plugin-import": "^2.22.0",
