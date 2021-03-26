@@ -117,7 +117,7 @@ const Sidebar = ({open, ...props}) => (
         position: 'relative',
         maxHeight: '100vh',
         overflowY: 'auto',
-        WebkitOverflowScrolling: 'touch',
+        webkitOverflowScrolling: 'touch',
         bg: 'background',
         transition: 'background-color .4s ease-out',
         pb: 4,

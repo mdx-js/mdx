@@ -17,7 +17,8 @@
   },
   "peerDependencies": {
     "react": ">=16",
-    "react-dom": ">=16"
+    "react-dom": ">=16",
+    "gatsby": "^2.0.0"
   },
   "dependencies": {
     "@blocks/kit": "0.0.28",
@@ -31,7 +32,6 @@
     "@rebass/emotion": "3.2.0",
     "@theme-ui/components": "^0.3.1",
     "@theme-ui/preset-system": "0.3.0",
-    "gatsby": "2.24.3",
     "gatsby-plugin-catch-links": "2.3.11",
     "gatsby-plugin-compile-es6-packages": "2.1.0",
     "gatsby-plugin-emotion": "4.3.10",

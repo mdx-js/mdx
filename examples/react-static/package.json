@@ -23,7 +23,6 @@
     "react-static-plugin-source-filesystem": "^7.4.2"
   },
   "devDependencies": {
-    "eslint-config-react-tools": "^1.1.7",
     "serve": "^11.3.2"
   }
 }

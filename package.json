@@ -19,9 +19,9 @@
     "docs-build": "gatsby build",
     "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
     "format": "yarn lint --fix",
-    "lint": "eslint . --cache --ext js,jsx -f friendly",
+    "lint": "eslint . --cache --ext md,mdx,js,jsx -f friendly",
     "vercel-build": "yarn build && yarn docs-build",
-    "postinstall": "yarn-deduplicate || exit 0",
+    "postinstall": "yarn-deduplicate --strategy fewer && patch-package || exit 0",
     "prepublishOnly": "yarn build",
     "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
@@ -45,7 +45,7 @@
     "eslint-config-xo": "^0.33.0",
     "eslint-formatter-friendly": "^7.0.0",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-mdx": "^1.8.0",
+    "eslint-plugin-mdx": "^1.11.1",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.0",
     "gatsby": "^2.24.3",
@@ -54,7 +54,10 @@
     "jest": "^26.6.0",
     "lerna": "^3.22.1",
     "lint-staged": "^10.5.0",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.1.0",
+    "remark-frontmatter": "^2.0.0",
     "remark-preset-prettier": "^0.4.0",
     "remark-preset-wooorm": "^8.0.0",
     "rimraf": "^3.0.0",
@@ -62,12 +65,13 @@
     "yarn-deduplicate": "^3.0.0"
   },
   "resolutions": {
+    "eslint": "^7.22.0",
     "gatsby-plugin-mdx/@mdx-js/mdx": "^1.0.0",
     "gatsby-plugin-mdx/@mdx-js/react": "^1.0.0"
   },
   "husky": {
     "hooks": {
-      "#pre-commit": "lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "jest": {

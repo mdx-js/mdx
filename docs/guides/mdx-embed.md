@@ -22,7 +22,8 @@ export default props => <MDXEmbedProvider>{props.children}</MDXEmbedProvider>
 ### Usage
 
 ```mdx
-// some-mdx-file.mdx
+<!-- some-mdx-file.mdx -->
+
 #### My cool pen
 
 Here's a pen, and some other blog post text

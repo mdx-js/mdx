@@ -1,0 +1,11 @@
+{
+  "overrides": [
+    {
+      "files": "./conf.mdx",
+      "globals": {
+        "Speaker": "readonly",
+        "SpeakerList": "readonly"
+      }
+    }
+  ]
+}
