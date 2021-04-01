@@ -48,12 +48,20 @@ declare namespace mdx {
   function sync(mdx: string, options?: Options): string
 
   /**
-   * Generated an MDX compiler
+   * Generated an MDX AST compiler
    *
    * @param options transform and compiler options
    * @returns Unified Processor for MDX
    */
   function createMdxAstCompiler(options?: Options): Processor
+
+  /**
+   * Generated an MDX compiler
+   *
+   * @param options transform and compiler options
+   * @returns Unified Processor for MDX
+   */
+  function createCompiler(options?: Options): Processor
 }
 
 /**
