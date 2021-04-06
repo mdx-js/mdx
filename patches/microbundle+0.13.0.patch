@@ -1,0 +1,106 @@
+diff --git a/node_modules/microbundle/dist/cli.js b/node_modules/microbundle/dist/cli.js
+index b062d69..03984a1 100755
+--- a/node_modules/microbundle/dist/cli.js
++++ b/node_modules/microbundle/dist/cli.js
+@@ -47,9 +47,9 @@ var brotliSize__default = /*#__PURE__*/_interopDefaultLegacy(brotliSize);
+ var prettyBytes__default = /*#__PURE__*/_interopDefaultLegacy(prettyBytes);
+ var sade__default = /*#__PURE__*/_interopDefaultLegacy(sade);
+ 
+-const resolveFrom = (fromDir, moduleId, silent) => {
+-	if (typeof fromDir !== 'string') {
+-		throw new TypeError(`Expected \`fromDir\` to be of type \`string\`, got \`${typeof fromDir}\``);
++const resolveFrom = (fromDirectory, moduleId, silent) => {
++	if (typeof fromDirectory !== 'string') {
++		throw new TypeError(`Expected \`fromDir\` to be of type \`string\`, got \`${typeof fromDirectory}\``);
+ 	}
+ 
+ 	if (typeof moduleId !== 'string') {
+@@ -57,38 +57,38 @@ const resolveFrom = (fromDir, moduleId, silent) => {
+ 	}
+ 
+ 	try {
+-		fromDir = fs__default['default'].realpathSync(fromDir);
+-	} catch (err) {
+-		if (err.code === 'ENOENT') {
+-			fromDir = path__default['default'].resolve(fromDir);
++		fromDirectory = fs__default['default'].realpathSync(fromDirectory);
++	} catch (error) {
++		if (error.code === 'ENOENT') {
++			fromDirectory = path__default['default'].resolve(fromDirectory);
+ 		} else if (silent) {
+-			return null;
++			return;
+ 		} else {
+-			throw err;
++			throw error;
+ 		}
+ 	}
+ 
+-	const fromFile = path__default['default'].join(fromDir, 'noop.js');
++	const fromFile = path__default['default'].join(fromDirectory, 'noop.js');
+ 
+ 	const resolveFileName = () => Module__default['default']._resolveFilename(moduleId, {
+ 		id: fromFile,
+ 		filename: fromFile,
+-		paths: Module__default['default']._nodeModulePaths(fromDir)
++		paths: Module__default['default']._nodeModulePaths(fromDirectory)
+ 	});
+ 
+ 	if (silent) {
+ 		try {
+ 			return resolveFileName();
+-		} catch (err) {
+-			return null;
++		} catch (error) {
++			return;
+ 		}
+ 	}
+ 
+ 	return resolveFileName();
+ };
+ 
+-var resolveFrom_1 = (fromDir, moduleId) => resolveFrom(fromDir, moduleId);
+-var silent = (fromDir, moduleId) => resolveFrom(fromDir, moduleId, true);
++var resolveFrom_1 = (fromDirectory, moduleId) => resolveFrom(fromDirectory, moduleId);
++var silent = (fromDirectory, moduleId) => resolveFrom(fromDirectory, moduleId, true);
+ resolveFrom_1.silent = silent;
+ 
+ /**
+@@ -608,6 +608,8 @@ async function microbundle(inputOptions) {
+ 
+   if (options.sourcemap === 'inline') {
+     console.log('Warning: inline sourcemaps should only be used for debugging purposes.');
++  } else if (options.sourcemap === 'false') {
++    options.sourcemap = false;
+   } else if (options.sourcemap !== false) {
+     options.sourcemap = true;
+   }
+@@ -875,7 +877,7 @@ function createConfig(options, entry, format, writeMeta) {
+   let minifyOptions = typeof rawMinifyValue === 'string' ? {} : rawMinifyValue;
+   const getNameCachePath = typeof rawMinifyValue === 'string' ? () => path.resolve(options.cwd, rawMinifyValue) : () => path.resolve(options.cwd, 'mangle.json');
+   const useTypescript = path.extname(entry) === '.ts' || path.extname(entry) === '.tsx';
+-  const emitDeclaration = !!(options.generateTypes || pkg.types || pkg.typings);
++  const emitDeclaration = options.generateTypes == null ? !!(pkg.types || pkg.typings) : options.generateTypes;
+ 
+   const escapeStringExternals = ext => ext instanceof RegExp ? ext.source : escapeStringRegexp__default['default'](ext);
+ 
+@@ -1144,7 +1146,8 @@ var prog = (handler => {
+   };
+ 
+   let prog = sade__default['default']('microbundle');
+-  prog.version(version).option('--entry, -i', 'Entry module(s)').option('--output, -o', 'Directory to place build files into').option('--format, -f', `Only build specified formats (any of ${DEFAULT_FORMATS} or iife)`, DEFAULT_FORMATS).option('--watch, -w', 'Rebuilds on any change', false).option('--pkg-main', 'Outputs files analog to package.json main entries', true).option('--target', 'Specify your target environment (node or web)', 'web').option('--external', `Specify external dependencies, or 'none'`).option('--globals', `Specify globals dependencies, or 'none'`).example('microbundle --globals react=React,jquery=$').option('--define', 'Replace constants with hard-coded values').example('microbundle --define API_KEY=1234').option('--alias', `Map imports to different modules`).example('microbundle --alias react=preact').option('--compress', 'Compress output using Terser', null).option('--strict', 'Enforce undefined global context and add "use strict"').option('--name', 'Specify name exposed in UMD builds').option('--cwd', 'Use an alternative working directory', '.').option('--sourcemap', 'Generate source map').option('--css', 'Where to output CSS: "inline" or "external"', 'external').option('--css-modules', 'Turns on css-modules for all .css imports. Passing a string will override the scopeName. eg --css-modules="_[hash]"', null).example("microbundle --no-sourcemap # don't generate sourcemaps").option('--raw', 'Show raw byte size', false).option('--jsx', 'A custom JSX pragma like React.createElement (default: h)').option('--tsconfig', 'Specify the path to a custom tsconfig.json').example('microbundle build --tsconfig tsconfig.build.json');
++  prog.version(version).option('--entry, -i', 'Entry module(s)').option('--output, -o', 'Directory to place build files into').option('--format, -f', `Only build specified formats (any of ${DEFAULT_FORMATS} or iife)`, DEFAULT_FORMATS).option('--watch, -w', 'Rebuilds on any change', false).option('--pkg-main', 'Outputs files analog to package.json main entries', true).option('--target', 'Specify your target environment (node or web)', 'web').option('--external', `Specify external dependencies, or 'none'`).option('--globals', `Specify globals dependencies, or 'none'`).example('microbundle --globals react=React,jquery=$').option('--define', 'Replace constants with hard-coded values').example('microbundle --define API_KEY=1234').option('--alias', `Map imports to different modules`).example('microbundle --alias react=preact').option('--compress', 'Compress output using Terser', null).option('--strict', 'Enforce undefined global context and add "use strict"').option('--name', 'Specify name exposed in UMD builds').option('--cwd', 'Use an alternative working directory', '.').option('--sourcemap', 'Generate source map').option('--css', 'Where to output CSS: "inline" or "external"', 'external').option('--css-modules', 'Turns on css-modules for all .css imports. Passing a string will override the scopeName. eg --css-modules="_[hash]"', null).example("microbundle --no-sourcemap # don't generate sourcemaps").option('--raw', 'Show raw byte size', false).option('--jsx', 'A custom JSX pragma like React.createElement (default: h)').option('--tsconfig', 'Specify the path to a custom tsconfig.json') // https://github.com/lukeed/sade/issues/23
++  .option('--generateTypes', 'Whether or not to generate types , if `types` or `typings` is set in `package.json` then it will default to be `true`').example('microbundle build --tsconfig tsconfig.build.json');
+   prog.command('build [...entries]', '', {
+     default: true
+   }).describe('Build once and exit').action(cmd('build'));
+@@ -1155,7 +1158,8 @@ var prog = (handler => {
+       o: ['output', 'd'],
+       i: ['entry', 'entries', 'e'],
+       w: ['watch']
+-    }
++    },
++    boolean: ['generateTypes']
+   });
+ });
+ 

@@ -26,7 +26,7 @@
     "remark"
   ],
   "scripts": {
-    "build": "microbundle -f modern,es,cjs src",
+    "build": "microbundle -f modern,es,cjs src --generateTypes false",
     "test-api": "jest test",
     "test-coverage": "jest test --coverage",
     "test-types": "dtslint types",

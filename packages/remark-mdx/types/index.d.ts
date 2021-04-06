@@ -3,8 +3,8 @@
 import {Plugin} from 'unified'
 
 /**
- * remark plugin to support MDX (Markdown 💛 JSX).
+ * Remark plugin to support MDX (Markdown 💛 JSX).
  */
-declare const remarkMdx: Plugin<[]>
+declare const remarkMdx: Plugin
 
 export = remarkMdx
