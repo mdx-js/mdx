@@ -1,3 +1,5 @@
+<!-- lint disable remark-lint-no-html -->
+
 <p align="center">
   <a href="https://mdxjs.com">
     <img alt="MDX logo" src="https://mdx-logo.now.sh" width="60" />

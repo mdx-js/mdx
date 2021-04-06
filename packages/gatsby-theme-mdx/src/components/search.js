@@ -8,14 +8,15 @@ const loadJs = () => import('./docsearch.min.js')
 
 const important = styles => {
   const next = {}
-  for (const key in styles) {
-    const value = styles[key]
+  for (const [key, value] of Object.entries(styles)) {
     if (value && typeof value === 'object') {
       next[key] = important(value)
       continue
     }
+
     next[key] = value + ' !important'
   }
+
   return next
 }
 
@@ -46,7 +47,7 @@ const styles = () =>
     })
   )
 
-export default props => {
+export default () => {
   const input = useRef(null)
   // Copied from Gatsby (MIT License)
   // https://github.com/gatsbyjs/gatsby/blob/30070ec9a9e678ab8f23adda952510938c09bfcb/www/src/components/search-form.js
@@ -91,6 +92,7 @@ export default props => {
         input.current.blur()
         input.current.value = ''
       }
+
       navigate(path)
     }
 
@@ -132,23 +134,22 @@ export default props => {
         className="docsearch-input"
         title="Type `s` to search"
         css={css({
-            appearance: 'none',
-            fontSize: 1,
-            m: 0,
-            p: 2,
-            pl: 28,
-            border: '1px solid',
-            borderColor: theme.colors.gray,
-            color: 'inherit',
-            bg: 'transparent',
-            borderRadius: 4,
-            width: '100%',
-            '&:focus': {
-              outline: 'none',
-              borderColor: theme.colors.primary
-            }
-          })
-        }
+          appearance: 'none',
+          fontSize: 1,
+          m: 0,
+          p: 2,
+          pl: 28,
+          border: '1px solid',
+          borderColor: theme.colors.gray,
+          color: 'inherit',
+          bg: 'transparent',
+          borderRadius: 4,
+          width: '100%',
+          '&:focus': {
+            outline: 'none',
+            borderColor: theme.colors.primary
+          }
+        })}
       />
     </form>
   )

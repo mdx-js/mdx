@@ -39,3 +39,5 @@ const UseMDXContextExample = () => {
 }
 
 const MDXCreateElementExample = () => mdx('mdx', {title: 'example'}, [])
+
+mdx.Fragment === React.Fragment

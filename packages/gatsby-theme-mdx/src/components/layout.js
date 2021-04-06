@@ -178,9 +178,11 @@ export default props => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
+
   const closeMenu = () => {
     setMenuOpen(false)
   }
+
   const theme = {
     ...baseTheme,
     dark,

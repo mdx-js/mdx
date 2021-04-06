@@ -1,4 +1,4 @@
-import {h, ComponentChildren} from 'preact'
+import {h, ComponentChildren, Fragment} from 'preact'
 import {useContext} from 'preact/hooks'
 import {
   MDXProvider,
@@ -12,7 +12,7 @@ import {
 const H1 = ({children}: {children: ComponentChildren}) => <h1>{children}</h1>
 
 const MDXProvideExample = () => (
-  <MDXProvider components={{h1: H1}}>
+  <MDXProvider components={{h1: H1}} disableParentContext={true}>
     <h1>Hello, world!</h1>
   </MDXProvider>
 )
@@ -34,3 +34,5 @@ const UseMDXContextExample = () => {
 }
 
 const MDXCreateElementExample = () => mdx('mdx', {title: 'example'}, [])
+
+mdx.Fragment === Fragment

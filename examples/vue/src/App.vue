@@ -7,7 +7,7 @@
 <script>
 import {MDXProvider} from '@mdx-js/vue'
 import box from './Box.vue'
-import Content from './Content.mdx'
+import Content from './content.mdx'
 
 export default {
   name: 'app',
