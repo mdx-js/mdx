@@ -23,12 +23,6 @@ jobs:
       - name: Build
         run: yarn build
 
-      # workaround for types changes after building
-      - name: Reset git status
-        run: |
-          git status
-          git reset --hard
-
       - name: Publish CI tag to npm
         if: github.ref	== 'refs/heads/main'
         run: |

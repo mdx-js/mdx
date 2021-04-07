@@ -16,7 +16,7 @@ describe('index', () => {
 
 describe('MDXAsset', () => {
   it('should work', async () => {
-    const asset = new MDXAsset(path.resolve(__dirname, './Content.mdx'), {
+    const asset = new MDXAsset(path.resolve(__dirname, './content.mdx'), {
       rootDir: __dirname
     })
 

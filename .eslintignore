@@ -1,25 +1,10 @@
 artifacts
 dist
 build
+fixtures
 node_modules
 public
 .next
 .*cache
 *.min.js
 !/.*.js
-
-examples/**/node_modules/**/*.*
-
-packages/**/fixtures/**/*.mdx
-packages/**/test/**/*.mdx
-packages/**/*.d.ts
-packages/gatsby-theme-mdx/src/components/header.js
-packages/gatsby-theme-mdx/src/components/layout.js
-packages/gatsby-theme-mdx/src/components/search.js
-
-packages/remark-mdx/test/fixtures/**/*.md
-
-# To do: Vue should be checked.
-examples/vue
-
-readme.md

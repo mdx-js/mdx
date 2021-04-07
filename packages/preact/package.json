@@ -40,7 +40,7 @@
     "mdxast"
   ],
   "scripts": {
-    "build": "microbundle -f modern,es,cjs src/index.js",
+    "build": "microbundle -f modern,es,cjs src/index.js --generateTypes false",
     "test-api": "jest test",
     "test-coverage": "jest test --coverage",
     "test-types": "dtslint types",

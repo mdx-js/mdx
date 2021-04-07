@@ -36,7 +36,7 @@ Say we have the following scripts, `example.jsx`:
 The MDX Runtime component accepts two props:
 
 | Name            | Description                                                      |
-| ----------------| ---------------------------------------------------------------- |
+| --------------- | ---------------------------------------------------------------- |
 | `components`    | Globally available components for the runtime                    |
 | `scope`         | Variables that are accessible in the JSX portion of the document |
 | `remarkPlugins` | Array of remark plugins                                          |
@@ -80,7 +80,9 @@ console.log(result)
 Now, building, bundling, and finally running it, yields:
 
 ```html
-<h1 style="color:tomato">Hello, world!</h1>2<p>This is a demo component</p>
+<h1 style="color:tomato">Hello, world!</h1>
+2
+<p>This is a demo component</p>
 ```
 
 ## Contribute
@@ -114,3 +116,4 @@ abide by its terms.
 [mit]: license
 [compositor]: https://compositor.io
 [vercel]: https://vercel.com
+[react]: https://reactjs.org

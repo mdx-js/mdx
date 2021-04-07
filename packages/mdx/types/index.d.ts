@@ -11,27 +11,27 @@ declare namespace mdx {
     filepath?: string
 
     /**
-     * skip the addition of 'export default' statement when serializing
+     * Skip the addition of 'export default' statement when serializing
      * to JSX
      * @default false
      */
     skipExport?: boolean
 
     /**
-     * wrap 'export default' statement with provided string when serializing
+     * Wrap 'export default' statement with provided string when serializing
      * to JSX
      */
     wrapExport?: string
 
     /**
-     * remark plugins to transform markdown content
+     * Remark plugins to transform markdown content
      *
      * @default []
      */
     remarkPlugins?: Plugin[]
 
     /**
-     * rehype plugins html content
+     * Rehype plugins html content
      *
      * @default []
      */
@@ -39,7 +39,7 @@ declare namespace mdx {
   }
 
   /**
-   * compile mdx text to jsx text asynchronously
+   * Compile mdx text to jsx text asynchronously
    *
    * @param mdx content as a text
    * @param options transform and compiler options
@@ -65,7 +65,7 @@ declare namespace mdx {
 }
 
 /**
- * compile mdx text to jsx text asynchronously
+ * Compile mdx text to jsx text asynchronously
  *
  * @param mdx content as a text
  * @param options transform and compiler options
