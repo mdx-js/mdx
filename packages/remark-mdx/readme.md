@@ -22,6 +22,16 @@ It’s used in [MDXjs][].
 npm install remark-mdx
 ```
 
+### Installing Other Plugins
+
+You'll probably need other plugins such as [**remark-parse**][remark-parse].
+Make sure you are using compatible versions of such plugins.
+In case of [**remark-parse**][remark-parse] currently version `^8.0.3` is supported (the latest is `9.0.0`).
+
+```sh
+npm install remark-parse@8.0.3
+```
+
 ## Use
 
 Say we have the following file, `example.md`:
@@ -164,3 +174,4 @@ abide by its terms.
 [rehype]: https://github.com/rehypejs/rehype
 [hast]: https://github.com/syntax-tree/hast
 [mdxjs]: https://mdxjs.com
+[remark-parse]: https://github.com/remarkjs/remark/tree/main/packages/remark-parse
