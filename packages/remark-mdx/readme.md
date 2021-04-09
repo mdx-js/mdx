@@ -19,17 +19,11 @@ It’s used in [MDXjs][].
 [npm][]:
 
 ```sh
-npm install remark-mdx
-```
+# for latest version
+npm install remark-mdx@next remark-parse
 
-### Installing Other Plugins
-
-You'll probably need other plugins such as [**remark-parse**][remark-parse].
-Make sure you are using compatible versions of such plugins.
-In case of [**remark-parse**][remark-parse] currently version `^8.0.3` is supported (the latest is `9.0.0`).
-
-```sh
-npm install remark-parse@8.0.3
+# for v1
+npm install remark-mdx@1 remark-parse@8
 ```
 
 ## Use
