@@ -168,4 +168,3 @@ abide by its terms.
 [rehype]: https://github.com/rehypejs/rehype
 [hast]: https://github.com/syntax-tree/hast
 [mdxjs]: https://mdxjs.com
-[remark-parse]: https://github.com/remarkjs/remark/tree/main/packages/remark-parse
