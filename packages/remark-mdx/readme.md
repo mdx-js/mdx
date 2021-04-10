@@ -19,7 +19,11 @@ It’s used in [MDXjs][].
 [npm][]:
 
 ```sh
-npm install remark-mdx
+# for latest version
+npm install remark-mdx@next remark-parse
+
+# for v1
+npm install remark-mdx@1 remark-parse@8
 ```
 
 ## Use
