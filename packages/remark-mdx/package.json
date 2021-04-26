@@ -51,7 +51,7 @@
     "unified": "^9.0.0",
     "unist-builder": "^2.0.3",
     "unist-util-remove-position": "^3.0.0",
-    "unist-util-visit": "^2.0.0"
+    "unist-util-visit": "^3.0.0"
   },
   "nyc": {
     "check-coverage": true,
