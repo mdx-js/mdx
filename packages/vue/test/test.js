@@ -18,8 +18,6 @@ const run = async value => {
     ]
   })
 
-  console.log(code)
-
   // …and finally run it, returning the component.
   // eslint-disable-next-line no-new-func
   return new Function(
@@ -30,7 +28,6 @@ const run = async value => {
       name: 'Mdx',
       setup() {
         const $mdxComponents = inject('$mdxComponents', {});
-        console.log($mdxComponents)
 
         return () => MDXContent({components: $mdxComponents})
       }
