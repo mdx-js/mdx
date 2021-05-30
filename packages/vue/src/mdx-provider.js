@@ -1,12 +1,14 @@
-const MDXProvider = {
+import {defineComponent, provide} from 'vue'
+
+const MDXProvider = defineComponent({
   name: 'MDXProvider',
   props: {components: {type: Object, default: () => ({})}},
-  provide() {
-    return {$mdxComponents: () => this.components}
+  setup(props) {
+    provide('$mdxComponents', props.components)
   },
-  render(h) {
-    return h('div', this.$slots.default)
+  render() {
+    return this.$slots.default?.()
   }
-}
+})
 
 export default MDXProvider

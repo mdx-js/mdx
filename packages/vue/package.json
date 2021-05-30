@@ -33,9 +33,13 @@
     "test": "yarn test-coverage && yarn test-types"
   },
   "devDependencies": {
-    "@vue/test-utils": "^1.1.1",
-    "babel-helper-vue-jsx-merge-props": "^2.0.0",
-    "microbundle": "^0.13.0"
+    "@vue/test-utils": "^2.0.0-0",
+    "microbundle": "^0.13.0",
+    "jest": "^26.6.0",
+    "jsdom": "^16.6.0"
+  },
+  "peerDependencies": {
+    "vue": ">=3"
   },
   "jest": {
     "testEnvironment": "jsdom"

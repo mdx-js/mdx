@@ -1,23 +1,19 @@
+import {createVNode, Fragment} from 'vue'
+
 /**
  * MDX default components
  */
 const defaults = {
   inlineCode: 'code',
-  wrapper: {
-    name: 'MDXWrapper',
-    render: function (h) {
-      const children = this.$slots.default
-      return children.length === 1 ? children : h('div', {}, children)
-    }
-  }
+  wrapper: Fragment
 }
 
-const own = {}.hasOwnProperty
+// Const own = {}.hasOwnProperty
 
 export default function createMdxElement(type, props, children) {
-  if (own.call(this.components, type)) {
-    type = this.components[type]
-  } else if (own.call(defaults, type)) {
+  if (props?.components?.[type]) {
+    type = props.components[type]
+  } else if (defaults[type]) {
     type = defaults[type]
   }
 
@@ -31,12 +27,6 @@ export default function createMdxElement(type, props, children) {
     children.unshift(props)
     props = {}
   }
-
-  children = children.map(d =>
-    typeof d === 'number' || typeof d === 'string'
-      ? this.createElement('d', {}, String(d)).children[0]
-      : d
-  )
 
   if (props.attrs) {
     // Vue places the special MDX props in `props.attrs`, move them back into
@@ -54,5 +44,10 @@ export default function createMdxElement(type, props, children) {
   }
 
   // Vue component.
-  return this.createElement(type, props, children)
+  return createVNode(
+    type,
+    props,
+    // @vue/babel-plugin-jsx should support jsxFrag pragma replacement
+    type === Fragment ? children.default?.() : children
+  )
 }

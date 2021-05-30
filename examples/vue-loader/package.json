@@ -8,11 +8,10 @@
   },
   "dependencies": {
     "core-js": "^3.6.0",
-    "vue": "^2.6.0"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.4.0",
-    "@vue/cli-service": "^4.4.0",
-    "vue-template-compiler": "^2.6.0"
+    "@vue/cli-service": "^4.4.0"
   }
 }
