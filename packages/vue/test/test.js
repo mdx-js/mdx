@@ -5,9 +5,6 @@ import mdxTransform from '../../mdx'
 import {transformAsync as babelTransform} from '@babel/core'
 import {MDXProvider, mdx} from '../src'
 
-console.log('jest', require('jest/package.json').version)
-console.log('jsdom', require('jsdom/package.json').version)
-
 const run = async value => {
   // Turn the serialized MDX code into serialized JSX…
   const doc = await mdxTransform(value, {skipExport: true, mdxFragment: false})
@@ -44,7 +41,6 @@ const run = async value => {
 describe('@mdx-js/vue', () => {
   test('should evaluate MDX code', async () => {
     const Content = await run('# hi')
-    console.log(Content)
 
     expect(mount(Content).html()).toEqual('<h1>hi</h1>')
   })
