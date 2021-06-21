@@ -54,6 +54,22 @@ describe('@mdx-js/mdx', () => {
     )
   })
 
+  it('should generate JSX-compliant strings', async () => {
+    const Content = await run('!["so" cute](cats.com/cat.jpeg)')
+
+    // Note: Escaped quotes (\") isn't valid for JSX string syntax. So we're
+    // making sure that quotes aren't escaped here (prettier doesn't like us
+    // using the character reference (&quot;) in the expect below)
+    expect(renderToStaticMarkup(<Content />)).toEqual(
+      renderToStaticMarkup(
+        <p>
+          {/* prettier-ignore */}
+          <img src="cats.com/cat.jpeg" alt="&quot;so&quot; cute" />
+        </p>
+      )
+    )
+  })
+
   it('should support `remarkPlugins` (math)', async () => {
     const Content = await run('$x$', {remarkPlugins: [math]})
 

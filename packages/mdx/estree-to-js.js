@@ -30,7 +30,16 @@ function JSXAttribute(node, state) {
 
   if (node.value != null) {
     state.write('=')
-    this[node.value.type](node.value, state)
+
+    // Encode double quotes in attribute values.
+    if (node.value.type === 'Literal') {
+      state.write(
+        '"' + encodeJsx(String(node.value.value)).replace(/"/g, '&quot;') + '"',
+        node
+      )
+    } else {
+      this[node.value.type](node.value, state)
+    }
   }
 }
 
@@ -144,4 +153,20 @@ function JSXText(node, state) {
    * Preferring `raw` over `value` means character references are kept as-is. */
   const value = node.raw || node.value
   state.write(value)
+}
+
+/**
+ * Make sure that character references don’t pop up.
+ * For example, the text `&copy;` should stay that way, and not turn into `©`.
+ * We could encode all `&` (easy but verbose) or look for actual valid
+ * references (complex but cleanest output).
+ * Looking for the 2nd character gives us a middle ground.
+ * The `#` is for (decimal and hexadecimal) numeric references, the letters
+ * are for the named references.
+ *
+ * @param {string} value
+ * @returns {string}
+ */
+function encodeJsx(value) {
+  return value.replace(/&(?=[#a-z])/gi, '&amp;')
 }

@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import {Link} from 'gatsby'
 import {Global} from '@emotion/core'
 import {ThemeProvider, css} from 'theme-ui'
 
