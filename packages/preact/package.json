@@ -50,7 +50,7 @@
     "preact": "^10.4.6"
   },
   "devDependencies": {
-    "microbundle": "^0.13.0",
+    "microbundle": "^0.13.3",
     "preact": "^10.5.0",
     "preact-render-to-string": "^5.1.10"
   },
