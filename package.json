@@ -46,7 +46,7 @@
     "eslint-formatter-friendly": "^7.0.0",
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-mdx": "^1.12.0",
+    "eslint-plugin-mdx": "https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-plugin-mdx",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
     "gatsby": "^2.24.3",

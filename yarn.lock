@@ -9402,14 +9402,13 @@ eslint-loader@^2.2.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-mdx@^1.12.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.12.0.tgz#a0c49b54fe5dcecf5cf75a9b5f176e7f98f40b36"
-  integrity sha512-Dni6cIi9I7x14PBzd+te3sWdMdQ6Nb7g5IDTzle2r8C91A70JI631qG9eWL2cT9pe/VUrF6jURMStYNo9y19ug==
+"eslint-mdx@https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-mdx":
+  version "1.14.0"
+  resolved "https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-mdx#0669bc93da99b6c439700d501f796028aa1aa5b5"
   dependencies:
     remark-mdx "^1.6.22"
     remark-parse "^8.0.3"
-    tslib "^2.1.0"
+    tslib "^2.3.0"
     unified "^9.2.1"
 
 eslint-module-utils@^2.6.0:
@@ -9473,17 +9472,25 @@ eslint-plugin-jsx-a11y@^6.3.1:
     jsx-ast-utils "^3.1.0"
     language-tags "^1.0.5"
 
-eslint-plugin-mdx@^1.12.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.12.0.tgz#7d8a722eb6cd97f3d81aa02fb3430f5fe17c1797"
-  integrity sha512-d+vmIyyoDvRjQ0XGZ1v9DtnEk79dUOK+LzHoDGlBvtQHjlMyHl54Mw4EblX3d3nysyLss3+1V0SOrj+e9F+lNQ==
+eslint-plugin-markdown@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-markdown/-/eslint-plugin-markdown-2.2.0.tgz#9c30bd51538a815e87e96646c69f11466b4c165f"
+  integrity sha512-Ctuc7aP1tU92qnFwVO1wDLEzf1jqMxwRkcSTw7gjbvnEqfh5CKUcTXM0sxg8CB2KDXrqpTuMZPgJ1XE9Olr7KA==
+  dependencies:
+    mdast-util-from-markdown "^0.8.5"
+
+"eslint-plugin-mdx@https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-plugin-mdx":
+  version "1.14.0"
+  resolved "https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-plugin-mdx#91f92914ca82c4d560d93aba57b3a11505f4fbbb"
   dependencies:
     cosmiconfig "^7.0.0"
-    eslint-mdx "^1.12.0"
+    eslint-mdx "https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-mdx"
+    eslint-plugin-markdown "^2.2.0"
     remark-mdx "^1.6.22"
     remark-parse "^8.0.3"
     remark-stringify "^8.1.1"
-    tslib "^2.1.0"
+    synckit "^0.3.3"
+    tslib "^2.3.0"
     unified "^9.2.1"
     vfile "^4.2.1"
 
@@ -15682,10 +15689,10 @@ mdast-util-footnote@^0.1.0:
     mdast-util-to-markdown "^0.6.0"
     micromark "~2.11.0"
 
-mdast-util-from-markdown@^0.8.0:
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/mdast-util-from-markdown/-/mdast-util-from-markdown-0.8.4.tgz#2882100c1b9fc967d3f83806802f303666682d32"
-  integrity sha512-jj891B5pV2r63n2kBTFh8cRI2uR9LQHsXG1zSDqfhXkIlDzrTcIlbB5+5aaYEkl8vOPIOPLf8VT7Ere1wWTMdw==
+mdast-util-from-markdown@^0.8.0, mdast-util-from-markdown@^0.8.5:
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/mdast-util-from-markdown/-/mdast-util-from-markdown-0.8.5.tgz#d1ef2ca42bc377ecb0463a987910dae89bd9a28c"
+  integrity sha512-2hkTXtYYnr+NubD/g6KGBS/0mFmBcifAsI0yIWRiRo0PjVs6SSOSOdtzbp6kSGnShDN6G5aWZpKQ2lWRy27mWQ==
   dependencies:
     "@types/mdast" "^3.0.0"
     mdast-util-to-string "^2.0.0"
@@ -23698,6 +23705,14 @@ sync-fetch@0.3.0:
     buffer "^5.7.0"
     node-fetch "^2.6.1"
 
+synckit@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/synckit/-/synckit-0.3.3.tgz#a36af5d2f7382c9a2c5e528cd8ad64ed882dde70"
+  integrity sha512-uIPHDSdGBQS2C2PmFZkMhBYC20H0diioDEiOR1lsIoP25/xbJPHU0GdHJ7GgvAUkLgEkTJ32zNzulzIPnhrYZA==
+  dependencies:
+    tslib "^2.3.0"
+    uuid "^8.3.2"
+
 table@^6.0.4:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/table/-/table-6.0.4.tgz#c523dd182177e926c723eb20e1b341238188aa0d"
@@ -24315,10 +24330,10 @@ tslib@^1.10.0, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
-  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
+tslib@^2, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
+  integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
 
 tslib@~2.0.1:
   version "2.0.3"
@@ -25096,7 +25111,7 @@ uuid@3.4.0, uuid@^3.0.0, uuid@^3.0.1, uuid@^3.3.2, uuid@^3.3.3, uuid@^3.4.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^8.3.0:
+uuid@^8.3.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==

@@ -3,7 +3,6 @@ module.exports = {
     'remark-frontmatter',
     'preset-wooorm',
     'preset-prettier',
-    ['retext', false],
-    ['validate-links', false]
+    ['retext', false]
   ]
 }
