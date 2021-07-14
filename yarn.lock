@@ -9402,9 +9402,10 @@ eslint-loader@^2.2.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-"eslint-mdx@https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-mdx":
-  version "1.14.0"
-  resolved "https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-mdx#0669bc93da99b6c439700d501f796028aa1aa5b5"
+eslint-mdx@^1.14.1:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.14.1.tgz#c4133f3383d5b58315efc01ddc7d139eb8b72dd9"
+  integrity sha512-6QxqRRghkl3i0NyayvED2zTN0kZzKoNMiGTYSnU3WMykm/Koptau//BqkIff+sEVoqcq1Q5z5PkrVBlYDuw3EA==
   dependencies:
     remark-mdx "^1.6.22"
     remark-parse "^8.0.3"
@@ -9479,17 +9480,18 @@ eslint-plugin-markdown@^2.2.0:
   dependencies:
     mdast-util-from-markdown "^0.8.5"
 
-"eslint-plugin-mdx@https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-plugin-mdx":
-  version "1.14.0"
-  resolved "https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-plugin-mdx#91f92914ca82c4d560d93aba57b3a11505f4fbbb"
+eslint-plugin-mdx@^1.14.1:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.14.1.tgz#d3e07ac38107ebdabd6a979853d1aae44331e010"
+  integrity sha512-1FmVGuZSPhHl0x/tWMOSBtE3DcWFaAJmIaWK0uBlUsC797TGrCtXd87xR4D+phbl1ii17pfM6gjgTbCKGH0Afg==
   dependencies:
     cosmiconfig "^7.0.0"
-    eslint-mdx "https://pkg.csb.dev/mdx-js/eslint-mdx/commit/b282c0fe/eslint-mdx"
+    eslint-mdx "^1.14.1"
     eslint-plugin-markdown "^2.2.0"
     remark-mdx "^1.6.22"
     remark-parse "^8.0.3"
     remark-stringify "^8.1.1"
-    synckit "^0.3.3"
+    synckit "^0.3.4"
     tslib "^2.3.0"
     unified "^9.2.1"
     vfile "^4.2.1"
@@ -23705,10 +23707,10 @@ sync-fetch@0.3.0:
     buffer "^5.7.0"
     node-fetch "^2.6.1"
 
-synckit@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/synckit/-/synckit-0.3.3.tgz#a36af5d2f7382c9a2c5e528cd8ad64ed882dde70"
-  integrity sha512-uIPHDSdGBQS2C2PmFZkMhBYC20H0diioDEiOR1lsIoP25/xbJPHU0GdHJ7GgvAUkLgEkTJ32zNzulzIPnhrYZA==
+synckit@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/synckit/-/synckit-0.3.4.tgz#8f0c2b1019663633d56d43d09589494d74654ab3"
+  integrity sha512-t6qVl+gzR6qMkrP5pW+sxGe0mVx/O7vj29ir9k4Lw9BacPBE/cKHMvcROJlFBgNHFW94etQL/sBYFq4uur6C6A==
   dependencies:
     tslib "^2.3.0"
     uuid "^8.3.2"

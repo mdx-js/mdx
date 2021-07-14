@@ -11,9 +11,9 @@ jobs:
           - ubuntu-latest
           - windows-latest
         node:
-          - 10
           - 12
           - 14
+          - 16
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
