@@ -18,7 +18,7 @@
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16",
-    "gatsby": "^2.0.0"
+    "gatsby": "^3.0.0"
   },
   "dependencies": {
     "@blocks/kit": "0.0.28",
@@ -32,16 +32,16 @@
     "@rebass/emotion": "3.2.0",
     "@theme-ui/components": "^0.3.1",
     "@theme-ui/preset-system": "0.3.0",
-    "gatsby-plugin-catch-links": "2.10.0",
+    "gatsby-plugin-catch-links": "3.10.0",
     "gatsby-plugin-compile-es6-packages": "2.1.0",
-    "gatsby-plugin-emotion": "4.5.0",
+    "gatsby-plugin-emotion": "6.10.0",
     "gatsby-plugin-fathom": "1.3.0",
     "gatsby-plugin-google-fonts": "1.0.1",
-    "gatsby-plugin-mdx": "^1.2.0",
-    "gatsby-plugin-page-creator": "2.10.1",
-    "gatsby-plugin-react-helmet": "3.10.0",
+    "gatsby-plugin-mdx": "^2.0.0",
+    "gatsby-plugin-page-creator": "3.10.0",
+    "gatsby-plugin-react-helmet": "4.10.0",
     "gatsby-plugin-theme-ui": "0.3.0",
-    "gatsby-source-filesystem": "2.11.1",
+    "gatsby-source-filesystem": "3.10.0",
     "is-absolute-url": "3.0.3",
     "lodash.flatten": "4.4.0",
     "prism-react-renderer": "1.1.1",
