@@ -31,6 +31,9 @@
     "webpack",
     "loader"
   ],
+  "peerDependencies": {
+    "react": "^16.13.1 || ^17.0.0"
+  },
   "dependencies": {
     "@mdx-js/mdx": "1.6.22",
     "@mdx-js/react": "1.6.22",
