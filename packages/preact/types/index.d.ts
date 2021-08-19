@@ -1,6 +1,13 @@
-// TypeScript Version: 3.4
+// TypeScript Version: 3.5
 
-import {h, Context, AnyComponent, Fragment, FunctionComponent} from 'preact'
+import {
+  h,
+  Context,
+  AnyComponent,
+  Fragment,
+  FunctionComponent,
+  VNode
+} from 'preact'
 
 /**
  * Mapping of names for JSX components to React components
@@ -52,7 +59,7 @@ declare function useMDXComponents(
  */
 declare function withMDXComponents(
   child: AnyComponent<ComponentsProp>
-): ReactElement | null
+): VNode | null
 
 /**
  * Preact hyperscript function wrapped with handler for MDX content
