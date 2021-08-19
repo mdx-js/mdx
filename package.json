@@ -23,7 +23,6 @@
     "vercel-build": "yarn build && yarn docs-build",
     "postinstall": "yarn-deduplicate --strategy fewer && patch-package || exit 0",
     "prepublishOnly": "yarn build",
-    "publish": "lerna publish --force-publish=\"*\"",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
     "test-api": "lerna run test-api",
