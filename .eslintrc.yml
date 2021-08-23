@@ -83,9 +83,8 @@ overrides:
       - '*.tsx'
     extends: 'plugin:@typescript-eslint/recommended'
     settings:
-      import:
-        resolver:
-          typescript: null
+      import/resolver:
+        typescript: null
 
   - files:
       - '*.d.ts'

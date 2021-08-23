@@ -20,7 +20,7 @@ For webpack projects you can define the following `webpack.config.js` extension
 handler for `.md` and `.mdx` files:
 
 ```js
-module.exports = {
+export default {
   module: {
     // ...
 
@@ -49,9 +49,9 @@ If you’d like to configure [plugins](/advanced/plugins) you can do that by
 passing them as options:
 
 ```js
-const images = require('remark-images')
-const emoji = require('remark-emoji')
-module.exports = {
+import images from 'remark-images'
+import emoji from 'remark-emoji'
+export default {
   module: {
     rules: [
       {
@@ -79,7 +79,7 @@ If you’re running MDX in the browser you will need to configure webpack to ign
 the `fs` module:
 
 ```js
-module.exports = {
+export default {
   node: {
     fs: 'empty'
   }

@@ -1,16 +1,16 @@
-const unified = require('unified')
-const remarkParse = require('remark-parse')
-const remarkMdx = require('remark-mdx')
-const squeeze = require('remark-squeeze-paragraphs')
-const minifyWhitespace = require('rehype-minify-whitespace')
-const mdxAstToMdxHast = require('./mdx-ast-to-mdx-hast')
-const mdxHastToJsx = require('./mdx-hast-to-jsx')
+import unified from 'unified'
+import remarkParse from 'remark-parse'
+import remarkMdx from 'remark-mdx'
+import squeeze from 'remark-squeeze-paragraphs'
+import minifyWhitespace from 'rehype-minify-whitespace'
+import mdxAstToMdxHast from './mdx-ast-to-mdx-hast'
+import mdxHastToJsx from './mdx-hast-to-jsx'
 
 const pragma = `/* @jsxRuntime classic */
 /* @jsx mdx */
 /* @jsxFrag mdx.Fragment */`
 
-function createMdxAstCompiler(options = {}) {
+export function createMdxAstCompiler(options = {}) {
   return unified()
     .use(remarkParse)
     .use(remarkMdx)
@@ -19,7 +19,7 @@ function createMdxAstCompiler(options = {}) {
     .use(mdxAstToMdxHast)
 }
 
-function createCompiler(options = {}) {
+export function createCompiler(options = {}) {
   return createMdxAstCompiler(options)
     .use(options.rehypePlugins)
     .use(minifyWhitespace, {newlines: true})
@@ -36,18 +36,12 @@ function createConfig(mdx, options) {
   return config
 }
 
-function sync(mdx, options = {}) {
+export function sync(mdx, options = {}) {
   const file = createCompiler(options).processSync(createConfig(mdx, options))
   return pragma + '\n' + String(file)
 }
 
-async function compile(mdx, options = {}) {
+export async function mdx(mdx, options = {}) {
   const file = await createCompiler(options).process(createConfig(mdx, options))
   return pragma + '\n' + String(file)
 }
-
-module.exports = compile
-compile.default = compile
-compile.sync = sync
-compile.createMdxAstCompiler = createMdxAstCompiler
-compile.createCompiler = createCompiler

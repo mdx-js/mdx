@@ -35,7 +35,7 @@
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test/index.js",
     "test-types": "dtslint types",
-    "test": "yarn format && yarn test-coverage && yarn test-types"
+    "test": "yarn test-coverage && yarn test-types"
   },
   "dependencies": {
     "mdast-util-mdx": "^0.1.1",

@@ -35,10 +35,10 @@ It’s important to ensure that the MDXProvider wraps the MDX runtime
 component.
 
 ```js
-const React = require('react')
-const {Text, render} = require('ink')
-const {MDXProvider} = require('@mdx-js/react')
-const MDX = require('@mdx-js/runtime')
+import React from 'react'
+import {Text, render} from 'ink'
+import {MDXProvider} from '@mdx-js/react'
+import MDX from '@mdx-js/runtime'
 
 const components = {
   h1: ({children}) => <Text bold>{children}</Text>,
@@ -83,10 +83,10 @@ From <Color bgBlack white bold> MDX! </Color>
 ## All together
 
 ```js
-const React = require('react')
-const {render, Color, Box, Text} = require('ink')
-const MDX = require('@mdx-js/runtime')
-const {MDXProvider} = require('@mdx-js/react')
+import React from 'react'
+import {render, Color, Box, Text} from 'ink'
+import MDX from '@mdx-js/runtime'
+import {MDXProvider} from '@mdx-js/react'
 
 const MDXContent = `
 # Hello, world!

@@ -6,10 +6,10 @@ Consider a scenario where you wanted to add frontmatter support to all your MDX 
 
 ```js
 // lib/fm-loader.js
-const matter = require('gray-matter')
-const stringifyObject = require('stringify-object')
+import matter from 'gray-matter'
+import stringifyObject from 'stringify-object'
 
-module.exports = async function (src) {
+export default async function (src) {
   const callback = this.async()
   const {content, data} = matter(src)
 
@@ -26,7 +26,7 @@ The loader code above parses out the frontmatter, exports it as the named export
 Then, you can use it with the following config:
 
 ```js
-module.exports = {
+export default {
   module: {
     rules: [
       {

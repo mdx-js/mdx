@@ -1,7 +1,7 @@
-const toEstree = require('hast-util-to-estree')
-const walk = require('estree-walker').walk
-const periscopic = require('periscopic')
-const estreeToJs = require('./estree-to-js')
+import toEstree from 'hast-util-to-estree'
+import {walk} from 'estree-walker'
+import * as periscopic from 'periscopic'
+import estreeToJs from './estree-to-js'
 
 function serializeEstree(estree, options) {
   const {
@@ -162,16 +162,13 @@ function serializeEstree(estree, options) {
   return estreeToJs(estree)
 }
 
-function compile(options = {}) {
+export default function compile(options = {}) {
   function compiler(tree, file) {
     return serializeEstree(toEstree(tree), {filename: file.path, ...options})
   }
 
   this.Compiler = compiler
 }
-
-module.exports = compile
-compile.default = compile
 
 function createMdxContent(children) {
   return [

@@ -27,8 +27,8 @@
   ],
   "scripts": {
     "build": "microbundle -f modern,es,cjs src --generateTypes false",
-    "test-api": "jest test",
-    "test-coverage": "jest test --coverage",
+    "test-api": "NODE_OPTIONS=--experimental-vm-modules jest test",
+    "test-coverage": "NODE_OPTIONS=--experimental-vm-modules jest test --coverage",
     "test-types": "dtslint types",
     "test": "yarn test-coverage && yarn test-types"
   },
@@ -37,6 +37,7 @@
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "microbundle": "^0.13.3"
   },
+  "type": "module",
   "jest": {
     "testEnvironment": "jsdom"
   },

@@ -1,12 +1,16 @@
-const path = require('path')
-const plugin = require('..')
-const MDXAsset = require('../src/MDXAsset')
+import {jest} from '@jest/globals'
+import {createRequire} from 'module'
+import {fileURLToPath} from 'url'
+import plugin from '..'
+import MDXAsset from '../src/MDXAsset'
 
 describe('index', () => {
   it('should add asset type', () => {
     const bundler = {addAssetType: jest.fn()}
     const {calls} = bundler.addAssetType.mock
-    const mdxAssetPath = require.resolve('../src/MDXAsset')
+    const mdxAssetPath = createRequire(import.meta.url).resolve(
+      '../src/MDXAsset'
+    )
     plugin(bundler)
     expect(calls.length).toEqual(1)
     expect(calls[0][0]).toBe('mdx')
@@ -16,9 +20,12 @@ describe('index', () => {
 
 describe('MDXAsset', () => {
   it('should work', async () => {
-    const asset = new MDXAsset(path.resolve(__dirname, './content.mdx'), {
-      rootDir: __dirname
-    })
+    const asset = new MDXAsset(
+      fileURLToPath(new URL('./content.mdx', import.meta.url)),
+      {
+        rootDir: fileURLToPath(new URL('.', import.meta.url))
+      }
+    )
 
     const results = await asset.process()
     const result = results[0]

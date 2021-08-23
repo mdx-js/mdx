@@ -13,9 +13,9 @@ for you.
 Then you can first log out the nodes to see it in action:
 
 ```js
-const visit = require('unist-util-visit')
+import visit from 'unist-util-visit'
 
-module.exports = () => (tree, file) => {
+export default () => (tree, file) => {
   visit(tree, 'heading', node => {
     console.log(node)
   })
@@ -34,9 +34,9 @@ text there is also an emphasis node.
 To walk the text nodes, you can use `unist-util-visit` again:
 
 ```js
-const visit = require('unist-util-visit')
+import visit from 'unist-util-visit'
 
-module.exports = () => (tree, file) => {
+export default () => (tree, file) => {
   visit(tree, 'heading', node => {
     visit(node, 'text', textNode => {
       console.log(textNode)
@@ -51,10 +51,10 @@ Now that you are logging out the text nodes, you can now manipulate them with th
 to the node:
 
 ```js
-const title = require('title')
-const visit = require('unist-util-visit')
+import title from 'title'
+import visit from 'unist-util-visit'
 
-module.exports = () => (tree, file) => {
+export default () => (tree, file) => {
   visit(tree, 'heading', node => {
     visit(node, 'text', textNode => {
       const text = textNode.value ? textNode.value.trim() : ''

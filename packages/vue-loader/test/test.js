@@ -1,15 +1,13 @@
-const path = require('path')
-const webpack = require('webpack')
-const MemoryFs = require('memory-fs')
-const {mount} = require('@vue/test-utils')
-const vueMergeProps = require('babel-helper-vue-jsx-merge-props')
-const {mdx} = require('../../vue')
+import {fileURLToPath} from 'url'
+import fs from 'fs'
+import webpack from 'webpack'
+import {mount} from '@vue/test-utils'
+import remarkSlug from 'remark-slug'
 
-// See `loader`’s tests for how to upgrade these to webpack 5.
 const transform = (filePath, options) => {
   return new Promise((resolve, reject) => {
     const compiler = webpack({
-      context: __dirname,
+      context: fileURLToPath(new URL('.', import.meta.url)),
       entry: filePath,
       mode: 'none',
       module: {
@@ -24,37 +22,38 @@ const transform = (filePath, options) => {
                   plugins: ['babel-plugin-transform-vue-jsx']
                 }
               },
-              {loader: path.resolve(__dirname, '..'), options}
+              {loader: fileURLToPath(new URL('..', import.meta.url)), options}
             ]
           }
         ]
       }
     })
 
-    compiler.outputFileSystem = new MemoryFs()
-
-    compiler.run((err, stats) => {
+    compiler.run(err => {
       if (err) {
         reject(err)
       } else {
-        resolve(stats.toJson().modules.find(m => m.name === filePath))
+        resolve({
+          source: fs.readFileSync(
+            new URL('../dist/main.js', import.meta.url),
+            'utf8'
+          )
+        })
       }
     })
   })
 }
 
 const run = value => {
-  // Replace import/exports w/ parameters and return value.
-  const val = value
-    .replace(
-      /import _mergeJSXProps from "babel-helper-vue-jsx-merge-props";/,
-      ''
-    )
-    .replace(/import \{ mdx } from '@mdx-js\/vue';/, '')
-    .replace(/export default/, 'return')
+  // Insinuate return __webpack_exports__ before the final }.
+  const i = value.lastIndexOf('}')
+  const val = `return ${value.slice(
+    0,
+    i
+  )}return __webpack_exports__${value.slice(i)}`
 
   // eslint-disable-next-line no-new-func
-  return new Function('mdx', '_mergeJSXProps', val)(mdx, vueMergeProps)
+  return new Function(val)().default
 }
 
 describe('@mdx-js/vue-loader', () => {
@@ -73,7 +72,7 @@ describe('@mdx-js/vue-loader', () => {
 
   test('should support options', async () => {
     const file = await transform('./fixture.mdx', {
-      remarkPlugins: [require('remark-slug')]
+      remarkPlugins: [remarkSlug]
     })
 
     expect(mount(run(file.source)).html()).toEqual(

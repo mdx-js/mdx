@@ -1,6 +1,6 @@
-import path from 'path'
+import {jest} from '@jest/globals'
 import {mount} from '@vue/test-utils'
-import mdxTransform from '../../mdx'
+import {mdx as mdxTransform} from '../../mdx'
 import vueMergeProps from 'babel-helper-vue-jsx-merge-props'
 import {transformAsync as babelTransform} from '@babel/core'
 import {MDXProvider, mdx} from '../src'
@@ -14,7 +14,7 @@ const run = async value => {
     configFile: false,
     plugins: [
       'babel-plugin-transform-vue-jsx',
-      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
+      'babel-plugin-remove-export-keywords'
     ]
   })
 

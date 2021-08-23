@@ -41,8 +41,8 @@
   ],
   "scripts": {
     "build": "microbundle -f modern,es,cjs src/index.js --generateTypes false",
-    "test-api": "jest test",
-    "test-coverage": "jest test --coverage",
+    "test-api": "NODE_OPTIONS=--experimental-vm-modules jest test",
+    "test-coverage": "NODE_OPTIONS=--experimental-vm-modules jest test --coverage",
     "test-types": "dtslint types",
     "test": "yarn test-coverage && yarn test-types"
   },
@@ -54,5 +54,6 @@
     "preact": "^10.5.0",
     "preact-render-to-string": "^5.1.10"
   },
+  "type": "module",
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

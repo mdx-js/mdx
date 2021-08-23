@@ -1,5 +1,5 @@
-const {getOptions} = require('loader-utils')
-const {createCompiler} = require('@mdx-js/mdx')
+import {getOptions} from 'loader-utils'
+import {createCompiler} from '@mdx-js/mdx'
 
 const DEFAULT_RENDERER = `
 import React from 'react'
@@ -14,7 +14,7 @@ const pragma = `
 
 const compilerCache = new Map()
 
-module.exports = async function (content) {
+export default async function (content) {
   if (!compilerCache.has(this.query)) {
     const {renderer = DEFAULT_RENDERER, ...opts} = getOptions(this)
     compilerCache.set(this.query, [renderer, createCompiler(opts)])

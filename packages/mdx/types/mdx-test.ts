@@ -1,11 +1,11 @@
 import * as mdx from '@mdx-js/mdx'
 
-mdx('# title') // $ExpectType Promise<string>
-mdx('# title', {}) // $ExpectType Promise<string>
-mdx('# title', {skipExport: false}) // $ExpectType Promise<string>
-mdx('# title', {wrapExport: 'React.memo'}) // $ExpectType Promise<string>
-mdx('# title', {rehypePlugins: [() => () => ({type: 'test'})]}) // $ExpectType Promise<string>
-mdx('# title', {remarkPlugins: [() => () => ({type: 'test'})]}) // $ExpectType Promise<string>
+mdx.mdx('# title') // $ExpectType Promise<string>
+mdx.mdx('# title', {}) // $ExpectType Promise<string>
+mdx.mdx('# title', {skipExport: false}) // $ExpectType Promise<string>
+mdx.mdx('# title', {wrapExport: 'React.memo'}) // $ExpectType Promise<string>
+mdx.mdx('# title', {rehypePlugins: [() => () => ({type: 'test'})]}) // $ExpectType Promise<string>
+mdx.mdx('# title', {remarkPlugins: [() => () => ({type: 'test'})]}) // $ExpectType Promise<string>
 
 mdx.sync('# title') // $ExpectType string
 mdx.sync('# title', {}) // $ExpectType string

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {LiveProvider, LivePreview, LiveEditor, LiveError} from 'react-live'
-import mdx from '@mdx-js/mdx'
+import {mdx} from '@mdx-js/mdx'
 import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 import * as Rebass from '@rebass/emotion'
 import {ThemeContext} from '@emotion/core'

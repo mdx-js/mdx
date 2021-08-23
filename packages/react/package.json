@@ -19,11 +19,11 @@
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
-  "main": "dist/mdx-react.js",
+  "main": "dist/mdx-react.cjs",
   "module": "dist/mdx-react.es.js",
   "exports": {
     "import": "./dist/mdx-react.modern.js",
-    "require": "./dist/mdx-react.js"
+    "require": "./dist/mdx-react.cjs"
   },
   "types": "types/index.d.ts",
   "files": [
@@ -40,8 +40,8 @@
   ],
   "scripts": {
     "build": "microbundle -f modern,es,cjs src/index.js --generateTypes false",
-    "test-api": "jest test",
-    "test-coverage": "jest test --coverage",
+    "test-api": "NODE_OPTIONS=--experimental-vm-modules jest test",
+    "test-coverage": "NODE_OPTIONS=--experimental-vm-modules jest test --coverage",
     "test-types": "dtslint types",
     "test": "yarn test-coverage && yarn test-types"
   },
@@ -53,5 +53,6 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
+  "type": "module",
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

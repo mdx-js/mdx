@@ -1,8 +1,8 @@
-const toHast = require('mdast-util-to-hast')
-const detab = require('detab')
-const u = require('unist-builder')
+import toHast from 'mdast-util-to-hast'
+import detab from 'detab'
+import u from 'unist-builder'
 
-function mdxAstToMdxHast() {
+export default function mdxAstToMdxHast() {
   return tree => {
     return toHast(tree, {
       passThrough: [
@@ -64,5 +64,3 @@ function mdxAstToMdxHast() {
     })
   }
 }
-
-module.exports = mdxAstToMdxHast

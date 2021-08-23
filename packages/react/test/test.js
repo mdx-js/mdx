@@ -1,10 +1,10 @@
 /* @jsx React.createElement */
 /* @jsxFrag React.Fragment */
-import path from 'path'
+import {jest} from '@jest/globals'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import {transformAsync as babelTransform} from '@babel/core'
-import mdxTransform from '../../mdx'
+import {mdx as mdxTransform} from '../../mdx'
 import {MDXProvider, withMDXComponents, mdx} from '../src'
 
 const run = async value => {
@@ -16,7 +16,7 @@ const run = async value => {
     configFile: false,
     plugins: [
       '@babel/plugin-transform-react-jsx',
-      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
+      'babel-plugin-remove-export-keywords'
     ]
   })
 

@@ -421,11 +421,11 @@ custom use case, you can of course do it yourself.
 The below rendering function is what we use for our MDX integration tests:
 
 ```js
-const babel = require('@babel/core')
-const React = require('react')
-const {renderToStaticMarkup} = require('react-dom/server')
-const mdx = require('@mdx-js/mdx')
-const {MDXProvider, mdx: createElement} = require('@mdx-js/react')
+import babel from '@babel/core'
+import React from 'react'
+import {renderToStaticMarkup} from 'react-dom/server'
+import {mdx} from '@mdx-js/mdx'
+import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 
 const transform = code =>
   babel.transform(code, {

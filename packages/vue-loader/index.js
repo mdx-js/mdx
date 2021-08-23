@@ -1,5 +1,5 @@
-const {getOptions} = require('loader-utils')
-const mdx = require('@mdx-js/mdx')
+import {getOptions} from 'loader-utils'
+import {mdx} from '@mdx-js/mdx'
 
 const prefix = `// Vue babel plugin doesn't support pragma replacement
 import {mdx} from '@mdx-js/vue'
@@ -25,9 +25,7 @@ const suffix = `export default {
 }
 `
 
-module.exports = mdxLoader
-
-async function mdxLoader(content) {
+export default async function mdxLoader(content) {
   const callback = this.async()
   const options = Object.assign({}, getOptions(this), {
     filepath: this.resourcePath

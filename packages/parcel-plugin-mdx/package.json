@@ -40,9 +40,10 @@
     "parcel-bundler": "^1.12.4"
   },
   "scripts": {
-    "test-api": "jest test",
-    "test-coverage": "jest test --coverage",
+    "test-api": "NODE_OPTIONS=--experimental-vm-modules jest test",
+    "test-coverage": "NODE_OPTIONS=--experimental-vm-modules jest test --coverage",
     "test": "yarn test-coverage"
   },
+  "type": "module",
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

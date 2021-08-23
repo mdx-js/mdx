@@ -32,10 +32,9 @@ Content.
 And our script, `example.js`, looks as follows:
 
 ```js
-const {read, write} = require('to-vfile')
-const remark = require('remark')
-const mdx = require('remark-mdx')
-
+import {read, write} from 'to-vfile'
+import remark from 'remark'
+import mdx from 'remark-mdx'
 ;(async () => {
   const path = './example.mdx'
   const file = await read(path)

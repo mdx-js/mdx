@@ -1,12 +1,12 @@
-const {Asset} = require('parcel-bundler')
+import Bundler from 'parcel-bundler'
 
-const mdx = require('@mdx-js/mdx')
+import {mdx} from '@mdx-js/mdx'
 
 const prefix = `import React from 'react'
 import {mdx} from '@mdx-js/react'
 `
 
-class MDXAsset extends Asset {
+export default class MDXAsset extends Bundler.Asset {
   constructor(name, options) {
     super(name, options)
     this.type = 'js'
@@ -23,5 +23,3 @@ class MDXAsset extends Asset {
     return [{type: 'js', value: prefix + compiled}]
   }
 }
-
-module.exports = MDXAsset

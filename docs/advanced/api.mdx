@@ -27,7 +27,7 @@ You should use the async API, unless you have very good reasons to use the
 You can use the library directly:
 
 ```js
-var mdx = require('@mdx-js/mdx')
+import {mdx} from '@mdx-js/mdx'
 
 const content = `
 # Hello, world!
@@ -107,8 +107,8 @@ string synchronously.
 It’s important to note that if you have any async plugins, they will be ignored.
 
 ```js
-const fs = require('fs')
-const mdx = require('@mdx-js/mdx')
+import fs from 'fs'
+import {mdx} from '@mdx-js/mdx'
 
 const mdxText = fs.readFileSync('hello.mdx', 'utf8')
 
@@ -123,12 +123,12 @@ If you want to extract data from a MDX file, you can access the
 compiler directly:
 
 ```js
-const {createCompiler} = require('@mdx-js/mdx')
-const detectFrontmatter = require('remark-frontmatter')
-const vfile = require('vfile')
-const visit = require('unist-util-visit')
-const remove = require('unist-util-remove')
-const yaml = require('yaml')
+import {createCompiler} from '@mdx-js/mdx'
+import detectFrontmatter from 'remark-frontmatter'
+import vfile from 'vfile'
+import visit from 'unist-util-visit'
+import remove from 'unist-util-remove'
+import yaml from 'yaml'
 
 const file = vfile(
   `

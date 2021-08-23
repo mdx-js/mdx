@@ -46,10 +46,10 @@ They are passed in the options to the core MDX library, but you’d typically pa
 them through a loader like so:
 
 ```js
-const images = require('remark-images')
-const emoji = require('remark-emoji')
+import images from 'remark-images'
+import emoji from 'remark-emoji'
 
-module.exports = {
+export default {
   module: {
     rules: [
       {
@@ -74,10 +74,10 @@ module.exports = {
 If you’re using MDX directly, they can be passed like so:
 
 ```js
-const fs = require('fs')
-const mdx = require('@mdx-js/mdx')
-const images = require('remark-images')
-const emoji = require('remark-emoji')
+import fs from 'fs'
+import {mdx} from '@mdx-js/mdx'
+import images from 'remark-images'
+import emoji from 'remark-emoji'
 
 const mdxText = fs.readFileSync('hello.mdx', 'utf8')
 const jsx = mdx.sync(mdxText, {
@@ -114,10 +114,10 @@ Luckily, it’s possible to build a custom plugin that visits all text nodes wit
 This works in most cases, and could look something like this:
 
 ```js
-const visit = require('unist-util-visit')
-const retext = require('retext')
-const retextSmartypants = require('retext-smartypants')
-const mdx = require('@mdx-js/mdx')
+import visit from 'unist-util-visit'
+import retext from 'retext'
+import retextSmartypants from 'retext-smartypants'
+import {mdx} from '@mdx-js/mdx'
 
 function remarkSmartypants(options) {
   const processor = retext().use(retextSmartypants, options)

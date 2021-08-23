@@ -1,6 +1,6 @@
 import React from 'react'
 import {transform} from 'buble-jsx-only'
-import mdx from '@mdx-js/mdx'
+import * as mdx from '@mdx-js/mdx'
 import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 
 const suffix = `return React.createElement(

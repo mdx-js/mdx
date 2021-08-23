@@ -1,26 +1,26 @@
-const path = require('path')
-const babel = require('@babel/core')
-const unified = require('unified')
-const React = require('react')
-const {renderToStaticMarkup} = require('react-dom/server')
-const {mdx: mdxReact, MDXProvider} = require('../../react')
-const mdx = require('..')
-const toMdxHast = require('../mdx-ast-to-mdx-hast')
-const toJsx = require('../mdx-hast-to-jsx')
-const footnotes = require('remark-footnotes')
-const gfm = require('remark-gfm')
-const math = require('remark-math')
-const katex = require('rehype-katex')
+import {jest} from '@jest/globals'
+import * as babel from '@babel/core'
+import unified from 'unified'
+import React from 'react'
+import {renderToStaticMarkup} from 'react-dom/server'
+import {mdx as mdxReact, MDXProvider} from '../../react'
+import * as mdx from '..'
+import toMdxHast from '../mdx-ast-to-mdx-hast'
+import toJsx from '../mdx-hast-to-jsx'
+import footnotes from 'remark-footnotes'
+import gfm from 'remark-gfm'
+import math from 'remark-math'
+import katex from 'rehype-katex'
 
 const run = async (value, options = {}) => {
-  const doc = await mdx(value, {...options, skipExport: true})
+  const doc = await mdx.mdx(value, {...options, skipExport: true})
 
   // …and that into serialized JS.
   const {code} = await babel.transformAsync(doc, {
     configFile: false,
     plugins: [
       '@babel/plugin-transform-react-jsx',
-      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
+      'babel-plugin-remove-export-keywords'
     ]
   })
 
@@ -31,7 +31,7 @@ const run = async (value, options = {}) => {
 
 describe('@mdx-js/mdx', () => {
   it('should generate JSX', async () => {
-    const result = await mdx('Hello World')
+    const result = await mdx.mdx('Hello World')
 
     expect(result).toMatch(/<p>\{"Hello World"\}<\/p>/)
   })
@@ -362,7 +362,7 @@ describe('@mdx-js/mdx', () => {
       })
     }
 
-    const result = await mdx('import X from "y"', {rehypePlugins: [plugin]})
+    const result = await mdx.mdx('import X from "y"', {rehypePlugins: [plugin]})
 
     expect(result).toMatch(/import X from "y"/)
   })
@@ -408,7 +408,7 @@ describe('@mdx-js/mdx', () => {
       })
     }
 
-    const result = await mdx('export const A = () => <b>!</b>', {
+    const result = await mdx.mdx('export const A = () => <b>!</b>', {
       rehypePlugins: [plugin]
     })
 
@@ -493,27 +493,27 @@ describe('@mdx-js/mdx', () => {
   })
 
   it('should support a default export from an import', async () => {
-    let result = await mdx('import a from "b"\nexport default a')
+    let result = await mdx.mdx('import a from "b"\nexport default a')
     expect(result).toMatch(/import a from "b"/)
     expect(result).toMatch(/const MDXLayout = a/)
 
-    result = await mdx('export {default} from "a"')
+    result = await mdx.mdx('export {default} from "a"')
     expect(result).toMatch(/import MDXLayout from "a"/)
 
     // These are not export defaults: they imports default but export as
     // something else.
-    result = await mdx('export {default as a} from "b"')
+    result = await mdx.mdx('export {default as a} from "b"')
     expect(result).toMatch(/export {default as a} from "b"/)
     expect(result).toMatch(/const MDXLayout = "wrapper"/)
-    result = await mdx('export {default as a, b} from "c"')
+    result = await mdx.mdx('export {default as a, b} from "c"')
     expect(result).toMatch(/export {default as a, b} from "c"/)
     expect(result).toMatch(/const MDXLayout = "wrapper"/)
 
     // These are export defaults.
-    result = await mdx('export {a as default} from "b"')
+    result = await mdx.mdx('export {a as default} from "b"')
     expect(result).toMatch(/import {a as MDXLayout} from "b"/)
     expect(result).not.toMatch(/const MDXLayout/)
-    result = await mdx('export {a as default, b} from "c"')
+    result = await mdx.mdx('export {a as default, b} from "c"')
     expect(result).toMatch(/export {b} from "c"/)
     expect(result).toMatch(/import {a as MDXLayout} from "c"/)
     expect(result).not.toMatch(/const MDXLayout/)
@@ -645,9 +645,9 @@ describe('@mdx-js/mdx', () => {
   })
 
   it('should support `skipExport` to not export anything', async () => {
-    const resultDefault = await mdx('x')
-    const resultTrue = await mdx('x', {skipExport: true})
-    const resultFalse = await mdx('x', {skipExport: false})
+    const resultDefault = await mdx.mdx('x')
+    const resultTrue = await mdx.mdx('x', {skipExport: true})
+    const resultFalse = await mdx.mdx('x', {skipExport: false})
 
     expect(resultDefault).toEqual(resultFalse)
     expect(resultTrue).toMatch(/\nfunction MDXContent/)
@@ -655,9 +655,9 @@ describe('@mdx-js/mdx', () => {
   })
 
   it('should support `wrapExport` to wrap the exported value', async () => {
-    const resultDefault = await mdx('x')
-    const resultValue = await mdx('x', {wrapExport: 'y'})
-    const resultNull = await mdx('x', {wrapExport: null})
+    const resultDefault = await mdx.mdx('x')
+    const resultValue = await mdx.mdx('x', {wrapExport: 'y'})
+    const resultNull = await mdx.mdx('x', {wrapExport: null})
 
     expect(resultDefault).toEqual(resultNull)
     expect(resultValue).toMatch(/export default y\(MDXContent\)/)
@@ -727,11 +727,11 @@ describe('@mdx-js/mdx', () => {
 
 describe('default', () => {
   it('should be async', async () => {
-    expect(mdx('x')).resolves.toMatch(/<p>{"x"}<\/p>/)
+    expect(mdx.mdx('x')).resolves.toMatch(/<p>{"x"}<\/p>/)
   })
 
   it('should support `remarkPlugins`', async () => {
-    expect(mdx('$x$', {remarkPlugins: [math]})).resolves.toMatch(
+    expect(mdx.mdx('$x$', {remarkPlugins: [math]})).resolves.toMatch(
       /className="math math-inline"/
     )
   })

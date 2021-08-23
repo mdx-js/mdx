@@ -16,7 +16,7 @@ npm i -S @mdx-js/mdx
 ## Usage
 
 ```js
-const mdx = require('@mdx-js/mdx')
+import {mdx} from '@mdx-js/mdx'
 
 const result = await mdx(`
 # Hello, MDX

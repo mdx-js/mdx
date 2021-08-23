@@ -1,6 +1,4 @@
-const astring = require('astring')
-
-module.exports = estreeToJs
+import * as astring from 'astring'
 
 const customGenerator = Object.assign({}, astring.baseGenerator, {
   JSXAttribute: JSXAttribute,
@@ -19,7 +17,7 @@ const customGenerator = Object.assign({}, astring.baseGenerator, {
   JSXText: JSXText
 })
 
-function estreeToJs(estree) {
+export default function estreeToJs(estree) {
   return astring.generate(estree, {generator: customGenerator})
 }
 
