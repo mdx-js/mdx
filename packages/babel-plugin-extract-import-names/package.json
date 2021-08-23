@@ -1,4 +1,9 @@
 {
   "private": true,
-  "name": "babel-plugin-extract-import-names"
+  "name": "babel-plugin-extract-import-names",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx.git",
+    "directory": "packages/babel-plugin-extract-import-names"
+  }
 }

@@ -1,4 +1,10 @@
 {
   "private": true,
-  "name": "@mdx-js/util"
+  "name": "@mdx-js/util",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx.git",
+    "directory": "packages/util"
+  }
+  
 }

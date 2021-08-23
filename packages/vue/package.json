@@ -7,6 +7,11 @@
     "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx.git",
+    "directory": "packages/vue"
+  },
   "license": "MIT",
   "main": "dist/mdx-vue.js",
   "module": "dist/mdx-vue.es.js",

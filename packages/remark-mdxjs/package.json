@@ -1,4 +1,9 @@
 {
   "private": true,
-  "name": "remark-mdxjs"
+  "name": "remark-mdxjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx.git",
+    "directory": "packages/remark-mdxjs"
+  }
 }

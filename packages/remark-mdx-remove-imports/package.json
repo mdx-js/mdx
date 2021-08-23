@@ -1,4 +1,9 @@
 {
   "private": true,
-  "name": "remark-mdx-remove-imports"
+  "name": "remark-mdx-remove-imports",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx.git",
+    "directory": "packages/remark-mdx-remove-exports"
+  }
 }

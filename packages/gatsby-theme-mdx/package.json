@@ -5,6 +5,11 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx.git",
+    "directory": "packages/gatsby-theme-mdx"
+  },
   "author": "Brent Jackson <jxnblk@gmail.com>",
   "contributors": [
     "JounQin <admin@1stg.me> (https://www.1stg.me)"
