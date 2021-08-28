@@ -9,6 +9,7 @@
     "jsxFactory": "h",
     "paths": {
       "@mdx-js/preact": ["index.d.ts"]
-    }
+    },
+    "types": []
   }
 }

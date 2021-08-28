@@ -29,7 +29,7 @@
     "test-api": "lerna run test-api",
     "test-coverage": "lerna run test-coverage",
     "test-types": "lerna run test-types",
-    "test": "yarn build && yarn lint && yarn test-coverage"
+    "test": "yarn build && yarn lint && yarn test-coverage && yarn test-types"
   },
   "dependencies": {},
   "devDependencies": {

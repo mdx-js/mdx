@@ -8,6 +8,7 @@
     "jsx": "react",
     "paths": {
       "@mdx-js/mdx": ["index.d.ts"]
-    }
+    },
+    "types": []
   }
 }

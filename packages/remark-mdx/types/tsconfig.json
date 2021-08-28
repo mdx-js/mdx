@@ -8,6 +8,7 @@
     "jsx": "react",
     "paths": {
       "remark-mdx": ["index.d.ts"]
-    }
+    },
+    "types": []
   }
 }

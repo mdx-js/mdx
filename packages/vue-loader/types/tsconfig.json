@@ -8,6 +8,7 @@
     "jsx": "react",
     "paths": {
       "@mdx-js/vue-loader": ["index.d.ts"]
-    }
+    },
+    "types": []
   }
 }
