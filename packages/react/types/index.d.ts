@@ -2,8 +2,8 @@
 
 import {
   Context,
-  Consumer,
   ComponentType,
+  Fragment,
   FunctionComponent,
   ReactElement,
   createElement
