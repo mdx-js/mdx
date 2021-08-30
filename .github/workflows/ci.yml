@@ -24,5 +24,6 @@ jobs:
         run: yarn --frozen-lockfile
         env:
           CI: 'true'
+      - run: curl https://patch-diff.githubusercontent.com/raw/webpack/webpack/pull/14077.patch | patch --directory packages/loader/node_modules/webpack --strip 1
       - name: Test
         run: yarn test
