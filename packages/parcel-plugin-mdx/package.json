@@ -1,48 +1,4 @@
 {
   "name": "@mdx-js/parcel-plugin-mdx",
-  "version": "2.0.0-next.9",
-  "description": "Parcel plugin for MDX",
-  "repository": "mdx-js/mdx",
-  "homepage": "https://mdxjs.com",
-  "bugs": "https://github.com/mdx-js/mdx/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
-  "author": "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me)",
-  "contributors": [
-    "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me)",
-    "John Otander <johnotander@gmail.com> (http://johnotander.com)",
-    "Tim Neutkens <tim@vercel.com>",
-    "Matija Marohnić <matija.marohnic@gmail.com>",
-    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
-    "JounQin <admin@1stg.me> (https://www.1stg.me)"
-  ],
-  "license": "MIT",
-  "main": "src/index.js",
-  "files": [
-    "src"
-  ],
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "parcel"
-  ],
-  "peerDependencies": {
-    "@mdx-js/react": "^2.0.0-next.9",
-    "react": ">=16"
-  },
-  "dependencies": {
-    "@mdx-js/mdx": "2.0.0-next.9",
-    "parcel-bundler": "^1.0.0"
-  },
-  "scripts": {
-    "test-api": "uvu test \"\\.test\\.js$\"",
-    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
-    "test": "yarn test-coverage"
-  },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  "private": true
 }
