@@ -3,7 +3,7 @@ import {LiveProvider, LivePreview, LiveEditor, LiveError} from 'react-live'
 import mdx from '@mdx-js/mdx'
 import {MDXProvider, mdx as createElement} from '@mdx-js/react'
 import * as Rebass from '@rebass/emotion'
-import {ThemeContext} from '@emotion/core'
+import {ThemeContext} from '@emotion/react'
 import {css} from 'theme-ui'
 import remove from 'unist-util-remove'
 
