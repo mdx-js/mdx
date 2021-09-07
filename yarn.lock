@@ -3188,13 +3188,13 @@
     "@reach/utils" "0.11.2"
     tslib "^2.0.0"
 
-"@reach/skip-nav@0.12.1":
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/@reach/skip-nav/-/skip-nav-0.12.1.tgz#082b7f22b8ab50e6bff6297137c13d0ad5a4bb64"
-  integrity sha512-LlnkUaVSQpo9grWbOHKC4Tc6ppwV7uiL+KhQ8388AB7sCbxL6zFo6WlZVNNHW5ahzQR86b3tQE9stf9rX2aJHw==
+"@reach/skip-nav@0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@reach/skip-nav/-/skip-nav-0.16.0.tgz#dec34f3a40a1e804e05647646aacab0ffd73b24d"
+  integrity sha512-SY4PdNx+hQHbeOr/+qLc+QXdRt9NTVlt0r737bOqY1WURGBIEN9sGgsmIsHluP1/bQuAe0JKdOJ/tXiwQ3Z3ug==
   dependencies:
-    "@reach/utils" "0.12.1"
-    tslib "^2.0.0"
+    "@reach/utils" "0.16.0"
+    tslib "^2.3.0"
 
 "@reach/utils@0.11.2":
   version "0.11.2"
@@ -3205,14 +3205,13 @@
     tslib "^2.0.0"
     warning "^4.0.3"
 
-"@reach/utils@0.12.1":
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.12.1.tgz#02b9c15ba5cddf23e16f2d2ca77aef98a9702607"
-  integrity sha512-5uH4OgO+GupAzZuf3b6Wv/9uC6NdMBlxS6FSKD6YqSxP4QJ0vjD34RVon6N/RMRORacCLyD/aaZIA7283YgeOg==
+"@reach/utils@0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.16.0.tgz#5b0777cf16a7cab1ddd4728d5d02762df0ba84ce"
+  integrity sha512-PCggBet3qaQmwFNcmQ/GqHSefadAFyNCUekq9RrWoaU9hh/S4iaFgf2MBMdM47eQj5i/Bk0Mm07cP/XPFlkN+Q==
   dependencies:
-    "@types/warning" "^3.0.0"
-    tslib "^2.0.0"
-    warning "^4.0.3"
+    tiny-warning "^1.0.3"
+    tslib "^2.3.0"
 
 "@rebass/emotion@3.2.0":
   version "3.2.0"
@@ -24081,6 +24080,11 @@ tiny-inflate@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-inflate/-/tiny-inflate-1.0.3.tgz#122715494913a1805166aaf7c93467933eea26c4"
   integrity sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==
+
+tiny-warning@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
+  integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
 
 title-case@^2.1.0:
   version "2.1.1"
