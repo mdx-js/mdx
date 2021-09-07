@@ -240,7 +240,7 @@ test('should support `pre`/`code` from fenced code w/ lang in mdxhast', async ()
 
 test('should support attributes from fenced code meta string in mdxhast', async () => {
   const Content = await run('```js id class=y title=z\nx\n```')
-  const error = console.error
+  const {error} = console
   console.error = () => {}
 
   assert.equal(
@@ -365,15 +365,18 @@ test('should support imports', async () => {
 
   const plugin = () => tree => {
     // Ignore the subtree at `data.estree`.
-    assert.equal(Object.assign({}, tree.children[0], {data: undefined}), {
-      type: 'mdxjsEsm',
-      value: 'import X from "y"',
-      data: undefined,
-      position: {
-        start: {line: 1, column: 1, offset: 0},
-        end: {line: 1, column: 18, offset: 17}
+    assert.equal(
+      {...tree.children[0], data: undefined},
+      {
+        type: 'mdxjsEsm',
+        value: 'import X from "y"',
+        data: undefined,
+        position: {
+          start: {line: 1, column: 1, offset: 0},
+          end: {line: 1, column: 18, offset: 17}
+        }
       }
-    })
+    )
 
     called = true
   }
@@ -413,15 +416,18 @@ test('should support exports', async () => {
 
   const plugin = () => tree => {
     // Ignore the subtree at `data.estree`.
-    assert.equal(Object.assign({}, tree.children[0], {data: undefined}), {
-      type: 'mdxjsEsm',
-      value: 'export const A = () => <b>!</b>',
-      data: undefined,
-      position: {
-        start: {line: 1, column: 1, offset: 0},
-        end: {line: 1, column: 32, offset: 31}
+    assert.equal(
+      {...tree.children[0], data: undefined},
+      {
+        type: 'mdxjsEsm',
+        value: 'export const A = () => <b>!</b>',
+        data: undefined,
+        position: {
+          start: {line: 1, column: 1, offset: 0},
+          end: {line: 1, column: 32, offset: 31}
+        }
       }
-    })
+    )
     called = true
   }
 
@@ -597,8 +603,8 @@ test('should support overwriting missing compile-time components at run-time', a
 
 test('should not crash but issue a warning when an undefined component is used', async () => {
   const Content = await run('w <X>y</X> z')
-  let calls = []
-  const warn = console.warn
+  const calls = []
+  const {warn} = console
   console.warn = (...parameters) => {
     calls.push(parameters)
   }

@@ -55,8 +55,8 @@ test('should evaluate some more complex MDX code (flow, block)', async () => {
 
 test('should warn on missing components', async () => {
   const Content = await run('<Component />')
-  let calls = []
-  const warn = console.warn
+  const calls = []
+  const {warn} = console
   console.warn = (...parameters) => {
     calls.push(parameters)
   }
@@ -208,9 +208,7 @@ test('should support a `disableParentContext` prop (sandbox)', async () => {
 
 test('should support `withComponents`', async () => {
   const Content = await run('# hi\n## hello')
-  const With = withMDXComponents(props => {
-    return <>{props.children}</>
-  })
+  const With = withMDXComponents(props => <>{props.children}</>)
 
   // To do: should this use the `h2` component too?
   assert.equal(
