@@ -1,5 +1,5 @@
 import React from 'react'
-import {Global} from '@emotion/core'
+import {Global} from '@emotion/react'
 import {ThemeProvider, css} from 'theme-ui'
 
 import components from './mdx-components'

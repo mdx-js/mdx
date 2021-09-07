@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react'
-import {Global} from '@emotion/core'
+import {Global} from '@emotion/react'
 import {ThemeProvider, css, jsx} from 'theme-ui'
 
 import Head from './head'
