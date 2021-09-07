@@ -1,17 +1,16 @@
-/* @jsx h */
-import {createContext, h} from 'preact'
-import {useContext} from 'preact/hooks'
+const {createContext, h} = require('preact')
+const {useContext} = require('preact/hooks')
 
 const isFunction = obj => typeof obj === 'function'
 
 const MDXContext = createContext({})
 
-export const withMDXComponents = Component => props => {
+const withMDXComponents = Component => props => {
   const allComponents = useMDXComponents(props.components)
-  return <Component {...props} components={allComponents} />
+  return h(Component, {...props, allComponents})
 }
 
-export const useMDXComponents = components => {
+const useMDXComponents = components => {
   const contextComponents = useContext(MDXContext)
 
   // Custom merge via a function prop
@@ -22,16 +21,17 @@ export const useMDXComponents = components => {
   return {...contextComponents, ...components}
 }
 
-export const MDXProvider = ({components, children, disableParentContext}) => {
+const MDXProvider = ({components, children, disableParentContext}) => {
   let allComponents = useMDXComponents(components)
 
   if (disableParentContext) {
     allComponents = components
   }
 
-  return (
-    <MDXContext.Provider value={allComponents}>{children}</MDXContext.Provider>
-  )
+  return h(MDXContext.Provider, {value: allComponents}, children)
 }
 
-export default MDXContext
+exports.MDXContext = MDXContext
+exports.MDXProvider = MDXProvider
+exports.withMDXComponents = withMDXComponents
+exports.useMDXComponents = useMDXComponents

@@ -32,8 +32,8 @@
     "mdx"
   ],
   "scripts": {
-    "test-api": "node test",
-    "test-coverage": "nyc --reporter lcov tape test/index.js",
+    "test-api": "uvu test \"\\.js$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
     "test-types": "dtslint types",
     "test": "yarn format && yarn test-coverage && yarn test-types"
   },
@@ -46,7 +46,6 @@
     "nyc": "^15.1.0",
     "remark-parse": "^9.0.0",
     "remark-stringify": "^9.0.1",
-    "tape": "^5.0.1",
     "to-vfile": "^6.1.0",
     "unified": "^9.0.0",
     "unist-builder": "^2.0.3",

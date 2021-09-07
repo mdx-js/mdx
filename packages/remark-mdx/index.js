@@ -14,7 +14,8 @@ function mdx(options) {
   let syntax = settings.js === false ? syntaxMdx : syntaxMdxjs
   let data = this.data()
 
-  /* istanbul ignore next - old remark. */
+  // Old remark.
+  /* c8 ignore next 14 */
   if (
     !warningIssued &&
     ((this.Parser &&
@@ -35,7 +36,8 @@ function mdx(options) {
   add('toMarkdownExtensions', toMarkdown)
 
   function add(field, value) {
-    /* istanbul ignore if - other extensions. */
+    // Other extensions.
+    /* c8 ignore next */
     if (data[field]) data[field].push(value)
     else data[field] = [value]
   }

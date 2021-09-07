@@ -43,6 +43,8 @@ function sync(mdx, options = {}) {
 
 async function compile(mdx, options = {}) {
   const file = await createCompiler(options).process(createConfig(mdx, options))
+  // V8 bug on Node 12.
+  /* c8 ignore next */
   return pragma + '\n' + String(file)
 }
 

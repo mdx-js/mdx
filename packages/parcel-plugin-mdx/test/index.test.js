@@ -1,32 +1,38 @@
+const {test} = require('uvu')
+const assert = require('uvu/assert')
 const path = require('path')
 const plugin = require('..')
 const MDXAsset = require('../src/MDXAsset')
 
-describe('index', () => {
-  it('should add asset type', () => {
-    const bundler = {addAssetType: jest.fn()}
-    const {calls} = bundler.addAssetType.mock
-    const mdxAssetPath = require.resolve('../src/MDXAsset')
-    plugin(bundler)
-    expect(calls.length).toEqual(1)
-    expect(calls[0][0]).toBe('mdx')
-    expect(calls[0][1]).toBe(mdxAssetPath)
-  })
+test('index: should add asset type', () => {
+  const calls = []
+  const bundler = {
+    addAssetType: (...parameters) => {
+      calls.push(parameters)
+    }
+  }
+  const mdxAssetPath = require.resolve('../src/MDXAsset')
+  plugin(bundler)
+  assert.equal(calls.length, 1)
+  assert.equal(calls[0][0], 'mdx')
+  assert.equal(calls[0][1], mdxAssetPath)
 })
 
-describe('MDXAsset', () => {
-  it('should work', async () => {
-    const asset = new MDXAsset(path.resolve(__dirname, './content.mdx'), {
-      rootDir: __dirname
-    })
+test('MDXAsset: should work', async () => {
+  const asset = new MDXAsset(path.resolve(__dirname, './content.mdx'), {
+    rootDir: __dirname
+  })
 
-    const results = await asset.process()
-    const result = results[0]
+  const results = await asset.process()
+  const result = results[0]
 
-    expect(result.value).toContain('<h1>{"Test"}</h1>')
+  assert.ok(result.value.includes('<h1>{"Test"}</h1>'))
 
-    expect(result.value).toContain(
+  assert.ok(
+    result.value.includes(
       '<Component parentName="p" mdxType="Component">{"component"}</Component>'
     )
-  })
+  )
 })
+
+test.run()

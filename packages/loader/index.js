@@ -35,5 +35,7 @@ module.exports = async function (content) {
   }
 
   const code = `${renderer}${pragma}${result}`
+  // V8 bug on Node 12.
+  /* c8 ignore next 2 */
   return callback(null, code)
 }

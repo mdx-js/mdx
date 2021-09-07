@@ -14,7 +14,7 @@ const defaults = {
 
 const own = {}.hasOwnProperty
 
-export default function createMdxElement(type, props, children) {
+function mdx(type, props, children) {
   if (own.call(this.components, type)) {
     type = this.components[type]
   } else if (own.call(defaults, type)) {
@@ -56,3 +56,5 @@ export default function createMdxElement(type, props, children) {
   // Vue component.
   return this.createElement(type, props, children)
 }
+
+exports.mdx = mdx

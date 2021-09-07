@@ -20,15 +20,10 @@
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
-  "main": "dist/mdx-preact.js",
-  "module": "dist/mdx-preact.es.js",
+  "main": "src/index.js",
   "types": "types/index.d.ts",
-  "exports": {
-    "import": "./dist/mdx-preact.modern.js",
-    "require": "./dist/mdx-preact.js"
-  },
   "files": [
-    "dist",
+    "src",
     "types/index.d.ts"
   ],
   "keywords": [
@@ -40,9 +35,8 @@
     "mdxast"
   ],
   "scripts": {
-    "build": "microbundle -f modern,es,cjs src/index.js --generateTypes false",
-    "test-api": "jest test",
-    "test-coverage": "jest test --coverage",
+    "test-api": "uvu -r esbuild-register test \"\\.jsx?$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
     "test-types": "dtslint types",
     "test": "yarn test-coverage && yarn test-types"
   },
@@ -50,7 +44,6 @@
     "preact": "^10.4.6"
   },
   "devDependencies": {
-    "microbundle": "^0.13.3",
     "preact": "^10.5.0",
     "preact-render-to-string": "^5.1.10"
   },

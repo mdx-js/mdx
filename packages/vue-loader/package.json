@@ -36,8 +36,8 @@
     "loader"
   ],
   "scripts": {
-    "test-api": "jest test",
-    "test-coverage": "jest test --coverage",
+    "test-api": "uvu test \"\\.js$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
     "test-types": "dtslint types",
     "test": "yarn test-coverage && yarn test-types"
   },

@@ -48,5 +48,7 @@ async function mdxLoader(content) {
 ${result}
 ${suffix}`
 
+  // V8 bug on Node 12.
+  /* c8 ignore next 2 */
   return callback(null, code)
 }
