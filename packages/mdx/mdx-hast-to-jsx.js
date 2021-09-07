@@ -332,6 +332,8 @@ function createMakeShortcodeHelper(names, useElement) {
                 },
                 {
                   type: 'ReturnStatement',
+                  // Vue.
+                  /* c8 ignore next 16 */
                   argument: useElement
                     ? {
                         type: 'JSXElement',

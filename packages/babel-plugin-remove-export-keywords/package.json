@@ -26,8 +26,8 @@
     "babel"
   ],
   "scripts": {
-    "test-api": "jest test",
-    "test-coverage": "jest test --coverage",
+    "test-api": "uvu test \"\\.jsx?$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
     "test": "yarn test-coverage"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"

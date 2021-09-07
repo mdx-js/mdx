@@ -1,5 +1,5 @@
-/* @jsx React.createElement */
-/* @jsxFrag React.Fragment */
+const {test} = require('uvu')
+const assert = require('uvu/assert')
 const path = require('path')
 const webpack = require('webpack')
 const MemoryFs = require('memory-fs')
@@ -83,30 +83,42 @@ const run = value => {
   )(mdx, React, _extends, _objectWithoutProperties)
 }
 
-describe('@mdx-js/loader', () => {
-  test('should support a file', async () => {
-    const file = await transform('./fixture.mdx')
-    const Content = run(file.source)
+test('should support a file', async () => {
+  const file = await transform('./fixture.mdx')
+  const Content = run(file.source)
 
-    expect(renderToString(<Content />)).toEqual('<h1>Hello, world!</h1>')
-  })
-
-  test('should handle MDX throwing exceptions', async () => {
-    const file = await transform('./fixture.mdx', {remarkPlugins: [1]})
-
-    expect(() => {
-      run(file.source)
-    }).toThrow(/Expected usable value, not `1`/)
-  })
-
-  test('should support options', async () => {
-    const file = await transform('./fixture.mdx', {
-      remarkPlugins: [require('remark-slug')]
-    })
-    const Content = run(file.source)
-
-    expect(renderToString(<Content />)).toEqual(
-      '<h1 id="hello-world">Hello, world!</h1>'
-    )
-  })
+  assert.equal(
+    renderToString(React.createElement(Content)),
+    '<h1>Hello, world!</h1>'
+  )
 })
+
+test('should handle MDX not compiling', async () => {
+  const file = await transform('./broken-fixture.mdx')
+
+  assert.throws(() => {
+    run(file.source)
+  }, /Unexpected end of file/)
+})
+
+test('should handle MDX throwing exceptions', async () => {
+  const file = await transform('./fixture.mdx', {remarkPlugins: [1]})
+
+  assert.throws(() => {
+    run(file.source)
+  }, /Expected usable value, not `1`/)
+})
+
+test('should support options', async () => {
+  const file = await transform('./fixture.mdx', {
+    remarkPlugins: [require('remark-slug')]
+  })
+  const Content = run(file.source)
+
+  assert.equal(
+    renderToString(React.createElement(Content)),
+    '<h1 id="hello-world">Hello, world!</h1>'
+  )
+})
+
+test.run()

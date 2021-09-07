@@ -1,7 +1,7 @@
-import React from 'react'
-import {transform} from 'buble-jsx-only'
-import mdx from '@mdx-js/mdx'
-import {MDXProvider, mdx as createElement} from '@mdx-js/react'
+const React = require('react')
+const {transform} = require('buble-jsx-only')
+const mdx = require('@mdx-js/mdx')
+const {MDXProvider, mdx: createElement} = require('@mdx-js/react')
 
 const suffix = `return React.createElement(
   MDXProvider,
@@ -9,7 +9,7 @@ const suffix = `return React.createElement(
   React.createElement(MDXContent, props)
 )`
 
-export default ({
+const runtime = ({
   scope = {},
   components = {},
   remarkPlugins = [],
@@ -43,3 +43,5 @@ export default ({
 
   return fn(React, ...values)
 }
+
+module.exports = runtime

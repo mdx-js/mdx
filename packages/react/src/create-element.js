@@ -1,6 +1,5 @@
-import React from 'react'
-
-import {useMDXComponents} from './context'
+const React = require('react')
+const {useMDXComponents} = require('./context')
 
 const TYPE_PROP_NAME = 'mdxType'
 
@@ -26,7 +25,8 @@ const MDXCreateElement = React.forwardRef((props, ref) => {
     DEFAULTS[type] ||
     originalType
 
-  /* istanbul ignore if - To do: what is this useful for? */
+  // To do: what is this useful for?
+  /* c8 ignore next 7 */
   if (propComponents) {
     return React.createElement(Component, {
       ref,
@@ -75,4 +75,5 @@ function mdx(type, props) {
 
 mdx.Fragment = React.Fragment
 
-export default mdx
+exports.Fragment = React.Fragment
+exports.mdx = mdx

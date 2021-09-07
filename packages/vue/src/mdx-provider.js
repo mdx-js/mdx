@@ -9,4 +9,4 @@ const MDXProvider = {
   }
 }
 
-export default MDXProvider
+exports.MDXProvider = MDXProvider

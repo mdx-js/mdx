@@ -57,10 +57,8 @@ overrides:
       prettier/prettier: error
 
   - files:
-      - '**/test/**/*.js'
-      - '**/*.test.js'
-    env:
-      jest: true
+      - '**/test/**/*.{js,jsx}'
+      - '**/*.test.{js,jsx}'
     rules:
       import/no-extraneous-dependencies: 0
   - files:

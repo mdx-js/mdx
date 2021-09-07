@@ -1,5 +1,5 @@
-import {h, Fragment} from 'preact'
-import {forwardRef} from 'preact/compat'
+const {h, Fragment} = require('preact')
+const {forwardRef} = require('preact/compat')
 
 import {useMDXComponents} from './context'
 
@@ -27,7 +27,8 @@ const MDXCreateElement = forwardRef((props, ref) => {
     DEFAULTS[type] ||
     originalType
 
-  /* istanbul ignore if - To do: what is this useful for? */
+  // To do: what is this useful for?
+  /* c8 ignore next 7 */
   if (propComponents) {
     return h(Component, {
       ref,
@@ -76,4 +77,5 @@ function mdx(type, props) {
 
 mdx.Fragment = Fragment
 
-export default mdx
+exports.mdx = mdx
+exports.Fragment = Fragment

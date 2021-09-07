@@ -20,6 +20,8 @@ class MDXAsset extends Asset {
     )
     const compiled = await mdx(this.contents, config)
 
+    // V8 bug on Node 12.
+    /* c8 ignore next 2 */
     return [{type: 'js', value: prefix + compiled}]
   }
 }

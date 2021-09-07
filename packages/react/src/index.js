@@ -1,8 +1,14 @@
-export {
-  default as MDXContext,
+const {
+  MDXContext,
   MDXProvider,
   useMDXComponents,
   withMDXComponents
-} from './context'
+} = require('./context')
 
-export {default as mdx} from './create-element'
+const {mdx} = require('./create-element')
+
+exports.MDXContext = MDXContext
+exports.MDXProvider = MDXProvider
+exports.useMDXComponents = useMDXComponents
+exports.withMDXComponents = withMDXComponents
+exports.mdx = mdx

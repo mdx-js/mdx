@@ -8,15 +8,10 @@
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
   "license": "MIT",
-  "main": "dist/mdx-vue.js",
-  "module": "dist/mdx-vue.es.js",
-  "exports": {
-    "import": "./dist/mdx-vue.modern.js",
-    "require": "./dist/mdx-vue.js"
-  },
+  "main": "src/index.js",
   "types": "types/index.d.ts",
   "files": [
-    "dist",
+    "src/",
     "types/index.d.ts"
   ],
   "keywords": [
@@ -26,19 +21,14 @@
     "remark"
   ],
   "scripts": {
-    "build": "microbundle -f modern,es,cjs src --generateTypes false",
-    "test-api": "jest test",
-    "test-coverage": "jest test --coverage",
+    "test-api": "uvu test \"\\.js$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
     "test-types": "dtslint types",
     "test": "yarn test-coverage && yarn test-types"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.1.1",
-    "babel-helper-vue-jsx-merge-props": "^2.0.0",
-    "microbundle": "^0.13.3"
-  },
-  "jest": {
-    "testEnvironment": "jsdom"
+    "babel-helper-vue-jsx-merge-props": "^2.0.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

@@ -83,7 +83,8 @@ function JSXFragment(node, state) {
     this[node.children[index].type](node.children[index], state)
   }
 
-  /* istanbul ignore if - incorrect tree. */
+  // Incorrect tree.
+  /* c8 ignore next 3 */
   if (!node.closingFragment) {
     throw new Error('Cannot handle fragment w/o closing tag')
   }
@@ -130,8 +131,9 @@ function JSXMemberExpression(node, state) {
 }
 
 // `ns:attr="something"`
-/* istanbul ignore next - MDX (and most JSX things) don’t support them.
- * But keep it here just in case we might in the future. */
+// MDX (and most JSX things) don’t support them.
+// But keep it here just in case we might in the future.
+/* c8 ignore next 5 */
 function JSXNamespacedName(node, state) {
   this[node.namespace.type](node.namespace, state)
   state.write(':')
@@ -148,9 +150,10 @@ function JSXSpreadAttribute(node, state) {
 
 // `!`
 function JSXText(node, state) {
-  /* istanbul ignore next - `raw` is currently always be set, but could be
-   * missing if something injects a `JSXText` into the tree.
-   * Preferring `raw` over `value` means character references are kept as-is. */
+  // `raw` is currently always be set, but could be
+  // missing if something injects a `JSXText` into the tree.
+  // Preferring `raw` over `value` means character references are kept as-is.
+  /* c8 ignore next */
   const value = node.raw || node.value
   state.write(value)
 }

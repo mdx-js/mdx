@@ -1,4 +1,8 @@
+require('jsdom-global')()
+
 const path = require('path')
+const {test} = require('uvu')
+const assert = require('uvu/assert')
 const webpack = require('webpack')
 const MemoryFs = require('memory-fs')
 const {mount} = require('@vue/test-utils')
@@ -57,27 +61,28 @@ const run = value => {
   return new Function('mdx', '_mergeJSXProps', val)(mdx, vueMergeProps)
 }
 
-describe('@mdx-js/vue-loader', () => {
-  test('should create runnable code', async () => {
-    const file = await transform('./fixture.mdx')
-    expect(mount(run(file.source)).html()).toEqual('<h1>Hello, world!</h1>')
-  })
-
-  test('should handle MDX throwing exceptions', async () => {
-    const file = await transform('./fixture.mdx', {remarkPlugins: [1]})
-
-    expect(() => {
-      run(file.source)
-    }).toThrow(/Expected usable value, not `1`/)
-  })
-
-  test('should support options', async () => {
-    const file = await transform('./fixture.mdx', {
-      remarkPlugins: [require('remark-slug')]
-    })
-
-    expect(mount(run(file.source)).html()).toEqual(
-      '<h1 id="hello-world">Hello, world!</h1>'
-    )
-  })
+test('should create runnable code', async () => {
+  const file = await transform('./fixture.mdx')
+  assert.equal(mount(run(file.source)).html(), '<h1>Hello, world!</h1>')
 })
+
+test('should handle MDX throwing exceptions', async () => {
+  const file = await transform('./fixture.mdx', {remarkPlugins: [1]})
+
+  assert.throws(() => {
+    run(file.source)
+  }, /Expected usable value, not `1`/)
+})
+
+test('should support options', async () => {
+  const file = await transform('./fixture.mdx', {
+    remarkPlugins: [require('remark-slug')]
+  })
+
+  assert.equal(
+    mount(run(file.source)).html(),
+    '<h1 id="hello-world">Hello, world!</h1>'
+  )
+})
+
+test.run()
