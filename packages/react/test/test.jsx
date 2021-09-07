@@ -56,7 +56,7 @@ test('should evaluate some more complex MDX code (flow, block)', async () => {
 test('should warn on missing components', async () => {
   const Content = await run('<Component>x</Component>')
   const calls = []
-  const warn = console.warn
+  const {warn} = console
   console.warn = (...parameters) => {
     calls.push(parameters)
   }
@@ -84,7 +84,7 @@ test('should crash if weird values could come from JSX', async () => {
   // MDX. Definitely not a great idea, but it’s an easy way to pass in funky
   // values.
   const Content = await run('{mdx(1)}')
-  const error = console.error
+  const {error} = console
   const calls = []
   console.error = (...parameters) => {
     calls.push(parameters)
@@ -219,9 +219,7 @@ test('should support a `disableParentContext` prop (sandbox)', async () => {
 
 test('should support `withComponents`', async () => {
   const Content = await run('# hi\n## hello')
-  const With = withMDXComponents(props => {
-    return <>{props.children}</>
-  })
+  const With = withMDXComponents(props => <>{props.children}</>)
 
   // To do: should this use the `h2` component too?
   assert.equal(
