@@ -1,28 +1,26 @@
-name: CI
-
-on: [push, pull_request]
-
+name: main
+on:
+  - pull_request
+  - push
 jobs:
-  default:
-    name: Build and Test on ${{ matrix.os }} with Node.js ${{ matrix.node }}
+  main:
+    name: '${{matrix.node}} on ${{matrix.os}}'
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dcodeIO/setup-node-nvm@master
+        with:
+          node-version: ${{matrix.node}}
+      - run: npm install -g yarn && yarn --frozen-lockfile
+        env:
+          CI: 'true'
+      - name: Test
+        run: yarn test
     strategy:
       matrix:
         os:
           - ubuntu-latest
           - windows-latest
         node:
-          - 12
-          - 14
-          - 16
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Install
-        run: yarn --frozen-lockfile
-        env:
-          CI: 'true'
-      - name: Test
-        run: yarn test
+          - lts/erbium
+          - node

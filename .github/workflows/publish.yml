@@ -1,32 +1,23 @@
-name: CI
-
-on: [push]
-
+name: publish
+on: push
 jobs:
-  default:
+  main:
     name: Publish CI tagged release for MDX
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # for lerna
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - name: Install Dependencies
-        run: yarn --frozen-lockfile
+      - uses: dcodeIO/setup-node-nvm@master
+      - run: npm install -g yarn && yarn --frozen-lockfile
         env:
           CI: 'true'
-
       - name: Build
         run: yarn build
-
       - name: Publish CI tag to npm
-        if: github.ref	== 'refs/heads/main'
+        if: github.ref == 'refs/heads/main'
         run: |
           npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
           yarn publish-ci
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
