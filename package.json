@@ -13,6 +13,9 @@
     "packages/*"
   ],
   "scripts": {
+    "prepare": "husky install",
+    "postinstall": "yarn-deduplicate --strategy fewer && patch-package || exit 0",
+    "prepublishOnly": "yarn build",
     "build": "lerna run build --no-private --ignore gatsby-theme-mdx",
     "clean": "lerna exec \"rimraf dist node_modules\" && gatsby clean",
     "docs": "gatsby develop",
@@ -21,8 +24,6 @@
     "format": "yarn lint --fix",
     "lint": "eslint . --cache --ext .jsx -f friendly",
     "vercel-build": "yarn build && yarn docs-build",
-    "postinstall": "yarn-deduplicate --strategy fewer && patch-package || exit 0",
-    "prepublishOnly": "yarn build",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
     "test-api": "lerna run test-api",
@@ -52,9 +53,9 @@
     "eslint-plugin-react": "^7.0.0",
     "gatsby": "^2.0.0",
     "gatsby-theme-mdx1": "npm:gatsby-theme-mdx@^1.0.0",
-    "husky": "^4.0.0",
+    "husky": "^7.0.0",
     "jsdom-global": "^3.0.0",
-    "lerna": "^3.0.0",
+    "lerna": "^4.0.0",
     "lint-staged": "^11.0.0",
     "patch-package": "^6.0.0",
     "postinstall-postinstall": "^2.0.0",
@@ -74,18 +75,14 @@
     "gatsby-plugin-mdx/@mdx-js/mdx": "^1.0.0",
     "gatsby-plugin-mdx/@mdx-js/react": "^1.0.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,md,mdx}": [
       "eslint --cache --fix -f friendly"
     ],
     "*.{css,html,json,ts,tsx,yml}": [
       "prettier --write"
-    ]
+    ],
+    "*.jsx": "eslint --cache --fix"
   },
   "prettier": {
     "arrowParens": "avoid",
