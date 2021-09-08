@@ -1,23 +1,4 @@
-# `@mdx-js/vue-loader` example
+# Vue MDX Webpack loader
 
-## Project setup
-
-```sh
-yarn install
-```
-
-### Compiles and hot-reloads for development
-
-```sh
-yarn serve
-```
-
-### Compiles and minifies for production
-
-```sh
-yarn build
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Please see the
+[Vue example](https://github.com/mdx-js/mdx/tree/main/examples/vue).

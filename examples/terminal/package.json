@@ -3,15 +3,14 @@
   "version": "2.0.0-next.9",
   "license": "MIT",
   "private": true,
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
-    "start": "node ."
+    "start": "node -r esbuild-register index.jsx"
   },
   "dependencies": {
     "@mdx-js/mdx": "2.0.0-next.9",
     "@mdx-js/react": "2.0.0-next.9",
     "@mdx-js/runtime": "2.0.0-next.9",
-    "import-jsx": "^4.0.0",
     "ink": "^3.0.0",
     "react": "^17.0.0"
   }

@@ -1,1 +1,0 @@
-require('import-jsx')('./example')

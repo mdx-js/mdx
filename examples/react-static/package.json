@@ -23,6 +23,6 @@
     "react-static-plugin-source-filesystem": "^7.0.0"
   },
   "devDependencies": {
-    "serve": "^11.3.2"
+    "serve": "^12.0.0"
   }
 }

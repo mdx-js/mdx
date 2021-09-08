@@ -1,11 +1,12 @@
 /* eslint react/jsx-key: 0 */
 
 import React from 'react'
+import {mdx} from '@mdx-js/react'
 import Highlight, {defaultProps} from 'prism-react-renderer'
 import {LiveProvider, LiveEditor, LiveError, LivePreview} from 'react-live'
-import {mdx} from '@mdx-js/react'
 
-export default ({children, className, live, render}) => {
+export const CodeBlock = props => {
+  const {children, className, live, render} = props
   const language = className.replace(/language-/, '')
 
   if (live) {

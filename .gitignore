@@ -1,6 +1,7 @@
 node_modules
 package-lock.json
 dist
+cache
 build
 bundle.js
 .next
