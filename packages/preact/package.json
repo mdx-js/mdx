@@ -41,7 +41,7 @@
     "test": "yarn test-coverage && yarn test-types"
   },
   "peerDependencies": {
-    "preact": "^10.4.6"
+    "preact": "^10.0.0"
   },
   "devDependencies": {
     "preact": "^10.5.0",

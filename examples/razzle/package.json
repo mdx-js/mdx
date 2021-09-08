@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@mdx-js/react": "2.0.0-next.9",
-    "express": "^4.17.1",
-    "razzle": "^3.1.5",
-    "razzle-plugin-mdx": "^3.1.5",
+    "express": "^4.0.0",
+    "razzle": "^3.0.0",
+    "razzle-plugin-mdx": "^3.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "remark-emoji": "^2.1.0"
+    "remark-emoji": "^2.0.0"
   }
 }

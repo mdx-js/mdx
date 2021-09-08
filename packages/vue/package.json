@@ -27,7 +27,7 @@
     "test": "yarn test-coverage && yarn test-types"
   },
   "devDependencies": {
-    "@vue/test-utils": "^1.1.1",
+    "@vue/test-utils": "^1.0.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
