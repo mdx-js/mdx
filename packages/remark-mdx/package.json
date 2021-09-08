@@ -43,7 +43,6 @@
     "micromark-extension-mdxjs": "^0.3.0"
   },
   "devDependencies": {
-    "nyc": "^15.0.0",
     "remark-parse": "^9.0.0",
     "remark-stringify": "^9.0.0",
     "to-vfile": "^6.0.0",
@@ -51,12 +50,6 @@
     "unist-builder": "^2.0.0",
     "unist-util-remove-position": "^3.0.0",
     "unist-util-visit": "^2.0.0"
-  },
-  "nyc": {
-    "check-coverage": true,
-    "lines": 100,
-    "functions": 100,
-    "branches": 100
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }
