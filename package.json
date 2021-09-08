@@ -49,7 +49,7 @@
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.0.0",
     "eslint-plugin-mdx": "^1.0.0",
-    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.0.0",
     "gatsby": "^2.0.0",
     "gatsby-theme-mdx1": "npm:gatsby-theme-mdx@^1.0.0",
