@@ -1,21 +1,21 @@
-let {test} = require('uvu')
-let assert = require('uvu/assert')
-let fs = require('fs')
-let path = require('path')
-let u = require('unist-builder')
-let vfile = require('to-vfile')
-let unified = require('unified')
-let parse = require('remark-parse')
-let stringify = require('remark-stringify')
-let remove = require('unist-util-remove-position')
-let visit = require('unist-util-visit')
-let mdx = require('..')
+const {test} = require('uvu')
+const assert = require('uvu/assert')
+const fs = require('fs')
+const path = require('path')
+const u = require('unist-builder')
+const vfile = require('to-vfile')
+const unified = require('unified')
+const parse = require('remark-parse')
+const stringify = require('remark-stringify')
+const remove = require('unist-util-remove-position')
+const visit = require('unist-util-visit')
+const mdx = require('..')
 
-let base = path.join(__dirname, 'fixtures')
+const base = path.join(__dirname, 'fixtures')
 
-let basic = unified().use(parse).use(mdx)
+const basic = unified().use(parse).use(mdx)
 
-test('parse: MDX vs. MDX.js', function () {
+test('parse: MDX vs. MDX.js', () => {
   assert.equal(
     clean(
       unified().use(parse).use(mdx, {js: false}).parse('{1 + /* } */ 2}')
@@ -32,7 +32,7 @@ test('parse: MDX vs. MDX.js', function () {
   )
 })
 
-test('parse: basics', function () {
+test('parse: basics', () => {
   assert.equal(
     clean(basic.parse('Alpha <b/> charlie.')),
     u('root', [
@@ -96,9 +96,9 @@ test('parse: basics', function () {
   )
 })
 
-test('parse: complete', function () {
+test('parse: complete', () => {
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <b> charlie.')
     },
     /Cannot close `paragraph` \(1:1-1:19\): a different token \(`mdxJsxTextTag`, 1:7-1:10\) is open/,
@@ -106,36 +106,34 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <> charlie.')
     },
     /Cannot close `paragraph` \(1:1-1:18\): a different token \(`mdxJsxTextTag`, 1:7-1:9\) is open/,
     'should crash on an unclosed fragment'
   )
 
-  // Note: these are changed in a patch.
-  // Enable them again when `yarn.lock` is updated.
-  // assert.throws(
-  //   function () {
-  //     // Note: this is valid JSX for a fragment, but it’s really weird usage
-  //     // in MDX, and much more likely to be a `<`.
-  //     // Hence this throws.
-  //     basic.parse('Alpha < \t>bravo</>.')
-  //   },
-  //   /Unexpected closing slash `\/` in tag, expected an open tag first/,
-  //   'should not parse whitespace in the opening tag (fragment)'
-  // )
-  //
-  // assert.throws(
-  //   function () {
-  //     basic.parse('Alpha < \nb\t>bravo</b>.')
-  //   },
-  //   /Unexpected closing slash `\/` in tag, expected an open tag first/,
-  //   'should not parse whitespace in the opening tag (element)'
-  // )
+  assert.throws(
+    () => {
+      // Note: this is valid JSX for a fragment, but it’s really weird usage
+      // in MDX, and much more likely to be a `<`.
+      // Hence this throws.
+      basic.parse('Alpha < \t>bravo</>.')
+    },
+    /Unexpected closing slash `\/` in tag, expected an open tag first/,
+    'should not parse whitespace in the opening tag (fragment)'
+  )
 
   assert.throws(
-    function () {
+    () => {
+      basic.parse('Alpha < \nb\t>bravo</b>.')
+    },
+    /Unexpected closing slash `\/` in tag, expected an open tag first/,
+    'should not parse whitespace in the opening tag (element)'
+  )
+
+  assert.throws(
+    () => {
       basic.parse('Alpha <!> charlie.')
     },
     /Unexpected character `!` \(U\+0021\) before name, expected a character that can start a name, such as a letter, `\$`, or `_`/,
@@ -143,7 +141,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a></(> charlie.')
     },
     /Unexpected character `\(` \(U\+0028\) before name, expected a character that can start a name, such as a letter, `\$`, or `_`/,
@@ -163,7 +161,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <© /> bravo.')
     },
     /Unexpected character `©` \(U\+00A9\) before name, expected a character that can start a name, such as a letter, `\$`, or `_`/,
@@ -183,7 +181,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a¬ /> bravo.')
     },
     /Unexpected character `¬` \(U\+00AC\) in name, expected a name character such as letters, digits, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -205,7 +203,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a?> charlie.')
     },
     /Unexpected character `\?` \(U\+003F\) in name, expected a name character such as letters, digits, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -241,7 +239,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a:+> charlie.')
     },
     /Unexpected character `\+` \(U\+002B\) before local name, expected a character that can start a name, such as a letter, `\$`, or `_`/,
@@ -249,7 +247,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a:b|> charlie.')
     },
     /Unexpected character `\|` \(U\+007C\) in local name, expected a name character such as letters, digits, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -257,7 +255,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a..> charlie.')
     },
     /Unexpected character `\.` \(U\+002E\) before member name, expected a character that can start an attribute name, such as a letter, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -265,7 +263,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a.b,> charlie.')
     },
     /Unexpected character `,` \(U\+002C\) in member name, expected a name character such as letters, digits, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -273,7 +271,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a:b .> charlie.')
     },
     /Unexpected character `\.` \(U\+002E\) after local name, expected a character that can start an attribute name, such as a letter, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -281,7 +279,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a.b :> charlie.')
     },
     /Unexpected character `:` \(U\+003A\) after member name, expected a character that can start an attribute name, such as a letter, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -289,7 +287,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a => charlie.')
     },
     /Unexpected character `=` \(U\+003D\) after name, expected a character that can start an attribute name, such as a letter, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -477,7 +475,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <b {...p}~>charlie</b>.')
     },
     /Unexpected character `~` \(U\+007E\) before attribute name, expected a character that can start an attribute name, such as a letter, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -485,7 +483,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <b {...')
     },
     /Unexpected end of file in expression, expected a corresponding closing brace for `{`/,
@@ -493,7 +491,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a b@> charlie.')
     },
     /Unexpected character `@` \(U\+0040\) in attribute name, expected an attribute name character such as letters, digits, `\$`, or `_`; `=` to initialize a value; whitespace before attributes; or the end of the tag/,
@@ -550,7 +548,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a b 1> charlie.')
     },
     /Unexpected character `1` \(U\+0031\) after attribute name, expected a character that can start an attribute name, such as a letter, `\$`, or `_`; `=` to initialize a value; or the end of the tag/,
@@ -558,7 +556,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a b:#> charlie.')
     },
     /Unexpected character `#` \(U\+0023\) before local attribute name, expected a character that can start an attribute name, such as a letter, `\$`, or `_`/,
@@ -566,7 +564,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a b:c%> charlie.')
     },
     /Unexpected character `%` \(U\+0025\) in local attribute name, expected an attribute name character such as letters, digits, `\$`, or `_`; `=` to initialize a value; whitespace before attributes; or the end of the tag/,
@@ -574,7 +572,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a b:c ^> charlie.')
     },
     /Unexpected character `\^` \(U\+005E\) after local attribute name, expected a character that can start an attribute name, such as a letter, `\$`, or `_`; `=` to initialize a value; or the end of the tag/,
@@ -610,7 +608,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a b=``> charlie.')
     },
     /Unexpected character `` ` `` \(U\+0060\) before attribute value, expected a character that can start an attribute value, such as `"`, `'`, or `{`/,
@@ -618,7 +616,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a b="> charlie.')
     },
     /Unexpected end of file in attribute value, expected a corresponding closing quote `"`/,
@@ -626,7 +624,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse("Alpha <a b='> charlie.")
     },
     /Unexpected end of file in attribute value, expected a corresponding closing quote `'`/,
@@ -634,7 +632,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a b={> charlie.')
     },
     /Unexpected end of file in expression, expected a corresponding closing brace for `{`/,
@@ -642,7 +640,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a b=""*> charlie.')
     },
     /Unexpected character `\*` \(U\+002A\) before attribute name, expected a character that can start an attribute name, such as a letter, `\$`, or `_`; whitespace before attributes; or the end of the tag/,
@@ -692,7 +690,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a/b> charlie.')
     },
     /Unexpected character `b` \(U\+0062\) after self-closing slash, expected `>` to end the tag/,
@@ -711,59 +709,59 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha {1 + 1 charlie.')
     },
     /Unexpected end of file in expression, expected a corresponding closing brace for `{`/,
     'should crash on a missing closing brace in expression'
   )
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('Alpha } charlie.')
   }, 'should *not* crash on closing curly in text')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('Alpha > charlie.')
   }, 'should *not* crash on closing angle in text')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('Alpha <>`<`</> charlie.')
   }, 'should *not* crash on opening angle in tick code in an element')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('Alpha <>`{`</> charlie.')
   }, 'should *not* crash on opening curly in tick code in an element')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('<>\n```\n<\n```\n</>')
   }, 'should *not* crash on opening angle in tick block code in an element')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('<>\n```\n{\n```\n</>')
   }, 'should *not* crash on opening curly in tick block code in an element')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('<>\n~~~\n<\n~~~\n</>')
   }, 'should *not* crash on opening angle in tilde block code in an element')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('<>\n~~~\n{\n~~~\n</>')
   }, 'should *not* crash on opening curly in tilde block code in an element')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('Alpha <>`` ``` ``</>')
   }, 'should *not* crash on ticks in tick code in an element')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('Alpha <>~~ ~~~ ~~</>')
   }, 'should *not* crash on tildes in tilde code in an element')
 
-  assert.not.throws(function () {
+  assert.not.throws(() => {
     basic.parse('Alpha <>`</>')
   }, 'should *not* crash on unclosed tick code')
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('<>\n~~~')
     },
     /Cannot close document, a token \(`mdxJsxFlowTag`, 1:1-1:3\) is still open/,
@@ -771,7 +769,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha </> charlie.')
     },
     /Unexpected closing slash `\/` in tag, expected an open tag first/,
@@ -779,63 +777,63 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <></b> charlie.')
     },
     /Unexpected closing tag `<\/b>`, expected corresponding closing tag for `<>` \(1:7-1:9\)/,
     'should crash on mismatched tags (1)'
   )
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <b></> charlie.')
     },
     /Unexpected closing tag `<\/>`, expected corresponding closing tag for `<b>` \(1:7-1:10\)/,
     'should crash on mismatched tags (2)'
   )
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a.b></a> charlie.')
     },
     /Unexpected closing tag `<\/a>`, expected corresponding closing tag for `<a.b>` \(1:7-1:12\)/,
     'should crash on mismatched tags (3)'
   )
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a></a.b> charlie.')
     },
     /Unexpected closing tag `<\/a.b>`, expected corresponding closing tag for `<a>` \(1:7-1:10\)/,
     'should crash on mismatched tags (4)'
   )
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a.b></a.c> charlie.')
     },
     /Unexpected closing tag `<\/a.c>`, expected corresponding closing tag for `<a.b>` \(1:7-1:12\)/,
     'should crash on mismatched tags (5)'
   )
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a:b></a> charlie.')
     },
     /Unexpected closing tag `<\/a>`, expected corresponding closing tag for `<a:b>` \(1:7-1:12\)/,
     'should crash on mismatched tags (6)'
   )
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a></a:b> charlie.')
     },
     /Unexpected closing tag `<\/a:b>`, expected corresponding closing tag for `<a>` \(1:7-1:10\)/,
     'should crash on mismatched tags (7)'
   )
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a:b></a:c> charlie.')
     },
     /Unexpected closing tag `<\/a:c>`, expected corresponding closing tag for `<a:b>` \(1:7-1:12\)/,
     'should crash on mismatched tags (8)'
   )
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a:b></a.b> charlie.')
     },
     /Unexpected closing tag `<\/a.b>`, expected corresponding closing tag for `<a:b>` \(1:7-1:12\)/,
@@ -843,7 +841,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a>bravo</a/> charlie.')
     },
     /Unexpected self-closing slash `\/` in closing tag, expected the end of the tag/,
@@ -851,7 +849,7 @@ test('parse: complete', function () {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.parse('Alpha <a>bravo</a b> charlie.')
     },
     /Unexpected attribute in closing tag, expected the end of the tag/,
@@ -1029,7 +1027,7 @@ test('parse: complete', function () {
   )
 })
 
-test('parse: interplay', function () {
+test('parse: interplay', () => {
   assert.equal(
     clean(basic.parse('Alpha <b>\nbravo\n</b> charlie.')),
     u('root', [
@@ -1062,10 +1060,10 @@ test('parse: interplay', function () {
 })
 
 test('stringify', () => {
-  let basic = unified().use(stringify).use(mdx)
+  const basic = unified().use(stringify).use(mdx)
 
   assert.throws(
-    function () {
+    () => {
       basic.stringify(
         u(
           'mdxJsxTextElement',
@@ -1079,7 +1077,7 @@ test('stringify', () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.stringify(
         u(
           'mdxJsxTextElement',
@@ -1093,7 +1091,7 @@ test('stringify', () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.stringify(
         u(
           'mdxJsxTextElement',
@@ -1107,7 +1105,7 @@ test('stringify', () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.stringify(
         u(
           'mdxJsxTextElement',
@@ -1121,7 +1119,7 @@ test('stringify', () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.stringify(
         u(
           'mdxJsxTextElement',
@@ -1146,7 +1144,7 @@ test('stringify', () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       basic.stringify(
         u(
           'mdxJsxTextElement',
@@ -1445,14 +1443,13 @@ test('fixtures', () => {
   fs.readdirSync(base)
     .filter(d => /\.md$/.test(d))
     .forEach(name => {
-      let proc = unified().use(parse).use(stringify).use(mdx)
-      let fpIn = path.join(base, name)
-      let fpExpected = fpIn.replace(/\.md$/, '.json')
-      let fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
-      let input = vfile.readSync(fpIn)
-      let tree = JSON.parse(JSON.stringify(proc.parse(input)))
-      let doc = proc.stringify(tree)
-      let reparsed
+      const proc = unified().use(parse).use(stringify).use(mdx)
+      const fpIn = path.join(base, name)
+      const fpExpected = fpIn.replace(/\.md$/, '.json')
+      const fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
+      const input = vfile.readSync(fpIn)
+      const tree = JSON.parse(JSON.stringify(proc.parse(input)))
+      const doc = proc.stringify(tree)
       let expected
       let expectedDoc
 
@@ -1484,7 +1481,7 @@ test('fixtures', () => {
 
       assert.equal(doc, expectedDoc, input.stem + ' (doc)')
 
-      reparsed = proc.parse(doc)
+      const reparsed = proc.parse(doc)
 
       assert.equal(clean(reparsed), clean(tree), input.stem + ' (re)')
     })

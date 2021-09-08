@@ -38,17 +38,17 @@
     "test": "yarn format && yarn test-coverage && yarn test-types"
   },
   "dependencies": {
-    "mdast-util-mdx": "^0.1.1",
+    "mdast-util-mdx": "^0.1.0",
     "micromark-extension-mdx": "^0.2.0",
     "micromark-extension-mdxjs": "^0.3.0"
   },
   "devDependencies": {
-    "nyc": "^15.1.0",
+    "nyc": "^15.0.0",
     "remark-parse": "^9.0.0",
-    "remark-stringify": "^9.0.1",
-    "to-vfile": "^6.1.0",
+    "remark-stringify": "^9.0.0",
+    "to-vfile": "^6.0.0",
     "unified": "^9.0.0",
-    "unist-builder": "^2.0.3",
+    "unist-builder": "^2.0.0",
     "unist-util-remove-position": "^3.0.0",
     "unist-util-visit": "^2.0.0"
   },
