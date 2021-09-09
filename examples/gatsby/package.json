@@ -12,7 +12,6 @@
     "gatsby": "^2.0.0",
     "gatsby-plugin-mdx": "^1.0.0",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "unified-ui": "^0.0.3"
+    "react-dom": "^17.0.0"
   }
 }
