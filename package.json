@@ -22,7 +22,7 @@
     "docs-build": "gatsby build",
     "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
     "format": "yarn lint --fix",
-    "lint": "eslint . --cache --ext .jsx -f friendly",
+    "lint": "eslint --ext .jsx --format friendly --report-unused-disable-directives --cache .",
     "vercel-build": "yarn build && yarn docs-build",
     "publish-ci": "lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
@@ -77,7 +77,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,md,mdx}": [
-      "eslint --cache --fix -f friendly"
+      "eslint --fix --format friendly --report-unused-disable-directives --cache"
     ],
     "*.{css,html,json,ts,tsx,yml}": [
       "prettier --write"
