@@ -19,7 +19,7 @@ export default ({data: {doc}}) => {
 }
 
 export const pageQuery = graphql`
-  query($id: String!) {
+  query ($id: String!) {
     doc: docs(id: {eq: $id}) {
       id
       title

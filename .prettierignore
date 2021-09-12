@@ -1,4 +1,8 @@
-.next
-dist
-node_modules
+/build/
+.cache/
+.next/
+coverage/
+dist/
+fixtures/
+node_modules/
 *.min.*

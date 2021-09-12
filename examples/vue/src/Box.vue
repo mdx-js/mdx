@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:style="{ backgroundColor: 'tomato', padding: '1em' }">
+  <div v-bind:style="{backgroundColor: 'tomato', padding: '1em'}">
     <slot></slot>
   </div>
 </template>

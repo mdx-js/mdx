@@ -4,11 +4,12 @@ import CodeBlock from './code-block'
 import Link from './link'
 import Redirect from './redirect'
 
-const heading = Tag => props => (
-  <Tag {...props}>
-    <a href={'#' + props.id}>{props.children}</a>
-  </Tag>
-)
+const heading = Tag => props =>
+  (
+    <Tag {...props}>
+      <a href={'#' + props.id}>{props.children}</a>
+    </Tag>
+  )
 
 export const code = props => {
   const lang = (props.className || '').split(' ')[0].replace(/^language-/, '')
