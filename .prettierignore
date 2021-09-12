@@ -6,3 +6,6 @@ dist/
 fixtures/
 node_modules/
 *.min.*
+/build/
+*.md
+*.mdx

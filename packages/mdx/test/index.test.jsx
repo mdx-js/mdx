@@ -3,8 +3,10 @@ const assert = require('uvu/assert')
 const path = require('path')
 const babel = require('@babel/core')
 const unified = require('unified')
-const React = require('react')
-const {renderToStaticMarkup} = require('react-dom/server')
+const React = require('../../react/node_modules/react')
+const {
+  renderToStaticMarkup
+} = require('../../react/node_modules/react-dom/server')
 const {mdx: mdxReact, MDXProvider} = require('../../react')
 const mdx = require('..')
 const toMdxHast = require('../mdx-ast-to-mdx-hast')

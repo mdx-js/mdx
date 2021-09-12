@@ -1,0 +1,23 @@
+import {NavGroup} from '../_component/nav.server.js'
+
+# Advanced
+
+Typically, you’d use MDX through something like [Webpack, Create React App,
+Next, Gatsby, or others][getting-started].
+Most of the time, it “Just Works”.
+But there are some reasons to interact with the MDX library and its internals
+directly.
+
+{
+  (() => {
+    const advanced = props.navTree.children.find((item) => item.name === '/advanced/')
+
+    return (
+      <nav>
+        <NavGroup items={advanced.children} includeDescription />
+      </nav>
+    )
+  })()
+}
+
+[getting-started]: /getting-started

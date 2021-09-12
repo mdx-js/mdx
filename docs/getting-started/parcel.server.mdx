@@ -1,0 +1,82 @@
+import {Note} from '../_component/note.server.js'
+
+# Parcel
+
+[@parcel/transformer-mdx][] is the official plugin for Parcel 2.
+
+## Install
+
+```shell
+npm install --save-dev parcel react react-dom
+```
+
+- `parcel` in order to `npm exec -- parcel`.
+- `react` so Parcel [detects][isjsx] that the `@parcel/transformer-mdx` output is JSX.
+  This seems unnecessary, but actually it is.
+  Probably in the future the MDX transformer will [compile away the JSX][xdm jsx] -- but [not in every case][xdm vue]?
+- `react-dom` to render the output into the DOM.
+
+## Use
+
+```shell
+npm exec -- parcel index.html
+```
+
+## Guide
+
+To get started, see the [MDX + Parcel example][example], the Parcel [web app][web app recipe] and Parcel [React][react recipe] recipes and the [@mdx-js/react][] package.
+
+Synthesizing those resources, assume your project contains the following three files: `index.html`, `hello.js` and `hello.mdx`, and that `hello.js` contains the following React:
+
+```javascript
+// hello.js
+import ReactDOM from 'react-dom'
+import {MDXProvider} from '@mdx-js/react'
+import Hello from './hello.mdx'
+
+// Intercept headings.
+function h1(props) {
+  return <h1 style={{color: 'tomato'}} {...props} />
+}
+
+// Render the MDX into the DOM.
+ReactDOM.render(
+  <MDXProvider components={{h1}}>
+    <Hello />
+  </MDXProvider>,
+  document.getElementById('root')
+)
+```
+
+Running `npm exec -- parcel index.html` will build it, and visiting http://localhost:1234 will contain:
+
+```html
+<h1 style="color:tomato">Hello, World! 2</h1>
+```
+
+... assuming `hello.mdx` contains:
+
+```markdown
+# Hello, World! {1 + 1}
+```
+
+{/* eslint-disable react/no-unescaped-entities */}
+{/* https://github.com/mdx-js/mdx/pull/1626#discussion_r701205052 */}
+
+<Note>
+
+[You need to use][type=module] `<script src="hello.js" type="module"></script>` to reference `hello.js` from `index.html`, otherwise you will see the following error:
+
+> @parcel/transformer-js: Browser scripts cannot have imports or exports.
+
+</Note>
+
+[@mdx-js/react]: https://www.npmjs.com/package/@mdx-js/react
+[@parcel/transformer-mdx]: https://www.npmjs.com/package/@parcel/transformer-mdx
+[example]: https://github.com/mdx-js/mdx/tree/main/examples/parcel
+[isjsx]: https://github.com/parcel-bundler/parcel/blob/f03eddda4ca3de324586a163e3341ae88a8729d8/packages/transformers/js/src/JSTransformer.js#L225-L229
+[react recipe]: https://v2.parceljs.org/recipes/react
+[type=module]: https://v2.parceljs.org/languages/javascript/#:~:text=Parcel%20matches,one%20below.
+[web app recipe]: https://v2.parceljs.org/getting-started/webapp
+[xdm jsx]: https://github.com/wooorm/xdm#optionsjsx
+[xdm vue]: https://github.com/wooorm/xdm#vue

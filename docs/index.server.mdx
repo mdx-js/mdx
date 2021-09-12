@@ -1,0 +1,58 @@
+import {Chart} from './_component/snowfall.server.js'
+export {Home as default} from './_component/home.server.js'
+export const year = 2018
+
+Markdown for the\
+**component era**
+=
+
+MDX is an authorable format that lets you seamlessly write JSX in your Markdown documents. You can import components, such as interactive charts or alerts, and embed them within your content. This makes writing long-form content with components a blast 🚀.
+
+***
+
+## How does it work?
+
+<div className="home-columns">
+  <div className="home-column-start">
+    You write markdown with embedded components through JSX:
+
+    ```md
+    import {Chart} from './snowfall.js'
+    export const year = 2018
+
+    # Last year’s snowfall
+
+    In {year}, the snowfall was above average.
+    It was followed by a warm spring which caused
+    flood conditions in many of the nearby rivers.
+
+    <Chart year={year} color="#fcb32c" />
+    ```
+  </div>
+
+  <div className="home-column-end">
+    It’s compiled to JavaScript you can use in any framework that supports JSX:
+
+    <div className="home-preview">
+      # Last year’s snowfall
+
+      In {year}, the snowfall was above average. It was followed by a warm spring
+      which caused flood conditions in many of the nearby rivers.
+
+      <Chart year={year} color="#fcb32c" />
+    </div>
+  </div>
+</div>
+
+***
+
+## New: MDX v2!
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+* Bullet
+* Bullet
+* Bullet
+* Bullet
+
+[Read the announcement »](/blog/v2/)
