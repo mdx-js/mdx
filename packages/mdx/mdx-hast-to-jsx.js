@@ -1,5 +1,5 @@
 const toEstree = require('hast-util-to-estree')
-const walk = require('estree-walker').walk
+const {walk} = require('estree-walker')
 const periscopic = require('periscopic')
 const estreeToJs = require('./estree-to-js')
 
@@ -83,13 +83,13 @@ function serializeEstree(estree, options) {
   const stack = []
 
   walk(estree, {
-    enter: function (node) {
+    enter(node) {
       if (
         node.type === 'JSXElement' &&
         // To do: support members (`<x.y>`).
         node.openingElement.name.type === 'JSXIdentifier'
       ) {
-        const name = node.openingElement.name.name
+        const {name} = node.openingElement.name
 
         if (stack.length > 1) {
           const parentName = stack[stack.length - 1]
@@ -123,7 +123,7 @@ function serializeEstree(estree, options) {
         stack.push(name)
       }
     },
-    leave: function (node) {
+    leave(node) {
       if (
         node.type === 'JSXElement' &&
         // To do: support members (`<x.y>`).
@@ -147,7 +147,7 @@ function serializeEstree(estree, options) {
       }
     }
 
-    exports.push({type: 'ExportDefaultDeclaration', declaration: declaration})
+    exports.push({type: 'ExportDefaultDeclaration', declaration})
   }
 
   estree.body = [
@@ -228,7 +228,7 @@ function createMdxContent(children) {
                 type: 'JSXClosingElement',
                 name: {type: 'JSXIdentifier', name: 'MDXLayout'}
               },
-              children: children
+              children
             }
           }
         ]
@@ -278,7 +278,7 @@ function createMdxLayout(declaration, mdxLayoutDefault) {
       : {
           type: 'VariableDeclaration',
           declarations: [
-            {type: 'VariableDeclarator', id: id, init: declaration || init}
+            {type: 'VariableDeclarator', id, init: declaration || init}
           ],
           kind: 'const'
         }

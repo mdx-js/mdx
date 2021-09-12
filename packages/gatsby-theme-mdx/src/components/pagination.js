@@ -22,82 +22,80 @@ const removeSlash = str => (str.length > 1 ? str.replace(/\/$/, '') : str)
 
 export default () => (
   <Location
-    children={({location}) => {
-      return (
-        <SidebarContent
-          components={{
-            wrapper: PaginationWrapper
-          }}
-          render={links => {
-            const index = links.findIndex(
-              link => link.props.href === removeSlash(location.pathname)
-            )
-            const hasPagination = index > -1
-            const previous = links[index - 1]
-            const next = links[index + 1]
+    children={({location}) => (
+      <SidebarContent
+        components={{
+          wrapper: PaginationWrapper
+        }}
+        render={links => {
+          const index = links.findIndex(
+            link => link.props.href === removeSlash(location.pathname)
+          )
+          const hasPagination = index > -1
+          const previous = links[index - 1]
+          const next = links[index + 1]
 
-            return (
-              <ThemeProvider
-                theme={{
-                  styles: {
-                    a: {
-                      color: 'inherit',
-                      textDecoration: 'none',
-                      fontWeight: 'bold',
-                      fontSize: [2, 3],
-                      '&:hover': {
-                        color: 'primary'
-                      }
+          return (
+            <ThemeProvider
+              theme={{
+                styles: {
+                  a: {
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    fontWeight: 'bold',
+                    fontSize: [2, 3],
+                    '&:hover': {
+                      color: 'primary'
                     }
                   }
-                }}
+                }
+              }}
+            >
+              <div
+                css={css({
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  py: 5
+                })}
               >
-                <div
-                  css={css({
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    py: 5
-                  })}
-                >
-                  {hasPagination &&
-                    previous &&
-                    React.cloneElement(
-                      previous,
-                      {},
-                      <div>
-                        <div
-                          css={css({
-                            fontSize: 0
-                          })}
-                        >
-                          Previous:
-                        </div>
-                        {previous.props.children}
+                {hasPagination &&
+                  previous &&
+                  React.cloneElement(
+                    previous,
+                    {},
+                    <div>
+                      <div
+                        css={css({
+                          fontSize: 0
+                        })}
+                      >
+                        Previous:
                       </div>
-                    )}
-                  <div css={{margin: 'auto'}} />
-                  {hasPagination &&
-                    next &&
-                    React.cloneElement(
-                      next,
-                      {},
-                      <div>
-                        <div
-                          css={css({
-                            fontSize: 0
-                          })}
-                        >
-                          Next:
-                        </div>
-                        {next.props.children}
+                      {previous.props.children}
+                    </div>
+                  )}
+                <div css={{margin: 'auto'}} />
+                {hasPagination &&
+                  next &&
+                  React.cloneElement(
+                    next,
+                    {},
+                    <div>
+                      <div
+                        css={css({
+                          fontSize: 0
+                        })}
+                      >
+                        Next:
                       </div>
-                    )}
-                </div>
-              </ThemeProvider>
-            )
-          }}
-        />
-      )
-    }}
+                      {next.props.children}
+                    </div>
+                  )}
+              </div>
+            </ThemeProvider>
+          )
+        }}
+      />
+    )}
   />
 )

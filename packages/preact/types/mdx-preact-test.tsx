@@ -1,4 +1,5 @@
-import {h, ComponentChildren, Fragment} from 'preact'
+import {h, Fragment} from 'preact'
+import type {ComponentChildren} from 'preact'
 import {useContext} from 'preact/hooks'
 import {
   MDXProvider,

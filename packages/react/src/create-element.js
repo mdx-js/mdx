@@ -40,8 +40,8 @@ const MDXCreateElement = React.forwardRef((props, ref) => {
 
 MDXCreateElement.displayName = 'MDXCreateElement'
 
-function mdx(type, props) {
-  const args = arguments
+function mdx(type, props, ...rest) {
+  const args = [type, props, ...rest]
   const mdxType = props && props.mdxType
 
   if (typeof type === 'string' || mdxType) {
@@ -51,7 +51,7 @@ function mdx(type, props) {
     createElementArgArray[0] = MDXCreateElement
 
     const newProps = {}
-    for (let key in props) {
+    for (const key in props) {
       /* istanbul ignore else - folks putting stuff in `prototype`. */
       if (hasOwnProperty.call(props, key)) {
         newProps[key] = props[key]

@@ -29,9 +29,7 @@ module.exports = mdxLoader
 
 async function mdxLoader(content) {
   const callback = this.async()
-  const options = Object.assign({}, getOptions(this), {
-    filepath: this.resourcePath
-  })
+  const options = {...getOptions(this), filepath: this.resourcePath}
   let result
 
   try {

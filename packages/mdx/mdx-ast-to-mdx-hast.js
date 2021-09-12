@@ -3,8 +3,8 @@ const detab = require('detab')
 const u = require('unist-builder')
 
 function mdxAstToMdxHast() {
-  return tree => {
-    return toHast(tree, {
+  return tree =>
+    toHast(tree, {
       passThrough: [
         'mdxFlowExpression',
         'mdxJsxFlowElement',
@@ -21,7 +21,7 @@ function mdxAstToMdxHast() {
         // and support it also as a key/value attribute setter.
         code(h, node) {
           const value = node.value ? detab(node.value + '\n') : ''
-          const lang = node.lang
+          const {lang} = node
           const props = {}
 
           if (lang) {
@@ -62,7 +62,6 @@ function mdxAstToMdxHast() {
         }
       }
     })
-  }
 }
 
 module.exports = mdxAstToMdxHast

@@ -1,20 +1,13 @@
 {
   "$schema": "http://json.schemastore.org/lerna",
   "version": "2.0.0-next.9",
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "exact": true,
   "command": {
     "publish": {
-      "ignoreChanges": [
-        "**/docs/**",
-        "**/examples/**",
-        "**/test/**",
-        "**/*.md"
-      ]
+      "ignoreChanges": ["**/docs/**", "**/examples/**", "**/test/**", "**/*.md"]
     }
   }
 }

@@ -9,8 +9,8 @@ const _extends = require('@babel/runtime/helpers/extends')
 const _objectWithoutProperties = require('@babel/runtime/helpers/objectWithoutProperties')
 const {mdx} = require('../../react')
 
-const transform = (filePath, options) => {
-  return new Promise((resolve, reject) => {
+const transform = (filePath, options) =>
+  new Promise((resolve, reject) => {
     // Webpack 5: const fs = new MemoryFs()
     const compiler = webpack({
       context: __dirname,
@@ -54,7 +54,6 @@ const transform = (filePath, options) => {
       }
     })
   })
-}
 
 const run = value => {
   // Webpack 5 (replace everything in this function with):

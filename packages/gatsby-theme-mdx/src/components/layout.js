@@ -139,8 +139,9 @@ export default props => {
   const [dark, setDark] = useState(() => {
     if (typeof window === `undefined`) return false
 
-    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)')
-      .matches
+    const prefersDarkMode = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
     return window.localStorage.getItem('dark') === 'true' || prefersDarkMode
   })
 

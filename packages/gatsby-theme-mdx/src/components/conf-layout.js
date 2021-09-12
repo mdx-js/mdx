@@ -74,18 +74,16 @@ const Speaker = props => {
   )
 }
 
-const SpeakerList = props => {
-  return (
-    <div
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        ml: '-1%'
-      }}
-      {...props}
-    />
-  )
-}
+const SpeakerList = props => (
+  <div
+    sx={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      ml: '-1%'
+    }}
+    {...props}
+  />
+)
 
 const confComponents = {
   h1: props => (

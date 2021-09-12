@@ -1,6 +1,6 @@
 // TypeScript Version: 3.4
 
-import {CreateElement} from 'vue'
+import type {CreateElement} from 'vue'
 
 /**
  * Vue createElement function wrapped with handler for MDX content

@@ -1,14 +1,12 @@
-module.exports = () => {
-  return {
-    visitor: {
-      ExportNamedDeclaration(path) {
-        const declaration = path.node.declaration
+module.exports = () => ({
+  visitor: {
+    ExportNamedDeclaration(path) {
+      const {declaration} = path.node
 
-        // Ignore "export { Foo as default }" syntax
-        if (declaration) {
-          path.replaceWith(declaration)
-        }
+      // Ignore "export { Foo as default }" syntax
+      if (declaration) {
+        path.replaceWith(declaration)
       }
     }
   }
-}
+})

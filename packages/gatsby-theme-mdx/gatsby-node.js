@@ -1,29 +1,25 @@
 const crypto = require(`crypto`)
 const path = require(`path`)
 
-let basePath = '/'
-let contentPath = 'docs'
+const basePath = '/'
+const contentPath = 'docs'
 
 const DocTemplate = require.resolve('./src/templates/doc')
 
-const mdxResolverPassthrough = fieldName => async (
-  source,
-  args,
-  context,
-  info
-) => {
-  const type = info.schema.getType(`Mdx`)
-  const mdxNode = context.nodeModel.getNodeById({
-    id: source.parent
-  })
+const mdxResolverPassthrough =
+  fieldName => async (source, args, context, info) => {
+    const type = info.schema.getType(`Mdx`)
+    const mdxNode = context.nodeModel.getNodeById({
+      id: source.parent
+    })
 
-  const resolver = type.getFields()[fieldName].resolve
-  const result = await resolver(mdxNode, args, context, {
-    fieldName
-  })
+    const resolver = type.getFields()[fieldName].resolve
+    const result = await resolver(mdxNode, args, context, {
+      fieldName
+    })
 
-  return result
-}
+    return result
+  }
 
 exports.sourceNodes = ({actions, schema}) => {
   const {createTypes} = actions
@@ -105,8 +101,8 @@ exports.onCreateNode = ({node, actions, getNode, createNodeId}) => {
       })
     }
 
-    const title = node.frontmatter.title
-    const description = node.frontmatter.description
+    const {title} = node.frontmatter
+    const {description} = node.frontmatter
 
     const fieldData = {title, description, slug}
 
