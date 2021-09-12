@@ -1,7 +1,7 @@
-// TypeScript Version: 3.5
+// Minimum TypeScript Version: 3.8
 
 import {h, Fragment} from 'preact'
-
+// tslint:disable-next-line: no-duplicate-imports
 import type {Context, AnyComponent, FunctionComponent, VNode} from 'preact'
 
 /**

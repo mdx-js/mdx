@@ -1,4 +1,5 @@
 import {h, Fragment} from 'preact'
+// tslint:disable-next-line: no-duplicate-imports
 import type {ComponentChildren} from 'preact'
 import {useContext} from 'preact/hooks'
 import {
