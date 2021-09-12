@@ -33,7 +33,7 @@ const runtime = ({
     })
     .trim()
 
-  const code = transform(jsx, {objectAssign: 'Object.assign'}).code
+  const {code} = transform(jsx, {objectAssign: 'Object.assign'})
 
   const keys = Object.keys(fullScope)
   const values = Object.values(fullScope)

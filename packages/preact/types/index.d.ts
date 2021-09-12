@@ -1,13 +1,8 @@
 // TypeScript Version: 3.5
 
-import {
-  h,
-  Context,
-  AnyComponent,
-  Fragment,
-  FunctionComponent,
-  VNode
-} from 'preact'
+import {h, Fragment} from 'preact'
+
+import type {Context, AnyComponent, FunctionComponent, VNode} from 'preact'
 
 /**
  * Mapping of names for JSX components to React components

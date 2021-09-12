@@ -2,22 +2,23 @@ const astring = require('astring')
 
 module.exports = estreeToJs
 
-const customGenerator = Object.assign({}, astring.baseGenerator, {
-  JSXAttribute: JSXAttribute,
-  JSXClosingElement: JSXClosingElement,
-  JSXClosingFragment: JSXClosingFragment,
-  JSXElement: JSXElement,
-  JSXEmptyExpression: JSXEmptyExpression,
-  JSXExpressionContainer: JSXExpressionContainer,
-  JSXFragment: JSXFragment,
-  JSXIdentifier: JSXIdentifier,
-  JSXMemberExpression: JSXMemberExpression,
-  JSXNamespacedName: JSXNamespacedName,
-  JSXOpeningElement: JSXOpeningElement,
-  JSXOpeningFragment: JSXOpeningFragment,
-  JSXSpreadAttribute: JSXSpreadAttribute,
-  JSXText: JSXText
-})
+const customGenerator = {
+  ...astring.baseGenerator,
+  JSXAttribute,
+  JSXClosingElement,
+  JSXClosingFragment,
+  JSXElement,
+  JSXEmptyExpression,
+  JSXExpressionContainer,
+  JSXFragment,
+  JSXIdentifier,
+  JSXMemberExpression,
+  JSXNamespacedName,
+  JSXOpeningElement,
+  JSXOpeningFragment,
+  JSXSpreadAttribute,
+  JSXText
+}
 
 function estreeToJs(estree) {
   return astring.generate(estree, {generator: customGenerator})

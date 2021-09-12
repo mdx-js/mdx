@@ -1,18 +1,18 @@
 'use strict'
 
-let syntaxMdx = require('micromark-extension-mdx')
-let syntaxMdxjs = require('micromark-extension-mdxjs')
-let fromMarkdown = require('mdast-util-mdx/from-markdown')
-let toMarkdown = require('mdast-util-mdx/to-markdown')
+const syntaxMdx = require('micromark-extension-mdx')
+const syntaxMdxjs = require('micromark-extension-mdxjs')
+const fromMarkdown = require('mdast-util-mdx/from-markdown')
+const toMarkdown = require('mdast-util-mdx/to-markdown')
 
 let warningIssued
 
 module.exports = mdx
 
 function mdx(options) {
-  let settings = options || {}
-  let syntax = settings.js === false ? syntaxMdx : syntaxMdxjs
-  let data = this.data()
+  const settings = options || {}
+  const syntax = settings.js === false ? syntaxMdx : syntaxMdxjs
+  const data = this.data()
 
   // Old remark.
   /* c8 ignore next 14 */

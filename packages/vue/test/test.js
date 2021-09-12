@@ -92,7 +92,7 @@ test('should evaluate some more complex MDX code (flow, block)', async () => {
 
 test('should warn on missing components', async () => {
   const Content = await run('<Component />')
-  const warn = console.warn
+  const {warn} = console
   const calls = []
   console.warn = (...parameters) => {
     calls.push(parameters)
@@ -138,7 +138,7 @@ test('should support `components`', async () => {
           em: {
             name: 'emphasis',
             props: ['id'],
-            render: function (h) {
+            render(h) {
               return h(
                 'i',
                 {attrs: {id: this.id}, style: {fontWeight: 'bold'}},
@@ -155,7 +155,7 @@ test('should support `components`', async () => {
 
 test('should support functional `components`', async () => {
   const Content = await run('*a* and <em id="b">c</em>.')
-  const error = console.error
+  const {error} = console
   console.error = () => {}
 
   assert.equal(
@@ -163,7 +163,7 @@ test('should support functional `components`', async () => {
       slots: {default: [Content]},
       propsData: {
         components: {
-          em: function (h) {
+          em(h) {
             return h('i', {style: {fontWeight: 'bold'}}, this.$slots.default)
           }
         }

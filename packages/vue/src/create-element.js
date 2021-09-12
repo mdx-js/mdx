@@ -5,7 +5,7 @@ const defaults = {
   inlineCode: 'code',
   wrapper: {
     name: 'MDXWrapper',
-    render: function (h) {
+    render(h) {
       const children = this.$slots.default
       return children.length === 1 ? children : h('div', {}, children)
     }

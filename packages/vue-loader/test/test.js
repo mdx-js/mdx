@@ -10,8 +10,8 @@ const vueMergeProps = require('babel-helper-vue-jsx-merge-props')
 const {mdx} = require('../../vue')
 
 // See `loader`’s tests for how to upgrade these to webpack 5.
-const transform = (filePath, options) => {
-  return new Promise((resolve, reject) => {
+const transform = (filePath, options) =>
+  new Promise((resolve, reject) => {
     const compiler = webpack({
       context: __dirname,
       entry: filePath,
@@ -45,7 +45,6 @@ const transform = (filePath, options) => {
       }
     })
   })
-}
 
 const run = value => {
   // Replace import/exports w/ parameters and return value.
