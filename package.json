@@ -28,8 +28,8 @@
     "publish-next": "lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
     "test-api": "lerna run test-api",
     "test-coverage": "lerna run test-coverage",
-    "test-types": "lerna run test-types",
-    "test": "yarn build && yarn lint && yarn test-coverage"
+    "test-types": "lerna --concurrency 1 run test-types",
+    "test": "yarn build && yarn lint && yarn test-coverage && yarn test-types"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
