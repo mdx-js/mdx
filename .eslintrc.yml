@@ -48,14 +48,13 @@ settings:
     version: 16.3.2
 
 overrides:
-  - files: '*.{md,mdx}'
-    extends:
-      - plugin:mdx/recommended
-      - plugin:mdx/overrides
-    rules:
-      import/no-extraneous-dependencies: 0
-      prettier/prettier: error
-
+  # - files: '*.{md,mdx}'
+  #   extends:
+  #     - plugin:mdx/recommended
+  #     - plugin:mdx/overrides
+  #   rules:
+  #     import/no-extraneous-dependencies: 0
+  #     prettier/prettier: error
   - files:
       - '**/test/**/*.{js,jsx}'
       - '**/*.test.{js,jsx}'
@@ -95,3 +94,4 @@ overrides:
       '@typescript-eslint/no-unused-vars': off # https://github.com/typescript-eslint/typescript-eslint/issues/2867
       import/no-extraneous-dependencies: off
       'no-unused-expressions': off
+      'capitalized-comments': off

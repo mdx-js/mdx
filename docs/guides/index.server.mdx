@@ -1,0 +1,21 @@
+import {NavGroup} from '../_component/nav.server.js'
+export const navSortSelf = 5
+
+# Guides
+
+There’s a lot of things you can do with MDX, so we’ve begun collecting guides
+for common use cases, tools, and patterns.
+It’s intended to become the central knowledge base for MDX, so please feel free
+to add to them by [contributing](/contributing)!
+
+{
+  (() => {
+    const advanced = props.navTree.children.find((item) => item.name === '/guides/')
+
+    return (
+      <nav>
+        <NavGroup items={advanced.children} includeDescription />
+      </nav>
+    )
+  })()
+}

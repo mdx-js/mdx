@@ -1,0 +1,17 @@
+import {NavGroup} from '../_component/nav.server.js'
+export const navExcludeGroup = true
+export const navSortItems = 'navSortSelf,meta.published:desc'
+
+# Blog
+
+{
+  (() => {
+    const blog = props.navTree.children.find((item) => item.name === '/blog/')
+
+    return (
+      <nav>
+        <NavGroup items={blog.children} sort={navSortItems} includePublished />
+      </nav>
+    )
+  })()
+}

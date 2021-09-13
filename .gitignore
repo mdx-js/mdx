@@ -3,7 +3,6 @@ package-lock.json
 dist
 cache
 build
-bundle.js
 .next
 *-error.log
 *-debug.log
