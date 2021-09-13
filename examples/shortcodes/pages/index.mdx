@@ -1,4 +1,4 @@
-import {Tweet, TextGradient, YouTube} from '@blocks/kit'
+import {TwitterTweetEmbed} from 'react-twitter-embed'
 
 export default ({children}) => (
   <div
@@ -14,16 +14,8 @@ export default ({children}) => (
 
 # Hello, world!
 
-Here’s a Twitter shortcode:
+Here’s a tweet:
 
-<Tweet tweetId="1116723357410447360" />
-
-<TextGradient>
-
-## Here’s a text gradient shortcode!
-
-</TextGradient>
-
-Here’s a YouTube shortcode:
-
-<YouTube videoId="4fHw4GeW3EU" />
+<TwitterTweetEmbed
+  tweetId={'1116723357410447360'}
+/>

@@ -21,7 +21,7 @@ const ImperativeCounter =
         }
       }
 
-export const Counter = () => {
+const Counter = () => {
   useEffect(() => {
     window.customElements.define('i-counter', ImperativeCounter)
   }, [])
@@ -36,3 +36,5 @@ export const Counter = () => {
     </div>
   )
 }
+
+export default Counter

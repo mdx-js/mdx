@@ -1,12 +1,27 @@
-# MDX + Next.js
+# Next.js + MDX
 
-A basic example using imports and custom components.
+> [Try it on CodeSandbox](https://codesandbox.io/s/github/mdx-js/mdx/tree/main/examples/next)
 
-> [Try it on CodeSandbox](https://codesandbox.io/s/github/mdx-js/mdx/tree/master/examples/next)
+> [More information on our website](https://mdxjs.com/getting-started/next/)
+
+> [More information on `@next/mdx`](https://github.com/vercel/next.js/tree/canary/packages/next-mdx)
+> (their repo)
+
+Install:
 
 ```sh
 yarn
-yarn dev
 ```
 
-[See documentation](https://mdxjs.com/getting-started/next)
+Then, to start a development server:
+
+```sh
+yarn start
+```
+
+Alternatively, to build for production and serve the resulting `build/`:
+
+```sh
+yarn build
+npx serve build/
+```
