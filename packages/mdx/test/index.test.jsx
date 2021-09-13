@@ -1,20 +1,20 @@
-const {test} = require('uvu')
-const assert = require('uvu/assert')
-const path = require('path')
-const babel = require('@babel/core')
-const unified = require('unified')
-const React = require('../../react/node_modules/react')
-const {
+import {test} from 'uvu'
+import assert from 'uvu/assert'
+import path from 'path'
+import babel from '@babel/core'
+import unified from 'unified'
+import React from '../../react/node_modules/react'
+import {
   renderToStaticMarkup
-} = require('../../react/node_modules/react-dom/server')
-const {mdx: mdxReact, MDXProvider} = require('../../react')
-const mdx = require('..')
-const toMdxHast = require('../mdx-ast-to-mdx-hast')
-const toJsx = require('../mdx-hast-to-jsx')
-const footnotes = require('remark-footnotes')
-const gfm = require('remark-gfm')
-const math = require('remark-math')
-const katex = require('rehype-katex')
+} from '../../react/node_modules/react-dom/server'
+import {mdx as mdxReact, MDXProvider} from '../../react'
+import mdx from '..'
+import toMdxHast from '../mdx-ast-to-mdx-hast'
+import toJsx from '../mdx-hast-to-jsx'
+import footnotes from 'remark-footnotes'
+import gfm from 'remark-gfm'
+import math from 'remark-math'
+import katex from 'rehype-katex'
 
 const run = async (value, options = {}) => {
   const doc = await mdx(value, {...options, skipExport: true})
@@ -243,7 +243,7 @@ test('should support `pre`/`code` from fenced code w/ lang in mdxhast', async ()
 test('should support attributes from fenced code meta string in mdxhast', async () => {
   const Content = await run('```js id class=y title=z\nx\n```')
   const {error} = console
-  console.error = () => {}
+  console.error = () => { /* Empty */ }
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -589,7 +589,9 @@ test('should support overwriting missing compile-time components at run-time', a
     renderToStaticMarkup(
       <MDXProvider
         components={{
-          Y: props => <span style={{color: 'tomato'}} {...props} />
+          Y(props) {
+            return <span style={{color: 'tomato'}} {...props} />
+          }
         }}
       >
         {<Content />}

@@ -7,8 +7,10 @@ const components = {
   h1: props => <h1 style={{color: 'tomato'}} {...props} />
 }
 
-export default () => (
+const App = () => (
   <MDXProvider components={components}>
     <Doc />
   </MDXProvider>
 )
+
+export default App

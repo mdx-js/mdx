@@ -1,6 +1,6 @@
-const React = require('react')
-const {render, Box, Text} = require('ink')
-const MDX = require('@mdx-js/runtime')
+import React from 'react'
+import {render, Box, Text} from 'ink'
+import MDX from '@mdx-js/runtime'
 
 const content = `
 # Hello, world!

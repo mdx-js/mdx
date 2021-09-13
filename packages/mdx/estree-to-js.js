@@ -29,7 +29,7 @@ function JSXAttribute(node, state) {
   state.write(' ')
   this[node.name.type](node.name, state)
 
-  if (node.value != null) {
+  if (node.value !== undefined && node.value !== null) {
     state.write('=')
 
     // Encode double quotes in attribute values.
