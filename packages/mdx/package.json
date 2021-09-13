@@ -2,7 +2,11 @@
   "name": "@mdx-js/mdx",
   "version": "2.0.0-next.9",
   "description": "Parse MDX and transpile to JSX",
-  "repository": "mdx-js/mdx",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx",
+    "directory": "packages/mdx"
+  },
   "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {

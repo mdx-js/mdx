@@ -1,11 +1,15 @@
 {
-  "name": "webpack-example",
+  "name": "webpack",
   "version": "2.0.0-next.9",
   "description": "",
   "author": "Brent Jackson",
   "license": "MIT",
   "private": true,
-  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx",
+    "directory": "examples/webpack"
+  },
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server"
