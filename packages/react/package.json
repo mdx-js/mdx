@@ -43,7 +43,7 @@
     "react": ">=16"
   },
   "devDependencies": {
-    "react": "^17.0.0",
+    "react": "^0.14.0",
     "react-dom": "^17.0.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"

@@ -15,7 +15,7 @@
     "razzle": "^4.0.0",
     "razzle-dev-utils": "^4.0.0",
     "razzle-plugin-mdx": "^4.0.0",
-    "react": "^17.0.0",
+    "react": "^0.14.0",
     "react-dom": "^17.0.0",
     "remark-emoji": "^2.0.0"
   }

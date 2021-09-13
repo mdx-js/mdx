@@ -88,7 +88,7 @@
     "postcss-cli": "^8.0.0",
     "postinstall-postinstall": "^2.0.0",
     "prettier": "^2.0.0",
-    "react": "0.0.0-experimental-7ec4c5597",
+    "react": "0.14.0",
     "react-dom": "0.0.0-experimental-7ec4c5597",
     "react-error-boundary": "^3.0.0",
     "react-fetch": "0.0.0-experimental-7ec4c5597",
