@@ -2,7 +2,11 @@
   "name": "@mdx-js/vue-loader",
   "version": "2.0.0-next.9",
   "description": "Vue loader for MDX",
-  "repository": "mdx-js/mdx",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx",
+    "directory": "packages/vue-loader"
+  },
   "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {

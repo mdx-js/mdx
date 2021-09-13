@@ -2,7 +2,11 @@
   "name": "create-mdx",
   "version": "2.0.0-next.9",
   "description": "Initialize an MDX project",
-  "repository": "mdx-js/mdx",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx",
+    "directory": "packages/create-mdx"
+  },
   "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
