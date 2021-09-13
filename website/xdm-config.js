@@ -135,11 +135,7 @@ function recmaInjectMeta(options = {}) {
         (!exclude || !exclude.includes(key)) &&
         (!include || include.includes(key))
       ) {
-        // To do: https://github.com/remcohaszing/estree-util-value-to-estree/pull/1.
-        value[key] =
-          key === 'descriptionHast'
-            ? JSON.parse(JSON.stringify(meta[key]))
-            : meta[key]
+        value[key] = meta[key]
       }
     }
 
@@ -152,7 +148,7 @@ function recmaInjectMeta(options = {}) {
           {
             type: 'VariableDeclarator',
             id: {type: 'Identifier', name: 'meta'},
-            init: valueToEstree(value)
+            init: valueToEstree(value, {instanceAsObject: true})
           }
         ]
       },
