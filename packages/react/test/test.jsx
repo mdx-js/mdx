@@ -1,7 +1,7 @@
 /* @jsx React.createElement */
 /* @jsxFrag React.Fragment */
-const {test} = require('uvu')
-const assert = require('uvu/assert')
+import {test} from 'uvu'
+import assert from 'uvu/assert'
 import path from 'path'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
@@ -136,11 +136,13 @@ test('should support `wrapper` in `components`', async () => {
 test('should support dots in component names (such as `ol.li`) for a direct child “selector”', async () => {
   const Content = await run('* a\n1. b')
 
+  const OlLi = props => <li className="ordered" {...props} />
+
   assert.equal(
     renderToString(
       <MDXProvider
         components={{
-          'ol.li': props => <li className="ordered" {...props} />
+          'ol.li': OlLi
         }}
       >
         <Content />
@@ -186,7 +188,7 @@ test('should support components as a function', async () => {
         }}
       >
         <MDXProvider
-          components={_outerComponents => ({
+          components={() => ({
             h2: props => <h2 style={{color: 'papayawhip'}} {...props} />
           })}
         >

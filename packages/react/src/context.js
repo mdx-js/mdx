@@ -4,12 +4,15 @@ const isFunction = obj => typeof obj === 'function'
 
 const MDXContext = React.createContext({})
 
-const withMDXComponents = Component => props => {
-  const allComponents = useMDXComponents(props.components)
-  return React.createElement(Component, {...props, allComponents})
+function withMDXComponents(Component) {
+  return boundMDXComponent
+  function boundMDXComponent(props) {
+    const allComponents = useMDXComponents(props.components)
+    return React.createElement(Component, {...props, allComponents})
+  }
 }
 
-const useMDXComponents = components => {
+function useMDXComponents(components) {
   const contextComponents = React.useContext(MDXContext)
 
   // Custom merge via a function prop
@@ -20,7 +23,7 @@ const useMDXComponents = components => {
   return {...contextComponents, ...components}
 }
 
-const MDXProvider = ({components, children, disableParentContext}) => {
+function MDXProvider({components, children, disableParentContext}) {
   let allComponents = useMDXComponents(components)
 
   if (disableParentContext) {

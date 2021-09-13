@@ -1,6 +1,6 @@
 // TypeScript Version: 3.4
 
-import {Plugin, Compiler, Processor} from 'unified'
+import {Plugin, Processor} from 'unified'
 
 declare namespace mdx {
   interface Options {

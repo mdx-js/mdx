@@ -1,8 +1,10 @@
 .cache/
 .next/
+artifacts/
 build/
 coverage/
 dist/
 fixtures/
+public/
 node_modules/
 *.min.*

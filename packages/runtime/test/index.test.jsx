@@ -1,9 +1,9 @@
 /* @jsx React.createElement */
 /* @jsxFrag React.Fragment */
-const {test} = require('uvu')
-const assert = require('uvu/assert')
-const React = require('../../react/node_modules/react')
-const {renderToString} = require('../../react/node_modules/react-dom/server')
+import {test} from 'uvu'
+import assert from 'uvu/assert'
+import React from '../../react/node_modules/react'
+import {renderToString} from '../../react/node_modules/react-dom/server'
 import slug from 'remark-slug'
 import autolinkHeadings from 'remark-autolink-headings'
 import addClasses from 'rehype-add-classes'
@@ -19,11 +19,16 @@ test('should support `components`', () => {
     renderToString(
       <MDX
         components={{
-          h1: props => <h1 style={{color: 'tomato'}} {...props} />,
-          Foo: () => <div>Foobarbaz</div>
+          h1(props) {
+            return <h1 style={{color: 'tomato'}} {...props} />
+          },
+          Foo() {
+            return <div>Foobarbaz</div>
+          }
         }}
-        children={'# Hello, world\n\n<Foo />'}
-      />
+      >
+        {'# Hello, world\n\n<Foo />'}
+      </MDX>
     ),
     '<h1 style="color:tomato">Hello, world</h1><div>Foobarbaz</div>'
   )
@@ -31,7 +36,7 @@ test('should support `components`', () => {
 
 test('should support `scope`', () => {
   assert.equal(
-    renderToString(<MDX scope={{some: 'value'}} children={'# {some}'} />),
+    renderToString(<MDX scope={{some: 'value'}}>{'# {some}'}</MDX>),
     '<h1>value</h1>'
   )
 })
@@ -39,12 +44,11 @@ test('should support `scope`', () => {
 test('should support a custom layout in the content', () => {
   assert.equal(
     renderToString(
-      <MDX
-        id="layout"
-        children={
+      <MDX id="layout">
+        {
           '# hi\nexport default ({children, id}) => <div id={id}>{children}</div>'
         }
-      />
+      </MDX>
     ),
     '<div id="layout"><h1>hi</h1></div>'
   )
@@ -66,25 +70,25 @@ test('should supports remark and rehype plugins', () => {
 
 test('should crash if non-syntactical MDX is used', async () => {
   assert.throws(() => {
-    renderToString(<MDX children={'<//>'} />)
+    renderToString(<MDX>{'<//>'}</MDX>)
   }, 'Unexpected character `/` (U+002F) before name, expected a character that can start a name')
 })
 
 test('should crash if non-syntactical JSX in JS is used', async () => {
   assert.throws(() => {
-    renderToString(<MDX children={'{<//>}'} />)
+    renderToString(<MDX>{'{<//>}'}</MDX>)
   }, 'Could not parse expression with acorn: Unexpected token')
 })
 
 test('should crash if non-syntactical JS is used', async () => {
   assert.throws(() => {
-    renderToString(<MDX children={'{1..2}'} />)
+    renderToString(<MDX>{'{1..2}'}</MDX>)
   }, 'Unexpected content after expression')
 })
 
 test('should crash if JS can’t be evaluated', async () => {
   assert.throws(() => {
-    renderToString(<MDX children={'{undefined()}'} />)
+    renderToString(<MDX>{'{undefined()}'}</MDX>)
   }, 'undefined is not a function')
 })
 

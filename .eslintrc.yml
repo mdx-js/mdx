@@ -23,75 +23,25 @@ extends:
   - prettier
 
 rules:
-  eqeqeq: off
-  no-eq-null: off
-  no-negated-condition: off
-  no-unused-vars:
-    - error
-    - args: after-used
-      argsIgnorePattern: '^_'
-  no-var: error
-  import/no-extraneous-dependencies: error
-  prettier/prettier: error
-  no-console: off
-  import/no-unresolved:
-    - error
-    - ignore:
-        - '@mdx-js/react'
   react/prop-types: off
-  react/display-name: off
-  react/no-children-prop: off
   react/react-in-jsx-scope: off
 
 settings:
   react:
-    version: 16.3.2
+    version: detect
 
 overrides:
-  # - files: '*.{md,mdx}'
-  #   extends:
-  #     - plugin:mdx/recommended
-  #     - plugin:mdx/overrides
-  #   rules:
-  #     import/no-extraneous-dependencies: 0
-  #     prettier/prettier: error
-  - files:
-      - '**/test/**/*.{js,jsx}'
-      - '**/*.test.{js,jsx}'
-    rules:
-      import/no-extraneous-dependencies: 0
-  - files:
-      - 'examples/**/*.js'
-    env:
-      browser: true
-  - files:
-      - 'docs/**/*.js'
-      - 'examples/**/*.js'
-    rules:
-      import/no-unresolved: off
-      import/no-extraneous-dependencies: off
-  - files:
-      - 'examples/next/**/*.js'
-    rules:
-      react/react-in-jsx-scope: off
-
-  - files:
-      - '*.ts'
-      - '*.tsx'
-    extends: 'plugin:@typescript-eslint/recommended'
-    settings:
-      import:
-        resolver:
-          typescript: null
-
   - files:
       - '*.d.ts'
       - '**/types/*.ts'
       - '**/types/*.tsx'
+    extends:
+      - eslint:recommended
+      - plugin:@typescript-eslint/recommended
     rules:
-      '@typescript-eslint/ban-types': off
+      '@typescript-eslint/no-unused-vars': off
       '@typescript-eslint/no-explicit-any': off
-      '@typescript-eslint/no-unused-vars': off # https://github.com/typescript-eslint/typescript-eslint/issues/2867
-      import/no-extraneous-dependencies: off
-      'no-unused-expressions': off
-      'capitalized-comments': off
+      capitalized-comments: off
+      no-unused-vars: off
+      no-unused-expressions: off
+      no-redeclare: off
