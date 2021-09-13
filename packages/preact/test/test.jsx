@@ -131,7 +131,7 @@ test('should support dots in component names (such as `ol.li`) for a direct chil
     render(
       <MDXProvider
         components={{
-          'ol.li': olLi
+          'ol.li': OlLi
         }}
       >
         <Content />

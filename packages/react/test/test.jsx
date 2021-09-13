@@ -136,13 +136,13 @@ test('should support `wrapper` in `components`', async () => {
 test('should support dots in component names (such as `ol.li`) for a direct child “selector”', async () => {
   const Content = await run('* a\n1. b')
 
-  const olLi = props => <li className="ordered" {...props} />
+  const OlLi = props => <li className="ordered" {...props} />
 
   assert.equal(
     renderToString(
       <MDXProvider
         components={{
-          'ol.li': olLi
+          'ol.li': OlLi
         }}
       >
         <Content />
