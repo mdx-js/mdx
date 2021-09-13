@@ -1,9 +1,10 @@
 import {execSync as exec} from 'child_process'
 
-let branch = String(exec('git rev-parse --abbrev-ref HEAD')).trim()
+let branch =
+  process.env.VERCEL_GIT_COMMIT_REF ||
+  String(exec('git rev-parse --abbrev-ref HEAD')).trim()
 
 console.log('branch:', [branch])
-console.log('env:', process.env)
 
 if (branch === 'HEAD') branch = 'main'
 

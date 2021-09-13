@@ -14,6 +14,7 @@ import rehypeSanitize, {defaultSchema} from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
 import captureWebsite from 'capture-website'
 import {config} from '../docs/_config.js'
+import chromium from 'chrome-aws-lambda'
 
 process.setMaxListeners(1024)
 
@@ -284,6 +285,14 @@ async function main() {
       } catch {}
 
       await captureWebsite.file(file.value, output, {
+        launchOptions: {
+          args: chromium.args,
+          defaultViewport: chromium.defaultViewport,
+          executablePath: await chromium.executablePath
+          // .
+          // headless: true,
+          // ignoreHTTPSErrors: true
+        },
         inputType: 'html',
         // This is doubled in the actual file dimensions.
         width: 1024,
