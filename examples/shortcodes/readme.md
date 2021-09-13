@@ -1,22 +1,5 @@
-# React + MDX: Shortcodes
+# Shortcodes
 
-> [Try it on CodeSandbox](https://codesandbox.io/s/github/mdx-js/mdx/tree/main/examples/shortcodes)
-
-Install:
-
-```sh
-yarn
-```
-
-Then, to start a development server:
-
-```sh
-yarn start
-```
-
-Alternatively, to build for production and serve the resulting `build/`:
-
-```sh
-yarn build
-npx serve build/
-```
+Please see
+[“Working with components”](https://mdxjs.com/getting-started/#working-with-components)
+on our site for how to use components

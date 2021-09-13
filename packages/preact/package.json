@@ -45,11 +45,11 @@
     "test": "yarn test-coverage && yarn test-types"
   },
   "peerDependencies": {
-    "preact": "^10.0.0"
+    "preact": ">=10.0.0"
   },
   "devDependencies": {
-    "preact": "^10.5.0",
-    "preact-render-to-string": "^5.1.10"
+    "preact": "^10.0.0",
+    "preact-render-to-string": "^5.0.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }
