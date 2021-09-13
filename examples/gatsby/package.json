@@ -3,7 +3,6 @@
   "version": "2.0.0-next.9",
   "private": true,
   "scripts": {
-    "#": "Note that `gatsby developt` currently doesn’t work due to pmmmwh/react-refresh-webpack-plugin#422",
     "build": "gatsby build",
     "start": "gatsby develop"
   },

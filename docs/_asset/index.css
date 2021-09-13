@@ -875,12 +875,15 @@ button:focus {
   ol blockquote,
   ul blockquote,
   blockquote blockquote,
+  .note blockquote,
   ol ol,
   ul ol,
   blockquote ol,
+  .note ol,
   ol ul,
   ul ul,
-  blockquote ul {
+  blockquote ul,
+  .note ul {
     margin-left: 0;
   }
 

@@ -3,10 +3,11 @@
   "version": "2.0.0-next.9",
   "private": true,
   "scripts": {
-    "start": "parcel index.html"
+    "build": "parcel build --dist-dir build index.html",
+    "start": "parcel serve index.html"
   },
   "devDependencies": {
-    "@mdx-js/react": "2.0.0-next.9",
+    "@mdx-js/react": "^1.0.0",
     "@parcel/transformer-mdx": "^2.0.0-rc.0",
     "parcel": "^2.0.0-rc.0",
     "react": "^17.0.0",
