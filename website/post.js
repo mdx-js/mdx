@@ -119,8 +119,6 @@ async function main() {
 
   console.log('✔ `/rss.xml`')
 
-  console.log('node:', process.versions)
-
   await Promise.all(
     allInfo.map(async data => {
       const {url, info} = data
@@ -289,9 +287,6 @@ async function main() {
           args: chromium.args,
           defaultViewport: chromium.defaultViewport,
           executablePath: await chromium.executablePath
-          // .
-          // headless: true,
-          // ignoreHTTPSErrors: true
         },
         inputType: 'html',
         // This is doubled in the actual file dimensions.

@@ -5,6 +5,8 @@ let branch =
   String(exec('git rev-parse --abbrev-ref HEAD')).trim()
 
 console.log('branch:', [branch])
+console.log('ref:', [process.env.VERCEL_GIT_COMMIT_REF])
+console.log('url:', [process.env.VERCEL_URL])
 
 if (branch === 'HEAD') branch = 'main'
 
