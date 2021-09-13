@@ -1,1 +1,3 @@
-export default ({children}) => children
+const Layout = ({children}) => children
+
+export default Layout
