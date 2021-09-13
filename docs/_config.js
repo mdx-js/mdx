@@ -1,3 +1,7 @@
+// To do: note that `VERCEL_*` env variables aren’t available, for some reason,
+// I’m suspecting that’s because `vercel.json` is used rather than settings
+// in the dashboard.
+
 import process from 'process'
 import {execSync as exec} from 'child_process'
 
@@ -5,11 +9,8 @@ let branch =
   process.env.VERCEL_GIT_COMMIT_REF ||
   String(exec('git rev-parse --abbrev-ref HEAD')).trim()
 
-console.log('branch:', [branch])
-console.log('ref:', [process.env.VERCEL_GIT_COMMIT_REF])
-console.log('url:', [process.env.VERCEL_URL])
-
-if (branch === 'HEAD') branch = 'main'
+// To do: `vercel` currently says `master` is used.
+if (branch === 'HEAD' || branch === 'master') branch = 'main'
 
 const site = new URL(process.env.VERCEL_URL || 'https://mdxjs.com')
 
