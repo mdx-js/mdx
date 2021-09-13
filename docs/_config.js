@@ -1,3 +1,4 @@
+import process from 'process'
 import {execSync as exec} from 'child_process'
 
 let branch =
