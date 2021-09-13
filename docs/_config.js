@@ -1,6 +1,9 @@
 import {execSync as exec} from 'child_process'
 
-const branch = String(exec('git rev-parse --abbrev-ref HEAD')).trim()
+let branch = String(exec('git rev-parse --abbrev-ref HEAD')).trim()
+console.log('branch:', [branch])
+
+if (branch === 'HEAD') branch = 'main'
 
 const git = new URL('../', import.meta.url)
 const gh = new URL('https://github.com/mdx-js/mdx/')

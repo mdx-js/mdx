@@ -118,6 +118,8 @@ async function main() {
 
   console.log('✔ `/rss.xml`')
 
+  console.log('node:', process.versions)
+
   await Promise.all(
     allInfo.map(async data => {
       const {url, info} = data
