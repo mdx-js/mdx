@@ -1,9 +1,11 @@
 import {execSync as exec} from 'child_process'
 
 let branch = String(exec('git rev-parse --abbrev-ref HEAD')).trim()
-console.log('branch:', [branch])
+console.log('branch:', [branch], process.env)
 
 if (branch === 'HEAD') branch = 'main'
+
+const site = new URL(process.env.VERCEL_URL || 'https://mdxjs.com')
 
 const git = new URL('../', import.meta.url)
 const gh = new URL('https://github.com/mdx-js/mdx/')
@@ -15,7 +17,7 @@ export const config = {
   gh,
   ghBlob: new URL('./blob/' + branch + '/', gh),
   ghTree: new URL('./tree/' + branch + '/', gh),
-  site: new URL('https://mdxjs.com'),
+  site,
   twitter: new URL('https://twitter.com/mdx_js'),
   oc: new URL('https://opencollective.com/unified'),
   color: '#fcb32c',
