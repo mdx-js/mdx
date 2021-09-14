@@ -1,6 +1,6 @@
 import {promises as fs} from 'fs'
-import process from 'process'
 import {fileURLToPath} from 'url'
+import pAll from 'p-all'
 import {globby} from 'globby'
 import {u} from 'unist-builder'
 import {select} from 'hast-util-select'
@@ -15,8 +15,6 @@ import rehypeStringify from 'rehype-stringify'
 import captureWebsite from 'capture-website'
 import {config} from '../docs/_config.js'
 import chromium from 'chrome-aws-lambda'
-
-process.setMaxListeners(1024)
 
 const dateTimeFormat = new Intl.DateTimeFormat('en')
 
@@ -67,7 +65,7 @@ async function main() {
     files.map(async url => ({url, info: JSON.parse(await fs.readFile(url))}))
   )
 
-  const entries = await Promise.all(
+  const entries = await pAll(
     [...allInfo]
       .sort(
         (a, b) =>
@@ -75,7 +73,7 @@ async function main() {
       )
       // Ten most recently published articles.
       .slice(0, 10)
-      .map(async ({info, url}) => {
+      .map(({info, url}) => async () => {
         const buf = await fs.readFile(new URL('./index.html', url))
         const file = await unified()
           .use(rehypeParse)
@@ -99,7 +97,8 @@ async function main() {
           modified: info.meta.modified,
           published: info.meta.published
         }
-      })
+      }),
+    {concurrency: 6}
   )
 
   await fs.writeFile(
@@ -122,8 +121,8 @@ async function main() {
 
   console.log('✔ `/rss.xml`')
 
-  await Promise.all(
-    allInfo.map(async data => {
+  await pAll(
+    allInfo.map(data => async () => {
       const {url, info} = data
       const output = new URL('./index.png', url)
       let stats
@@ -299,7 +298,8 @@ async function main() {
       })
 
       console.log('OG image `%s`', info.meta.title)
-    })
+    }),
+    {concurrency: 6}
   )
 
   console.log('✔ OG images')

@@ -6,6 +6,7 @@ import React from 'react'
 import {renderToString} from 'react-dom/server.js'
 import {createFromReadableStream} from 'react-server-dom-webpack'
 import {globby} from 'globby'
+import pAll from 'p-all'
 import {VFile} from 'vfile'
 import {unified} from 'unified'
 import rehypeParse from 'rehype-parse'
@@ -50,8 +51,9 @@ async function main() {
     await globby('**/index.nljson', {cwd: fileURLToPath(config.output)})
   ).map(d => new URL(d, config.output))
 
-  await Promise.all(
-    files.map(async url => {
+
+  await pAll(
+    files.map(url => async () => {
       const name = url.href
         .slice(config.output.href.length - 1)
         .replace(/\/index\.nljson$/, '/')
@@ -72,12 +74,12 @@ async function main() {
         result = renderToString(React.createElement(Root, {response}))
         if (!result.includes('<!--$!-->')) break
         /* eslint-disable no-await-in-loop */
-        await sleep(32)
-        if (new Date() > now + 3000) {
+        await sleep(48)
+        if (new Date() > now + 5000) {
           throw new Error(
             'Cannot prerender `' +
               name +
-              '` in less than 3 seconds, there’s probably an error earlier on (see bundle or generate)'
+              '` in less than 5 seconds, there’s probably an error earlier on (see bundle or generate)'
           )
         }
       }
@@ -157,7 +159,8 @@ async function main() {
       await fs.mkdir(file.dirname, {recursive: true})
       await fs.writeFile(file.path, String(file))
       console.log('  prerender: `%s`', name)
-    })
+    }),
+    {concurrency: 6}
   )
 
   console.log('✔ Prerender')

@@ -83,6 +83,7 @@
     "lerna": "^4.0.0",
     "lint-staged": "^11.0.0",
     "lowlight": "^2.0.0",
+    "p-all": "^4.0.0",
     "patch-package": "^6.0.0",
     "periscopic": "^3.0.0",
     "postcss": "^8.0.0",
