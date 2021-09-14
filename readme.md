@@ -6,6 +6,8 @@
   </a>
 </p>
 
+cache hit?!
+
 # MDX: Markdown for the component era 🚀
 
 [![Build Status][build-badge]][build]
