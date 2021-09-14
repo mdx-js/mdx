@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import {promises as fs} from 'fs'
 import {fileURLToPath} from 'url'
+import pAll from 'p-all'
 import {globby} from 'globby'
 import {u} from 'unist-builder'
 import {h} from 'hastscript'
@@ -21,8 +22,9 @@ async function main() {
   const from = new URL('_static/', config.input)
   const files = await globby('**/*', {cwd: fileURLToPath(from)})
 
-  await Promise.all(
-    files.map(d => fs.copyFile(new URL(d, from), new URL(d, config.output)))
+  await pAll(
+    files.map(d => async () => fs.copyFile(new URL(d, from), new URL(d, config.output))),
+    {concurrency: 6}
   )
 
   console.log('✔ `/_static/*`')
@@ -39,8 +41,8 @@ async function main() {
 
   console.log('✔ `/robots.txt`')
 
-  await Promise.all(
-    Object.keys(redirect).map(async from => {
+  await pAll(
+    Object.keys(redirect).map(from => async () => {
       const to = redirect[from]
       const canonical = new URL(from + '/../', config.site).href
       const processor = unified()
@@ -53,7 +55,8 @@ async function main() {
       await fs.mkdir(file.dirname, {recursive: true})
       await fs.writeFile(file.path, String(file))
       console.log('  redirect: `%s` -> `%s`', from, to)
-    })
+    }),
+    {concurrency: 6}
   )
 
   console.log('✔ Redirect')

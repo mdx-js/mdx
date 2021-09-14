@@ -5,6 +5,7 @@ import process from 'process'
 import {fileURLToPath} from 'url'
 import React from 'react'
 import {pipeToNodeWritable} from 'react-server-dom-webpack/writer'
+import pAll from 'p-all'
 import {globby} from 'globby'
 import {sitemap} from 'xast-util-sitemap'
 import {toXml} from 'xast-util-to-xml'
@@ -26,8 +27,8 @@ async function main() {
     await fs.readFile(new URL('react-client-manifest.json', config.output))
   )
 
-  const allInfo = await Promise.all(
-    files.map(async url => {
+  const allInfo = await pAll(
+    files.map(url => async () => {
       const name = url.href
         .slice(config.input.href.length - 1)
         .replace(/\.server\.mdx$/, '/')
@@ -42,7 +43,8 @@ async function main() {
       const {default: Content, ...data} = await import(url.href)
 
       return {name, url, ghUrl, nljsonUrl, jsonUrl, data, Content}
-    })
+    }),
+    {concurrency: 6}
   )
 
   const navTree = {name: '/', data: undefined, children: []}
@@ -88,8 +90,8 @@ async function main() {
 
   index = -1
 
-  await Promise.all(
-    allInfo.map(async d => {
+  await pAll(
+    allInfo.map(d => async () => {
       const {name, data, Content, ghUrl, nljsonUrl, jsonUrl} = d
 
       await fs.mkdir(path.dirname(fileURLToPath(jsonUrl)), {recursive: true})
@@ -107,7 +109,8 @@ async function main() {
       })
 
       pipeToNodeWritable(element, writeStream, manifest)
-    })
+    }),
+    {concurrency: 6}
   )
 
   process.on('exit', () => console.log('✔ Generate'))

@@ -72,6 +72,10 @@ th {
   letter-spacing: 0.0125em;
 }
 
+sup {
+  vertical-align: top;
+}
+
 main {
   margin-top: calc(4 * (1em + 1ex));
 }
@@ -746,6 +750,10 @@ button:focus {
     --hl: var(--mdx-yellow);
     --fg: var(--white);
     --bg: var(--black);
+  }
+
+  .navigation-secondary a {
+    display: initial;
   }
 
   .navigation::before {

@@ -8,7 +8,7 @@
 
 A [React][] component that evaluates [MDX][].
 
-> :warning: **warning**: this is not the preferred way to use MDX since it
+> ⚠️ **warning**: this is not the preferred way to use MDX since it
 > introduces a substantial amount of overhead and dramatically increases
 > bundle sizes.
 > It must not be used with user input that isn’t sandboxed.

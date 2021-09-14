@@ -75,9 +75,7 @@ export function NavItem(props) {
         defaultTitle
       )}
       {navLabel ? (
-        <sup>
-          [<em>{navLabel}</em>]
-        </sup>
+        <sup>[{navLabel}]</sup>
       ) : null}
       {includeDescription && description ? ' — ' + description : null}
       {includePublished && published

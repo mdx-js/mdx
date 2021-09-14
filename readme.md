@@ -38,19 +38,19 @@ That’s a great combination because it allows you to use markdown’s often ter
 syntax (such as `# heading`) for the little things and JSX for more advanced
 components.
 
-:heart: **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
-React/JSX-based projects.
+❤️ **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
+JSX-based projects.
 
-:computer: **Everything is a component**: Use existing components inside your
+💻 **Everything is a component**: Use existing components inside your
 MDX and import other MDX files as plain components.
 
-:wrench: **Customizable**: Decide which component is rendered for each markdown
-element (`{ h1: MyHeading }`).
+🔧 **Customizable**: Decide which component is rendered for each markdown
+element (`{h1: MyHeading}`).
 
-:books: **Markdown-based**: The simplicity and elegance of markdown remains,
+📚 **Markdown-based**: The simplicity and elegance of markdown remains,
 you interleave JSX only when you want to.
 
-:fire: **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
+🔥 **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
 during the build stage.
 
 > [Watch some of these features in action][intro]
