@@ -13,12 +13,10 @@ jobs:
       - uses: dcodeIO/setup-node-nvm@master
         with:
           node-version: ${{matrix.node}}
-      - uses: actions/cache@v2
+      - run: npm install -g npm
+      - uses: bahmutov/npm-install@v1
         with:
-          path: ~/.npm
-          key: npm-${{hashFiles('package-lock.json')}}
-          restore-keys: npm-
-      - run: npm install -g npm && npm ci
+          useRollingCache: true
       - run: npm test
     strategy:
       matrix:
