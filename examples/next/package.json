@@ -1,6 +1,5 @@
 {
   "name": "next-example",
-  "version": "2.0.0-next.9",
   "private": true,
   "repository": {
     "type": "git",

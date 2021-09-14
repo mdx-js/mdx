@@ -8,14 +8,18 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: dcodeIO/setup-node-nvm@master
         with:
           node-version: ${{matrix.node}}
-      - run: npm install -g yarn && yarn --frozen-lockfile
-        env:
-          CI: 'true'
-      - name: Test
-        run: yarn test
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{hashFiles('package-lock.json')}}
+          restore-keys: npm-
+      - run: npm install -g npm && npm ci
+      - run: npm test
     strategy:
       matrix:
         os:

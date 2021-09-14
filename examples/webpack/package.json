@@ -1,10 +1,9 @@
 {
   "name": "webpack-example",
-  "version": "2.0.0-next.9",
+  "private": true,
   "description": "",
   "author": "Brent Jackson",
   "license": "MIT",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
