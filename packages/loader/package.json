@@ -54,6 +54,8 @@
     "@types/loader-utils": "^2.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "preact": "^10.0.0",
+    "preact-render-to-string": "^5.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "webpack": "^5.0.0"
