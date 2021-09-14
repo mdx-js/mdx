@@ -22,5 +22,5 @@ jobs:
           - ubuntu-latest
           - windows-latest
         node:
-          - 12
-          - 16
+          - lts/erbium
+          - '*'
