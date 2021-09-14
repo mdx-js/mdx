@@ -7,11 +7,11 @@
 Install:
 
 ```sh
-yarn
+npm install
 ```
 
 Then to run the example:
 
 ```sh
-yarn start
+npm start
 ```

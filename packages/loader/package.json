@@ -42,7 +42,7 @@
     "test-api": "uvu test \"\\.js$\"",
     "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
     "test-types": "dtslint types",
-    "test": "yarn test-coverage && yarn test-types"
+    "test": "npm run test-coverage && npm run test-types"
   },
   "peerDependencies": {
     "react": ">=16"

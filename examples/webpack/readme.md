@@ -5,11 +5,11 @@
 Install:
 
 ```sh
-yarn
+npm install
 ```
 
 Then, to start a development server:
 
 ```sh
-yarn start
+npm start
 ```

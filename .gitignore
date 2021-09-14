@@ -1,5 +1,4 @@
 node_modules
-package-lock.json
 dist
 cache
 build
@@ -11,8 +10,6 @@ build
 tmp
 artifacts
 .*cache
-.npmrc
 .nyc_output/
 coverage/
-.yarn
 /public

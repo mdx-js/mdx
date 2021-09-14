@@ -4,18 +4,18 @@ on:
   - push
 jobs:
   main:
-    name: '${{matrix.node}} on ${{matrix.os}}'
+    name: '${{matrix.os}} / ${{matrix.node}}'
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v2
-      - uses: dcodeIO/setup-node-nvm@master
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{matrix.node}}
-      - run: npm install -g yarn && yarn --frozen-lockfile
-        env:
-          CI: 'true'
-      - name: Test
-        run: yarn test
+          cache: npm
+      - run: npm install -g npm && npm install
+      - run: npm test
     strategy:
       matrix:
         os:
@@ -23,4 +23,4 @@ jobs:
           - windows-latest
         node:
           - lts/erbium
-          - node
+          - '*'

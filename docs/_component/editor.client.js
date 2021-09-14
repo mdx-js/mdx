@@ -13,9 +13,9 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs'
 import {ErrorBoundary} from 'react-error-boundary'
 import {toH} from 'hast-to-hyperscript'
 import {lowlight} from 'lowlight/lib/core.js'
-import javascript from 'highlight.js/lib/languages/javascript.js'
-import json from 'highlight.js/lib/languages/json.js'
-import markdown from 'highlight.js/lib/languages/markdown.js'
+import javascript from 'highlight.js/lib/languages/javascript'
+import json from 'highlight.js/lib/languages/json'
+import markdown from 'highlight.js/lib/languages/markdown'
 
 lowlight.registerLanguage('js', javascript)
 lowlight.registerLanguage('json', json)

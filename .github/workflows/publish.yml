@@ -7,15 +7,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # for lerna
+          fetch-depth: 0
       - uses: dcodeIO/setup-node-nvm@master
-      - run: npm install -g yarn && yarn --frozen-lockfile
-        env:
-          CI: 'true'
-      - name: Publish CI tag to npm
-        if: github.ref == 'refs/heads/main'
-        run: |
-          npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
-          yarn publish-ci
-        env:
-          NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+      - run: 'echo "to do: figure out npm"'
+      # - run: npm install -g yarn && yarn --frozen-lockfile
+      #   env:
+      #     CI: 'true'
+      # - name: Publish CI tag to npm
+      #   if: github.ref == 'refs/heads/main'
+      #   run: |
+      #     npm set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
+      #     yarn publish-ci
+      #   env:
+      #     NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}

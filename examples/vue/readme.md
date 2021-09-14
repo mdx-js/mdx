@@ -5,18 +5,18 @@
 Install:
 
 ```sh
-yarn
+npm install
 ```
 
 Then, to start a development server:
 
 ```sh
-yarn start
+npm start
 ```
 
 Alternatively, to build for production and serve the resulting `dist/`:
 
 ```sh
-yarn build
+npm run build
 npx serve dist/
 ```
