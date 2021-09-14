@@ -4,7 +4,7 @@ on:
   - push
 jobs:
   main:
-    name: '${{matrix.node}} on ${{matrix.os}}'
+    name: '${{matrix.os}} / ${{matrix.node}}'
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v2
