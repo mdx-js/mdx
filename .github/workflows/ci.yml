@@ -13,10 +13,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{matrix.node}}
-      - run: npm install -g npm
-      - uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
+          cache: npm
+      - run: npm install -g npm && npm install
       - run: npm test
     strategy:
       matrix:
