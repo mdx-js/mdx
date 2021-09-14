@@ -25,4 +25,4 @@ jobs:
           - windows-latest
         node:
           - lts/erbium
-          - node
+          - lts/*
