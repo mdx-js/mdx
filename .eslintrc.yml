@@ -32,6 +32,10 @@ settings:
 
 overrides:
   - files:
+      - '**/test/**/*.js'
+    rules:
+      import/no-unresolved: off
+  - files:
       - '*.d.ts'
       - '**/types/*.ts'
       - '**/types/*.tsx'
