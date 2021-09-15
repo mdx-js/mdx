@@ -49,7 +49,7 @@
   "devDependencies": {
     "remark-parse": "^9.0.0",
     "remark-stringify": "^9.0.0",
-    "to-vfile": "^6.0.0",
+    "to-vfile": "^7.0.0",
     "unified": "^9.0.0",
     "unist-builder": "^2.0.0",
     "unist-util-remove-position": "^3.0.0",
