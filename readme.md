@@ -6,8 +6,6 @@
   </a>
 </p>
 
-bump 2
-
 # MDX: Markdown for the component era 🚀
 
 [![Build Status][build-badge]][build]
