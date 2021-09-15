@@ -18,9 +18,9 @@ webpack(
       )
     ],
     output: {
-      // RSC puts all chunks in `build/` (perhaps due to my weird doing),
-      // but on a page `build/folder/index.html`, RSC/WP will then load
-      // `build/folder/chunk.js`, even though it’s at `build/chunk.js`.
+      // RSC puts all chunks in `public/` (perhaps due to my weird doing),
+      // but on a page `public/folder/index.html`, RSC/WP will then load
+      // `public/folder/chunk.js`, even though it’s at `public/chunk.js`.
       // This fixes that!
       publicPath: '/',
       path: url.fileURLToPath(config.output),
