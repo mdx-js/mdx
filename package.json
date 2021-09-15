@@ -9,10 +9,6 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "#": "For `vercel` (to do: set it in vercel dashboard instead)",
-  "engines": {
-    "node": ">=14"
-  },
   "workspaces": [
     "packages/babel-plugin-remove-export-keywords",
     "packages/react",
