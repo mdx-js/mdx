@@ -13,3 +13,5 @@ artifacts
 .nyc_output/
 coverage/
 /public
+/packages/loader/lib/**/*.d.ts
+/packages/loader/test/**/*.d.ts

@@ -1,123 +1,131 @@
-const {test} = require('uvu')
-const assert = require('uvu/assert')
-const path = require('path')
-const webpack = require('webpack')
-const MemoryFs = require('memory-fs')
-const React = require('../../react/node_modules/react')
-const {renderToString} = require('../../react/node_modules/react-dom/server')
-const _extends = require('@babel/runtime/helpers/extends')
-const _objectWithoutProperties = require('@babel/runtime/helpers/objectWithoutProperties')
-const {mdx} = require('../../react')
+/**
+ * @typedef {import('react').FC} ReactComponent
+ * @typedef {import('preact').FunctionComponent<unknown>} PreactComponent
+ * @typedef {import('vue').Component} VueComponent
+ * @typedef {import('vue').SetupContext} SetupContext
+ */
 
-const transform = (filePath, options) =>
-  new Promise((resolve, reject) => {
-    // Webpack 5: const fs = new MemoryFs()
-    const compiler = webpack({
-      context: __dirname,
-      entry: filePath,
-      mode: 'none',
-      module: {
-        rules: [
-          {
-            test: /\.mdx$/,
-            use: [
-              {
-                loader: 'babel-loader',
-                options: {
-                  configFile: false,
-                  plugins: [
-                    '@babel/plugin-transform-runtime',
-                    '@babel/plugin-syntax-jsx',
-                    '@babel/plugin-transform-react-jsx'
-                  ]
-                }
-              },
-              {loader: path.resolve(__dirname, '..'), options}
-            ]
-          }
-        ]
-      }
-    })
+import {promises as fs} from 'fs'
+import {promisify} from 'util'
+import {URL, fileURLToPath} from 'url'
+import {test} from 'uvu'
+import * as assert from 'uvu/assert'
+import webpack from 'webpack'
+import React from 'react'
+import {renderToStaticMarkup} from 'react-dom/server.js'
+import {h} from 'preact'
+import {render} from 'preact-render-to-string'
+// eslint-disable-next-line import/default
+import vue from 'vue'
+// eslint-disable-next-line import/default
+import serverRenderer from '@vue/server-renderer'
 
-    // Webpack 5: compiler.outputFileSystem = fs
-    compiler.outputFileSystem = new MemoryFs()
+test('@mdx-js/loader', async () => {
+  // Setup.
+  const base = new URL('./', import.meta.url)
 
-    compiler.run((err, stats) => {
-      if (err) {
-        reject(err)
-      } else {
-        // Webpack 5:
-        // resolve(
-        //   {source: fs.readFileSync(path.join(__dirname, '..', 'dist', 'main.js'), 'utf8')}
-        // )
-        resolve(stats.toJson().modules.find(m => m.name === filePath))
-      }
-    })
+  await fs.writeFile(
+    new URL('webpack.mdx', base),
+    'export const Message = () => <>World!</>\n\n# Hello, <Message />'
+  )
+
+  // React.
+  await promisify(webpack)({
+    // @ts-expect-error context does not exist on the webpack options types.
+    context: fileURLToPath(base),
+    entry: './webpack.mdx',
+    mode: 'none',
+    module: {rules: [{test: /\.mdx$/, use: [fileURLToPath(new URL('../index.cjs', import.meta.url))]}]},
+    output: {path: fileURLToPath(base), filename: 'react.cjs', libraryTarget: 'commonjs'}
   })
 
-const run = value => {
-  // Webpack 5 (replace everything in this function with):
-  // const val = 'return ' + value.replace(/__webpack_require__\(0\)/, 'return $&')
-  //
-  // // eslint-disable-next-line no-new-func
-  // return new Function(val)().default
-  // Replace import/exports w/ parameters and return value.
-  const val = value
-    .replace(
-      /import _objectWithoutProperties from "@babel\/runtime\/helpers\/objectWithoutProperties";/,
-      ''
-    )
-    .replace(/import _extends from "@babel\/runtime\/helpers\/extends";/, '')
-    .replace(/import React from 'react';/, '')
-    .replace(/import \{ mdx } from '@mdx-js\/react';/, '')
-    .replace(/export default/, 'return')
-
-  // eslint-disable-next-line no-new-func
-  return new Function(
-    'mdx',
-    'React',
-    '_extends',
-    '_objectWithoutProperties',
-    val
-  )(mdx, React, _extends, _objectWithoutProperties)
-}
-
-test('should support a file', async () => {
-  const file = await transform('./fixture.mdx')
-  const Content = run(file.source)
+  // One for ESM loading CJS, one for webpack.
+  const ContentReact = /** @type {ReactComponent} */ (
+    /* @ts-expect-error file is dynamically generated */
+    // type-coverage:ignore-next-line
+    (await import('./react.cjs')).default.default
+  )
 
   assert.equal(
-    renderToString(React.createElement(Content)),
-    '<h1>Hello, world!</h1>'
+    renderToStaticMarkup(React.createElement(ContentReact)),
+    '<h1>Hello, World!</h1>',
+    'should compile (react)'
   )
-})
 
-test('should handle MDX not compiling', async () => {
-  const file = await transform('./broken-fixture.mdx')
+  await fs.unlink(new URL('react.cjs', base))
 
-  assert.throws(() => {
-    run(file.source)
-  }, /Unexpected end of file/)
-})
-
-test('should handle MDX throwing exceptions', async () => {
-  const file = await transform('./fixture.mdx', {remarkPlugins: [1]})
-
-  assert.throws(() => {
-    run(file.source)
-  }, /Expected usable value, not `1`/)
-})
-
-test('should support options', async () => {
-  const file = await transform('./fixture.mdx', {
-    remarkPlugins: [require('remark-slug')]
+  // Preact.
+  await promisify(webpack)({
+    // @ts-expect-error context does not exist on the webpack options types.
+    context: fileURLToPath(base),
+    entry: './webpack.mdx',
+    mode: 'none',
+    module: {rules: [{
+      test: /\.mdx$/,
+      use: [
+        {
+          loader: fileURLToPath(new URL('../index.cjs', import.meta.url)),
+          options: {jsxImportSource: 'preact'}
+        }
+      ]
+    }]},
+    output: {path: fileURLToPath(base), filename: 'preact.cjs', libraryTarget: 'commonjs'}
   })
-  const Content = run(file.source)
+
+  // One for ESM loading CJS, one for webpack.
+  const ContentPreact = /** @type {PreactComponent} */ (
+    /* @ts-expect-error file is dynamically generated */
+    // type-coverage:ignore-next-line
+    (await import('./preact.cjs')).default.default
+  )
 
   assert.equal(
-    renderToString(React.createElement(Content)),
-    '<h1 id="hello-world">Hello, world!</h1>'
+    render(h(ContentPreact, {})),
+    '<h1>Hello, World!</h1>',
+    'should compile (preact)'
   )
+
+  await fs.unlink(new URL('preact.cjs', base))
+
+  // Vue.
+  await promisify(webpack)({
+    // @ts-expect-error context does not exist on the webpack options types.
+    context: fileURLToPath(base),
+    entry: './webpack.mdx',
+    mode: 'none',
+    externals: ['vue'],
+    module: {rules: [{
+      test: /\.mdx$/,
+      use: [
+        {loader: 'babel-loader', options: {configFile: false, plugins: ['@vue/babel-plugin-jsx']}},
+        {loader: fileURLToPath(new URL('../index.cjs', import.meta.url)), options: {jsx: true}}
+      ]
+    }]},
+    output: {path: fileURLToPath(base), filename: 'vue.cjs', libraryTarget: 'commonjs'}
+  })
+
+  // One for ESM loading CJS, one for webpack.
+  const ContentVue = /** @type {VueComponent} */ (
+    /* @ts-expect-error file is dynamically generated */
+    // type-coverage:ignore-next-line
+    (await import('./vue.cjs')).default.default
+  )
+
+  const vueResult = await serverRenderer.renderToString(vue.createSSRApp({components: {Content: ContentVue}, template: '<Content />'}))
+
+
+  assert.equal(
+    // Remove SSR comments used to hydrate (I guess).
+    vueResult.replace(/<!--[[\]]-->/g, ''),
+    '<h1>Hello, World!</h1>',
+    'should compile (vue)'
+  )
+
+  await fs.unlink(new URL('vue.cjs', base))
+
+  // Clean.
+  await fs.unlink(new URL('webpack.mdx', base))
 })
+
 
 test.run()
