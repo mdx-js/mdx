@@ -1,11 +1,11 @@
-/build/
 .cache/
 .next/
+build/
 coverage/
 dist/
 fixtures/
 node_modules/
+public/
 *.min.*
-/build/
 *.md
 *.mdx

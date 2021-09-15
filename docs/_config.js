@@ -19,7 +19,7 @@ const gh = new URL('https://github.com/mdx-js/mdx/')
 
 export const config = {
   input: new URL('./docs/', git),
-  output: new URL('./build/', git),
+  output: new URL('./public/', git),
   git,
   gh,
   ghBlob: new URL('./blob/' + branch + '/', gh),

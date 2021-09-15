@@ -45,8 +45,6 @@ async function main() {
       })
   )
 
-  console.log('files:', await globby('**/index.nljson', {cwd: fileURLToPath(config.output)}));
-
   const files = (
     await globby('**/index.nljson', {cwd: fileURLToPath(config.output)})
   ).map(d => new URL(d, config.output))
