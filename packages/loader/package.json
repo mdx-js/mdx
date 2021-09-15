@@ -46,18 +46,21 @@
     "xdm": "^2.0.0",
     "loader-utils": "^2.0.0"
   },
-  "#": "todo: webpack 4 is also supported, but currently `yarn` fails to install if the below is changed to allow v4.",
   "peerDependencies": {
-    "webpack": ">=5"
+    "webpack": ">=4"
   },
   "devDependencies": {
     "@types/loader-utils": "^2.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@vue/babel-plugin-jsx": "^1.0.0",
+    "@vue/server-renderer": "^3.0.0",
+    "babel-loader": "^8.0.0",
     "preact": "^10.0.0",
     "preact-render-to-string": "^5.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "vue": "^3.0.0",
     "webpack": "^5.0.0"
   },
   "scripts": {

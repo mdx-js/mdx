@@ -21,6 +21,6 @@ declare module '*.mdx' {
  *   The original module source code.
  * @returns {void}
  */
-declare function MdxLoader(value: string): void
+declare function MdxLoader(this: LoaderContext, value: string): void
 
 export default MdxLoader

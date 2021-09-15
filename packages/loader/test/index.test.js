@@ -1,6 +1,8 @@
 /**
- * @typedef {import('react').FC} ReactFunctionComponent
- * @typedef {import('preact').FunctionComponent<unknown>} PreactFunctionComponent
+ * @typedef {import('react').FC} ReactComponent
+ * @typedef {import('preact').FunctionComponent<unknown>} PreactComponent
+ * @typedef {import('vue').Component} VueComponent
+ * @typedef {import('vue').SetupContext} SetupContext
  */
 
 import {promises as fs} from 'fs'
@@ -13,8 +15,13 @@ import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server.js'
 import {h} from 'preact'
 import {render} from 'preact-render-to-string'
+// eslint-disable-next-line import/default
+import vue from 'vue'
+// eslint-disable-next-line import/default
+import serverRenderer from '@vue/server-renderer'
 
 test('@mdx-js/loader', async () => {
+  // Setup.
   const base = new URL('./', import.meta.url)
 
   await fs.writeFile(
@@ -33,7 +40,7 @@ test('@mdx-js/loader', async () => {
   })
 
   // One for ESM loading CJS, one for webpack.
-  const ContentReact = /** @type {ReactFunctionComponent} */ (
+  const ContentReact = /** @type {ReactComponent} */ (
     /* @ts-expect-error file is dynamically generated */
     // type-coverage:ignore-next-line
     (await import('./react.cjs')).default.default
@@ -66,7 +73,7 @@ test('@mdx-js/loader', async () => {
   })
 
   // One for ESM loading CJS, one for webpack.
-  const ContentPreact = /** @type {PreactFunctionComponent} */ (
+  const ContentPreact = /** @type {PreactComponent} */ (
     /* @ts-expect-error file is dynamically generated */
     // type-coverage:ignore-next-line
     (await import('./preact.cjs')).default.default
@@ -80,6 +87,43 @@ test('@mdx-js/loader', async () => {
 
   await fs.unlink(new URL('preact.cjs', base))
 
+  // Vue.
+  await promisify(webpack)({
+    // @ts-expect-error context does not exist on the webpack options types.
+    context: fileURLToPath(base),
+    entry: './webpack.mdx',
+    mode: 'none',
+    externals: ['vue'],
+    module: {rules: [{
+      test: /\.mdx$/,
+      use: [
+        {loader: 'babel-loader', options: {configFile: false, plugins: ['@vue/babel-plugin-jsx']}},
+        {loader: fileURLToPath(new URL('../index.cjs', import.meta.url)), options: {jsx: true}}
+      ]
+    }]},
+    output: {path: fileURLToPath(base), filename: 'vue.cjs', libraryTarget: 'commonjs'}
+  })
+
+  // One for ESM loading CJS, one for webpack.
+  const ContentVue = /** @type {VueComponent} */ (
+    /* @ts-expect-error file is dynamically generated */
+    // type-coverage:ignore-next-line
+    (await import('./vue.cjs')).default.default
+  )
+
+  const vueResult = await serverRenderer.renderToString(vue.createSSRApp({components: {Content: ContentVue}, template: '<Content />'}))
+
+
+  assert.equal(
+    // Remove SSR comments used to hydrate (I guess).
+    vueResult.replace(/<!--[[\]]-->/g, ''),
+    '<h1>Hello, World!</h1>',
+    'should compile (vue)'
+  )
+
+  await fs.unlink(new URL('vue.cjs', base))
+
+  // Clean.
   await fs.unlink(new URL('webpack.mdx', base))
 })
 
