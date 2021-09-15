@@ -6,7 +6,7 @@
   </a>
 </p>
 
-bump
+bump 1
 
 # MDX: Markdown for the component era 🚀
 
