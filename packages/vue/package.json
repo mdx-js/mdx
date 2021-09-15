@@ -31,12 +31,7 @@
     "mdx",
     "remark"
   ],
-  "scripts": {
-    "test-api": "# uvu test \"\\.js$\"",
-    "test-coverage": "# c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
-    "test-types": "# dtslint types",
-    "test": "npm run test-coverage && npm run test-types"
-  },
+  "scripts": {},
   "devDependencies": {
     "@vue/test-utils": "^1.0.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.0"
