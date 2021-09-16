@@ -2,7 +2,10 @@
 
 import {FunctionComponent} from 'react'
 import {Options} from '@mdx-js/mdx'
-import {ComponentsProp} from '@mdx-js/react'
+
+// To do: update.
+// import {ComponentsProp} from '@mdx-js/react'
+type ComponentsProp = Record<string, unknown>
 
 /**
  * Properties for the MDX Runtime component

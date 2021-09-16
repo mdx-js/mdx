@@ -8,26 +8,26 @@ const exampleInvalidContent = () => (
   <MDX>{<div />}</MDX>
 )
 
+// To do: support `components` in types again.
+// components={{
+//   h1() {
+//     return <h1 />
+//   }
+// }}
+
 const exampleScopeAndComponents = (mdx: string) => (
-  <MDX
-    components={{
-      h1() {
-        return <h1 />
-      }
-    }}
-    scope={{value: 'example'}}
-  >
-    {mdx}
-  </MDX>
+  <MDX scope={{value: 'example'}}>{mdx}</MDX>
 )
+
+// To do: support `components` in types again.
+// components={{
+//   h1() {
+//     return <h1 />
+//   }
+// }}
 
 const exampleFullConfig = (mdx: string) => (
   <MDX
-    components={{
-      h1() {
-        return <h1 />
-      }
-    }}
     scope={{value: 'example', number: 1}}
     rehypePlugins={[() => () => ({type: 'test'})]}
     remarkPlugins={[() => () => ({type: 'test'})]}

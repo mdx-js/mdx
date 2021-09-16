@@ -1,13 +1,23 @@
 {
   "name": "@mdx-js/react",
-  "version": "2.0.0-next.9",
-  "description": "React implementation for MDX",
+  "#": "to do: this prevents for a second that siblings use this",
+  "version": "2.0.0-next.999",
+  "description": "React context for MDX",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
     "directory": "packages/react"
   },
-  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
@@ -22,33 +32,41 @@
     "JounQin <admin@1stg.me> (https://www.1stg.me)",
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
-  "license": "MIT",
-  "main": "src/index.js",
-  "types": "types/index.d.ts",
+  "type": "module",
+  "sideEffects": false,
+  "main": "index.js",
+  "types": "index.d.ts",
   "files": [
-    "src",
-    "types/index.d.ts"
+    "lib/",
+    "complex-types.d.ts",
+    "index.d.ts",
+    "index.js"
   ],
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "mdxast"
-  ],
-  "scripts": {
-    "test-api": "uvu -r esbuild-register test \"\\.jsx?$\"",
-    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
-    "test-types": "dtslint types",
-    "test": "npm run test-coverage && npm run test-types"
+  "dependencies": {
+    "@types/react": ">=16"
   },
   "peerDependencies": {
     "react": ">=16"
   },
   "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "xdm": "^2.0.0"
+  },
+  "scripts": {
+    "prepack": "npm run build",
+    "build": "rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" \"index.d.ts\" && tsc && type-coverage",
+    "test-api": "node --no-warnings --experimental-loader=../../script/jsx-loader.js ../../node_modules/uvu/bin.js test \"\\.jsx?$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
+    "test": "npm run build && npm run test-coverage"
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true,
+    "ignoreCatch": true
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }
