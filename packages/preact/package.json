@@ -1,13 +1,22 @@
 {
   "name": "@mdx-js/preact",
   "version": "2.0.0-next.9",
-  "description": "Preact implementation for MDX",
+  "description": "Preact context for MDX",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "preact",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
     "directory": "packages/preact"
   },
-  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
@@ -23,33 +32,37 @@
     "Chris Biscardi <chris@christopherbiscardi.com> (https://www.christopherbiscardi.com)",
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
-  "license": "MIT",
-  "main": "src/index.js",
-  "types": "types/index.d.ts",
+  "type": "module",
+  "sideEffects": false,
+  "main": "index.js",
+  "types": "index.d.ts",
   "files": [
-    "src",
-    "types/index.d.ts"
+    "lib/",
+    "complex-types.d.ts",
+    "index.d.ts",
+    "index.js"
   ],
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "mdxast"
-  ],
-  "scripts": {
-    "test-api": "uvu -r esbuild-register test \"\\.jsx?$\"",
-    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
-    "test-types": "dtslint types",
-    "test": "npm run test-coverage && npm run test-types"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "preact": ">=10.0.0"
   },
   "devDependencies": {
     "preact": "^10.0.0",
-    "preact-render-to-string": "^5.0.0"
+    "preact-render-to-string": "^5.0.0",
+    "xdm": "^2.0.0"
+  },
+  "scripts": {
+    "prepack": "npm run build",
+    "build": "rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" \"index.d.ts\" && tsc && type-coverage",
+    "test-api": "node --no-warnings --experimental-loader=../../script/jsx-loader.js ../../node_modules/uvu/bin.js test \"\\.jsx?$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
+    "test": "npm run build && npm run test-coverage"
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true,
+    "ignoreCatch": true
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }
