@@ -15,3 +15,6 @@ coverage/
 /public
 /packages/loader/lib/**/*.d.ts
 /packages/loader/test/**/*.d.ts
+/packages/react/lib/**/*.d.ts
+/packages/react/test/**/*.d.ts
+/packages/react/index.d.ts
