@@ -1,44 +1,36 @@
-'use strict'
+/**
+ * @typedef {import('mdast').Root} Root
+ * @typedef {import('micromark-extension-mdxjs').Options} Options
+ * @typedef {import('mdast-util-mdx')} DoNotTouchAsThisImportIncludesMdxInTree
+ */
 
-const syntaxMdx = require('micromark-extension-mdx')
-const syntaxMdxjs = require('micromark-extension-mdxjs')
-const fromMarkdown = require('mdast-util-mdx/from-markdown')
-const toMarkdown = require('mdast-util-mdx/to-markdown')
+import {mdxjs} from 'micromark-extension-mdxjs'
+import {mdxFromMarkdown, mdxToMarkdown} from 'mdast-util-mdx'
 
-let warningIssued
-
-module.exports = mdx
-
-function mdx(options) {
-  const settings = options || {}
-  const syntax = settings.js === false ? syntaxMdx : syntaxMdxjs
+/**
+ * Plugin to support MDX (import/exports: `export {x} from 'y'`; expressions:
+ * `{1 + 1}`; and JSX: `<Video id={123} />`).
+ *
+ * @type {import('unified').Plugin<[Options?]|[], Root>}
+ */
+export default function remarkMdx(options = {}) {
   const data = this.data()
 
-  // Old remark.
-  /* c8 ignore next 14 */
-  if (
-    !warningIssued &&
-    ((this.Parser &&
-      this.Parser.prototype &&
-      this.Parser.prototype.blockTokenizers) ||
-      (this.Compiler &&
-        this.Compiler.prototype &&
-        this.Compiler.prototype.visitors))
-  ) {
-    warningIssued = true
-    console.warn(
-      '[remark-mdx] Warning: please upgrade to remark 13 to use this plugin'
-    )
-  }
+  add('micromarkExtensions', mdxjs(options))
+  add('fromMarkdownExtensions', mdxFromMarkdown)
+  add('toMarkdownExtensions', mdxToMarkdown)
 
-  add('micromarkExtensions', syntax(options))
-  add('fromMarkdownExtensions', fromMarkdown)
-  add('toMarkdownExtensions', toMarkdown)
-
+  /**
+   * @param {string} field
+   * @param {unknown} value
+   */
   function add(field, value) {
-    // Other extensions.
-    /* c8 ignore next */
-    if (data[field]) data[field].push(value)
-    else data[field] = [value]
+    const list = /** @type {unknown[]} */ (
+      // Other extensions
+      /* c8 ignore next 2 */
+      data[field] ? data[field] : (data[field] = [])
+    )
+
+    list.push(value)
   }
 }

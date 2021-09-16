@@ -15,9 +15,11 @@ coverage/
 /public
 /packages/loader/lib/**/*.d.ts
 /packages/loader/test/**/*.d.ts
-/packages/react/lib/**/*.d.ts
-/packages/react/test/**/*.d.ts
-/packages/react/index.d.ts
 /packages/preact/lib/**/*.d.ts
 /packages/preact/test/**/*.d.ts
 /packages/preact/index.d.ts
+/packages/react/lib/**/*.d.ts
+/packages/react/test/**/*.d.ts
+/packages/react/index.d.ts
+/packages/remark-mdx/test/**/*.d.ts
+/packages/remark-mdx/*.d.ts

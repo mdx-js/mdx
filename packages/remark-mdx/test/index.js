@@ -1,32 +1,32 @@
-const {test} = require('uvu')
-const assert = require('uvu/assert')
-const fs = require('fs')
-const path = require('path')
-const u = require('unist-builder')
-const vfile = require('to-vfile')
-const unified = require('unified')
-const parse = require('remark-parse')
-const stringify = require('remark-stringify')
-const remove = require('unist-util-remove-position')
-const visit = require('unist-util-visit')
-const mdx = require('..')
+/**
+ * @typedef {import('mdast').Root} Root
+ * @typedef {import('mdast').Content} Content
+ * @typedef {import('mdast-util-mdx').MDXJsxAttribute} MDXJsxAttribute
+ * @typedef {import('mdast-util-mdx').MDXJsxAttributeValueExpression} MDXJsxAttributeValueExpression
+ * @typedef {import('mdast-util-mdx').MDXJsxExpressionAttribute} MDXJsxExpressionAttribute
+ */
 
-const base = path.join(__dirname, 'fixtures')
+import {test} from 'uvu'
+import * as assert from 'uvu/assert'
+import fs from 'fs'
+import path from 'path'
+import {URL, fileURLToPath} from 'url'
+import {u} from 'unist-builder'
+import {readSync, writeSync} from 'to-vfile'
+import {unified} from 'unified'
+import remarkParse from 'remark-parse'
+import remarkStringify from 'remark-stringify'
+import {removePosition} from 'unist-util-remove-position'
+import {visit} from 'unist-util-visit'
+import remarkMdx from '../index.js'
 
-const basic = unified().use(parse).use(mdx)
+const base = fileURLToPath(new URL('fixtures', import.meta.url))
+
+const basic = unified().use(remarkParse).use(remarkMdx)
 
 test('parse: MDX vs. MDX.js', () => {
   assert.equal(
-    clean(
-      unified().use(parse).use(mdx, {js: false}).parse('{1 + /* } */ 2}')
-        .children[0]
-    ),
-    u('paragraph', [u('mdxTextExpression', '1 + /* '), u('text', ' */ 2}')]),
-    'should count braces in agnostic mode (`js: false`)'
-  )
-
-  assert.equal(
-    clean(unified().use(parse).use(mdx).parse('{1 + /* } */ 2}').children[0]),
+    clean(unified().use(remarkParse).use(remarkMdx).parse('{1 + /* } */ 2}').children[0]),
     u('mdxFlowExpression', {data: {estree: null}}, '1 + /* } */ 2'),
     'should parse expressions in gnostic mode (default)'
   )
@@ -452,7 +452,7 @@ test('parse: complete', () => {
   )
 
   assert.equal(
-    clean(basic.parse('Alpha <b c     d="d"\t\tefg=\'e\'>charlie</b>.'), true),
+    clean(basic.parse('Alpha <b c     d="d"\t\tefg=\'e\'>charlie</b>.')),
     u('root', [
       u('paragraph', [
         u('text', 'Alpha '),
@@ -500,8 +500,7 @@ test('parse: complete', () => {
 
   assert.equal(
     clean(
-      basic.parse('Alpha <b xml :\tlang\n= "de-CH" foo:bar>charlie</b>.'),
-      true
+      basic.parse('Alpha <b xml :\tlang\n= "de-CH" foo:bar>charlie</b>.')
     ),
     u('root', [
       u('paragraph', [
@@ -878,8 +877,7 @@ test('parse: complete', () => {
     clean(
       basic.parse(
         '<x y="Character references can be used: &quot;, &apos;, &lt;, &gt;, &#x7B;, and &#x7D;, they can be named, decimal, or hexadecimal: &copy; &#8800; &#x1D306;" />.'
-      ),
-      true
+      )
     ),
     u('root', [
       u('paragraph', [
@@ -907,8 +905,7 @@ test('parse: complete', () => {
     clean(
       basic.parse(
         '<x>Character references can be used: &quot;, &apos;, &lt;, &gt;, &#x7B;, and &#x7D;, they can be named, decimal, or hexadecimal: &copy; &#8800; &#x1D306;</x>.'
-      ),
-      true
+      )
     ),
     u('root', [
       u('paragraph', [
@@ -1060,16 +1057,18 @@ test('parse: interplay', () => {
 })
 
 test('stringify', () => {
-  const basic = unified().use(stringify).use(mdx)
+  const basic = unified().use(remarkStringify).use(remarkMdx)
 
   assert.throws(
     () => {
       basic.stringify(
-        u(
-          'mdxJsxTextElement',
-          {attributes: [u('mdxJsxAttribute', {name: 'bravo'})]},
-          []
-        )
+        u('root', [
+          u(
+            'mdxJsxTextElement',
+            {name: null, attributes: [u('mdxJsxAttribute', {name: 'bravo'})]},
+            []
+          )
+        ])
       )
     },
     /Cannot serialize fragment w\/ attributes/,
@@ -1079,11 +1078,13 @@ test('stringify', () => {
   assert.throws(
     () => {
       basic.stringify(
-        u(
-          'mdxJsxTextElement',
-          {attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]},
-          []
-        )
+        u('root', [
+          u(
+            'mdxJsxTextElement',
+            {name: null, attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]},
+            []
+          )
+        ])
       )
     },
     /Cannot serialize fragment w\/ attributes/,
@@ -1093,11 +1094,13 @@ test('stringify', () => {
   assert.throws(
     () => {
       basic.stringify(
-        u(
-          'mdxJsxTextElement',
-          {attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]},
-          []
-        )
+        u('root', [
+          u(
+            'mdxJsxTextElement',
+            {name: null, attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]},
+            []
+          )
+        ])
       )
     },
     /Cannot serialize fragment w\/ attributes/,
@@ -1107,11 +1110,13 @@ test('stringify', () => {
   assert.throws(
     () => {
       basic.stringify(
-        u(
-          'mdxJsxTextElement',
-          {attributes: [u('mdxJsxExpressionAttribute', '...props')]},
-          []
-        )
+        u('root', [
+          u(
+            'mdxJsxTextElement',
+            {name: null, attributes: [u('mdxJsxExpressionAttribute', '...props')]},
+            []
+          )
+        ])
       )
     },
     /Cannot serialize fragment w\/ attributes/,
@@ -1121,22 +1126,25 @@ test('stringify', () => {
   assert.throws(
     () => {
       basic.stringify(
-        u(
-          'mdxJsxTextElement',
-          {
-            attributes: [
-              u('mdxJsxAttribute', {
-                name: 'b',
-                value: u(
-                  'mdxJsxAttributeValueExpression',
-                  {data: {estree: null}},
-                  '1 + 1'
-                )
-              })
-            ]
-          },
-          []
-        )
+        u('root', [
+          u(
+            'mdxJsxTextElement',
+            {
+              name: null,
+              attributes: [
+                u('mdxJsxAttribute', {
+                  name: 'b',
+                  value: u(
+                    'mdxJsxAttributeValueExpression',
+                    {data: {estree: undefined}},
+                    '1 + 1'
+                  )
+                })
+              ]
+            },
+            []
+          )
+        ])
       )
     },
     /Cannot serialize fragment w\/ attributes/,
@@ -1146,11 +1154,14 @@ test('stringify', () => {
   assert.throws(
     () => {
       basic.stringify(
-        u(
-          'mdxJsxTextElement',
-          {name: 'x', attributes: [u('mdxJsxAttribute', {value: 'bravo'})]},
-          []
-        )
+        // @ts-expect-error: `name` missing.
+        u('root', [
+          u(
+            'mdxJsxTextElement',
+            {name: 'x', attributes: [u('mdxJsxAttribute', {value: 'bravo'})]},
+            []
+          )
+        ])
       )
     },
     /Cannot serialize attribute w\/o name/,
@@ -1159,10 +1170,12 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', []),
-        u('text', ' charlie.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxJsxTextElement', {name: null, attributes: []}, []),
+          u('text', ' charlie.')
+        ])
       ])
     ),
     'Alpha <></> charlie.\n',
@@ -1171,10 +1184,12 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: 'b'}, []),
-        u('text', ' charlie.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
+          u('text', ' charlie.')
+        ])
       ])
     ),
     'Alpha <b/> charlie.\n',
@@ -1183,14 +1198,16 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u(
-          'mdxJsxTextElement',
-          {name: 'b', attributes: [u('mdxJsxAttribute', {name: 'bravo'})]},
-          []
-        ),
-        u('text', ' charlie.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u(
+            'mdxJsxTextElement',
+            {name: 'b', attributes: [u('mdxJsxAttribute', {name: 'bravo'})]},
+            []
+          ),
+          u('text', ' charlie.')
+        ])
       ])
     ),
     'Alpha <b bravo/> charlie.\n',
@@ -1199,17 +1216,19 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u(
-          'mdxJsxTextElement',
-          {
-            name: 'b',
-            attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]
-          },
-          []
-        ),
-        u('text', ' charlie.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u(
+            'mdxJsxTextElement',
+            {
+              name: 'b',
+              attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]
+            },
+            []
+          ),
+          u('text', ' charlie.')
+        ])
       ])
     ),
     'Alpha <b bravo="bravo"/> charlie.\n',
@@ -1218,17 +1237,19 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u(
-          'mdxJsxTextElement',
-          {
-            name: 'b',
-            attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]
-          },
-          []
-        ),
-        u('text', ' charlie.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u(
+            'mdxJsxTextElement',
+            {
+              name: 'b',
+              attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]
+            },
+            []
+          ),
+          u('text', ' charlie.')
+        ])
       ])
     ),
     'Alpha <b br:avo="bravo"/> charlie.\n',
@@ -1237,14 +1258,16 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u(
-          'mdxJsxTextElement',
-          {name: 'b', attributes: [u('mdxJsxExpressionAttribute', '...props')]},
-          []
-        ),
-        u('text', ' charlie.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u(
+            'mdxJsxTextElement',
+            {name: 'b', attributes: [u('mdxJsxExpressionAttribute', '...props')]},
+            []
+          ),
+          u('text', ' charlie.')
+        ])
       ])
     ),
     'Alpha <b {...props}/> charlie.\n',
@@ -1253,26 +1276,28 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u(
-          'mdxJsxTextElement',
-          {
-            name: 'b',
-            attributes: [
-              u('mdxJsxAttribute', {
-                name: 'b',
-                value: u(
-                  'mdxJsxAttributeValueExpression',
-                  {data: {estree: null}},
-                  '1 + 1'
-                )
-              })
-            ]
-          },
-          []
-        ),
-        u('text', ' charlie.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u(
+            'mdxJsxTextElement',
+            {
+              name: 'b',
+              attributes: [
+                u('mdxJsxAttribute', {
+                  name: 'b',
+                  value: u(
+                    'mdxJsxAttributeValueExpression',
+                    {data: {estree: undefined}},
+                    '1 + 1'
+                  )
+                })
+              ]
+            },
+            []
+          ),
+          u('text', ' charlie.')
+        ])
       ])
     ),
     'Alpha <b b={1 + 1}/> charlie.\n',
@@ -1281,8 +1306,10 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('link', {url: 'https://mdxjs.com'}, [u('text', 'https://mdxjs.com')])
+      u('root', [
+        u('paragraph', [
+          u('link', {url: 'https://mdxjs.com'}, [u('text', 'https://mdxjs.com')])
+        ])
       ])
     ),
     '[https://mdxjs.com](https://mdxjs.com)\n',
@@ -1291,21 +1318,27 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [u('link', {url: 'https://mdxjs.com'}, [])])
+      u('root', [
+        u('paragraph', [u('link', {url: 'https://mdxjs.com'}, [])])
+      ])
     ),
     '[](https://mdxjs.com)\n',
     'should support links w/o content'
   )
 
   assert.equal(
-    basic.stringify(u('paragraph', [u('link', {}, [u('text', '')])])),
+    basic.stringify(u('root', [
+      u('paragraph', [u('link', {url: ''}, [u('text', '')])])
+    ])),
     '[]()\n',
     'should support links w/o url'
   )
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [u('link', {url: 'a', title: 'b'}, [u('text', 'c')])])
+      u('root', [
+        u('paragraph', [u('link', {url: 'a', title: 'b'}, [u('text', 'c')])])
+      ])
     ),
     '[c](a "b")\n',
     'should support links w/ title'
@@ -1313,14 +1346,16 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', [
-          u('text', 'bravo '),
-          u('strong', [u('text', 'charlie')]),
-          u('text', ' delta')
-        ]),
-        u('text', ' echo.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxJsxTextElement', {name: null, attributes: []}, [
+            u('text', 'bravo '),
+            u('strong', [u('text', 'charlie')]),
+            u('text', ' delta')
+          ]),
+          u('text', ' echo.')
+        ])
       ])
     ),
     'Alpha <>bravo **charlie** delta</> echo.\n',
@@ -1329,10 +1364,12 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', [u('text', '1 < 3')]),
-        u('text', ' bravo.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxJsxTextElement', {name: null, attributes: []}, [u('text', '1 < 3')]),
+          u('text', ' bravo.')
+        ])
       ])
     ),
     'Alpha <>1 \\< 3</> bravo.\n',
@@ -1341,10 +1378,12 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', [u('text', '1 > 3')]),
-        u('text', ' bravo.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxJsxTextElement', {name: null, attributes: []}, [u('text', '1 > 3')]),
+          u('text', ' bravo.')
+        ])
       ])
     ),
     'Alpha <>1 > 3</> bravo.\n',
@@ -1353,21 +1392,23 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u(
-          'mdxJsxTextElement',
-          {
-            name: 'x',
-            attributes: [
-              u('mdxJsxAttribute', {
-                name: 'y',
-                value: '", \', <, >, {, }, ©, ≠, and 𝌆.'
-              })
-            ]
-          },
-          []
-        ),
-        u('text', '.')
+      u('root', [
+        u('paragraph', [
+          u(
+            'mdxJsxTextElement',
+            {
+              name: 'x',
+              attributes: [
+                u('mdxJsxAttribute', {
+                  name: 'y',
+                  value: '", \', <, >, {, }, ©, ≠, and 𝌆.'
+                })
+              ]
+            },
+            []
+          ),
+          u('text', '.')
+        ])
       ])
     ),
     '<x y="&#x22;, \', <, >, {, }, ©, ≠, and 𝌆."/>.\n',
@@ -1376,14 +1417,16 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('mdxJsxTextElement', {name: 'x'}, [
-          u(
-            'text',
-            'Character references can be used: ", \', <, >, {, and }, they can be named, decimal, or hexadecimal: © ≠ 𝌆'
-          )
-        ]),
-        u('text', '.')
+      u('root', [
+        u('paragraph', [
+          u('mdxJsxTextElement', {name: 'x', attributes: []}, [
+            u(
+              'text',
+              'Character references can be used: ", \', <, >, {, and }, they can be named, decimal, or hexadecimal: © ≠ 𝌆'
+            )
+          ]),
+          u('text', '.')
+        ])
       ])
     ),
     '<x>Character references can be used: ", \', \\<, >, \\{, and }, they can be named, decimal, or hexadecimal: © ≠ 𝌆</x>.\n',
@@ -1392,10 +1435,12 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', [u('text', '1 { 3')]),
-        u('text', ' bravo.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxJsxTextElement', {name: null, attributes: []}, [u('text', '1 { 3')]),
+          u('text', ' bravo.')
+        ])
       ])
     ),
     'Alpha <>1 \\{ 3</> bravo.\n',
@@ -1404,10 +1449,12 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', [u('text', '1 } 3')]),
-        u('text', ' bravo.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxJsxTextElement', {name: null, attributes: []}, [u('text', '1 } 3')]),
+          u('text', ' bravo.')
+        ])
       ])
     ),
     'Alpha <>1 } 3</> bravo.\n',
@@ -1416,10 +1463,12 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxTextExpression'),
-        u('text', ' bravo.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxTextExpression', ''),
+          u('text', ' bravo.')
+        ])
       ])
     ),
     'Alpha {} bravo.\n',
@@ -1428,10 +1477,12 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxTextExpression', '1 + 1'),
-        u('text', ' bravo.')
+      u('root', [
+        u('paragraph', [
+          u('text', 'Alpha '),
+          u('mdxTextExpression', '1 + 1'),
+          u('text', ' bravo.')
+        ])
       ])
     ),
     'Alpha {1 + 1} bravo.\n',
@@ -1443,21 +1494,24 @@ test('fixtures', () => {
   fs.readdirSync(base)
     .filter(d => /\.md$/.test(d))
     .forEach(name => {
-      const proc = unified().use(parse).use(stringify).use(mdx)
+      const proc = unified().use(remarkParse).use(remarkStringify).use(remarkMdx)
       const fpIn = path.join(base, name)
       const fpExpected = fpIn.replace(/\.md$/, '.json')
       const fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
-      const input = vfile.readSync(fpIn)
+      const input = readSync(fpIn)
+      /** @type {Root} */
       const tree = JSON.parse(JSON.stringify(proc.parse(input)))
       const doc = proc.stringify(tree)
+      /** @type {Root} */
       let expected
+      /** @type {string} */
       let expectedDoc
 
       try {
-        expected = JSON.parse(vfile.readSync(fpExpected))
+        expected = JSON.parse(String(readSync(fpExpected)))
       } catch (_) {
         expected = tree
-        vfile.writeSync({
+        writeSync({
           path: fpExpected,
           contents: JSON.stringify(expected, null, 2) + '\n'
         })
@@ -1466,13 +1520,13 @@ test('fixtures', () => {
       assert.equal(tree, expected, input.stem + ' (tree)')
 
       try {
-        expectedDoc = String(vfile.readSync(fpExpectedDoc))
+        expectedDoc = String(readSync(fpExpectedDoc))
       } catch (_) {
         expectedDoc = String(input)
 
         if (expectedDoc !== doc) {
           expectedDoc = doc
-          vfile.writeSync({path: fpExpectedDoc, contents: expectedDoc})
+          writeSync({path: fpExpectedDoc, contents: expectedDoc})
         }
       }
 
@@ -1487,28 +1541,37 @@ test('fixtures', () => {
     })
 })
 
+/**
+ * @template {Root|Content} Tree
+ * @param {Tree} tree
+ * @returns {Tree}
+ */
 function clean(tree) {
-  remove(tree, true)
+  removePosition(tree, true)
   cleanEstree(tree)
   return tree
 }
 
-function cleanEstree(tree) {
-  visit(
-    tree,
-    [
-      'mdxjsEsm',
-      'mdxTextExpression',
-      'mdxFlowExpression',
-      'mdxJsxTextElement',
-      'mdxJsxFlowElement'
-    ],
-    onvisit
-  )
-  return tree
 
+/**
+ * @param {Root|Content} tree
+ */
+function cleanEstree(tree) {
+  visit(tree, onvisit)
+
+  /**
+   * @param {Root|Content|MDXJsxAttribute|MDXJsxExpressionAttribute|MDXJsxAttributeValueExpression} node
+   */
   function onvisit(node) {
-    if (node.data && node.data.estree) {
+    if (
+      (node.type === 'mdxjsEsm' ||
+        node.type === 'mdxTextExpression' ||
+        node.type === 'mdxFlowExpression' ||
+        node.type === 'mdxJsxAttribute' ||
+        node.type === 'mdxJsxAttributeValueExpression' ||
+        node.type === 'mdxJsxExpressionAttribute') &&
+      (node.data && node.data.estree)
+    ) {
       node.data.estree = null
     }
 
@@ -1516,13 +1579,13 @@ function cleanEstree(tree) {
       node.type === 'mdxJsxTextElement' ||
       node.type === 'mdxJsxFlowElement'
     ) {
-      node.attributes.forEach(onattribute)
+      node.attributes.forEach((child) => {
+        onvisit(child)
+        if (child.value && typeof child.value === 'object') {
+          onvisit(child.value)
+        }
+      })
     }
-  }
-
-  function onattribute(node) {
-    onvisit(node)
-    if (node.value) onvisit(node.value)
   }
 }
 
