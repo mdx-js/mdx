@@ -1,13 +1,22 @@
 {
   "name": "@mdx-js/vue",
   "version": "2.0.0-next.9",
-  "description": "MDX support for Vue components",
+  "description": "Vue provider for MDX",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "vue",
+    "jsx",
+    "remark",
+    "mdxast"
+  ],
+  "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
     "directory": "packages/vue"
   },
-  "homepage": "https://mdxjs.com",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
@@ -18,23 +27,39 @@
     "Jonathan Bakebwa <jonas@akkadu-team.com> (https://jbakebwa.dev)",
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
-  "license": "MIT",
-  "main": "src/index.js",
-  "types": "types/index.d.ts",
+  "type": "module",
+  "sideEffects": false,
+  "main": "index.js",
+  "types": "index.d.ts",
   "files": [
-    "src/",
-    "types/index.d.ts"
+    "lib/",
+    "complex-types.d.ts",
+    "index.d.ts",
+    "index.js"
   ],
-  "keywords": [
-    "markdown",
-    "vue",
-    "mdx",
-    "remark"
-  ],
-  "scripts": {},
+  "dependencies": {},
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  },
   "devDependencies": {
-    "@vue/test-utils": "^1.0.0",
-    "babel-helper-vue-jsx-merge-props": "^2.0.0"
+    "@types/babel__core": "^7.0.0",
+    "@vue/babel-plugin-jsx": "^1.0.0",
+    "@vue/server-renderer": "^3.0.0",
+    "vue": "^3.0.0",
+    "xdm": "^2.0.0"
+  },
+  "scripts": {
+    "prepack": "npm run build",
+    "build": "rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" \"index.d.ts\" && tsc && type-coverage",
+    "test-api": "uvu test \"\\.js$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
+    "test": "npm run build && npm run test-coverage"
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true,
+    "ignoreCatch": true
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }
