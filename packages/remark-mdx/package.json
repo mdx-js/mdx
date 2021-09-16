@@ -1,7 +1,22 @@
 {
   "name": "remark-mdx",
-  "version": "2.0.0-next.9",
-  "description": "remark plugin to add support for mdx",
+  "#": "to do: this prevents for a second that siblings use this",
+  "version": "2.0.0-next.999",
+  "description": "remark plugin to support MDX syntax",
+  "license": "MIT",
+  "keywords": [
+    "unified",
+    "remark",
+    "remark-plugin",
+    "plugin",
+    "mdast",
+    "markdown",
+    "jsx",
+    "javascript",
+    "xml",
+    "mdx"
+  ],
+  "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
@@ -17,43 +32,39 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "Christian Murphy <christian.murphy.42@gmail.com>"
   ],
-  "license": "MIT",
-  "types": "types/index.d.ts",
+  "type": "module",
+  "sideEffects": false,
+  "main": "index.js",
+  "types": "index.d.ts",
   "files": [
-    "index.js",
-    "types/index.d.ts"
+    "index.d.ts",
+    "index.js"
   ],
-  "keywords": [
-    "unified",
-    "remark",
-    "remark-plugin",
-    "plugin",
-    "mdast",
-    "markdown",
-    "jsx",
-    "javascript",
-    "xml",
-    "mdx"
-  ],
-  "scripts": {
-    "test-api": "uvu test \"\\.js$\"",
-    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
-    "test-types": "dtslint types",
-    "test": "npm run test-coverage && npm run test-types"
-  },
   "dependencies": {
-    "mdast-util-mdx": "^0.1.0",
-    "micromark-extension-mdx": "^0.2.0",
-    "micromark-extension-mdxjs": "^0.3.0"
+    "mdast-util-mdx": "^1.0.0",
+    "micromark-extension-mdxjs": "^1.0.0"
   },
   "devDependencies": {
-    "remark-parse": "^9.0.0",
-    "remark-stringify": "^9.0.0",
-    "to-vfile": "^6.0.0",
-    "unified": "^9.0.0",
-    "unist-builder": "^2.0.0",
-    "unist-util-remove-position": "^3.0.0",
-    "unist-util-visit": "^2.0.0"
+    "remark-parse": "^10.0.0",
+    "remark-stringify": "^10.0.0",
+    "to-vfile": "^7.0.0",
+    "unified": "^10.0.0",
+    "unist-builder": "^3.0.0",
+    "unist-util-remove-position": "^4.0.0",
+    "unist-util-visit": "^4.0.0"
+  },
+  "scripts": {
+    "prepack": "npm run build",
+    "build": "rimraf \"test/**/*.d.ts\" \"*.d.ts\" && tsc && type-coverage",
+    "test-api": "uvu test \"\\.jsx?$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
+    "test": "npm run build && npm run test-coverage"
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true,
+    "ignoreCatch": true
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }
