@@ -18,3 +18,6 @@ coverage/
 /packages/react/lib/**/*.d.ts
 /packages/react/test/**/*.d.ts
 /packages/react/index.d.ts
+/packages/preact/lib/**/*.d.ts
+/packages/preact/test/**/*.d.ts
+/packages/preact/index.d.ts
