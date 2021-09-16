@@ -51,7 +51,7 @@
     "astring": "^1.0.0",
     "detab": "^2.0.0",
     "estree-walker": "^2.0.0",
-    "hast-util-to-estree": "^1.0.0",
+    "hast-util-to-estree": "^2.0.0",
     "mdast-util-to-hast": "^10.1.0",
     "periscopic": "^2.0.0",
     "rehype-minify-whitespace": "^4.0.0",
