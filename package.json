@@ -88,8 +88,6 @@
     "hastscript": "^7.0.0",
     "highlight.js": "^11.0.0",
     "husky": "^7.0.0",
-    "jsdom": "^17.0.0",
-    "jsdom-global": "^3.0.0",
     "lint-staged": "^11.0.0",
     "lowlight": "^2.0.0",
     "p-all": "^4.0.0",

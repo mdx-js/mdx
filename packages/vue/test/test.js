@@ -1,197 +1,123 @@
-require('jsdom-global')()
+/**
+ * @typedef {import('../complex-types').Components} Components
+ * @typedef {import('vue').Component} AnyComponent
+ * @typedef {import('vue').Component<{components?: Components}>} MDXContent
+ */
 
-const path = require('path')
-const {test} = require('uvu')
-const assert = require('uvu/assert')
-const {mount} = require('@vue/test-utils')
-const mdxTransform = require('../../mdx')
-const vueMergeProps = require('babel-helper-vue-jsx-merge-props')
-const {transformAsync: babelTransform} = require('@babel/core')
-const {MDXProvider, mdx} = require('../src')
+import {test} from 'uvu'
+import * as assert from 'uvu/assert'
+import * as babel from '@babel/core'
+import {compile} from 'xdm'
+import {run} from 'xdm/lib/run.js'
+import * as vue from 'vue'
+// eslint-disable-next-line import/default
+import serverRenderer from '@vue/server-renderer'
+import {useMDXComponents, MDXProvider} from '../index.js'
 
-const run = async value => {
-  // Turn the serialized MDX code into serialized JSX…
-  const doc = await mdxTransform(value, {skipExport: true, mdxFragment: false})
+/**
+ * @param {string} value
+ * @returns {Promise.<{default: MDXContent}>}
+ */
+async function evaluate(value) {
+  const file = await compile(value, {providerImportSource: '#', jsx: true, outputFormat: 'function-body'})
+  const result = await babel.transformAsync(String(file), {parserOpts: {allowReturnOutsideFunction: true}, plugins: ['@vue/babel-plugin-jsx']})
+  if (!result || !result.code) throw new Error('Whoops!')
+  const body = result.code.replace(/import \{(.+)\} from "vue"/, (_, /** @type {string} */ $1) => 'const {' + $1.replace(/ as /g, ': ') + '} = arguments[0].vue')
+  // @ts-expect-error: to do xdm (and mdx-js/mdx soon) also supports strings instead of vfiles for run.
+  return run(body, {vue, useMDXComponents})
+}
 
-  // …and that into serialized JS.
-  const {code} = await babelTransform(doc, {
-    configFile: false,
-    plugins: [
-      'babel-plugin-transform-vue-jsx',
-      path.resolve(__dirname, '../../babel-plugin-remove-export-keywords')
-    ]
-  })
-
-  // …and finally run it, returning the component.
-  // eslint-disable-next-line no-new-func
-  return new Function(
-    'mdx',
-    '_mergeJSXProps',
-    `let h;
-    ${code.replace(
-      /import _mergeJSXProps from "babel-helper-vue-jsx-merge-props";/,
-      ''
-    )};
-
-    return {
-      name: 'Mdx',
-      inject: {
-        $mdxComponents: {
-          default: () => () => ({})
-        }
-      },
-      computed: {
-        components() {
-          return this.$mdxComponents()
-        }
-      },
-      render(createElement) {
-        h = mdx.bind({createElement, components: this.components})
-        return MDXContent({components: this.components})
-      }
-    }`
-  )(mdx, vueMergeProps)
+/**
+ * @param {AnyComponent} root
+ * @param {Record<string, unknown>} [rootProps]
+ * @returns {Promise<string>}
+ */
+async function vueToString(root, rootProps) {
+  const result = await serverRenderer.renderToString(vue.createSSRApp(root, rootProps))
+  // Remove SSR comments used to hydrate.
+  return result.replace(/<!--[[\]]-->/g, '')
 }
 
 test('should evaluate MDX code', async () => {
-  const Content = await run('# hi')
+  const {default: Content} = await evaluate('# hi')
 
-  assert.equal(mount(Content).html(), '<h1>hi</h1>')
+  assert.equal(await vueToString(Content), '<h1>hi</h1>')
 })
 
 test('should evaluate some more complex MDX code (text, inline)', async () => {
-  const Content = await run(
+  const {default: Content} = await evaluate(
     '*a* **b** `c` <abbr title="Markdown + JSX">MDX</abbr>'
   )
 
   assert.equal(
-    mount(Content).html(),
+    await vueToString(Content),
     '<p><em>a</em> <strong>b</strong> <code>c</code> <abbr title="Markdown + JSX">MDX</abbr></p>'
   )
 })
 
-test('should evaluate some more complex MDX code (flow, block)', async () => {
-  const Content = await run('***\n> a\n* b\n1. c')
-
-  assert.equal(
-    mount(Content).html(),
-    '<div>\n' +
-      '  <hr>\n' +
-      '  <blockquote>\n' +
-      '    <p>a</p>\n' +
-      '  </blockquote>\n' +
-      '  <ul>\n' +
-      '    <li>b</li>\n' +
-      '  </ul>\n' +
-      '  <ol>\n' +
-      '    <li>c</li>\n' +
-      '  </ol>\n' +
-      '</div>'
-  )
-})
-
-test('should warn on missing components', async () => {
-  const Content = await run('<Component />')
-  const {warn} = console
-  const calls = []
-  console.warn = (...parameters) => {
-    calls.push(parameters)
-  }
-
-  assert.equal(mount(Content).html(), '<div></div>')
-
-  assert.equal(calls, [
-    [
-      'Component `%s` was not imported, exported, or provided by MDXProvider as global scope',
-      'Component'
-    ]
-  ])
-
-  console.warn = warn
-})
-
 test('should support Vue components defined in MDX', async () => {
-  const Content = await run(
+  const {default: Content} = await evaluate(
     'export const A = {render() { return <b>!</b> }}\n\n<A />'
   )
 
-  assert.equal(mount(Content).html(), '<b>!</b>')
-})
-
-test('should work', async () => {
-  const Content = await run('# hi')
-
   assert.equal(
-    mount(MDXProvider, {slots: {default: [Content]}}).html(),
-    '<div>\n  <h1>hi</h1>\n</div>'
+    await vueToString(Content),
+    '<b>!</b>'
   )
 })
 
-test('should support `components`', async () => {
-  const Content = await run('*a* and <em id="b">c</em>.')
+test('should support passing `components`', async () => {
+  const {default: Content} = await evaluate('# hi')
 
   assert.equal(
-    mount(MDXProvider, {
-      slots: {default: [Content]},
-      propsData: {
-        components: {
-          em: {
-            name: 'emphasis',
-            props: ['id'],
-            render(h) {
-              return h(
-                'i',
-                {attrs: {id: this.id}, style: {fontWeight: 'bold'}},
-                this.$slots.default
-              )
-            }
-          }
-        }
-      }
-    }).html(),
-    '<div>\n  <p><i style="font-weight: bold;">a</i> and <i id="b" style="font-weight: bold;">c</i>.</p>\n</div>'
+    await vueToString(Content, {components: {h1: 'h2'}}),
+    '<h2>hi</h2>'
   )
 })
 
-test('should support functional `components`', async () => {
-  const Content = await run('*a* and <em id="b">c</em>.')
-  const {error} = console
-  console.error = () => {}
+test('should support passing `components`', async () => {
+  const {default: Content} = await evaluate('# hi')
 
   assert.equal(
-    mount(MDXProvider, {
-      slots: {default: [Content]},
-      propsData: {
-        components: {
-          em(h) {
-            return h('i', {style: {fontWeight: 'bold'}}, this.$slots.default)
-          }
-        }
-      }
-    }).html(),
-    '<div>\n  <p><i style="font-weight: bold;">a</i> and <i style="font-weight: bold;" id="b">c</i>.</p>\n</div>'
+    await vueToString(Content, {components: {h1: 'h2'}}),
+    '<h2>hi</h2>'
   )
-
-  console.error = error
 })
 
-test('should support the readme example', async () => {
-  const Example = await run('# Hello, world! {1 + 1}')
-
-  const components = {
-    h1: {
-      render(h) {
-        return h('h1', {style: {color: 'tomato'}}, this.$slots.default)
-      }
-    }
-  }
+test('should support `MDXProvider`', async () => {
+  const {default: Content} = await evaluate('# hi')
 
   assert.equal(
-    mount(MDXProvider, {
-      slots: {default: [Example]},
-      propsData: {components}
-    }).html(),
-    '<div>\n  <h1 style="color: tomato;">Hello, world! 2</h1>\n</div>'
+    await vueToString({
+      data() {
+        return {components: {h1: 'h2'}}
+      },
+      template: '<MDXProvider v-bind:components="components"><Content /></MDXProvider>',
+      components: {MDXProvider, Content}
+    }),
+    '<h2>hi</h2>'
+  )
+})
+
+test('should support the MDX provider w/o components', async () => {
+  const {default: Content} = await evaluate('# hi')
+
+  assert.equal(
+    await vueToString({
+      template: '<MDXProvider><Content /></MDXProvider>',
+      components: {MDXProvider, Content}
+    }),
+    '<h1>hi</h1>'
+  )
+})
+
+test('should support the MDX provider w/o content', async () => {
+  assert.equal(
+    await vueToString({
+      template: '<MDXProvider />',
+      components: {MDXProvider}
+    }),
+    ''
   )
 })
 

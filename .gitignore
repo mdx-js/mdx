@@ -23,3 +23,6 @@ coverage/
 /packages/react/index.d.ts
 /packages/remark-mdx/test/**/*.d.ts
 /packages/remark-mdx/*.d.ts
+/packages/vue/lib/**/*.d.ts
+/packages/vue/test/**/*.d.ts
+/packages/vue/index.d.ts
