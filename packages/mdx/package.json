@@ -67,7 +67,7 @@
     "react-dom": "^17.0.0",
     "rehype-katex": "^4.0.0",
     "remark-footnotes": "^3.0.0",
-    "remark-gfm": "^1.0.0",
+    "remark-gfm": "^2.0.0",
     "remark-math": "^4.0.0"
   },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
