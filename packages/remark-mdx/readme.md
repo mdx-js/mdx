@@ -122,16 +122,16 @@ attacks.
 
 ## Related
 
-- [`remark-breaks`](https://github.com/remarkjs/remark-breaks)
-  — More breaks
-- [`remark-footnotes`](https://github.com/remarkjs/remark-footnotes)
-  — Footnotes support
-- [`remark-frontmatter`](https://github.com/remarkjs/remark-frontmatter)
-  — Frontmatter (yaml, toml, and more) support
-- [`remark-github`](https://github.com/remarkjs/remark-github)
-  — References to issues, PRs, comments, users, etc
-- [`remark-math`](https://github.com/rokt33r/remark-math)
-  — Inline and block math
+*   [`remark-breaks`](https://github.com/remarkjs/remark-breaks)
+    — More breaks
+*   [`remark-footnotes`](https://github.com/remarkjs/remark-footnotes)
+    — Footnotes support
+*   [`remark-frontmatter`](https://github.com/remarkjs/remark-frontmatter)
+    — Frontmatter (yaml, toml, and more) support
+*   [`remark-github`](https://github.com/remarkjs/remark-github)
+    — References to issues, PRs, comments, users, etc
+*   [`remark-math`](https://github.com/rokt33r/remark-math)
+    — Inline and block math
 
 ## Contribute
 
@@ -147,24 +147,45 @@ abide by its terms.
 [MIT][license] © [Titus Wormer][author]
 
 [build-badge]: https://img.shields.io/travis/mdx-js/mdx/master.svg
+
 [build]: https://travis-ci.org/mdx-js/mdx
+
 [downloads-badge]: https://img.shields.io/npm/dm/remark-mdx.svg
+
 [downloads]: https://www.npmjs.com/package/remark-mdx
+
 [size-badge]: https://img.shields.io/bundlephobia/minzip/remark-mdx.svg
+
 [size]: https://bundlephobia.com/result?p=remark-mdx
+
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
 [backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
 [collective]: https://opencollective.com/unified
+
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
 [chat]: https://github.com/mdx-js/mdx/discussions
+
 [npm]: https://docs.npmjs.com/cli/install
+
 [contributing]: https://mdxjs.com/contributing
+
 [support]: https://mdxjs.com/support
+
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
+
 [license]: license
+
 [author]: https://wooorm.com
+
 [remark]: https://github.com/remarkjs/remark
+
 [xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
 [rehype]: https://github.com/rehypejs/rehype
+
 [hast]: https://github.com/syntax-tree/hast
+
 [mdxjs]: https://mdxjs.com

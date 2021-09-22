@@ -1,5 +1,3 @@
-import BabelConfiguration from '../_component/babel-configuration.server.mdx'
-
 # Webpack
 
 MDX provides a built in webpack loader you need to install and configure
@@ -13,8 +11,8 @@ npm install --save-dev @mdx-js/loader
 
 ## Configuration
 
-The loader needs to be used in tandem with the [babel-loader][]. Most projects will typically
-already include this if you are using JSX syntax.
+The loader needs to be used in tandem with the [babel-loader][].
+Most projects will typically already include this if you are using JSX syntax.
 
 For webpack projects you can define the following `webpack.config.js` extension
 handler for `.md` and `.mdx` files:
@@ -36,12 +34,13 @@ module.exports = {
 }
 ```
 
-If you only want the loader for `.mdx` files you can change the regex to `/\.mdx$/`.
+If you only want the loader for `.mdx` files you can change the regex to
+`/\.mdx$/`.
 
-The transpiled output for MDX requires [babel][] to be run. This is typically
-by adding in the babel-loader to run _after_ the MDX loader. Webpack starts
-from the end of the loaders array and works backward, so it is important to
-follow the ordering above.
+The transpiled output for MDX requires [babel][] to be run.
+This is typically by adding in the babel-loader to run *after* the MDX loader.
+Webpack starts from the end of the loaders array and works backward, so it is
+important to follow the ordering above.
 
 ## Using plugins
 
@@ -75,8 +74,8 @@ module.exports = {
 
 ## Running MDX in the browser
 
-If you’re running MDX in the browser you will need to configure webpack to ignore
-the `fs` module:
+If you’re running MDX in the browser you will need to configure webpack to
+ignore the `fs` module:
 
 ```js
 module.exports = {
@@ -86,9 +85,28 @@ module.exports = {
 }
 ```
 
-[See the webpack docs](https://webpack.js.org/configuration/node/#other-node-core-libraries)
+[See the webpack
+docs](https://webpack.js.org/configuration/node/#other-node-core-libraries)
 
-<BabelConfiguration />
+## Babel configuration
+
+You will also need to configure [babel][] to support the language features that
+MDX uses.
+One way you can achieve that is using the following `.babelrc` at your project
+root.
+
+```json
+{
+  "presets": ["@babel/env", "@babel/react"]
+}
+```
+
+And installing the dependencies:
+
+```sh
+npm install --save-dev @babel/preset-env @babel/preset-react
+```
 
 [babel-loader]: https://webpack.js.org/loaders/babel-loader/
+
 [babel]: https://babeljs.io

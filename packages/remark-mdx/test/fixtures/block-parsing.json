@@ -885,7 +885,7 @@
           "name": "stuff",
           "value": {
             "type": "mdxJsxAttributeValueExpression",
-            "value": "`\nHere is a template literal\n\nwith an empty line\n`",
+            "value": "`\nHere is a template literal\n\nwith an empty line\n  `",
             "data": {
               "estree": {
                 "type": "Program",
@@ -1214,7 +1214,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "\n<h2>{1+1}</h2>\n",
+          "value": "\n  <h2>{1+1}</h2>\n",
           "position": {
             "start": {
               "line": 45,

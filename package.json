@@ -38,7 +38,7 @@
     "docs": "npm run docs-prod",
     "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
     "format": "npm run lint -- --fix",
-    "lint": "prettier . -w --loglevel warn && eslint --ext .jsx --report-unused-disable-directives --cache .",
+    "lint": "remark . -qfo && remark . -e mdx -u mdx -qfo && prettier . -w --loglevel warn && eslint --ext .jsx --report-unused-disable-directives --cache .",
     "publish-ci": "# lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "# lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
     "build": "npm run build --workspaces -w packages/remark-mdx -w packages/mdx -w packages/react -w packages/preact -w packages/vue -w packages/loader --if-present",
@@ -112,12 +112,13 @@
     "rehype-shift-heading": "^1.0.0",
     "rehype-slug": "^5.0.0",
     "rehype-stringify": "^9.0.0",
+    "remark-cli": "^10.0.0",
     "remark-frontmatter": "^4.0.0",
     "remark-gemoji": "^7.0.0",
     "remark-gfm": "^2.0.0",
     "remark-github": "^11.0.0",
     "remark-mdx-frontmatter": "^1.0.0",
-    "remark-preset-wooorm": "^8.0.0",
+    "remark-preset-wooorm": "^9.0.0",
     "remark-toc": "^8.0.0",
     "rimraf": "^3.0.0",
     "rodemirror": "^1.0.0",
@@ -156,6 +157,15 @@
         "preset": "default"
       }
     }
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm",
+      [
+        "lint-file-extension",
+        false
+      ]
+    ]
   },
   "prettier": {
     "arrowParens": "avoid",

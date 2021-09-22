@@ -1537,7 +1537,7 @@ test('fixtures', () => {
         expected = tree
         writeSync({
           path: fpExpected,
-          contents: JSON.stringify(expected, null, 2) + '\n'
+          value: JSON.stringify(expected, null, 2) + '\n'
         })
       }
 
@@ -1550,7 +1550,7 @@ test('fixtures', () => {
 
         if (expectedDoc !== doc) {
           expectedDoc = doc
-          writeSync({path: fpExpectedDoc, contents: expectedDoc})
+          writeSync({path: fpExpectedDoc, value: expectedDoc})
         }
       }
 

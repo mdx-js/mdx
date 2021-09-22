@@ -651,7 +651,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "props.items.map(item => (\n<ListItem item={item} key={item.id} />\n))",
+          "value": "props.items.map(item => (\n  <ListItem item={item} key={item.id} />\n))",
           "position": {
             "start": {
               "line": 20,
@@ -1090,7 +1090,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "props.items.map(item => (\n// Fragments should also have a `key` prop when mapping collections\n<Fragment key={item.id}>\n<dt>{item.term}</dt>\n<dd>{item.description}</dd>\n</Fragment>\n))",
+          "value": "props.items.map(item => (\n  // Fragments should also have a `key` prop when mapping collections\n  <Fragment key={item.id}>\n    <dt>{item.term}</dt>\n    <dd>{item.description}</dd>\n  </Fragment>\n))",
           "position": {
             "start": {
               "line": 26,
@@ -2216,7 +2216,7 @@
         },
         {
           "type": "mdxFlowExpression",
-          "value": "this.state.isOpen && (\n<ul>\n<li>Option 1</li>\n<li>Option 2</li>\n<li>Option 3</li>\n</ul>\n)",
+          "value": "this.state.isOpen && (\n  <ul>\n    <li>Option 1</li>\n    <li>Option 2</li>\n    <li>Option 3</li>\n  </ul>\n)",
           "position": {
             "start": {
               "line": 40,
@@ -3344,7 +3344,7 @@
         },
         {
           "type": "mdxFlowExpression",
-          "value": "this.state.isOpen && (\n<ul>\n<li>Option 1</li>\n<li>Option 2</li>\n<li>Option 3</li>\n</ul>\n)",
+          "value": "this.state.isOpen && (\n  <ul>\n    <li>Option 1</li>\n    <li>Option 2</li>\n    <li>Option 3</li>\n  </ul>\n)",
           "position": {
             "start": {
               "line": 56,

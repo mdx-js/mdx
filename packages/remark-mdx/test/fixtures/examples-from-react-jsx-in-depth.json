@@ -4045,7 +4045,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "props.messages.length &&\n<MessageList messages={props.messages} />\n",
+          "value": "props.messages.length &&\n  <MessageList messages={props.messages} />\n",
           "position": {
             "start": {
               "line": 109,
@@ -4377,7 +4377,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "props.messages.length > 0 &&\n<MessageList messages={props.messages} />\n",
+          "value": "props.messages.length > 0 &&\n  <MessageList messages={props.messages} />\n",
           "position": {
             "start": {
               "line": 115,

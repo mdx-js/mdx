@@ -10,17 +10,31 @@ the installation guides.
 
 {
   (() => {
-    const advanced = props.navTree.children.find((item) => item.name === '/getting-started/')
+    const category = props.navTree.children.find(
+      item => item.name === '/getting-started/'
+    )
 
     return (
       <nav>
-        <NavGroup items={advanced.children} includeDescription />
+        <NavGroup items={category.children} includeDescription />
       </nav>
     )
   })()
 }
 
 ## Contents
+
+*   [Hello World](#hello-world)
+*   [Syntax](#syntax)
+    *   [Markdown](#markdown)
+    *   [JSX](#jsx)
+    *   [MDX](#mdx)
+*   [Working with components](#working-with-components)
+    *   [MDXProvider](#mdxprovider)
+    *   [Table of components](#table-of-components)
+*   [Installation guides](#installation-guides)
+    *   [Scaffold out an app](#scaffold-out-an-app)
+    *   [Do it yourself](#do-it-yourself)
 
 ## Hello World
 
@@ -100,15 +114,13 @@ with the benefits of JSX.
 The following example shows how they can be combined.
 It’s interactive so go ahead and change the code!
 
-<Editor
-  children={`Hello, *world*!
+<Editor children={`Hello, *world*!
 
 Below is an example of JSX embedded in Markdown.\\
 
 <div style={{padding: '20px', backgroundColor: 'tomato', color: 'black' }}>
-  **Try and change the background color!**
-</div>`}
-/>
+**Try and change the background color!**
+</div>`}/>
 
 MDX supports two more features: [imports][] and [exports][].
 
@@ -173,7 +185,8 @@ import Contributing from './docs/contributing.mdx'
 [`export` (ES2015)][export] can be used to export data and components.
 For example, you can export metadata like which layout to use or the authors of
 a document.
-It’s a mechanism for an imported MDX file to communicate with the thing that imports it.
+It’s a mechanism for an imported MDX file to communicate with the thing that
+imports it.
 
 Say we import our MDX file, using webpack and React, like so:
 
@@ -224,8 +237,9 @@ structures.
 ##### Defining variables with exports
 
 If you need to define a variable in your MDX document, you can use an export
-to do so. Not only do exports emit data, they instantiate data you can reference
-in JSX blocks:
+to do so.
+Not only do exports emit data, they instantiate data you can reference in JSX
+blocks:
 
 ```js
 export const myVariable = 'Yay!'
@@ -350,7 +364,7 @@ Sometimes from an MDX file you might want to override the wrapper.
 This is especially useful when you want to override layout for a single entry
 point at the page level.
 To achieve this you can use the ES default [export][] and it will wrap your MDX
-document _instead_ of the wrapper passed to MDXProvider.
+document *instead* of the wrapper passed to MDXProvider.
 
 You can declare a default export as a function:
 
@@ -382,7 +396,7 @@ internally to MDX when it renders.
 The following components are rendered from Markdown, so these can be keys in the
 component object you pass to `MDXProvider`.
 
-<TableOfComponents />
+<TableOfComponents/>
 
 ## Installation guides
 
@@ -393,11 +407,11 @@ Now that we’ve gone over how MDX works, you’re ready to get installing.
 If you’re the type of person that wants to scaffold out an app quickly and start
 playing around you can use `npm init`:
 
-- `npm init mdx` [`webpack`](/getting-started/webpack)
-- `npm init mdx` [`parcel`](/getting-started/parcel)
-- `npm init mdx` [`next`](/getting-started/next)
-- `npm init mdx` [`gatsby`](/getting-started/gatsby)
-- `npm init mdx` [`react-static`](/getting-started/react-static)
+*   `npm init mdx` [`webpack`](/getting-started/webpack)
+*   `npm init mdx` [`parcel`](/getting-started/parcel)
+*   `npm init mdx` [`next`](/getting-started/next)
+*   `npm init mdx` [`gatsby`](/getting-started/gatsby)
+*   `npm init mdx` [`react-static`](/getting-started/react-static)
 
 ### Do it yourself
 
@@ -448,12 +462,21 @@ const renderWithReact = async mdxCode => {
 ```
 
 [imports]: #imports
+
 [exports]: #exports
+
 [components]: #table-of-components
+
 [md]: https://daringfireball.net/projects/markdown/syntax
+
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
+
 [import]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/import
+
 [export]: https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
+
 [rebass]: https://rebassjs.org
+
 [transclude]: https://en.wikipedia.org/wiki/Transclusion
+
 [context]: https://reactjs.org/docs/context.html

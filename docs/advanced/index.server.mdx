@@ -10,11 +10,13 @@ directly.
 
 {
   (() => {
-    const advanced = props.navTree.children.find((item) => item.name === '/advanced/')
+    const category = props.navTree.children.find(
+      item => item.name === '/advanced/'
+    )
 
     return (
       <nav>
-        <NavGroup items={advanced.children} includeDescription />
+        <NavGroup items={category.children} includeDescription />
       </nav>
     )
   })()

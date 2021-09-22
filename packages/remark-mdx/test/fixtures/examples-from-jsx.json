@@ -351,7 +351,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "\nshouldShowAnswer(user) ?\n<Answer value={false}>no</Answer> :\n<Box.Comment>\nText Content\n</Box.Comment>\n",
+          "value": "\n  shouldShowAnswer(user) ?\n  <Answer value={false}>no</Answer> :\n  <Box.Comment>\n     Text Content\n  </Box.Comment>\n",
           "position": {
             "start": {
               "line": 15,

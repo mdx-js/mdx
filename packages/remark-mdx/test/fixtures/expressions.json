@@ -78,7 +78,7 @@
           "name": "y",
           "value": {
             "type": "mdxJsxAttributeValueExpression",
-            "value": "`\n// Blank line in attribute\n\n// …expression.\n`",
+            "value": "`\n  // Blank line in attribute\n\n  // …expression.\n`",
             "data": {
               "estree": {
                 "type": "Program",
@@ -865,7 +865,7 @@
     },
     {
       "type": "mdxFlowExpression",
-      "value": "\nMath.PI\n",
+      "value": "\n  Math.PI\n",
       "position": {
         "start": {
           "line": 27,
@@ -1272,7 +1272,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "\n1 + 1\n",
+          "value": "\n  1 + 1\n",
           "position": {
             "start": {
               "line": 38,

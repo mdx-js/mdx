@@ -6,21 +6,21 @@ export const navSortSelf = 1
 ## Markdown for the component era
 
 MDX is an authorable format that lets you seamlessly write JSX in your Markdown
-documents. You can import components, such as interactive charts or alerts, and
-embed them within your content. This makes writing long-form content with
-components a blast. 🚀
+documents.
+You can import components, such as interactive charts or alerts, and embed them
+within your content.
+This makes writing long-form content with components a blast.
+🚀
 
 ## Try it
 
-<Editor
-  children={`Hello, *world*!
+<Editor children={`Hello, *world*!
 
 Below is an example of JSX embedded in Markdown.
 
 <div style={{padding: '20px', backgroundColor: 'tomato', color: 'black' }}>
-  **Try and change the background color!**
-</div>`}
-/>
+**Try and change the background color!**
+</div>`}/>
 
 ## In short
 
@@ -47,18 +47,22 @@ during the build stage.
 ## Why?
 
 Before MDX, some of the benefits of writing Markdown were lost when integrating
-with JSX. Implementations were often template string-based which required lots
-of escaping and cumbersome syntax.
+with JSX.
+Implementations were often template string-based which required lots of escaping
+and cumbersome syntax.
 
-MDX seeks to make writing with Markdown _and_ JSX simpler while being more
-expressive. Writing is fun again when you combine components, that can
-even be dynamic or load data, with the simplicity of Markdown for long-form
-content.
+MDX seeks to make writing with Markdown *and* JSX simpler while being more
+expressive.
+Writing is fun again when you combine components, that can even be dynamic or
+load data, with the simplicity of Markdown for long-form content.
 
-Watch @kentcdodds introduce some of these features on YouTube:
+Watch [**@kentcdodds**](https://github.com/kentcdodds) introduce some of these
+features on YouTube:
 
 [![“What is MDX?” on YouTube][what-is-mdx-image]][what-is-mdx]
 
 [quote]: https://twitter.com/chrisbiscardi/status/1022304288326864896
+
 [what-is-mdx-image]: /dev-tips-with-kent.jpg
+
 [what-is-mdx]: https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u "I've recently taking a big liking to MDX: A JSX in Markdown loader, parser, and renderer for ambitious projects. It combines the readability of Markdown with the expressivity of JSX. The best of both worlds. 🌐"

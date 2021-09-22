@@ -44,7 +44,7 @@ Editorial note: the above example had an opening tag instead of a closing tag:
     const newValue = doStuff(prop)
 
     return <h1>{newValue}</h1>
-    }}
+  }}
 </SomeComponent>
 
 ***
@@ -52,9 +52,9 @@ Editorial note: the above example had an opening tag instead of a closing tag:
 # Hello, world!
 
 <SomeComponent someProp={`
-  Here's a template string
+    Here's a template string
 
-  with empty lines
+    with empty lines
   `}/>
 
 ***

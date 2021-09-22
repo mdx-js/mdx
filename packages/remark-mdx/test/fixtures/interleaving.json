@@ -1361,7 +1361,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "prop => {\nconst newValue = doStuff(prop)\n\nreturn <h1>{newValue}</h1>\n}",
+          "value": "prop => {\n  const newValue = doStuff(prop)\n\n  return <h1>{newValue}</h1>\n}",
           "position": {
             "start": {
               "line": 49,
@@ -1782,7 +1782,7 @@
           "name": "someProp",
           "value": {
             "type": "mdxJsxAttributeValueExpression",
-            "value": "`\nHere's a template string\n\nwith empty lines\n`",
+            "value": "`\n    Here's a template string\n\n    with empty lines\n  `",
             "data": {
               "estree": {
                 "type": "Program",
