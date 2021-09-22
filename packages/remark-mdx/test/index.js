@@ -26,7 +26,10 @@ const basic = unified().use(remarkParse).use(remarkMdx)
 
 test('parse: MDX vs. MDX.js', () => {
   assert.equal(
-    clean(unified().use(remarkParse).use(remarkMdx).parse('{1 + /* } */ 2}').children[0]),
+    clean(
+      unified().use(remarkParse).use(remarkMdx).parse('{1 + /* } */ 2}')
+        .children[0]
+    ),
     u('mdxFlowExpression', {data: {estree: null}}, '1 + /* } */ 2'),
     'should parse expressions in gnostic mode (default)'
   )
@@ -499,9 +502,7 @@ test('parse: complete', () => {
   )
 
   assert.equal(
-    clean(
-      basic.parse('Alpha <b xml :\tlang\n= "de-CH" foo:bar>charlie</b>.')
-    ),
+    clean(basic.parse('Alpha <b xml :\tlang\n= "de-CH" foo:bar>charlie</b>.')),
     u('root', [
       u('paragraph', [
         u('text', 'Alpha '),
@@ -1081,7 +1082,10 @@ test('stringify', () => {
         u('root', [
           u(
             'mdxJsxTextElement',
-            {name: null, attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]},
+            {
+              name: null,
+              attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]
+            },
             []
           )
         ])
@@ -1097,7 +1101,10 @@ test('stringify', () => {
         u('root', [
           u(
             'mdxJsxTextElement',
-            {name: null, attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]},
+            {
+              name: null,
+              attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]
+            },
             []
           )
         ])
@@ -1113,7 +1120,10 @@ test('stringify', () => {
         u('root', [
           u(
             'mdxJsxTextElement',
-            {name: null, attributes: [u('mdxJsxExpressionAttribute', '...props')]},
+            {
+              name: null,
+              attributes: [u('mdxJsxExpressionAttribute', '...props')]
+            },
             []
           )
         ])
@@ -1263,7 +1273,10 @@ test('stringify', () => {
           u('text', 'Alpha '),
           u(
             'mdxJsxTextElement',
-            {name: 'b', attributes: [u('mdxJsxExpressionAttribute', '...props')]},
+            {
+              name: 'b',
+              attributes: [u('mdxJsxExpressionAttribute', '...props')]
+            },
             []
           ),
           u('text', ' charlie.')
@@ -1308,7 +1321,9 @@ test('stringify', () => {
     basic.stringify(
       u('root', [
         u('paragraph', [
-          u('link', {url: 'https://mdxjs.com'}, [u('text', 'https://mdxjs.com')])
+          u('link', {url: 'https://mdxjs.com'}, [
+            u('text', 'https://mdxjs.com')
+          ])
         ])
       ])
     ),
@@ -1318,18 +1333,16 @@ test('stringify', () => {
 
   assert.equal(
     basic.stringify(
-      u('root', [
-        u('paragraph', [u('link', {url: 'https://mdxjs.com'}, [])])
-      ])
+      u('root', [u('paragraph', [u('link', {url: 'https://mdxjs.com'}, [])])])
     ),
     '[](https://mdxjs.com)\n',
     'should support links w/o content'
   )
 
   assert.equal(
-    basic.stringify(u('root', [
-      u('paragraph', [u('link', {url: ''}, [u('text', '')])])
-    ])),
+    basic.stringify(
+      u('root', [u('paragraph', [u('link', {url: ''}, [u('text', '')])])])
+    ),
     '[]()\n',
     'should support links w/o url'
   )
@@ -1367,7 +1380,9 @@ test('stringify', () => {
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, [u('text', '1 < 3')]),
+          u('mdxJsxTextElement', {name: null, attributes: []}, [
+            u('text', '1 < 3')
+          ]),
           u('text', ' bravo.')
         ])
       ])
@@ -1381,7 +1396,9 @@ test('stringify', () => {
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, [u('text', '1 > 3')]),
+          u('mdxJsxTextElement', {name: null, attributes: []}, [
+            u('text', '1 > 3')
+          ]),
           u('text', ' bravo.')
         ])
       ])
@@ -1438,7 +1455,9 @@ test('stringify', () => {
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, [u('text', '1 { 3')]),
+          u('mdxJsxTextElement', {name: null, attributes: []}, [
+            u('text', '1 { 3')
+          ]),
           u('text', ' bravo.')
         ])
       ])
@@ -1452,7 +1471,9 @@ test('stringify', () => {
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, [u('text', '1 } 3')]),
+          u('mdxJsxTextElement', {name: null, attributes: []}, [
+            u('text', '1 } 3')
+          ]),
           u('text', ' bravo.')
         ])
       ])
@@ -1494,7 +1515,10 @@ test('fixtures', () => {
   fs.readdirSync(base)
     .filter(d => /\.md$/.test(d))
     .forEach(name => {
-      const proc = unified().use(remarkParse).use(remarkStringify).use(remarkMdx)
+      const proc = unified()
+        .use(remarkParse)
+        .use(remarkStringify)
+        .use(remarkMdx)
       const fpIn = path.join(base, name)
       const fpExpected = fpIn.replace(/\.md$/, '.json')
       const fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
@@ -1552,7 +1576,6 @@ function clean(tree) {
   return tree
 }
 
-
 /**
  * @param {Root|Content} tree
  */
@@ -1570,7 +1593,8 @@ function cleanEstree(tree) {
         node.type === 'mdxJsxAttribute' ||
         node.type === 'mdxJsxAttributeValueExpression' ||
         node.type === 'mdxJsxExpressionAttribute') &&
-      (node.data && node.data.estree)
+      node.data &&
+      node.data.estree
     ) {
       node.data.estree = null
     }
@@ -1579,7 +1603,7 @@ function cleanEstree(tree) {
       node.type === 'mdxJsxTextElement' ||
       node.type === 'mdxJsxFlowElement'
     ) {
-      node.attributes.forEach((child) => {
+      node.attributes.forEach(child => {
         onvisit(child)
         if (child.value && typeof child.value === 'object') {
           onvisit(child.value)

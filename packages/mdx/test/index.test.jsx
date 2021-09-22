@@ -22,7 +22,10 @@ test('should generate JSX', async () => {
 test('should compile JSX to function calls', async () => {
   const result = await compile('Hello World')
 
-  assert.match(result, /_jsx\(_components\.p, {\s+children: "Hello World"\s+}\)/)
+  assert.match(
+    result,
+    /_jsx\(_components\.p, {\s+children: "Hello World"\s+}\)/
+  )
 })
 
 test('should generate runnable JS', async () => {
@@ -46,7 +49,10 @@ test('should support `&`, `<`, and `>` in text', async () => {
 })
 
 test('should generate JSX-compliant strings', async () => {
-  const {default: Content} = await evaluate('!["so" cute](cats.com/cat.jpeg)', runtime)
+  const {default: Content} = await evaluate(
+    '!["so" cute](cats.com/cat.jpeg)',
+    runtime
+  )
 
   // Note: Escaped quotes (\") isn't valid for JSX string syntax. So we're
   // making sure that quotes aren't escaped here (prettier doesn't like us
@@ -63,7 +69,10 @@ test('should generate JSX-compliant strings', async () => {
 })
 
 test('should support `remarkPlugins` (math)', async () => {
-  const {default: Content} = await evaluate('$x$', {remarkPlugins: [math], ...runtime})
+  const {default: Content} = await evaluate('$x$', {
+    remarkPlugins: [math],
+    ...runtime
+  })
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -76,7 +85,10 @@ test('should support `remarkPlugins` (math)', async () => {
 })
 
 test('should support `remarkPlugins` (footnotes)', async () => {
-  const {default: Content} = await evaluate('x [^y]\n\n[^y]: z', {remarkPlugins: [footnotes], ...runtime})
+  const {default: Content} = await evaluate('x [^y]\n\n[^y]: z', {
+    remarkPlugins: [footnotes],
+    ...runtime
+  })
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -84,17 +96,31 @@ test('should support `remarkPlugins` (footnotes)', async () => {
       <>
         <p>
           x{' '}
-          <a href="#fn1" className="footnote-ref" id="fnref1" role="doc-noteref">
-            <sup>
-              1
-            </sup>
+          <a
+            href="#fn1"
+            className="footnote-ref"
+            id="fnref1"
+            role="doc-noteref"
+          >
+            <sup>1</sup>
           </a>
-        </p>{'\n'}
-        <section className="footnotes" role="doc-endnotes">{'\n'}
-          <hr />{'\n'}
-          <ol>{'\n'}
-            <li id="fn1" role="doc-endnote">z<a href="#fnref1" className="footnote-back" role="doc-backlink">↩</a></li>{'\n'}
-          </ol>{'\n'}
+        </p>
+        {'\n'}
+        <section className="footnotes" role="doc-endnotes">
+          {'\n'}
+          <hr />
+          {'\n'}
+          <ol>
+            {'\n'}
+            <li id="fn1" role="doc-endnote">
+              z
+              <a href="#fnref1" className="footnote-back" role="doc-backlink">
+                ↩
+              </a>
+            </li>
+            {'\n'}
+          </ol>
+          {'\n'}
         </section>
       </>
     )
@@ -145,7 +171,10 @@ test('should support async plugins', async () => {
     tree.children[0].children[0].value = 'y'
   }
 
-  const {default: Content} = await evaluate('x', {remarkPlugins: [plugin], ...runtime})
+  const {default: Content} = await evaluate('x', {
+    remarkPlugins: [plugin],
+    ...runtime
+  })
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -173,7 +202,6 @@ test('should use an `inlineCode` “element” in mdxhast', async () => {
     )
   )
 })
-
 
 test('should support `pre`/`code` from empty fenced code', async () => {
   const {default: Content} = await evaluate('```\n```', runtime)
@@ -220,11 +248,13 @@ test('should support a block quote in markdown', async () => {
   assert.equal(
     renderToStaticMarkup(<Content />),
     renderToStaticMarkup(
-      <blockquote>{'\n'}
+      <blockquote>
+        {'\n'}
         <p>
           x{'\n'}
           <code>y</code>
-        </p>{'\n'}
+        </p>
+        {'\n'}
       </blockquote>
     )
   )
@@ -244,7 +274,10 @@ test('should support html/jsx inside code in markdown', async () => {
 })
 
 test('should support tables in markdown', async () => {
-  const {default: Content} = await evaluate('| A | B |\n| :- | -: |\n| a | b |', {remarkPlugins: [gfm], ...runtime})
+  const {default: Content} = await evaluate(
+    '| A | B |\n| :- | -: |\n| a | b |',
+    {remarkPlugins: [gfm], ...runtime}
+  )
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -299,14 +332,20 @@ test('should support an empty document', async () => {
 
 test('should support an ignored node instead of a `root`', async () => {
   const plugin = () => () => ({type: 'doctype', name: 'html'})
-  const {default: Content} = await evaluate('', {rehypePlugins: [plugin], ...runtime})
+  const {default: Content} = await evaluate('', {
+    rehypePlugins: [plugin],
+    ...runtime
+  })
 
   assert.equal(renderToStaticMarkup(<Content />), renderToStaticMarkup(<></>))
 })
 
 test('should support an element instead of a `root`', async () => {
   const plugin = () => () => ({type: 'element', tagName: 'x', children: []})
-  const {default: Content} = await evaluate('', {rehypePlugins: [plugin], ...runtime})
+  const {default: Content} = await evaluate('', {
+    rehypePlugins: [plugin],
+    ...runtime
+  })
 
   assert.equal(renderToStaticMarkup(<Content />), renderToStaticMarkup(<x />))
 })
@@ -343,7 +382,10 @@ test('should crash on incorrect imports', async () => {
     await compile('import a')
     assert.unreachable('should not compile')
   } catch (error) {
-    assert.match(String(error), /Could not parse import\/exports with acorn: SyntaxError: Unexpected token/)
+    assert.match(
+      String(error),
+      /Could not parse import\/exports with acorn: SyntaxError: Unexpected token/
+    )
   }
 })
 
@@ -354,11 +396,16 @@ test('should support import as a word when it’s not the top level', async () =
     renderToStaticMarkup(<Content />),
     renderToStaticMarkup(
       <>
-        <blockquote>{'\n'}
-          <p>import a</p>{'\n'}
-        </blockquote>{'\n'}
-        <ul>{'\n'}
-          <li>import b</li>{'\n'}
+        <blockquote>
+          {'\n'}
+          <p>import a</p>
+          {'\n'}
+        </blockquote>
+        {'\n'}
+        <ul>
+          {'\n'}
+          <li>import b</li>
+          {'\n'}
         </ul>
       </>
     )
@@ -399,7 +446,10 @@ test('should crash on incorrect exports', async () => {
     await compile('export a')
     assert.unreachable('should not compile')
   } catch (error) {
-    assert.match(String(error), /Could not parse import\/exports with acorn: SyntaxError: Unexpected token/)
+    assert.match(
+      String(error),
+      /Could not parse import\/exports with acorn: SyntaxError: Unexpected token/
+    )
   }
 })
 
@@ -410,11 +460,16 @@ test('should support export as a word when it’s not the top level', async () =
     renderToStaticMarkup(<Content />),
     renderToStaticMarkup(
       <>
-        <blockquote>{'\n'}
-          <p>export a</p>{'\n'}
-        </blockquote>{'\n'}
-        <ul>{'\n'}
-          <li>export b</li>{'\n'}
+        <blockquote>
+          {'\n'}
+          <p>export a</p>
+          {'\n'}
+        </blockquote>
+        {'\n'}
+        <ul>
+          {'\n'}
+          <li>export b</li>
+          {'\n'}
         </ul>
       </>
     )
@@ -463,7 +518,10 @@ test('should support JSX expressions (text, inline)', async () => {
 })
 
 test('should support a default export for a layout', async () => {
-  const {default: Content} = await evaluate('export default props => <main {...props} />\n\nx', runtime)
+  const {default: Content} = await evaluate(
+    'export default props => <main {...props} />\n\nx',
+    runtime
+  )
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -503,7 +561,10 @@ test('should support a default export from an import', async () => {
 })
 
 test('should support semicolons in the default export', async () => {
-  const {default: Content} = await evaluate('export default props => <section {...props} />;\n\nx', runtime)
+  const {default: Content} = await evaluate(
+    'export default props => <section {...props} />;\n\nx',
+    runtime
+  )
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -516,7 +577,10 @@ test('should support semicolons in the default export', async () => {
 })
 
 test('should support a multiline default export', async () => {
-  const {default: Content} = await evaluate('export default ({children}) => (\n  <article>\n    {children}\n  </article>\n)\n\nx', runtime)
+  const {default: Content} = await evaluate(
+    'export default ({children}) => (\n  <article>\n    {children}\n  </article>\n)\n\nx',
+    runtime
+  )
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -529,13 +593,19 @@ test('should support a multiline default export', async () => {
 })
 
 test('should support using a non-default export in content', async () => {
-  const {default: Content} = await evaluate('export var X = props => <b {...props} />\n\n<X />', runtime)
+  const {default: Content} = await evaluate(
+    'export var X = props => <b {...props} />\n\n<X />',
+    runtime
+  )
 
   assert.equal(renderToStaticMarkup(<Content />), renderToStaticMarkup(<b />))
 })
 
 test('should support overwriting missing compile-time components at run-time', async () => {
-  const {default: Content} = await evaluate('x <Y /> z', {...runtime, useMDXComponents})
+  const {default: Content} = await evaluate('x <Y /> z', {
+    ...runtime,
+    useMDXComponents
+  })
 
   assert.equal(
     renderToStaticMarkup(
@@ -580,7 +650,10 @@ test('should throw when an undefined component is used', async () => {
 })
 
 test('should support `.` in component names for members', async () => {
-  const {default: Content} = await evaluate('export var x = {y: props => <b {...props} />}\n\n<x.y />', runtime)
+  const {default: Content} = await evaluate(
+    'export var x = {y: props => <b {...props} />}\n\n<x.y />',
+    runtime
+  )
 
   assert.equal(renderToStaticMarkup(<Content />), renderToStaticMarkup(<b />))
 })
@@ -614,7 +687,10 @@ test('should support `element` nodes w/o `properties` in mdxhast', async () => {
     })
   }
 
-  const {default: Content} = await evaluate('x', {rehypePlugins: [plugin], ...runtime})
+  const {default: Content} = await evaluate('x', {
+    rehypePlugins: [plugin],
+    ...runtime
+  })
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -663,14 +739,14 @@ test('should support an escaped dollar in text', async () => {
 test('should support an empty expression in JSX', async () => {
   const {default: Content} = await evaluate('<x>{}</x>', runtime)
 
-  assert.equal(
-    renderToStaticMarkup(<Content />),
-    renderToStaticMarkup(<x />)
-  )
+  assert.equal(renderToStaticMarkup(<Content />), renderToStaticMarkup(<x />))
 })
 
 test('should support a more complex expression in JSX', async () => {
-  const {default: Content} = await evaluate('<x>{(() => 1 + 2)(1)}</x>', runtime)
+  const {default: Content} = await evaluate(
+    '<x>{(() => 1 + 2)(1)}</x>',
+    runtime
+  )
 
   assert.equal(
     renderToStaticMarkup(<Content />),
@@ -679,7 +755,10 @@ test('should support a more complex expression in JSX', async () => {
 })
 
 test('default: should be async', async () => {
-  assert.match(await compile('x', {jsx: true}), /<_components\.p>{"x"}<\/_components\.p>/)
+  assert.match(
+    await compile('x', {jsx: true}),
+    /<_components\.p>{"x"}<\/_components\.p>/
+  )
 })
 
 test('default: should support `remarkPlugins`', async () => {
@@ -690,26 +769,30 @@ test('default: should support `remarkPlugins`', async () => {
 })
 
 test('sync: should be sync', () => {
-  assert.match(compileSync('x', {jsx: true}), /<_components\.p>{"x"}<\/_components\.p>/)
+  assert.match(
+    compileSync('x', {jsx: true}),
+    /<_components\.p>{"x"}<\/_components\.p>/
+  )
 })
 
 test('sync: should support `remarkPlugins`', () => {
-  assert.match(compileSync('$x$', {remarkPlugins: [math], jsx: true}), /className="math math-inline"/)
+  assert.match(
+    compileSync('$x$', {remarkPlugins: [math], jsx: true}),
+    /className="math math-inline"/
+  )
 })
 
 test('should create a unified processor', async () => {
-  const remarkPlugin = () => (tree) => {
+  const remarkPlugin = () => tree => {
     const clone = removePosition(JSON.parse(JSON.stringify(tree)), true)
 
     assert.equal(clone, {
       type: 'root',
-      children: [
-        { type: 'paragraph', children: [ { type: 'text', value: 'x' } ] }
-      ]
+      children: [{type: 'paragraph', children: [{type: 'text', value: 'x'}]}]
     })
   }
 
-  const rehypePlugin = () => (tree) => {
+  const rehypePlugin = () => tree => {
     const clone = removePosition(JSON.parse(JSON.stringify(tree)), true)
 
     assert.equal(clone, {
@@ -719,7 +802,7 @@ test('should create a unified processor', async () => {
           type: 'element',
           tagName: 'p',
           properties: {},
-          children: [ { type: 'text', value: 'x' } ]
+          children: [{type: 'text', value: 'x'}]
         }
       ]
     })
@@ -731,7 +814,10 @@ test('should create a unified processor', async () => {
     jsx: true
   })
 
-  assert.match(await processor.process('x'), /<_components\.p>{"x"}<\/_components\.p>/)
+  assert.match(
+    await processor.process('x'),
+    /<_components\.p>{"x"}<\/_components\.p>/
+  )
 })
 
 test.run()

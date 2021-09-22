@@ -100,10 +100,7 @@
                               "column": 33
                             }
                           },
-                          "range": [
-                            32,
-                            33
-                          ]
+                          "range": [32, 33]
                         },
                         "operator": "+",
                         "right": {
@@ -122,10 +119,7 @@
                               "column": 37
                             }
                           },
-                          "range": [
-                            36,
-                            37
-                          ]
+                          "range": [36, 37]
                         },
                         "loc": {
                           "start": {
@@ -137,10 +131,7 @@
                             "column": 37
                           }
                         },
-                        "range": [
-                          32,
-                          37
-                        ]
+                        "range": [32, 37]
                       },
                       "start": 32,
                       "end": 37,
@@ -154,10 +145,7 @@
                           "column": 37
                         }
                       },
-                      "range": [
-                        32,
-                        37
-                      ]
+                      "range": [32, 37]
                     }
                   ],
                   "sourceType": "module",
@@ -172,10 +160,7 @@
                       "column": 37
                     }
                   },
-                  "range": [
-                    32,
-                    37
-                  ]
+                  "range": [32, 37]
                 }
               }
             }
@@ -389,10 +374,7 @@
                               "column": 44
                             }
                           },
-                          "range": [
-                            113,
-                            123
-                          ]
+                          "range": [113, 123]
                         },
                         "arguments": [
                           {
@@ -410,10 +392,7 @@
                                 "column": 49
                               }
                             },
-                            "range": [
-                              124,
-                              128
-                            ]
+                            "range": [124, 128]
                           }
                         ],
                         "optional": false,
@@ -427,10 +406,7 @@
                             "column": 50
                           }
                         },
-                        "range": [
-                          113,
-                          129
-                        ]
+                        "range": [113, 129]
                       },
                       "start": 113,
                       "end": 129,
@@ -444,10 +420,7 @@
                           "column": 50
                         }
                       },
-                      "range": [
-                        113,
-                        129
-                      ]
+                      "range": [113, 129]
                     }
                   ],
                   "sourceType": "module",
@@ -462,10 +435,7 @@
                       "column": 50
                     }
                   },
-                  "range": [
-                    113,
-                    129
-                  ]
+                  "range": [113, 129]
                 }
               }
             },
@@ -652,10 +622,7 @@
                               }
                             },
                             "name": "user",
-                            "range": [
-                              217,
-                              221
-                            ]
+                            "range": [217, 221]
                           },
                           "property": {
                             "type": "Identifier",
@@ -672,17 +639,11 @@
                               }
                             },
                             "name": "avatarUrl",
-                            "range": [
-                              222,
-                              231
-                            ]
+                            "range": [222, 231]
                           },
                           "computed": false,
                           "optional": false,
-                          "range": [
-                            217,
-                            231
-                          ]
+                          "range": [217, 231]
                         },
                         "start": 217,
                         "end": 231,
@@ -696,10 +657,7 @@
                             "column": 53
                           }
                         },
-                        "range": [
-                          217,
-                          231
-                        ]
+                        "range": [217, 231]
                       }
                     ],
                     "sourceType": "module",
@@ -714,10 +672,7 @@
                         "column": 53
                       }
                     },
-                    "range": [
-                      217,
-                      231
-                    ]
+                    "range": [217, 231]
                   }
                 }
               }
@@ -845,21 +800,12 @@
                                 }
                               },
                               "name": "props",
-                              "range": [
-                                274,
-                                279
-                              ]
+                              "range": [274, 279]
                             },
-                            "range": [
-                              271,
-                              279
-                            ]
+                            "range": [271, 279]
                           }
                         ],
-                        "range": [
-                          271,
-                          279
-                        ]
+                        "range": [271, 279]
                       },
                       "start": 271,
                       "end": 279,
@@ -873,10 +819,7 @@
                           "column": 37
                         }
                       },
-                      "range": [
-                        271,
-                        279
-                      ]
+                      "range": [271, 279]
                     }
                   ],
                   "sourceType": "module",
@@ -891,10 +834,7 @@
                       "column": 37
                     }
                   },
-                  "range": [
-                    271,
-                    279
-                  ]
+                  "range": [271, 279]
                 }
               }
             }

@@ -9,7 +9,10 @@ import {evaluate} from '@mdx-js/mdx'
 import {MDXProvider, useMDXComponents, withMDXComponents} from '../index.js'
 
 test('should support `components` with `MDXProvider`', async () => {
-  const {default: Content} = await evaluate('# hi', {...runtime, useMDXComponents})
+  const {default: Content} = await evaluate('# hi', {
+    ...runtime,
+    useMDXComponents
+  })
 
   assert.equal(
     render(
@@ -26,7 +29,10 @@ test('should support `components` with `MDXProvider`', async () => {
 })
 
 test('should support `wrapper` in `components`', async () => {
-  const {default: Content} = await evaluate('# hi', {...runtime, useMDXComponents})
+  const {default: Content} = await evaluate('# hi', {
+    ...runtime,
+    useMDXComponents
+  })
 
   assert.equal(
     render(
@@ -43,7 +49,10 @@ test('should support `wrapper` in `components`', async () => {
 })
 
 test('should combine components in nested `MDXProvider`s', async () => {
-  const {default: Content} = await evaluate('# hi\n## hello', {...runtime, useMDXComponents})
+  const {default: Content} = await evaluate('# hi\n## hello', {
+    ...runtime,
+    useMDXComponents
+  })
 
   assert.equal(
     render(
@@ -67,7 +76,10 @@ test('should combine components in nested `MDXProvider`s', async () => {
 })
 
 test('should support components as a function', async () => {
-  const {default: Content} = await evaluate('# hi\n## hello', {...runtime, useMDXComponents})
+  const {default: Content} = await evaluate('# hi\n## hello', {
+    ...runtime,
+    useMDXComponents
+  })
 
   assert.equal(
     render(
@@ -91,7 +103,10 @@ test('should support components as a function', async () => {
 })
 
 test('should support a `disableParentContext` prop (sandbox)', async () => {
-  const {default: Content} = await evaluate('# hi', {...runtime, useMDXComponents})
+  const {default: Content} = await evaluate('# hi', {
+    ...runtime,
+    useMDXComponents
+  })
 
   assert.equal(
     render(
@@ -110,7 +125,10 @@ test('should support a `disableParentContext` prop (sandbox)', async () => {
 })
 
 test('should support `withComponents`', async () => {
-  const {default: Content} = await evaluate('# hi\n## hello', {...runtime, useMDXComponents})
+  const {default: Content} = await evaluate('# hi\n## hello', {
+    ...runtime,
+    useMDXComponents
+  })
   const With = withMDXComponents(props => <>{props.children}</>)
 
   // To do: should this use the `h2` component too?

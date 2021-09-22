@@ -49,7 +49,10 @@ main().catch(error => {
 })
 
 async function main() {
-  fs.copyFile(new URL('404/index.html', config.output), new URL('404.html', config.output))
+  fs.copyFile(
+    new URL('404/index.html', config.output),
+    new URL('404.html', config.output)
+  )
   console.log('✔ `/404/index.html` -> `/404.html`')
 
   const css = await fs.readFile(

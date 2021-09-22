@@ -38,7 +38,7 @@
     "docs": "npm run docs-prod",
     "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
     "format": "npm run lint -- --fix",
-    "lint": "eslint --ext .jsx --report-unused-disable-directives --cache .",
+    "lint": "prettier . -w --loglevel warn && eslint --ext .jsx --report-unused-disable-directives --cache .",
     "publish-ci": "# lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "# lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
     "build": "npm run build --workspaces -w packages/remark-mdx -w packages/mdx -w packages/react -w packages/preact -w packages/vue -w packages/loader --if-present",
@@ -141,7 +141,7 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix --report-unused-disable-directives --cache"
     ],
-    "*.{css,html,json,ts,tsx,yml}": [
+    "*.{css,html,json,js,jsx,ts,tsx,yml}": [
       "prettier --write"
     ]
   },

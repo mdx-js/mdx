@@ -16,7 +16,11 @@ export const MDXProvider = {
    * @this {import('vue').ComponentPublicInstance}
    */
   render() {
-    return createVNode(Fragment, null, this.$slots.default ? this.$slots.default() : [])
+    return createVNode(
+      Fragment,
+      null,
+      this.$slots.default ? this.$slots.default() : []
+    )
   }
 }
 

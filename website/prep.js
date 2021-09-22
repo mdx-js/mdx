@@ -23,7 +23,9 @@ async function main() {
   const files = await globby('**/*', {cwd: fileURLToPath(from)})
 
   await pAll(
-    files.map(d => async () => fs.copyFile(new URL(d, from), new URL(d, config.output))),
+    files.map(
+      d => async () => fs.copyFile(new URL(d, from), new URL(d, config.output))
+    ),
     {concurrency: 6}
   )
 

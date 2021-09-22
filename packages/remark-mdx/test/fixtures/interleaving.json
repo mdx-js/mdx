@@ -288,10 +288,7 @@
                               "column": 44
                             }
                           },
-                          "range": [
-                            180,
-                            185
-                          ]
+                          "range": [180, 185]
                         },
                         "property": {
                           "type": "Identifier",
@@ -308,10 +305,7 @@
                               "column": 49
                             }
                           },
-                          "range": [
-                            186,
-                            190
-                          ]
+                          "range": [186, 190]
                         },
                         "computed": false,
                         "optional": false,
@@ -325,10 +319,7 @@
                             "column": 49
                           }
                         },
-                        "range": [
-                          180,
-                          190
-                        ]
+                        "range": [180, 190]
                       },
                       "start": 180,
                       "end": 190,
@@ -342,10 +333,7 @@
                           "column": 49
                         }
                       },
-                      "range": [
-                        180,
-                        190
-                      ]
+                      "range": [180, 190]
                     }
                   ],
                   "sourceType": "module",
@@ -360,10 +348,7 @@
                       "column": 49
                     }
                   },
-                  "range": [
-                    180,
-                    190
-                  ]
+                  "range": [180, 190]
                 }
               }
             }
@@ -643,10 +628,7 @@
                               "column": 22
                             }
                           },
-                          "range": [
-                            263,
-                            268
-                          ]
+                          "range": [263, 268]
                         },
                         "property": {
                           "type": "Identifier",
@@ -663,10 +645,7 @@
                               "column": 27
                             }
                           },
-                          "range": [
-                            269,
-                            273
-                          ]
+                          "range": [269, 273]
                         },
                         "computed": false,
                         "optional": false,
@@ -680,10 +659,7 @@
                             "column": 27
                           }
                         },
-                        "range": [
-                          263,
-                          273
-                        ]
+                        "range": [263, 273]
                       },
                       "start": 263,
                       "end": 273,
@@ -697,10 +673,7 @@
                           "column": 27
                         }
                       },
-                      "range": [
-                        263,
-                        273
-                      ]
+                      "range": [263, 273]
                     }
                   ],
                   "sourceType": "module",
@@ -715,10 +688,7 @@
                       "column": 27
                     }
                   },
-                  "range": [
-                    263,
-                    273
-                  ]
+                  "range": [263, 273]
                 }
               }
             }
@@ -821,10 +791,7 @@
                                   "column": 35
                                 }
                               },
-                              "range": [
-                                317,
-                                322
-                              ]
+                              "range": [317, 322]
                             },
                             "property": {
                               "type": "Identifier",
@@ -841,10 +808,7 @@
                                   "column": 41
                                 }
                               },
-                              "range": [
-                                323,
-                                328
-                              ]
+                              "range": [323, 328]
                             },
                             "computed": false,
                             "optional": false,
@@ -858,10 +822,7 @@
                                 "column": 41
                               }
                             },
-                            "range": [
-                              317,
-                              328
-                            ]
+                            "range": [317, 328]
                           },
                           "start": 317,
                           "end": 328,
@@ -875,10 +836,7 @@
                               "column": 41
                             }
                           },
-                          "range": [
-                            317,
-                            328
-                          ]
+                          "range": [317, 328]
                         }
                       ],
                       "sourceType": "module",
@@ -893,10 +851,7 @@
                           "column": 41
                         }
                       },
-                      "range": [
-                        317,
-                        328
-                      ]
+                      "range": [317, 328]
                     }
                   }
                 }
@@ -1040,10 +995,7 @@
                               "column": 22
                             }
                           },
-                          "range": [
-                            367,
-                            372
-                          ]
+                          "range": [367, 372]
                         },
                         "property": {
                           "type": "Identifier",
@@ -1060,10 +1012,7 @@
                               "column": 27
                             }
                           },
-                          "range": [
-                            373,
-                            377
-                          ]
+                          "range": [373, 377]
                         },
                         "computed": false,
                         "optional": false,
@@ -1077,10 +1026,7 @@
                             "column": 27
                           }
                         },
-                        "range": [
-                          367,
-                          377
-                        ]
+                        "range": [367, 377]
                       },
                       "start": 367,
                       "end": 377,
@@ -1094,10 +1040,7 @@
                           "column": 27
                         }
                       },
-                      "range": [
-                        367,
-                        377
-                      ]
+                      "range": [367, 377]
                     }
                   ],
                   "sourceType": "module",
@@ -1112,10 +1055,7 @@
                       "column": 27
                     }
                   },
-                  "range": [
-                    367,
-                    377
-                  ]
+                  "range": [367, 377]
                 }
               }
             }
@@ -1466,10 +1406,7 @@
                             "column": 7
                           }
                         },
-                        "range": [
-                          627,
-                          631
-                        ]
+                        "range": [627, 631]
                       }
                     ],
                     "body": {
@@ -1501,10 +1438,7 @@
                                     "column": 31
                                   }
                                 },
-                                "range": [
-                                  647,
-                                  655
-                                ]
+                                "range": [647, 655]
                               },
                               "init": {
                                 "type": "CallExpression",
@@ -1525,10 +1459,7 @@
                                       "column": 41
                                     }
                                   },
-                                  "range": [
-                                    658,
-                                    665
-                                  ]
+                                  "range": [658, 665]
                                 },
                                 "arguments": [
                                   {
@@ -1546,10 +1477,7 @@
                                         "column": 46
                                       }
                                     },
-                                    "range": [
-                                      666,
-                                      670
-                                    ]
+                                    "range": [666, 670]
                                   }
                                 ],
                                 "optional": false,
@@ -1563,10 +1491,7 @@
                                     "column": 47
                                   }
                                 },
-                                "range": [
-                                  658,
-                                  671
-                                ]
+                                "range": [658, 671]
                               },
                               "loc": {
                                 "start": {
@@ -1578,10 +1503,7 @@
                                   "column": 47
                                 }
                               },
-                              "range": [
-                                647,
-                                671
-                              ]
+                              "range": [647, 671]
                             }
                           ],
                           "kind": "const",
@@ -1595,10 +1517,7 @@
                               "column": 47
                             }
                           },
-                          "range": [
-                            641,
-                            671
-                          ]
+                          "range": [641, 671]
                         },
                         {
                           "type": "ReturnStatement",
@@ -1628,10 +1547,7 @@
                                     "column": 63
                                   }
                                 },
-                                "range": [
-                                  685,
-                                  687
-                                ]
+                                "range": [685, 687]
                               },
                               "selfClosing": false,
                               "loc": {
@@ -1644,10 +1560,7 @@
                                   "column": 64
                                 }
                               },
-                              "range": [
-                                684,
-                                688
-                              ]
+                              "range": [684, 688]
                             },
                             "closingElement": {
                               "type": "JSXClosingElement",
@@ -1668,10 +1581,7 @@
                                     "column": 78
                                   }
                                 },
-                                "range": [
-                                  700,
-                                  702
-                                ]
+                                "range": [700, 702]
                               },
                               "loc": {
                                 "start": {
@@ -1683,10 +1593,7 @@
                                   "column": 79
                                 }
                               },
-                              "range": [
-                                698,
-                                703
-                              ]
+                              "range": [698, 703]
                             },
                             "children": [
                               {
@@ -1708,10 +1615,7 @@
                                       "column": 73
                                     }
                                   },
-                                  "range": [
-                                    689,
-                                    697
-                                  ]
+                                  "range": [689, 697]
                                 },
                                 "loc": {
                                   "start": {
@@ -1723,10 +1627,7 @@
                                     "column": 74
                                   }
                                 },
-                                "range": [
-                                  688,
-                                  698
-                                ]
+                                "range": [688, 698]
                               }
                             ],
                             "loc": {
@@ -1739,10 +1640,7 @@
                                 "column": 79
                               }
                             },
-                            "range": [
-                              684,
-                              703
-                            ]
+                            "range": [684, 703]
                           },
                           "loc": {
                             "start": {
@@ -1754,10 +1652,7 @@
                               "column": 79
                             }
                           },
-                          "range": [
-                            677,
-                            703
-                          ]
+                          "range": [677, 703]
                         }
                       ],
                       "loc": {
@@ -1770,10 +1665,7 @@
                           "column": 83
                         }
                       },
-                      "range": [
-                        635,
-                        707
-                      ]
+                      "range": [635, 707]
                     },
                     "loc": {
                       "start": {
@@ -1785,10 +1677,7 @@
                         "column": 83
                       }
                     },
-                    "range": [
-                      627,
-                      707
-                    ]
+                    "range": [627, 707]
                   },
                   "start": 627,
                   "end": 707,
@@ -1802,10 +1691,7 @@
                       "column": 83
                     }
                   },
-                  "range": [
-                    627,
-                    707
-                  ]
+                  "range": [627, 707]
                 }
               ],
               "sourceType": "module",
@@ -1820,10 +1706,7 @@
                   "column": 83
                 }
               },
-              "range": [
-                627,
-                707
-              ]
+              "range": [627, 707]
             }
           }
         }
@@ -1943,16 +1826,10 @@
                             "cooked": "\n    Here's a template string\n\n    with empty lines\n  "
                           },
                           "tail": true,
-                          "range": [
-                            779,
-                            833
-                          ]
+                          "range": [779, 833]
                         }
                       ],
-                      "range": [
-                        778,
-                        834
-                      ]
+                      "range": [778, 834]
                     },
                     "start": 778,
                     "end": 834,
@@ -1966,10 +1843,7 @@
                         "column": 68
                       }
                     },
-                    "range": [
-                      778,
-                      834
-                    ]
+                    "range": [778, 834]
                   }
                 ],
                 "sourceType": "module",
@@ -1984,10 +1858,7 @@
                     "column": 68
                   }
                 },
-                "range": [
-                  778,
-                  834
-                ]
+                "range": [778, 834]
               }
             }
           }
@@ -2540,10 +2411,7 @@
                               "column": 22
                             }
                           },
-                          "range": [
-                            1107,
-                            1112
-                          ]
+                          "range": [1107, 1112]
                         },
                         "property": {
                           "type": "Identifier",
@@ -2560,10 +2428,7 @@
                               "column": 27
                             }
                           },
-                          "range": [
-                            1113,
-                            1117
-                          ]
+                          "range": [1113, 1117]
                         },
                         "computed": false,
                         "optional": false,
@@ -2577,10 +2442,7 @@
                             "column": 27
                           }
                         },
-                        "range": [
-                          1107,
-                          1117
-                        ]
+                        "range": [1107, 1117]
                       },
                       "start": 1107,
                       "end": 1117,
@@ -2594,10 +2456,7 @@
                           "column": 27
                         }
                       },
-                      "range": [
-                        1107,
-                        1117
-                      ]
+                      "range": [1107, 1117]
                     }
                   ],
                   "sourceType": "module",
@@ -2612,10 +2471,7 @@
                       "column": 27
                     }
                   },
-                  "range": [
-                    1107,
-                    1117
-                  ]
+                  "range": [1107, 1117]
                 }
               }
             }
@@ -2709,10 +2565,7 @@
                           "column": 19
                         }
                       },
-                      "range": [
-                        1137,
-                        1142
-                      ]
+                      "range": [1137, 1142]
                     },
                     "property": {
                       "type": "Identifier",
@@ -2729,10 +2582,7 @@
                           "column": 24
                         }
                       },
-                      "range": [
-                        1143,
-                        1147
-                      ]
+                      "range": [1143, 1147]
                     },
                     "computed": false,
                     "optional": false,
@@ -2746,10 +2596,7 @@
                         "column": 24
                       }
                     },
-                    "range": [
-                      1137,
-                      1147
-                    ]
+                    "range": [1137, 1147]
                   },
                   "start": 1137,
                   "end": 1147,
@@ -2763,10 +2610,7 @@
                       "column": 24
                     }
                   },
-                  "range": [
-                    1137,
-                    1147
-                  ]
+                  "range": [1137, 1147]
                 }
               ],
               "sourceType": "module",
@@ -2781,10 +2625,7 @@
                   "column": 24
                 }
               },
-              "range": [
-                1137,
-                1147
-              ]
+              "range": [1137, 1147]
             }
           }
         }

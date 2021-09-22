@@ -35,8 +35,19 @@ test('@mdx-js/loader', async () => {
     context: fileURLToPath(base),
     entry: './webpack.mdx',
     mode: 'none',
-    module: {rules: [{test: /\.mdx$/, use: [fileURLToPath(new URL('../index.cjs', import.meta.url))]}]},
-    output: {path: fileURLToPath(base), filename: 'react.cjs', libraryTarget: 'commonjs'}
+    module: {
+      rules: [
+        {
+          test: /\.mdx$/,
+          use: [fileURLToPath(new URL('../index.cjs', import.meta.url))]
+        }
+      ]
+    },
+    output: {
+      path: fileURLToPath(base),
+      filename: 'react.cjs',
+      libraryTarget: 'commonjs'
+    }
   })
 
   // One for ESM loading CJS, one for webpack.
@@ -60,16 +71,24 @@ test('@mdx-js/loader', async () => {
     context: fileURLToPath(base),
     entry: './webpack.mdx',
     mode: 'none',
-    module: {rules: [{
-      test: /\.mdx$/,
-      use: [
+    module: {
+      rules: [
         {
-          loader: fileURLToPath(new URL('../index.cjs', import.meta.url)),
-          options: {jsxImportSource: 'preact'}
+          test: /\.mdx$/,
+          use: [
+            {
+              loader: fileURLToPath(new URL('../index.cjs', import.meta.url)),
+              options: {jsxImportSource: 'preact'}
+            }
+          ]
         }
       ]
-    }]},
-    output: {path: fileURLToPath(base), filename: 'preact.cjs', libraryTarget: 'commonjs'}
+    },
+    output: {
+      path: fileURLToPath(base),
+      filename: 'preact.cjs',
+      libraryTarget: 'commonjs'
+    }
   })
 
   // One for ESM loading CJS, one for webpack.
@@ -94,14 +113,28 @@ test('@mdx-js/loader', async () => {
     entry: './webpack.mdx',
     mode: 'none',
     externals: ['vue'],
-    module: {rules: [{
-      test: /\.mdx$/,
-      use: [
-        {loader: 'babel-loader', options: {configFile: false, plugins: ['@vue/babel-plugin-jsx']}},
-        {loader: fileURLToPath(new URL('../index.cjs', import.meta.url)), options: {jsx: true}}
+    module: {
+      rules: [
+        {
+          test: /\.mdx$/,
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {configFile: false, plugins: ['@vue/babel-plugin-jsx']}
+            },
+            {
+              loader: fileURLToPath(new URL('../index.cjs', import.meta.url)),
+              options: {jsx: true}
+            }
+          ]
+        }
       ]
-    }]},
-    output: {path: fileURLToPath(base), filename: 'vue.cjs', libraryTarget: 'commonjs'}
+    },
+    output: {
+      path: fileURLToPath(base),
+      filename: 'vue.cjs',
+      libraryTarget: 'commonjs'
+    }
   })
 
   // One for ESM loading CJS, one for webpack.
@@ -111,8 +144,12 @@ test('@mdx-js/loader', async () => {
     (await import('./vue.cjs')).default.default
   )
 
-  const vueResult = await serverRenderer.renderToString(vue.createSSRApp({components: {Content: ContentVue}, template: '<Content />'}))
-
+  const vueResult = await serverRenderer.renderToString(
+    vue.createSSRApp({
+      components: {Content: ContentVue},
+      template: '<Content />'
+    })
+  )
 
   assert.equal(
     // Remove SSR comments used to hydrate (I guess).
@@ -126,6 +163,5 @@ test('@mdx-js/loader', async () => {
   // Clean.
   await fs.unlink(new URL('webpack.mdx', base))
 })
-
 
 test.run()

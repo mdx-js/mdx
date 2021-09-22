@@ -46,9 +46,9 @@ export function withMDXComponents(Component) {
   return boundMDXComponent
 
   /**
-  * @param {Record<string, unknown> & {components?: Components}} props
-  * @returns {JSX.Element}
-  */
+   * @param {Record<string, unknown> & {components?: Components}} props
+   * @returns {JSX.Element}
+   */
   function boundMDXComponent(props) {
     const allComponents = useMDXComponents(props.components)
     return h(Component, {...props, allComponents})

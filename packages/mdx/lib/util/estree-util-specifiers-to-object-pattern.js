@@ -16,7 +16,7 @@ import {create} from './estree-util-create.js'
 export function specifiersToObjectPattern(specifiers) {
   return {
     type: 'ObjectPattern',
-    properties: specifiers.map((specifier) => {
+    properties: specifiers.map(specifier => {
       /** @type {Identifier} */
       let key =
         specifier.type === 'ImportSpecifier'
