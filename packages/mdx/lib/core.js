@@ -20,6 +20,7 @@
  */
 
 import {unified} from 'unified'
+import remarkMdx from 'remark-mdx'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import {recmaJsxBuild} from './plugin/recma-jsx-build.js'
@@ -29,7 +30,6 @@ import {recmaStringify} from './plugin/recma-stringify.js'
 import {rehypeRecma} from './plugin/rehype-recma.js'
 import {rehypeRemoveRaw} from './plugin/rehype-remove-raw.js'
 import {remarkMarkAndUnravel} from './plugin/remark-mark-and-unravel.js'
-import {remarkMdx} from './plugin/remark-mdx.js'
 import {nodeTypes} from './node-types.js'
 
 /**

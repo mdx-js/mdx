@@ -1,7 +1,6 @@
 {
   "name": "@mdx-js/react",
-  "#": "to do: this prevents for a second that siblings use this",
-  "version": "2.0.0-next.999",
+  "version": "2.0.0-next.9",
   "description": "React context for MDX",
   "license": "MIT",
   "keywords": [
@@ -49,11 +48,11 @@
     "react": ">=16"
   },
   "devDependencies": {
+    "@mdx-js/mdx": "^2.0.0-next.9",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "xdm": "^2.0.0"
+    "react-dom": "^17.0.0"
   },
   "scripts": {
     "prepack": "npm run build",

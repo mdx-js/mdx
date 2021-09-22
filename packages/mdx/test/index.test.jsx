@@ -3,17 +3,15 @@ import * as assert from 'uvu/assert'
 import {removePosition} from 'unist-util-remove-position'
 import React from 'react'
 import * as runtime from 'react/jsx-runtime.js'
-import {renderToStaticMarkup} from 'react-dom/server.js'
-// `eslint-plugin-import` is wrong.
-/* eslint-disable-next-line import/default */
-import mdxReact from '@mdx-js/react'
+// Note: this is needed because the root react is an experimental version,
+// for the website, but the React here and in `@mdx-js/react` is a stable one.
+import {renderToStaticMarkup} from '../../react/node_modules/react-dom/server.js'
+import {MDXProvider, useMDXComponents} from '../../react/index.js'
 import footnotes from 'remark-footnotes'
 import gfm from 'remark-gfm'
 import math from 'remark-math'
 import katex from 'rehype-katex'
 import {compile, compileSync, evaluate, createProcessor} from '../index.js'
-
-const {MDXProvider, useMDXComponents} = mdxReact
 
 test('should generate JSX', async () => {
   const result = await compile('Hello World', {jsx: true})

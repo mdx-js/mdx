@@ -5,7 +5,7 @@ import * as assert from 'uvu/assert'
 import {h, Fragment} from 'preact'
 import * as runtime from 'preact/jsx-runtime'
 import {render} from 'preact-render-to-string'
-import {evaluate} from 'xdm'
+import {evaluate} from '@mdx-js/mdx'
 import {MDXProvider, useMDXComponents, withMDXComponents} from '../index.js'
 
 test('should support `components` with `MDXProvider`', async () => {
