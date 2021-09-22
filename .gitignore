@@ -15,6 +15,7 @@ coverage/
 /public
 /packages/loader/lib/**/*.d.ts
 /packages/loader/test/**/*.d.ts
+/packages/mdx/**/*.d.ts
 /packages/preact/lib/**/*.d.ts
 /packages/preact/test/**/*.d.ts
 /packages/preact/index.d.ts

@@ -44,7 +44,7 @@
     "lint": "eslint --ext .jsx --report-unused-disable-directives --cache .",
     "publish-ci": "# lerna publish -y --canary --preid ci --pre-dist-tag ci",
     "publish-next": "# lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
-    "build": "npm run build --workspaces -w packages/loader -w packages/react -w packages/preact --if-present",
+    "build": "npm run build --workspaces -w packages/loader -w packages/mdx -w packages/preact -w packages/react -w packages/remark-mdx -w packages/vue --if-present",
     "test-api": "npm run test-api --workspaces --if-present",
     "test-coverage": "npm run test-coverage --workspaces --if-present",
     "test-types": "npm run test-types --workspaces --if-present",
