@@ -10,7 +10,6 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/babel-plugin-remove-export-keywords",
     "packages/react",
     "packages/preact",
     "packages/vue",
