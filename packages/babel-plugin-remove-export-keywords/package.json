@@ -1,38 +1,4 @@
 {
-  "name": "babel-plugin-remove-export-keywords",
-  "version": "2.0.0-next.9",
-  "description": "Remove export keywords",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/babel-plugin-remove-export-keywords"
-  },
-  "homepage": "https://mdxjs.com",
-  "bugs": "https://github.com/mdx-js/mdx/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
-  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com)",
-  "contributors": [
-    "JounQin <admin@1stg.me> (https://www.1stg.me)"
-  ],
-  "license": "MIT",
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "mdx",
-    "markdown",
-    "react",
-    "jsx",
-    "remark",
-    "babel"
-  ],
-  "scripts": {
-    "test-api": "uvu test \"\\.jsx?$\"",
-    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
-    "test": "npm run test-coverage"
-  },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  "private": true,
+  "name": "babel-plugin-remove-export-keywords"
 }
