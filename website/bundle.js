@@ -3,7 +3,7 @@ import url from 'url'
 import process from 'process'
 import webpack from 'webpack'
 import ReactServerWebpackPlugin from 'react-server-dom-webpack/plugin'
-import xdmConfig from './xdm-config.js'
+import mdxConfig from './mdx-config.js'
 import {config} from '../docs/_config.js'
 
 const production = process.env.NODE_ENV === 'production'
@@ -28,7 +28,7 @@ webpack(
     },
     module: {
       rules: [
-        {test: /\.mdx$/, use: {loader: 'xdm/webpack.cjs', options: xdmConfig}},
+        {test: /\.mdx$/, use: {loader: '@mdx-js/loader', options: mdxConfig}},
         {test: /\.js$/, use: 'babel-loader', exclude: /node_modules/}
       ]
     },

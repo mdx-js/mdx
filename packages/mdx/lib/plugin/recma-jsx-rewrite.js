@@ -121,7 +121,7 @@ export function recmaJsxRewrite(options = {}) {
           }
           // @ts-expect-error Allow fields passed through from mdast through hast to
           // esast.
-          else if (node.data && node.data._xdmExplicitJsx) {
+          else if (node.data && node.data._mdxExplicitJsx) {
             // Do not turn explicit JSX into components from `_components`.
             // As in, a given `h1` component is used for `# heading` (next case),
             // but not for `<h1>heading</h1>`.

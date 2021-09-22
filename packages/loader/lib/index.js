@@ -6,7 +6,7 @@
  */
 
 import {getOptions} from 'loader-utils'
-import {compile} from 'xdm/lib/compile.js'
+import {compile} from '@mdx-js/mdx'
 
 /**
  * A Webpack (4+) loader for MDX.

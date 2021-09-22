@@ -7,8 +7,8 @@
 import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import * as babel from '@babel/core'
-import {compile} from 'xdm'
-import {run} from 'xdm/lib/run.js'
+import {compile} from '@mdx-js/mdx'
+import {run} from '@mdx-js/mdx/lib/run.js'
 import * as vue from 'vue'
 // eslint-disable-next-line import/default
 import serverRenderer from '@vue/server-renderer'
