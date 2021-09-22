@@ -16,7 +16,6 @@
     "packages/mdx",
     "packages/loader",
     "packages/remark-mdx",
-    "examples/create-react-app",
     "examples/gatsby",
     "examples/next",
     "examples/parcel",
