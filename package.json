@@ -14,7 +14,6 @@
     "packages/preact",
     "packages/vue",
     "packages/mdx",
-    "packages/runtime",
     "packages/loader",
     "packages/remark-mdx",
     "examples/create-react-app",
@@ -46,8 +45,7 @@
     "build": "npm run build --workspaces -w packages/loader -w packages/mdx -w packages/preact -w packages/react -w packages/remark-mdx -w packages/vue --if-present",
     "test-api": "npm run test-api --workspaces --if-present",
     "test-coverage": "npm run test-coverage --workspaces --if-present",
-    "test-types": "npm run test-types --workspaces --if-present",
-    "test": "npm run build && npm run lint && npm run test-coverage && npm run test-types"
+    "test": "npm run build && npm run lint && npm run test-coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -71,7 +69,6 @@
     "chrome-aws-lambda": "^10.1.0",
     "cssnano": "^5.0.0",
     "dlv": "^1.0.0",
-    "dtslint": "^4.0.0",
     "esbuild": "^0.12.0",
     "esbuild-register": "^3.0.0",
     "eslint": "^7.0.0",
