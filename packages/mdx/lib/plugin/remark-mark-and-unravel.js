@@ -4,7 +4,7 @@
  * @typedef {Root|Content} Node
  * @typedef {Extract<Node, import('unist').Parent>} Parent
  *
- * @typedef {import('./remark-mdx.js')} DoNotTouchAsThisImportIncludesMdxInTree
+ * @typedef {import('remark-mdx')} DoNotTouchAsThisImportItIncludesMdxInTree
  */
 
 import {visit} from 'unist-util-visit'

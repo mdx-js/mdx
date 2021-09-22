@@ -1,7 +1,7 @@
 /**
  * @typedef {import('mdast').Root} Root
  * @typedef {import('micromark-extension-mdxjs').Options} Options
- * @typedef {import('mdast-util-mdx')} DoNotTouchAsThisImportIncludesMdxInTree
+ * @typedef {import('mdast-util-mdx')} DoNotTouchAsThisImportItIncludesMdxInTree
  */
 
 import {mdxjs} from 'micromark-extension-mdxjs'

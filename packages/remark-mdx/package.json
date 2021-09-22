@@ -1,7 +1,6 @@
 {
   "name": "remark-mdx",
-  "#": "to do: this prevents for a second that siblings use this",
-  "version": "2.0.0-next.999",
+  "version": "2.0.0-next.9",
   "description": "remark plugin to support MDX syntax",
   "license": "MIT",
   "keywords": [
