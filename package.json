@@ -69,7 +69,6 @@
     "cssnano": "^5.0.0",
     "dlv": "^1.0.0",
     "esbuild": "^0.12.0",
-    "esbuild-register": "^3.0.0",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^8.0.0",
     "eslint-config-xo": "^0.38.0",
