@@ -1523,6 +1523,7 @@ test('fixtures', () => {
       const fpExpected = fpIn.replace(/\.md$/, '.json')
       const fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
       const input = readSync(fpIn)
+      input.value = String(input.value).replace(/\r\n/g, '\n')
       /** @type {Root} */
       const tree = JSON.parse(JSON.stringify(proc.parse(input)))
       const doc = proc.stringify(tree)
@@ -1544,7 +1545,7 @@ test('fixtures', () => {
       assert.equal(tree, expected, input.stem + ' (tree)')
 
       try {
-        expectedDoc = String(readSync(fpExpectedDoc))
+        expectedDoc = String(readSync(fpExpectedDoc)).replace(/\r\n/g, '\n')
       } catch (_) {
         expectedDoc = String(input)
 
@@ -1555,8 +1556,6 @@ test('fixtures', () => {
       }
 
       // Windows.
-      expectedDoc = expectedDoc.replace(/\r\n/g, '\n')
-
       assert.equal(doc, expectedDoc, input.stem + ' (doc)')
 
       const reparsed = proc.parse(doc)
