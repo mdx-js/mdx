@@ -6,6 +6,8 @@ jobs:
   main:
     name: '${{matrix.os}} / ${{matrix.node}}'
     runs-on: ${{matrix.os}}
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: 1
     steps:
       - uses: actions/checkout@v2
         with:
