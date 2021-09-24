@@ -17,7 +17,7 @@ import {specifiersToObjectPattern} from '../util/estree-util-specifiers-to-objec
 export function recmaJsxBuild(options = {}) {
   const {outputFormat} = options
 
-  return (tree) => {
+  return tree => {
     buildJsx(tree)
 
     // When compiling to a function body, replace the import that was just

@@ -1,5 +1,7 @@
 /**
- * @todo use `JSX` instead of `react`, to support Preact, Vue, etc?
+ * @todo
+ *   Land <https://github.com/DefinitelyTyped/DefinitelyTyped/pull/55809>
+ *   for runtime-agnostic types.
  */
 
 type LoaderContext = import('webpack').LoaderContext<unknown>

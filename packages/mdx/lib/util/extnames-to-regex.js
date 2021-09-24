@@ -6,6 +6,6 @@
  */
 export function extnamesToRegex(extnames) {
   return new RegExp(
-    '\\.(' + extnames.map((d) => d.slice(1)).join('|') + ')([?#]|$)'
+    '\\.(' + extnames.map(d => d.slice(1)).join('|') + ')([?#]|$)'
   )
 }

@@ -19,10 +19,21 @@ import {useMDXComponents, MDXProvider} from '../index.js'
  * @returns {Promise.<{default: MDXContent}>}
  */
 async function evaluate(value) {
-  const file = await compile(value, {providerImportSource: '#', jsx: true, outputFormat: 'function-body'})
-  const result = await babel.transformAsync(String(file), {parserOpts: {allowReturnOutsideFunction: true}, plugins: ['@vue/babel-plugin-jsx']})
+  const file = await compile(value, {
+    providerImportSource: '#',
+    jsx: true,
+    outputFormat: 'function-body'
+  })
+  const result = await babel.transformAsync(String(file), {
+    parserOpts: {allowReturnOutsideFunction: true},
+    plugins: ['@vue/babel-plugin-jsx']
+  })
   if (!result || !result.code) throw new Error('Whoops!')
-  const body = result.code.replace(/import \{(.+)\} from "vue"/, (_, /** @type {string} */ $1) => 'const {' + $1.replace(/ as /g, ': ') + '} = arguments[0].vue')
+  const body = result.code.replace(
+    /import \{(.+)\} from "vue"/,
+    (_, /** @type {string} */ $1) =>
+      'const {' + $1.replace(/ as /g, ': ') + '} = arguments[0].vue'
+  )
   // @ts-expect-error: to do xdm (and mdx-js/mdx soon) also supports strings instead of vfiles for run.
   return run(body, {vue, useMDXComponents})
 }
@@ -33,7 +44,9 @@ async function evaluate(value) {
  * @returns {Promise<string>}
  */
 async function vueToString(root, rootProps) {
-  const result = await serverRenderer.renderToString(vue.createSSRApp(root, rootProps))
+  const result = await serverRenderer.renderToString(
+    vue.createSSRApp(root, rootProps)
+  )
   // Remove SSR comments used to hydrate.
   return result.replace(/<!--[[\]]-->/g, '')
 }
@@ -60,10 +73,7 @@ test('should support Vue components defined in MDX', async () => {
     'export const A = {render() { return <b>!</b> }}\n\n<A />'
   )
 
-  assert.equal(
-    await vueToString(Content),
-    '<b>!</b>'
-  )
+  assert.equal(await vueToString(Content), '<b>!</b>')
 })
 
 test('should support passing `components`', async () => {
@@ -92,7 +102,8 @@ test('should support `MDXProvider`', async () => {
       data() {
         return {components: {h1: 'h2'}}
       },
-      template: '<MDXProvider v-bind:components="components"><Content /></MDXProvider>',
+      template:
+        '<MDXProvider v-bind:components="components"><Content /></MDXProvider>',
       components: {MDXProvider, Content}
     }),
     '<h2>hi</h2>'

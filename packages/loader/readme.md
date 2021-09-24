@@ -119,21 +119,39 @@ abide by its terms.
 [MIT][] © [Compositor][] and [Vercel][]
 
 [build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
+
 [build]: https://github.com/mdx-js/mdx/actions
+
 [downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/loader.svg
+
 [downloads]: https://www.npmjs.com/package/@mdx-js/loader
+
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
 [backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
 [opencollective]: https://opencollective.com/unified
+
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
 [chat]: https://github.com/mdx-js/mdx/discussions
+
 [npm]: https://docs.npmjs.com/cli/install
+
 [yarn]: https://yarnpkg.com/cli/add
+
 [contributing]: https://mdxjs.com/contributing
+
 [support]: https://mdxjs.com/support
+
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
+
 [mit]: license
+
 [compositor]: https://compositor.io
+
 [vercel]: https://vercel.com
+
 [mdx]: https://github.com/mdx-js/mdx
+
 [custom-pragma]: https://mdxjs.com/blog/custom-pragma

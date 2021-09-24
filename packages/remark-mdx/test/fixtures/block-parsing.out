@@ -27,9 +27,9 @@ A couple from [John](https://github.com/mdx-js/mdx/issues/195#issuecomment-61350
 # Hello, world!
 
 <Foo stuff={`
-  Here is a template literal
+Here is a template literal
 
-  with an empty line
+with an empty line
   `}/>
 
 # Hello, <>{props.name}</>

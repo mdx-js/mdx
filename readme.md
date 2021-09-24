@@ -1,4 +1,4 @@
-<!-- lint disable remark-lint-no-html -->
+<!-- lint disable no-html -->
 
 <p align="center">
   <a href="https://mdxjs.com">
@@ -11,7 +11,8 @@
 [![Build Status][build-badge]][build]
 [![Chat][chat-badge]][chat]
 
-[MDX][website] is an authorable format that lets you seamlessly use JSX in your markdown documents.
+[MDX][website] is an authorable format that lets you seamlessly use JSX in your
+markdown documents.
 You can import components, like interactive charts or notifications, and export
 metadata.
 This makes writing long-form content with components a blast.
@@ -71,27 +72,27 @@ with JSX.
 Implementations were often template string-based which required lots of escaping
 and cumbersome syntax.
 
-> “MDX \[…] is extremely useful for using design system components to render
-> markdown and weaving interactive components in with existing markdown.”
+> MDX \[…] is extremely useful for using design system components to render
+> markdown and weaving interactive components in with existing markdown.
 >
 > — [@chrisbiscardi][tweet]
 
-MDX seeks to make writing with markdown _and_ JSX simpler while being more
+MDX seeks to make writing with markdown *and* JSX simpler while being more
 expressive.
 The possibilities are endless when you combine components (that can even be
 dynamic or load data) with the simplicity of markdown for long-form content.
 A nice example of this is [mdx-deck][], a great way to create slides with MDX.
 
-- Fast
-- No runtime compilation
-- [Pluggable][remark-plugins]
-- Element to React component mapping
-- React component `import`/`export`
-- Customizable layouts
-- [Webpack loader](https://mdxjs.com/getting-started/webpack)
-- [Parcel plugin](https://mdxjs.com/getting-started/parcel)
-- [Next.js plugin](https://mdxjs.com/getting-started/next)
-- [Gatsby plugin](https://mdxjs.com/getting-started/gatsby)
+*   Fast
+*   No runtime compilation
+*   [Pluggable][remark-plugins]
+*   Element to React component mapping
+*   React component `import`/`export`
+*   Customizable layouts
+*   [Webpack loader](https://mdxjs.com/getting-started/webpack)
+*   [Parcel plugin](https://mdxjs.com/getting-started/parcel)
+*   [Next.js plugin](https://mdxjs.com/getting-started/next)
+*   [Gatsby plugin](https://mdxjs.com/getting-started/gatsby)
 
 ## Sponsors
 
@@ -142,10 +143,10 @@ Support this effort and give back by sponsoring on [OpenCollective][collective]!
 
 ## Authors
 
-- [John Otander][john] ([@4lpine][4lpine]) – [Components AI][]
-- [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [Vercel][]
-- [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [Vercel][]
-- [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Gatsby](https://gatsbyjs.com)
+*   [John Otander][john] ([@4lpine][4lpine]) – [Components AI][]
+*   [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [Vercel][]
+*   [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [Vercel][]
+*   [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Gatsby](https://gatsbyjs.com)
 
 ## Related
 
@@ -169,28 +170,53 @@ Join us on [GH Discussions][chat]!
 [MIT][] © Compositor and [Vercel][]
 
 [collective]: https://opencollective.com/unified
+
 [build]: https://github.com/mdx-js/mdx/actions?query=workflow%3A%22CI%22
+
 [build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
+
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
 [chat]: https://github.com/mdx-js/mdx/discussions
+
 [intro]: https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u
+
 [tweet]: https://twitter.com/chrisbiscardi/status/1022304288326864896
+
 [remark-plugins]: https://github.com/remarkjs/remark/blob/master/doc/plugins.md
+
 [website]: https://mdxjs.com
+
 [spec]: https://github.com/mdx-js/specification#related
+
 [john]: https://johno.com
+
 [tim]: https://github.com/timneutkens
+
 [guillermo]: https://rauchg.com
+
 [brent]: https://jxnblk.com
+
 [4lpine]: https://twitter.com/4lpine
+
 [rauchg]: https://twitter.com/rauchg
+
 [timneutkens]: https://twitter.com/timneutkens
+
 [jxnblk]: https://twitter.com/jxnblk
+
 [components ai]: https://components.ai
+
 [vercel]: https://vercel.com
+
 [contribute]: #contribute
+
 [contributing]: https://mdxjs.com/contributing
+
 [support]: https://mdxjs.com/support
+
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
+
 [mdx-deck]: https://github.com/jxnblk/mdx-deck
+
 [mit]: license

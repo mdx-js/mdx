@@ -49,7 +49,6 @@ async function main() {
     await globby('**/index.nljson', {cwd: fileURLToPath(config.output)})
   ).map(d => new URL(d, config.output))
 
-
   await pAll(
     files.map(url => async () => {
       const name = url.href

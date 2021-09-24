@@ -74,9 +74,7 @@ export function NavItem(props) {
       ) : (
         defaultTitle
       )}
-      {navLabel ? (
-        <sup>[{navLabel}]</sup>
-      ) : null}
+      {navLabel ? <sup>[{navLabel}]</sup> : null}
       {includeDescription && description ? ' — ' + description : null}
       {includePublished && published
         ? ' — ' + dateTimeFormat.format(published)

@@ -156,7 +156,7 @@ export function recmaDocument(options = {}) {
         const source = child.source
 
         // Remove `default` or `as default`, but not `default as`, specifier.
-        child.specifiers = child.specifiers.filter((specifier) => {
+        child.specifiers = child.specifiers.filter(specifier => {
           if (specifier.exported.name === 'default') {
             if (layout) {
               file.fail(
@@ -257,7 +257,7 @@ export function recmaDocument(options = {}) {
                 argument: {type: 'Identifier', name: '_exportAll' + (index + 1)}
               })
             ),
-            ...exportedIdentifiers.map((d) => {
+            ...exportedIdentifiers.map(d => {
               /** @type {Property} */
               const prop = {
                 type: 'Property',
@@ -423,9 +423,9 @@ export function recmaDocument(options = {}) {
           /** @type {Array.<VariableDeclarator>} */
           const declarators = node.specifiers
             .filter(
-              (specifier) => specifier.local.name !== specifier.exported.name
+              specifier => specifier.local.name !== specifier.exported.name
             )
-            .map((specifier) => ({
+            .map(specifier => ({
               type: 'VariableDeclarator',
               id: specifier.exported,
               init: specifier.local

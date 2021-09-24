@@ -157,10 +157,7 @@
                         }
                       },
                       "name": "labelText",
-                      "range": [
-                        146,
-                        155
-                      ]
+                      "range": [146, 155]
                     },
                     "start": 146,
                     "end": 155,
@@ -174,10 +171,7 @@
                         "column": 23
                       }
                     },
-                    "range": [
-                      146,
-                      155
-                    ]
+                    "range": [146, 155]
                   }
                 ],
                 "sourceType": "module",
@@ -192,10 +186,7 @@
                     "column": 23
                   }
                 },
-                "range": [
-                  146,
-                  155
-                ]
+                "range": [146, 155]
               }
             }
           }
@@ -234,10 +225,7 @@
                         }
                       },
                       "name": "onchangeHandler",
-                      "range": [
-                        192,
-                        207
-                      ]
+                      "range": [192, 207]
                     },
                     "start": 192,
                     "end": 207,
@@ -251,10 +239,7 @@
                         "column": 27
                       }
                     },
-                    "range": [
-                      192,
-                      207
-                    ]
+                    "range": [192, 207]
                   }
                 ],
                 "sourceType": "module",
@@ -269,10 +254,7 @@
                     "column": 27
                   }
                 },
-                "range": [
-                  192,
-                  207
-                ]
+                "range": [192, 207]
               }
             }
           }
@@ -306,10 +288,7 @@
                         }
                       },
                       "name": "inputValue",
-                      "range": [
-                        218,
-                        228
-                      ]
+                      "range": [218, 228]
                     },
                     "start": 218,
                     "end": 228,
@@ -323,10 +302,7 @@
                         "column": 19
                       }
                     },
-                    "range": [
-                      218,
-                      228
-                    ]
+                    "range": [218, 228]
                   }
                 ],
                 "sourceType": "module",
@@ -341,10 +317,7 @@
                     "column": 19
                   }
                 },
-                "range": [
-                  218,
-                  228
-                ]
+                "range": [218, 228]
               }
             }
           }
@@ -424,10 +397,7 @@
                                   "column": 11
                                 }
                               },
-                              "range": [
-                                258,
-                                262
-                              ]
+                              "range": [258, 262]
                             },
                             "property": {
                               "type": "Identifier",
@@ -444,10 +414,7 @@
                                   "column": 16
                                 }
                               },
-                              "range": [
-                                263,
-                                267
-                              ]
+                              "range": [263, 267]
                             },
                             "computed": false,
                             "optional": false,
@@ -461,10 +428,7 @@
                                 "column": 16
                               }
                             },
-                            "range": [
-                              258,
-                              267
-                            ]
+                            "range": [258, 267]
                           },
                           "start": 258,
                           "end": 267,
@@ -478,10 +442,7 @@
                               "column": 16
                             }
                           },
-                          "range": [
-                            258,
-                            267
-                          ]
+                          "range": [258, 267]
                         }
                       ],
                       "sourceType": "module",
@@ -496,10 +457,7 @@
                           "column": 16
                         }
                       },
-                      "range": [
-                        258,
-                        267
-                      ]
+                      "range": [258, 267]
                     }
                   }
                 }
@@ -580,10 +538,7 @@
                                   "column": 11
                                 }
                               },
-                              "range": [
-                                281,
-                                285
-                              ]
+                              "range": [281, 285]
                             },
                             "property": {
                               "type": "Identifier",
@@ -600,10 +555,7 @@
                                   "column": 23
                                 }
                               },
-                              "range": [
-                                286,
-                                297
-                              ]
+                              "range": [286, 297]
                             },
                             "computed": false,
                             "optional": false,
@@ -617,10 +569,7 @@
                                 "column": 23
                               }
                             },
-                            "range": [
-                              281,
-                              297
-                            ]
+                            "range": [281, 297]
                           },
                           "start": 281,
                           "end": 297,
@@ -634,10 +583,7 @@
                               "column": 23
                             }
                           },
-                          "range": [
-                            281,
-                            297
-                          ]
+                          "range": [281, 297]
                         }
                       ],
                       "sourceType": "module",
@@ -652,10 +598,7 @@
                           "column": 23
                         }
                       },
-                      "range": [
-                        281,
-                        297
-                      ]
+                      "range": [281, 297]
                     }
                   }
                 }
@@ -708,7 +651,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "props.items.map(item => (\n<ListItem item={item} key={item.id} />\n))",
+          "value": "props.items.map(item => (\n  <ListItem item={item} key={item.id} />\n))",
           "position": {
             "start": {
               "line": 20,
@@ -756,10 +699,7 @@
                               "column": 8
                             }
                           },
-                          "range": [
-                            317,
-                            322
-                          ]
+                          "range": [317, 322]
                         },
                         "property": {
                           "type": "Identifier",
@@ -776,10 +716,7 @@
                               "column": 14
                             }
                           },
-                          "range": [
-                            323,
-                            328
-                          ]
+                          "range": [323, 328]
                         },
                         "computed": false,
                         "optional": false,
@@ -793,10 +730,7 @@
                             "column": 14
                           }
                         },
-                        "range": [
-                          317,
-                          328
-                        ]
+                        "range": [317, 328]
                       },
                       "property": {
                         "type": "Identifier",
@@ -813,10 +747,7 @@
                             "column": 18
                           }
                         },
-                        "range": [
-                          329,
-                          332
-                        ]
+                        "range": [329, 332]
                       },
                       "computed": false,
                       "optional": false,
@@ -830,10 +761,7 @@
                           "column": 18
                         }
                       },
-                      "range": [
-                        317,
-                        332
-                      ]
+                      "range": [317, 332]
                     },
                     "arguments": [
                       {
@@ -860,10 +788,7 @@
                                 "column": 23
                               }
                             },
-                            "range": [
-                              333,
-                              337
-                            ]
+                            "range": [333, 337]
                           }
                         ],
                         "body": {
@@ -894,10 +819,7 @@
                                       "column": 47
                                     }
                                   },
-                                  "range": [
-                                    357,
-                                    361
-                                  ]
+                                  "range": [357, 361]
                                 },
                                 "value": {
                                   "type": "JSXExpressionContainer",
@@ -918,10 +840,7 @@
                                         "column": 53
                                       }
                                     },
-                                    "range": [
-                                      363,
-                                      367
-                                    ]
+                                    "range": [363, 367]
                                   },
                                   "loc": {
                                     "start": {
@@ -933,10 +852,7 @@
                                       "column": 54
                                     }
                                   },
-                                  "range": [
-                                    362,
-                                    368
-                                  ]
+                                  "range": [362, 368]
                                 },
                                 "loc": {
                                   "start": {
@@ -948,10 +864,7 @@
                                     "column": 54
                                   }
                                 },
-                                "range": [
-                                  357,
-                                  368
-                                ]
+                                "range": [357, 368]
                               },
                               {
                                 "type": "JSXAttribute",
@@ -972,10 +885,7 @@
                                       "column": 58
                                     }
                                   },
-                                  "range": [
-                                    369,
-                                    372
-                                  ]
+                                  "range": [369, 372]
                                 },
                                 "value": {
                                   "type": "JSXExpressionContainer",
@@ -1000,10 +910,7 @@
                                           "column": 64
                                         }
                                       },
-                                      "range": [
-                                        374,
-                                        378
-                                      ]
+                                      "range": [374, 378]
                                     },
                                     "property": {
                                       "type": "Identifier",
@@ -1020,10 +927,7 @@
                                           "column": 67
                                         }
                                       },
-                                      "range": [
-                                        379,
-                                        381
-                                      ]
+                                      "range": [379, 381]
                                     },
                                     "computed": false,
                                     "optional": false,
@@ -1037,10 +941,7 @@
                                         "column": 67
                                       }
                                     },
-                                    "range": [
-                                      374,
-                                      381
-                                    ]
+                                    "range": [374, 381]
                                   },
                                   "loc": {
                                     "start": {
@@ -1052,10 +953,7 @@
                                       "column": 68
                                     }
                                   },
-                                  "range": [
-                                    373,
-                                    382
-                                  ]
+                                  "range": [373, 382]
                                 },
                                 "loc": {
                                   "start": {
@@ -1067,10 +965,7 @@
                                     "column": 68
                                   }
                                 },
-                                "range": [
-                                  369,
-                                  382
-                                ]
+                                "range": [369, 382]
                               }
                             ],
                             "name": {
@@ -1088,10 +983,7 @@
                                   "column": 42
                                 }
                               },
-                              "range": [
-                                348,
-                                356
-                              ]
+                              "range": [348, 356]
                             },
                             "selfClosing": true,
                             "loc": {
@@ -1104,10 +996,7 @@
                                 "column": 71
                               }
                             },
-                            "range": [
-                              347,
-                              385
-                            ]
+                            "range": [347, 385]
                           },
                           "closingElement": null,
                           "children": [],
@@ -1121,10 +1010,7 @@
                               "column": 71
                             }
                           },
-                          "range": [
-                            347,
-                            385
-                          ]
+                          "range": [347, 385]
                         },
                         "loc": {
                           "start": {
@@ -1136,10 +1022,7 @@
                             "column": 75
                           }
                         },
-                        "range": [
-                          333,
-                          389
-                        ]
+                        "range": [333, 389]
                       }
                     ],
                     "optional": false,
@@ -1153,10 +1036,7 @@
                         "column": 76
                       }
                     },
-                    "range": [
-                      317,
-                      390
-                    ]
+                    "range": [317, 390]
                   },
                   "start": 317,
                   "end": 390,
@@ -1170,10 +1050,7 @@
                       "column": 76
                     }
                   },
-                  "range": [
-                    317,
-                    390
-                  ]
+                  "range": [317, 390]
                 }
               ],
               "sourceType": "module",
@@ -1188,10 +1065,7 @@
                   "column": 76
                 }
               },
-              "range": [
-                317,
-                390
-              ]
+              "range": [317, 390]
             }
           }
         }
@@ -1216,7 +1090,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "props.items.map(item => (\n// Fragments should also have a `key` prop when mapping collections\n<Fragment key={item.id}>\n<dt>{item.term}</dt>\n<dd>{item.description}</dd>\n</Fragment>\n))",
+          "value": "props.items.map(item => (\n  // Fragments should also have a `key` prop when mapping collections\n  <Fragment key={item.id}>\n    <dt>{item.term}</dt>\n    <dd>{item.description}</dd>\n  </Fragment>\n))",
           "position": {
             "start": {
               "line": 26,
@@ -1264,10 +1138,7 @@
                               "column": 8
                             }
                           },
-                          "range": [
-                            407,
-                            412
-                          ]
+                          "range": [407, 412]
                         },
                         "property": {
                           "type": "Identifier",
@@ -1284,10 +1155,7 @@
                               "column": 14
                             }
                           },
-                          "range": [
-                            413,
-                            418
-                          ]
+                          "range": [413, 418]
                         },
                         "computed": false,
                         "optional": false,
@@ -1301,10 +1169,7 @@
                             "column": 14
                           }
                         },
-                        "range": [
-                          407,
-                          418
-                        ]
+                        "range": [407, 418]
                       },
                       "property": {
                         "type": "Identifier",
@@ -1321,10 +1186,7 @@
                             "column": 18
                           }
                         },
-                        "range": [
-                          419,
-                          422
-                        ]
+                        "range": [419, 422]
                       },
                       "computed": false,
                       "optional": false,
@@ -1338,10 +1200,7 @@
                           "column": 18
                         }
                       },
-                      "range": [
-                        407,
-                        422
-                      ]
+                      "range": [407, 422]
                     },
                     "arguments": [
                       {
@@ -1368,10 +1227,7 @@
                                 "column": 23
                               }
                             },
-                            "range": [
-                              423,
-                              427
-                            ]
+                            "range": [423, 427]
                           }
                         ],
                         "body": {
@@ -1402,10 +1258,7 @@
                                       "column": 118
                                     }
                                   },
-                                  "range": [
-                                    519,
-                                    522
-                                  ]
+                                  "range": [519, 522]
                                 },
                                 "value": {
                                   "type": "JSXExpressionContainer",
@@ -1430,10 +1283,7 @@
                                           "column": 124
                                         }
                                       },
-                                      "range": [
-                                        524,
-                                        528
-                                      ]
+                                      "range": [524, 528]
                                     },
                                     "property": {
                                       "type": "Identifier",
@@ -1450,10 +1300,7 @@
                                           "column": 127
                                         }
                                       },
-                                      "range": [
-                                        529,
-                                        531
-                                      ]
+                                      "range": [529, 531]
                                     },
                                     "computed": false,
                                     "optional": false,
@@ -1467,10 +1314,7 @@
                                         "column": 127
                                       }
                                     },
-                                    "range": [
-                                      524,
-                                      531
-                                    ]
+                                    "range": [524, 531]
                                   },
                                   "loc": {
                                     "start": {
@@ -1482,10 +1326,7 @@
                                       "column": 128
                                     }
                                   },
-                                  "range": [
-                                    523,
-                                    532
-                                  ]
+                                  "range": [523, 532]
                                 },
                                 "loc": {
                                   "start": {
@@ -1497,10 +1338,7 @@
                                     "column": 128
                                   }
                                 },
-                                "range": [
-                                  519,
-                                  532
-                                ]
+                                "range": [519, 532]
                               }
                             ],
                             "name": {
@@ -1518,10 +1356,7 @@
                                   "column": 114
                                 }
                               },
-                              "range": [
-                                510,
-                                518
-                              ]
+                              "range": [510, 518]
                             },
                             "selfClosing": false,
                             "loc": {
@@ -1534,10 +1369,7 @@
                                 "column": 129
                               }
                             },
-                            "range": [
-                              509,
-                              533
-                            ]
+                            "range": [509, 533]
                           },
                           "closingElement": {
                             "type": "JSXClosingElement",
@@ -1558,10 +1390,7 @@
                                   "column": 205
                                 }
                               },
-                              "range": [
-                                601,
-                                609
-                              ]
+                              "range": [601, 609]
                             },
                             "loc": {
                               "start": {
@@ -1573,10 +1402,7 @@
                                 "column": 206
                               }
                             },
-                            "range": [
-                              599,
-                              610
-                            ]
+                            "range": [599, 610]
                           },
                           "children": [
                             {
@@ -1595,10 +1421,7 @@
                                   "column": 136
                                 }
                               },
-                              "range": [
-                                533,
-                                540
-                              ]
+                              "range": [533, 540]
                             },
                             {
                               "type": "JSXElement",
@@ -1624,10 +1447,7 @@
                                       "column": 139
                                     }
                                   },
-                                  "range": [
-                                    541,
-                                    543
-                                  ]
+                                  "range": [541, 543]
                                 },
                                 "selfClosing": false,
                                 "loc": {
@@ -1640,10 +1460,7 @@
                                     "column": 140
                                   }
                                 },
-                                "range": [
-                                  540,
-                                  544
-                                ]
+                                "range": [540, 544]
                               },
                               "closingElement": {
                                 "type": "JSXClosingElement",
@@ -1664,10 +1481,7 @@
                                       "column": 155
                                     }
                                   },
-                                  "range": [
-                                    557,
-                                    559
-                                  ]
+                                  "range": [557, 559]
                                 },
                                 "loc": {
                                   "start": {
@@ -1679,10 +1493,7 @@
                                     "column": 156
                                   }
                                 },
-                                "range": [
-                                  555,
-                                  560
-                                ]
+                                "range": [555, 560]
                               },
                               "children": [
                                 {
@@ -1708,10 +1519,7 @@
                                           "column": 145
                                         }
                                       },
-                                      "range": [
-                                        545,
-                                        549
-                                      ]
+                                      "range": [545, 549]
                                     },
                                     "property": {
                                       "type": "Identifier",
@@ -1728,10 +1536,7 @@
                                           "column": 150
                                         }
                                       },
-                                      "range": [
-                                        550,
-                                        554
-                                      ]
+                                      "range": [550, 554]
                                     },
                                     "computed": false,
                                     "optional": false,
@@ -1745,10 +1550,7 @@
                                         "column": 150
                                       }
                                     },
-                                    "range": [
-                                      545,
-                                      554
-                                    ]
+                                    "range": [545, 554]
                                   },
                                   "loc": {
                                     "start": {
@@ -1760,10 +1562,7 @@
                                       "column": 151
                                     }
                                   },
-                                  "range": [
-                                    544,
-                                    555
-                                  ]
+                                  "range": [544, 555]
                                 }
                               ],
                               "loc": {
@@ -1776,10 +1575,7 @@
                                   "column": 156
                                 }
                               },
-                              "range": [
-                                540,
-                                560
-                              ]
+                              "range": [540, 560]
                             },
                             {
                               "type": "JSXText",
@@ -1797,10 +1593,7 @@
                                   "column": 163
                                 }
                               },
-                              "range": [
-                                560,
-                                567
-                              ]
+                              "range": [560, 567]
                             },
                             {
                               "type": "JSXElement",
@@ -1826,10 +1619,7 @@
                                       "column": 166
                                     }
                                   },
-                                  "range": [
-                                    568,
-                                    570
-                                  ]
+                                  "range": [568, 570]
                                 },
                                 "selfClosing": false,
                                 "loc": {
@@ -1842,10 +1632,7 @@
                                     "column": 167
                                   }
                                 },
-                                "range": [
-                                  567,
-                                  571
-                                ]
+                                "range": [567, 571]
                               },
                               "closingElement": {
                                 "type": "JSXClosingElement",
@@ -1866,10 +1653,7 @@
                                       "column": 189
                                     }
                                   },
-                                  "range": [
-                                    591,
-                                    593
-                                  ]
+                                  "range": [591, 593]
                                 },
                                 "loc": {
                                   "start": {
@@ -1881,10 +1665,7 @@
                                     "column": 190
                                   }
                                 },
-                                "range": [
-                                  589,
-                                  594
-                                ]
+                                "range": [589, 594]
                               },
                               "children": [
                                 {
@@ -1910,10 +1691,7 @@
                                           "column": 172
                                         }
                                       },
-                                      "range": [
-                                        572,
-                                        576
-                                      ]
+                                      "range": [572, 576]
                                     },
                                     "property": {
                                       "type": "Identifier",
@@ -1930,10 +1708,7 @@
                                           "column": 184
                                         }
                                       },
-                                      "range": [
-                                        577,
-                                        588
-                                      ]
+                                      "range": [577, 588]
                                     },
                                     "computed": false,
                                     "optional": false,
@@ -1947,10 +1722,7 @@
                                         "column": 184
                                       }
                                     },
-                                    "range": [
-                                      572,
-                                      588
-                                    ]
+                                    "range": [572, 588]
                                   },
                                   "loc": {
                                     "start": {
@@ -1962,10 +1734,7 @@
                                       "column": 185
                                     }
                                   },
-                                  "range": [
-                                    571,
-                                    589
-                                  ]
+                                  "range": [571, 589]
                                 }
                               ],
                               "loc": {
@@ -1978,10 +1747,7 @@
                                   "column": 190
                                 }
                               },
-                              "range": [
-                                567,
-                                594
-                              ]
+                              "range": [567, 594]
                             },
                             {
                               "type": "JSXText",
@@ -1999,10 +1765,7 @@
                                   "column": 195
                                 }
                               },
-                              "range": [
-                                594,
-                                599
-                              ]
+                              "range": [594, 599]
                             }
                           ],
                           "loc": {
@@ -2015,10 +1778,7 @@
                               "column": 206
                             }
                           },
-                          "range": [
-                            509,
-                            610
-                          ]
+                          "range": [509, 610]
                         },
                         "loc": {
                           "start": {
@@ -2030,10 +1790,7 @@
                             "column": 210
                           }
                         },
-                        "range": [
-                          423,
-                          614
-                        ]
+                        "range": [423, 614]
                       }
                     ],
                     "optional": false,
@@ -2047,10 +1804,7 @@
                         "column": 211
                       }
                     },
-                    "range": [
-                      407,
-                      615
-                    ]
+                    "range": [407, 615]
                   },
                   "start": 407,
                   "end": 615,
@@ -2064,10 +1818,7 @@
                       "column": 211
                     }
                   },
-                  "range": [
-                    407,
-                    615
-                  ]
+                  "range": [407, 615]
                 }
               ],
               "sourceType": "module",
@@ -2087,10 +1838,7 @@
                       "column": 100
                     }
                   },
-                  "range": [
-                    437,
-                    504
-                  ]
+                  "range": [437, 504]
                 }
               ],
               "loc": {
@@ -2103,10 +1851,7 @@
                   "column": 211
                 }
               },
-              "range": [
-                407,
-                615
-              ]
+              "range": [407, 615]
             }
           }
         }
@@ -2262,10 +2007,7 @@
                             "column": 14
                           }
                         },
-                        "range": [
-                          726,
-                          730
-                        ]
+                        "range": [726, 730]
                       },
                       "property": {
                         "type": "Identifier",
@@ -2282,17 +2024,11 @@
                           }
                         },
                         "name": "toggleContainer",
-                        "range": [
-                          731,
-                          746
-                        ]
+                        "range": [731, 746]
                       },
                       "computed": false,
                       "optional": false,
-                      "range": [
-                        726,
-                        746
-                      ]
+                      "range": [726, 746]
                     },
                     "start": 726,
                     "end": 746,
@@ -2306,10 +2042,7 @@
                         "column": 30
                       }
                     },
-                    "range": [
-                      726,
-                      746
-                    ]
+                    "range": [726, 746]
                   }
                 ],
                 "sourceType": "module",
@@ -2324,10 +2057,7 @@
                     "column": 30
                   }
                 },
-                "range": [
-                  726,
-                  746
-                ]
+                "range": [726, 746]
               }
             }
           }
@@ -2383,10 +2113,7 @@
                                     "column": 23
                                   }
                                 },
-                                "range": [
-                                  768,
-                                  772
-                                ]
+                                "range": [768, 772]
                               },
                               "property": {
                                 "type": "Identifier",
@@ -2403,17 +2130,11 @@
                                   }
                                 },
                                 "name": "onClickHandler",
-                                "range": [
-                                  773,
-                                  787
-                                ]
+                                "range": [773, 787]
                               },
                               "computed": false,
                               "optional": false,
-                              "range": [
-                                768,
-                                787
-                              ]
+                              "range": [768, 787]
                             },
                             "start": 768,
                             "end": 787,
@@ -2427,10 +2148,7 @@
                                 "column": 38
                               }
                             },
-                            "range": [
-                              768,
-                              787
-                            ]
+                            "range": [768, 787]
                           }
                         ],
                         "sourceType": "module",
@@ -2445,10 +2163,7 @@
                             "column": 38
                           }
                         },
-                        "range": [
-                          768,
-                          787
-                        ]
+                        "range": [768, 787]
                       }
                     }
                   }
@@ -2501,7 +2216,7 @@
         },
         {
           "type": "mdxFlowExpression",
-          "value": "this.state.isOpen && (\n<ul>\n<li>Option 1</li>\n<li>Option 2</li>\n<li>Option 3</li>\n</ul>\n)",
+          "value": "this.state.isOpen && (\n  <ul>\n    <li>Option 1</li>\n    <li>Option 2</li>\n    <li>Option 3</li>\n  </ul>\n)",
           "position": {
             "start": {
               "line": 40,
@@ -2548,10 +2263,7 @@
                               "column": 7
                             }
                           },
-                          "range": [
-                            818,
-                            822
-                          ]
+                          "range": [818, 822]
                         },
                         "property": {
                           "type": "Identifier",
@@ -2568,10 +2280,7 @@
                               "column": 13
                             }
                           },
-                          "range": [
-                            823,
-                            828
-                          ]
+                          "range": [823, 828]
                         },
                         "computed": false,
                         "optional": false,
@@ -2585,10 +2294,7 @@
                             "column": 13
                           }
                         },
-                        "range": [
-                          818,
-                          828
-                        ]
+                        "range": [818, 828]
                       },
                       "property": {
                         "type": "Identifier",
@@ -2605,10 +2311,7 @@
                             "column": 20
                           }
                         },
-                        "range": [
-                          829,
-                          835
-                        ]
+                        "range": [829, 835]
                       },
                       "computed": false,
                       "optional": false,
@@ -2622,10 +2325,7 @@
                           "column": 20
                         }
                       },
-                      "range": [
-                        818,
-                        835
-                      ]
+                      "range": [818, 835]
                     },
                     "operator": "&&",
                     "right": {
@@ -2652,10 +2352,7 @@
                               "column": 33
                             }
                           },
-                          "range": [
-                            846,
-                            848
-                          ]
+                          "range": [846, 848]
                         },
                         "selfClosing": false,
                         "loc": {
@@ -2668,10 +2365,7 @@
                             "column": 34
                           }
                         },
-                        "range": [
-                          845,
-                          849
-                        ]
+                        "range": [845, 849]
                       },
                       "closingElement": {
                         "type": "JSXClosingElement",
@@ -2692,10 +2386,7 @@
                               "column": 115
                             }
                           },
-                          "range": [
-                            928,
-                            930
-                          ]
+                          "range": [928, 930]
                         },
                         "loc": {
                           "start": {
@@ -2707,10 +2398,7 @@
                             "column": 116
                           }
                         },
-                        "range": [
-                          926,
-                          931
-                        ]
+                        "range": [926, 931]
                       },
                       "children": [
                         {
@@ -2729,10 +2417,7 @@
                               "column": 41
                             }
                           },
-                          "range": [
-                            849,
-                            856
-                          ]
+                          "range": [849, 856]
                         },
                         {
                           "type": "JSXElement",
@@ -2758,10 +2443,7 @@
                                   "column": 44
                                 }
                               },
-                              "range": [
-                                857,
-                                859
-                              ]
+                              "range": [857, 859]
                             },
                             "selfClosing": false,
                             "loc": {
@@ -2774,10 +2456,7 @@
                                 "column": 45
                               }
                             },
-                            "range": [
-                              856,
-                              860
-                            ]
+                            "range": [856, 860]
                           },
                           "closingElement": {
                             "type": "JSXClosingElement",
@@ -2798,10 +2477,7 @@
                                   "column": 57
                                 }
                               },
-                              "range": [
-                                870,
-                                872
-                              ]
+                              "range": [870, 872]
                             },
                             "loc": {
                               "start": {
@@ -2813,10 +2489,7 @@
                                 "column": 58
                               }
                             },
-                            "range": [
-                              868,
-                              873
-                            ]
+                            "range": [868, 873]
                           },
                           "children": [
                             {
@@ -2835,10 +2508,7 @@
                                   "column": 53
                                 }
                               },
-                              "range": [
-                                860,
-                                868
-                              ]
+                              "range": [860, 868]
                             }
                           ],
                           "loc": {
@@ -2851,10 +2521,7 @@
                               "column": 58
                             }
                           },
-                          "range": [
-                            856,
-                            873
-                          ]
+                          "range": [856, 873]
                         },
                         {
                           "type": "JSXText",
@@ -2872,10 +2539,7 @@
                               "column": 65
                             }
                           },
-                          "range": [
-                            873,
-                            880
-                          ]
+                          "range": [873, 880]
                         },
                         {
                           "type": "JSXElement",
@@ -2901,10 +2565,7 @@
                                   "column": 68
                                 }
                               },
-                              "range": [
-                                881,
-                                883
-                              ]
+                              "range": [881, 883]
                             },
                             "selfClosing": false,
                             "loc": {
@@ -2917,10 +2578,7 @@
                                 "column": 69
                               }
                             },
-                            "range": [
-                              880,
-                              884
-                            ]
+                            "range": [880, 884]
                           },
                           "closingElement": {
                             "type": "JSXClosingElement",
@@ -2941,10 +2599,7 @@
                                   "column": 81
                                 }
                               },
-                              "range": [
-                                894,
-                                896
-                              ]
+                              "range": [894, 896]
                             },
                             "loc": {
                               "start": {
@@ -2956,10 +2611,7 @@
                                 "column": 82
                               }
                             },
-                            "range": [
-                              892,
-                              897
-                            ]
+                            "range": [892, 897]
                           },
                           "children": [
                             {
@@ -2978,10 +2630,7 @@
                                   "column": 77
                                 }
                               },
-                              "range": [
-                                884,
-                                892
-                              ]
+                              "range": [884, 892]
                             }
                           ],
                           "loc": {
@@ -2994,10 +2643,7 @@
                               "column": 82
                             }
                           },
-                          "range": [
-                            880,
-                            897
-                          ]
+                          "range": [880, 897]
                         },
                         {
                           "type": "JSXText",
@@ -3015,10 +2661,7 @@
                               "column": 89
                             }
                           },
-                          "range": [
-                            897,
-                            904
-                          ]
+                          "range": [897, 904]
                         },
                         {
                           "type": "JSXElement",
@@ -3044,10 +2687,7 @@
                                   "column": 92
                                 }
                               },
-                              "range": [
-                                905,
-                                907
-                              ]
+                              "range": [905, 907]
                             },
                             "selfClosing": false,
                             "loc": {
@@ -3060,10 +2700,7 @@
                                 "column": 93
                               }
                             },
-                            "range": [
-                              904,
-                              908
-                            ]
+                            "range": [904, 908]
                           },
                           "closingElement": {
                             "type": "JSXClosingElement",
@@ -3084,10 +2721,7 @@
                                   "column": 105
                                 }
                               },
-                              "range": [
-                                918,
-                                920
-                              ]
+                              "range": [918, 920]
                             },
                             "loc": {
                               "start": {
@@ -3099,10 +2733,7 @@
                                 "column": 106
                               }
                             },
-                            "range": [
-                              916,
-                              921
-                            ]
+                            "range": [916, 921]
                           },
                           "children": [
                             {
@@ -3121,10 +2752,7 @@
                                   "column": 101
                                 }
                               },
-                              "range": [
-                                908,
-                                916
-                              ]
+                              "range": [908, 916]
                             }
                           ],
                           "loc": {
@@ -3137,10 +2765,7 @@
                               "column": 106
                             }
                           },
-                          "range": [
-                            904,
-                            921
-                          ]
+                          "range": [904, 921]
                         },
                         {
                           "type": "JSXText",
@@ -3158,10 +2783,7 @@
                               "column": 111
                             }
                           },
-                          "range": [
-                            921,
-                            926
-                          ]
+                          "range": [921, 926]
                         }
                       ],
                       "loc": {
@@ -3174,10 +2796,7 @@
                           "column": 116
                         }
                       },
-                      "range": [
-                        845,
-                        931
-                      ]
+                      "range": [845, 931]
                     },
                     "loc": {
                       "start": {
@@ -3189,10 +2808,7 @@
                         "column": 120
                       }
                     },
-                    "range": [
-                      818,
-                      935
-                    ]
+                    "range": [818, 935]
                   },
                   "start": 818,
                   "end": 935,
@@ -3206,10 +2822,7 @@
                       "column": 120
                     }
                   },
-                  "range": [
-                    818,
-                    935
-                  ]
+                  "range": [818, 935]
                 }
               ],
               "sourceType": "module",
@@ -3224,10 +2837,7 @@
                   "column": 120
                 }
               },
-              "range": [
-                818,
-                935
-              ]
+              "range": [818, 935]
             }
           }
         }
@@ -3291,10 +2901,7 @@
                             "column": 17
                           }
                         },
-                        "range": [
-                          958,
-                          962
-                        ]
+                        "range": [958, 962]
                       },
                       "property": {
                         "type": "Identifier",
@@ -3311,17 +2918,11 @@
                           }
                         },
                         "name": "onBlurHandler",
-                        "range": [
-                          963,
-                          976
-                        ]
+                        "range": [963, 976]
                       },
                       "computed": false,
                       "optional": false,
-                      "range": [
-                        958,
-                        976
-                      ]
+                      "range": [958, 976]
                     },
                     "start": 958,
                     "end": 976,
@@ -3335,10 +2936,7 @@
                         "column": 31
                       }
                     },
-                    "range": [
-                      958,
-                      976
-                    ]
+                    "range": [958, 976]
                   }
                 ],
                 "sourceType": "module",
@@ -3353,10 +2951,7 @@
                     "column": 31
                   }
                 },
-                "range": [
-                  958,
-                  976
-                ]
+                "range": [958, 976]
               }
             }
           }
@@ -3403,10 +2998,7 @@
                             "column": 18
                           }
                         },
-                        "range": [
-                          992,
-                          996
-                        ]
+                        "range": [992, 996]
                       },
                       "property": {
                         "type": "Identifier",
@@ -3423,17 +3015,11 @@
                           }
                         },
                         "name": "onFocusHandler",
-                        "range": [
-                          997,
-                          1011
-                        ]
+                        "range": [997, 1011]
                       },
                       "computed": false,
                       "optional": false,
-                      "range": [
-                        992,
-                        1011
-                      ]
+                      "range": [992, 1011]
                     },
                     "start": 992,
                     "end": 1011,
@@ -3447,10 +3033,7 @@
                         "column": 33
                       }
                     },
-                    "range": [
-                      992,
-                      1011
-                    ]
+                    "range": [992, 1011]
                   }
                 ],
                 "sourceType": "module",
@@ -3465,10 +3048,7 @@
                     "column": 33
                   }
                 },
-                "range": [
-                  992,
-                  1011
-                ]
+                "range": [992, 1011]
               }
             }
           }
@@ -3521,10 +3101,7 @@
                                 "column": 23
                               }
                             },
-                            "range": [
-                              1033,
-                              1037
-                            ]
+                            "range": [1033, 1037]
                           },
                           "property": {
                             "type": "Identifier",
@@ -3541,17 +3118,11 @@
                               }
                             },
                             "name": "onClickHandler",
-                            "range": [
-                              1038,
-                              1052
-                            ]
+                            "range": [1038, 1052]
                           },
                           "computed": false,
                           "optional": false,
-                          "range": [
-                            1033,
-                            1052
-                          ]
+                          "range": [1033, 1052]
                         },
                         "start": 1033,
                         "end": 1052,
@@ -3565,10 +3136,7 @@
                             "column": 38
                           }
                         },
-                        "range": [
-                          1033,
-                          1052
-                        ]
+                        "range": [1033, 1052]
                       }
                     ],
                     "sourceType": "module",
@@ -3583,10 +3151,7 @@
                         "column": 38
                       }
                     },
-                    "range": [
-                      1033,
-                      1052
-                    ]
+                    "range": [1033, 1052]
                   }
                 }
               }
@@ -3652,10 +3217,7 @@
                                   "column": 29
                                 }
                               },
-                              "range": [
-                                1110,
-                                1114
-                              ]
+                              "range": [1110, 1114]
                             },
                             "property": {
                               "type": "Identifier",
@@ -3672,17 +3234,11 @@
                                 }
                               },
                               "name": "state",
-                              "range": [
-                                1115,
-                                1120
-                              ]
+                              "range": [1115, 1120]
                             },
                             "computed": false,
                             "optional": false,
-                            "range": [
-                              1110,
-                              1120
-                            ]
+                            "range": [1110, 1120]
                           },
                           "property": {
                             "type": "Identifier",
@@ -3699,17 +3255,11 @@
                               }
                             },
                             "name": "isOpen",
-                            "range": [
-                              1121,
-                              1127
-                            ]
+                            "range": [1121, 1127]
                           },
                           "computed": false,
                           "optional": false,
-                          "range": [
-                            1110,
-                            1127
-                          ]
+                          "range": [1110, 1127]
                         },
                         "start": 1110,
                         "end": 1127,
@@ -3723,10 +3273,7 @@
                             "column": 42
                           }
                         },
-                        "range": [
-                          1110,
-                          1127
-                        ]
+                        "range": [1110, 1127]
                       }
                     ],
                     "sourceType": "module",
@@ -3741,10 +3288,7 @@
                         "column": 42
                       }
                     },
-                    "range": [
-                      1110,
-                      1127
-                    ]
+                    "range": [1110, 1127]
                   }
                 }
               }
@@ -3800,7 +3344,7 @@
         },
         {
           "type": "mdxFlowExpression",
-          "value": "this.state.isOpen && (\n<ul>\n<li>Option 1</li>\n<li>Option 2</li>\n<li>Option 3</li>\n</ul>\n)",
+          "value": "this.state.isOpen && (\n  <ul>\n    <li>Option 1</li>\n    <li>Option 2</li>\n    <li>Option 3</li>\n  </ul>\n)",
           "position": {
             "start": {
               "line": 56,
@@ -3847,10 +3391,7 @@
                               "column": 7
                             }
                           },
-                          "range": [
-                            1166,
-                            1170
-                          ]
+                          "range": [1166, 1170]
                         },
                         "property": {
                           "type": "Identifier",
@@ -3867,10 +3408,7 @@
                               "column": 13
                             }
                           },
-                          "range": [
-                            1171,
-                            1176
-                          ]
+                          "range": [1171, 1176]
                         },
                         "computed": false,
                         "optional": false,
@@ -3884,10 +3422,7 @@
                             "column": 13
                           }
                         },
-                        "range": [
-                          1166,
-                          1176
-                        ]
+                        "range": [1166, 1176]
                       },
                       "property": {
                         "type": "Identifier",
@@ -3904,10 +3439,7 @@
                             "column": 20
                           }
                         },
-                        "range": [
-                          1177,
-                          1183
-                        ]
+                        "range": [1177, 1183]
                       },
                       "computed": false,
                       "optional": false,
@@ -3921,10 +3453,7 @@
                           "column": 20
                         }
                       },
-                      "range": [
-                        1166,
-                        1183
-                      ]
+                      "range": [1166, 1183]
                     },
                     "operator": "&&",
                     "right": {
@@ -3951,10 +3480,7 @@
                               "column": 33
                             }
                           },
-                          "range": [
-                            1194,
-                            1196
-                          ]
+                          "range": [1194, 1196]
                         },
                         "selfClosing": false,
                         "loc": {
@@ -3967,10 +3493,7 @@
                             "column": 34
                           }
                         },
-                        "range": [
-                          1193,
-                          1197
-                        ]
+                        "range": [1193, 1197]
                       },
                       "closingElement": {
                         "type": "JSXClosingElement",
@@ -3991,10 +3514,7 @@
                               "column": 115
                             }
                           },
-                          "range": [
-                            1276,
-                            1278
-                          ]
+                          "range": [1276, 1278]
                         },
                         "loc": {
                           "start": {
@@ -4006,10 +3526,7 @@
                             "column": 116
                           }
                         },
-                        "range": [
-                          1274,
-                          1279
-                        ]
+                        "range": [1274, 1279]
                       },
                       "children": [
                         {
@@ -4028,10 +3545,7 @@
                               "column": 41
                             }
                           },
-                          "range": [
-                            1197,
-                            1204
-                          ]
+                          "range": [1197, 1204]
                         },
                         {
                           "type": "JSXElement",
@@ -4057,10 +3571,7 @@
                                   "column": 44
                                 }
                               },
-                              "range": [
-                                1205,
-                                1207
-                              ]
+                              "range": [1205, 1207]
                             },
                             "selfClosing": false,
                             "loc": {
@@ -4073,10 +3584,7 @@
                                 "column": 45
                               }
                             },
-                            "range": [
-                              1204,
-                              1208
-                            ]
+                            "range": [1204, 1208]
                           },
                           "closingElement": {
                             "type": "JSXClosingElement",
@@ -4097,10 +3605,7 @@
                                   "column": 57
                                 }
                               },
-                              "range": [
-                                1218,
-                                1220
-                              ]
+                              "range": [1218, 1220]
                             },
                             "loc": {
                               "start": {
@@ -4112,10 +3617,7 @@
                                 "column": 58
                               }
                             },
-                            "range": [
-                              1216,
-                              1221
-                            ]
+                            "range": [1216, 1221]
                           },
                           "children": [
                             {
@@ -4134,10 +3636,7 @@
                                   "column": 53
                                 }
                               },
-                              "range": [
-                                1208,
-                                1216
-                              ]
+                              "range": [1208, 1216]
                             }
                           ],
                           "loc": {
@@ -4150,10 +3649,7 @@
                               "column": 58
                             }
                           },
-                          "range": [
-                            1204,
-                            1221
-                          ]
+                          "range": [1204, 1221]
                         },
                         {
                           "type": "JSXText",
@@ -4171,10 +3667,7 @@
                               "column": 65
                             }
                           },
-                          "range": [
-                            1221,
-                            1228
-                          ]
+                          "range": [1221, 1228]
                         },
                         {
                           "type": "JSXElement",
@@ -4200,10 +3693,7 @@
                                   "column": 68
                                 }
                               },
-                              "range": [
-                                1229,
-                                1231
-                              ]
+                              "range": [1229, 1231]
                             },
                             "selfClosing": false,
                             "loc": {
@@ -4216,10 +3706,7 @@
                                 "column": 69
                               }
                             },
-                            "range": [
-                              1228,
-                              1232
-                            ]
+                            "range": [1228, 1232]
                           },
                           "closingElement": {
                             "type": "JSXClosingElement",
@@ -4240,10 +3727,7 @@
                                   "column": 81
                                 }
                               },
-                              "range": [
-                                1242,
-                                1244
-                              ]
+                              "range": [1242, 1244]
                             },
                             "loc": {
                               "start": {
@@ -4255,10 +3739,7 @@
                                 "column": 82
                               }
                             },
-                            "range": [
-                              1240,
-                              1245
-                            ]
+                            "range": [1240, 1245]
                           },
                           "children": [
                             {
@@ -4277,10 +3758,7 @@
                                   "column": 77
                                 }
                               },
-                              "range": [
-                                1232,
-                                1240
-                              ]
+                              "range": [1232, 1240]
                             }
                           ],
                           "loc": {
@@ -4293,10 +3771,7 @@
                               "column": 82
                             }
                           },
-                          "range": [
-                            1228,
-                            1245
-                          ]
+                          "range": [1228, 1245]
                         },
                         {
                           "type": "JSXText",
@@ -4314,10 +3789,7 @@
                               "column": 89
                             }
                           },
-                          "range": [
-                            1245,
-                            1252
-                          ]
+                          "range": [1245, 1252]
                         },
                         {
                           "type": "JSXElement",
@@ -4343,10 +3815,7 @@
                                   "column": 92
                                 }
                               },
-                              "range": [
-                                1253,
-                                1255
-                              ]
+                              "range": [1253, 1255]
                             },
                             "selfClosing": false,
                             "loc": {
@@ -4359,10 +3828,7 @@
                                 "column": 93
                               }
                             },
-                            "range": [
-                              1252,
-                              1256
-                            ]
+                            "range": [1252, 1256]
                           },
                           "closingElement": {
                             "type": "JSXClosingElement",
@@ -4383,10 +3849,7 @@
                                   "column": 105
                                 }
                               },
-                              "range": [
-                                1266,
-                                1268
-                              ]
+                              "range": [1266, 1268]
                             },
                             "loc": {
                               "start": {
@@ -4398,10 +3861,7 @@
                                 "column": 106
                               }
                             },
-                            "range": [
-                              1264,
-                              1269
-                            ]
+                            "range": [1264, 1269]
                           },
                           "children": [
                             {
@@ -4420,10 +3880,7 @@
                                   "column": 101
                                 }
                               },
-                              "range": [
-                                1256,
-                                1264
-                              ]
+                              "range": [1256, 1264]
                             }
                           ],
                           "loc": {
@@ -4436,10 +3893,7 @@
                               "column": 106
                             }
                           },
-                          "range": [
-                            1252,
-                            1269
-                          ]
+                          "range": [1252, 1269]
                         },
                         {
                           "type": "JSXText",
@@ -4457,10 +3911,7 @@
                               "column": 111
                             }
                           },
-                          "range": [
-                            1269,
-                            1274
-                          ]
+                          "range": [1269, 1274]
                         }
                       ],
                       "loc": {
@@ -4473,10 +3924,7 @@
                           "column": 116
                         }
                       },
-                      "range": [
-                        1193,
-                        1279
-                      ]
+                      "range": [1193, 1279]
                     },
                     "loc": {
                       "start": {
@@ -4488,10 +3936,7 @@
                         "column": 120
                       }
                     },
-                    "range": [
-                      1166,
-                      1283
-                    ]
+                    "range": [1166, 1283]
                   },
                   "start": 1166,
                   "end": 1283,
@@ -4505,10 +3950,7 @@
                       "column": 120
                     }
                   },
-                  "range": [
-                    1166,
-                    1283
-                  ]
+                  "range": [1166, 1283]
                 }
               ],
               "sourceType": "module",
@@ -4523,10 +3965,7 @@
                   "column": 120
                 }
               },
-              "range": [
-                1166,
-                1283
-              ]
+              "range": [1166, 1283]
             }
           }
         }

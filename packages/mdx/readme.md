@@ -52,15 +52,27 @@ abide by its terms.
 [MIT][] © [Compositor][] and [Vercel][]
 
 [build]: https://travis-ci.com/mdx-js/mdx
+
 [build-badge]: https://travis-ci.com/mdx-js/mdx.svg?branch=master
+
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
 [chat]: https://github.com/mdx-js/mdx/discussions
+
 [contributing]: https://mdxjs.com/contributing
+
 [support]: https://mdxjs.com/support
+
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
+
 [mit]: license
+
 [remark]: https://github.com/remarkjs/remark
+
 [compositor]: https://compositor.io
+
 [vercel]: https://vercel.com
+
 [mdx]: https://github.com/mdx-js/mdx
+
 [npm]: https://docs.npmjs.com/cli/install

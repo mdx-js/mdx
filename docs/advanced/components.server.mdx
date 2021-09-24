@@ -51,18 +51,18 @@ documents via the [MDXProvider](#mdxprovider).
 ### Layout props
 
 You’ll also notice that `layoutProps` is created based on your exports
-and then passed to the wrapper. This allows for the wrapper to use
-those props automatically for handling things like adding an author
-bio to the wrapped document.
+and then passed to the wrapper.
+This allows for the wrapper to use those props automatically for handling things
+like adding an author bio to the wrapped document.
 
 ## `makeShortcode`
 
 There is one other function added to the compiled output: `makeShortcode`.
-This is added for [shortcode support](/blog/shortcodes). It’s used in order
-to stub any components that aren’t directly imported so that there won’t be
-any `ReferenceError`s. If they’re passed to the `MDXProvider`, the custom
-JSX pragma will pull the component from context and use that in place of the
-stubbed `Button`:
+This is added for [shortcode support](/blog/shortcodes).
+It’s used in order to stub any components that aren’t directly imported so that
+there won’t be any `ReferenceError`s.
+If they’re passed to the `MDXProvider`, the custom JSX pragma will pull the
+component from context and use that in place of the stubbed `Button`:
 
 ```js
 const makeShortcode = name =>
@@ -101,12 +101,14 @@ export default () => (
 
 ### Caveats
 
-Because MDXProvider uses React Context directly, it is affected by
-the same caveats. It is therefore important that you do not declare
-your components mapping inline in the JSX. Doing so will trigger a rerender
-of your entire MDX page with every render cycle. Not only is this bad for
-performance, but it can cause unwanted side affects, like breaking in-page
-browser navigation.
+Because MDXProvider uses React Context directly, it is affected by the same
+caveats.
+It is therefore important that you do not declare your components mapping inline
+in the JSX.
+Doing so will trigger a rerender of your entire MDX page with every render
+cycle.
+Not only is this bad for performance, but it can cause unwanted side affects,
+like breaking in-page browser navigation.
 
 Avoid this by following declaring your mapping as a constant.
 
@@ -144,4 +146,4 @@ export default class Layout extends React.Component {
 You can now use the `setState` function to update the mapping object and be
 assured that it wonʼt trigger unnecessary renders.
 
-[code-generation]: https://en.wikipedia.org/wiki/Code_generation_(compiler)
+[code-generation]: https://en.wikipedia.org/wiki/Code_generation_\(compiler\)

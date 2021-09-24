@@ -17,7 +17,7 @@ From [jsx](https://facebook.github.io/jsx/).
     shouldShowAnswer(user) ?
     <Answer value={false}>no</Answer> :
     <Box.Comment>
-    Text Content
+       Text Content
     </Box.Comment>
   }
 </Box>

@@ -12,7 +12,7 @@ import {visit} from 'unist-util-visit'
  * @type {import('unified').Plugin<void[], Root>}
  */
 export function rehypeRemoveRaw() {
-  return (tree) => {
+  return tree => {
     visit(tree, 'raw', (_, index, parent) => {
       if (parent && typeof index === 'number') {
         parent.children.splice(index, 1)

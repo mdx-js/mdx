@@ -885,7 +885,7 @@
           "name": "stuff",
           "value": {
             "type": "mdxJsxAttributeValueExpression",
-            "value": "`\nHere is a template literal\n\nwith an empty line\n`",
+            "value": "`\nHere is a template literal\n\nwith an empty line\n  `",
             "data": {
               "estree": {
                 "type": "Program",
@@ -929,16 +929,10 @@
                             "cooked": "\nHere is a template literal\n\nwith an empty line\n  "
                           },
                           "tail": true,
-                          "range": [
-                            527,
-                            577
-                          ]
+                          "range": [527, 577]
                         }
                       ],
-                      "range": [
-                        526,
-                        578
-                      ]
+                      "range": [526, 578]
                     },
                     "start": 526,
                     "end": 578,
@@ -952,10 +946,7 @@
                         "column": 61
                       }
                     },
-                    "range": [
-                      526,
-                      578
-                    ]
+                    "range": [526, 578]
                   }
                 ],
                 "sourceType": "module",
@@ -970,10 +961,7 @@
                     "column": 61
                   }
                 },
-                "range": [
-                  526,
-                  578
-                ]
+                "range": [526, 578]
               }
             }
           }
@@ -1060,10 +1048,7 @@
                               "column": 17
                             }
                           },
-                          "range": [
-                            596,
-                            601
-                          ]
+                          "range": [596, 601]
                         },
                         "property": {
                           "type": "Identifier",
@@ -1080,10 +1065,7 @@
                               "column": 22
                             }
                           },
-                          "range": [
-                            602,
-                            606
-                          ]
+                          "range": [602, 606]
                         },
                         "computed": false,
                         "optional": false,
@@ -1097,10 +1079,7 @@
                             "column": 22
                           }
                         },
-                        "range": [
-                          596,
-                          606
-                        ]
+                        "range": [596, 606]
                       },
                       "start": 596,
                       "end": 606,
@@ -1114,10 +1093,7 @@
                           "column": 22
                         }
                       },
-                      "range": [
-                        596,
-                        606
-                      ]
+                      "range": [596, 606]
                     }
                   ],
                   "sourceType": "module",
@@ -1132,10 +1108,7 @@
                       "column": 22
                     }
                   },
-                  "range": [
-                    596,
-                    606
-                  ]
+                  "range": [596, 606]
                 }
               }
             }
@@ -1241,7 +1214,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "\n<h2>{1+1}</h2>\n",
+          "value": "\n  <h2>{1+1}</h2>\n",
           "position": {
             "start": {
               "line": 45,
@@ -1286,10 +1259,7 @@
                             "column": 11
                           }
                         },
-                        "range": [
-                          654,
-                          656
-                        ]
+                        "range": [654, 656]
                       },
                       "selfClosing": false,
                       "loc": {
@@ -1302,10 +1272,7 @@
                           "column": 12
                         }
                       },
-                      "range": [
-                        653,
-                        657
-                      ]
+                      "range": [653, 657]
                     },
                     "closingElement": {
                       "type": "JSXClosingElement",
@@ -1326,10 +1293,7 @@
                             "column": 21
                           }
                         },
-                        "range": [
-                          664,
-                          666
-                        ]
+                        "range": [664, 666]
                       },
                       "loc": {
                         "start": {
@@ -1341,10 +1305,7 @@
                           "column": 22
                         }
                       },
-                      "range": [
-                        662,
-                        667
-                      ]
+                      "range": [662, 667]
                     },
                     "children": [
                       {
@@ -1371,10 +1332,7 @@
                                 "column": 14
                               }
                             },
-                            "range": [
-                              658,
-                              659
-                            ]
+                            "range": [658, 659]
                           },
                           "operator": "+",
                           "right": {
@@ -1393,10 +1351,7 @@
                                 "column": 16
                               }
                             },
-                            "range": [
-                              660,
-                              661
-                            ]
+                            "range": [660, 661]
                           },
                           "loc": {
                             "start": {
@@ -1408,10 +1363,7 @@
                               "column": 16
                             }
                           },
-                          "range": [
-                            658,
-                            661
-                          ]
+                          "range": [658, 661]
                         },
                         "loc": {
                           "start": {
@@ -1423,10 +1375,7 @@
                             "column": 17
                           }
                         },
-                        "range": [
-                          657,
-                          662
-                        ]
+                        "range": [657, 662]
                       }
                     ],
                     "loc": {
@@ -1439,10 +1388,7 @@
                         "column": 22
                       }
                     },
-                    "range": [
-                      653,
-                      667
-                    ]
+                    "range": [653, 667]
                   },
                   "start": 648,
                   "end": 670,
@@ -1456,10 +1402,7 @@
                       "column": 25
                     }
                   },
-                  "range": [
-                    648,
-                    670
-                  ]
+                  "range": [648, 670]
                 }
               ],
               "sourceType": "module",
@@ -1474,10 +1417,7 @@
                   "column": 25
                 }
               },
-              "range": [
-                648,
-                670
-              ]
+              "range": [648, 670]
             }
           }
         }

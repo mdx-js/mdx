@@ -351,7 +351,7 @@
       "children": [
         {
           "type": "mdxFlowExpression",
-          "value": "\nshouldShowAnswer(user) ?\n<Answer value={false}>no</Answer> :\n<Box.Comment>\nText Content\n</Box.Comment>\n",
+          "value": "\n  shouldShowAnswer(user) ?\n  <Answer value={false}>no</Answer> :\n  <Box.Comment>\n     Text Content\n  </Box.Comment>\n",
           "position": {
             "start": {
               "line": 15,
@@ -395,10 +395,7 @@
                             "column": 24
                           }
                         },
-                        "range": [
-                          266,
-                          282
-                        ]
+                        "range": [266, 282]
                       },
                       "arguments": [
                         {
@@ -416,10 +413,7 @@
                               "column": 29
                             }
                           },
-                          "range": [
-                            283,
-                            287
-                          ]
+                          "range": [283, 287]
                         }
                       ],
                       "optional": false,
@@ -433,10 +427,7 @@
                           "column": 30
                         }
                       },
-                      "range": [
-                        266,
-                        288
-                      ]
+                      "range": [266, 288]
                     },
                     "consequent": {
                       "type": "JSXElement",
@@ -466,10 +457,7 @@
                                   "column": 50
                                 }
                               },
-                              "range": [
-                                303,
-                                308
-                              ]
+                              "range": [303, 308]
                             },
                             "value": {
                               "type": "JSXExpressionContainer",
@@ -491,10 +479,7 @@
                                     "column": 57
                                   }
                                 },
-                                "range": [
-                                  310,
-                                  315
-                                ]
+                                "range": [310, 315]
                               },
                               "loc": {
                                 "start": {
@@ -506,10 +491,7 @@
                                   "column": 58
                                 }
                               },
-                              "range": [
-                                309,
-                                316
-                              ]
+                              "range": [309, 316]
                             },
                             "loc": {
                               "start": {
@@ -521,10 +503,7 @@
                                 "column": 58
                               }
                             },
-                            "range": [
-                              303,
-                              316
-                            ]
+                            "range": [303, 316]
                           }
                         ],
                         "name": {
@@ -542,10 +521,7 @@
                               "column": 44
                             }
                           },
-                          "range": [
-                            296,
-                            302
-                          ]
+                          "range": [296, 302]
                         },
                         "selfClosing": false,
                         "loc": {
@@ -558,10 +534,7 @@
                             "column": 59
                           }
                         },
-                        "range": [
-                          295,
-                          317
-                        ]
+                        "range": [295, 317]
                       },
                       "closingElement": {
                         "type": "JSXClosingElement",
@@ -582,10 +555,7 @@
                               "column": 69
                             }
                           },
-                          "range": [
-                            321,
-                            327
-                          ]
+                          "range": [321, 327]
                         },
                         "loc": {
                           "start": {
@@ -597,10 +567,7 @@
                             "column": 70
                           }
                         },
-                        "range": [
-                          319,
-                          328
-                        ]
+                        "range": [319, 328]
                       },
                       "children": [
                         {
@@ -619,10 +586,7 @@
                               "column": 61
                             }
                           },
-                          "range": [
-                            317,
-                            319
-                          ]
+                          "range": [317, 319]
                         }
                       ],
                       "loc": {
@@ -635,10 +599,7 @@
                           "column": 70
                         }
                       },
-                      "range": [
-                        295,
-                        328
-                      ]
+                      "range": [295, 328]
                     },
                     "alternate": {
                       "type": "JSXElement",
@@ -668,10 +629,7 @@
                                 "column": 81
                               }
                             },
-                            "range": [
-                              336,
-                              339
-                            ]
+                            "range": [336, 339]
                           },
                           "property": {
                             "type": "JSXIdentifier",
@@ -688,10 +646,7 @@
                                 "column": 89
                               }
                             },
-                            "range": [
-                              340,
-                              347
-                            ]
+                            "range": [340, 347]
                           },
                           "loc": {
                             "start": {
@@ -703,10 +658,7 @@
                               "column": 89
                             }
                           },
-                          "range": [
-                            336,
-                            347
-                          ]
+                          "range": [336, 347]
                         },
                         "selfClosing": false,
                         "loc": {
@@ -719,10 +671,7 @@
                             "column": 90
                           }
                         },
-                        "range": [
-                          335,
-                          348
-                        ]
+                        "range": [335, 348]
                       },
                       "closingElement": {
                         "type": "JSXClosingElement",
@@ -747,10 +696,7 @@
                                 "column": 120
                               }
                             },
-                            "range": [
-                              375,
-                              378
-                            ]
+                            "range": [375, 378]
                           },
                           "property": {
                             "type": "JSXIdentifier",
@@ -767,10 +713,7 @@
                                 "column": 128
                               }
                             },
-                            "range": [
-                              379,
-                              386
-                            ]
+                            "range": [379, 386]
                           },
                           "loc": {
                             "start": {
@@ -782,10 +725,7 @@
                               "column": 128
                             }
                           },
-                          "range": [
-                            375,
-                            386
-                          ]
+                          "range": [375, 386]
                         },
                         "loc": {
                           "start": {
@@ -797,10 +737,7 @@
                             "column": 129
                           }
                         },
-                        "range": [
-                          373,
-                          387
-                        ]
+                        "range": [373, 387]
                       },
                       "children": [
                         {
@@ -819,10 +756,7 @@
                               "column": 115
                             }
                           },
-                          "range": [
-                            348,
-                            373
-                          ]
+                          "range": [348, 373]
                         }
                       ],
                       "loc": {
@@ -835,10 +769,7 @@
                           "column": 129
                         }
                       },
-                      "range": [
-                        335,
-                        387
-                      ]
+                      "range": [335, 387]
                     },
                     "loc": {
                       "start": {
@@ -850,10 +781,7 @@
                         "column": 129
                       }
                     },
-                    "range": [
-                      266,
-                      387
-                    ]
+                    "range": [266, 387]
                   },
                   "start": 261,
                   "end": 390,
@@ -867,10 +795,7 @@
                       "column": 132
                     }
                   },
-                  "range": [
-                    261,
-                    390
-                  ]
+                  "range": [261, 390]
                 }
               ],
               "sourceType": "module",
@@ -885,10 +810,7 @@
                   "column": 132
                 }
               },
-              "range": [
-                261,
-                390
-              ]
+              "range": [261, 390]
             }
           }
         }

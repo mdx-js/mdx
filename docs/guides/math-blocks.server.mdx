@@ -1,6 +1,11 @@
 # Math blocks
 
-You can render math blocks via [remark-math](https://github.com/remarkjs/remark-math/tree/main/packages/remark-math) and [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex). remark-math parses math blocks and rehype-katex transforms the blocks into html elements with classes for styling. Also, you need to apply css style of [KaTeX](https://katex.org/) by yourself to render them properly.
+You can render math blocks via [remark-math](https://github.com/remarkjs/remark-math/tree/main/packages/remark-math)
+and [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex).
+remark-math parses math blocks and rehype-katex transforms the blocks into html
+elements with classes for styling.
+Also, you need to apply css style of [KaTeX](https://katex.org/) by yourself to
+render them properly.
 
 First, link a stylesheet and use the `$` syntax:
 
@@ -67,7 +72,8 @@ module.exports = {
 }
 ```
 
-If you’re using MDX with Next.js, you can use `@next/mdx` with the following configuration:
+If you’re using MDX with Next.js, you can use `@next/mdx` with the following
+configuration:
 
 ```js
 // next.config.js

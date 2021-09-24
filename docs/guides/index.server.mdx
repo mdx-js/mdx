@@ -10,11 +10,13 @@ to add to them by [contributing](/contributing)!
 
 {
   (() => {
-    const advanced = props.navTree.children.find((item) => item.name === '/guides/')
+    const category = props.navTree.children.find(
+      item => item.name === '/guides/'
+    )
 
     return (
       <nav>
-        <NavGroup items={advanced.children} includeDescription />
+        <NavGroup items={category.children} includeDescription />
       </nav>
     )
   })()

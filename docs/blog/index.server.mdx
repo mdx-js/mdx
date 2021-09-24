@@ -6,11 +6,13 @@ export const navSortItems = 'navSortSelf,meta.published:desc'
 
 {
   (() => {
-    const blog = props.navTree.children.find((item) => item.name === '/blog/')
+    const category = props.navTree.children.find(
+      item => item.name === '/blog/'
+    )
 
     return (
       <nav>
-        <NavGroup items={blog.children} sort={navSortItems} includePublished />
+        <NavGroup items={category.children} sort={navSortItems} includePublished />
       </nav>
     )
   })()

@@ -1,13 +1,14 @@
 {
-  "repository": "mdx-js/mdx",
+  "private": true,
+  "name": "monorepo",
+  "license": "MIT",
   "homepage": "https://mdxjs.com",
+  "repository": "mdx-js/mdx",
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "license": "MIT",
-  "private": true,
   "type": "module",
   "workspaces": [
     "packages/react",
@@ -23,29 +24,6 @@
     "examples/terminal",
     "examples/webpack"
   ],
-  "scripts": {
-    "postinstall": "patch-package",
-    "prepare": "husky install",
-    "clean": "npm exec -c \"rimraf node_modules\" --workspaces",
-    "docs-prep": "node website/prep.js && postcss docs/_asset/index.css -o public/index.css",
-    "docs-bundle-dev": "NODE_ENV=development node website/bundle.js",
-    "docs-bundle-prod": "NODE_ENV=production node website/bundle.js",
-    "docs-generate": "NODE_LOADER_CONFIG=website/loader-react-server.js node --no-warnings --experimental-loader @node-loader/core --conditions=react-server website/generate.server.js",
-    "docs-prerender": "NODE_LOADER_CONFIG=website/loader.js node --no-warnings --experimental-loader @node-loader/core website/prerender.js",
-    "docs-post": "node --trace-warnings website/post.js",
-    "docs-dev": "npm run docs-prep && npm run docs-bundle-dev && npm run docs-generate && npm run docs-prerender && npm run docs-post",
-    "docs-prod": "npm run docs-prep && npm run docs-bundle-prod && npm run docs-generate && npm run docs-prerender && npm run docs-post",
-    "docs": "npm run docs-prod",
-    "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
-    "format": "npm run lint -- --fix",
-    "lint": "eslint --ext .jsx --report-unused-disable-directives --cache .",
-    "publish-ci": "# lerna publish -y --canary --preid ci --pre-dist-tag ci",
-    "publish-next": "# lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
-    "build": "npm run build --workspaces -w packages/remark-mdx -w packages/mdx -w packages/react -w packages/preact -w packages/vue -w packages/loader --if-present",
-    "test-api": "npm run test-api --workspaces --if-present",
-    "test-coverage": "npm run test-coverage --workspaces --if-present",
-    "test": "npm run build && npm run lint && npm run test-coverage"
-  },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-syntax-jsx": "^7.0.0",
@@ -69,7 +47,6 @@
     "cssnano": "^5.0.0",
     "dlv": "^1.0.0",
     "esbuild": "^0.12.0",
-    "esbuild-register": "^3.0.0",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^8.0.0",
     "eslint-config-xo": "^0.38.0",
@@ -113,12 +90,13 @@
     "rehype-shift-heading": "^1.0.0",
     "rehype-slug": "^5.0.0",
     "rehype-stringify": "^9.0.0",
+    "remark-cli": "^10.0.0",
     "remark-frontmatter": "^4.0.0",
     "remark-gemoji": "^7.0.0",
     "remark-gfm": "^2.0.0",
     "remark-github": "^11.0.0",
     "remark-mdx-frontmatter": "^1.0.0",
-    "remark-preset-wooorm": "^8.0.0",
+    "remark-preset-wooorm": "^9.0.0",
     "remark-toc": "^8.0.0",
     "rimraf": "^3.0.0",
     "rodemirror": "^1.0.0",
@@ -138,11 +116,34 @@
     "xast-util-to-xml": "^3.0.0",
     "xdm": "^2.0.0"
   },
+  "scripts": {
+    "postinstall": "patch-package",
+    "prepare": "husky install",
+    "clean": "npm exec -c \"rimraf node_modules\" --workspaces",
+    "docs-prep": "node website/prep.js && postcss docs/_asset/index.css -o public/index.css",
+    "docs-bundle-dev": "NODE_ENV=development node website/bundle.js",
+    "docs-bundle-prod": "NODE_ENV=production node website/bundle.js",
+    "docs-generate": "NODE_LOADER_CONFIG=website/loader-react-server.js node --no-warnings --experimental-loader @node-loader/core --conditions=react-server website/generate.server.js",
+    "docs-prerender": "NODE_LOADER_CONFIG=website/loader.js node --no-warnings --experimental-loader @node-loader/core website/prerender.js",
+    "docs-post": "node --trace-warnings website/post.js",
+    "docs-dev": "npm run docs-prep && npm run docs-bundle-dev && npm run docs-generate && npm run docs-prerender && npm run docs-post",
+    "docs-prod": "npm run docs-prep && npm run docs-bundle-prod && npm run docs-generate && npm run docs-prerender && npm run docs-post",
+    "docs": "npm run docs-prod",
+    "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
+    "format": "npm run lint -- --fix",
+    "lint": "remark . -qfo && remark . -e mdx -u mdx -qfo && prettier . -w --loglevel warn && eslint --ext .jsx --report-unused-disable-directives --cache .",
+    "publish-ci": "# lerna publish -y --canary --preid ci --pre-dist-tag ci",
+    "publish-next": "# lerna publish --force-publish=\"*\" --pre-dist-tag next --preid next",
+    "build": "npm run build --workspaces -w packages/remark-mdx -w packages/mdx -w packages/react -w packages/preact -w packages/vue -w packages/loader --if-present",
+    "test-api": "npm run test-api --workspaces --if-present",
+    "test-coverage": "npm run test-coverage --workspaces --if-present",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix --report-unused-disable-directives --cache"
     ],
-    "*.{css,html,json,ts,tsx,yml}": [
+    "*.{css,html,json,js,jsx,ts,tsx,yml}": [
       "prettier --write"
     ]
   },
@@ -150,14 +151,6 @@
     "last 2 versions",
     "not dead"
   ],
-  "postcss": {
-    "plugins": {
-      "autoprefixer": true,
-      "cssnano": {
-        "preset": "default"
-      }
-    }
-  },
   "prettier": {
     "arrowParens": "avoid",
     "tabWidth": 2,
@@ -166,5 +159,22 @@
     "bracketSpacing": false,
     "semi": false,
     "trailingComma": "none"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": true,
+      "cssnano": {
+        "preset": "default"
+      }
+    }
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm",
+      [
+        "lint-file-extension",
+        false
+      ]
+    ]
   }
 }

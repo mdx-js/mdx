@@ -12,5 +12,5 @@ import {toEstree} from 'hast-util-to-estree'
  * @type {import('unified').Plugin<void[], Root, Program>}
  */
 export function rehypeRecma() {
-  return (tree) => toEstree(tree)
+  return tree => toEstree(tree)
 }
