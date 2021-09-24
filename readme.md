@@ -72,8 +72,8 @@ with JSX.
 Implementations were often template string-based which required lots of escaping
 and cumbersome syntax.
 
-> “MDX \[…] is extremely useful for using design system components to render
-> markdown and weaving interactive components in with existing markdown.”
+> MDX \[…] is extremely useful for using design system components to render
+> markdown and weaving interactive components in with existing markdown.
 >
 > — [@chrisbiscardi][tweet]
 
