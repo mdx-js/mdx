@@ -18,7 +18,7 @@ import {visit} from 'unist-util-visit'
  * @type {import('unified').Plugin<void[], Root>}
  */
 export function remarkMarkAndUnravel() {
-  return tree => {
+  return (tree) => {
     visit(tree, (node, index, parent_) => {
       const parent = /** @type {Parent} */ (parent_)
       let offset = -1

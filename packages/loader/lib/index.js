@@ -29,7 +29,7 @@ export function loader(value, callback) {
     )
   }
 
-  compile({value, path: this.resourcePath}, options).then(file => {
+  compile({value, path: this.resourcePath}, options).then((file) => {
     // @ts-expect-error conflict between UInt8Array and Buffer is expected, and a tradeoff made in vfile typings to avoid `@types/node` being required
     callback(null, file.value, file.map)
     return file

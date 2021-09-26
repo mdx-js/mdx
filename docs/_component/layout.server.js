@@ -3,7 +3,7 @@ import {NavSite, NavSiteSkip} from './nav-site.server.js'
 import {FootArticle} from './foot-article.server.js'
 import {FootSite} from './foot-site.server.js'
 
-export function Layout(props) {
+export const Layout = (props) => {
   const {name, navTree, children} = props
 
   return (

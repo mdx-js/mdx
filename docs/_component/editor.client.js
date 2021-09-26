@@ -24,10 +24,10 @@ lowlight.registerLanguage('md', markdown)
 function useXdm() {
   const [file, setFile] = useState(null)
 
-  const setValue = useCallback(async value => {
+  const setValue = useCallback(async (value) => {
     const file = new VFile({basename: 'example.mdx', value})
 
-    const capture = name => () => tree => {
+    const capture = (name) => () => (tree) => {
       file.data[name] = tree
     }
 
@@ -57,11 +57,21 @@ function useXdm() {
   return [file, setValue]
 }
 
-export function Editor({children}) {
+export const Editor = ({children}) => {
   const defaultValue = children
   const extensions = useMemo(() => [basicSetup, oneDark, langMarkdown()], [])
   const [file, setValue] = useXdm()
   const stats = file ? statistics(file) : {}
+
+  const FallbackComponent = ({error}) => {
+    const message = new VFileMessage(error)
+    message.fatal = true
+    return (
+      <pre>
+        <code>{String(message)}</code>
+      </pre>
+    )
+  }
 
   return (
     <div className="editor">
@@ -76,7 +86,7 @@ export function Editor({children}) {
         <CodeMirror
           value={defaultValue}
           extensions={extensions}
-          onUpdate={v => {
+          onUpdate={(v) => {
             if (v.docChanged) {
               setValue(v.state.doc.toString())
             }
@@ -92,7 +102,7 @@ export function Editor({children}) {
               'mdast (markdown)',
               'hast (HTML)',
               'esast (JS)'
-            ].map(label => {
+            ].map((label) => {
               const compile = label === 'Compile'
               const className =
                 'editor-result-tab' + (compile ? ' editor-result-badge' : '')
@@ -202,14 +212,4 @@ export function Editor({children}) {
       </Tabs>
     </div>
   )
-
-  function FallbackComponent({error}) {
-    const message = new VFileMessage(error)
-    message.fatal = true
-    return (
-      <pre>
-        <code>{String(message)}</code>
-      </pre>
-    )
-  }
 }

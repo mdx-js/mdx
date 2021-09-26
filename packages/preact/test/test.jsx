@@ -2,7 +2,7 @@
 /* @jsxFrag Fragment */
 import {test} from 'uvu'
 import * as assert from 'uvu/assert'
-import {h, Fragment} from 'preact'
+import {h} from 'preact'
 import * as runtime from 'preact/jsx-runtime'
 import {render} from 'preact-render-to-string'
 import {evaluate} from '@mdx-js/mdx'
@@ -18,7 +18,7 @@ test('should support `components` with `MDXProvider`', async () => {
     render(
       <MDXProvider
         components={{
-          h1: props => <h1 style={{color: 'tomato'}} {...props} />
+          h1: (props) => <h1 style={{color: 'tomato'}} {...props} />
         }}
       >
         <Content />
@@ -38,7 +38,7 @@ test('should support `wrapper` in `components`', async () => {
     render(
       <MDXProvider
         components={{
-          wrapper: props => <div id="layout" {...props} />
+          wrapper: (props) => <div id="layout" {...props} />
         }}
       >
         <Content />
@@ -58,13 +58,13 @@ test('should combine components in nested `MDXProvider`s', async () => {
     render(
       <MDXProvider
         components={{
-          h1: props => <h1 style={{color: 'tomato'}} {...props} />,
-          h2: props => <h2 style={{color: 'rebeccapurple'}} {...props} />
+          h1: (props) => <h1 style={{color: 'tomato'}} {...props} />,
+          h2: (props) => <h2 style={{color: 'rebeccapurple'}} {...props} />
         }}
       >
         <MDXProvider
           components={{
-            h2: props => <h2 style={{color: 'papayawhip'}} {...props} />
+            h2: (props) => <h2 style={{color: 'papayawhip'}} {...props} />
           }}
         >
           <Content />
@@ -85,13 +85,13 @@ test('should support components as a function', async () => {
     render(
       <MDXProvider
         components={{
-          h1: props => <h1 style={{color: 'tomato'}} {...props} />,
-          h2: props => <h2 style={{color: 'rebeccapurple'}} {...props} />
+          h1: (props) => <h1 style={{color: 'tomato'}} {...props} />,
+          h2: (props) => <h2 style={{color: 'rebeccapurple'}} {...props} />
         }}
       >
         <MDXProvider
           components={() => ({
-            h2: props => <h2 style={{color: 'papayawhip'}} {...props} />
+            h2: (props) => <h2 style={{color: 'papayawhip'}} {...props} />
           })}
         >
           <Content />
@@ -112,10 +112,10 @@ test('should support a `disableParentContext` prop (sandbox)', async () => {
     render(
       <MDXProvider
         components={{
-          h1: props => <h1 style={{color: 'tomato'}} {...props} />
+          h1: (props) => <h1 style={{color: 'tomato'}} {...props} />
         }}
       >
-        <MDXProvider disableParentContext={true}>
+        <MDXProvider disableParentContext>
           <Content />
         </MDXProvider>
       </MDXProvider>
@@ -129,19 +129,19 @@ test('should support `withComponents`', async () => {
     ...runtime,
     useMDXComponents
   })
-  const With = withMDXComponents(props => <>{props.children}</>)
+  const With = withMDXComponents((props) => props.children)
 
   // To do: should this use the `h2` component too?
   assert.equal(
     render(
       <MDXProvider
         components={{
-          h1: props => <h1 style={{color: 'tomato'}} {...props} />
+          h1: (props) => <h1 style={{color: 'tomato'}} {...props} />
         }}
       >
         <With
           components={{
-            h2: props => <h2 style={{color: 'papayawhip'}} {...props} />
+            h2: (props) => <h2 style={{color: 'papayawhip'}} {...props} />
           }}
         >
           <Content />

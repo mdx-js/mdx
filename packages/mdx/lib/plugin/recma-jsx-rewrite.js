@@ -45,7 +45,7 @@ import {specifiersToObjectPattern} from '../util/estree-util-specifiers-to-objec
 export function recmaJsxRewrite(options = {}) {
   const {providerImportSource, outputFormat} = options
 
-  return tree => {
+  return (tree) => {
     // Find everything that’s defined in the top-level scope.
     const scopeInfo = analyze(tree)
     /** @type {Array.<StackEntry>} */
@@ -248,7 +248,7 @@ export function recmaJsxRewrite(options = {}) {
                 type: 'VariableDeclarator',
                 id: {
                   type: 'ObjectPattern',
-                  properties: actual.map(name => ({
+                  properties: actual.map((name) => ({
                     type: 'Property',
                     kind: 'init',
                     key: {

@@ -1,6 +1,6 @@
-import {Suspense} from 'react'
+import React, {Suspense} from 'react'
 
-export function Root(props) {
+export const Root = (props) => {
   const {response} = props
 
   return (

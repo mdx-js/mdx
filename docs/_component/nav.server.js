@@ -5,9 +5,9 @@ import dlv from 'dlv'
 const collator = new Intl.Collator('en').compare
 const dateTimeFormat = new Intl.DateTimeFormat('en')
 
-export function NavGroup(props) {
+export const NavGroup = (props) => {
   const {items, className, sort = 'navSortSelf,meta.title', ...rest} = props
-  const fields = sort.split(',').map(d => {
+  const fields = sort.split(',').map((d) => {
     const [field, order = 'asc'] = d.split(':')
 
     if (order !== 'asc' && order !== 'desc') {
@@ -21,7 +21,7 @@ export function NavGroup(props) {
 
   return (
     <ol {...{className}}>
-      {list.map(d => (
+      {list.map((d) => (
         <NavItem key={d.name} {...rest} item={d} />
       ))}
     </ol>
@@ -54,7 +54,7 @@ export function NavGroup(props) {
   }
 }
 
-export function NavItem(props) {
+export const NavItem = (props) => {
   const {item, name: activeName, includeDescription, includePublished} = props
   const {name, children, data = {}} = item
   const {matter = {}, meta = {}, navLabel, navExcludeGroup, navSortItems} = data
