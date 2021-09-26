@@ -76,6 +76,7 @@
     "#": "to do: use this if xdm tests are ported over: `c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api`",
     "test": "npm run build && npm run test-coverage"
   },
+  "xo": false,
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,
