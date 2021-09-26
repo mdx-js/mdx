@@ -55,7 +55,7 @@
     "patch-package": "^6.0.0",
     "periscopic": "^3.0.0",
     "postcss": "^8.0.0",
-    "postcss-cli": "^8.0.0",
+    "postcss-cli": "^9.0.0",
     "prettier": "^2.0.0",
     "puppeteer-core": "^10.0.0",
     "react": "0.0.0-experimental-7ec4c5597",
