@@ -16,7 +16,7 @@ type IntrinsicComponents = Partial<{
 }>
 
 type ExtrinsicComponents = {
-  [componentName: string]: Component<any> | ExtrinsicComponents
+  [componentName: string]: Component | ExtrinsicComponents
 }
 
 export type Components = IntrinsicComponents & ExtrinsicComponents

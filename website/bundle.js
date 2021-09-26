@@ -3,8 +3,8 @@ import url from 'url'
 import process from 'process'
 import webpack from 'webpack'
 import ReactServerWebpackPlugin from 'react-server-dom-webpack/plugin'
-import mdxConfig from './mdx-config.js'
 import {config} from '../docs/_config.js'
+import mdxConfig from './mdx-config.js'
 
 const production = process.env.NODE_ENV === 'production'
 

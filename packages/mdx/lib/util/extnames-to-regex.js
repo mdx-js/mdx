@@ -5,7 +5,8 @@
  * @returns {RegExp} Regex matching them
  */
 export function extnamesToRegex(extnames) {
+  // eslint-disable-next-line security/detect-non-literal-regexp
   return new RegExp(
-    '\\.(' + extnames.map(d => d.slice(1)).join('|') + ')([?#]|$)'
+    '\\.(' + extnames.map((d) => d.slice(1)).join('|') + ')([?#]|$)'
   )
 }

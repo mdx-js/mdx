@@ -3,20 +3,20 @@ import * as assert from 'uvu/assert'
 import {removePosition} from 'unist-util-remove-position'
 import React from 'react'
 import * as runtime from 'react/jsx-runtime.js'
-// Note: this is needed because the root react is an experimental version,
-// for the website, but the React here and in `@mdx-js/react` is a stable one.
-import {renderToStaticMarkup} from '../../react/node_modules/react-dom/server.js'
-import {MDXProvider, useMDXComponents} from '../../react/index.js'
 import footnotes from 'remark-footnotes'
 import gfm from 'remark-gfm'
 import math from 'remark-math'
 import katex from 'rehype-katex'
+// Note: this is needed because the root react is an experimental version,
+// for the website, but the React here and in `@mdx-js/react` is a stable one.
+import {renderToStaticMarkup} from '../../react/node_modules/react-dom/server.js'
+import {MDXProvider, useMDXComponents} from '../../react/index.js'
 import {compile, compileSync, evaluate, createProcessor} from '../index.js'
 
 test('should generate JSX', async () => {
   const result = await compile('Hello World', {jsx: true})
 
-  assert.match(result, /<_components.p>\{"Hello World"\}<\/_components.p>/)
+  assert.match(result, /<_components.p>{"Hello World"}<\/_components.p>/)
 })
 
 test('should compile JSX to function calls', async () => {
@@ -155,7 +155,7 @@ test('should support `rehypePlugins`', async () => {
                 <span
                   className="strut"
                   style={{height: '0.43056em', verticalAlign: '0em'}}
-                ></span>
+                />
                 <span className="mord mathnormal">x</span>
               </span>
             </span>
@@ -167,7 +167,7 @@ test('should support `rehypePlugins`', async () => {
 })
 
 test('should support async plugins', async () => {
-  const plugin = () => async tree => {
+  const plugin = () => async (tree) => {
     tree.children[0].children[0].value = 'y'
   }
 
@@ -210,7 +210,7 @@ test('should support `pre`/`code` from empty fenced code', async () => {
     renderToStaticMarkup(<Content />),
     renderToStaticMarkup(
       <pre>
-        <code></code>
+        <code />
       </pre>
     )
   )
@@ -327,7 +327,7 @@ test('should support line endings between nodes paragraphs', async () => {
 test('should support an empty document', async () => {
   const {default: Content} = await evaluate('', runtime)
 
-  assert.equal(renderToStaticMarkup(<Content />), renderToStaticMarkup(<></>))
+  assert.equal(renderToStaticMarkup(<Content />), '')
 })
 
 test('should support an ignored node instead of a `root`', async () => {
@@ -337,7 +337,7 @@ test('should support an ignored node instead of a `root`', async () => {
     ...runtime
   })
 
-  assert.equal(renderToStaticMarkup(<Content />), renderToStaticMarkup(<></>))
+  assert.equal(renderToStaticMarkup(<Content />), '')
 })
 
 test('should support an element instead of a `root`', async () => {
@@ -353,7 +353,7 @@ test('should support an element instead of a `root`', async () => {
 test('should support imports', async () => {
   let called = false
 
-  const plugin = () => tree => {
+  const plugin = () => (tree) => {
     // Ignore the subtree at `data.estree`.
     assert.equal(
       {...tree.children[0], data: undefined},
@@ -415,7 +415,7 @@ test('should support import as a word when it’s not the top level', async () =
 test('should support exports', async () => {
   let called = false
 
-  const plugin = () => tree => {
+  const plugin = () => (tree) => {
     // Ignore the subtree at `data.estree`.
     assert.equal(
       {...tree.children[0], data: undefined},
@@ -616,7 +616,7 @@ test('should support overwriting missing compile-time components at run-time', a
           }
         }}
       >
-        {<Content />}
+        <Content />
       </MDXProvider>
     ),
     renderToStaticMarkup(
@@ -659,15 +659,16 @@ test('should support `.` in component names for members', async () => {
 })
 
 test('should crash on unknown nodes in mdxhast', async () => {
-  const plugin = () => tree => {
-    // A leaf.
-    tree.children.push({type: 'unknown', value: 'y'})
-
-    // A parent.
-    tree.children.push({
-      type: 'unknown',
-      children: [{type: 'text', value: 'z'}]
-    })
+  const plugin = () => (tree) => {
+    tree.children.push(
+      // A leaf.
+      {type: 'unknown', value: 'y'},
+      // A parent.
+      {
+        type: 'unknown',
+        children: [{type: 'text', value: 'z'}]
+      }
+    )
   }
 
   try {
@@ -679,7 +680,7 @@ test('should crash on unknown nodes in mdxhast', async () => {
 })
 
 test('should support `element` nodes w/o `properties` in mdxhast', async () => {
-  const plugin = () => tree => {
+  const plugin = () => (tree) => {
     tree.children.push({
       type: 'element',
       tagName: 'y',
@@ -783,7 +784,7 @@ test('sync: should support `remarkPlugins`', () => {
 })
 
 test('should create a unified processor', async () => {
-  const remarkPlugin = () => tree => {
+  const remarkPlugin = () => (tree) => {
     const clone = removePosition(JSON.parse(JSON.stringify(tree)), true)
 
     assert.equal(clone, {
@@ -792,7 +793,7 @@ test('should create a unified processor', async () => {
     })
   }
 
-  const rehypePlugin = () => tree => {
+  const rehypePlugin = () => (tree) => {
     const clone = removePosition(JSON.parse(JSON.stringify(tree)), true)
 
     assert.equal(clone, {

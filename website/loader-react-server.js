@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import * as serverDomWebpack from 'react-server-dom-webpack/node-loader'
 import base from './loader.js'
 

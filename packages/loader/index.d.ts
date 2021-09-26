@@ -6,9 +6,9 @@
 
 type LoaderContext = import('webpack').LoaderContext<unknown>
 
-// tslint:disable-next-line: no-single-declare-module
 declare module '*.mdx' {
   import {ComponentType} from 'react'
+
   const MDXComponent: ComponentType
   export default MDXComponent
 }

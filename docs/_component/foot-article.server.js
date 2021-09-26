@@ -2,7 +2,7 @@ import React from 'react'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en')
 
-export function FootArticle(props) {
+export const FootArticle = (props) => {
   const {name, navTree, ghUrl, meta = {}} = props
   let previous
   let next
@@ -62,10 +62,10 @@ export function FootArticle(props) {
   )
 
   function findPreviousAndNext(item) {
-    const index = item.children.findIndex(d => d.name === name)
+    const index = item.children.findIndex((d) => d.name === name)
 
     if (index === -1) {
-      return item.children.some(d => findPreviousAndNext(d))
+      return item.children.some((d) => findPreviousAndNext(d))
     }
 
     if (item.name !== '/') {

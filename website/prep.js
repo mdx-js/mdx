@@ -12,7 +12,7 @@ import rehypeMinifyUrl from 'rehype-minify-url'
 import rehypeStringify from 'rehype-stringify'
 import {config, redirect} from '../docs/_config.js'
 
-main().catch(error => {
+main().catch((error) => {
   throw error
 })
 
@@ -24,7 +24,8 @@ async function main() {
 
   await pAll(
     files.map(
-      d => async () => fs.copyFile(new URL(d, from), new URL(d, config.output))
+      (d) => async () =>
+        fs.copyFile(new URL(d, from), new URL(d, config.output))
     ),
     {concurrency: 6}
   )
@@ -44,7 +45,7 @@ async function main() {
   console.log('✔ `/robots.txt`')
 
   await pAll(
-    Object.keys(redirect).map(from => async () => {
+    Object.keys(redirect).map((from) => async () => {
       const to = redirect[from]
       const canonical = new URL(from + '/../', config.site).href
       const processor = unified()

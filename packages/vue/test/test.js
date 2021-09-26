@@ -10,7 +10,6 @@ import * as babel from '@babel/core'
 import {compile} from '@mdx-js/mdx'
 import {run} from '@mdx-js/mdx/lib/run.js'
 import * as vue from 'vue'
-// eslint-disable-next-line import/default
 import serverRenderer from '@vue/server-renderer'
 import {useMDXComponents, MDXProvider} from '../index.js'
 
@@ -30,7 +29,7 @@ async function evaluate(value) {
   })
   if (!result || !result.code) throw new Error('Whoops!')
   const body = result.code.replace(
-    /import \{(.+)\} from "vue"/,
+    /import {(.+)} from "vue"/,
     (_, /** @type {string} */ $1) =>
       'const {' + $1.replace(/ as /g, ': ') + '} = arguments[0].vue'
   )

@@ -2,8 +2,7 @@
  * @typedef {import('../complex-types').Components} Components
  */
 
-import {createVNode, Fragment} from 'vue'
-import {provide, inject} from 'vue'
+import {provide, inject, createVNode, Fragment} from 'vue'
 
 /** @type {import('vue').Component<{components?: Components}>} */
 export const MDXProvider = {

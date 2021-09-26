@@ -12,7 +12,7 @@ import {toXml} from 'xast-util-to-xml'
 import {Layout} from '../docs/_component/layout.server.js'
 import {config} from '../docs/_config.js'
 
-main().catch(error => {
+main().catch((error) => {
   throw error
 })
 
@@ -21,14 +21,14 @@ async function main() {
     await globby(['**/*.server.mdx', '!_component/*'], {
       cwd: fileURLToPath(config.input)
     })
-  ).map(d => new URL(d, config.input))
+  ).map((d) => new URL(d, config.input))
 
   const manifest = JSON.parse(
     await fs.readFile(new URL('react-client-manifest.json', config.output))
   )
 
   const allInfo = await pAll(
-    files.map(url => async () => {
+    files.map((url) => async () => {
       const name = url.href
         .slice(config.input.href.length - 1)
         .replace(/\.server\.mdx$/, '/')
@@ -60,7 +60,7 @@ async function main() {
 
     while (++partIndex < parts.length) {
       const name = parts.slice(0, partIndex + 1).join('/') + '/'
-      let contextItem = context.children.find(d => d.name === name)
+      let contextItem = context.children.find((d) => d.name === name)
 
       if (!contextItem) {
         contextItem = {name, data: undefined, children: []}
@@ -77,7 +77,7 @@ async function main() {
     new URL('sitemap.xml', config.output),
     toXml(
       sitemap(
-        allInfo.map(d => ({
+        allInfo.map((d) => ({
           url: new URL(d.name, config.site),
           modified: d.data && d.data.meta && d.data.meta.modified,
           lang: 'en'
@@ -91,7 +91,7 @@ async function main() {
   index = -1
 
   await pAll(
-    allInfo.map(d => async () => {
+    allInfo.map((d) => async () => {
       const {name, data, Content, ghUrl, nljsonUrl, jsonUrl} = d
 
       await fs.mkdir(path.dirname(fileURLToPath(jsonUrl)), {recursive: true})

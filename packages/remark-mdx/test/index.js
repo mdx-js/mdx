@@ -6,11 +6,11 @@
  * @typedef {import('mdast-util-mdx').MDXJsxExpressionAttribute} MDXJsxExpressionAttribute
  */
 
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
 import fs from 'fs'
 import path from 'path'
 import {URL, fileURLToPath} from 'url'
+import {test} from 'uvu'
+import * as assert from 'uvu/assert'
 import {u} from 'unist-builder'
 import {readSync, writeSync} from 'to-vfile'
 import {unified} from 'unified'
@@ -172,11 +172,11 @@ test('parse: complete', () => {
   )
 
   assert.equal(
-    clean(basic.parse('Alpha <a\u200cb /> bravo.')),
+    clean(basic.parse('Alpha <a\u200Cb /> bravo.')),
     u('root', [
       u('paragraph', [
         u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: 'a\u200cb', attributes: []}, []),
+        u('mdxJsxTextElement', {name: 'a\u200Cb', attributes: []}, []),
         u('text', ' bravo.')
       ])
     ]),
@@ -1512,56 +1512,60 @@ test('stringify', () => {
 })
 
 test('fixtures', () => {
-  fs.readdirSync(base)
-    .filter(d => /\.md$/.test(d))
-    .forEach(name => {
-      const proc = unified()
-        .use(remarkParse)
-        .use(remarkStringify)
-        .use(remarkMdx)
-      const fpIn = path.join(base, name)
-      const fpExpected = fpIn.replace(/\.md$/, '.json')
-      const fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
-      const input = readSync(fpIn)
-      input.value = String(input.value).replace(/\r\n/g, '\n')
-      /** @type {Root} */
-      const tree = JSON.parse(JSON.stringify(proc.parse(input)))
-      const doc = proc.stringify(tree)
-      /** @type {Root} */
-      let expected
-      /** @type {string} */
-      let expectedDoc
+  const files = fs.readdirSync(base)
+  let index = -1
 
-      try {
-        expected = JSON.parse(String(readSync(fpExpected)))
-      } catch (_) {
-        expected = tree
-        writeSync({
-          path: fpExpected,
-          value: JSON.stringify(expected, null, 2) + '\n'
-        })
+  while (++index < files.length) {
+    const name = files[index]
+
+    if (!/\.md$/.test(name)) {
+      continue
+    }
+
+    const proc = unified().use(remarkParse).use(remarkStringify).use(remarkMdx)
+    const fpIn = path.join(base, name)
+    const fpExpected = fpIn.replace(/\.md$/, '.json')
+    const fpExpectedDoc = fpIn.replace(/\.md$/, '.out')
+    const input = readSync(fpIn)
+    input.value = String(input.value).replace(/\r\n/g, '\n')
+    /** @type {Root} */
+    const tree = JSON.parse(JSON.stringify(proc.parse(input)))
+    const doc = proc.stringify(tree)
+    /** @type {Root} */
+    let expected
+    /** @type {string} */
+    let expectedDoc
+
+    try {
+      expected = JSON.parse(String(readSync(fpExpected)))
+    } catch {
+      expected = tree
+      writeSync({
+        path: fpExpected,
+        value: JSON.stringify(expected, null, 2) + '\n'
+      })
+    }
+
+    assert.equal(tree, expected, input.stem + ' (tree)')
+
+    try {
+      expectedDoc = String(readSync(fpExpectedDoc)).replace(/\r\n/g, '\n')
+    } catch {
+      expectedDoc = String(input)
+
+      if (expectedDoc !== doc) {
+        expectedDoc = doc
+        writeSync({path: fpExpectedDoc, value: expectedDoc})
       }
+    }
 
-      assert.equal(tree, expected, input.stem + ' (tree)')
+    // Windows.
+    assert.equal(doc, expectedDoc, input.stem + ' (doc)')
 
-      try {
-        expectedDoc = String(readSync(fpExpectedDoc)).replace(/\r\n/g, '\n')
-      } catch (_) {
-        expectedDoc = String(input)
+    const reparsed = proc.parse(doc)
 
-        if (expectedDoc !== doc) {
-          expectedDoc = doc
-          writeSync({path: fpExpectedDoc, value: expectedDoc})
-        }
-      }
-
-      // Windows.
-      assert.equal(doc, expectedDoc, input.stem + ' (doc)')
-
-      const reparsed = proc.parse(doc)
-
-      assert.equal(clean(reparsed), clean(tree), input.stem + ' (re)')
-    })
+    assert.equal(clean(reparsed), clean(tree), input.stem + ' (re)')
+  }
 })
 
 /**
@@ -1602,12 +1606,17 @@ function cleanEstree(tree) {
       node.type === 'mdxJsxTextElement' ||
       node.type === 'mdxJsxFlowElement'
     ) {
-      node.attributes.forEach(child => {
+      let index = -1
+
+      while (++index < node.attributes.length) {
+        const child = node.attributes[index]
+
         onvisit(child)
+
         if (child.value && typeof child.value === 'object') {
           onvisit(child.value)
         }
-      })
+      }
     }
   }
 }

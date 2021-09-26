@@ -1,6 +1,5 @@
 .parcel-cache/
 .DS_Store
-.eslintcache
 coverage/
 node_modules/
 /packages/loader/lib/**/*.d.ts

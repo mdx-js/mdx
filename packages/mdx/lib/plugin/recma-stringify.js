@@ -319,7 +319,7 @@ function JSXSpreadAttribute(node, state) {
  */
 function JSXText(node, state) {
   state.write(
-    encodeJsx(node.value).replace(/<|{/g, $0 =>
+    encodeJsx(node.value).replace(/<|{/g, ($0) =>
       $0 === '<' ? '&lt;' : '&#123;'
     ),
     node

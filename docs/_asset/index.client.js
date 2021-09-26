@@ -1,3 +1,4 @@
+import React from 'react'
 import {hydrateRoot} from 'react-dom'
 import {createFromFetch} from 'react-server-dom-webpack'
 import {Root} from './root.client.js'

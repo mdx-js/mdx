@@ -19,7 +19,7 @@ import rehypeStringify from 'rehype-stringify'
 import {Root} from '../docs/_asset/root.client.js'
 import {config} from '../docs/_config.js'
 
-main().catch(error => {
+main().catch((error) => {
   throw error
 })
 
@@ -32,25 +32,25 @@ async function main() {
   // Luckily only a few parts of its API need to be faked.
   const cache = {}
   /* eslint-disable camelcase */
-  global.__webpack_require__ = id => cache[id]
+  global.__webpack_require__ = (id) => cache[id]
   global.__webpack_chunk_load__ = () => Promise.resolve()
   /* eslint-enable camelcase */
 
   // Populate the cache with all client modules.
   await Promise.all(
     Object.keys(manifest)
-      .filter(d => path.basename(d) !== 'index.client.js')
-      .map(async d => {
+      .filter((d) => path.basename(d) !== 'index.client.js')
+      .map(async (d) => {
         cache[manifest[d]['*'].id] = await import(fileURLToPath(d))
       })
   )
 
   const files = (
     await globby('**/index.nljson', {cwd: fileURLToPath(config.output)})
-  ).map(d => new URL(d, config.output))
+  ).map((d) => new URL(d, config.output))
 
   await pAll(
-    files.map(url => async () => {
+    files.map((url) => async () => {
       const name = url.href
         .slice(config.output.href.length - 1)
         .replace(/\/index\.nljson$/, '/')
@@ -66,11 +66,10 @@ async function main() {
       let result
       const now = Date.now()
 
-      /* eslint-disable no-constant-condition */
+      /* eslint-disable no-constant-condition, no-await-in-loop */
       while (true) {
         result = renderToString(React.createElement(Root, {response}))
         if (!result.includes('<!--$!-->')) break
-        /* eslint-disable no-await-in-loop */
         await sleep(48)
         if (new Date() > now + 5000) {
           throw new Error(
@@ -80,7 +79,7 @@ async function main() {
           )
         }
       }
-      /* eslint-enable no-constant-condition */
+      /* eslint-enable no-constant-condition, no-await-in-loop */
 
       const canonical = new URL(name, config.site)
       data.meta.origin = canonical.origin
@@ -164,7 +163,7 @@ async function main() {
 }
 
 function sleep(ms) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, ms)
   })
 }

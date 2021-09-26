@@ -16,7 +16,6 @@ import {renderToStaticMarkup} from 'react-dom/server.js'
 import {h} from 'preact'
 import {render} from 'preact-render-to-string'
 import * as vue from 'vue'
-// eslint-disable-next-line import/default
 import serverRenderer from '@vue/server-renderer'
 
 test('@mdx-js/loader', async () => {

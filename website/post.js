@@ -13,8 +13,8 @@ import rehypeParse from 'rehype-parse'
 import rehypeSanitize, {defaultSchema} from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
 import captureWebsite from 'capture-website'
-import {config} from '../docs/_config.js'
 import chromium from 'chrome-aws-lambda'
+import {config} from '../docs/_config.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en')
 
@@ -44,7 +44,7 @@ const schema = {
   }
 }
 
-main().catch(error => {
+main().catch((error) => {
   throw error
 })
 
@@ -62,10 +62,10 @@ async function main() {
 
   const files = (
     await globby('**/index.nljson', {cwd: fileURLToPath(config.output)})
-  ).map(d => new URL(d + '/../index.json', config.output))
+  ).map((d) => new URL(d + '/../index.json', config.output))
 
   const allInfo = await Promise.all(
-    files.map(async url => ({url, info: JSON.parse(await fs.readFile(url))}))
+    files.map(async (url) => ({url, info: JSON.parse(await fs.readFile(url))}))
   )
 
   const entries = await pAll(
@@ -80,7 +80,7 @@ async function main() {
         const buf = await fs.readFile(new URL('./index.html', url))
         const file = await unified()
           .use(rehypeParse)
-          .use(() => tree => ({
+          .use(() => (tree) => ({
             type: 'root',
             children: select('.body', tree).children
           }))
@@ -125,7 +125,7 @@ async function main() {
   console.log('✔ `/rss.xml`')
 
   await pAll(
-    allInfo.map(data => async () => {
+    allInfo.map((data) => async () => {
       const {url, info} = data
       const output = new URL('./index.png', url)
       let stats
