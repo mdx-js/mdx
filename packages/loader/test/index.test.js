@@ -15,8 +15,7 @@ import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server.js'
 import {h} from 'preact'
 import {render} from 'preact-render-to-string'
-// eslint-disable-next-line import/default
-import vue from 'vue'
+import * as vue from 'vue'
 // eslint-disable-next-line import/default
 import serverRenderer from '@vue/server-renderer'
 
