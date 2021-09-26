@@ -46,7 +46,6 @@
   "devDependencies": {
     "remark-parse": "^10.0.0",
     "remark-stringify": "^10.0.0",
-    "to-vfile": "^7.0.0",
     "unified": "^10.0.0",
     "unist-builder": "^3.0.0",
     "unist-util-remove-position": "^4.0.0",
@@ -59,6 +58,7 @@
     "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
     "test": "npm run build && npm run test-coverage"
   },
+  "xo": false,
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,
