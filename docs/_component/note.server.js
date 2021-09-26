@@ -1,3 +1,3 @@
 import React from 'react'
 
-export const Props = (props) => <div className="note">{props.children}</div>
+export const Note = (props) => <div className="note">{props.children}</div>
