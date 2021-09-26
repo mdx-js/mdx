@@ -3,12 +3,6 @@
 .eslintcache
 coverage/
 node_modules/
-/examples/next/build/
-/examples/next/.next/
-/examples/parcel/dist/
-/examples/parcel/build/
-/examples/react-web-components/build/
-/examples/react-web-components/.next/
 /packages/loader/lib/**/*.d.ts
 /packages/loader/test/**/*.d.ts
 /packages/mdx/**/*.d.ts

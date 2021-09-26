@@ -16,13 +16,7 @@
     "packages/vue",
     "packages/mdx",
     "packages/loader",
-    "packages/remark-mdx",
-    "examples/gatsby",
-    "examples/next",
-    "examples/parcel",
-    "examples/react-web-components",
-    "examples/terminal",
-    "examples/webpack"
+    "packages/remark-mdx"
   ],
   "devDependencies": {
     "@babel/core": "^7.0.0",
