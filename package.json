@@ -16,7 +16,8 @@
     "packages/react",
     "packages/preact",
     "packages/vue",
-    "packages/loader"
+    "packages/loader",
+    "packages/rollup"
   ],
   "devDependencies": {
     "@babel/core": "^7.0.0",
