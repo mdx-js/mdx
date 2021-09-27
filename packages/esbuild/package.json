@@ -1,0 +1,71 @@
+{
+  "name": "@mdx-js/esbuild",
+  "version": "2.0.0-next.9",
+  "description": "esbuild plugin for MDX",
+  "license": "MIT",
+  "keywords": [
+    "mdx",
+    "markdown",
+    "jsx",
+    "esbuild",
+    "remark",
+    "react",
+    "preact",
+    "vue"
+  ],
+  "homepage": "https://mdxjs.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdx-js/mdx",
+    "directory": "packages/esbuild"
+  },
+  "bugs": "https://github.com/mdx-js/mdx/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "lib/",
+    "index.d.ts",
+    "index.js"
+  ],
+  "dependencies": {
+    "@mdx-js/mdx": "^2.0.0-next.9",
+    "got": "^11.0.0",
+    "vfile": "^5.0.0"
+  },
+  "peerDependencies": {
+    "esbuild": ">=0.11.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/unist": "^2.0.0",
+    "esbuild": "^0.13.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "vfile-message": "^3.0.0"
+  },
+  "scripts": {
+    "prepack": "npm run build",
+    "build": "rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" \"*.d.ts\" && tsc && type-coverage",
+    "test-api": "uvu test \"\\.js$\"",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
+    "test": "npm run build && npm run test-coverage"
+  },
+  "xo": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true,
+    "ignoreCatch": true
+  }
+}

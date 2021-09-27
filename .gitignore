@@ -2,6 +2,7 @@
 .DS_Store
 coverage/
 node_modules/
+/packages/esbuild/**/*.d.ts
 /packages/loader/lib/**/*.d.ts
 /packages/loader/test/**/*.d.ts
 /packages/mdx/**/*.d.ts

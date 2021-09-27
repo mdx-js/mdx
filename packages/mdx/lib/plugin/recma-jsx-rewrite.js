@@ -56,7 +56,6 @@ export function recmaJsxRewrite(options = {}) {
     let currentScope
 
     walk(tree, {
-      // eslint-disable-next-line complexity
       enter(_node) {
         const node = /** @type {Node} */ (_node)
 
