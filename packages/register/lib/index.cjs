@@ -37,10 +37,7 @@ function load(filePath, callback) {
   console.log('x', filePath)
   // Sometimes, the import hangs (see error message for reasons).
   // To fix that, a timeout can be used.
-  // However, setting a timeout, results in `deasync` waiting for it, even
-  // in cases where the import is already settled!
-  // That’s why this number is pretty low.
-  const id = setTimeout(timeout, 384)
+  const id = setTimeout(timeout, 500)
 
   /* c8 ignore next 10 */
   function timeout() {
