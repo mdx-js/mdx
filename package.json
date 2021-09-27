@@ -138,6 +138,12 @@
     ],
     "*.{css,html,json,js,jsx,ts,tsx,yml}": [
       "prettier --write"
+    ],
+    "*.md": [
+      "remark -qfo --"
+    ],
+    "*.mdx": [
+      "remark -u mdx -qfo --"
     ]
   },
   "browserslist": [
