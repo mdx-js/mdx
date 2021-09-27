@@ -1,4 +1,4 @@
-import {createLoader} from 'xdm/esm-loader.js'
+import {createLoader} from '@mdx-js/node-loader'
 import * as babel from '@node-loader/babel'
 import config from './mdx-config.js'
 
