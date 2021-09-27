@@ -31,7 +31,7 @@
 import {name as isIdentifierName} from 'estree-util-is-identifier-name'
 import {walk} from 'estree-walker'
 import {analyze} from 'periscopic'
-import {specifiersToObjectPattern} from '../util/estree-util-specifiers-to-object-pattern.js'
+import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
 
 /**
  * A plugin that rewrites JSX in functions to accept components as
@@ -313,19 +313,13 @@ function createImportProvider(providerImportSource, outputFormat) {
     ? {
         type: 'VariableDeclaration',
         kind: 'const',
-        declarations: [
-          {
-            type: 'VariableDeclarator',
-            id: specifiersToObjectPattern(specifiers),
-            init: {
-              type: 'MemberExpression',
-              object: {type: 'Identifier', name: 'arguments'},
-              property: {type: 'Literal', value: 0},
-              computed: true,
-              optional: false
-            }
-          }
-        ]
+        declarations: specifiersToDeclarations(specifiers, {
+          type: 'MemberExpression',
+          object: {type: 'Identifier', name: 'arguments'},
+          property: {type: 'Literal', value: 0},
+          computed: true,
+          optional: false
+        })
       }
     : {
         type: 'ImportDeclaration',

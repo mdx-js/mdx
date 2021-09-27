@@ -6,7 +6,7 @@
  */
 
 import {buildJsx} from 'estree-util-build-jsx'
-import {specifiersToObjectPattern} from '../util/estree-util-specifiers-to-object-pattern.js'
+import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
 
 /**
  * A plugin to build JSX into function calls.
@@ -33,19 +33,13 @@ export function recmaJsxBuild(options = {}) {
       tree.body[0] = {
         type: 'VariableDeclaration',
         kind: 'const',
-        declarations: [
-          {
-            type: 'VariableDeclarator',
-            id: specifiersToObjectPattern(tree.body[0].specifiers),
-            init: {
-              type: 'MemberExpression',
-              object: {type: 'Identifier', name: 'arguments'},
-              property: {type: 'Literal', value: 0},
-              computed: true,
-              optional: false
-            }
-          }
-        ]
+        declarations: specifiersToDeclarations(tree.body[0].specifiers, {
+          type: 'MemberExpression',
+          object: {type: 'Identifier', name: 'arguments'},
+          property: {type: 'Literal', value: 0},
+          computed: true,
+          optional: false
+        })
       }
     }
   }
