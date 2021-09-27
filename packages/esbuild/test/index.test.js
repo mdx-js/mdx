@@ -171,7 +171,7 @@ test('@mdx-js/esbuild', async () => {
           suggestion: ''
         },
         notes: [],
-        pluginName: 'esbuild-xdm',
+        pluginName: '@mdx-js/esbuild',
         text: 'Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)'
       },
       'should pass errors'
@@ -240,7 +240,7 @@ test('@mdx-js/esbuild', async () => {
               suggestion: ''
             },
             notes: [],
-            pluginName: 'esbuild-xdm',
+            pluginName: '@mdx-js/esbuild',
             text: '7'
           }
         ],
@@ -256,7 +256,7 @@ test('@mdx-js/esbuild', async () => {
               suggestion: ''
             },
             notes: [],
-            pluginName: 'esbuild-xdm',
+            pluginName: '@mdx-js/esbuild',
             text: '1'
           },
           {
@@ -270,7 +270,7 @@ test('@mdx-js/esbuild', async () => {
               suggestion: ''
             },
             notes: [],
-            pluginName: 'esbuild-xdm',
+            pluginName: '@mdx-js/esbuild',
             text: '2'
           },
           {
@@ -284,7 +284,7 @@ test('@mdx-js/esbuild', async () => {
               suggestion: ''
             },
             notes: [],
-            pluginName: 'esbuild-xdm',
+            pluginName: '@mdx-js/esbuild',
             text: '3'
           },
           {
@@ -298,7 +298,7 @@ test('@mdx-js/esbuild', async () => {
               suggestion: ''
             },
             notes: [],
-            pluginName: 'esbuild-xdm',
+            pluginName: '@mdx-js/esbuild',
             text: '4'
           },
           {
@@ -312,7 +312,7 @@ test('@mdx-js/esbuild', async () => {
               suggestion: ''
             },
             notes: [],
-            pluginName: 'esbuild-xdm',
+            pluginName: '@mdx-js/esbuild',
             text: '5'
           },
           {
@@ -326,7 +326,7 @@ test('@mdx-js/esbuild', async () => {
               suggestion: ''
             },
             notes: [],
-            pluginName: 'esbuild-xdm',
+            pluginName: '@mdx-js/esbuild',
             text: '6'
           }
         ]
