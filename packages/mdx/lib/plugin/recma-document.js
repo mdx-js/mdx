@@ -33,7 +33,7 @@ import {analyze} from 'periscopic'
 import {stringifyPosition} from 'unist-util-stringify-position'
 import {positionFromEstree} from 'unist-util-position-from-estree'
 import {create} from '../util/estree-util-create.js'
-import {specifiersToObjectPattern} from '../util/estree-util-specifiers-to-object-pattern.js'
+import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
 import {declarationToExpression} from '../util/estree-util-declaration-to-expression.js'
 import {isDeclaration} from '../util/estree-util-is-declaration.js'
 
@@ -401,20 +401,19 @@ export function recmaDocument(options = {}) {
             replace = {
               type: 'VariableDeclaration',
               kind: 'const',
-              declarations: [
-                {
-                  type: 'VariableDeclarator',
-                  id:
-                    node.type === 'ImportDeclaration' ||
-                    node.type === 'ExportNamedDeclaration'
-                      ? specifiersToObjectPattern(node.specifiers)
-                      : {
+              declarations:
+                node.type === 'ExportAllDeclaration'
+                  ? [
+                      {
+                        type: 'VariableDeclarator',
+                        id: {
                           type: 'Identifier',
                           name: '_exportAll' + ++exportAllCount
                         },
-                  init
-                }
-              ]
+                        init
+                      }
+                    ]
+                  : specifiersToDeclarations(node.specifiers, init)
             }
           }
         } else if (node.declaration) {
