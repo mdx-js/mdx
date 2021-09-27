@@ -19,6 +19,7 @@
     "packages/esbuild",
     "packages/loader",
     "packages/node-loader",
+    "packages/register",
     "packages/rollup"
   ],
   "devDependencies": {

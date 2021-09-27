@@ -13,6 +13,7 @@ node_modules/
 /packages/react/lib/**/*.d.ts
 /packages/react/test/**/*.d.ts
 /packages/react/index.d.ts
+/packages/register/**/*.d.ts
 /packages/remark-mdx/test/**/*.d.ts
 /packages/remark-mdx/*.d.ts
 /packages/rollup/**/*.d.ts
