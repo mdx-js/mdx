@@ -42,6 +42,7 @@ function load(filePath, callback) {
   // That’s why this number is pretty low.
   const id = setTimeout(timeout, 384)
 
+  /* c8 ignore next 10 */
   function timeout() {
     console.log('y', filePath)
     done(
@@ -58,6 +59,7 @@ function load(filePath, callback) {
   }, done)
 
   function done(error, result) {
+    /* c8 ignore next */
     if (called) return
     console.log('z', filePath)
     called = true
