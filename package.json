@@ -18,6 +18,7 @@
     "packages/vue",
     "packages/esbuild",
     "packages/loader",
+    "packages/node-loader",
     "packages/rollup"
   ],
   "devDependencies": {
