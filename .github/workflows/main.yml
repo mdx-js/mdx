@@ -3,8 +3,8 @@ on:
   - pull_request
   - push
 jobs:
-  main:
-    name: '${{matrix.os}} / ${{matrix.node}}'
+  small:
+    name: test / ${{matrix.os}} / ${{matrix.node}}
     runs-on: ${{matrix.os}}
     env:
       PUPPETEER_SKIP_DOWNLOAD: 1
@@ -17,11 +17,10 @@ jobs:
           node-version: ${{matrix.node}}
           cache: npm
       - run: npm install -g npm && npm install
-      - run: npm test
+      - run: npm run test-api
     strategy:
       matrix:
         os:
-          - ubuntu-latest
           - macos-latest
           - windows-latest
         node:
@@ -29,3 +28,18 @@ jobs:
         include:
           - os: ubuntu-latest
             node: lts/erbium
+  full:
+    name: full build
+    runs-on: ubuntu-latest
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: 1
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '*'
+          cache: npm
+      - run: npm install -g npm && npm install
+      - run: npm test
