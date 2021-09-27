@@ -1,114 +1,58 @@
 # `@mdx-js/loader`
 
 [![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
 [![Downloads][downloads-badge]][downloads]
-[![Sponsors][sponsors-badge]][opencollective]
-[![Backers][backers-badge]][opencollective]
+[![Sponsors][sponsors-badge]][collective]
+[![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-Webpack loader for [MDX][].
+webpack plugin for MDX.
+
+## Contents
+
+*   [Install](#install)
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Contribute](#contribute)
+*   [License](#license)
 
 ## Install
+
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
 
 ```sh
-npm install --save-dev @mdx-js/loader
+npm install @mdx-js/loader
 ```
 
 [yarn][]:
 
 ```sh
-yarn add --dev @mdx-js/loader
+yarn add @mdx-js/loader
 ```
 
-## Use
+## What is this?
 
-```js
-// …
-module: {
-  rules: [
-    // …
-    {
-      test: /\.mdx$/,
-      use: ['babel-loader', '@mdx-js/loader']
-    }
-  ]
-}
-```
+This package is a webpack plugin to support MDX.
 
-You’ll probably want to configure Babel to use `@babel/preset-react` or so, but
-that’s not required.
+## When should I use this?
 
-All options given to `mdx-js/loader`, except for `renderer` (see below), are
-passed to MDX itself:
+This integration is useful if you’re using webpack (or another tool that uses
+webpack, such as Next).
 
-```js
-// …
-{
-  test: /\.mdx$/,
-  use: [
-    // …
-    {
-      loader: '@mdx-js/loader',
-      options: {
-        remarkPlugins: [require('remark-slug'), require('remark-toc')],
-        rehypePlugins: [require('rehype-autolink-headings')]
-      }
-    }
-  ]
-}
-```
+This integration can be combined with the Babel loader to support nonstandard
+JSX runtimes (such as Vue).
 
-The `renderer` option specifies a string that is added at the start of the
-generated source, so you can use a different `createElement` implementation.
-By default, that value is:
-
-```js
-import React from 'react'
-import {mdx} from '@mdx-js/react'
-```
-
-Here a fictional alternative `createElement` is used:
-
-```js
-const renderer = `
-import {h} from 'generic-implementation'
-
-const mdx = (name, props, ...children) => {
-  if (name === 'wrapper') return children.map(createElement)
-  if (name === 'inlineCode') return h('code', props, ...children)
-
-  return h(name, props, ...children)
-}
-`
-
-// …
-module: {
-  rules: [
-    // …
-    {
-      test: /\.mdx$/,
-      use: [
-        'babel-loader',
-        {
-          loader: '@mdx-js/loader',
-          options: {
-            renderer
-          }
-        }
-      ]
-    }
-  ]
-}
-```
-
-For more information on why this is required, see [this post][custom-pragma].
+If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
+can be used manually.
 
 ## Contribute
 
-See [Contributing on `mdxjs.com`][contributing] for ways to get started.
-See [Support][] for ways to get help.
+See [§ Contribute][contribute] on our website for ways to get started.
+See [§ Support][support] for ways to get help.
 
 This project has a [code of conduct][coc].
 By interacting with this repository, organization, or community you agree to
@@ -116,11 +60,15 @@ abide by its terms.
 
 ## License
 
-[MIT][] © [Compositor][] and [Vercel][]
+[MIT][] © Compositor and [Vercel][]
 
-[build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
+[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
 
 [build]: https://github.com/mdx-js/mdx/actions
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
+
+[coverage]: https://codecov.io/github/mdx-js/mdx
 
 [downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/loader.svg
 
@@ -130,28 +78,22 @@ abide by its terms.
 
 [backers-badge]: https://opencollective.com/unified/backers/badge.svg
 
-[opencollective]: https://opencollective.com/unified
+[collective]: https://opencollective.com/unified
 
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 
 [chat]: https://github.com/mdx-js/mdx/discussions
 
-[npm]: https://docs.npmjs.com/cli/install
+[npm]: https://docs.npjs.com/cli/install
 
-[yarn]: https://yarnpkg.com/cli/add
+[yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[contributing]: https://mdxjs.com/contributing
+[contribute]: https://v2.mdxjs.com/contributing
 
-[support]: https://mdxjs.com/support
+[support]: https://v2.mdxjs.com/support
 
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
 [mit]: license
 
-[compositor]: https://compositor.io
-
 [vercel]: https://vercel.com
-
-[mdx]: https://github.com/mdx-js/mdx
-
-[custom-pragma]: https://mdxjs.com/blog/custom-pragma

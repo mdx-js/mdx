@@ -1,14 +1,27 @@
 # `@mdx-js/vue`
 
 [![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
 [![Downloads][downloads-badge]][downloads]
-[![Sponsors][sponsors-badge]][opencollective]
-[![Backers][backers-badge]][opencollective]
+[![Size][size-badge]][size]
+[![Sponsors][sponsors-badge]][collective]
+[![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-Vue renderer for [MDX][]: JSX in Markdown.
+Vue context for MDX.
+
+## Contents
+
+*   [Install](#install)
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Contribute](#contribute)
+*   [License](#license)
 
 ## Install
+
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
 
@@ -22,53 +35,30 @@ npm install @mdx-js/vue
 yarn add @mdx-js/vue
 ```
 
-## Use
+## What is this?
 
-Say we have the following code in `example.mdx`:
+This package is a context based components provider for combining Vue with MDX.
 
-```markdown
-# Hello, world! {1 + 1}
-```
+## When should I use this?
 
-And our script, `example.jsx`:
+This package is not needed for MDX to work with Vue.
 
-```jsx
-import Vue from 'vue'
-import {MDXProvider} from '@mdx-js/vue'
-import Example from './example.mdx'
+But it is nice if you enjoy context-based props passing to avoid some
+repetition.
+This package adds support for a Vue context based interface to set components
+(sometimes known as *shortcodes*) by passing them to an `MDXProvider`, which
+then are used in all nested MDX file implicitly.
+The alternative is to pass those components to each MDX file.
 
-const components = {
-  h1: {
-    render(h) {
-      return h('h1', {style: {color: 'tomato'}}, this.$slots.default)
-    }
-  }
-}
+It can be used by:
 
-new Vue({
-  el: '#app',
-  render(h) {
-    return h(MDXProvider, {props: {components}}, Example)
-  }
-}).$mount()
-```
-
-Now, building, bundling, and finally running it, yields:
-
-```html
-<div>
-  <h1 style="color: tomato;">Hello, world! 2</h1>
-</div>
-```
-
-Note that you must configure whatever you use to load `.mdx` files to work with
-Vue.
-That can be done with `@mdx-js/vue-loader` in webpack.
+*   configuring your integration to use `@mdx-js/vue` as a provider
+*   wrapping your MDX content in an `<MDXProvider components={…} />`.
 
 ## Contribute
 
-See [Contributing on `mdxjs.com`][contributing] for ways to get started.
-See [Support][] for ways to get help.
+See [§ Contribute][contribute] on our website for ways to get started.
+See [§ Support][support] for ways to get help.
 
 This project has a [code of conduct][coc].
 By interacting with this repository, organization, or community you agree to
@@ -76,40 +66,44 @@ abide by its terms.
 
 ## License
 
-[MIT][] © [Compositor][] and [Vercel][]
+[MIT][] © Compositor and [Vercel][]
 
-[build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
+[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
 
 [build]: https://github.com/mdx-js/mdx/actions
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
+
+[coverage]: https://codecov.io/github/mdx-js/mdx
 
 [downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/vue.svg
 
 [downloads]: https://www.npmjs.com/package/@mdx-js/vue
 
+[size-badge]: https://img.shields.io/bundlephobia/minzip/@mdx-js/vue.svg
+
+[size]: https://bundlephobia.com/result?p=@mdx-js/vue
+
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
 [backers-badge]: https://opencollective.com/unified/backers/badge.svg
 
-[opencollective]: https://opencollective.com/unified
+[collective]: https://opencollective.com/unified
 
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 
 [chat]: https://github.com/mdx-js/mdx/discussions
 
-[mdx]: https://mdxjs.com
+[npm]: https://docs.npjs.com/cli/install
 
-[npm]: https://docs.npmjs.com/cli/install
+[yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[yarn]: https://yarnpkg.com/cli/add
+[contribute]: https://v2.mdxjs.com/contributing/
 
-[contributing]: https://mdxjs.com/contributing
-
-[support]: https://mdxjs.com/support
+[support]: https://v2.mdxjs.com/support/
 
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
 [mit]: license
-
-[compositor]: https://compositor.io
 
 [vercel]: https://vercel.com

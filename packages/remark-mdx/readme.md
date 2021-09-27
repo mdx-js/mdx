@@ -1,142 +1,72 @@
 # remark-mdx
 
 [![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 [![Sponsors][sponsors-badge]][collective]
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**remark**][remark] plugin to support MDX (Markdown 💛 JSX).
+remark plugin to support the MDX syntax (JSX, expressions, import/exports).
 
-This isn’t useful on its own, you’ll probably want to do combine it with other
-plugins or do tree traversal yourself to compile to things!
+## Contents
 
-It’s used in [MDXjs][].
+*   [Install](#install)
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Contribute](#contribute)
+*   [License](#license)
 
 ## Install
+
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
 
 ```sh
-# for latest version
-npm install remark-mdx@next remark-parse
-
-# for v1
-npm install remark-mdx@1 remark-parse@8
+npm install remark-mdx
 ```
 
-## Use
+[yarn][]:
 
-Say we have the following file, `example.md`:
-
-```markdown
-# Hello, {data.to}
-
-<Body>
-{message}
-</Body>
-
-Best, {data.from}
+```sh
+yarn add remark-mdx
 ```
 
-And our script, `example.js`, looks as follows:
+## What is this?
 
-```js
-var vfile = require('to-vfile')
-var report = require('vfile-reporter')
-var unified = require('unified')
-var parse = require('remark-parse')
-var stringify = require('remark-stringify')
-var mdx = require('remark-mdx')
+This package is a remark plugin to support the MDX syntax.
 
-unified()
-  .use(parse, {position: false})
-  .use(stringify)
-  .use(mdx)
-  .use(debug)
-  .process(vfile.readSync('example.md'), function (err, file) {
-    if (err) throw err
-    console.log(String(file))
-  })
+## When should I use this?
 
-function debug() {
-  return console.dir
-}
-```
+This plugin is useful if you’re dealing with the MDX syntax and integrating
+with remark, rehype, and the rest of unified.
+Some example use cases are when you want to lint the syntax or compile it to
+something other that JavaScript.
 
-Now, running `node example` yields:
+**remark** is an AST (abstract syntax tree) based transform project.
+The layer under remark is called mdast, which is just the syntax tree without
+the convention on how to transform.
+mdast is useful when transforming to other formats.
+Another layer underneath is micromark, which is just the parser and has support
+for concrete tokens.
+micromark is useful for linting and formatting.
+`remark-mdx` is a small wrapper to integrate all of these.
+Its parts can be used separately.
 
-```js
-{
-  type: 'root',
-  children: [
-    {
-      type: 'heading',
-      depth: 1,
-      children: [
-        {type: 'text', value: 'Hello, '},
-        {type: 'mdxTextExpression', value: 'data.to'}
-      ]
-    },
-    {
-      type: 'mdxJsxFlowElement',
-      name: 'Body',
-      attributes: [],
-      children: [{type: 'mdxFlowExpression', value: 'message'}]
-    },
-    {
-      type: 'paragraph',
-      children: [
-        {type: 'text', value: 'Best, '},
-        {type: 'mdxTextExpression', value: 'data.from'}
-      ]
-    }
-  ]
-}
-```
-
-```markdown
-# Hello, {data.to}
-
-<Body>
-  {
-    message
-  }
-</Body>
-
-Best, {data.from}
-```
-
-## API
-
-### `remark().use(mdx[, options])`
-
-Plugin to add support for MDX.
-
-## Security
-
-Use of `remark-mdx` does not involve [**rehype**][rehype] ([**hast**][hast]) or
-user content so there are no openings for [cross-site scripting (XSS)][xss]
-attacks.
-
-## Related
-
-*   [`remark-breaks`](https://github.com/remarkjs/remark-breaks)
-    — More breaks
-*   [`remark-footnotes`](https://github.com/remarkjs/remark-footnotes)
-    — Footnotes support
-*   [`remark-frontmatter`](https://github.com/remarkjs/remark-frontmatter)
-    — Frontmatter (yaml, toml, and more) support
-*   [`remark-github`](https://github.com/remarkjs/remark-github)
-    — References to issues, PRs, comments, users, etc
-*   [`remark-math`](https://github.com/rokt33r/remark-math)
-    — Inline and block math
+Typically though, you’d want to move a layer up: `@mdx-js/mdx`.
+That package is the core compiler for turning MDX into JavaScript which
+gives you the most control.
+Or even higher: if you’re using a bundler (webpack, rollup, esbuild), or a site
+builder (gatsby, next) or build system (vite, snowpack) which comes with a
+bundler, you’re better off using an integration: see [§ Integrations](#).
 
 ## Contribute
 
-See the [Support][] and [Contributing][] guidelines on the MDX website for ways
-to (get) help.
+See [§ Contribute][contribute] on our website for ways to get started.
+See [§ Support][support] for ways to get help.
 
 This project has a [code of conduct][coc].
 By interacting with this repository, organization, or community you agree to
@@ -144,11 +74,15 @@ abide by its terms.
 
 ## License
 
-[MIT][license] © [Titus Wormer][author]
+[MIT][] © [Titus Wormer][author]
 
-[build-badge]: https://img.shields.io/travis/mdx-js/mdx/master.svg
+[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/mdx-js/mdx
+[build]: https://github.com/mdx-js/mdx/actions
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
+
+[coverage]: https://codecov.io/github/mdx-js/mdx
 
 [downloads-badge]: https://img.shields.io/npm/dm/remark-mdx.svg
 
@@ -168,24 +102,16 @@ abide by its terms.
 
 [chat]: https://github.com/mdx-js/mdx/discussions
 
-[npm]: https://docs.npmjs.com/cli/install
+[npm]: https://docs.npjs.com/cli/install
 
-[contributing]: https://mdxjs.com/contributing
+[yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[support]: https://mdxjs.com/support
+[contribute]: https://v2.mdxjs.com/contributing/
+
+[support]: https://v2.mdxjs.com/support/
 
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
-[license]: license
+[mit]: license
 
 [author]: https://wooorm.com
-
-[remark]: https://github.com/remarkjs/remark
-
-[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
-
-[rehype]: https://github.com/rehypejs/rehype
-
-[hast]: https://github.com/syntax-tree/hast
-
-[mdxjs]: https://mdxjs.com
