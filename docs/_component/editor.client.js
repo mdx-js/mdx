@@ -21,7 +21,7 @@ lowlight.registerLanguage('js', javascript)
 lowlight.registerLanguage('json', json)
 lowlight.registerLanguage('md', markdown)
 
-function useXdm() {
+function useMdx() {
   const [file, setFile] = useState(null)
 
   const setValue = useCallback(async (value) => {
@@ -60,7 +60,7 @@ function useXdm() {
 export const Editor = ({children}) => {
   const defaultValue = children
   const extensions = useMemo(() => [basicSetup, oneDark, langMarkdown()], [])
-  const [file, setValue] = useXdm()
+  const [file, setValue] = useMdx()
   const stats = file ? statistics(file) : {}
 
   const FallbackComponent = ({error}) => {
