@@ -4,7 +4,7 @@ on:
   - push
 jobs:
   small:
-    name: '${{matrix.os}} / ${{matrix.node}}'
+    name: 'Tests only: ${{matrix.os}} / ${{matrix.node}}'
     runs-on: ${{matrix.os}}
     env:
       PUPPETEER_SKIP_DOWNLOAD: 1
@@ -17,7 +17,7 @@ jobs:
           node-version: ${{matrix.node}}
           cache: npm
       - run: npm install -g npm && npm install
-      - run: npm test-api
+      - run: npm run test-api
     strategy:
       matrix:
         os:
@@ -29,7 +29,7 @@ jobs:
           - os: ubuntu-latest
             node: lts/erbium
   full:
-    name: '${{matrix.os}} / ${{matrix.node}}'
+    name: 'Full build'
     runs-on: ubuntu-latest
     env:
       PUPPETEER_SKIP_DOWNLOAD: 1
