@@ -36,7 +36,7 @@ const p = process
  */
 export function esbuild(options = {}) {
   const {allowDangerousRemoteMdx, ...rest} = options
-  const name = 'esbuild-xdm'
+  const name = '@mdx-js/esbuild'
   const remoteNamespace = name + '-remote'
   const {extnames, process} = createFormatAwareProcessors(rest)
 

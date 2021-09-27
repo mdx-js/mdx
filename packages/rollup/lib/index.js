@@ -31,7 +31,7 @@ export function rollup(options = {}) {
   const filter = createFilter(include, exclude)
 
   return {
-    name: 'xdm',
+    name: '@mdx-js/rollup',
     // @ts-expect-error `map` is added if a `SourceMapGenerator` is passed in.
     async transform(value, path) {
       const file = new VFile({value, path})
