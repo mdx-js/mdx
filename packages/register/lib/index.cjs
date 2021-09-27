@@ -34,14 +34,12 @@ function register(options) {
 function load(filePath, callback) {
   let called
 
-  console.log('x', filePath)
   // Sometimes, the import hangs (see error message for reasons).
   // To fix that, a timeout can be used.
-  const id = setTimeout(timeout, 500)
+  const id = setTimeout(timeout, 1024)
 
   /* c8 ignore next 10 */
   function timeout() {
-    console.log('y', filePath)
     done(
       new Error(
         'Could not import:\n' +
@@ -58,7 +56,6 @@ function load(filePath, callback) {
   function done(error, result) {
     /* c8 ignore next */
     if (called) return
-    console.log('z', filePath)
     called = true
     clearTimeout(id)
     callback(error, result)
