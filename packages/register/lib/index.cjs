@@ -39,7 +39,7 @@ function load(filePath, callback) {
   // However, setting a timeout, results in `deasync` waiting for it, even
   // in cases where the import is already settled!
   // That’s why this number is pretty low.
-  setTimeout(timeout, 384)
+  setTimeout(timeout, 192)
 
   function timeout() {
     done(
