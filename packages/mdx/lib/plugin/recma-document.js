@@ -54,7 +54,6 @@ export function recmaDocument(options = {}) {
     jsxRuntime = 'automatic'
   } = options
 
-  // eslint-disable-next-line complexity
   return (tree, file) => {
     /** @type {Array.<string|[string, string]>} */
     const exportedIdentifiers = []
