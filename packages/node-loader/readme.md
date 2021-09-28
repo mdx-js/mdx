@@ -201,7 +201,7 @@ abide by its terms.
 
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
-[mit]: license
+[mit]: https://github.com/mdx-js/mdx/blob/main/packages/node-loader/license
 
 [author]: https://wooorm.com
 

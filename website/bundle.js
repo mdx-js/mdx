@@ -28,7 +28,7 @@ webpack(
     },
     module: {
       rules: [
-        {test: /\.mdx$/, use: {loader: '@mdx-js/loader', options: mdxConfig}},
+        {test: /\.mdx?$/, use: {loader: '@mdx-js/loader', options: mdxConfig}},
         {test: /\.js$/, use: 'babel-loader', exclude: /node_modules/}
       ]
     },

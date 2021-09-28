@@ -1,0 +1,1 @@
+../../packages/esbuild/readme.md

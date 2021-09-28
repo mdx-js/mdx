@@ -1,5 +1,5 @@
 diff --git a/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-node-register.js b/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-node-register.js
-index 184ed95..02b0f90 100644
+index 184ed95..76fa48e 100644
 --- a/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-node-register.js
 +++ b/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-node-register.js
 @@ -68,7 +68,7 @@ module.exports = function register() {
@@ -7,7 +7,7 @@ index 184ed95..02b0f90 100644
    };
  
 -  require.extensions['.client.js'] = function (module, path) {
-+  require.extensions['.client.mdx'] = require.extensions['.client.js'] = function (module, path) {
++  require.extensions['.client.mdx'] = require.extensions['.client.md'] = require.extensions['.client.js'] = function (module, path) {
      var moduleId = url.pathToFileURL(path).href;
      var moduleReference = {
        $$typeof: MODULE_REFERENCE,
@@ -17,17 +17,17 @@ index 184ed95..02b0f90 100644
  
 -    if (resolved.endsWith('.server.js')) {
 -      if (parent && parent.filename && !parent.filename.endsWith('.server.js')) {
-+    if (resolved.endsWith('.server.mdx') || resolved.endsWith('.server.js')) {
-+      if (parent && parent.filename && !parent.filename.endsWith('.server.mdx') && !parent.filename.endsWith('.server.js')) {
++    if (resolved.endsWith('.server.mdx') || resolved.endsWith('.server.md') || resolved.endsWith('.server.js')) {
++      if (parent && parent.filename && !parent.filename.endsWith('.server.mdx') && !parent.filename.endsWith('.server.md') && !parent.filename.endsWith('.server.js')) {
          var reason;
  
 -        if (request.endsWith('.server.js')) {
-+        if (request.endsWith('.server.mdx') || request.endsWith('.server.js')) {
++        if (request.endsWith('.server.mdx') || request.endsWith('.server.md') || request.endsWith('.server.js')) {
            reason = "\"" + request + "\"";
          } else {
            reason = "\"" + request + "\" (which expands to \"" + resolved + "\")";
 diff --git a/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-plugin.js b/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-plugin.js
-index 01e3fcf..0551267 100644
+index 01e3fcf..39c86f1 100644
 --- a/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-plugin.js
 +++ b/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-plugin.js
 @@ -58,7 +58,7 @@ class ReactFlightWebpackPlugin {
@@ -35,7 +35,7 @@ index 01e3fcf..0551267 100644
          directory: '.',
          recursive: true,
 -        include: /\.client\.(js|ts|jsx|tsx)$/
-+        include: /\.client\.(js|ts|jsx|tsx|mdx)$/
++        include: /\.client\.(js|ts|jsx|tsx|md|mdx)$/
        }];
      } else if (typeof options.clientReferences === 'string' || !isArray(options.clientReferences)) {
        this.clientReferences = [options.clientReferences];
@@ -44,12 +44,12 @@ index 01e3fcf..0551267 100644
            // That way we know by the type of dep whether to include.
            // It also resolves conflicts when the same module is in multiple chunks.
 -          if (!/\.client\.js$/.test(mod.resource)) {
-+          if (!/\.client\.(js|mdx)$/.test(mod.resource)) {
++          if (!/\.client\.(js|md|mdx)$/.test(mod.resource)) {
              return;
            }
  
 diff --git a/node_modules/react-server-dom-webpack/esm/react-server-dom-webpack-node-loader.js b/node_modules/react-server-dom-webpack/esm/react-server-dom-webpack-node-loader.js
-index 843eb86..1379126 100644
+index 843eb86..2741250 100644
 --- a/node_modules/react-server-dom-webpack/esm/react-server-dom-webpack-node-loader.js
 +++ b/node_modules/react-server-dom-webpack/esm/react-server-dom-webpack-node-loader.js
 @@ -72,13 +72,13 @@ async function resolve(specifier, context, defaultResolve) {
@@ -57,15 +57,15 @@ index 843eb86..1379126 100644
    var resolved = await defaultResolve(specifier, context, defaultResolve);
  
 -  if (resolved.url.endsWith('.server.js')) {
-+  if (resolved.url.endsWith('.server.mdx') || resolved.url.endsWith('.server.js')) {
++  if (resolved.url.endsWith('.server.mdx') || resolved.url.endsWith('.server.md') || resolved.url.endsWith('.server.js')) {
      var parentURL = context.parentURL;
  
 -    if (parentURL && !parentURL.endsWith('.server.js')) {
-+    if (parentURL && !parentURL.endsWith('.server.mdx') && !parentURL.endsWith('.server.js')) {
++    if (parentURL && !parentURL.endsWith('.server.mdx') && !parentURL.endsWith('.server.md') && !parentURL.endsWith('.server.js')) {
        var reason;
  
 -      if (specifier.endsWith('.server.js')) {
-+      if (specifier.endsWith('.server.mdx') || specifier.endsWith('.server.js')) {
++      if (specifier.endsWith('.server.mdx') || specifier.endsWith('.server.md') || specifier.endsWith('.server.js')) {
          reason = "\"" + specifier + "\"";
        } else {
          reason = "\"" + specifier + "\" (which expands to \"" + resolved.url + "\")";
@@ -74,7 +74,7 @@ index 843eb86..1379126 100644
    var transformed = await defaultTransformSource(source, context, defaultTransformSource);
  
 -  if (context.format === 'module' && context.url.endsWith('.client.js')) {
-+  if (context.format === 'module' && (context.url.endsWith('.client.mdx') || context.url.endsWith('.client.js'))) {
++  if (context.format === 'module' && (context.url.endsWith('.client.mdx') || context.url.endsWith('.client.md') || context.url.endsWith('.client.js'))) {
      var transformedSource = transformed.source;
  
      if (typeof transformedSource !== 'string') {
