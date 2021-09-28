@@ -12,32 +12,17 @@ Vue context for MDX.
 
 ## Contents
 
-*   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
     *   [`MDXProvider(props?)`](#mdxproviderprops)
     *   [`useMDXComponents()`](#usemdxcomponents)
+*   [Types](#types)
+*   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
-
-## Install
-
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
-
-```sh
-npm install @mdx-js/vue
-```
-
-[yarn][]:
-
-```sh
-yarn add @mdx-js/vue
-```
 
 ## What is this?
 
@@ -58,6 +43,23 @@ It can be used by:
 
 *   configuring your integration to use `@mdx-js/vue` as a provider
 *   wrapping your MDX content in an `<MDXProvider components={…} />`.
+
+## Install
+
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
+[npm][]:
+
+```sh
+npm install @mdx-js/vue
+```
+
+[yarn][]:
+
+```sh
+yarn add @mdx-js/vue
+```
 
 ## Use
 
@@ -119,6 +121,17 @@ Get current components from the MDX Context.
 ###### Returns
 
 `Components`.
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+An additional `Components` type is exported, which represents the acceptable
+configuration for the functions and components from this project.
+
+## Security
+
+See [§ Security](#) on our website for information.
 
 ## Contribute
 

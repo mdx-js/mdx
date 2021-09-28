@@ -11,14 +11,28 @@ esbuild plugin for MDX.
 
 ## Contents
 
-*   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
     *   [`mdx(options?)`](#mdxoptions)
+*   [Types](#types)
+*   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
+
+## What is this?
+
+This package is an esbuild plugin to support MDX.
+
+## When should I use this?
+
+This integration is useful if you’re using esbuild (or another tool that uses
+esbuild).
+
+If you want to evaluate MDX code or use a nonstandard JSX runtime (such as Vue),
+then the lower-level compiler (`@mdx-js/mdx`) can be used manually.
 
 ## Install
 
@@ -36,18 +50,6 @@ npm install @mdx-js/esbuild
 ```sh
 yarn add @mdx-js/esbuild
 ```
-
-## What is this?
-
-This package is an esbuild plugin to support MDX.
-
-## When should I use this?
-
-This integration is useful if you’re using esbuild (or another tool that uses
-esbuild).
-
-If you want to evaluate MDX code or use a nonstandard JSX runtime (such as Vue),
-then the lower-level compiler (`@mdx-js/mdx`) can be used manually.
 
 ## Use
 
@@ -132,6 +134,38 @@ evaluate React stuff) would give:
 {/* … */}
 <p><a href="https://github.com/mdx-js/mdx/blob/main/license">MIT</a> © …</p>
 ```
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+An additional `Options` type is exported, which represents acceptable
+configuration.
+
+To enable types for imported `.mdx` files, install `@types/mdx` and use it.
+To use these types in JavaScript, do:
+
+```js
+/**
+ * @typedef {import('@types/mdx')}
+ */
+
+import Post from './example.mdx'
+// `Post` is now typed.
+```
+
+Alternatively, in TypeScript, do:
+
+```ts
+/// <reference types="@types/mdx" />
+
+import Post from './example.mdx'
+// `Post` is now typed.
+```
+
+## Security
+
+See [§ Security](#) on our website for information.
 
 ## Contribute
 

@@ -11,13 +11,30 @@ webpack plugin for MDX.
 
 ## Contents
 
-*   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
+*   [Types](#types)
+*   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
+
+## What is this?
+
+This package is a webpack plugin to support MDX.
+
+## When should I use this?
+
+This integration is useful if you’re using webpack (or another tool that uses
+webpack, such as Next).
+
+This integration can be combined with the Babel loader to support nonstandard
+JSX runtimes (such as Vue).
+
+If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
+can be used manually.
 
 ## Install
 
@@ -35,21 +52,6 @@ npm install @mdx-js/loader
 ```sh
 yarn add @mdx-js/loader
 ```
-
-## What is this?
-
-This package is a webpack plugin to support MDX.
-
-## When should I use this?
-
-This integration is useful if you’re using webpack (or another tool that uses
-webpack, such as Next).
-
-This integration can be combined with the Babel loader to support nonstandard
-JSX runtimes (such as Vue).
-
-If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
-can be used manually.
 
 ## Use
 
@@ -112,6 +114,38 @@ details.
 ```sh
 DISABLE_V8_COMPILE_CACHE=1 webpack
 ```
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+An additional `Options` type is exported, which represents acceptable
+configuration.
+
+To enable types for imported `.mdx` files, install `@types/mdx` and use it.
+To use these types in JavaScript, do:
+
+```js
+/**
+ * @typedef {import('@types/mdx')}
+ */
+
+import Post from './example.mdx'
+// `Post` is now typed.
+```
+
+Alternatively, in TypeScript, do:
+
+```ts
+/// <reference types="@types/mdx" />
+
+import Post from './example.mdx'
+// `Post` is now typed.
+```
+
+## Security
+
+See [§ Security](#) on our website for information.
 
 ## Contribute
 

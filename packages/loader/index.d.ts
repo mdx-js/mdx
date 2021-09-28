@@ -4,6 +4,8 @@
  *   for runtime-agnostic types.
  */
 
+import type {ProcessorOptions} from '@mdx-js/mdx/lib/core.js'
+
 type LoaderContext = import('webpack').LoaderContext<unknown>
 
 declare module '*.mdx' {
@@ -26,3 +28,5 @@ declare module '*.mdx' {
 declare function MdxLoader(this: LoaderContext, value: string): void
 
 export default MdxLoader
+
+export type Options = ProcessorOptions
