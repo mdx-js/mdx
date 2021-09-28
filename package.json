@@ -227,6 +227,10 @@
     "plugins": [
       "preset-wooorm",
       [
+        "lint-no-html",
+        false
+      ],
+      [
         "lint-file-extension",
         false
       ]

@@ -1,5 +1,3 @@
-<!-- lint disable no-html -->
-
 <p align="center">
   <a href="https://mdxjs.com">
     <img alt="MDX logo" src="https://mdx-logo.now.sh" width="60" />
@@ -97,8 +95,6 @@ A nice example of this is [mdx-deck][], a great way to create slides with MDX.
 ## Sponsors
 
 Support this effort and give back by sponsoring on [OpenCollective][collective]!
-
-<!--lint ignore no-html-->
 
 <table>
 <tr valign="middle">

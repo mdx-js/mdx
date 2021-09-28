@@ -1,4 +1,5 @@
 import React from 'react'
+import {sortItems} from './sort.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en')
 
@@ -62,15 +63,16 @@ export const FootArticle = (props) => {
   )
 
   function findPreviousAndNext(item) {
-    const index = item.children.findIndex((d) => d.name === name)
+    const siblings = sortItems(item.children)
+    const index = siblings.findIndex((d) => d.name === name)
 
     if (index === -1) {
-      return item.children.some((d) => findPreviousAndNext(d))
+      return siblings.some((d) => findPreviousAndNext(d))
     }
 
     if (item.name !== '/') {
-      previous = item.children[index - 1]
-      next = item.children[index + 1]
+      previous = siblings[index - 1]
+      next = siblings[index + 1]
       return true
     }
 

@@ -1,0 +1,19 @@
+import {NavGroup} from '../_component/nav.server.js'
+
+# Packages
+
+We maintain several packages to work with MDX.
+
+{
+  (() => {
+    const category = props.navTree.children.find(
+      item => item.name === '/packages/'
+    )
+
+    return (
+      <nav>
+        <NavGroup items={category.children} />
+      </nav>
+    )
+  })()
+}
