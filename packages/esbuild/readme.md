@@ -14,6 +14,9 @@ esbuild plugin for MDX.
 *   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Use](#use)
+*   [API](#api)
+    *   [`mdx(options?)`](#mdxoptions)
 *   [Contribute](#contribute)
 *   [License](#license)
 
@@ -45,6 +48,90 @@ esbuild).
 
 If you want to evaluate MDX code or use a nonstandard JSX runtime (such as Vue),
 then the lower-level compiler (`@mdx-js/mdx`) can be used manually.
+
+## Use
+
+Do something like this with the esbuild API:
+
+```js
+import esbuild from 'esbuild'
+import mdx from '@mdx-js/esbuild'
+
+await esbuild.build({
+  entryPoints: ['index.mdx'],
+  outfile: 'output.js',
+  format: 'esm',
+  plugins: [mdx({/* Options… */})]
+})
+```
+
+## API
+
+This package exports a function as the default export that returns an
+[esbuild][] plugin.
+
+### `mdx(options?)`
+
+Create an esbuild plugin to compile MDX to JS.
+
+esbuild takes care of turning modern JavaScript features into syntax that works
+wherever you want it to.
+With other integrations you might need to use Babel for this, but with
+esbuild that’s not needed.
+See esbuild’s docs for more info.
+
+###### `options`
+
+`options` are the same as [`compile`](#) from `@mdx-js/mdx` with the
+addition of:
+
+###### `options.allowDangerousRemoteMdx`
+
+> ⚠️ **Security**: this includes remote code in your bundle.
+> Make sure you trust it!
+> See [§ Security](#) for more info.
+
+> 💡 **Experiment**: this is an experimental feature that might not work
+> well and might change in minor releases.
+
+Whether to allow importing from `http:` and `https:` URLs (`boolean`, default:
+`false`).
+
+When passing `allowDangerousRemoteMdx`, MD(X) and JS files can be imported from
+`http:` and `https:` urls.
+Take this `index.mdx` file:
+
+```jsx
+import Readme from 'https://raw.githubusercontent.com/mdx-js/mdx/main/readme.md'
+
+Here’s the readme:
+
+<Readme />
+```
+
+And a module `build.js`:
+
+```js
+import esbuild from 'esbuild'
+import mdx from '@mdx-js/esbuild'
+
+await esbuild.build({
+  entryPoints: ['index.mdx'],
+  outfile: 'output.js',
+  format: 'esm',
+  plugins: [mdx({allowDangerousRemoteMdx: true, /* Other options… */})]
+})
+```
+
+Running that (`node build.js`) and evaluating `output.js` (depends on how you
+evaluate React stuff) would give:
+
+```jsx
+<p>Here’s the readme:</p>
+<h1>MDX: Markdown for the component era 🚀</h1>
+{/* … */}
+<p><a href="https://github.com/mdx-js/mdx/blob/main/license">MIT</a> © …</p>
+```
 
 ## Contribute
 
@@ -94,3 +181,5 @@ abide by its terms.
 [mit]: license
 
 [author]: https://wooorm.com
+
+[esbuild]: https://esbuild.github.io

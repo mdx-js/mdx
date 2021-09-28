@@ -27,7 +27,6 @@
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "sideEffects": false,
   "main": "index.cjs",
   "types": "index.d.ts",
   "files": [
