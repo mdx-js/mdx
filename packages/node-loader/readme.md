@@ -20,6 +20,7 @@ Node loader for MDX.
 *   [Use](#use)
 *   [API](#api)
     *   [`createLoader(options?)`](#createloaderoptions)
+*   [Types](#types)
 *   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
@@ -122,6 +123,34 @@ This example can then be used with `node --experimental-loader=my-loader.js`.
 Node itself does not yet support multiple loaders but it is possible to combine
 multiple loaders with
 [`@node-loader/core`](https://github.com/node-loader/node-loader-core).
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+An additional `Options` type is exported, which represents acceptable
+configuration.
+
+To enable types for imported `.mdx` files, install `@types/mdx` and use it.
+To use these types in JavaScript, do:
+
+```js
+/**
+ * @typedef {import('@types/mdx')}
+ */
+
+import Post from './example.mdx'
+// `Post` is now typed.
+```
+
+Alternatively, in TypeScript, do:
+
+```ts
+/// <reference types="@types/mdx" />
+
+import Post from './example.mdx'
+// `Post` is now typed.
+```
 
 ## Security
 

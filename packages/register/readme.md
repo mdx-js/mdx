@@ -19,6 +19,7 @@ Node hook to require MDX.
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
+*   [Types](#types)
 *   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
@@ -112,6 +113,11 @@ Which can then be used with `node -r ./my-hook.cjs`.
 The register hook uses [`evaluateSync`](#).
 That means `import` (and `export … from`) are not supported when requiring
 `.mdx` files.
+
+## Types
+
+This package is not typed as [TypeScript](https://www.typescriptlang.org)
+seems to not support `.cjs` files yet.
 
 ## Security
 

@@ -17,6 +17,7 @@ esbuild plugin for MDX.
 *   [Use](#use)
 *   [API](#api)
     *   [`mdx(options?)`](#mdxoptions)
+*   [Types](#types)
 *   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
@@ -132,6 +133,34 @@ evaluate React stuff) would give:
 <h1>MDX: Markdown for the component era 🚀</h1>
 {/* … */}
 <p><a href="https://github.com/mdx-js/mdx/blob/main/license">MIT</a> © …</p>
+```
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+An additional `Options` type is exported, which represents acceptable
+configuration.
+
+To enable types for imported `.mdx` files, install `@types/mdx` and use it.
+To use these types in JavaScript, do:
+
+```js
+/**
+ * @typedef {import('@types/mdx')}
+ */
+
+import Post from './example.mdx'
+// `Post` is now typed.
+```
+
+Alternatively, in TypeScript, do:
+
+```ts
+/// <reference types="@types/mdx" />
+
+import Post from './example.mdx'
+// `Post` is now typed.
 ```
 
 ## Security

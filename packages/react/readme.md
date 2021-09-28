@@ -21,6 +21,7 @@ React context for MDX.
     *   [`useMDXComponents(components?)`](#usemdxcomponentscomponents)
     *   [`MDXContext`](#mdxcontext)
     *   [`withMDXComponents(Component)`](#withmdxcomponentscomponent)
+*   [Types](#types)
 *   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
@@ -151,6 +152,13 @@ The React Context for MDX (`React.Context`).
 
 Create a HOC of `Components` which is given the current context based MDX
 components.
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+An additional `Components` type is exported, which represents the acceptable
+configuration for the functions and components from this project.
 
 ## Security
 

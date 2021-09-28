@@ -24,6 +24,7 @@ MDX compiler.
     *   [`evaluate(file, options)`](#evaluatefile-options)
     *   [`evaluateSync(file, options)`](#evaluatesyncfile-options)
     *   [`createProcessor(options)`](#createprocessoroptions)
+*   [Types](#types)
 *   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
@@ -785,6 +786,14 @@ Has the same options as [`compile`][compile], but returns a configured
 
 Note that `format: 'detect'` does not work here: only `'md'` or `'mdx'` are
 allowed (and `'mdx'` is the default).
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+Additional `CompileOptions`, `EvaluateOptions`, and `ProcessorOptions` types
+are exported, which represents acceptable configuration for their respective
+methods.
 
 ## Security
 

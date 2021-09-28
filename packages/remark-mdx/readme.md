@@ -20,6 +20,7 @@ remark plugin to support the MDX syntax (JSX, expressions, import/exports).
     *   [`unified().use(remarkMdx)`](#unifieduseremarkmdx)
 *   [Syntax](#syntax)
 *   [Syntax tree](#syntax-tree)
+*   [Types](#types)
 *   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
@@ -127,6 +128,47 @@ See their readmes for the node types supported in the tree:
     — JSX (`<div />`)
 *   [`mdast-util-mdxjs-esm`](https://github.com/syntax-tree/mdast-util-mdxjs-esm#syntax-tree)
     — ESM (`export x from 'y'`)
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+If you’re working with the syntax tree, make sure to import this plugin
+somewhere in your types, as that registers the new node types in the tree.
+
+```js
+/**
+ * @typedef {import('remark-mdx')}
+ */
+
+import {visit} from 'unist-util-visit'
+
+export default function myRemarkPlugin() => {
+  /** @param {import('@types/mdast').Root} tree */
+  return (tree) => {
+    visit(tree, (node) => {
+      // `node` can now be one of the nodes for JSX, expressions, or ESM.
+    })
+  }
+}
+```
+
+Alternatively, in TypeScript, do:
+
+```ts
+/// <reference types="remark-mdx" />
+
+import type {Root} from '@types/mdast'
+import {visit} from 'unist-util-visit'
+
+export default function myRemarkPlugin() => {
+  return (tree: Root) => {
+    visit(tree, (node) => {
+      // `node` can now be one of the nodes for JSX, expressions, or ESM.
+    })
+  }
+}
+```
 
 ## Security
 

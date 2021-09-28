@@ -16,6 +16,7 @@ webpack plugin for MDX.
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
+*   [Types](#types)
 *   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
@@ -112,6 +113,34 @@ details.
 
 ```sh
 DISABLE_V8_COMPILE_CACHE=1 webpack
+```
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+An additional `Options` type is exported, which represents acceptable
+configuration.
+
+To enable types for imported `.mdx` files, install `@types/mdx` and use it.
+To use these types in JavaScript, do:
+
+```js
+/**
+ * @typedef {import('@types/mdx')}
+ */
+
+import Post from './example.mdx'
+// `Post` is now typed.
+```
+
+Alternatively, in TypeScript, do:
+
+```ts
+/// <reference types="@types/mdx" />
+
+import Post from './example.mdx'
+// `Post` is now typed.
 ```
 
 ## Security

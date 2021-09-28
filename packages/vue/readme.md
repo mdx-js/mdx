@@ -19,6 +19,7 @@ Vue context for MDX.
 *   [API](#api)
     *   [`MDXProvider(props?)`](#mdxproviderprops)
     *   [`useMDXComponents()`](#usemdxcomponents)
+*   [Types](#types)
 *   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
@@ -120,6 +121,13 @@ Get current components from the MDX Context.
 ###### Returns
 
 `Components`.
+
+## Types
+
+This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+
+An additional `Components` type is exported, which represents the acceptable
+configuration for the functions and components from this project.
 
 ## Security
 
