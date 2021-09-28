@@ -15,6 +15,12 @@ Preact context for MDX.
 *   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Use](#use)
+*   [API](#api)
+    *   [`MDXProvider(props?)`](#mdxproviderprops)
+    *   [`useMDXComponents(components?)`](#usemdxcomponentscomponents)
+    *   [`MDXContext`](#mdxcontext)
+    *   [`withMDXComponents(Component)`](#withmdxcomponentscomponent)
 *   [Contribute](#contribute)
 *   [License](#license)
 
@@ -55,6 +61,95 @@ It can be used by:
 
 *   configuring your integration to use `@mdx-js/preact` as a provider
 *   wrapping your MDX content in an `<MDXProvider components={…} />`.
+
+## Use
+
+```js
+import {MDXProvider} from '@mdx-js/preact'
+import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+const components = {
+  em: props => <i {...props} />
+}
+
+<MDXProvider components={components}>
+  <Post />
+</MDXProvider>
+```
+
+Note that you don’t have to use `MDXProvider` and can pass components
+directly:
+
+```diff
+-<MDXProvider components={components}>
+-  <Post />
+-</MDXProvider>
++<Post components={components} />
+```
+
+## API
+
+This package exports the following identifiers: `MDXContext`, `MDXProvider`,
+`useMDXComponents`, and `withMDXComponents`.
+There is no default export.
+
+### `MDXProvider(props?)`
+
+Provider for MDX context.
+
+##### `props`
+
+Configuration (`Object`, optional).
+
+###### `props.components`
+
+Mapping of names for JSX components to Preact components
+(`Record<string, string|Component|Components>`, optional).
+
+###### `props.disableParentContext`
+
+Turn off outer component context (`boolean`, default: `false`).
+
+###### `props.children`
+
+Children (JSX elements, optional).
+
+##### Returns
+
+JSX element.
+
+### `useMDXComponents(components?)`
+
+Get current components from the MDX Context.
+
+###### `components`
+
+Additional components (`Components`) to use or a function that takes the current
+components and filters/merges/changes them (`(currentComponents: Components) =>
+Components`).
+
+###### Returns
+
+`Components`.
+
+### `MDXContext`
+
+> 🪦 **Deprecated**: This export is not recommended for use as it exposes
+> internals which should be hidden.
+> It might be removed in a future major release.
+> Please use `useMDXComponents` to get context based components and
+> `MDXProvider` to set context based components instead.
+
+The Preact Context for MDX (`Preact.Context`).
+
+### `withMDXComponents(Component)`
+
+> 🪦 **Deprecated**: This export is not recommended for use.
+> It might be removed in a future major release.
+> Please use `useMDXComponents` to get context based components instead.
+
+Create a HOC of `Components` which is given the current context based MDX
+components.
 
 ## Contribute
 

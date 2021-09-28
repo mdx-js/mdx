@@ -7,6 +7,9 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
+> 🪦 **Legacy**: This package is not recommended for use as it depends on
+> deprecated Node features.
+
 Node hook to require MDX.
 
 ## Contents
@@ -14,6 +17,8 @@ Node hook to require MDX.
 *   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Use](#use)
+*   [API](#api)
 *   [Contribute](#contribute)
 *   [License](#license)
 
@@ -37,17 +42,75 @@ yarn add @mdx-js/register
 ## What is this?
 
 This package is a Node CommonJS hook to support MDX.
-It let’s you `require` MD(X) files.
+[`require.extensions`](https://nodejs.org/api/modules.html#modules\_require\_extensions)
+is a deprecated feature in Node which lets projects “hijack” `require` calls to
+do fancy things, in this case it let’s you `require` MD(X) files.
 
 ## When should I use this?
 
 This integration is useful if you’re using Node, for some reason have to use
 CJS, and want to require MDX files from the file system.
 
-This package is not ideal as it uses a deprecated Node API.
-
 At this point in time, you’re better off with `@mdx-js/node-loader`, even though
 it uses an experimental Node API.
+
+## Use
+
+Say we have an MDX document, `example.mdx`:
+
+```mdx
+export const Thing = () => <>World!</>
+
+# Hello, <Thing />
+```
+
+…and our module `example.cjs` looks as follows:
+
+```js
+'use strict'
+
+const React = require('react')
+const {renderToStaticMarkup} = require('react-dom/server.js')
+const Content = require('./example.mdx')
+
+console.log(renderToStaticMarkup(React.createElement(Content)))
+```
+
+…then running that with:
+
+```sh
+node -r @mdx-js/register example.cjs
+```
+
+…yields:
+
+```html
+<h1>Hello, World!</h1>
+```
+
+## API
+
+> 🪦 **Legacy**: This package is not recommended for use as it depends on
+> deprecated Node features.
+
+This package does not export anything.
+It changes Node’s internals.
+
+To pass options, you can make your own hook, such as this `my-hook.cjs`:
+
+```js
+'use strict'
+
+const register = require('@mdx-js/register/lib/index.cjs')
+
+register({/* Options… */})
+```
+
+Which can then be used with `node -r ./my-hook.cjs`.
+
+The register hook uses [`evaluateSync`](#).
+That means `import` (and `export … from`) are not supported when requiring
+`.mdx` files.
 
 ## Contribute
 

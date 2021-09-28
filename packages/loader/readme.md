@@ -14,6 +14,8 @@ webpack plugin for MDX.
 *   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Use](#use)
+*   [API](#api)
 *   [Contribute](#contribute)
 *   [License](#license)
 
@@ -48,6 +50,68 @@ JSX runtimes (such as Vue).
 
 If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
 can be used manually.
+
+## Use
+
+Add something along these lines to your `webpack.config.js`:
+
+```js
+module.exports = {
+  module: {
+    // …
+    rules: [
+      // …
+      {
+        test: /\.(md|markdown|mdown|mkdn|mkd|mdwn|mkdown|ron|mdx)$/,
+        use: [{loader: '@mdx-js/loader', options: {}}]
+      }
+    ]
+  }
+}
+```
+
+## API
+
+This package exports a [webpack][] plugin as the default export.
+
+Source maps are supported when [`SourceMapGenerator`](#) is passed in.
+
+###### `options`
+
+`options` are the same as [`compile`](#) from `@mdx-js/mdx`.
+
+###### Note: Babel
+
+If you use modern JavaScript features you might want to use Babel through
+[`babel-loader`](https://webpack.js.org/loaders/babel-loader/) to compile to
+code that works:
+
+```js
+// …
+use: [
+  // Note that Webpack runs right-to-left: `@mdx-js/loader` is used first, then
+  // `babel-loader`.
+  {loader: 'babel-loader', options: {}},
+  {loader: '@mdx-js/loader', options: {}}
+]
+// …
+```
+
+###### Note: `webpack-cli`
+
+`webpack-cli` doesn’t support loaders in ESM directly or even *indirectly*.
+Because `@mdx-js/mdx` itself is ESM, this means the `@mdx-js/loader` loader
+(even though it’s CJS) doesn’t work with `webpack-cli` (it does work when using
+the webpack API).
+To use this loader with `webpack-cli`, set the `DISABLE_V8_COMPILE_CACHE=1`
+environment variable.
+See
+[this issue](https://github.com/wooorm/xdm/issues/11#issuecomment-785043772) for
+details.
+
+```sh
+DISABLE_V8_COMPILE_CACHE=1 webpack
+```
 
 ## Contribute
 
@@ -97,3 +161,5 @@ abide by its terms.
 [mit]: license
 
 [vercel]: https://vercel.com
+
+[webpack]: https://webpack.js.org

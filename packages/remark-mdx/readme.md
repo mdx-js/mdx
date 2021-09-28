@@ -15,6 +15,11 @@ remark plugin to support the MDX syntax (JSX, expressions, import/exports).
 *   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Use](#use)
+*   [API](#api)
+    *   [`unified().use(remarkMdx)`](#unifieduseremarkmdx)
+*   [Syntax](#syntax)
+*   [Syntax tree](#syntax-tree)
 *   [Contribute](#contribute)
 *   [License](#license)
 
@@ -62,6 +67,65 @@ gives you the most control.
 Or even higher: if you’re using a bundler (webpack, rollup, esbuild), or a site
 builder (gatsby, next) or build system (vite, snowpack) which comes with a
 bundler, you’re better off using an integration: see [§ Integrations](#).
+
+## Use
+
+```js
+import {remark} from 'remark'
+import remarkMdx from 'remark-mdx'
+
+const file = remark()
+  .use(remarkMdx)
+  .processSync('import a from "b"\n\na <b /> c {1 + 1} d')
+
+console.log(String(file))
+```
+
+Yields:
+
+```mdx
+import a from "b"
+
+a <b/> c {1 + 1} d
+```
+
+## API
+
+This package exports no identifiers.
+The default export is `remarkMdx`.
+
+### `unified().use(remarkMdx)`
+
+Configures remark so that it can parse and serialize MDX (JSX, expressions,
+import/exports).
+It doesn’t do anything with the syntax: you can
+[create your own plugin][create-plugin] to transform them.
+
+## Syntax
+
+This plugin applies several micromark extensions to parse the syntax.
+See their readmes for parse details:
+
+*   [`micromark-extension-mdx-expression`](https://github.com/micromark/micromark-extension-mdx-expression#syntax)
+    — expressions (`{1 + 1}`)
+*   [`micromark-extension-mdx-jsx`](https://github.com/micromark/micromark-extension-mdx-jsx#syntax)
+    — JSX (`<div />`)
+*   [`micromark-extension-mdxjs-esm`](https://github.com/micromark/micromark-extension-mdxjs-esm#syntax)
+    — ESM (`export x from 'y'`)
+*   [`micromark-extension-mdx-md`](https://github.com/micromark/micromark-extension-mdx-md#mdxmd)
+    — Turn off HTML, autolinks, and indented code
+
+## Syntax tree
+
+This plugin applies several mdast utilities to build and serialize the AST.
+See their readmes for the node types supported in the tree:
+
+*   [`mdast-util-mdx-expression`](https://github.com/syntax-tree/mdast-util-mdx-expression#syntax-tree)
+    — expressions (`{1 + 1}`)
+*   [`mdast-util-mdx-jsx`](https://github.com/syntax-tree/mdast-util-mdx-jsx#syntax-tree)
+    — JSX (`<div />`)
+*   [`mdast-util-mdxjs-esm`](https://github.com/syntax-tree/mdast-util-mdxjs-esm#syntax-tree)
+    — ESM (`export x from 'y'`)
 
 ## Contribute
 
@@ -115,3 +179,5 @@ abide by its terms.
 [mit]: license
 
 [author]: https://wooorm.com
+
+[create-plugin]: https://unifiedjs.com/learn/guide/create-a-plugin/

@@ -14,6 +14,8 @@ Rollup plugin for MDX.
 *   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Use](#use)
+*   [API](#api)
 *   [Contribute](#contribute)
 *   [License](#license)
 
@@ -48,6 +50,65 @@ JSX runtimes (such as Vue).
 
 If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
 can be used manually.
+
+## Use
+
+Add something along these lines to your `rollup.config.js`:
+
+```js
+import path from 'node:path'
+import mdx from '@mdx-js/rollup'
+
+export default {
+  // …
+  plugins: [
+    // …
+    mdx({/* Options… */})
+  ]
+}
+```
+
+## API
+
+This package exports a [Rollup][] plugin as the default export.
+
+Source maps are supported when [`SourceMapGenerator`](#) is passed in.
+
+###### `options`
+
+`options` are the same as [`compile`](#) from `@mdx-js/mdx`, with the additions
+of:
+
+###### `options.include`
+
+###### `options.exclude`
+
+List of [`picomatch`][pico] patterns to include and/or exclude
+(`string`, `RegExp`, `(string|RegExp)[]`, default: `[]`).
+
+###### Note: Babel
+
+If you use modern JavaScript features you might want to use Babel through
+[`@rollup/plugin-babel`](https://github.com/rollup/plugins/tree/master/packages/babel)
+to compile to code that works:
+
+```js
+// …
+import {babel} from '@rollup/plugin-babel'
+
+export default {
+  // …
+  plugins: [
+    // …
+    mdx({/* Options… */}),
+    babel({
+      // Also run on what used to be `.mdx` (but is now JS):
+      extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.mdx'],
+      // Other options…
+    })
+  ]
+}
+```
 
 ## Contribute
 
@@ -97,3 +158,7 @@ abide by its terms.
 [mit]: license
 
 [author]: https://wooorm.com
+
+[pico]: https://github.com/micromatch/picomatch#globbing-features
+
+[rollup]: https://rollupjs.org

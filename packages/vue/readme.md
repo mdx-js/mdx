@@ -15,6 +15,10 @@ Vue context for MDX.
 *   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Use](#use)
+*   [API](#api)
+    *   [`MDXProvider(props?)`](#mdxproviderprops)
+    *   [`useMDXComponents()`](#usemdxcomponents)
 *   [Contribute](#contribute)
 *   [License](#license)
 
@@ -54,6 +58,67 @@ It can be used by:
 
 *   configuring your integration to use `@mdx-js/vue` as a provider
 *   wrapping your MDX content in an `<MDXProvider components={…} />`.
+
+## Use
+
+```js
+import {MDXProvider} from '@mdx-js/vue'
+import {createApp} from 'vue'
+import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+createApp({
+  data() {
+    return {components: {h1: 'h2'}}
+  },
+  template: '<MDXProvider v-bind:components="components"><Post /></MDXProvider>',
+  components: {MDXProvider, Post}
+})
+```
+
+Note that you don’t have to use `MDXProvider` and can pass components
+directly:
+
+```diff
+-createApp({
+-  data() {
+-    return {components: {h1: 'h2'}}
+-  },
+-  template: '<MDXProvider v-bind:components="components"><Post /></MDXProvider>',
+-  components: {MDXProvider, Post}
+-})
++createApp(Post, {components})
+```
+
+## API
+
+This package exports the following identifiers: `MDXProvider` and
+`useMDXComponents`.
+There is no default export.
+
+### `MDXProvider(props?)`
+
+Provider for MDX context.
+
+##### `props`
+
+Configuration (`Object`, optional).
+
+###### `props.components`
+
+Mapping of names for JSX components to React components
+(`Record<string, string|Component|Components>`, optional).
+
+##### Returns
+
+Fragment (with the default slot if given).
+
+### `useMDXComponents()`
+
+Get current components from the MDX Context.
+
+###### Returns
+
+`Components`.
 
 ## Contribute
 

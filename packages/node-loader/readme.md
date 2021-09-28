@@ -7,6 +7,9 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
+> 💡 **Experiment**: this is an experimental package that might not work
+> well and might change in minor releases.
+
 Node loader for MDX.
 
 ## Contents
@@ -14,6 +17,9 @@ Node loader for MDX.
 *   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Use](#use)
+*   [API](#api)
+    *   [`createLoader(options?)`](#createloaderoptions)
 *   [Contribute](#contribute)
 *   [License](#license)
 
@@ -36,8 +42,10 @@ yarn add @mdx-js/node-loader
 
 ## What is this?
 
-This package is a Node loader to support MDX.
-It let’s you `import` MD(X) files.
+This package is a Node ESM loader to support MDX.
+[ESM loaders][loader] are an experimental feature in Node, slated to change.
+They let projects “hijack” imports to do all sorts of fancy things, in this
+case it let’s you `import` MD(X) files.
 
 ## When should I use this?
 
@@ -47,6 +55,72 @@ from the file system.
 If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
 next) or build system (vite, snowpack) which comes with a bundler, you’re better
 off using another integration: see [§ Integrations](#).
+
+## Use
+
+Say we have an MDX document, `example.mdx`:
+
+```mdx
+export const Thing = () => <>World!</>
+
+# Hello, <Thing />
+```
+
+…and our module `example.js` looks as follows:
+
+```js
+import {renderToStaticMarkup} from 'react-dom/server.js'
+import React from 'react'
+import Content from './example.mdx'
+
+console.log(renderToStaticMarkup(React.createElement(Content)))
+```
+
+…then running that with:
+
+```sh
+node --experimental-loader=@mdx-js/node-loader example.js
+```
+
+…yields:
+
+```html
+<h1>Hello, World!</h1>
+```
+
+## API
+
+> 💡 **Experiment**: this is an experimental package that might not work
+> well and might change in minor releases.
+
+This package exports a Node [ESM loader][loader].
+It also exports the following identifier: `createLoader`.
+
+### `createLoader(options?)`
+
+Create a Node ESM loader to compile MDX to JS.
+
+###### `options`
+
+`options` are the same as [`compile`](#) from `@mdx-js/mdx`.
+
+###### Example
+
+`my-loader.js`:
+
+```js
+import {createLoader} from '@mdx-js/node-loader'
+
+const {getFormat, transformSource} = createLoader(/* Options… */)
+
+export {getFormat, transformSource}
+```
+
+This example can then be used with `node --experimental-loader=my-loader.js`.
+
+Node itself does not yet support multiple loaders but it is possible to combine
+multiple loaders with
+[`@node-loader/core`](https://github.com/node-loader/node-loader-core).
 
 ## Contribute
 
@@ -96,3 +170,5 @@ abide by its terms.
 [mit]: license
 
 [author]: https://wooorm.com
+
+[loader]: https://nodejs.org/api/esm.html#esm_loaders
