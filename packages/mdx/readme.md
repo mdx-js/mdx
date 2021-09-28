@@ -14,9 +14,9 @@ MDX compiler.
 
 ## Contents
 
-*   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
     *   [`compile(file, options?)`](#compilefile-options)
@@ -24,8 +24,22 @@ MDX compiler.
     *   [`evaluate(file, options)`](#evaluatefile-options)
     *   [`evaluateSync(file, options)`](#evaluatesyncfile-options)
     *   [`createProcessor(options)`](#createprocessoroptions)
+*   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
+
+## What is this?
+
+This package is a compiler that turns MDX into JavaScript.
+It can also evaluate MDX code.
+
+## When should I use this?
+
+This is the core compiler for turning MDX into JavaScript and which gives you
+the most control.
+If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
+next) or build system (vite, snowpack) which comes with a bundler, you’re better
+off using an integration: see [§ Integrations](#).
 
 ## Install
 
@@ -43,19 +57,6 @@ npm install @mdx-js/mdx
 ```sh
 yarn add @mdx-js/mdx
 ```
-
-## What is this?
-
-This package is a compiler that turns MDX into JavaScript.
-It can also evaluate MDX code.
-
-## When should I use this?
-
-This is the core compiler for turning MDX into JavaScript and which gives you
-the most control.
-If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
-next) or build system (vite, snowpack) which comes with a bundler, you’re better
-off using an integration: see [§ Integrations](#).
 
 ## Use
 
@@ -784,6 +785,10 @@ Has the same options as [`compile`][compile], but returns a configured
 
 Note that `format: 'detect'` does not work here: only `'md'` or `'mdx'` are
 allowed (and `'mdx'` is the default).
+
+## Security
+
+See [§ Security](#) on our website for information.
 
 ## Contribute
 

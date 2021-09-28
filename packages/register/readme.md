@@ -14,13 +14,29 @@ Node hook to require MDX.
 
 ## Contents
 
-*   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
+*   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
+
+## What is this?
+
+This package is a Node CommonJS hook to support MDX.
+[`require.extensions`](https://nodejs.org/api/modules.html#modules\_require\_extensions)
+is a deprecated feature in Node which lets projects “hijack” `require` calls to
+do fancy things, in this case it let’s you `require` MD(X) files.
+
+## When should I use this?
+
+This integration is useful if you’re using Node, for some reason have to use
+CJS, and want to require MDX files from the file system.
+
+At this point in time, you’re better off with `@mdx-js/node-loader`, even though
+it uses an experimental Node API.
 
 ## Install
 
@@ -38,21 +54,6 @@ npm install @mdx-js/register
 ```sh
 yarn add @mdx-js/register
 ```
-
-## What is this?
-
-This package is a Node CommonJS hook to support MDX.
-[`require.extensions`](https://nodejs.org/api/modules.html#modules\_require\_extensions)
-is a deprecated feature in Node which lets projects “hijack” `require` calls to
-do fancy things, in this case it let’s you `require` MD(X) files.
-
-## When should I use this?
-
-This integration is useful if you’re using Node, for some reason have to use
-CJS, and want to require MDX files from the file system.
-
-At this point in time, you’re better off with `@mdx-js/node-loader`, even though
-it uses an experimental Node API.
 
 ## Use
 
@@ -111,6 +112,10 @@ Which can then be used with `node -r ./my-hook.cjs`.
 The register hook uses [`evaluateSync`](#).
 That means `import` (and `export … from`) are not supported when requiring
 `.mdx` files.
+
+## Security
+
+See [§ Security](#) on our website for information.
 
 ## Contribute
 

@@ -14,14 +14,31 @@ Node loader for MDX.
 
 ## Contents
 
-*   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
     *   [`createLoader(options?)`](#createloaderoptions)
+*   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
+
+## What is this?
+
+This package is a Node ESM loader to support MDX.
+[ESM loaders][loader] are an experimental feature in Node, slated to change.
+They let projects “hijack” imports to do all sorts of fancy things, in this
+case it let’s you `import` MD(X) files.
+
+## When should I use this?
+
+This integration is useful if you’re using Node and want to import MDX files
+from the file system.
+
+If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
+next) or build system (vite, snowpack) which comes with a bundler, you’re better
+off using another integration: see [§ Integrations](#).
 
 ## Install
 
@@ -39,22 +56,6 @@ npm install @mdx-js/node-loader
 ```sh
 yarn add @mdx-js/node-loader
 ```
-
-## What is this?
-
-This package is a Node ESM loader to support MDX.
-[ESM loaders][loader] are an experimental feature in Node, slated to change.
-They let projects “hijack” imports to do all sorts of fancy things, in this
-case it let’s you `import` MD(X) files.
-
-## When should I use this?
-
-This integration is useful if you’re using Node and want to import MDX files
-from the file system.
-
-If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
-next) or build system (vite, snowpack) which comes with a bundler, you’re better
-off using another integration: see [§ Integrations](#).
 
 ## Use
 
@@ -121,6 +122,10 @@ This example can then be used with `node --experimental-loader=my-loader.js`.
 Node itself does not yet support multiple loaders but it is possible to combine
 multiple loaders with
 [`@node-loader/core`](https://github.com/node-loader/node-loader-core).
+
+## Security
+
+See [§ Security](#) on our website for information.
 
 ## Contribute
 

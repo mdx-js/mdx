@@ -12,34 +12,18 @@ React context for MDX.
 
 ## Contents
 
-*   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
     *   [`MDXProvider(props?)`](#mdxproviderprops)
     *   [`useMDXComponents(components?)`](#usemdxcomponentscomponents)
     *   [`MDXContext`](#mdxcontext)
     *   [`withMDXComponents(Component)`](#withmdxcomponentscomponent)
+*   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
-
-## Install
-
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
-
-```sh
-npm install @mdx-js/react
-```
-
-[yarn][]:
-
-```sh
-yarn add @mdx-js/react
-```
 
 ## What is this?
 
@@ -61,6 +45,23 @@ It can be used by:
 
 *   configuring your integration to use `@mdx-js/react` as a provider
 *   wrapping your MDX content in an `<MDXProvider components={…} />`.
+
+## Install
+
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
+[npm][]:
+
+```sh
+npm install @mdx-js/react
+```
+
+[yarn][]:
+
+```sh
+yarn add @mdx-js/react
+```
 
 ## Use
 
@@ -150,6 +151,10 @@ The React Context for MDX (`React.Context`).
 
 Create a HOC of `Components` which is given the current context based MDX
 components.
+
+## Security
+
+See [§ Security](#) on our website for information.
 
 ## Contribute
 

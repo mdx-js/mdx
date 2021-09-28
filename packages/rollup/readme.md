@@ -11,13 +11,29 @@ Rollup plugin for MDX.
 
 ## Contents
 
-*   [Install](#install)
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
+*   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
+
+## What is this?
+
+This package is a Rollup plugin to support MDX.
+
+## When should I use this?
+
+This integration is useful if you’re using Rollup (or another tool that uses
+Rollup, such as Vite).
+
+This integration can be combined with the Babel plugin to support nonstandard
+JSX runtimes (such as Vue).
+
+If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
+can be used manually.
 
 ## Install
 
@@ -35,21 +51,6 @@ npm install @mdx-js/rollup
 ```sh
 yarn add @mdx-js/rollup
 ```
-
-## What is this?
-
-This package is a Rollup plugin to support MDX.
-
-## When should I use this?
-
-This integration is useful if you’re using Rollup (or another tool that uses
-Rollup, such as Vite).
-
-This integration can be combined with the Babel plugin to support nonstandard
-JSX runtimes (such as Vue).
-
-If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
-can be used manually.
 
 ## Use
 
@@ -109,6 +110,10 @@ export default {
   ]
 }
 ```
+
+## Security
+
+See [§ Security](#) on our website for information.
 
 ## Contribute
 
