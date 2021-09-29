@@ -3,66 +3,344 @@ export const navSortSelf = 1
 
 # What is MDX?
 
+## Contents
+
+*   [Markdown for the component era](#markdown-for-the-component-era)
+*   [MDX syntax](#mdx-syntax)
+    *   [Markdown](#markdown)
+    *   [JSX](#jsx)
+    *   [ESM](#esm)
+    *   [Expressions](#expressions)
+*   [MDX content](#mdx-content)
+    *   [Components](#components)
+    *   [Layout](#layout)
+
 ## Markdown for the component era
 
-MDX is an authorable format that lets you seamlessly write JSX in your Markdown
-documents.
+MDX is exciting because it’s an authorable format that lets you seamlessly write
+JSX in your Markdown documents.
 You can import components, such as interactive charts or alerts, and embed them
 within your content.
 This makes writing long-form content with components a blast.
 🚀
 
-## Try it
+More practically MDX can be explained as a format that combines markdown with
+JSX and looks as follows:
 
-<Editor children={`Hello, *world*!
+```mdx
+# Hello, world!
 
-Below is an example of JSX embedded in Markdown.
+<div className="note">
+  > Some notable things in a block quote!
+</div>
+```
 
-<div style={{padding: '20px', backgroundColor: 'tomato', color: 'black' }}>
-**Try and change the background color!**
-</div>`}/>
+The heading and the block quote are markdown and those XML-like things are JSX
+instead of HTML.
 
-## In short
+This example uses `className` on the `<div>`.
+That’s because this example was written with React in mind which expects classes
+to be added as such.
+Other frameworks, such as Vue and Preact, expect classes to be defined
+differently, so note that there are some differences in how JSX has to be
+authored depending on what framework it’s used with.
 
-❤️ **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
-JSX-based projects.
+A few other things from JavaScript are supported as well: expressions in braces
+(such as `{1 + 1}`) and ESM (`import` and `export`).
 
-💻 **Everything is a component**: Use existing components inside your
-MDX and import other MDX files as plain components.
+See [§ MDX syntax][mdx-syntax] below for more on how the format works and what
+else is and isn’t supported.
+See [§ MDX content][mdx-content] below for more on what the format compiles to.
+See [§ Playground][playground] to try it out live in your browser.
 
-🔧 **Customizable**: Decide which component is rendered for each markdown
-element (`{h1: MyHeading}`).
+## MDX syntax
 
-📚 **Markdown-based**: The simplicity and elegance of Markdown remains,
-you interleave JSX only when you want to.
+> **Note**!
+> You don’t have to use this syntax.
+> Or use it always.
+> With [`options.format`][format], you can opt-in gradually or not at all.
 
-🔥 **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
-during the build stage.
+The MDX syntax is a mix between markdown and JSX.
+Markdown often feels more natural to type than HTML (or JSX) for the common
+things (like emphasis, headings).
+JSX is an extension to JavaScript that *looks* like HTML but makes it convenient
+to use components (reusable things).
+See [this description in
+`micromark/mdx-state-machine`](https://github.com/micromark/mdx-state-machine#71-syntax)
+for a formal description of the syntax.
 
-> It’s extremely useful for using design system components to render markdown
-> and weaving interactive components in with existing markdown.
->
-> — [**@chrisbiscardi**][quote]
+This gives us something along the lines of [literate programming][lit].
 
-## Why?
+MDX also gives us an odd mix of two languages: markdown is whitespace sensitive
+and forgiving (what you type may not “work” but it won’t crash) whereas
+JavaScript is whitespace **insensitive** and **does** crash on typos.
+Weirdly enough they combine pretty well!
 
-Before MDX, some of the benefits of writing Markdown were lost when integrating
-with JSX.
-Implementations were often template string-based which required lots of escaping
-and cumbersome syntax.
+It’s important to know markdown
+([see this cheatsheet and tutorial](https://commonmark.org/help/) for help)
+and have experience with JavaScript (specifically
+[JSX](https://facebook.github.io/jsx/)) to write (and enjoy writing) MDX.
 
-MDX seeks to make writing with Markdown *and* JSX simpler while being more
-expressive.
-Writing is fun again when you combine components, that can even be dynamic or
-load data, with the simplicity of Markdown for long-form content.
+Some common gotchas with writing MDX are
+[documented here in `micromark/mdx-state-machine`
+](https://github.com/micromark/mdx-state-machine#74-common-mdx-gotchas).
 
-Watch [**@kentcdodds**](https://github.com/kentcdodds) introduce some of these
-features on YouTube:
+### Markdown
 
-[![“What is MDX?” on YouTube][what-is-mdx-image]][what-is-mdx]
+Most of markdown ([CommonMark][]) works:
 
-[quote]: https://twitter.com/chrisbiscardi/status/1022304288326864896
+````mdx
+# Heading (rank 1)
+## Heading 2
+### 3
+#### 4
+##### 5
+###### 6
 
-[what-is-mdx-image]: /dev-tips-with-kent.jpg
+> Block quote
 
-[what-is-mdx]: https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u "I've recently taking a big liking to MDX: A JSX in Markdown loader, parser, and renderer for ambitious projects. It combines the readability of Markdown with the expressivity of JSX. The best of both worlds. 🌐"
+* Unordered
+* List
+
+1. Ordered
+2. List
+
+A paragraph, introducing a thematic break:
+
+---
+
+```js
+some.code()
+```
+
+a [link](https://example.com), an ![image](./image.png), some *emphasis*,
+something **strong**, and finally a little `code()`.
+````
+
+Some other features often used with markdown are:
+
+*   **GFM** — autolink literals, strikethrough, tables, tasklists
+    ([see guide on how to use `remark-gfm`](#))
+*   **Frontmatter** — YAML
+    ([see guide on how to use `remark-frontmatter`](#))
+*   **Footnotes**
+    ([see guide on how to use `remark-footnotes`](#))
+*   **Math**
+    ([see guide on how to use `remark-math` and `rehype-katex`](#))
+*   **Syntax highlighting**
+    ([see guide on how to use `rehype-highlight`](#))
+
+There are many more things possible by configuring
+[remark plugins][remark-plugins] and [rehype plugins][rehype-plugins].
+
+There are also a couple specific remark/rehype/recma plugins that work with
+MDX: see [plugins](#).
+
+#### Caveats
+
+Some markdown features don’t work in MDX:
+
+```mdx
+Indented code works in markdown, but not in MDX:
+
+    console.log(1) // this is a paragraph in MDX!
+
+The reason for that is so that you can nicely indent your components.
+
+A different one is “autolinks”:
+
+<svg:rect> and <admin@example.com> are links in markdown, but they crash
+`mdx-js/mdx`.
+The reason is that they look a lot like JSX components, and we prefer being unambiguous.
+If you want links, use [descriptive text](https://and-the-link-here.com).
+
+HTML doesn’t work, because MDX has JSX instead (see next section).
+
+And you must escape less than (`<`) and opening braces (`{`) like so: \< or \{.
+```
+
+More on this is
+[documented here](https://github.com/micromark/mdx-state-machine#72-deviations-from-markdown).
+
+### JSX
+
+Most of JSX works.
+Here’s some that looks a lot like HTML (but is JSX):
+
+```js
+<h1>Heading!</h1>
+
+<abbr title="HyperText Markup Language">HTML</abbr> is a lovely language.
+
+<section>
+  And here is *markdown* in **JSX**!
+</section>
+```
+
+You can also use components, but note that you must either define them locally
+or pass them in later (see [§ MDX content][mdx-content]):
+
+```js
+<MyComponent id="123" />
+
+Or access the `thisOne` component on the `myComponents` object: <myComponents.thisOne />
+
+<Component
+  open
+  x={1}
+  label={'this is a string, *not* markdown!'}
+  icon={<Icon />}
+/>
+```
+
+More on this is
+[documented here](https://github.com/micromark/mdx-state-machine#73-deviations-from-jsx).
+
+### ESM
+
+To define things from within MDX, use ESM:
+
+```js
+import {External} from './some/place.js'
+
+export const Local = props => <span style={{color: 'red'}} {...props} />
+
+An <External /> component and <Local>a local component</Local>.
+```
+
+ESM can also be used for other things:
+
+```js
+import {MyChart} from './chart-component.js'
+import data from './population.js'
+export const pi = 3.14
+
+<MyChart data={data} label={'Something with ' + pi} />
+```
+
+### Expressions
+
+Braces can be used to embed JavaScript expressions in MDX:
+
+```mdx
+export const pi = 3.14
+
+Two 🍰 is: {pi * 2}
+```
+
+Expressions can be empty or contain just a comment:
+
+```mdx
+{/* A comment! */}
+```
+
+## MDX content
+
+All content (headings, paragraphs, etc) you write are exported as the default
+export from a compiled MDX file as a component.
+
+It’s possible to pass props in.
+The special prop `components` is used to determine how to render components.
+This includes both JSX and markdown syntax.
+Say we have a `message.mdx` file:
+
+```mdx
+# Hello, *<Planet />*!
+
+Remember when we first met in {props.year}?
+```
+
+This file could be imported from JavaScript and passed components like so:
+
+```js
+import Message from './message.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+<Message components={{Planet: () => 'Venus'}} year={1962} />
+```
+
+You can also change the things that come from markdown:
+
+```js
+<Message
+  components={{
+    // Map `h1` (`# heading`) to use `h2`s.
+    h1: 'h2',
+    // Rewrite `em`s (`*like so*`) to `i` with a red foreground color.
+    em: (props) => <i style={{color: 'red'}} {...props} />,
+    // Pass a layout (using the special `'wrapper'` key).
+    wrapper: ({components, ...props}) => <main {...props} />,
+    // Pass a component.
+    Planet: () => 'Venus'
+  }}
+  year={1962}
+/>
+```
+
+### Components
+
+The following keys can be passed in `components`:
+
+*   HTML equivalents for the things you write with markdown (such as `h1` for
+    `# heading`)**†**
+*   `wrapper`, which defines the layout (but local layout takes precedence)
+*   `*` anything else that is a valid JavaScript identifier (`foo`,
+    `Components`, `_`, `$x`, `a1`) for the things you write with JSX (like
+    `<So />` or `<like.so />`, note that locally defined components take
+    precedence)**‡**
+
+**†** Normally, in markdown, those are: `a`, `blockquote`, `code`, `em`, `h1`,
+`h2`, `h3`, `h4`, `h5`, `h6`, `hr`, `img`, `li`, `ol`, `p`, `pre`, `strong`, and
+`ul`.
+With [`remark-gfm`][gfm] ([see guide](#)), you can also use: `del`, `table`,
+`tbody`, `td`, `th`, `thead`, and `tr`.
+Other remark plugins that add support for new constructs and advertise that they
+work with rehype, will also work with **xdm**.
+
+**‡** The rules for whether a name in JSX (`x` in `<x>`) is a literal tag name
+or not, are as follows:
+
+*   If there’s a dot, it’s a member expression (`<a.b>` -> `h(a.b)`)
+*   Otherwise, if the name is not a valid identifier, it’s a literal (`<a-b>` ->
+    `h('a-b')`)
+*   Otherwise, if it starts with a lowercase, it’s a literal (`<a>` -> `h('a')`)
+*   Otherwise, it’s an identifier (`<A>` -> `h(A)`)
+
+### Layout
+
+Layouts are components that wrap the whole content.
+They can be defined from within MDX using a default export:
+
+```js
+export default function Layout({children}) {
+  return <main>{children}</main>;
+}
+
+All the things.
+```
+
+The layout can also be imported and *then* exported with an `export … from`:
+
+```js
+export {Layout as default} from './components.js'
+```
+
+The layout can also be passed as `components.wrapper` (but a local one takes
+precedence).
+
+[lit]: https://en.wikipedia.org/wiki/Literate_programming
+
+[commonmark]: https://commonmark.org
+
+[remark-plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins
+
+[rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
+
+[gfm]: https://github.com/remarkjs/remark-gfm
+
+[format]: /packages/mdx/#optionsformat
+
+[playground]: /playground/
+
+[mdx-syntax]: #mdx-syntax
+
+[mdx-content]: #mdx-content
