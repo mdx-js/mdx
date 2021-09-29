@@ -1,14 +1,10 @@
-/**
- * @typedef {import('vfile').VFile} VFile
- */
-
 /** @type {new (code: string, ...args: unknown[]) => Function} **/
 const AsyncFunction = Object.getPrototypeOf(run).constructor
 
 /**
  * Asynchronously run code.
  *
- * @param {VFile} file JS document to run
+ * @param {{toString(): string}} file JS document to run
  * @param {unknown} options
  * @return {Promise<*>}
  */
@@ -21,7 +17,7 @@ export async function run(file, options) {
 /**
  * Synchronously run code.
  *
- * @param {VFile} file JS document to run
+ * @param {{toString(): string}} file JS document to run
  * @param {unknown} options
  * @return {*}
  */

@@ -33,7 +33,6 @@ async function evaluate(value) {
     (_, /** @type {string} */ $1) =>
       'const {' + $1.replace(/ as /g, ': ') + '} = arguments[0].vue'
   )
-  // @ts-expect-error: to do xdm (and mdx-js/mdx soon) also supports strings instead of vfiles for run.
   return run(body, {vue, useMDXComponents})
 }
 
