@@ -142,6 +142,7 @@ Some more observations:
 † `@mdx-js/mdx` is not coupled to React.
 You can also use it with [Preact](#), [Vue](#), [Emotion](#), [Theme UI](#),
 etc.
+Both the classic and automatic JSX runtimes are supported.
 
 See [§ MDX content](#) below on how to use the result.
 

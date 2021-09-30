@@ -782,7 +782,6 @@ button:focus {
 
   code {
     background-color: var(--gray-6);
-    color: var(--gray-0);
   }
 
   pre code,
