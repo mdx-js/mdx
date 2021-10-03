@@ -240,13 +240,7 @@ The following keys can be passed in `components`:
     `<So />` or `<like.so />`, note that locally defined components take
     precedence)**‡**
 
-**†** Normally, in markdown, those are: `a`, `blockquote`, `code`, `em`, `h1`,
-`h2`, `h3`, `h4`, `h5`, `h6`, `hr`, `img`, `li`, `ol`, `p`, `pre`, `strong`, and
-`ul`.
-With [`remark-gfm`][gfm] ([see guide](#)), you can also use: `del`, `table`,
-`tbody`, `td`, `th`, `thead`, and `tr`.
-Other remark plugins that add support for new constructs and advertise that they
-work with rehype, will also work with MDX.
+**†** See the [§ Table of components](/table-of-components/) for examples
 
 **‡** The rules for whether a name in JSX (`x` in `<x>`) is a literal tag name
 or not, are as follows:
@@ -381,8 +375,6 @@ Now you can remove the explicit and verbose component passing:
 -<Contributing components={props.components} />
 +<Contributing />
 ```
-
-[gfm]: https://github.com/remarkjs/remark-gfm
 
 [context]: https://reactjs.org/docs/context.html
 
