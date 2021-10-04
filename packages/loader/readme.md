@@ -64,7 +64,7 @@ module.exports = {
     rules: [
       // …
       {
-        test: /\.(md|markdown|mdown|mkdn|mkd|mdwn|mkdown|ron|mdx)$/,
+        test: /\.mdx?$/,
         use: [{loader: '@mdx-js/loader', options: {}}]
       }
     ]
