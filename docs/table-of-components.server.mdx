@@ -1,11 +1,423 @@
-import TableOfComponents from './_component/table-of-components.server.mdx'
 export const navSortSelf = 3
 
 # Table of components
 
-[`MDXProvider`](/getting-started/#mdxprovider) uses React Context to provide
-the component mapping internally to MDX when it renders.
-The following components are rendered from Markdown, so these can be keys in the
-component object you pass to `MDXProvider`.
+A great thing about MDX is that you can write markdown and specify a component
+to be used instead of an HTML element.
+The following table lists those HTML elements that can be overwritten,
+the needed markdown,
+and what the normal JSX for it would be.
+But, taking the first row for `a` as an example, you can replace that hyperlink
+with `<FancyLink>` by doing:
 
-<TableOfComponents/>
+```js
+import Readme from './readme.md'
+import {FancyLink} from './components/fancy-link.js'
+
+<Readme components={{a: FancyLink}} />
+```
+
+More information on how to use markdown can be found in [CommonMark][].
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Markdown syntax</th>
+      <th scope="col">Equivalent JSX</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <th scope="row">`a`</th>
+
+      <td>
+        ```mdx
+        [MDX](https://mdxjs.com)
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <p><a href="https://mdxjs.com">MDX</a></p>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`blockquote`</th>
+
+      <td>
+        ```mdx
+        > A greater than…
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <blockquote>
+            <p>A greater than…</p>
+          </blockquote>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`br`</th>
+
+      <td>
+        ```mdx
+        A backslash\
+        before a line break…
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <p>
+            A backslash<br />
+            before a line break…
+          </p>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`code`</th>
+
+      <td>
+        ````markdown
+        Some `backticks` for inline.
+
+        ```javascript
+        backtick.fences('for blocks')
+        ```
+        ````
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <p>
+            Some <code>backticks</code> for inline.
+          </p>
+          <pre><code className="language-javascript">backtick.fences('for blocks')
+          </code></pre>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`em`</th>
+
+      <td>
+        ```markdown
+        Some *asterisks* for emphasis.
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <p>Some <em>asterisks</em> for emphasis.</p>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`h1`</th>
+
+      <td>
+        ```mdx
+        # One number sign…
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <h1>One number sign…</h1>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`h2`</th>
+
+      <td>
+        ```mdx
+        ## Two number signs…
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <h2>Two number signs…</h2>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`h3`</th>
+
+      <td>
+        ```mdx
+        ### Three number signs…
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <h3>Three number signs…</h3>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`h4`</th>
+
+      <td>
+        ```mdx
+        #### Four number signs…
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <h4>Four number signs…</h4>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`h5`</th>
+
+      <td>
+        ```mdx
+        ##### Five number signs…
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <h5>Five number signs…</h5>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`h6`</th>
+
+      <td>
+        ```mdx
+        ###### Six number signs…
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <h6>Six number signs…</h6>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`hr`</th>
+
+      <td>
+        ```mdx
+        Three asterisks for a thematic break:
+
+        ***
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <p>Three asterisks for a thematic break:</p>
+          <hr />
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`img`</th>
+
+      <td>
+        ```mdx
+        ![Alt text](/logo.png)
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <p><img src="/logo.png" alt="Alt text" /></p>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`li`</th>
+
+      <td>
+        ```mdx
+        * asterisks for unordered items
+
+        1. decimals and a dot for ordered items
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <ul>
+            <li>asterisks for unordered items</li>
+          </ul>
+          <ol>
+            <li>decimals and a dot for ordered items</li>
+          </ol>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`ol`</th>
+
+      <td>
+        ```mdx
+        1. decimals and a dot for ordered
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <ol>
+            <li>decimals and a dot for ordered</li>
+          </ol>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`p`</th>
+
+      <td>
+        ```mdx
+        Just some text…
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <p>Just some text…</p>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`pre`</th>
+
+      <td>
+        ````markdown
+        ```javascript
+        backtick.fences('for blocks')
+        ```
+        ````
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <pre><code className="language-javascript">backtick.fences('for blocks')
+          </code></pre>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`strong`</th>
+
+      <td>
+        ```markdown
+        Two **asterisks** for strong.
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <p>Two <strong>asterisks</strong> for strong.</p>
+        </>
+        ```
+      </td>
+    </tr>
+
+    <tr>
+      <th scope="row">`ul`</th>
+
+      <td>
+        ```mdx
+        * asterisks for unordered
+        ```
+      </td>
+
+      <td>
+        ```jsx
+        <>
+          <ul>
+            <li>asterisks for unordered</li>
+          </ul>
+        </>
+        ```
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+The components you can overwrite use their standard HTML names.
+Normally, in markdown, those names are: `a`, `blockquote`, `br`, `code`, `em`,
+`h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `hr`, `img`, `li`, `ol`, `p`, `pre`,
+`strong`, and `ul`.
+With [`remark-gfm`][gfm] ([see guide](#)), you can also use: `del`, `input`,
+`section`, `sup`, `table`, `tbody`, `td`, `th`, `thead`, and `tr`.
+Other remark plugins that add support for new constructs and advertise that they
+work with rehype, will also work with MDX.
+
+More information on components is available in [§ Components][components] in the
+article on Using MDX.
+
+[gfm]: https://github.com/remarkjs/remark-gfm
+
+[components]: /using-mdx/#components
+
+[commonmark]: https://spec.commonmark.org/0.30/
