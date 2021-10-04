@@ -86,7 +86,7 @@
     "remark-cli": "^10.0.0",
     "remark-frontmatter": "^4.0.0",
     "remark-gemoji": "^7.0.0",
-    "remark-gfm": "^2.0.0",
+    "remark-gfm": "^3.0.0",
     "remark-github": "^11.0.0",
     "remark-mdx-frontmatter": "^1.0.0",
     "remark-preset-wooorm": "^9.0.0",

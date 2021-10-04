@@ -17,7 +17,6 @@ import {render} from 'preact-render-to-string'
 import React from 'react'
 import rehypeKatex from 'rehype-katex'
 import rehypeRaw from 'rehype-raw'
-import remarkFootnotes from 'remark-footnotes'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -908,6 +907,23 @@ test('markdown (GFM, with `remark-gfm`)', async () => {
   assert.equal(
     renderToStaticMarkup(
       React.createElement(
+        await run(compileSync('[^a]\n[^a]: b', {remarkPlugins: [remarkGfm]}))
+      )
+    ),
+    `<p><sup><a href="#user-content-fn-a" id="user-content-fnref-a" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup></p>
+<section data-footnotes="true" class="footnotes"><h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="user-content-fn-a">
+<p>b <a href="#user-content-fnref-a" data-footnote-backref="true" class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+</li>
+</ol>
+</section>`,
+    'should support footnotes (`[^a]` -> `<sup><a…>`)'
+  )
+
+  assert.equal(
+    renderToStaticMarkup(
+      React.createElement(
         await run(compileSync('| a |\n| - |', {remarkPlugins: [remarkGfm]}))
       )
     ),
@@ -978,22 +994,6 @@ test('markdown (math, `remark-math`, `rehype-katex`)', async () => {
     ),
     /<math/,
     'should support math (LaTeX)'
-  )
-})
-
-test('markdown (footnotes, `remark-footnotes`)', async () => {
-  assert.equal(
-    renderToStaticMarkup(
-      React.createElement(
-        await run(
-          compileSync('^[note]', {
-            remarkPlugins: [[remarkFootnotes, {inlineNotes: true}]]
-          })
-        )
-      )
-    ),
-    '<p><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>\n<section class="footnotes" role="doc-endnotes">\n<hr/>\n<ol>\n<li id="fn1" role="doc-endnote">note<a href="#fnref1" class="footnote-back" role="doc-backlink">↩</a></li>\n</ol>\n</section>',
-    'should support footnotes'
   )
 })
 
