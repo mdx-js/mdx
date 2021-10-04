@@ -11,8 +11,8 @@ type LoaderContext = import('webpack').LoaderContext<unknown>
 declare module '*.mdx' {
   import {ComponentType} from 'react'
 
-  const MDXComponent: ComponentType
-  export default MDXComponent
+  const content: ComponentType
+  export default content
 }
 
 /**
@@ -25,8 +25,8 @@ declare module '*.mdx' {
  *   The original module source code.
  * @returns {void}
  */
-declare function MdxLoader(this: LoaderContext, value: string): void
+declare function mdxLoader(this: LoaderContext, value: string): void
 
-export default MdxLoader
+export default mdxLoader
 
 export type Options = ProcessorOptions
