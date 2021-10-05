@@ -12,7 +12,7 @@ See [§ Using MDX][use] when you’re all set up and ready to use MDX.
 *   [Quick start](#quick-start)
     *   [Bundler](#bundler)
     *   [JSX](#jsx)
-    *   [Third-party integrations](#third-party-integrations)
+    *   [Types](#types)
 *   [Integrations](#integrations)
     *   [Bundlers](#bundlers)
     *   [Build systems](#build-systems)
@@ -69,6 +69,16 @@ info on getting started with them:
 [¶ Rollup](#rollup), [¶ Vite](#vite), [¶ Vue CLI](#vue-cli),
 [¶ WMR](#wmr), [¶ webpack](#webpack).
 
+There are also certain community driven integrations.
+As we’ve just hit a major milestone with v2, they will likely be out of date
+with our docs here.
+See:
+[¶ Gatsby](#gatsby),
+[¶ Parcel](#parcel),
+[¶ Razzle](#razzle),
+[¶ React Static](#react-static), and
+[¶ Snowpack](#snowpack).
+
 ### JSX
 
 Now you’ve set up `@mdx-js/mdx` or an integration, it’s time to configure your
@@ -103,18 +113,33 @@ info on getting started with them:
 [¶ Theme UI](#theme-ui), or
 [¶ Vue](#vue).
 
-### Third-party integrations
+### Types
 
-There are also certain community driven integrations.
-As we’ve just hit a major milestone with v2, they will likely be out of date
-with our docs here.
+All our APIs are fully typed with
+[TypeScript](https://www.typescriptlang.org).
+To enable types for imported `.mdx`, `.md`, etcetera files, first make sure
+the TypeScript `JSX` namespace is typed (such as by importing the `react`
+types if you’re using that) and then install
+[`@types/mdx`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/mdx).
+Then to use these types in JavaScript, do:
 
-See:
-[¶ Gatsby](#gatsby),
-[¶ Parcel](#parcel),
-[¶ Razzle](#razzle),
-[¶ React Static](#react-static), and
-[¶ Snowpack](#snowpack).
+```js
+/**
+ * @typedef {import('react')}
+ * @typedef {import('@types/mdx')}
+ */
+
+import Post from './example.mdx' // `Post` is now typed.
+```
+
+Alternatively, in TypeScript, do:
+
+```ts
+/// <reference types="react" />
+/// <reference types="@types/mdx" />
+
+import Post from './example.mdx' // `Post` is now typed.
+```
 
 ## Integrations
 

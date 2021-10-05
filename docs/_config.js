@@ -46,6 +46,7 @@ export const redirect = {
   '/advanced/specification/index.html': '/advanced/ast/',
   '/advanced/sync-api/index.html': '/advanced/api/#sync-api',
   '/advanced/transform-content/index.html': '/packages/remark-mdx/',
+  '/advanced/typescript/index.html': '/getting-started/#types',
   '/advanced/writing-a-plugin/index.html': '/guides/custom-loader/',
   '/editor-plugins/index.html': '/editors/',
   '/getting-started/create-react-app/index.html':
