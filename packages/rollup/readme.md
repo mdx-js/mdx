@@ -58,7 +58,6 @@ yarn add @mdx-js/rollup
 Add something along these lines to your `rollup.config.js`:
 
 ```js
-import path from 'node:path'
 import mdx from '@mdx-js/rollup'
 
 export default {
@@ -105,7 +104,7 @@ export default {
     mdx({/* Options… */}),
     babel({
       // Also run on what used to be `.mdx` (but is now JS):
-      extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.mdx'],
+      extensions: ['.js', '.jsx', '.cjs', '.mjs', '.md', '.mdx'],
       // Other options…
     })
   ]

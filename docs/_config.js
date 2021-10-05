@@ -33,6 +33,7 @@ export const config = {
   author: 'MDX contributors'
 }
 
+// To do: check if all the hashes still work.
 export const redirect = {
   '/editor-plugins/index.html': '/editors/',
   '/plugins/index.html': '/advanced/plugins/',
@@ -45,5 +46,12 @@ export const redirect = {
   '/advanced/sync-api/index.html': '/advanced/api/#sync-api',
   '/advanced/writing-a-plugin/index.html': '/guides/custom-loader/',
   '/getting-started/table-of-components/index.html': '/table-of-components/',
-  '/getting-started/typescript/index.html': '/advanced/typescript/'
+  '/getting-started/typescript/index.html': '/advanced/typescript/',
+  '/getting-started/create-react-app/index.html':
+    '/getting-started/#create-react-app-cra',
+  '/getting-started/gatsby/index.html': '/getting-started/#gatsby',
+  '/getting-started/next/index.html': '/getting-started/#nextjs',
+  '/getting-started/parcel/index.html': '/getting-started/#parcel',
+  '/getting-started/react-static/index.html': '/getting-started/#react-static',
+  '/getting-started/webpack/index.html': '/getting-started/#webpack'
 }
