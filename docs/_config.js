@@ -35,12 +35,17 @@ export const config = {
 
 // To do: check if all the hashes still work.
 export const redirect = {
+  '/advanced/api/index.html': '/packages/mdx/#api',
+  '/advanced/ast/index.html': '/packages/remark-mdx/#syntax-tree',
+  '/advanced/components/index.html': '/using-mdx/',
   '/advanced/contributing/index.html': '/contributing/',
   '/advanced/custom-loader/index.html': '/guides/custom-loader/',
   '/advanced/retext-plugins/index.html':
     '/advanced/using-plugins/#using-retext-plugins',
+  '/advanced/runtime/index.html': '/packages/mdx/#evaluatefile-options',
   '/advanced/specification/index.html': '/advanced/ast/',
   '/advanced/sync-api/index.html': '/advanced/api/#sync-api',
+  '/advanced/transform-content/index.html': '/packages/remark-mdx/',
   '/advanced/writing-a-plugin/index.html': '/guides/custom-loader/',
   '/editor-plugins/index.html': '/editors/',
   '/getting-started/create-react-app/index.html':
@@ -52,6 +57,9 @@ export const redirect = {
   '/getting-started/table-of-components/index.html': '/table-of-components/',
   '/getting-started/typescript/index.html': '/advanced/typescript/',
   '/getting-started/webpack/index.html': '/getting-started/#webpack',
+  '/guides/table-of-contents/index.html':
+    'https://github.com/remarkjs/remark-toc',
+  '/guides/vue/index.html': '/getting-started/#vue',
   '/plugins/index.html': '/advanced/plugins/',
   '/syntax/index.html': '/getting-started/#syntax'
 }
