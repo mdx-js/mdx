@@ -58,6 +58,7 @@ export const redirect = {
   '/getting-started/table-of-components/index.html': '/table-of-components/',
   '/getting-started/typescript/index.html': '/advanced/typescript/',
   '/getting-started/webpack/index.html': '/getting-started/#webpack',
+  '/guides/math-blocks/index.html': '/guides/math/',
   '/guides/table-of-contents/index.html':
     'https://github.com/remarkjs/remark-toc',
   '/guides/vue/index.html': '/getting-started/#vue',
