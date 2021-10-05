@@ -35,9 +35,6 @@ export const config = {
 
 // To do: check if all the hashes still work.
 export const redirect = {
-  '/editor-plugins/index.html': '/editors/',
-  '/plugins/index.html': '/advanced/plugins/',
-  '/syntax/index.html': '/getting-started/#syntax',
   '/advanced/contributing/index.html': '/contributing/',
   '/advanced/custom-loader/index.html': '/guides/custom-loader/',
   '/advanced/retext-plugins/index.html':
@@ -45,13 +42,16 @@ export const redirect = {
   '/advanced/specification/index.html': '/advanced/ast/',
   '/advanced/sync-api/index.html': '/advanced/api/#sync-api',
   '/advanced/writing-a-plugin/index.html': '/guides/custom-loader/',
-  '/getting-started/table-of-components/index.html': '/table-of-components/',
-  '/getting-started/typescript/index.html': '/advanced/typescript/',
+  '/editor-plugins/index.html': '/editors/',
   '/getting-started/create-react-app/index.html':
     '/getting-started/#create-react-app-cra',
   '/getting-started/gatsby/index.html': '/getting-started/#gatsby',
   '/getting-started/next/index.html': '/getting-started/#nextjs',
   '/getting-started/parcel/index.html': '/getting-started/#parcel',
   '/getting-started/react-static/index.html': '/getting-started/#react-static',
-  '/getting-started/webpack/index.html': '/getting-started/#webpack'
+  '/getting-started/table-of-components/index.html': '/table-of-components/',
+  '/getting-started/typescript/index.html': '/advanced/typescript/',
+  '/getting-started/webpack/index.html': '/getting-started/#webpack',
+  '/plugins/index.html': '/advanced/plugins/',
+  '/syntax/index.html': '/getting-started/#syntax'
 }
