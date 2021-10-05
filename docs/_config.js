@@ -64,6 +64,7 @@ export const redirect = {
   '/guides/markdown-in-components/index.html':
     '/mdx/#markdown-for-the-component-era',
   '/guides/math-blocks/index.html': '/guides/math/',
+  '/guides/mdx-embed/index.html': '/guides/embed/#embeds-at-run-time',
   '/guides/table-of-contents/index.html':
     'https://github.com/remarkjs/remark-toc',
   '/guides/terminal/index.html': '/getting-started/#ink',

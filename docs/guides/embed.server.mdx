@@ -1,0 +1,113 @@
+# Embed
+
+This guide explores how to embed things like tweets, gists or codepens in
+markdown.
+There are two ways to accomplish embeds: at compile time or at
+runtime.
+Doing it at compile time means a bit of extra effort is spent when compiling but
+that readers will have a very fast experience.
+Doing it at runtime gives some flexibility but depends on what framework you use
+(so it’s specific to react, preact, vue, etc.) and moves all the work to your
+users.
+
+## Embeds at compile time
+
+You can use [`@remark-embedder/core`][remark-embedder] by doing something like
+this:
+
+```js
+import {compile} from '@mdx-js/mdx'
+// Node currently can’t pick up on the default exports by `@remark-embedder`.
+import fauxRemarkEmbedder from '@remark-embedder/core'
+import fauxOembedTransformer from '@remark-embedder/transformer-oembed'
+const remarkEmbedder = fauxRemarkEmbedder.default
+const oembedTransformer = fauxOembedTransformer.default
+
+main(`
+Check out this video:
+
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+`)
+
+async function main(code) {
+  console.log(
+    String(
+      await compile(code, {
+        remarkPlugins: [[remarkEmbedder, {transformers: [oembedTransformer]}]]
+      })
+    )
+  )
+}
+```
+
+<details>
+  <summary>Show equivalent JSX</summary>
+
+  ```js
+  <>
+    <p>Check out this video:</p>
+    <iframe width="200" height="113" src="https://www.youtube.com/embed/dQw4w9WgXcQ?feature=oembed" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+  </>
+  ```
+</details>
+
+## Embeds at run time
+
+You can use the React-specific [MDX Embed][mdx-embed] to embed things in MDX.
+Here is an example MDX file that uses a specific embed without `@mdx-js/react`:
+
+```mdx
+import {CodePen} from 'mdx-embed'
+
+Here’s a codepen, and some other blog post text.
+
+<CodePen codePenId="PNaGbb" />
+```
+
+<details>
+  <summary>Show equivalent JSX</summary>
+
+  ```js
+  <>
+    <p>Here’s a codepen, and some other blog post text.</p>
+    <CodePen codePenId="PNaGbb" />
+  </>
+  ```
+</details>
+
+If you don’t want to use explicit imports in MDX files:
+
+`example.mdx`:
+
+```mdx
+Here’s a codepen, and some other blog post text.
+
+<CodePen codePenId="PNaGbb" />
+```
+
+Then you can either pass all components:
+
+```jsx
+import * as embeds from 'mdx-embed'
+import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+<Example components={...embeds} />
+```
+
+If you have installed and configured [`@mdx-js/react`][mdx-react],
+you can also use `MDXEmbedProvider`:
+
+```jsx
+import {MDXEmbedProvider} from 'mdx-embed'
+import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+<MDXEmbedProvider>
+  <Example />
+</MDXEmbedProvider>
+```
+
+[remark-embedder]: https://github.com/remark-embedder/core
+
+[mdx-embed]: https://www.mdx-embed.com/
+
+[mdx-react]: /packages/react/
