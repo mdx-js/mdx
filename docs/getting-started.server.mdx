@@ -390,8 +390,8 @@ Which in turn lets us choose whether to use the `@mdx-js/mdx` or
     return parser.parse(value, options)
   }
 
-  // A “recma” plugin is a unified plugin that runs on the estree (used by xdm
-  // and much of the JS ecosystem but not Babel).
+  // A “recma” plugin is a unified plugin that runs on the estree (used by
+  // `@mdx-js/mdx` and much of the JS ecosystem but not Babel).
   // This plugin defines `'estree-to-babel'` as the compiler, which means that
   // the resulting Babel tree is given back by `compileSync`.
   function recmaBabel() {

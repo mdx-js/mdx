@@ -1,0 +1,93 @@
+# Frontmatter
+
+This guide explores how to support YAML frontmatter in markdown and MDX.
+MDX supports standard markdown syntax ([CommonMark][]).
+That means frontmatter is not supported by default.
+MDX also comes with support for ESM (import/exports) which is a powerful dynamic
+alternative.
+
+Say we have this `post.mdx`:
+
+```mdx
+export const name = 'World'
+export const title = 'Hi, ' + name + '!'
+
+# {title}
+```
+
+Used like so:
+
+```js
+import * as Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+console.log(Post.title) // Prints 'Hi, World!'
+```
+
+Still, you might prefer frontmatter because it lets you define data that can be
+extracted from files *without* (or before) compiling:
+
+Say our `post.mdx` with frontmatter looked like this:
+
+```mdx
+---
+title: Hi, World!
+---
+
+# Hi, World!
+```
+
+Then without compiling or evaluating that file the metadata can be accessed like
+so:
+
+```js
+import {promises as fs} from 'node:fs'
+import yaml from 'js-yaml'
+
+main()
+
+async function main() {
+  console.log(yaml.loadAll(await fs.readFile('example.mdx'))[0]) // Prints `{title: 'Hi, World!'}`
+}
+```
+
+`@mdx-js/mdx` doesn’t understand YAML frontmatter by default but can understand
+it using [`remark-frontmatter`][remark-frontmatter]:
+
+```js
+import {promises as fs} from 'node:fs'
+import remarkFrontmatter from 'remark-frontmatter'
+import {compile} from '@mdx-js/mdx'
+
+main()
+
+async function main() {
+  console.log(
+    await compile(await fs.readFile('example.mdx'), {
+      remarkPlugins: [remarkFrontmatter]
+    })
+  )
+}
+```
+
+Now it “works”: the frontmatter is ignored.
+But it’s not available from *inside* the MDX.
+What if we wanted to use frontmatter from inside the MDX file too?
+Like so?
+
+```mdx
+---
+title: Hi, World!
+---
+
+# {frontmatter.title}
+```
+
+That’s what
+[`remark-mdx-frontmatter`][remark-mdx-frontmatter]
+does.
+
+[commonmark]: https://commonmark.org
+
+[remark-frontmatter]: https://github.com/remarkjs/remark-frontmatter
+
+[remark-mdx-frontmatter]: https://github.com/remcohaszing/remark-mdx-frontmatter
