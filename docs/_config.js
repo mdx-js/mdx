@@ -58,10 +58,17 @@ export const redirect = {
   '/getting-started/table-of-components/index.html': '/table-of-components/',
   '/getting-started/typescript/index.html': '/advanced/typescript/',
   '/getting-started/webpack/index.html': '/getting-started/#webpack',
+  '/guides/custom-loader/index.html': '/guides/frontmatter/',
+  '/guides/live-code/index.html':
+    '/guides/syntax-highlighting/#syntax-highlighting-with-the-meta-field',
+  '/guides/markdown-in-components/index.html':
+    '/mdx/#markdown-for-the-component-era',
   '/guides/math-blocks/index.html': '/guides/math/',
   '/guides/table-of-contents/index.html':
     'https://github.com/remarkjs/remark-toc',
+  '/guides/terminal/index.html': '/getting-started/#ink',
   '/guides/vue/index.html': '/getting-started/#vue',
+  '/guides/wrapper-customization/index.html': '/using-mdx/#layout',
   '/plugins/index.html': '/advanced/plugins/',
   '/syntax/index.html': '/getting-started/#syntax'
 }

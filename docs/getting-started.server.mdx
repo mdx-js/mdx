@@ -540,6 +540,39 @@ and Ink’s documentation on what you can use as replacements.
 See also [¶ React](#react) and [¶ Node.js](#nodejs), which you’re using, for
 more info.
 
+<details>
+  <summary>Show example</summary>
+
+  `example.mdx`:
+
+  ```mdx
+  # Hi!
+  ```
+
+  `example.js`
+
+  ```js
+  import React from 'react'
+  import {render, Text} from 'ink'
+  import Content from './example.mdx'
+
+  const components = {
+    h1(props) {
+      return React.createElement(Text, {bold: true, ...props})
+    },
+    p: Text
+  }
+
+  render(React.createElement(Content, {components}))
+  ```
+
+  Can be used with:
+
+  ```sh
+  node --experimental-loader=@mdx-js/node-loader example.js
+  ```
+</details>
+
 #### Preact
 
 Preact is supported when `options.jsxImportSource` is set to `'preact'`.
