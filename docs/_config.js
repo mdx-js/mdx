@@ -49,7 +49,8 @@ export const redirect = {
   '/advanced/transform-content/index.html': '/packages/remark-mdx/',
   '/advanced/typescript/index.html': '/getting-started/#types',
   '/advanced/writing-a-plugin/index.html': '/guides/frontmatter/',
-  '/editor-plugins/index.html': '/editors/',
+  '/editor-plugins/index.html': '/getting-started/#editor',
+  '/editors/index.html': '/getting-started/#editor',
   '/getting-started/create-react-app/index.html':
     '/getting-started/#create-react-app-cra',
   '/getting-started/gatsby/index.html': '/getting-started/#gatsby',
