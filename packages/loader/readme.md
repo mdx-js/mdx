@@ -77,13 +77,13 @@ module.exports = {
 This package exports a [webpack][] plugin as the default export.
 
 Source maps are supported when
-[`options.SourceMapGenerator`](https://mdxjs.com/packages/mdx/#optionssourcemapgenerator)
+[`options.SourceMapGenerator`](https://v2.mdxjs.com/packages/mdx/#optionssourcemapgenerator)
 is passed in.
 
 ###### `options`
 
 `options` are the same as
-[`compile`](https://mdxjs.com/packages/mdx/#compilefile-options)
+[`compile`](https://v2.mdxjs.com/packages/mdx/#compilefile-options)
 from `@mdx-js/mdx`.
 
 ###### Note: Babel
@@ -149,8 +149,8 @@ import Post from './example.mdx'
 
 ## Security
 
-See [§ Security](https://mdxjs.com/getting-started/#security) on our website for
-information.
+See [§ Security](https://v2.mdxjs.com/getting-started/#security) on our website
+for information.
 
 ## Contribute
 

@@ -85,7 +85,7 @@ See esbuild’s docs for more info.
 ###### `options`
 
 `options` are the same as
-[`compile`](https://mdxjs.com/packages/mdx/#compilefile-options) from
+[`compile`](https://v2.mdxjs.com/packages/mdx/#compilefile-options) from
 `@mdx-js/mdx` with the
 addition of:
 
@@ -93,7 +93,8 @@ addition of:
 
 > ⚠️ **Security**: this includes remote code in your bundle.
 > Make sure you trust it!
-> See [§ Security](https://mdxjs.com/getting-started/#security) for more info.
+> See [§ Security](https://v2.mdxjs.com/getting-started/#security) for more
+> info.
 
 > 💡 **Experiment**: this is an experimental feature that might not work
 > well and might change in minor releases.
@@ -167,8 +168,8 @@ import Post from './example.mdx'
 
 ## Security
 
-See [§ Security](https://mdxjs.com/getting-started/#security) on our website for
-information.
+See [§ Security](https://v2.mdxjs.com/getting-started/#security) on our website
+for information.
 
 ## Contribute
 

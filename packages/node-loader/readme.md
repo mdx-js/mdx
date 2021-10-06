@@ -106,7 +106,7 @@ Create a Node ESM loader to compile MDX to JS.
 ###### `options`
 
 `options` are the same as
-[`compile`](https://mdxjs.com/packages/mdx/#compilefile-options)
+[`compile`](https://v2.mdxjs.com/packages/mdx/#compilefile-options)
 from `@mdx-js/mdx`.
 
 ###### Example
@@ -157,8 +157,8 @@ import Post from './example.mdx'
 
 ## Security
 
-See [§ Security](https://mdxjs.com/getting-started/#security) on our website for
-information.
+See [§ Security](https://v2.mdxjs.com/getting-started/#security) on our website
+for information.
 
 ## Contribute
 

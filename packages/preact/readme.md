@@ -162,8 +162,8 @@ configuration for the functions and components from this project.
 
 ## Security
 
-See [§ Security](https://mdxjs.com/getting-started/#security) on our website for
-information.
+See [§ Security](https://v2.mdxjs.com/getting-started/#security) on our website
+for information.
 
 ## Contribute
 

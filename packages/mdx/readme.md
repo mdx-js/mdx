@@ -61,9 +61,9 @@ yarn add @mdx-js/mdx
 ## Use
 
 This section describes how to use the API.
-See [§ What is MDX?](https://mdxjs.com/mdx/) on how the format works.
-See [§ Integrations](/getting-started/#integrations) on how to use MDX with
-Babel, esbuild, Rollup, webpack, etc.
+See [§ What is MDX?](https://v2.mdxjs.com/mdx/) on how the format works.
+See [§ Integrations](https://v2.mdxjs.com/getting-started/#integrations) on how
+to use MDX with Babel, esbuild, Rollup, webpack, etc.
 
 Say we have an MDX document, `example.mdx`:
 
@@ -141,14 +141,14 @@ Some more observations:
     wrap the whole content
 
 † `@mdx-js/mdx` is not coupled to React.
-You can also use it with [Preact](https://mdxjs.com/getting-started/#preact),
-[Vue](https://mdxjs.com/getting-started/#vue),
-[Emotion](https://mdxjs.com/getting-started/#emotion),
-[Theme UI](https://mdxjs.com/getting-started/#theme-ui),
+You can also use it with [Preact](https://v2.mdxjs.com/getting-started/#preact),
+[Vue](https://v2.mdxjs.com/getting-started/#vue),
+[Emotion](https://v2.mdxjs.com/getting-started/#emotion),
+[Theme UI](https://v2.mdxjs.com/getting-started/#theme-ui),
 etc.
 Both the classic and automatic JSX runtimes are supported.
 
-See [§ Using MDX](https://mdxjs.com/using-mdx/) on how to use the result.
+See [§ Using MDX](https://v2.mdxjs.com/using-mdx/) on how to use the result.
 
 ## API
 
@@ -240,7 +240,7 @@ List of markdown extensions, with dot (`string[]`, default: `['.md',
 
 List of MDX extensions, with dot (`string[]`, default: `['.mdx']`).
 Has no effect in `compile` or `evaluate` but does affect
-[§ Integrations](https://mdxjs.com/getting-started/#integrations).
+[§ Integrations](https://v2.mdxjs.com/getting-started/#integrations).
 
 ###### `options.format`
 
@@ -869,8 +869,8 @@ small and fast JS generator.
 
 ## Security
 
-See [§ Security](https://mdxjs.com/getting-started/#security) on our website for
-information.
+See [§ Security](https://v2.mdxjs.com/getting-started/#security) on our website
+for information.
 
 ## Contribute
 
@@ -941,7 +941,7 @@ abide by its terms.
 
 [rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
 
-[mdx-syntax]: https://mdxjs.com/mdx/#mdx-syntax
+[mdx-syntax]: https://v2.mdxjs.com/mdx/#mdx-syntax
 
 [use]: #use
 
