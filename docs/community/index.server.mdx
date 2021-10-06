@@ -1,0 +1,18 @@
+import {NavGroup} from '../_component/nav.server.js'
+export const navSortSelf = 9
+
+# Community
+
+{
+  (() => {
+    const category = props.navTree.children.find(
+      item => item.name === '/community/'
+    )
+
+    return (
+      <nav>
+        <NavGroup items={category.children} includeDescription />
+      </nav>
+    )
+  })()
+}
