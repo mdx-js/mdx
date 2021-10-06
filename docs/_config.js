@@ -39,7 +39,7 @@ export const redirect = {
   '/advanced/api/index.html': '/packages/mdx/#api',
   '/advanced/ast/index.html': '/packages/remark-mdx/#syntax-tree',
   '/advanced/components/index.html': '/using-mdx/',
-  '/advanced/contributing/index.html': '/contributing/',
+  '/advanced/contributing/index.html': '/community/contribute/',
   '/advanced/custom-loader/index.html': '/guides/frontmatter/',
   '/advanced/retext-plugins/index.html': '/extending-mdx/#using-plugins',
   '/advanced/plugins/index.html': '/extending-mdx/',
@@ -49,6 +49,7 @@ export const redirect = {
   '/advanced/transform-content/index.html': '/packages/remark-mdx/',
   '/advanced/typescript/index.html': '/getting-started/#types',
   '/advanced/writing-a-plugin/index.html': '/guides/frontmatter/',
+  '/contributing/index.html': '/community/contribute/',
   '/editor-plugins/index.html': '/getting-started/#editor',
   '/editors/index.html': '/getting-started/#editor',
   '/getting-started/create-react-app/index.html':

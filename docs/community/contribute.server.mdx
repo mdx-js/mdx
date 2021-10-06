@@ -1,0 +1,105 @@
+# Contribute
+
+This article explains how to contribute to MDX.
+Please take a moment to read the following guidelines.
+
+{/* Make the next p a callout. */}
+
+Before participating in our community, please read our [code of conduct][coc].
+By interacting with this repository, organization, or community you agree to
+abide by its terms.
+
+## Contributions
+
+There’s several ways to contribute, not just by writing code.
+If you have questions, please see [§ Support][support].
+If you can provide financial support, please see [§ Sponsor](#).
+
+### Improve docs
+
+As a user you’re perfect for helping us improve our docs.
+Typo corrections, error fixes, better explanations, new examples, etcetera.
+All MDX docs live in the `docs/` directory.
+
+### Improve issues
+
+Some issues lack information, aren’t reproducible, or are just incorrect.
+You can help by trying to make them easier to resolve.
+Existing issues might benefit from your unique experience or opinions.
+
+### Write code
+
+Code contributions are very welcome.
+It’s probably a good idea to first post a question or open an issue to report a
+bug or suggest a new feature before creating a pull request.
+
+## Submitting an issue
+
+*   The issue tracker is for issues.
+    Use discussions for support
+*   Search the issue tracker (including closed issues) before opening a new
+    issue
+*   Ensure you’re using the latest version of our packages
+*   Use a clear and descriptive title
+*   Include as much information as possible: steps to reproduce the issue,
+    error message, version, operating system, etcetera
+*   The more time you put into an issue, the better we will be able to help you
+*   The best issue report is a [failing test][unit-test] proving it
+
+## Submitting a pull request
+
+*   See [¶ Project][project] below for info on how the project is structured,
+    how to test, and how to build the site
+*   Non-trivial changes are often best discussed in an issue first, to prevent
+    you from doing unnecessary work
+*   For ambitious tasks, you should try to get your work in front of the
+    community for feedback as soon as possible
+*   New features should be accompanied with tests and documentation
+*   Don’t include unrelated changes
+*   Test before submitting code by running `npm test`
+*   Write a convincing description of why we should land your pull request:
+    it’s your job to convince us
+
+## Project
+
+### Structure
+
+MDX is a monorepo.
+All packages are in `packages/`.
+Documentation is in `docs/`.
+
+### Tests
+
+To run the tests, do `npm install` and `npm test`.
+This ensures everything is okay, from code style to unit tests to types.
+
+### Site
+
+To build the site, do `npm install` and `npm run docs`.
+This produces the website in `public/`.
+
+### Release
+
+{/* To do: update release guidelines */}
+
+To release a new version, do:
+
+*   Draft a release for the next version (vX.X.X)
+*   `yarn && yarn test && yarn lerna publish --force-publish`
+*   Publish release on GitHub
+
+## Resources
+
+*   [Good first issues in the MDX repository](https://github.com/mdx-js/mdx/labels/good%20first%20issue%20👋)
+*   [How to contribute to open source](https://opensource.guide/how-to-contribute/)
+*   [Making your first contribution](https://medium.com/@vadimdemedes/making-your-first-contribution-de6576ddb190)
+*   [Using pull requests](https://help.github.com/articles/about-pull-requests/)
+*   [GitHub help](https://help.github.com)
+
+[coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
+
+[unit-test]: https://twitter.com/sindresorhus/status/579306280495357953
+
+[support]: /community/support/
+
+[project]: #project
