@@ -52,7 +52,7 @@ gives you the most control.
 Or even higher: if you’re using a bundler (webpack, rollup, esbuild), or a site
 builder (gatsby, next) or build system (vite, snowpack) which comes with a
 bundler, you’re better off using an integration: see
-[§ Integrations](/getting-started/#integrations).
+[§ Integrations](https://v2.mdxjs.com/getting-started/#integrations).
 
 ## Install
 

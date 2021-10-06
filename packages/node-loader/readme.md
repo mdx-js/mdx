@@ -40,7 +40,7 @@ from the file system.
 If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
 next) or build system (vite, snowpack) which comes with a bundler, you’re better
 off using another integration: see
-[§ Integrations](/getting-started/#integrations).
+[§ Integrations](https://v2.mdxjs.com/getting-started/#integrations).
 
 ## Install
 

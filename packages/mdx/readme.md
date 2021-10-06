@@ -39,7 +39,8 @@ This is the core compiler for turning MDX into JavaScript and which gives you
 the most control.
 If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
 next) or build system (vite, snowpack) which comes with a bundler, you’re better
-off using an integration: see [§ Integrations](/getting-started/#integrations).
+off using an integration: see
+[§ Integrations](https://v2.mdxjs.com/getting-started/#integrations).
 
 ## Install
 
@@ -270,7 +271,8 @@ compile({value: '…', path: 'readme.md'}, {mdExtensions: []}) // Seen as MDX
 
 </details>
 
-This option mostly affects [§ Integrations](/getting-started/#integrations)
+This option mostly affects
+[§ Integrations](https://v2.mdxjs.com/getting-started/#integrations)
 because in those it affects *which* files are “registered”:
 
 *   `format: 'mdx'` registers the extensions in `options.mdxExtensions`
@@ -691,7 +693,8 @@ When possible please use the async `compile`.
 Compile and run MDX.
 ☢️ It’s called **evaluate** because it `eval`s JavaScript.
 When possible, please use `compile`, write to a file, and then run with Node,
-or use one of the [§ Integrations](/getting-started/#integrations).
+or use one of the
+[§ Integrations](https://v2.mdxjs.com/getting-started/#integrations).
 But if you trust your content, `evaluate` can work.
 
 `evaluate` wraps code in an [`AsyncFunction`][async-function], `evaluateSync`
