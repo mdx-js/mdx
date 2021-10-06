@@ -8,11 +8,12 @@ MDX supports standard markdown syntax ([CommonMark][]).
 It does not apply syntax highlighting to code blocks by default.
 There are two ways to accomplish syntax highlighting: at compile time or at
 runtime.
-Doing it at compile time means much less code is sent down the wire (syntax
+Doing it at compile time means extra effort is spent upfront, but that readers
+will have a fast experience because no extra code is sent to them (syntax
 highlighting needs a *lot* of code).
-Doing it at runtime gives some flexibility but depends on what framework you use
-(so it’s specific to react, preact, vue, etc.) and moves all the work to your
-users.
+Doing it at runtime gives more flexibility, but depends on what framework you
+use (so it’s specific to react, preact, vue, etc.) and moves the work and code
+to your users.
 
 ## Syntax highlighting at compile time
 
