@@ -74,6 +74,7 @@ export const redirect = {
   '/guides/wrapper-customization/index.html': '/using-mdx/#layout',
   '/guides/writing-a-plugin/index.html': '/extending-mdx/#creating-plugins',
   '/plugins/index.html': '/extending-mdx/#using-plugins',
+  '/projects/index.html': '/community/projects/',
   '/support/index.html': '/community/support/',
   '/syntax/index.html': '/getting-started/#syntax'
 }
