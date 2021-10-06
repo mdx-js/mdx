@@ -8,9 +8,12 @@ import {pipeToNodeWritable} from 'react-server-dom-webpack/writer'
 import pAll from 'p-all'
 import {globby} from 'globby'
 import {sitemap} from 'xast-util-sitemap'
+import {unified} from 'unified'
+import rehypeSanitize from 'rehype-sanitize'
 import {toXml} from 'xast-util-to-xml'
 import {Layout} from '../docs/_component/layout.server.js'
 import {config} from '../docs/_config.js'
+import {schema} from './schema-description.js'
 
 main().catch((error) => {
   throw error
@@ -41,6 +44,13 @@ async function main() {
       )
 
       const {default: Content, ...data} = await import(url.href)
+
+      // Sanitize the HAST description:
+      if (data.meta.descriptionHast) {
+        data.meta.descriptionHast = unified()
+          .use(rehypeSanitize, schema)
+          .runSync(data.meta.descriptionHast)
+      }
 
       return {name, url, ghUrl, nljsonUrl, jsonUrl, data, Content}
     }),
