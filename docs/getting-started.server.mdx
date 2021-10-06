@@ -12,6 +12,7 @@ See [§ Using MDX][use] when you’re all set up and ready to use MDX.
 *   [Quick start](#quick-start)
     *   [Bundler](#bundler)
     *   [JSX](#jsx)
+    *   [Editor](#editor)
     *   [Types](#types)
 *   [Integrations](#integrations)
     *   [Bundlers](#bundlers)
@@ -113,33 +114,57 @@ info on getting started with them:
 [¶ Theme UI](#theme-ui), or
 [¶ Vue](#vue).
 
+### Editor
+
+Once everything is set up in your project, you can enhance the experience by
+adding support for MDX in your editor:
+
+*   With **VS Code**,
+    try [`silvenon/vscode-mdx`](https://github.com/silvenon/vscode-mdx)
+    and/or [`xyc/vscode-mdx-preview`](https://github.com/xyc/vscode-mdx-preview)
+*   With **Vim**,
+    try [`jxnblk/vim-mdx-js`](https://github.com/jxnblk/vim-mdx-js)
+*   With **Sublime Text**,
+    try [`jonsuh/mdx-sublime`](https://github.com/jonsuh/mdx-sublime)
+*   With **JetBrains IntelliJ/WebStorm**,
+    try [`valentinnodan/mdx-intellij-plugin`](https://github.com/valentinnodan/mdx-intellij-plugin)
+
+{/* to do: call out the below? */}
+
+{<small>we’re looking for help with atom, emacs, and others!</small>}
+
 ### Types
 
 All our APIs are fully typed with
 [TypeScript](https://www.typescriptlang.org).
 To enable types for imported `.mdx`, `.md`, etcetera files, first make sure
 the TypeScript `JSX` namespace is typed (such as by importing the `react`
-types if you’re using that) and then install
+types if you’re using that) and then install and use
 [`@types/mdx`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/mdx).
-Then to use these types in JavaScript, do:
 
-```js
-/**
- * @typedef {import('react')}
- * @typedef {import('@types/mdx')}
- */
+<details>
+  <summary>Show example of types in JavaScript</summary>
 
-import Post from './example.mdx' // `Post` is now typed.
-```
+  ```js
+  /**
+   * @typedef {import('react')}
+   * @typedef {import('@types/mdx')}
+   */
 
-Alternatively, in TypeScript, do:
+  import Post from './example.mdx' // `Post` is now typed.
+  ```
+</details>
 
-```ts
-/// <reference types="react" />
-/// <reference types="@types/mdx" />
+<details>
+  <summary>Show example of types in TypeScript</summary>
 
-import Post from './example.mdx' // `Post` is now typed.
-```
+  ```js
+  /// <reference types="react" />
+  /// <reference types="@types/mdx" />
+
+  import Post from './example.mdx' // `Post` is now typed.
+  ```
+</details>
 
 ## Integrations
 

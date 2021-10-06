@@ -35,11 +35,12 @@ export const config = {
 
 // To do: check if all the hashes still work.
 export const redirect = {
+  '/about/index.html': '/community/about/',
   '/advanced/index.html': '/guides/',
   '/advanced/api/index.html': '/packages/mdx/#api',
   '/advanced/ast/index.html': '/packages/remark-mdx/#syntax-tree',
   '/advanced/components/index.html': '/using-mdx/',
-  '/advanced/contributing/index.html': '/contributing/',
+  '/advanced/contributing/index.html': '/community/contribute/',
   '/advanced/custom-loader/index.html': '/guides/frontmatter/',
   '/advanced/retext-plugins/index.html': '/extending-mdx/#using-plugins',
   '/advanced/plugins/index.html': '/extending-mdx/',
@@ -49,7 +50,9 @@ export const redirect = {
   '/advanced/transform-content/index.html': '/packages/remark-mdx/',
   '/advanced/typescript/index.html': '/getting-started/#types',
   '/advanced/writing-a-plugin/index.html': '/guides/frontmatter/',
-  '/editor-plugins/index.html': '/editors/',
+  '/contributing/index.html': '/community/contribute/',
+  '/editor-plugins/index.html': '/getting-started/#editor',
+  '/editors/index.html': '/getting-started/#editor',
   '/getting-started/create-react-app/index.html':
     '/getting-started/#create-react-app-cra',
   '/getting-started/gatsby/index.html': '/getting-started/#gatsby',
@@ -71,5 +74,7 @@ export const redirect = {
   '/guides/wrapper-customization/index.html': '/using-mdx/#layout',
   '/guides/writing-a-plugin/index.html': '/extending-mdx/#creating-plugins',
   '/plugins/index.html': '/extending-mdx/#using-plugins',
+  '/projects/index.html': '/community/projects/',
+  '/support/index.html': '/community/support/',
   '/syntax/index.html': '/getting-started/#syntax'
 }
