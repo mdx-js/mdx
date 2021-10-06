@@ -27,9 +27,9 @@ Node hook to require MDX.
 ## What is this?
 
 This package is a Node CommonJS hook to support MDX.
-[`require.extensions`](https://nodejs.org/api/modules.html#modules\_require\_extensions)
-is a deprecated feature in Node which lets projects “hijack” `require` calls to
-do fancy things, in this case it let’s you `require` MD(X) files.
+[`require.extensions`][require-extensions] is a deprecated feature in Node which
+lets projects “hijack” `require` calls to do fancy things, in this case it let’s
+you `require` MD(X) files.
 
 ## When should I use this?
 
@@ -41,7 +41,7 @@ it uses an experimental Node API.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+This package is [ESM only][esm]:
 Node 12+ is needed to use it.
 
 [npm][]:
@@ -111,19 +111,18 @@ register({/* Options… */})
 Which can then be used with `node -r ./my-hook.cjs`.
 
 The register hook uses
-[`evaluateSync`](https://v2.mdxjs.com/packages/mdx/#evaluatesyncfile-options).
+[`evaluateSync`][eval-sync].
 That means `import` (and `export … from`) are not supported when requiring
 `.mdx` files.
 
 ## Types
 
-This package is not typed as [TypeScript](https://www.typescriptlang.org)
-seems to not support `.cjs` files yet.
+This package is not typed as [TypeScript][] seems to not support `.cjs` files
+yet.
 
 ## Security
 
-See [§ Security](https://v2.mdxjs.com/getting-started/#security) on our website
-for information.
+See [§ Security][security] on our website for information.
 
 ## Contribute
 
@@ -173,3 +172,13 @@ abide by its terms.
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/register/license
 
 [author]: https://wooorm.com
+
+[require-extensions]: https://nodejs.org/api/modules.html#modules_require_extensions
+
+[eval-sync]: https://v2.mdxjs.com/packages/mdx/#evaluatesyncfile-options
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[security]: https://v2.mdxjs.com/getting-started/#security
+
+[typescript]: https://www.typescriptlang.org

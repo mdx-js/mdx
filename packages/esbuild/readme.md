@@ -36,7 +36,7 @@ then the lower-level compiler (`@mdx-js/mdx`) can be used manually.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+This package is [ESM only][esm]:
 Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
@@ -85,15 +85,14 @@ See esbuild’s docs for more info.
 ###### `options`
 
 `options` are the same as
-[`compile`](https://v2.mdxjs.com/packages/mdx/#compilefile-options) from
-`@mdx-js/mdx` with the
-addition of:
+[`compile` from `@mdx-js/mdx`][options]
+with the addition of:
 
 ###### `options.allowDangerousRemoteMdx`
 
 > ⚠️ **Security**: this includes remote code in your bundle.
 > Make sure you trust it!
-> See [§ Security](https://v2.mdxjs.com/getting-started/#security) for more
+> See [§ Security][security] for more
 > info.
 
 > 💡 **Experiment**: this is an experimental feature that might not work
@@ -140,7 +139,7 @@ evaluate React stuff) would give:
 
 ## Types
 
-This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+This package is fully typed with [TypeScript][].
 
 An additional `Options` type is exported, which represents acceptable
 configuration.
@@ -168,8 +167,7 @@ import Post from './example.mdx'
 
 ## Security
 
-See [§ Security](https://v2.mdxjs.com/getting-started/#security) on our website
-for information.
+See [§ Security][security] on our website for information.
 
 ## Contribute
 
@@ -221,3 +219,11 @@ abide by its terms.
 [author]: https://wooorm.com
 
 [esbuild]: https://esbuild.github.io
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[security]: https://v2.mdxjs.com/getting-started/#security
+
+[options]: https://v2.mdxjs.com/packages/mdx/#compilefile-options
+
+[typescript]: https://www.typescriptlang.org

@@ -29,7 +29,7 @@ Most of the time, these components and plugins are not coupled to MDX.
 For example, if you’re using React with MDX, then you can use
 [`<ReactConfetti />`][react-confetti].
 A different example is that [`remark-gfm`][remark-gfm] can be passed at compile
-time in [`options.remarkPlugins`](/packages/mdx/#optionsremarkplugins), to turn
+time in [`options.remarkPlugins`][options-remark-plugins], to turn
 on GFM features in MDX.
 We think it’s important that the MDX language is not coupled to a single
 framework and that it isn’t its own island but instead works together with
@@ -64,8 +64,8 @@ See also the [list of remark plugins][remark-plugins] and
 ## Using plugins
 
 Where to pass plugins depends on their name: remark plugins go in
-[`options.remarkPlugins`](/packages/mdx/#optionsremarkplugins), rehype plugins
-in [`rehypePlugins`](/packages/mdx/#optionsrehypeplugins).
+[`options.remarkPlugins`][options-remark-plugins], rehype plugins
+in [`options.rehypePlugins`][options-rehype-plugins].
 Those fields expect lists of plugins and/or of `[plugin, options]`:
 
 ```js
@@ -108,11 +108,11 @@ There are several guides and recipes on that in [§ Learn on
 `unifiedjs.com`][learn].
 
 For the MDX specific parts of plugins, it’s recommended to read
-[§ Architecture](/packages/mdx/#architecture) to learn how `@mdx-js/mdx` works.
+[§ Architecture][architecture] to learn how `@mdx-js/mdx` works.
 
 For info on new node types supported in MDX, see [¶ Syntax tree in
-`remark-mdx`](/packages/remark-mdx/#syntax-tree) and use our interactive
-[Playground](/playground/).
+`remark-mdx`][syntax-tree] and use our interactive
+[Playground][].
 
 [remark-plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins
 
@@ -124,6 +124,16 @@ For info on new node types supported in MDX, see [¶ Syntax tree in
 
 [remark-gfm]: https://github.com/remarkjs/remark-gfm
 
+[learn]: https://unifiedjs.com/learn/
+
 [start]: /getting-started/
 
-[learn]: https://unifiedjs.com/learn/
+[options-remark-plugins]: /packages/mdx/#optionsremarkplugins
+
+[options-rehype-plugins]: /packages/mdx/#optionsrehypeplugins
+
+[architecture]: /packages/mdx/#architecture
+
+[syntax-tree]: /packages/remark-mdx/#syntax-tree
+
+[playground]: /playground/

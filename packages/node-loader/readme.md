@@ -40,11 +40,11 @@ from the file system.
 If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
 next) or build system (vite, snowpack) which comes with a bundler, you’re better
 off using another integration: see
-[§ Integrations](https://v2.mdxjs.com/getting-started/#integrations).
+[§ Integrations][integrations].
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+This package is [ESM only][esm]:
 Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
@@ -105,9 +105,7 @@ Create a Node ESM loader to compile MDX to JS.
 
 ###### `options`
 
-`options` are the same as
-[`compile`](https://v2.mdxjs.com/packages/mdx/#compilefile-options)
-from `@mdx-js/mdx`.
+`options` are the same as [`compile` from `@mdx-js/mdx`][options].
 
 ###### Example
 
@@ -124,12 +122,11 @@ export {getFormat, transformSource}
 This example can then be used with `node --experimental-loader=my-loader.js`.
 
 Node itself does not yet support multiple loaders but it is possible to combine
-multiple loaders with
-[`@node-loader/core`](https://github.com/node-loader/node-loader-core).
+multiple loaders with [`@node-loader/core`][node-loader-core].
 
 ## Types
 
-This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+This package is fully typed with [TypeScript][].
 
 An additional `Options` type is exported, which represents acceptable
 configuration.
@@ -157,8 +154,7 @@ import Post from './example.mdx'
 
 ## Security
 
-See [§ Security](https://v2.mdxjs.com/getting-started/#security) on our website
-for information.
+See [§ Security][security] on our website for information.
 
 ## Contribute
 
@@ -210,3 +206,15 @@ abide by its terms.
 [author]: https://wooorm.com
 
 [loader]: https://nodejs.org/api/esm.html#esm_loaders
+
+[integrations]: https://v2.mdxjs.com/getting-started/#integrations
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[security]: https://v2.mdxjs.com/getting-started/#security
+
+[options]: https://v2.mdxjs.com/packages/mdx/#compilefile-options
+
+[typescript]: https://www.typescriptlang.org
+
+[node-loader-core]: https://github.com/node-loader/node-loader-core
