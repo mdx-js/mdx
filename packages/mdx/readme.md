@@ -148,7 +148,7 @@ You can also use it with [Preact](https://mdxjs.com/getting-started/#preact),
 etc.
 Both the classic and automatic JSX runtimes are supported.
 
-See [§ Using MDX](https://mdxjs.com/using-mdx/) below on how to use the result.
+See [§ Using MDX](https://mdxjs.com/using-mdx/) on how to use the result.
 
 ## API
 
