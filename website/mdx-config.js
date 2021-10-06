@@ -49,7 +49,10 @@ const options = {
   rehypePlugins: [
     unifiedInferRemoteMeta,
     unifiedInferGitMeta,
-    [rehypeInferDescriptionMeta, {inferDescriptionHast: true}],
+    [
+      rehypeInferDescriptionMeta,
+      {inferDescriptionHast: true, truncateSize: 280}
+    ],
     rehypeInferReadingTimeMeta,
     rehypeInferTitleMeta,
     [rehypeShiftHeading, {shift: 1}],

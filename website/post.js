@@ -15,34 +15,9 @@ import rehypeStringify from 'rehype-stringify'
 import captureWebsite from 'capture-website'
 import chromium from 'chrome-aws-lambda'
 import {config} from '../docs/_config.js'
+import {schema} from './schema-description.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en')
-
-const schema = {
-  strip: ['script', 'style'],
-  ancestors: {},
-  protocols: {href: ['http', 'https']},
-  tagNames: [
-    'ul',
-    'ol',
-    'li',
-    'pre',
-    'code',
-    'strong',
-    'p',
-    'b',
-    'em',
-    'i',
-    'strike',
-    's',
-    'del',
-    'a'
-  ],
-  attributes: {
-    a: ['href'],
-    '*': []
-  }
-}
 
 main().catch((error) => {
   throw error

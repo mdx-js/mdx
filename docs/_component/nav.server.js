@@ -19,13 +19,21 @@ export const NavGroup = (props) => {
 export const NavItem = (props) => {
   const {item, name: activeName, includeDescription, includePublished} = props
   const {name, children, data = {}} = item
-  const {matter = {}, meta = {}, navLabel, navExcludeGroup, navSortItems} = data
+  const {matter = {}, meta = {}, navExcludeGroup, navSortItems} = data
   const title = matter.title || meta.title
-  const description = matter.description || meta.description
-  const published = matter.published || meta.published
   const defaultTitle = apStyleTitleCase(
     name.replace(/\/$/, '').split('/').pop()
   )
+  let description
+  let published
+
+  if (includeDescription) {
+    description = matter.description || meta.description
+  }
+
+  if (includePublished && (matter.published || meta.published)) {
+    published = dateTimeFormat.format(matter.published || meta.published)
+  }
 
   return (
     <li>
@@ -36,11 +44,8 @@ export const NavItem = (props) => {
       ) : (
         defaultTitle
       )}
-      {navLabel ? <sup>[{navLabel}]</sup> : null}
-      {includeDescription && description ? ' — ' + description : null}
-      {includePublished && published
-        ? ' — ' + dateTimeFormat.format(published)
-        : null}
+      {description ? ' — ' + description : null}
+      {published ? ' — ' + published : null}
       {!navExcludeGroup && children.length > 0 ? (
         <NavGroup items={children} sort={navSortItems} name={activeName} />
       ) : null}

@@ -554,6 +554,23 @@ button:focus {
   border-radius: 3px;
 }
 
+.card {
+  display: block;
+  padding: calc(1 * (1em + 1ex));
+  margin: calc(2 * (1em + 1ex)) 0;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 0 0.2em rgba(3, 102, 214, 0),
+    0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3),
+    0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+  background-image: radial-gradient(
+    ellipse at 100% 100%,
+    rgb(252 180 45 / 10%) 20%,
+    transparent 80%
+  );
+}
+
 #markdown-for-thecomponent-era {
   font-weight: 600;
 }
@@ -573,11 +590,11 @@ button:focus {
   padding: calc(1em + 1ex);
 }
 
-.home-preview > :is(h1, h2, h3, h4):first-child {
+:is(.home-preview, .card) > :is(h1, h2, h3, h4, p, .block):first-child {
   margin-top: 0;
 }
 
-.home-preview > :is(h1, h2, h3, h4):last-child {
+:is(.home-preview, .card) > :is(h1, h2, h3, h4, p, .block):last-child {
   margin-bottom: 0;
 }
 
@@ -840,6 +857,15 @@ button:focus {
   button:active {
     background-color: var(--hl);
     color: var(--gray-0);
+  }
+
+  .card {
+    background-color: var(--gray-9);
+    background-image: radial-gradient(
+      ellipse at 100% 100%,
+      rgb(252 180 45 / 10%) 20%,
+      transparent 80%
+    );
   }
 }
 
