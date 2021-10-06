@@ -23,6 +23,7 @@ MDX compiler.
     *   [`evaluateSync(file, options)`](#evaluatesyncfile-options)
     *   [`createProcessor(options)`](#createprocessoroptions)
 *   [Types](#types)
+*   [Architecture](#architecture)
 *   [Security](#security)
 *   [Contribute](#contribute)
 *   [License](#license)
@@ -794,6 +795,74 @@ Additional `CompileOptions`, `EvaluateOptions`, and `ProcessorOptions` types
 are exported, which represents acceptable configuration for their respective
 methods.
 
+## Architecture
+
+To understand what this project does, it’s very important to first understand
+what unified does: please read through the [`unifiedjs/unified`][unified] readme
+(the part until you hit the API section is required reading).
+
+`@mdx-js/mdx` is a unified pipeline — wrapped so that most folks don’t need to
+know about unified: [`core.js#L65`][core].
+The processor goes through these steps:
+
+1.  Parse MDX (serialized markdown with embedded JSX, ESM, and expressions)
+    to mdast (markdown syntax tree)
+2.  Transform through remark (markdown ecosystem)
+3.  Transform mdast to hast (HTML syntax tree)
+4.  Transform through rehype (HTML ecosystem)
+5.  Transform hast to esast (JS syntax tree)
+6.  Do the work needed to get a component
+7.  Transform through recma (JS ecosystem)
+8.  Serialize esast as JavaScript
+
+The *input* is MDX (serialized markdown with embedded JSX, ESM, and
+expressions).
+The markdown is parsed with [`micromark/micromark`][micromark] and the embedded
+JS with one of its extensions
+[`micromark/micromark-extension-mdxjs`][micromark-extension-mdxjs] (which in
+turn uses [acorn][]).
+Then [`syntax-tree/mdast-util-from-markdown`][mdast-util-from-markdown] and its
+extension [`syntax-tree/mdast-util-mdx`][mdast-util-mdx] are used to turn the
+results from the parser into a syntax tree: [mdast][].
+
+Markdown is closest to the source format.
+This is where [remark plugins][remark-plugins] come in.
+Typically, there shouldn’t be much going on here.
+But perhaps you want to support GFM (tables and such) or frontmatter?
+Then you can add a plugin here: `remark-gfm` or `remark-frontmatter`,
+respectively.
+
+After markdown, we go to [hast][] (HTML).
+This transformation is done by
+[`syntax-tree/mdast-util-to-hast`][mdast-util-to-hast].
+Wait, why, what does HTML have to do with it?
+Part of the reason is that we care about HTML semantics: we want to know that
+something is an `<a>`, not whether it’s a link with a resource (`[text](url)`)
+or a reference to a defined link definition (`[text][id]\n\n[id]: url`).
+So an HTML AST is *closer* to where we want to go.
+Another reason is that there are many things folks need when they go MDX -> JS,
+markdown -> HTML, or even folks who only process their HTML -> HTML: use cases
+other than MDX.
+By having a single AST in these cases and writing a plugin that works on that
+AST, that plugin can supports *all* these use cases (for example,
+[`rehypejs/rehype-highlight`][rehype-highlight] for syntax highlighting or
+[`rehypejs/rehype-katex`][rehype-katex] for math).
+So, this is where [rehype plugins][rehype-plugins] come in: most of the plugins,
+probably.
+
+Then we go to JavaScript: [esast][] (JS; an
+AST which is compatible with estree but looks a bit more like other unist ASTs).
+This transformation is done by
+[`syntax-tree/hast-util-to-estree`][hast-util-to-estree].
+This is a new ecosystem that does not have utilities or plugins yet.
+But it’s where `@mdx-js/mdx` does its thing: where it adds imports/exports,
+where it compiles JSX away into `_jsx()` calls, and where it does the other cool
+things that it provides.
+
+Finally, The output is serialized JavaScript.
+That final step is done by [astring][], a
+small and fast JS generator.
+
 ## Security
 
 See [§ Security](#) on our website for information.
@@ -880,3 +949,33 @@ abide by its terms.
 [async-function]: https://developer.mozilla.org/docs/JavaScript/Reference/Global_Objects/AsyncFunction
 
 [function]: https://developer.mozilla.org/docs/JavaScript/Reference/Global_Objects/Function
+
+[unified]: https://github.com/unifiedjs/unified
+
+[core]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/lib/core.js#L65
+
+[micromark]: https://github.com/micromark/micromark
+
+[acorn]: https://github.com/acornjs/acorn
+
+[micromark-extension-mdxjs]: https://github.com/micromark/micromark-extension-mdxjs
+
+[mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
+
+[mdast-util-mdx]: https://github.com/syntax-tree/mdast-util-mdx
+
+[mdast]: https://github.com/syntax-tree/mdast
+
+[mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
+
+[hast]: https://github.com/syntax-tree/hast
+
+[hast-util-to-estree]: https://github.com/syntax-tree/hast-util-to-estree
+
+[rehype-highlight]: https://github.com/rehypejs/rehype-highlight
+
+[rehype-katex]: https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex
+
+[esast]: https://github.com/syntax-tree/esast
+
+[astring]: https://github.com/davidbonnet/astring
