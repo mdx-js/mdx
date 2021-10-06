@@ -51,7 +51,8 @@ That package is the core compiler for turning MDX into JavaScript which
 gives you the most control.
 Or even higher: if you’re using a bundler (webpack, rollup, esbuild), or a site
 builder (gatsby, next) or build system (vite, snowpack) which comes with a
-bundler, you’re better off using an integration: see [§ Integrations](#).
+bundler, you’re better off using an integration: see
+[§ Integrations](/getting-started/#integrations).
 
 ## Install
 
@@ -172,7 +173,8 @@ export default function myRemarkPlugin() => {
 
 ## Security
 
-See [§ Security](#) on our website for information.
+See [§ Security](https://mdxjs.com/getting-started/#security) on our website for
+information.
 
 ## Contribute
 

@@ -110,7 +110,8 @@ register({/* Options… */})
 
 Which can then be used with `node -r ./my-hook.cjs`.
 
-The register hook uses [`evaluateSync`](#).
+The register hook uses
+[`evaluateSync`](https://mdxjs.com/packages/mdx/#evaluatesyncfile-options).
 That means `import` (and `export … from`) are not supported when requiring
 `.mdx` files.
 
@@ -121,7 +122,8 @@ seems to not support `.cjs` files yet.
 
 ## Security
 
-See [§ Security](#) on our website for information.
+See [§ Security](https://mdxjs.com/getting-started/#security) on our website for
+information.
 
 ## Contribute
 

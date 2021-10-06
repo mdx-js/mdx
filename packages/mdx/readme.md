@@ -39,7 +39,7 @@ This is the core compiler for turning MDX into JavaScript and which gives you
 the most control.
 If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
 next) or build system (vite, snowpack) which comes with a bundler, you’re better
-off using an integration: see [§ Integrations](#).
+off using an integration: see [§ Integrations](/getting-started/#integrations).
 
 ## Install
 
@@ -61,9 +61,9 @@ yarn add @mdx-js/mdx
 ## Use
 
 This section describes how to use the API.
-See [§ MDX syntax](#) on how the format works.
-See [§ Integrations](#) on how to use MDX with Babel, esbuild,
-Rollup, webpack, etc.
+See [§ What is MDX?](https://mdxjs.com/mdx/) on how the format works.
+See [§ Integrations](/getting-started/#integrations) on how to use MDX with
+Babel, esbuild, Rollup, webpack, etc.
 
 Say we have an MDX document, `example.mdx`:
 
@@ -141,11 +141,14 @@ Some more observations:
     wrap the whole content
 
 † `@mdx-js/mdx` is not coupled to React.
-You can also use it with [Preact](#), [Vue](#), [Emotion](#), [Theme UI](#),
+You can also use it with [Preact](https://mdxjs.com/getting-started/#preact),
+[Vue](https://mdxjs.com/getting-started/#vue),
+[Emotion](https://mdxjs.com/getting-started/#emotion),
+[Theme UI](https://mdxjs.com/getting-started/#theme-ui),
 etc.
 Both the classic and automatic JSX runtimes are supported.
 
-See [§ MDX content](#) below on how to use the result.
+See [§ Using MDX](https://mdxjs.com/using-mdx/) below on how to use the result.
 
 ## API
 
@@ -236,7 +239,8 @@ List of markdown extensions, with dot (`string[]`, default: `['.md',
 ###### `options.mdxExtensions`
 
 List of MDX extensions, with dot (`string[]`, default: `['.mdx']`).
-Has no effect in `compile` or `evaluate` but does affect [§ Integrations](#).
+Has no effect in `compile` or `evaluate` but does affect
+[§ Integrations](https://mdxjs.com/getting-started/#integrations).
 
 ###### `options.format`
 
@@ -266,8 +270,8 @@ compile({value: '…', path: 'readme.md'}, {mdExtensions: []}) // Seen as MDX
 
 </details>
 
-This option mostly affects [§ Integrations](#) because in those it affects
-*which* files are “registered”:
+This option mostly affects [§ Integrations](/getting-started/#integrations)
+because in those it affects *which* files are “registered”:
 
 *   `format: 'mdx'` registers the extensions in `options.mdxExtensions`
 *   `format: 'md'` registers the extensions in `options.mdExtensions`
@@ -687,7 +691,7 @@ When possible please use the async `compile`.
 Compile and run MDX.
 ☢️ It’s called **evaluate** because it `eval`s JavaScript.
 When possible, please use `compile`, write to a file, and then run with Node,
-or use one of the [§ Integrations](#).
+or use one of the [§ Integrations](/getting-started/#integrations).
 But if you trust your content, `evaluate` can work.
 
 `evaluate` wraps code in an [`AsyncFunction`][async-function], `evaluateSync`
@@ -865,7 +869,8 @@ small and fast JS generator.
 
 ## Security
 
-See [§ Security](#) on our website for information.
+See [§ Security](https://mdxjs.com/getting-started/#security) on our website for
+information.
 
 ## Contribute
 
@@ -936,7 +941,7 @@ abide by its terms.
 
 [rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
 
-[mdx-syntax]: #
+[mdx-syntax]: https://mdxjs.com/mdx/#mdx-syntax
 
 [use]: #use
 

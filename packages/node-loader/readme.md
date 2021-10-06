@@ -39,7 +39,8 @@ from the file system.
 
 If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
 next) or build system (vite, snowpack) which comes with a bundler, you’re better
-off using another integration: see [§ Integrations](#).
+off using another integration: see
+[§ Integrations](/getting-started/#integrations).
 
 ## Install
 
@@ -104,7 +105,9 @@ Create a Node ESM loader to compile MDX to JS.
 
 ###### `options`
 
-`options` are the same as [`compile`](#) from `@mdx-js/mdx`.
+`options` are the same as
+[`compile`](https://mdxjs.com/packages/mdx/#compilefile-options)
+from `@mdx-js/mdx`.
 
 ###### Example
 
@@ -154,7 +157,8 @@ import Post from './example.mdx'
 
 ## Security
 
-See [§ Security](#) on our website for information.
+See [§ Security](https://mdxjs.com/getting-started/#security) on our website for
+information.
 
 ## Contribute
 
