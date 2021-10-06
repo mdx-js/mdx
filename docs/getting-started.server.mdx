@@ -14,6 +14,7 @@ See [§ Using MDX][use] when you’re all set up and ready to use MDX.
     *   [JSX](#jsx)
     *   [Editor](#editor)
     *   [Types](#types)
+    *   [Security](#security)
 *   [Integrations](#integrations)
     *   [Bundlers](#bundlers)
     *   [Build systems](#build-systems)
@@ -165,6 +166,18 @@ types if you’re using that) and then install and use
   import Post from './example.mdx' // `Post` is now typed.
   ```
 </details>
+
+### Security
+
+Please note that MDX is a programming language.
+If you trust your authors, that’s fine.
+But be extremely careful with user content and don’t let random people from the
+internet write MDX.
+If you do, you might want to look into using `<iframe>`s with `sandbox`, but
+security is hard, and that doesn’t seem to be 100%.
+For Node, [vm2](https://github.com/patriksimek/vm2) sounds interesting.
+But you should probably also sandbox the whole OS (Docker?), perform rate
+limiting, and make sure processes can be killed when taking too long.
 
 ## Integrations
 
