@@ -1,0 +1,72 @@
+export const navSortSelf = 3
+
+# Math
+
+This guide explores how to support math in markdown and MDX so that LaTeX can be
+included in content.
+MDX supports standard markdown syntax ([CommonMark][]).
+That means math is not supported by default.
+Math can be enabled by using [`remark-math`][remark-math] and either
+[`rehype-katex`][rehype-katex] (KaTeX) or [`rehype-mathjax`][rehype-mathjax]
+(MathJax).
+remark plugins can be passed in [`options.remarkPlugins`](#) and rehype plugins
+in [`options.rehypePlugins`](#).
+
+Say we have an MDX file like this:
+
+```mdx
+# $\sqrt{a^2 + b^2}$
+```
+
+The above MDX with math can be transformed with the following module:
+
+```js
+import {promises as fs} from 'node:fs'
+import {compile} from '@mdx-js/mdx'
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
+
+main()
+
+async function main() {
+  console.log(
+    String(
+      await compile(await fs.readFile('example.mdx'), {
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex]
+      })
+    )
+  )
+}
+```
+
+{/* To do: make the style note a call out. */}
+
+…you still need to load a KaTeX style sheet when using `rehype-katex`.
+
+<details>
+  <summary>Show equivalent JSX</summary>
+
+  ```js
+  <>
+    <h1>
+      <span className="math math-inline">
+        <span className="katex">
+          <span className="katex-mathml">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">…</math>
+          </span>
+          <span className="katex-html" aria-hidden="true">…</span>
+        </span>
+      </span>
+    </h1>
+  </>
+  ```
+</details>
+
+[commonmark]: https://commonmark.org
+
+[remark-math]: https://github.com/remarkjs/remark-math/tree/main/packages/remark-math
+
+[rehype-katex]: https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex
+
+[rehype-mathjax]: https://github.com/remarkjs/remark-math/tree/main/packages/rehype-mathjax

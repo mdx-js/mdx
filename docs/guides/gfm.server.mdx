@@ -1,0 +1,119 @@
+export const navSortSelf = 1
+
+# GitHub flavored markdown (GFM)
+
+This guide explores how to support GFM features such as autolink literals,
+footnotes, strikethrough, tables, and tasklists.
+MDX supports standard markdown syntax ([CommonMark][]).
+That means [GitHub flavored markdown (GFM)][gfm] features are not supported by
+default.
+These features can be enabled by using a remark plugin:
+[`remark-gfm`][remark-gfm].
+remark plugins can be passed in [`options.remarkPlugins`](#).
+
+Say we have an MDX file like this:
+
+```mdx
+# GFM
+
+## Autolink literals
+
+www.example.com, https://example.com, and contact@example.com.
+
+## Footnote
+
+A note[^1]
+
+[^1]: Big note.
+
+## Strikethrough
+
+~one~ or ~~two~~ tildes.
+
+## Table
+
+| a | b  |  c |  d  |
+| - | :- | -: | :-: |
+
+## Tasklist
+
+* [ ] to do
+* [x] done
+```
+
+The above MDX, with GFM features, can be transformed with the following module:
+
+```js
+import {promises as fs} from 'node:fs'
+import {compile} from '@mdx-js/mdx'
+import remarkGfm from 'remark-gfm'
+
+main()
+
+async function main() {
+  console.log(
+    String(
+      await compile(await fs.readFile('example.mdx'), {remarkPlugins: [remarkGfm]})
+    )
+  )
+}
+```
+
+<details>
+  <summary>Show equivalent JSX</summary>
+
+  ```js
+  <>
+    <h1>GFM</h1>
+    <h2>Autolink literals</h2>
+    <p>
+      <a href="http://www.example.com">www.example.com</a>,
+      <a href="https://example.com">https://example.com</a>, and
+      <a href="mailto:contact@example.com">contact@example.com</a>.
+    </p>
+    <h2>Footnote</h2>
+    <p>A note<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
+    <h2>Strikethrough</h2>
+    <p>
+      <del>one</del> or <del>two</del> tildes.
+    </p>
+    <h2>Table</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>a</th>
+          <th align="left">b</th>
+          <th align="right">c</th>
+          <th align="center">d</th>
+        </tr>
+      </thead>
+    </table>
+    <h2>Tasklist</h2>
+    <ul className="contains-task-list">
+      <li className="task-list-item">
+        <input type="checkbox" disabled /> to do
+      </li>
+      <li className="task-list-item">
+        <input type="checkbox" checked disabled /> done
+      </li>
+    </ul>
+    <section data-footnotes className="footnotes">
+    <h2 id="footnote-label" className="sr-only">Footnotes</h2>
+    <ol>
+      <li id="user-content-fn-1">
+        <p>
+          Big note.
+          <a href="#user-content-fnref-1" data-footnote-backref className="data-footnote-backref" aria-label="Back to content">↩</a>
+        </p>
+      </li>
+    </ol>
+    </section>
+  </>
+  ```
+</details>
+
+[commonmark]: https://commonmark.org
+
+[gfm]: https://github.github.com/gfm/
+
+[remark-gfm]: https://github.com/remarkjs/remark-gfm

@@ -35,23 +35,41 @@ export const config = {
 
 // To do: check if all the hashes still work.
 export const redirect = {
-  '/editor-plugins/index.html': '/editors/',
-  '/plugins/index.html': '/advanced/plugins/',
-  '/syntax/index.html': '/getting-started/#syntax',
+  '/advanced/index.html': '/guides/',
+  '/advanced/api/index.html': '/packages/mdx/#api',
+  '/advanced/ast/index.html': '/packages/remark-mdx/#syntax-tree',
+  '/advanced/components/index.html': '/using-mdx/',
   '/advanced/contributing/index.html': '/contributing/',
-  '/advanced/custom-loader/index.html': '/guides/custom-loader/',
-  '/advanced/retext-plugins/index.html':
-    '/advanced/using-plugins/#using-retext-plugins',
-  '/advanced/specification/index.html': '/advanced/ast/',
-  '/advanced/sync-api/index.html': '/advanced/api/#sync-api',
-  '/advanced/writing-a-plugin/index.html': '/guides/custom-loader/',
-  '/getting-started/table-of-components/index.html': '/table-of-components/',
-  '/getting-started/typescript/index.html': '/advanced/typescript/',
+  '/advanced/custom-loader/index.html': '/guides/frontmatter/',
+  '/advanced/retext-plugins/index.html': '/extending-mdx/#using-plugins',
+  '/advanced/plugins/index.html': '/extending-mdx/',
+  '/advanced/runtime/index.html': '/packages/mdx/#evaluatefile-options',
+  '/advanced/specification/index.html': '/packages/remark-mdx/#syntax-tree',
+  '/advanced/sync-api/index.html': '/packages/mdx/#api',
+  '/advanced/transform-content/index.html': '/packages/remark-mdx/',
+  '/advanced/typescript/index.html': '/getting-started/#types',
+  '/advanced/writing-a-plugin/index.html': '/guides/frontmatter/',
+  '/editor-plugins/index.html': '/editors/',
   '/getting-started/create-react-app/index.html':
     '/getting-started/#create-react-app-cra',
   '/getting-started/gatsby/index.html': '/getting-started/#gatsby',
   '/getting-started/next/index.html': '/getting-started/#nextjs',
   '/getting-started/parcel/index.html': '/getting-started/#parcel',
   '/getting-started/react-static/index.html': '/getting-started/#react-static',
-  '/getting-started/webpack/index.html': '/getting-started/#webpack'
+  '/getting-started/table-of-components/index.html': '/table-of-components/',
+  '/getting-started/typescript/index.html': '/getting-started/#types',
+  '/getting-started/webpack/index.html': '/getting-started/#webpack',
+  '/guides/custom-loader/index.html': '/guides/frontmatter/',
+  '/guides/live-code/index.html':
+    '/guides/syntax-highlighting/#syntax-highlighting-with-the-meta-field',
+  '/guides/markdown-in-components/index.html': '/mdx/',
+  '/guides/math-blocks/index.html': '/guides/math/',
+  '/guides/mdx-embed/index.html': '/guides/embed/#embeds-at-run-time',
+  '/guides/table-of-contents/index.html': '/extending-mdx/',
+  '/guides/terminal/index.html': '/getting-started/#ink',
+  '/guides/vue/index.html': '/getting-started/#vue',
+  '/guides/wrapper-customization/index.html': '/using-mdx/#layout',
+  '/guides/writing-a-plugin/index.html': '/extending-mdx/#creating-plugins',
+  '/plugins/index.html': '/extending-mdx/#using-plugins',
+  '/syntax/index.html': '/getting-started/#syntax'
 }

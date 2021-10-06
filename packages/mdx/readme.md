@@ -189,7 +189,7 @@ List of [remark plugins][remark-plugins], presets, and pairs.
 
 ```js
 import remarkFrontmatter from 'remark-frontmatter' // YAML and such.
-import remarkGfm from 'remark-gfm' // Tables, strikethrough, tasklists, literal URLs.
+import remarkGfm from 'remark-gfm' // Tables, footnotes, strikethrough, tasklists, literal URLs.
 
 await compile(file, {remarkPlugins: [remarkGfm]}) // One plugin.
 await compile(file, {remarkPlugins: [[remarkFrontmatter, 'toml']]}) // A plugin with options.
