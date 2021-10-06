@@ -35,6 +35,7 @@ export const config = {
 
 // To do: check if all the hashes still work.
 export const redirect = {
+  '/about/index.html': '/community/about/',
   '/advanced/index.html': '/guides/',
   '/advanced/api/index.html': '/packages/mdx/#api',
   '/advanced/ast/index.html': '/packages/remark-mdx/#syntax-tree',
