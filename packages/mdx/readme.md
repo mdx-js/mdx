@@ -39,11 +39,11 @@ This is the core compiler for turning MDX into JavaScript and which gives you
 the most control.
 If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
 next) or build system (vite, snowpack) which comes with a bundler, you’re better
-off using an integration: see [§ Integrations](#).
+off using an integration: see [§ Integrations][integrations].
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+This package is [ESM only][esm]:
 Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
@@ -61,8 +61,8 @@ yarn add @mdx-js/mdx
 ## Use
 
 This section describes how to use the API.
-See [§ MDX syntax](#) on how the format works.
-See [§ Integrations](#) on how to use MDX with Babel, esbuild,
+See [§ What is MDX?][what] on how the format works.
+See [§ Integrations][integrations] on how to use MDX with Babel, esbuild,
 Rollup, webpack, etc.
 
 Say we have an MDX document, `example.mdx`:
@@ -141,20 +141,20 @@ Some more observations:
     wrap the whole content
 
 † `@mdx-js/mdx` is not coupled to React.
-You can also use it with [Preact](#), [Vue](#), [Emotion](#), [Theme UI](#),
+You can also use it with [Preact][], [Vue][], [Emotion][], [Theme UI][theme-ui],
 etc.
 Both the classic and automatic JSX runtimes are supported.
 
-See [§ MDX content](#) below on how to use the result.
+See [§ Using MDX][using-mdx] on how to use the result.
 
 ## API
 
 This package exports the following identifiers:
 [`compile`][compile],
-[`compileSync`](#compilesyncfile-options),
+[`compileSync`][compile-sync],
 [`evaluate`][eval],
-[`evaluateSync`](#evaluatesyncfile-options), and
-[`createProcessor`](#createprocessoroptions).
+[`evaluateSync`][eval-sync], and
+[`createProcessor`][create-processor].
 There is no default export.
 
 ### `compile(file, options?)`
@@ -225,8 +225,8 @@ await compile(file, {
 ###### `options.recmaPlugins`
 
 List of recma plugins.
-This is a new ecosystem, currently in beta, to transform
-[esast](https://github.com/syntax-tree/esast) trees (JavaScript).
+This is a new ecosystem, currently in beta, to transform [esast][] trees
+(JavaScript).
 
 ###### `options.mdExtensions`
 
@@ -236,7 +236,8 @@ List of markdown extensions, with dot (`string[]`, default: `['.md',
 ###### `options.mdxExtensions`
 
 List of MDX extensions, with dot (`string[]`, default: `['.mdx']`).
-Has no effect in `compile` or `evaluate` but does affect [§ Integrations](#).
+Has no effect in `compile` or `evaluate` but does affect
+[§ Integrations][integrations].
 
 ###### `options.format`
 
@@ -266,8 +267,8 @@ compile({value: '…', path: 'readme.md'}, {mdExtensions: []}) // Seen as MDX
 
 </details>
 
-This option mostly affects [§ Integrations](#) because in those it affects
-*which* files are “registered”:
+This option mostly affects [§ Integrations][integrations]
+because in those it affects *which* files are “registered”:
 
 *   `format: 'mdx'` registers the extensions in `options.mdxExtensions`
 *   `format: 'md'` registers the extensions in `options.mdExtensions`
@@ -687,7 +688,8 @@ When possible please use the async `compile`.
 Compile and run MDX.
 ☢️ It’s called **evaluate** because it `eval`s JavaScript.
 When possible, please use `compile`, write to a file, and then run with Node,
-or use one of the [§ Integrations](#).
+or use one of the
+[§ Integrations][integrations].
 But if you trust your content, `evaluate` can work.
 
 `evaluate` wraps code in an [`AsyncFunction`][async-function], `evaluateSync`
@@ -782,14 +784,14 @@ When possible please use the async `evaluate`.
 
 Create a unified processor to compile MDX to JS.
 Has the same options as [`compile`][compile], but returns a configured
-[`processor`](https://github.com/unifiedjs/unified#processor).
+[`processor`][processor].
 
 Note that `format: 'detect'` does not work here: only `'md'` or `'mdx'` are
 allowed (and `'mdx'` is the default).
 
 ## Types
 
-This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+This package is fully typed with [TypeScript][].
 
 Additional `CompileOptions`, `EvaluateOptions`, and `ProcessorOptions` types
 are exported, which represents acceptable configuration for their respective
@@ -865,7 +867,7 @@ small and fast JS generator.
 
 ## Security
 
-See [§ Security](#) on our website for information.
+See [§ Security][security] on our website for information.
 
 ## Contribute
 
@@ -910,9 +912,9 @@ abide by its terms.
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[contribute]: https://v2.mdxjs.com/contributing/
+[contribute]: https://v2.mdxjs.com/community/contribute/
 
-[support]: https://v2.mdxjs.com/support/
+[support]: https://v2.mdxjs.com/community/support/
 
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
@@ -924,7 +926,13 @@ abide by its terms.
 
 [compile]: #compilefile-options
 
+[compile-sync]: #compilesyncfile-options
+
 [eval]: #evaluatefile-options
+
+[eval-sync]: #evaluatesyncfile-options
+
+[create-processor]: #createprocessoroptions
 
 [buffer]: https://nodejs.org/api/buffer.html
 
@@ -936,7 +944,7 @@ abide by its terms.
 
 [rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
 
-[mdx-syntax]: #
+[mdx-syntax]: https://v2.mdxjs.com/mdx/#mdx-syntax
 
 [use]: #use
 
@@ -951,6 +959,8 @@ abide by its terms.
 [function]: https://developer.mozilla.org/docs/JavaScript/Reference/Global_Objects/Function
 
 [unified]: https://github.com/unifiedjs/unified
+
+[processor]: https://github.com/unifiedjs/unified#processor
 
 [core]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/lib/core.js#L65
 
@@ -979,3 +989,23 @@ abide by its terms.
 [esast]: https://github.com/syntax-tree/esast
 
 [astring]: https://github.com/davidbonnet/astring
+
+[integrations]: https://v2.mdxjs.com/getting-started/#integrations
+
+[what]: https://v2.mdxjs.com/mdx/
+
+[using-mdx]: https://v2.mdxjs.com/using-mdx/
+
+[preact]: https://v2.mdxjs.com/getting-started/#preact
+
+[vue]: https://v2.mdxjs.com/getting-started/#vue
+
+[emotion]: https://v2.mdxjs.com/getting-started/#emotion
+
+[theme-ui]: https://v2.mdxjs.com/getting-started/#theme-ui
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[security]: https://v2.mdxjs.com/getting-started/#security
+
+[typescript]: https://www.typescriptlang.org

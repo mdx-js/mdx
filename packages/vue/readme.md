@@ -46,7 +46,7 @@ It can be used by:
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+This package is [ESM only][esm]:
 Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
@@ -124,14 +124,14 @@ Get current components from the MDX Context.
 
 ## Types
 
-This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+This package is fully typed with [TypeScript][].
 
 An additional `Components` type is exported, which represents the acceptable
 configuration for the functions and components from this project.
 
 ## Security
 
-See [§ Security](#) on our website for information.
+See [§ Security][security] on our website for information.
 
 ## Contribute
 
@@ -176,12 +176,18 @@ abide by its terms.
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[contribute]: https://v2.mdxjs.com/contributing/
+[contribute]: https://v2.mdxjs.com/community/contribute/
 
-[support]: https://v2.mdxjs.com/support/
+[support]: https://v2.mdxjs.com/community/support/
 
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/vue/license
 
 [vercel]: https://vercel.com
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[security]: https://v2.mdxjs.com/getting-started/#security
+
+[typescript]: https://www.typescriptlang.org

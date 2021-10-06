@@ -9,8 +9,9 @@ That means math is not supported by default.
 Math can be enabled by using [`remark-math`][remark-math] and either
 [`rehype-katex`][rehype-katex] (KaTeX) or [`rehype-mathjax`][rehype-mathjax]
 (MathJax).
-remark plugins can be passed in [`options.remarkPlugins`](#) and rehype plugins
-in [`options.rehypePlugins`](#).
+remark plugins can be passed in
+[`options.remarkPlugins`][options-remark-plugins] and rehype
+plugins in [`options.rehypePlugins`][options-rehype-plugins].
 
 Say we have an MDX file like this:
 
@@ -70,3 +71,7 @@ async function main() {
 [rehype-katex]: https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex
 
 [rehype-mathjax]: https://github.com/remarkjs/remark-math/tree/main/packages/rehype-mathjax
+
+[options-remark-plugins]: /packages/mdx/#optionsremarkplugins
+
+[options-rehype-plugins]: /packages/mdx/#optionsrehypeplugins

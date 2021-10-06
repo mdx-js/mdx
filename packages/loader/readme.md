@@ -38,7 +38,7 @@ can be used manually.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+This package is [ESM only][esm]:
 Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
@@ -76,17 +76,18 @@ module.exports = {
 
 This package exports a [webpack][] plugin as the default export.
 
-Source maps are supported when [`SourceMapGenerator`](#) is passed in.
+Source maps are supported when
+[`options.SourceMapGenerator`][options-source-map-generator]
+is passed in.
 
 ###### `options`
 
-`options` are the same as [`compile`](#) from `@mdx-js/mdx`.
+`options` are the same as [`compile` from `@mdx-js/mdx`][options].
 
 ###### Note: Babel
 
 If you use modern JavaScript features you might want to use Babel through
-[`babel-loader`](https://webpack.js.org/loaders/babel-loader/) to compile to
-code that works:
+[`babel-loader`][babel-loader] to compile to code that works:
 
 ```js
 // …
@@ -107,9 +108,7 @@ Because `@mdx-js/mdx` itself is ESM, this means the `@mdx-js/loader` loader
 the webpack API).
 To use this loader with `webpack-cli`, set the `DISABLE_V8_COMPILE_CACHE=1`
 environment variable.
-See
-[this issue](https://github.com/wooorm/xdm/issues/11#issuecomment-785043772) for
-details.
+See [this issue][webpack-v8] for details.
 
 ```sh
 DISABLE_V8_COMPILE_CACHE=1 webpack
@@ -117,7 +116,7 @@ DISABLE_V8_COMPILE_CACHE=1 webpack
 
 ## Types
 
-This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+This package is fully typed with [TypeScript][].
 
 An additional `Options` type is exported, which represents acceptable
 configuration.
@@ -145,7 +144,7 @@ import Post from './example.mdx'
 
 ## Security
 
-See [§ Security](#) on our website for information.
+See [§ Security][security] on our website for information.
 
 ## Contribute
 
@@ -197,3 +196,17 @@ abide by its terms.
 [vercel]: https://vercel.com
 
 [webpack]: https://webpack.js.org
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[security]: https://v2.mdxjs.com/getting-started/#security
+
+[options]: https://v2.mdxjs.com/packages/mdx/#compilefile-options
+
+[typescript]: https://www.typescriptlang.org
+
+[options-source-map-generator]: https://v2.mdxjs.com/packages/mdx/#optionssourcemapgenerator
+
+[babel-loader]: https://webpack.js.org/loaders/babel-loader/
+
+[webpack-v8]: https://github.com/wooorm/xdm/issues/11#issuecomment-785043772

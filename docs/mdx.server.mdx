@@ -18,9 +18,9 @@ See [§ Getting started][start] for how to integrate MDX into your project.
 ## Prerequisites
 
 It’s important to know markdown
-([see this cheatsheet and tutorial](https://commonmark.org/help/) for help)
-and have experience with JavaScript (specifically
-[JSX](https://facebook.github.io/jsx/)) to write (and enjoy writing) MDX.
+([see this cheatsheet and tutorial][commonmark-help] for help) and have
+experience with JavaScript (specifically [JSX][jsx-spec]) to write (and enjoy
+writing) MDX.
 
 ## Markdown for the component era
 
@@ -131,7 +131,7 @@ something **strong**, and finally a little `code()`.
 
 MDX supports standard markdown only (CommonMark).
 Nonstandard markdown features (such as GFM, frontmatter, footnotes, math, syntax
-highlighting) can be enabled by [configuring plugins](#).
+highlighting) can be enabled by [configuring plugins][using-plugins].
 
 Certain standard markdown features don’t work in MDX:
 
@@ -258,10 +258,16 @@ Expressions can be empty or contain just a comment:
 
 [commonmark]: https://commonmark.org
 
+[commonmark-help]: https://commonmark.org/help/
+
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
+
+[jsx-spec]: https://facebook.github.io/jsx/
 
 [format]: /packages/mdx/#optionsformat
 
 [start]: /getting-started/
 
 [use]: /using-mdx/
+
+[using-plugins]: /extending-mdx/#using-plugins

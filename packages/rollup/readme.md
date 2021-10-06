@@ -38,7 +38,7 @@ can be used manually.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+This package is [ESM only][esm]:
 Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
@@ -73,12 +73,13 @@ export default {
 
 This package exports a [Rollup][] plugin as the default export.
 
-Source maps are supported when [`SourceMapGenerator`](#) is passed in.
+Source maps are supported when
+[`options.SourceMapGenerator`][options-source-map-generator] is passed in.
 
 ###### `options`
 
-`options` are the same as [`compile`](#) from `@mdx-js/mdx`, with the additions
-of:
+`options` are the same as [`compile` from `@mdx-js/mdx`][options], with the
+additions of:
 
 ###### `options.include`
 
@@ -90,8 +91,7 @@ List of [`picomatch`][pico] patterns to include and/or exclude
 ###### Note: Babel
 
 If you use modern JavaScript features you might want to use Babel through
-[`@rollup/plugin-babel`](https://github.com/rollup/plugins/tree/master/packages/babel)
-to compile to code that works:
+[`@rollup/plugin-babel`][rollup-plugin-babel] to compile to code that works:
 
 ```js
 // …
@@ -113,7 +113,7 @@ export default {
 
 ## Types
 
-This package is fully typed with [TypeScript](https://www.typescriptlang.org).
+This package is fully typed with [TypeScript][].
 
 An additional `Options` type is exported, which represents acceptable
 configuration.
@@ -141,7 +141,7 @@ import Post from './example.mdx'
 
 ## Security
 
-See [§ Security](#) on our website for information.
+See [§ Security][security] on our website for information.
 
 ## Contribute
 
@@ -182,9 +182,9 @@ abide by its terms.
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[contribute]: https://v2.mdxjs.com/contributing/
+[contribute]: https://v2.mdxjs.com/community/contribute/
 
-[support]: https://v2.mdxjs.com/support/
+[support]: https://v2.mdxjs.com/community/support/
 
 [coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
 
@@ -195,3 +195,15 @@ abide by its terms.
 [pico]: https://github.com/micromatch/picomatch#globbing-features
 
 [rollup]: https://rollupjs.org
+
+[options-source-map-generator]: https://v2.mdxjs.com/packages/mdx/#optionssourcemapgenerator
+
+[rollup-plugin-babel]: https://github.com/rollup/plugins/tree/master/packages/babel
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[security]: https://v2.mdxjs.com/getting-started/#security
+
+[options]: https://v2.mdxjs.com/packages/mdx/#compilefile-options
+
+[typescript]: https://www.typescriptlang.org
