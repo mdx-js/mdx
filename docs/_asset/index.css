@@ -94,6 +94,7 @@ h4,
 h5,
 h6,
 p,
+pre,
 ol,
 ul,
 hr,
@@ -568,9 +569,14 @@ button.success {
 }
 
 .note {
-  color: var(--red-5);
-  border: 1px solid currentColor;
+  color: var(--gray-3);
+  background-color: rgba(56 139 253 / 0.15);
+  border: 1px solid #1f6feb;
   border-radius: 3px;
+}
+
+.note-inside {
+  font-size: smaller;
 }
 
 .card {
@@ -625,6 +631,7 @@ button.success {
   bottom: 0;
   right: 0;
   margin: calc(0.25 * (1em + 1ex));
+  backdrop-filter: saturate(200%) blur(1ex);
 }
 
 #markdown-for-thecomponent-era {
@@ -828,6 +835,9 @@ button.success {
 
   .navigation-secondary a {
     display: initial;
+  }
+
+  .note.info {
   }
 
   .navigation::before {

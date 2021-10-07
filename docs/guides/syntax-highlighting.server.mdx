@@ -1,3 +1,4 @@
+import {Note} from '../_component/Note.server.js'
 export const navSortSelf = 4
 
 # Syntax highlighting
@@ -36,10 +37,6 @@ async function main(code) {
 }
 ```
 
-{/* To do: make the style note a call out. */}
-
-…you still need to load a relevant style sheet.
-
 <details>
   <summary>Show equivalent JSX</summary>
 
@@ -54,6 +51,16 @@ async function main(code) {
   </>
   ```
 </details>
+
+<Note type="info">
+  **Note**: you should also use a highlight.js theme somewhere on the page to
+  style code properly.
+  For example, to get GitHub Dark from cdnjs:
+
+  ```html
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark.min.css">
+  ```
+</Note>
 
 ## Syntax highlighting at run time
 
@@ -155,8 +162,10 @@ This would yields the following JSX:
 </>
 ```
 
-Note that the `meta` attribute is not valid HTML, so make sure to handle `code`
-with a component.
+<Note type="info">
+  **Note**: the `meta` attribute is not valid HTML, so make sure to handle
+  `code` with a component.
+</Note>
 
 The meta string in this example looks a lot like HTML attributes.
 What if we wanted to parse that string and add each “attribute” as a prop?
@@ -193,8 +202,10 @@ This would yields the following JSX:
 </>
 ```
 
-Note that the these added attributes are not valid HTML, so make sure to handle
-`code` with a component.
+<Note type="info">
+  **Note**: these added attributes are not valid HTML, so make sure to handle
+  `code` with a component.
+</Note>
 
 [commonmark]: https://commonmark.org
 
