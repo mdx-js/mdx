@@ -2,11 +2,11 @@ import React from 'react'
 import useClipboard from 'react-use-clipboard'
 
 export const CopyButton = (props) => {
-  const [copied, setCopied] = useClipboard(props.value, {successDuration: 3000})
+  const [copied, setCopied] = useClipboard(props.value, {successDuration: 2000})
   const className = ['copy-button']
 
   if (copied) {
-    className.push('active')
+    className.push('success')
   }
 
   return (

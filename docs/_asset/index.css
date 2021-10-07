@@ -17,6 +17,7 @@
   --gray-9: #24292f;
   --blue-5: #0969da;
   --yellow-4: #bf8700;
+  --green-5: #1a7f37;
   --red-5: #da3633;
   --mdx-yellow: hsl(39deg 97% 58%);
   --hl: var(--blue-5);
@@ -415,6 +416,14 @@ button:focus {
   box-shadow: 0 0 0 0.2em rgb(191 135 0 / 30%); /* --hl */
 }
 
+a.cta.success,
+button.success {
+  background-color: var(--green-5);
+  border-color: var(--green-5);
+  box-shadow: 0 0 0 0.2em rgb(26 127 55 / 30%); /* --green-5 */
+  color: var(--white);
+}
+
 .content {
   width: 100%;
   max-width: calc(36 * (1em + 1ex));
@@ -811,6 +820,7 @@ button:focus {
     --gray-7: #21262d;
     --gray-8: #161b22;
     --gray-9: #0d1117;
+    --green-5: #238636;
     --hl: var(--mdx-yellow);
     --fg: var(--white);
     --bg: var(--black);
@@ -909,6 +919,13 @@ button:focus {
   button:active {
     background-color: var(--hl);
     color: var(--gray-0);
+  }
+
+  a.cta.success,
+  button.success {
+    background-color: var(--green-5);
+    border-color: var(--green-5);
+    color: var(--white);
   }
 
   .card {
