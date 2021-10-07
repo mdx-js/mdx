@@ -24,6 +24,8 @@ import rehypeShiftHeading from 'rehype-shift-heading'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeRaw from 'rehype-raw'
 import rehypeMinifyUrl from 'rehype-minify-url'
+import {visit} from 'unist-util-visit'
+import {toText} from 'hast-util-to-text'
 import {s} from 'hastscript'
 import {analyze} from 'periscopic'
 import {valueToEstree} from 'estree-util-value-to-estree'
@@ -49,6 +51,7 @@ const options = {
     ]
   ],
   rehypePlugins: [
+    rehypePrettyCodeBlocks,
     [rehypeRaw, {passThrough: nodeTypes}],
     unifiedInferRemoteMeta,
     unifiedInferGitMeta,
@@ -160,6 +163,66 @@ function recmaInjectMeta(options = {}) {
       },
       source: null,
       specifiers: []
+    })
+  }
+}
+
+function rehypePrettyCodeBlocks() {
+  const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
+
+  return (tree, file) => {
+    visit(tree, 'element', (node, index, parent) => {
+      if (node.tagName !== 'pre') {
+        return
+      }
+
+      const code = node.children[0]
+
+      if (
+        !code ||
+        code.type !== 'element' ||
+        code.tagName !== 'code' ||
+        node.children.length > 1
+      ) {
+        return
+      }
+
+      const metaProps = {}
+
+      if (code.data && code.data.meta) {
+        let match
+        re.lastIndex = 0 // Reset regex.
+
+        while ((match = re.exec(code.data.meta))) {
+          metaProps[match[1]] = match[2] || match[3] || match[4] || ''
+        }
+      }
+
+      const children = [node]
+      const textContent = toText(node)
+
+      // Not giant.
+      if (textContent.length < 8192) {
+        children.push({
+          type: 'mdxJsxTextElement',
+          name: 'CopyButton',
+          attributes: [
+            {type: 'mdxJsxAttribute', name: 'value', value: textContent}
+          ],
+          children: []
+        })
+      }
+
+      if (file.basename === 'mdx.server.mdx') {
+        // console.log('code:', node, metaProps)
+      }
+
+      parent.children[index] = {
+        type: 'element',
+        tagName: 'div',
+        properties: {},
+        children
+      }
     })
   }
 }
