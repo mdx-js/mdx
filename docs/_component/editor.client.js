@@ -74,66 +74,94 @@ export const Editor = ({children}) => {
   }
 
   return (
-    <div className="editor">
-      <div className="editor-input">
-        <noscript>
-          <pre>
-            <code className="hljs language-md">
-              {toH(createElement, lowlight.highlight('md', defaultValue))}
-            </code>
-          </pre>
-        </noscript>
-        <CodeMirror
-          value={defaultValue}
-          extensions={extensions}
-          onUpdate={(v) => {
-            if (v.docChanged) {
-              setValue(v.state.doc.toString())
-            }
-          }}
-        />
-      </div>
-      <Tabs className="editor-result">
-        <div className="editor-result-tabs">
-          <TabList className="editor-result-tabs-scroll">
-            {[
-              'Run',
-              'Compile',
-              'mdast (markdown)',
-              'hast (HTML)',
-              'esast (JS)'
-            ].map((label) => {
-              const compile = label === 'Compile'
-              const className =
-                'editor-result-tab' + (compile ? ' editor-result-badge' : '')
-              return (
-                <Tab
-                  key={label}
-                  data-label={
-                    compile
-                      ? stats.fatal
-                        ? 'danger'
-                        : stats.warn
-                        ? 'warn'
-                        : 'success'
-                      : undefined
-                  }
-                  data-count={
-                    compile ? stats.fatal || stats.warn || 0 : undefined
-                  }
-                  className={className}
-                  selectedClassName="editor-result-tab-selected"
-                >
-                  {label}
-                </Tab>
-              )
-            })}
-          </TabList>
-        </div>
+    <div>
+      <Tabs className="frame">
+        <TabList className="frame-tab-bar frame-tab-bar-scroll">
+          <Tab
+            className="frame-tab-item frame-tab-item-dark"
+            selectedClassName="frame-tab-item-selected"
+          >
+            Editor
+          </Tab>
+          <Tab
+            className="frame-tab-item"
+            selectedClassName="frame-tab-item-selected"
+          >
+            Options
+          </Tab>
+        </TabList>
+        <TabPanel>
+          <div className="frame-body frame-body-box-fixed-height">
+            <noscript>
+              <pre>
+                <code className="hljs language-md">
+                  {toH(createElement, lowlight.highlight('md', defaultValue))}
+                </code>
+              </pre>
+            </noscript>
+            <CodeMirror
+              value={defaultValue}
+              extensions={extensions}
+              onUpdate={(v) => {
+                if (v.docChanged) {
+                  setValue(v.state.doc.toString())
+                }
+              }}
+            />
+          </div>
+        </TabPanel>
+        <TabPanel>
+          <div className="frame-body frame-body-box frame-body-box-fixed-height">
+            Settings Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </TabPanel>
+      </Tabs>
+
+      <Tabs className="frame">
+        <TabList className="frame-tab-bar frame-tab-bar-scroll">
+          {[
+            'Run',
+            'Compile',
+            'mdast (markdown)',
+            'hast (HTML)',
+            'esast (JS)'
+          ].map((label) => {
+            const compile = label === 'Compile'
+            const className =
+              'frame-tab-item' + (compile ? ' playground-result-badge' : '')
+            return (
+              <Tab
+                key={label}
+                data-label={
+                  compile
+                    ? stats.fatal
+                      ? 'danger'
+                      : stats.warn
+                      ? 'warn'
+                      : 'success'
+                    : undefined
+                }
+                data-count={
+                  compile ? stats.fatal || stats.warn || 0 : undefined
+                }
+                className={className}
+                selectedClassName="frame-tab-item-selected"
+              >
+                {label}
+              </Tab>
+            )
+          })}
+        </TabList>
 
         <TabPanel>
-          <div className="editor-result-pane">
-            <noscript>Enable JavaScript to see the rendered result.</noscript>
+          <noscript>Enable JavaScript to see the rendered result.</noscript>
+          <div className="frame-body frame-body-box-fixed-height frame-body-box">
             {file && file.result ? (
               <ErrorBoundary FallbackComponent={FallbackComponent}>
                 <file.result />
@@ -142,7 +170,7 @@ export const Editor = ({children}) => {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="editor-result-raw">
+          <div className="frame-body frame-body-box-fixed-height">
             {file ? (
               stats.fatal ? (
                 <pre>
@@ -159,7 +187,7 @@ export const Editor = ({children}) => {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="editor-result-raw">
+          <div className="frame-body frame-body-box-fixed-height">
             {file && file.data.mdast ? (
               <pre>
                 <code className="hljs language-js">
@@ -176,7 +204,7 @@ export const Editor = ({children}) => {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="editor-result-raw">
+          <div className="frame-body frame-body-box-fixed-height">
             {file && file.data.hast ? (
               <pre>
                 <code className="hljs language-js">
@@ -193,7 +221,7 @@ export const Editor = ({children}) => {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="editor-result-raw">
+          <div className="frame-body frame-body-box-fixed-height">
             {file && file.data.esast ? (
               <pre>
                 <code className="hljs language-js">

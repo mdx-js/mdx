@@ -223,7 +223,9 @@ function rehypePrettyCodeBlocks() {
       const language = metaProps.language || (lang ? lang.slice(9) : undefined)
 
       if (metaProps.path) {
-        header.push(h('span.code-chrome-name', metaProps.path))
+        header.push(
+          h('span.frame-tab-item.frame-tab-item-selected', metaProps.path)
+        )
       }
 
       if (language) {
@@ -235,7 +237,10 @@ function rehypePrettyCodeBlocks() {
         }
 
         header.push(
-          h('span.code-chrome-lang', languageNames[language] || language)
+          h(
+            'span.frame-tab-item.frame-tab-item-inactive',
+            languageNames[language] || language
+          )
         )
       }
 
@@ -252,14 +257,14 @@ function rehypePrettyCodeBlocks() {
       }
 
       if (header) {
-        children.unshift(h('.code-chrome-header', header))
+        children.unshift(h('.frame-tab-bar', header))
       }
 
       if (footer) {
-        children.push(h('.code-chrome-footer', footer))
+        children.push(...footer)
       }
 
-      parent.children[index] = h('.code-chrome', children)
+      parent.children[index] = h('.frame.code-frame', children)
     })
   }
 }
