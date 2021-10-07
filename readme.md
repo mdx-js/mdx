@@ -179,7 +179,7 @@ Join us on [GH Discussions][chat]!
 
 [tweet]: https://twitter.com/chrisbiscardi/status/1022304288326864896
 
-[remark-plugins]: https://github.com/remarkjs/remark/blob/master/doc/plugins.md
+[remark-plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md
 
 [website]: https://mdxjs.com
 
@@ -211,7 +211,7 @@ Join us on [GH Discussions][chat]!
 
 [support]: https://mdxjs.com/support
 
-[coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
+[coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
 [mdx-deck]: https://github.com/jxnblk/mdx-deck
 

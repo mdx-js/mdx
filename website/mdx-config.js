@@ -22,10 +22,12 @@ import rehypeInferTitleMeta from 'rehype-infer-title-meta'
 import rehypeSlug from 'rehype-slug'
 import rehypeShiftHeading from 'rehype-shift-heading'
 import rehypePresetMinify from 'rehype-preset-minify'
+import rehypeRaw from 'rehype-raw'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import {s} from 'hastscript'
 import {analyze} from 'periscopic'
 import {valueToEstree} from 'estree-util-value-to-estree'
+import {nodeTypes} from '@mdx-js/mdx'
 import {config} from '../docs/_config.js'
 
 const own = {}.hasOwnProperty
@@ -47,6 +49,7 @@ const options = {
     ]
   ],
   rehypePlugins: [
+    [rehypeRaw, {passThrough: nodeTypes}],
     unifiedInferRemoteMeta,
     unifiedInferGitMeta,
     [

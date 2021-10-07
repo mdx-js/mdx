@@ -186,7 +186,7 @@ abide by its terms.
 
 [support]: https://v2.mdxjs.com/community/support/
 
-[coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
+[coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/rollup/license
 
@@ -198,7 +198,7 @@ abide by its terms.
 
 [options-source-map-generator]: https://v2.mdxjs.com/packages/mdx/#optionssourcemapgenerator
 
-[rollup-plugin-babel]: https://github.com/rollup/plugins/tree/master/packages/babel
+[rollup-plugin-babel]: https://github.com/rollup/plugins/tree/HEAD/packages/babel
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 

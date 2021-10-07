@@ -916,7 +916,7 @@ abide by its terms.
 
 [support]: https://v2.mdxjs.com/community/support/
 
-[coc]: https://github.com/mdx-js/.github/blob/master/code-of-conduct.md
+[coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/license
 
