@@ -15,13 +15,13 @@ plugins in [`options.rehypePlugins`][options-rehype-plugins].
 
 Say we have an MDX file like this:
 
-```mdx
+```mdx path="example.mdx"
 # $\sqrt{a^2 + b^2}$
 ```
 
 The above MDX with math can be transformed with the following module:
 
-```js
+```js path="example.js"
 import {promises as fs} from 'node:fs'
 import {compile} from '@mdx-js/mdx'
 import rehypeKatex from 'rehype-katex'
@@ -48,7 +48,7 @@ async function main() {
 <details>
   <summary>Show equivalent JSX</summary>
 
-  ```js
+  ```jsx path="output.jsx"
   <>
     <h1>
       <span className="math math-inline">

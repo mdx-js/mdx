@@ -17,7 +17,7 @@ to your users.
 You can use [`@remark-embedder/core`][remark-embedder] by doing something like
 this:
 
-```js
+```js path="example.js"
 import {compile} from '@mdx-js/mdx'
 // Node currently can’t pick up on the default exports by `@remark-embedder`.
 import fauxRemarkEmbedder from '@remark-embedder/core'
@@ -45,7 +45,7 @@ async function main(code) {
 <details>
   <summary>Show equivalent JSX</summary>
 
-  ```js
+  ```jsx path="output.jsx"
   <>
     <p>Check out this video:</p>
     <iframe width="200" height="113" src="https://www.youtube.com/embed/dQw4w9WgXcQ?feature=oembed" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
@@ -58,7 +58,7 @@ async function main(code) {
 You can use the React-specific [MDX Embed][mdx-embed] to embed things in MDX.
 Here is an example MDX file that uses a specific embed without `@mdx-js/react`:
 
-```mdx
+```mdx path="example.mdx"
 import {CodePen} from 'mdx-embed'
 
 Here’s a codepen, and some other blog post text.
@@ -69,7 +69,7 @@ Here’s a codepen, and some other blog post text.
 <details>
   <summary>Show equivalent JSX</summary>
 
-  ```js
+  ```js path="output.jsx"
   <>
     <p>Here’s a codepen, and some other blog post text.</p>
     <CodePen codePenId="PNaGbb" />
@@ -79,9 +79,7 @@ Here’s a codepen, and some other blog post text.
 
 If you don’t want to use explicit imports in MDX files:
 
-`example.mdx`:
-
-```mdx
+```mdx path="example.mdx"
 Here’s a codepen, and some other blog post text.
 
 <CodePen codePenId="PNaGbb" />
@@ -89,7 +87,7 @@ Here’s a codepen, and some other blog post text.
 
 Then you can either pass all components:
 
-```jsx
+```jsx path="example.jsx"
 import * as embeds from 'mdx-embed'
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
@@ -99,7 +97,7 @@ import Example from './example.mdx' // Assumes an integration is used to compile
 If you have installed and configured [`@mdx-js/react`][mdx-react],
 you can also use `MDXEmbedProvider`:
 
-```jsx
+```jsx path="example.jsx"
 import {MDXEmbedProvider} from 'mdx-embed'
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 

@@ -170,6 +170,18 @@ function recmaInjectMeta(options = {}) {
 function rehypePrettyCodeBlocks() {
   const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
+  const languageNames = {
+    diff: 'Diff',
+    html: 'HTML',
+    js: 'JavaScript',
+    jsx: 'JSX',
+    md: 'Markdown',
+    mdx: 'MDX',
+    sh: 'Shell',
+    txt: 'Plain text',
+    ts: 'TypeScript'
+  }
+
   return (tree) => {
     visit(tree, 'element', (node, index, parent) => {
       if (node.tagName !== 'pre') {
@@ -211,7 +223,16 @@ function rehypePrettyCodeBlocks() {
       }
 
       if (language) {
-        header.push(h('span.code-chrome-lang', language))
+        if (!own.call(languageNames, language)) {
+          console.log(
+            '[mdx-config]: warn: please add %s to have a nice language name',
+            language
+          )
+        }
+
+        header.push(
+          h('span.code-chrome-lang', languageNames[language] || language)
+        )
       }
 
       // Not giant.
