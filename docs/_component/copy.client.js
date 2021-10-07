@@ -3,9 +3,14 @@ import useClipboard from 'react-use-clipboard'
 
 export const CopyButton = (props) => {
   const [copied, setCopied] = useClipboard(props.value, {successDuration: 3000})
+  const className = ['copy-button']
+
+  if (copied) {
+    className.push('active')
+  }
 
   return (
-    <button type="button" className="copy-button" onClick={setCopied}>
+    <button type="button" className={className.join(' ')} onClick={setCopied}>
       {copied ? (
         <svg
           role="img"

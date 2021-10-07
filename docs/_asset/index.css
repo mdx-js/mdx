@@ -201,6 +201,10 @@ li pre {
   margin-right: 0;
 }
 
+.code-chrome {
+  background-color: var(--gray-1);
+}
+
 code,
 .hljs {
   background-color: var(--gray-0);
@@ -222,8 +226,10 @@ pre code {
 }
 
 pre code,
+.hljs,
 .editor-input,
-.editor-result {
+.editor-result,
+.code-chrome-name {
   background-color: #fafafa; /* Color from one-light */
 }
 
@@ -392,14 +398,18 @@ button:active {
 }
 
 a.cta:active,
-button:active {
+button:active,
+a.cta.active,
+button.active {
   background-color: var(--hl);
   border-color: var(--hl);
   color: var(--white);
 }
 
 a.cta:active,
+a.cta.active,
 a.cta:focus,
+button.active,
 button:active,
 button:focus {
   box-shadow: 0 0 0 0.2em rgb(191 135 0 / 30%); /* --hl */
@@ -569,6 +579,43 @@ button:focus {
     rgb(252 180 45 / 10%) 20%,
     transparent 80%
   );
+}
+
+.code-chrome {
+  position: relative;
+  border-radius: 3px;
+}
+
+.code-chrome-header {
+  display: flex;
+  margin-top: calc(1em + 1ex);
+}
+
+.code-chrome-header + pre {
+  margin-top: 0;
+}
+
+.code-chrome-header + pre code {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.code-chrome-name,
+.code-chrome-lang {
+  font-family: var(--mono);
+  font-size: smaller;
+  padding: calc(0.25 * (1em + 1ex)) calc(0.75 * (1em + 1ex));
+  margin: calc(0.25 * (1em + 1ex));
+  margin-bottom: 0;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.code-chrome .copy-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: calc(0.25 * (1em + 1ex));
 }
 
 #markdown-for-thecomponent-era {
@@ -801,12 +848,17 @@ button:focus {
     background-color: var(--gray-6);
   }
 
+  .code-chrome {
+    background-color: var(--gray-9);
+  }
+
   pre code,
   .editor-input,
   .editor-result,
   .hljs,
   .ͼo,
-  .ͼo .cm-gutters {
+  .ͼo .cm-gutters,
+  .code-chrome-name {
     background-color: var(--gray-8);
   }
 

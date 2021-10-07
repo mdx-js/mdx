@@ -26,7 +26,7 @@ import rehypeRaw from 'rehype-raw'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import {visit} from 'unist-util-visit'
 import {toText} from 'hast-util-to-text'
-import {s} from 'hastscript'
+import {h, s} from 'hastscript'
 import {analyze} from 'periscopic'
 import {valueToEstree} from 'estree-util-value-to-estree'
 import {nodeTypes} from '@mdx-js/mdx'
@@ -170,7 +170,7 @@ function recmaInjectMeta(options = {}) {
 function rehypePrettyCodeBlocks() {
   const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
-  return (tree, file) => {
+  return (tree) => {
     visit(tree, 'element', (node, index, parent) => {
       if (node.tagName !== 'pre') {
         return
@@ -199,11 +199,24 @@ function rehypePrettyCodeBlocks() {
       }
 
       const children = [node]
+      const className = (code.properties && code.properties.className) || []
       const textContent = toText(node)
+      const lang = className.find((value) => value.slice(0, 9) === 'language-')
+      const header = []
+      const footer = []
+      const language = metaProps.language || (lang ? lang.slice(9) : undefined)
+
+      if (metaProps.path) {
+        header.push(h('span.code-chrome-name', metaProps.path))
+      }
+
+      if (language) {
+        header.push(h('span.code-chrome-lang', language))
+      }
 
       // Not giant.
       if (textContent.length < 8192) {
-        children.push({
+        footer.push({
           type: 'mdxJsxTextElement',
           name: 'CopyButton',
           attributes: [
@@ -213,16 +226,15 @@ function rehypePrettyCodeBlocks() {
         })
       }
 
-      if (file.basename === 'mdx.server.mdx') {
-        // console.log('code:', node, metaProps)
+      if (header) {
+        children.unshift(h('.code-chrome-header', header))
       }
 
-      parent.children[index] = {
-        type: 'element',
-        tagName: 'div',
-        properties: {},
-        children
+      if (footer) {
+        children.push(h('.code-chrome-footer', footer))
       }
+
+      parent.children[index] = h('.code-chrome', children)
     })
   }
 }
