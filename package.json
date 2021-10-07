@@ -78,6 +78,7 @@
     "rehype-minify-url": "^4.0.0",
     "rehype-parse": "^8.0.0",
     "rehype-preset-minify": "^6.0.0",
+    "rehype-raw": "^6.0.0",
     "rehype-remove-comments": "^5.0.0",
     "rehype-sanitize": "^5.0.0",
     "rehype-shift-heading": "^1.0.0",
