@@ -87,12 +87,17 @@ dd,
   padding: 0 calc(1em + 1ex);
 }
 
+label {
+  display: block;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
+label,
 p,
 pre,
 ol,

@@ -5,6 +5,9 @@ import {VFileMessage} from 'vfile-message'
 import {statistics} from 'vfile-statistics'
 import {reporter} from 'vfile-reporter'
 import {evaluate} from '@mdx-js/mdx'
+import remarkGfm from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMath from 'remark-math'
 import CodeMirror from 'rodemirror'
 import {basicSetup} from '@codemirror/basic-setup'
 import {markdown as langMarkdown} from '@codemirror/lang-markdown'
@@ -21,21 +24,28 @@ lowlight.registerLanguage('js', javascript)
 lowlight.registerLanguage('json', json)
 lowlight.registerLanguage('md', markdown)
 
-function useMdx() {
-  const [file, setFile] = useState(null)
-
-  const setValue = useCallback(async (value) => {
-    const file = new VFile({basename: 'example.mdx', value})
+function useMdx(defaults) {
+  const [state, setState] = useState({...defaults, file: null})
+  const setConfig = useCallback(async (config) => {
+    const file = new VFile({basename: 'example.mdx', value: config.value})
 
     const capture = (name) => () => (tree) => {
       file.data[name] = tree
     }
 
+    const remarkPlugins = []
+
+    if (config.gfm) remarkPlugins.push(remarkGfm)
+    if (config.frontmatter) remarkPlugins.push(remarkFrontmatter)
+    if (config.math) remarkPlugins.push(remarkMath)
+
+    remarkPlugins.push(capture('mdast'))
+
     try {
       file.result = (
         await evaluate(file, {
           ...runtime,
-          remarkPlugins: [capture('mdast')],
+          remarkPlugins,
           rehypePlugins: [capture('hast')],
           recmaPlugins: [capture('esast')]
         })
@@ -51,17 +61,22 @@ function useMdx() {
       message.fatal = true
     }
 
-    setFile(file)
+    setState({...config, file})
   }, [])
 
-  return [file, setValue]
+  return [state, setConfig]
 }
 
 export const Editor = ({children}) => {
   const defaultValue = children
   const extensions = useMemo(() => [basicSetup, oneDark, langMarkdown()], [])
-  const [file, setValue] = useMdx()
-  const stats = file ? statistics(file) : {}
+  const [state, setConfig] = useMdx({
+    gfm: false,
+    frontmatter: false,
+    math: false,
+    value: defaultValue
+  })
+  const stats = state.file ? statistics(state.file) : {}
 
   const FallbackComponent = ({error}) => {
     const message = new VFileMessage(error)
@@ -104,22 +119,50 @@ export const Editor = ({children}) => {
               extensions={extensions}
               onUpdate={(v) => {
                 if (v.docChanged) {
-                  setValue(v.state.doc.toString())
+                  setConfig({...state, value: String(v.state.doc)})
                 }
               }}
             />
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="frame-body frame-body-box frame-body-box-fixed-height">
-            Settings Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </div>
+          <form className="frame-body frame-body-box frame-body-box-fixed-height">
+            <label>
+              <input
+                checked={state.gfm}
+                type="checkbox"
+                onChange={() => setConfig({...state, gfm: !state.gfm})}
+              />{' '}
+              Use{' '}
+              <a href="https://github.com/remarkjs/remark-gfm">
+                <code>remark-gfm</code>
+              </a>
+            </label>
+            <label>
+              <input
+                checked={state.frontmatter}
+                type="checkbox"
+                onChange={() =>
+                  setConfig({...state, frontmatter: !state.frontmatter})
+                }
+              />{' '}
+              Use{' '}
+              <a href="https://github.com/remarkjs/remark-frontmatter">
+                <code>remark-frontmatter</code>
+              </a>
+            </label>
+            <label>
+              <input
+                checked={state.math}
+                type="checkbox"
+                onChange={() => setConfig({...state, math: !state.math})}
+              />{' '}
+              Use{' '}
+              <a href="https://github.com/remarkjs/remark-math/tree/main/packages/remark-math">
+                <code>remark-math</code>
+              </a>
+            </label>
+          </form>
         </TabPanel>
       </Tabs>
 
@@ -162,24 +205,27 @@ export const Editor = ({children}) => {
         <TabPanel>
           <noscript>Enable JavaScript to see the rendered result.</noscript>
           <div className="frame-body frame-body-box-fixed-height frame-body-box">
-            {file && file.result ? (
+            {state.file && state.file.result ? (
               <ErrorBoundary FallbackComponent={FallbackComponent}>
-                <file.result />
+                <state.file.result />
               </ErrorBoundary>
             ) : null}
           </div>
         </TabPanel>
         <TabPanel>
           <div className="frame-body frame-body-box-fixed-height">
-            {file ? (
+            {state.file ? (
               stats.fatal ? (
                 <pre>
-                  <code>{reporter(file)}</code>
+                  <code>{reporter(state.file)}</code>
                 </pre>
               ) : (
                 <pre>
                   <code className="hljs language-js">
-                    {toH(createElement, lowlight.highlight('js', String(file)))}
+                    {toH(
+                      createElement,
+                      lowlight.highlight('js', String(state.file))
+                    )}
                   </code>
                 </pre>
               )
@@ -188,14 +234,14 @@ export const Editor = ({children}) => {
         </TabPanel>
         <TabPanel>
           <div className="frame-body frame-body-box-fixed-height">
-            {file && file.data.mdast ? (
+            {state.file && state.file.data.mdast ? (
               <pre>
                 <code className="hljs language-js">
                   {toH(
                     createElement,
                     lowlight.highlight(
                       'json',
-                      JSON.stringify(file.data.mdast, null, 2)
+                      JSON.stringify(state.file.data.mdast, null, 2)
                     )
                   )}
                 </code>
@@ -205,14 +251,14 @@ export const Editor = ({children}) => {
         </TabPanel>
         <TabPanel>
           <div className="frame-body frame-body-box-fixed-height">
-            {file && file.data.hast ? (
+            {state.file && state.file.data.hast ? (
               <pre>
                 <code className="hljs language-js">
                   {toH(
                     createElement,
                     lowlight.highlight(
                       'json',
-                      JSON.stringify(file.data.hast, null, 2)
+                      JSON.stringify(state.file.data.hast, null, 2)
                     )
                   )}
                 </code>
@@ -222,14 +268,14 @@ export const Editor = ({children}) => {
         </TabPanel>
         <TabPanel>
           <div className="frame-body frame-body-box-fixed-height">
-            {file && file.data.esast ? (
+            {state.file && state.file.data.esast ? (
               <pre>
                 <code className="hljs language-js">
                   {toH(
                     createElement,
                     lowlight.highlight(
                       'json',
-                      JSON.stringify(file.data.esast, null, 2)
+                      JSON.stringify(state.file.data.esast, null, 2)
                     )
                   )}
                 </code>
