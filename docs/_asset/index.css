@@ -569,7 +569,7 @@ button.success {
 }
 
 .note {
-  color: var(--gray-3);
+  color: var(--gray-9);
   background-color: rgba(56 139 253 / 0.15);
   border: 1px solid #1f6feb;
   border-radius: 3px;
@@ -837,7 +837,8 @@ button.success {
     display: initial;
   }
 
-  .note.info {
+  .note {
+    color: var(--gray-3);
   }
 
   .navigation::before {
