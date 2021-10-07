@@ -1,4 +1,3 @@
-.parcel-cache/
 .DS_Store
 coverage/
 node_modules/
@@ -20,4 +19,4 @@ node_modules/
 /packages/vue/lib/**/*.d.ts
 /packages/vue/test/**/*.d.ts
 /packages/vue/index.d.ts
-/public
+/public/
