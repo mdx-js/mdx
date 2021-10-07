@@ -12,6 +12,7 @@ import {unified} from 'unified'
 import rehypeSanitize from 'rehype-sanitize'
 import {toXml} from 'xast-util-to-xml'
 import {Layout} from '../docs/_component/layout.server.js'
+import {CopyButton} from '../docs/_component/copy.client.js'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
@@ -100,6 +101,23 @@ async function main() {
 
   index = -1
 
+  const {error} = console
+
+  // Swallow some errors that react warns about for client components,
+  // which are fine?!
+  console.error = (...parameters) => {
+    if (
+      parameters[0] ===
+        'Warning: React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s' &&
+      parameters[1] === 'object' &&
+      parameters[2] === ''
+    ) {
+      return
+    }
+
+    error(...parameters)
+  }
+
   await pAll(
     allInfo.map((d) => async () => {
       const {name, data, Content, ghUrl, nljsonUrl, jsonUrl} = d
@@ -111,7 +129,7 @@ async function main() {
       writeStream.on('close', () => console.log('  generate: `%s`', name))
 
       const element = React.createElement(Content, {
-        components: {wrapper: Layout},
+        components: {wrapper: Layout, CopyButton},
         ...data,
         name,
         ghUrl,
@@ -123,5 +141,8 @@ async function main() {
     {concurrency: 6}
   )
 
-  process.on('exit', () => console.log('✔ Generate'))
+  process.on('exit', () => {
+    console.error = error
+    console.log('✔ Generate')
+  })
 }

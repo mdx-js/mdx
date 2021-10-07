@@ -24,7 +24,9 @@ import rehypeShiftHeading from 'rehype-shift-heading'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeRaw from 'rehype-raw'
 import rehypeMinifyUrl from 'rehype-minify-url'
-import {s} from 'hastscript'
+import {visit} from 'unist-util-visit'
+import {toText} from 'hast-util-to-text'
+import {h, s} from 'hastscript'
 import {analyze} from 'periscopic'
 import {valueToEstree} from 'estree-util-value-to-estree'
 import {nodeTypes} from '@mdx-js/mdx'
@@ -49,6 +51,7 @@ const options = {
     ]
   ],
   rehypePlugins: [
+    rehypePrettyCodeBlocks,
     [rehypeRaw, {passThrough: nodeTypes}],
     unifiedInferRemoteMeta,
     unifiedInferGitMeta,
@@ -160,6 +163,99 @@ function recmaInjectMeta(options = {}) {
       },
       source: null,
       specifiers: []
+    })
+  }
+}
+
+function rehypePrettyCodeBlocks() {
+  const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
+
+  const languageNames = {
+    diff: 'Diff',
+    html: 'HTML',
+    js: 'JavaScript',
+    jsx: 'JSX',
+    md: 'Markdown',
+    mdx: 'MDX',
+    sh: 'Shell',
+    txt: 'Plain text',
+    ts: 'TypeScript'
+  }
+
+  return (tree) => {
+    visit(tree, 'element', (node, index, parent) => {
+      if (node.tagName !== 'pre') {
+        return
+      }
+
+      const code = node.children[0]
+
+      if (
+        !code ||
+        code.type !== 'element' ||
+        code.tagName !== 'code' ||
+        node.children.length > 1
+      ) {
+        return
+      }
+
+      const metaProps = {}
+
+      if (code.data && code.data.meta) {
+        let match
+        re.lastIndex = 0 // Reset regex.
+
+        while ((match = re.exec(code.data.meta))) {
+          metaProps[match[1]] = match[2] || match[3] || match[4] || ''
+        }
+      }
+
+      const children = [node]
+      const className = (code.properties && code.properties.className) || []
+      const textContent = toText(node)
+      const lang = className.find((value) => value.slice(0, 9) === 'language-')
+      const header = []
+      const footer = []
+      const language = metaProps.language || (lang ? lang.slice(9) : undefined)
+
+      if (metaProps.path) {
+        header.push(h('span.code-chrome-name', metaProps.path))
+      }
+
+      if (language) {
+        if (!own.call(languageNames, language)) {
+          console.log(
+            '[mdx-config]: warn: please add %s to have a nice language name',
+            language
+          )
+        }
+
+        header.push(
+          h('span.code-chrome-lang', languageNames[language] || language)
+        )
+      }
+
+      // Not giant.
+      if (textContent.length < 8192) {
+        footer.push({
+          type: 'mdxJsxTextElement',
+          name: 'CopyButton',
+          attributes: [
+            {type: 'mdxJsxAttribute', name: 'value', value: textContent}
+          ],
+          children: []
+        })
+      }
+
+      if (header) {
+        children.unshift(h('.code-chrome-header', header))
+      }
+
+      if (footer) {
+        children.push(h('.code-chrome-footer', footer))
+      }
+
+      parent.children[index] = h('.code-chrome', children)
     })
   }
 }

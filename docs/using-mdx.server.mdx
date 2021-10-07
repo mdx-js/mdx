@@ -20,7 +20,7 @@ If you’re new to MDX we recommend that you start with [§ What is MDX][what].
 An integration compiles MDX syntax to JavaScript.
 Say we have an MDX document, `example.mdx`:
 
-```mdx
+```mdx path="input.mdx"
 export const Thing = () => <>World</>
 
 # Hello <Thing />
@@ -29,7 +29,7 @@ export const Thing = () => <>World</>
 That’s *roughly* turned into the following JavaScript.
 The below might help to form a mental model:
 
-```js
+```js path="output-outline.jsx"
 /* @jsxRuntime automatic @jsxImportSource react */
 
 export const Thing = () => <>World</>
@@ -48,7 +48,7 @@ Some observations:
 
 The *actual* output is:
 
-```js
+```js path="output-actual.js"
 /* @jsxRuntime automatic @jsxImportSource react */
 import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
@@ -89,15 +89,15 @@ Both the classic and automatic JSX runtimes are supported.
 
 We just saw that MDX files are compiled to components.
 You can use that component like any other component in your framework of choice.
-Take for example this `example.mdx`:
+Take for example this file:
 
-```mdx
+```mdx path="example.mdx"
 # Hi!
 ```
 
 This file could be imported and used in a React app:
 
-```js
+```js path="example.js"
 import React from 'react'
 import ReactDom from 'react-dom'
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
@@ -109,7 +109,7 @@ The main content is exported as the default export and all other values are also
 exported.
 Take this example:
 
-```mdx
+```mdx path="example.mdx"
 export const Thing = () => <>World</>
 
 # Hello <Thing />
@@ -117,7 +117,7 @@ export const Thing = () => <>World</>
 
 This could be imported like so:
 
-```js
+```js path="example.js"
 // A namespace import to get everything:
 import * as everything from './example.mdx'
 console.log(everything) // {Thing: [Function: Thing], default: [Function: MDXContent]}
@@ -137,9 +137,9 @@ console.log(AnotherName) // [Function: Thing]
 Components, regardless of framework, accept “props” (an object with arbitrary
 data).
 This object is available from within MDX content under the identifier `props`.
-Take for example this `example.mdx`:
+Take for example file:
 
-```mdx
+```mdx path="example.mdx"
 # Hello {props.name}
 
 The current year is {props.year}
@@ -147,7 +147,7 @@ The current year is {props.year}
 
 This file could be used as:
 
-```js
+```js path="example.jsx"
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
 // Use a `createElement` call:
@@ -160,7 +160,7 @@ React.createElement(Example, {name: 'Venus', year: 2021})
 You don’t have to pass data.
 You can also define (or import) it within MDX:
 
-```jsx
+```jsx path="example.mdx"
 export const year = 2019
 export const fact = 'a particularly snowy year'
 
@@ -171,15 +171,15 @@ export const fact = 'a particularly snowy year'
 
 There is one special prop: `components`.
 It takes an object mapping component names to components.
-Take this `example.mdx`:
+Take this example:
 
-```mdx
+```mdx path="example.mdx"
 # Hello *<Planet />*
 ```
 
 This file could be imported from JavaScript and passed components like so:
 
-```js
+```js path="example.jsx"
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
 <Example components={{Planet: () => <span style={{color: 'tomato'}}>Pluto</span>}} />
@@ -188,7 +188,7 @@ import Example from './example.mdx' // Assumes an integration is used to compile
 You don’t have to pass components.
 You can also define or import them within MDX:
 
-```jsx
+```jsx path="example.mdx" language="mdx"
 import {Box, Heading} from 'rebass'
 
 MDX using imported components!
@@ -200,7 +200,7 @@ MDX using imported components!
 
 Because MDX files *are* components, they can also import each other:
 
-```jsx
+```jsx path="example.mdx" language="mdx"
 import License from './license.md'
 import Contributing from './docs/contributing.mdx'
 
@@ -215,7 +215,7 @@ import Contributing from './docs/contributing.mdx'
 
 Here are some other examples of passing components:
 
-```js
+```js path="example.jsx"
 <Example
   components={{
     // Map `h1` (`# heading`) to use `h2`s.
@@ -260,7 +260,7 @@ There is one special component: the layout.
 If it is defined, it’s used to wrap the whole content.
 A layout can be defined from within MDX using a default export:
 
-```js
+```js language="mdx"
 export default function Layout({children}) {
   return <main>{children}</main>;
 }
@@ -270,7 +270,7 @@ All the things.
 
 The layout can also be imported and *then* exported with an `export … from`:
 
-```js
+```js language="mdx"
 export {Layout as default} from './components.js'
 ```
 
@@ -280,15 +280,15 @@ precedence).
 ## MDX provider
 
 Passing components is typically fine.
-Take for example this `post.mdx`:
+Take for example this file:
 
-```mdx
+```mdx path="post.mdx"
 # Hello world
 ```
 
-Used like so in `app.jsx`:
+Used like so:
 
-```javascript
+```js path="app.jsx"
 import React from 'react'
 import ReactDom from 'react-dom'
 import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
@@ -308,9 +308,9 @@ ReactDom.render(
 
 But when you’re nesting MDX files (importing them into each other) it can become
 cumbersome.
-If `post.mdx` was instead importing and using other files:
+If the MDX was instead importing and using other files:
 
-```mdx
+```mdx path="post.mdx"
 import License from './license.md'
 import Contributing from './docs/contributing.mdx'
 

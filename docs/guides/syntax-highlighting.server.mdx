@@ -21,7 +21,7 @@ Use either [`rehype-highlight`][rehype-highlight]
 (`highlight.js`) or [`@mapbox/rehype-prism`][rehype-prism]
 (Prism) by doing something like this:
 
-```js
+```js path="example.js"
 import rehypeHighlight from 'rehype-highlight'
 import {compile} from '@mdx-js/mdx'
 
@@ -43,7 +43,7 @@ async function main(code) {
 <details>
   <summary>Show equivalent JSX</summary>
 
-  ```js
+  ```js path="output.jsx"
   <>
     <pre>
       <code className="hljs language-js">
@@ -61,7 +61,7 @@ Use for example
 [`react-syntax-highlighter`][react-syntax-highlighter],
 by doing something like this:
 
-```js
+```jsx path="example.jsx"
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import Post from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
@@ -78,7 +78,7 @@ function code({className, ...props}) {
 <details>
   <summary>Show equivalent JSX</summary>
 
-  ```js
+  ```jsx path="output.jsx"
   <>
     <pre>
       <div
@@ -108,7 +108,7 @@ function code({className, ...props}) {
 
 Markdown supports a meta string for code:
 
-````markdown
+````md path="example.md"
 ```js filename="index.js"
 console.log(1)
 ```
@@ -130,9 +130,9 @@ to interpret the `meta` field.
 For example, it’s possible to pass that string as a prop by writing a rehype
 plugin:
 
-```js
+```js path="rehype-meta-as-attributes.js"
 /** @type {import('unified').Plugin<[], import('hast').Root>} */
-function rehypeMetaAsAttribute() {
+function rehypeMetaAsAttributes() {
   return (tree) => {
     visit(tree, 'element', (node) => {
       if (node.tagName === 'code' && node.data && node.data.meta) {
@@ -145,7 +145,7 @@ function rehypeMetaAsAttribute() {
 
 This would yields the following JSX:
 
-```jsx
+```jsx path="output.jsx"
 <>
   <pre>
     <code class="language-js" meta='filename="index.js"'>
@@ -163,7 +163,7 @@ What if we wanted to parse that string and add each “attribute” as a prop?
 Using the same rehype plugin as above, but with a different `onelement`
 function, that can be achieved:
 
-```js
+```js path="rehype-meta-as-attributes.js"
 const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
     // …
@@ -183,7 +183,7 @@ const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
 This would yields the following JSX:
 
-```jsx
+```jsx path="output.jsx"
 <>
   <pre>
     <code class="language-js" filename="index.js">

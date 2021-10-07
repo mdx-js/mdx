@@ -14,7 +14,7 @@ remark plugins can be passed in
 
 Say we have an MDX file like this:
 
-```mdx
+```mdx path="example.mdx"
 # GFM
 
 ## Autolink literals
@@ -44,7 +44,7 @@ A note[^1]
 
 The above MDX, with GFM features, can be transformed with the following module:
 
-```js
+```js path="example.js"
 import {promises as fs} from 'node:fs'
 import {compile} from '@mdx-js/mdx'
 import remarkGfm from 'remark-gfm'
@@ -63,7 +63,7 @@ async function main() {
 <details>
   <summary>Show equivalent JSX</summary>
 
-  ```js
+  ```jsx path="output.jsx"
   <>
     <h1>GFM</h1>
     <h2>Autolink literals</h2>

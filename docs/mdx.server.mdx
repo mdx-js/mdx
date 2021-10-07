@@ -94,14 +94,14 @@ Instead of the following HTML:
 
 You can write the equivalent in markdown (or MDX) like so:
 
-```markdown
+```md
 > A blockquote with *some* emphasis.
 ```
 
 Markdown is good for **content**.
 MDX supports standard markdown syntax ([CommonMark][]):
 
-````markdown
+````md
 # Heading (rank 1)
 ## Heading 2
 ### 3
@@ -136,7 +136,7 @@ highlighting) can be enabled by [configuring plugins][using-plugins].
 Certain standard markdown features don’t work in MDX:
 
 *   Indented code does not work in MDX:
-    ```markdown
+    ```md
         console.log(1) // this is a paragraph in MDX!
     ```
     The reason for that is so you can nicely indent your components:

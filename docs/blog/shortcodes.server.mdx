@@ -9,8 +9,7 @@ cards, or anything else frequently used in your documents.
 If you have an application wrapper for your MDX documents
 you can add in components with the `MDXProvider`:
 
-```js
-// src/App.js
+```js path="src/App.js"
 import React from 'react'
 import {MDXProvider} from '@mdx-js/react'
 import {YouTube, Twitter, TomatoBox} from './ui'
@@ -27,9 +26,7 @@ Then, any MDX document that’s wrapped in `App` has access to `YouTube`,
 Shortcodes are nothing more than components, so you can reference them anywhere
 in an MDX document with JSX.
 
-`example.mdx`
-
-```mdx
+```mdx path="example.mdx"
 # Hello world!
 
 Here’s a YouTube shortcode:
