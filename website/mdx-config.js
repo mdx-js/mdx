@@ -210,6 +210,10 @@ function rehypePrettyCodeBlocks() {
         }
       }
 
+      if (metaProps.chrome === 'no') {
+        return
+      }
+
       const children = [node]
       const className = (code.properties && code.properties.className) || []
       const textContent = toText(node)

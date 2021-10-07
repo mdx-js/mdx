@@ -1,3 +1,4 @@
+import {Note} from '../_component/Note.server.js'
 export const navSortSelf = 3
 
 # Math
@@ -41,10 +42,6 @@ async function main() {
 }
 ```
 
-{/* To do: make the style note a call out. */}
-
-…you still need to load a KaTeX style sheet when using `rehype-katex`.
-
 <details>
   <summary>Show equivalent JSX</summary>
 
@@ -63,6 +60,16 @@ async function main() {
   </>
   ```
 </details>
+
+<Note type="info">
+  **Note**: you should also use `katex.css` somewhere on the page to style math
+  properly.
+  At the time of writing, the last version is:
+
+  ```html
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+  ```
+</Note>
 
 [commonmark]: https://commonmark.org
 

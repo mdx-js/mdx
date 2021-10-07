@@ -1,3 +1,4 @@
+import {Note} from './_component/Note.server.js'
 export const navSortSelf = 1
 
 # What is MDX?
@@ -61,10 +62,12 @@ braces (`{1 + 1}`) and ESM (`import` and `export`).
 
 ## MDX syntax
 
-> **Note**!
-> You don’t have to use this syntax with `@mdx-js/*` packages.
-> Or use it always.
-> With [`options.format`][format], you can opt-in gradually or not at all.
+<Note type="info">
+  **Note**:
+  You don’t have to use this syntax with `@mdx-js/*` packages.
+  Or use it always.
+  With [`options.format`][format], you can opt-in gradually or not at all.
+</Note>
 
 The MDX syntax is a mix between markdown and JS(X).
 This gives us something along the lines of [literate programming][lit].
