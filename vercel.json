@@ -1,4 +1,166 @@
 {
   "public": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/about/",
+      "destination": "/community/about/"
+    },
+    {
+      "source": "/advanced/",
+      "destination": "/guides/"
+    },
+    {
+      "source": "/advanced/api/",
+      "destination": "/packages/mdx/#api"
+    },
+    {
+      "source": "/advanced/ast/",
+      "destination": "/packages/remark-mdx/#syntax-tree"
+    },
+    {
+      "source": "/advanced/components/",
+      "destination": "/using-mdx/"
+    },
+    {
+      "source": "/advanced/contributing/",
+      "destination": "/community/contribute/"
+    },
+    {
+      "source": "/advanced/custom-loader/",
+      "destination": "/guides/frontmatter/"
+    },
+    {
+      "source": "/advanced/retext-plugins/",
+      "destination": "/extending-mdx/#using-plugins"
+    },
+    {
+      "source": "/advanced/plugins/",
+      "destination": "/extending-mdx/"
+    },
+    {
+      "source": "/advanced/runtime/",
+      "destination": "/packages/mdx/#evaluatefile-options"
+    },
+    {
+      "source": "/advanced/specification/",
+      "destination": "/packages/remark-mdx/#syntax-tree"
+    },
+    {
+      "source": "/advanced/sync-api/",
+      "destination": "/packages/mdx/#api"
+    },
+    {
+      "source": "/advanced/transform-content/",
+      "destination": "/packages/remark-mdx/"
+    },
+    {
+      "source": "/advanced/typescript/",
+      "destination": "/getting-started/#types"
+    },
+    {
+      "source": "/advanced/writing-a-plugin/",
+      "destination": "/guides/frontmatter/"
+    },
+    {
+      "source": "/contributing/",
+      "destination": "/community/contribute/"
+    },
+    {
+      "source": "/editor-plugins/",
+      "destination": "/getting-started/#editor"
+    },
+    {
+      "source": "/editors/",
+      "destination": "/getting-started/#editor"
+    },
+    {
+      "source": "/getting-started/create-react-app/",
+      "destination": "/getting-started/#create-react-app-cra"
+    },
+    {
+      "source": "/getting-started/gatsby/",
+      "destination": "/getting-started/#gatsby"
+    },
+    {
+      "source": "/getting-started/next/",
+      "destination": "/getting-started/#nextjs"
+    },
+    {
+      "source": "/getting-started/parcel/",
+      "destination": "/getting-started/#parcel"
+    },
+    {
+      "source": "/getting-started/react-static/",
+      "destination": "/getting-started/#react-static"
+    },
+    {
+      "source": "/getting-started/table-of-components/",
+      "destination": "/table-of-components/"
+    },
+    {
+      "source": "/getting-started/typescript/",
+      "destination": "/getting-started/#types"
+    },
+    {
+      "source": "/getting-started/webpack/",
+      "destination": "/getting-started/#webpack"
+    },
+    {
+      "source": "/guides/custom-loader/",
+      "destination": "/guides/frontmatter/"
+    },
+    {
+      "source": "/guides/live-code/",
+      "destination": "/guides/syntax-highlighting/#syntax-highlighting-with-the-meta-field"
+    },
+    {
+      "source": "/guides/markdown-in-components/",
+      "destination": "/mdx/"
+    },
+    {
+      "source": "/guides/math-blocks/",
+      "destination": "/guides/math/"
+    },
+    {
+      "source": "/guides/mdx-embed/",
+      "destination": "/guides/embed/#embeds-at-run-time"
+    },
+    {
+      "source": "/guides/table-of-contents/",
+      "destination": "/extending-mdx/"
+    },
+    {
+      "source": "/guides/terminal/",
+      "destination": "/getting-started/#ink"
+    },
+    {
+      "source": "/guides/vue/",
+      "destination": "/getting-started/#vue"
+    },
+    {
+      "source": "/guides/wrapper-customization/",
+      "destination": "/using-mdx/#layout"
+    },
+    {
+      "source": "/guides/writing-a-plugin/",
+      "destination": "/extending-mdx/#creating-plugins"
+    },
+    {
+      "source": "/plugins/",
+      "destination": "/extending-mdx/#using-plugins"
+    },
+    {
+      "source": "/projects/",
+      "destination": "/community/projects/"
+    },
+    {
+      "source": "/support/",
+      "destination": "/community/support/"
+    },
+    {
+      "source": "/syntax/",
+      "destination": "/getting-started/#syntax"
+    }
+  ]
 }

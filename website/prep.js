@@ -12,6 +12,8 @@ import rehypeMinifyUrl from 'rehype-minify-url'
 import rehypeStringify from 'rehype-stringify'
 import {config, redirect} from '../docs/_config.js'
 
+const own = {}.hasOwnProperty
+
 main().catch((error) => {
   throw error
 })
@@ -57,12 +59,30 @@ async function main() {
       file.value = processor.stringify(tree)
       await fs.mkdir(file.dirname, {recursive: true})
       await fs.writeFile(file.path, String(file))
-      console.log('  redirect: `%s` -> `%s`', from, to)
     }),
     {concurrency: 6}
   )
 
-  console.log('✔ Redirect')
+  console.log('✔ %d redirects', Object.keys(redirect).length)
+
+  const vercelRedirects = []
+  let redirectFrom
+
+  for (redirectFrom in redirect) {
+    if (own.call(redirect, redirectFrom)) {
+      const source = redirectFrom.replace(/\/index.html$/, '/')
+      const destination = redirect[redirectFrom]
+      vercelRedirects.push({source, destination})
+    }
+  }
+
+  const vercelInfo = JSON.parse(await fs.readFile('vercel.json'))
+  await fs.writeFile(
+    'vercel.json',
+    JSON.stringify({...vercelInfo, redirects: vercelRedirects}, null, 2) + '\n'
+  )
+
+  console.log('✔ `vercel.json` redirects')
 }
 
 function buildRedirect(to) {
