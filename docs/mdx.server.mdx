@@ -186,7 +186,7 @@ things like the following markup:
 
 …to JSX (or MDX) like this:
 
-```jsx
+```jsx language="mdx"
 <Welcome name="Venus" />
 <Welcome name="Mars" />
 ```
@@ -196,7 +196,7 @@ It makes repeating things more clear and allows for separation of concerns.
 MDX fully supports [JSX syntax][jsx].
 Here’s some JSX looks a lot like HTML:
 
-```js
+```jsx language="mdx"
 <h1>Heading!</h1>
 
 <abbr title="HyperText Markup Language">HTML</abbr> is a lovely language.
@@ -210,7 +210,7 @@ You can also use components in MDX.
 Note that you must either define them locally or pass them in later
 (see [§ Using MDX][use]):
 
-```js
+```jsx language="mdx"
 <MyComponent id="123" />
 
 Or access the `thisOne` component on the `myComponents` object: <myComponents.thisOne />
@@ -231,7 +231,7 @@ There are a few edge cases
 MDX supports `import` and `export` statements from JavaScript as well.
 These ESM features can be used to define things from within MDX:
 
-```js
+```jsx language="mdx"
 import {External} from './some/place.js'
 
 export const Local = props => <span style={{color: 'red'}} {...props} />
@@ -241,7 +241,7 @@ An <External>external</External> component and a <Local>local one</Local>.
 
 ESM can also be used for non-components (data):
 
-```js
+```jsx language="mdx"
 import {Chart} from './chart.js'
 import population from './population.js'
 export const pi = 3.14
@@ -253,7 +253,7 @@ export const pi = 3.14
 
 MDX also supports JavaScript expressions inside curly braces:
 
-```mdx
+```jsx language="mdx"
 export const pi = 3.14
 
 Two 🍰 is: {pi * 2}
