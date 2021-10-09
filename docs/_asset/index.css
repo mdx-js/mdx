@@ -621,10 +621,23 @@ button.success {
     0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3),
     0 -6px 16px -6px rgba(0, 0, 0, 0.025);
   background-image: radial-gradient(
-    ellipse at 100% 100%,
+    ellipse at 0% 0%,
     rgb(252 180 45 / 10%) 20%,
     transparent 80%
   );
+}
+
+.emoji-list > ul {
+  list-style-type: none;
+}
+
+.emoji-list > ul > li {
+  margin-left: 0;
+}
+
+.big {
+  font-size: larger;
+  padding: calc(1.5 * (1em + 1ex));
 }
 
 .frame {
@@ -919,7 +932,7 @@ button.success {
   .card {
     background-color: var(--gray-9);
     background-image: radial-gradient(
-      ellipse at 100% 100%,
+      ellipse at 0% 0%,
       rgb(252 180 45 / 10%) 20%,
       transparent 80%
     );
@@ -966,14 +979,18 @@ button.success {
   ul blockquote,
   blockquote blockquote,
   .note blockquote,
+  .card blockquote,
   ol ol,
   ul ol,
   blockquote ol,
   .note ol,
+  .card ol,
   ol ul,
   ul ul,
   blockquote ul,
-  .note ul {
+  .note ul,
+  .card ul,
+  .emoji-list > ul {
     margin-left: 0;
   }
 
