@@ -17,7 +17,7 @@ import chromium from 'chrome-aws-lambda'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
-const dateTimeFormat = new Intl.DateTimeFormat('en')
+const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 main().catch((error) => {
   throw error
@@ -243,11 +243,16 @@ async function main() {
                     h('br'),
                     h('b', info.meta.author)
                   ]),
-                  h('.og-right', [
-                    h('small', 'Last modified on'),
-                    h('br'),
-                    h('b', dateTimeFormat.format(new Date(info.meta.modified)))
-                  ])
+                  info.meta.modified
+                    ? h('.og-right', [
+                        h('small', 'Last modified on'),
+                        h('br'),
+                        h(
+                          'b',
+                          dateTimeFormat.format(new Date(info.meta.modified))
+                        )
+                      ])
+                    : undefined
                 ])
               ])
             ])

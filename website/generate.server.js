@@ -16,6 +16,10 @@ import {CopyButton} from '../docs/_component/copy.client.js'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
+/** @type {{format(items: string[]): string}} */
+// @ts-expect-error: TS doesn’t know about `ListFormat` yet.
+const listFormat = new Intl.ListFormat('en')
+
 main().catch((error) => {
   throw error
 })
@@ -44,7 +48,26 @@ async function main() {
         config.ghBlob
       )
 
-      const {default: Content, ...data} = await import(url.href)
+      const {default: Content, info, ...data} = await import(url.href)
+      // Handle `author` differently.
+      const {author, ...restInfo} = info || {}
+      const authors = Array.isArray(author) ? author : author ? [author] : []
+      const authorNames = authors.map((d) => d.name)
+
+      if (authors[0] && authors[0].twitter) {
+        restInfo.authorTwitter = authors[0].twitter
+      }
+
+      const abbreviatedAuthors =
+        authorNames.length > 3
+          ? [...authorNames.slice(0, 2), 'others']
+          : authorNames
+
+      if (abbreviatedAuthors.length > 0) {
+        restInfo.author = listFormat.format(abbreviatedAuthors)
+      }
+
+      data.meta = {authors, ...restInfo, ...data.meta}
 
       // Sanitize the HAST description:
       if (data.meta.descriptionHast) {

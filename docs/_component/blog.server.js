@@ -3,7 +3,7 @@ import apStyleTitleCase from 'ap-style-title-case'
 import {toH} from 'hast-to-hyperscript'
 import {sortItems} from './sort.js'
 
-const dateTimeFormat = new Intl.DateTimeFormat('en')
+const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 export const BlogEntry = (props) => {
   const {item} = props
@@ -49,13 +49,19 @@ export const BlogEntry = (props) => {
         className="block"
       >
         <div>
-          <small>By {meta.author}</small>
-          <br />
+          {meta.author ? (
+            <>
+              <small>By {meta.author}</small>
+              <br />
+            </>
+          ) : undefined}
           <small>Reading time: {timeLabel}</small>
         </div>
-        <div style={{marginLeft: 'auto', textAlign: 'right'}}>
-          <small>Published on {dateTimeFormat.format(meta.published)}</small>
-        </div>
+        {meta.published ? (
+          <div style={{marginLeft: 'auto', textAlign: 'right'}}>
+            <small>Published on {dateTimeFormat.format(meta.published)}</small>
+          </div>
+        ) : undefined}
       </div>
     </div>
   )

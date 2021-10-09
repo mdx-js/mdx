@@ -2,7 +2,7 @@ import React from 'react'
 import apStyleTitleCase from 'ap-style-title-case'
 import {sortItems} from './sort.js'
 
-const dateTimeFormat = new Intl.DateTimeFormat('en')
+const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 export const NavGroup = (props) => {
   const {items, className, sort = 'navSortSelf,meta.title', ...rest} = props

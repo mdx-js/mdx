@@ -7,7 +7,6 @@
  */
 
 import {pathToFileURL} from 'url'
-import unifiedInferGitMeta from 'unified-infer-git-meta'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkGithub from 'remark-github'
@@ -54,7 +53,6 @@ const options = {
     rehypePrettyCodeBlocks,
     [rehypeRaw, {passThrough: nodeTypes}],
     unifiedInferRemoteMeta,
-    unifiedInferGitMeta,
     [
       rehypeInferDescriptionMeta,
       {inferDescriptionHast: true, truncateSize: 280}
@@ -110,13 +108,26 @@ function unifiedInferRemoteMeta() {
       file.data.meta || (file.data.meta = {})
     )
 
-    const url = new URL(
-      pathToFileURL(file.path)
-        .href.slice(config.input.href.length - 1)
+    const fileUrl = pathToFileURL(file.path)
+    const parts = fileUrl.href.slice(config.git.href.length - 1).split('/')
+    let fp
+
+    if (parts[1] === 'docs') {
+      fp = ('/' + parts.slice(2).join('/'))
         .replace(/\.server\.mdx$/, '/')
-        .replace(/\/index\/$/, '/'),
-      config.site
-    )
+        .replace(/\/index\/$/, '/')
+    } else {
+      // Symlinks, which we have to hack around.
+      if (parts[1] !== 'packages' || parts[parts.length - 1] !== 'readme.md') {
+        throw new Error(
+          'Expected symlinked file to match `/packages/*/readme.md`'
+        )
+      }
+
+      fp = parts.slice(0, -1).join('/') + '/'
+    }
+
+    const url = new URL(fp, config.site)
 
     meta.origin = url.origin
     meta.pathname = url.pathname
