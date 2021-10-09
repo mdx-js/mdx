@@ -57,9 +57,11 @@ export const BlogEntry = (props) => {
           ) : undefined}
           <small>Reading time: {timeLabel}</small>
         </div>
-        <div style={{marginLeft: 'auto', textAlign: 'right'}}>
-          <small>Published on {dateTimeFormat.format(meta.published)}</small>
-        </div>
+        {meta.published ? (
+          <div style={{marginLeft: 'auto', textAlign: 'right'}}>
+            <small>Published on {dateTimeFormat.format(meta.published)}</small>
+          </div>
+        ) : undefined}
       </div>
     </div>
   )

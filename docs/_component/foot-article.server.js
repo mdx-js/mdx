@@ -75,9 +75,11 @@ export const FootArticle = (props) => {
               </>
             ) : undefined}
 
-            <small>
-              Last modified on {dateTimeFormat.format(meta.modified)}
-            </small>
+            {meta.modified ? (
+              <small>
+                Last modified on {dateTimeFormat.format(meta.modified)}
+              </small>
+            ) : undefined}
           </div>
         </div>
       </div>

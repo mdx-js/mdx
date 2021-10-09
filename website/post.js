@@ -243,11 +243,16 @@ async function main() {
                     h('br'),
                     h('b', info.meta.author)
                   ]),
-                  h('.og-right', [
-                    h('small', 'Last modified on'),
-                    h('br'),
-                    h('b', dateTimeFormat.format(new Date(info.meta.modified)))
-                  ])
+                  info.meta.modified
+                    ? h('.og-right', [
+                        h('small', 'Last modified on'),
+                        h('br'),
+                        h(
+                          'b',
+                          dateTimeFormat.format(new Date(info.meta.modified))
+                        )
+                      ])
+                    : undefined
                 ])
               ])
             ])
