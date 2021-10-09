@@ -45,6 +45,7 @@ function useMdx(defaults) {
       file.result = (
         await evaluate(file, {
           ...runtime,
+          useDynamicImport: true,
           remarkPlugins,
           rehypePlugins: [capture('hast')],
           recmaPlugins: [capture('esast')]
