@@ -17,7 +17,7 @@ import chromium from 'chrome-aws-lambda'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
-const dateTimeFormat = new Intl.DateTimeFormat('en')
+const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 main().catch((error) => {
   throw error

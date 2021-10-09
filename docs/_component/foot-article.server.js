@@ -1,10 +1,11 @@
 import React from 'react'
 import {sortItems} from './sort.js'
 
-const dateTimeFormat = new Intl.DateTimeFormat('en')
+const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 export const FootArticle = (props) => {
   const {name, navTree, ghUrl, meta = {}} = props
+  const authors = meta.authors || {}
   let previous
   let next
 
@@ -51,8 +52,29 @@ export const FootArticle = (props) => {
             <a href={ghUrl.href}>Edit this page on GitHub</a>
           </div>
           <div style={{marginLeft: 'auto', textAlign: 'right'}}>
-            <small>By {meta.author}</small>
-            <br />
+            {meta.author ? (
+              <>
+                <small>
+                  By{' '}
+                  {authors.map((d, i) => {
+                    return (
+                      <span key={d.name}>
+                        {i ? ', ' : ''}
+                        {d.github ? (
+                          <a href={'https://github.com/' + d.github}>
+                            {d.name}
+                          </a>
+                        ) : (
+                          d.name
+                        )}
+                      </span>
+                    )
+                  })}
+                </small>
+                <br />
+              </>
+            ) : undefined}
+
             <small>
               Last modified on {dateTimeFormat.format(meta.modified)}
             </small>

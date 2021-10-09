@@ -7,7 +7,6 @@
  */
 
 import {pathToFileURL} from 'url'
-import unifiedInferGitMeta from 'unified-infer-git-meta'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkGithub from 'remark-github'
@@ -54,7 +53,6 @@ const options = {
     rehypePrettyCodeBlocks,
     [rehypeRaw, {passThrough: nodeTypes}],
     unifiedInferRemoteMeta,
-    unifiedInferGitMeta,
     [
       rehypeInferDescriptionMeta,
       {inferDescriptionHast: true, truncateSize: 280}
