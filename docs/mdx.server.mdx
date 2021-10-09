@@ -259,6 +259,26 @@ export const pi = 3.14
 Two 🍰 is: {pi * 2}
 ```
 
+Expressions can contain whole JavaScript programs as long as they’re (wrapped
+in) an expression that evaluate to something that can be rendered.
+You can use an [IIFE][] like so:
+
+```jsx language="mdx"
+{(function () {
+  const guess = Math.random()
+
+  if (guess > 0.66) {
+    return <span style={{color: 'tomato'}}>Look at us.</span>
+  }
+
+  if (guess > 0.33) {
+    return <span style={{color: 'violet'}}>Who would have guessed?!</span>
+  }
+
+  return <span style={{color: 'goldenrod'}}>Not me.</span>
+})()}
+```
+
 Expressions can be empty or contain just a comment:
 
 ```mdx
@@ -282,3 +302,5 @@ Expressions can be empty or contain just a comment:
 [use]: /using-mdx/
 
 [using-plugins]: /extending-mdx/#using-plugins
+
+[iife]: https://developer.mozilla.org/en-US/docs/Glossary/IIFE
