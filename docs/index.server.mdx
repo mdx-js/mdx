@@ -66,42 +66,46 @@ This makes writing long-form content with components a blast.
   </div>
 </div>
 
+[Try it out on our playground »][playground]
+
 ***
 
-## New: MDX v2!
+<div className="card big">
+  ## New: MDX v2!
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-deserunt mollit anim id est laborum.
+  Years of hard work have lead to a much improved version 2.
+  Here’s the highlights:
 
-*   Bullet
-*   Bullet
-*   Bullet
-*   Bullet
+  <div className="emoji-list">
+    *   🔁 **Improved syntax** makes it easier to use markdown in JSX, in
+        markdown, in JSX
+    *   🧩 **Full JavaScript support** turns `{2 * Math.PI}` into {2 * Math.PI}
+    *   🔌 New **esbuild**, **Rollup**, and **Node.js** integrations
+    *   🔥 Support for *anything* that supports JSX: React, Preact, Vue, Emotion, Ink, you name it
+    *   🎒 **400% smaller** with more features
+    *   🏃‍♀️ **25% faster**, at least, while doing much more
+    *   🧵 …and much, much, so much more.
+  </div>
 
-[Read the announcement »][v2]
+  [Read the announcement »][v2]
+</div>
 
 ## In short
 
-❤️ **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
-JSX-based projects.
+<div className="emoji-list">
+  *   ❤️ **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
+      JSX-based projects
+  *   💻 **Everything is a component**: Use existing components in your
+      MDX and import other MDX files as components
+  *   🔧 **Customizable**: Decide which component is rendered for each markdown
+      construct (`{h1: MyHeading}`)
+  *   📚 **Markdown-based**: The simplicity and elegance of markdown remains,
+      you interleave JSX only when you want to
+  *   🔥 **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
+      during the build stage
+</div>
 
-💻 **Everything is a component**: Use existing components inside your
-MDX and import other MDX files as components.
-
-🔧 **Customizable**: Decide which component is rendered for each markdown
-construct (`{h1: MyHeading}`).
-
-📚 **Markdown-based**: The simplicity and elegance of markdown remains,
-you interleave JSX only when you want to.
-
-🔥 **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
-during the build stage.
+{/* To do: quotes. */}
 
 > It’s extremely useful for using design system components to render markdown
 > and weaving interactive components in with existing markdown.
@@ -109,5 +113,7 @@ during the build stage.
 > — [**@chrisbiscardi**][quote]
 
 [quote]: https://twitter.com/chrisbiscardi/status/1022304288326864896
+
+[playground]: /playground/
 
 [v2]: /blog/v2/
