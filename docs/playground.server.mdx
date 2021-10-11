@@ -2,8 +2,8 @@ import {Editor} from './_component/editor.client.js'
 export const navSortSelf = 5
 export const info = {
   author: [
-    {name: 'John Otander', github: 'johno'},
-    {name: 'Titus Wormer', github: 'wooorm'}
+    {name: 'John Otander', github: 'johno', twitter: '4lpine'},
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-09-13'),
   modified: new Date('2021-11-01')
@@ -17,8 +17,7 @@ ASTs.
 This can be helpful for debugging or exploring how MDX works.
 
 <Editor children={`Hello, world!
-
-Below is an example of JSX embedded in Markdown.
+Below is an example of JSX embedded in markdown.
 
 <div style={{padding: '1rem', backgroundColor: 'violet'}}>
   Try and change the background color to \`tomato\`.

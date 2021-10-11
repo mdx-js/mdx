@@ -7,10 +7,12 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
+Node loader for MDX.
+
+<!-- more -->
+
 > 💡 **Experiment**: this is an experimental package that might not work
 > well and might change in minor releases.
-
-Node loader for MDX.
 
 ## Contents
 
@@ -127,30 +129,9 @@ multiple loaders with [`@node-loader/core`][node-loader-core].
 ## Types
 
 This package is fully typed with [TypeScript][].
+See [§ Types][types] on our website for information.
 
-An additional `Options` type is exported, which represents acceptable
-configuration.
-
-To enable types for imported `.mdx` files, install `@types/mdx` and use it.
-To use these types in JavaScript, do:
-
-```js
-/**
- * @typedef {import('@types/mdx')}
- */
-
-import Post from './example.mdx'
-// `Post` is now typed.
-```
-
-Alternatively, in TypeScript, do:
-
-```ts
-/// <reference types="@types/mdx" />
-
-import Post from './example.mdx'
-// `Post` is now typed.
-```
+An `Options` type is exported, which represents acceptable configuration.
 
 ## Security
 
@@ -210,6 +191,8 @@ abide by its terms.
 [integrations]: https://v2.mdxjs.com/getting-started/#integrations
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[types]: https://v2.mdxjs.com/getting-started/#types
 
 [security]: https://v2.mdxjs.com/getting-started/#security
 

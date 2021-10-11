@@ -1,7 +1,7 @@
 export const navSortSelf = 4
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm'}
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-06'),
   modified: new Date('2021-11-01')
@@ -13,6 +13,8 @@ This article explains how to extend MDX content—specifically, how to *transfor
 content with plugins.
 See [§ Getting started][start] for how to integrate MDX into your project.
 
+{/* more */}
+
 ## Contents
 
 *   [Components & plugins](#components--plugins)
@@ -23,10 +25,11 @@ See [§ Getting started][start] for how to integrate MDX into your project.
 
 ## Components & plugins
 
-`@mdx-js/mdx`—our core compiler that turns MDX into JavaScript—has several
-extension points:
+There are several extension points when compiling MDX content with `@mdx-js/mdx`
+or one of its integrations:
 
-*   Components can be defined internally or passed at runtime
+*   `@mdx-js/mdx` has a bunch of options (see [§ API][api])
+*   Components can be imported, defined locally, or passed at runtime
     (see [§ Using MDX][use])
 *   Plugins can hook into several stages of compilation (see [remark
     plugins][remark-plugins], [rehype plugins][rehype-plugins], and the new
@@ -70,7 +73,7 @@ See also the [list of remark plugins][remark-plugins] and
 
 ## Using plugins
 
-Where to pass plugins depends on their name: remark plugins go in
+Where to pass plugins is encoded in their name: remark plugins go in
 [`options.remarkPlugins`][options-remark-plugins], rehype plugins
 in [`options.rehypePlugins`][options-rehype-plugins].
 Those fields expect lists of plugins and/or of `[plugin, options]`:
@@ -126,6 +129,8 @@ For info on new node types supported in MDX, see [¶ Syntax tree in
 [rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
 
 [use]: /using-mdx/
+
+[api]: /packages/mdx/#api
 
 [react-confetti]: https://github.com/alampros/react-confetti
 

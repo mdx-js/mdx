@@ -241,7 +241,7 @@ async function main() {
                   h('.og-left', [
                     h('small', 'By'),
                     h('br'),
-                    h('b', info.meta.author)
+                    h('b', info.meta.author || 'MDX contributors')
                   ]),
                   info.meta.modified
                     ? h('.og-right', [

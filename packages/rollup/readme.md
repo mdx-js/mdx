@@ -9,6 +9,8 @@
 
 Rollup plugin for MDX.
 
+<!-- more -->
+
 ## Contents
 
 *   [What is this?](#what-is-this)
@@ -114,30 +116,9 @@ export default {
 ## Types
 
 This package is fully typed with [TypeScript][].
+See [§ Types][types] on our website for information.
 
-An additional `Options` type is exported, which represents acceptable
-configuration.
-
-To enable types for imported `.mdx` files, install `@types/mdx` and use it.
-To use these types in JavaScript, do:
-
-```js
-/**
- * @typedef {import('@types/mdx')}
- */
-
-import Post from './example.mdx'
-// `Post` is now typed.
-```
-
-Alternatively, in TypeScript, do:
-
-```ts
-/// <reference types="@types/mdx" />
-
-import Post from './example.mdx'
-// `Post` is now typed.
-```
+An `Options` type is exported, which represents acceptable configuration.
 
 ## Security
 
@@ -203,6 +184,8 @@ abide by its terms.
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [security]: https://v2.mdxjs.com/getting-started/#security
+
+[types]: https://v2.mdxjs.com/getting-started/#types
 
 [options]: https://v2.mdxjs.com/packages/mdx/#compilefile-options
 

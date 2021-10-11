@@ -10,6 +10,8 @@
 
 React context for MDX.
 
+<!-- more -->
+
 ## Contents
 
 *   [What is this?](#what-is-this)
@@ -34,18 +36,11 @@ MDX.
 ## When should I use this?
 
 This package is not needed for MDX to work with React.
-
-But it is nice if you enjoy context-based props passing to avoid some
-repetition.
+But it is nice if you enjoy context-based props passing to avoid repetition.
 This package adds support for a React context based interface to set components
 (sometimes known as *shortcodes*) by passing them to an `MDXProvider`, which
-then are used in all nested MDX file implicitly.
+then are used in all nested MDX files implicitly.
 The alternative is to pass those components to each MDX file.
-
-It can be used by:
-
-*   configuring your integration to use `@mdx-js/react` as a provider
-*   wrapping your MDX content in an `<MDXProvider components={…} />`.
 
 ## Install
 
@@ -88,6 +83,9 @@ directly:
 -</MDXProvider>
 +<Post components={components} />
 ```
+
+See [¶ React][start-react] for how to get started with MDX and React.
+See [¶ MDX provider][use-provider] for how to use an MDX provider.
 
 ## API
 
@@ -220,6 +218,10 @@ abide by its terms.
 [vercel]: https://vercel.com
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[start-react]: https://v2.mdxjs.com/getting-started/#react
+
+[use-provider]: https://v2.mdxjs.com/using-mdx/#mdx-provider
 
 [security]: https://v2.mdxjs.com/getting-started/#security
 

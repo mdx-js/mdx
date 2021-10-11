@@ -7,10 +7,12 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
+Node hook to require MDX.
+
+<!-- more -->
+
 > 🪦 **Legacy**: This package is not recommended for use as it depends on
 > deprecated Node features.
-
-Node hook to require MDX.
 
 ## Contents
 

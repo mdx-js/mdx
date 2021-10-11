@@ -2,7 +2,7 @@ import {Note} from './_component/note.server.js'
 export const navSortSelf = 2
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm'}
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-05'),
   modified: new Date('2021-11-01')
@@ -11,8 +11,13 @@ export const info = {
 # Getting started
 
 This article explains how to integrate MDX into your project.
+It shows how to use MDX with your bundler and JSX runtime of choice.
+It explains the markdown, JSX, JavaScript expressions, and ESM import/exports
+that can be used.
 If you’re new to MDX we recommend that you start with [§ What is MDX][what].
 See [§ Using MDX][use] when you’re all set up and ready to use MDX.
+
+{/* more */}
 
 ## Contents
 
@@ -34,13 +39,14 @@ See [§ Using MDX][use] when you’re all set up and ready to use MDX.
 ## Prerequisites
 
 MDX relies on JSX, so it’s required that your project supports JSX as well.
-Any JSX runtime (React, Preact, Vue, Ink, etc.) will do.
-Please make sure that JSX works for your project.
+Any JSX runtime (React, Preact, Vue, etc.) will do.
 Note that we do compile JSX to JS already so you don’t have to set that up.
 
 All `@mdx-js/*` packages are written in modern JavaScript.
 [Node.js](https://nodejs.org) version 12.20, 14.14, 16.0, or later is required
 to use them.
+They’re also [ESM only][esm], so they have to be `import`ed instead of
+`require`d.
 
 ## Quick start
 
@@ -52,14 +58,13 @@ The easiest way to get started is to use an integration for your bundler if you
 have one:
 
 *   If you’re using **esbuild**,
-    please install and configure [`@mdx-js/esbuild`][mdx-esbuild]
+    install and configure [`@mdx-js/esbuild`][mdx-esbuild]
 *   If you’re using **Rollup**
     (or Vite or WMR, which use it),
-    please install and configure [`@mdx-js/rollup`][mdx-rollup]
+    install and configure [`@mdx-js/rollup`][mdx-rollup]
 *   If you’re using **webpack**
-    (or Create React App (CRA), Next.js, Razzle, React Static, or Vue CLI,
-    which use it),
-    please install and configure [`@mdx-js/loader`][mdx-loader]
+    (or Create React App (CRA), Next.js, or Vue CLI, which use it),
+    install and configure [`@mdx-js/loader`][mdx-loader]
 
 You can also use MDX if you’re not using a bundler:
 
@@ -79,8 +84,8 @@ info on getting started with them:
 [¶ WMR][wmr], [¶ webpack][webpack].
 
 There are also certain community driven integrations.
-As we’ve just hit a major milestone with v2, they will likely be out of date
-with our docs here.
+As we’ve just hit a major milestone with v2, they might be out of date with our
+docs here though.
 See:
 [¶ Gatsby][gatsby],
 [¶ Parcel][parcel],
@@ -90,18 +95,18 @@ See:
 
 ### JSX
 
-Now you’ve set up `@mdx-js/mdx` or an integration, it’s time to configure your
-JSX runtime.
+Now you’ve set up an integration or `@mdx-js/mdx` itself, it’s time to configure
+your JSX runtime.
 
 *   If you’re using **React**,
     you don’t need to do anything!
     Optionally you can install and configure [`@mdx-js/react`][mdx-react]
 *   If you’re using **Preact**,
-    set `options.jsxImportSource` to `'preact'`.
+    set [`options.jsxImportSource`][options-jsximportsource] to `'preact'`.
     Optionally you can install and configure
     [`@mdx-js/preact`][mdx-preact]
 *   If you’re using **Vue 3**,
-    set `options.jsx` to `true`.
+    set [`options.jsx`][options-jsx] to `true`.
     You then have to use Babel alongside your MDX integration (possible with
     webpack and Rollup but not esbuild)
     and configure it to use
@@ -109,10 +114,16 @@ JSX runtime.
     Optionally you can also install and configure
     [`@mdx-js/vue`][mdx-vue]
 *   If you’re using **Emotion**,
-    set `options.jsxImportSource` to `'@emotion/react'`
+    set [`options.jsxImportSource`][options-jsximportsource] to
+    `'@emotion/react'`
 *   If you’re using **Theme UI**,
     install and configure [`@mdx-js/react`][mdx-react].
     Then wrap your MDX content in a `<ThemeProvider />`
+
+Other JSX runtimes are also supported by setting
+[`options.jsxImportSource`][options-jsximportsource].
+See also the different options there on how to use the classic JSX runtime
+and how to define a `pragma` and `pragmaFrag` for it.
 
 See also the specific sections for each of the aforementioned tools for more
 info on getting started with them:
@@ -538,7 +549,8 @@ on how to use MDX with React Static.
 #### Emotion
 
 [Emotion](https://emotion.sh/docs/introduction) is supported when
-`options.jsxImportSource` is set to `'@emotion/react'`.
+[`options.jsxImportSource`][options-jsximportsource] is set to
+`'@emotion/react'`.
 You can optionally install and configure the React plugin
 [`@mdx-js/react`][mdx-react], which allows for context based component
 passing.
@@ -603,7 +615,8 @@ more info.
 
 #### Preact
 
-Preact is supported when `options.jsxImportSource` is set to `'preact'`.
+Preact is supported when [`options.jsxImportSource`][options-jsximportsource] is
+set to `'preact'`.
 You can optionally install and configure the Preact plugin
 [`@mdx-js/preact`][mdx-preact], which allows for context based component
 passing.
@@ -723,6 +736,8 @@ See their readmes on how to configure them.
 
 [use]: /using-mdx/
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
 [mdx-esbuild]: /packages/esbuild/
 
 [mdx-loader]: /packages/loader/
@@ -742,6 +757,10 @@ See their readmes on how to configure them.
 [mdx-vue]: /packages/vue/
 
 [evaluate]: /packages/mdx/#evaluatefile-options
+
+[options-jsximportsource]: /packages/mdx/#optionsjsximportsource
+
+[options-jsx]: /packages/mdx/#optionsjsx
 
 [cra]: #create-react-app-cra
 

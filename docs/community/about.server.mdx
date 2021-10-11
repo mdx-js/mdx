@@ -2,7 +2,7 @@ import {Note} from '../_component/note.server.js'
 export const navSortSelf = 4
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm'}
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-06'),
   modified: new Date('2021-11-01')
@@ -12,6 +12,8 @@ export const info = {
 
 This article explains in short how MDX came to be and why it exists.
 It also gives thanks to the people who’ve helped make it and inspired it.
+
+{/* more */}
 
 ## What is MDX?
 
@@ -33,11 +35,11 @@ great because:
 
 Markdown *does* have a way to extend it, HTML, but that has drawbacks:
 
-*   HTML in Markdown is naïve, how it’s parsed sometimes doesn’t make sense
+*   HTML in markdown is naïve, how it’s parsed sometimes doesn’t make sense
 *   HTML is unsafe by default, so it’s sometimes (partially) unsupported
-*   HTML and Markdown don’t mix well, resulting in confusing rules such as
+*   HTML and markdown don’t mix well, resulting in confusing rules such as
     blank lines or `markdown="1"` attributes
-*   HTML is coupled with browsers, Markdown is useful for other things too
+*   HTML is coupled with browsers, markdown is useful for other things too
 
 The frontend world has an alternative to HTML: JSX.
 JSX is great, amongst other things, because:

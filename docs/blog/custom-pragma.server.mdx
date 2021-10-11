@@ -1,6 +1,6 @@
 export const info = {
   author: [
-    {name: 'Chris Biscardi', github: 'christopherbiscardi'}
+    {name: 'Chris Biscardi', github: 'christopherbiscardi', twitter: 'chrisbiscardi'}
   ],
   published: new Date('2019-03-11'),
   modified: new Date('2021-11-01')
@@ -18,6 +18,8 @@ with a custom code component.
 [mdx-utils](https://github.com/ChristopherBiscardi/gatsby-mdx/blob/00769a1b72455f40843cd2f09ee34fd63b009fb2/packages/mdx-utils/index.js)
 contains the methodology for pulling the props around appropriately
 through the `MDXTag` elements that are inbetween `pre` and `code`.
+
+{/* more */}
 
 ```js
 exports.preToCodeBlock = preProps => {
