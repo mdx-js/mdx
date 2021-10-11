@@ -916,7 +916,7 @@ abide by its terms.
 
 [usedynamicimport]: #optionsusedynamicimport
 
-[async-function]: https://developer.mozilla.org/docs/JavaScript/Reference/Global_Objects/AsyncFunction
+[async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction
 
 [function]: https://developer.mozilla.org/docs/JavaScript/Reference/Global_Objects/Function
 
