@@ -143,7 +143,7 @@ h2 {
   background-image: radial-gradient(
     ellipse at 50% 100%,
     rgb(252 180 45 / 10%) 20%,
-    transparent 80%
+    rgb(252 180 45 / 0%) 80%
   );
   font-size: 2em;
   margin-top: calc(0.5 * (1em + 1.25ex));
@@ -482,7 +482,7 @@ button.success {
   background-image: radial-gradient(
     ellipse at 50% 0%,
     hsl(39deg 97% 45% / 100%) 0%,
-    transparent 150%
+    hsl(39deg 97% 45% / 0%) 150%
   );
   backdrop-filter: saturate(200%) blur(1ex);
 }
@@ -613,7 +613,7 @@ button.success {
   background-image: radial-gradient(
     ellipse at 0% 0%,
     rgb(252 180 45 / 10%) 20%,
-    transparent 80%
+    rgb(252 180 45 / 0%) 80%
   );
 }
 
@@ -816,7 +816,7 @@ button.success {
     background-image: radial-gradient(
       ellipse at 50% 0%,
       hsl(39deg 97% 34% / 100%) 0%,
-      transparent 150%
+      hsl(39deg 97% 34% / 0%) 150%
     );
   }
 
@@ -924,7 +924,7 @@ button.success {
     background-image: radial-gradient(
       ellipse at 0% 0%,
       rgb(252 180 45 / 10%) 20%,
-      transparent 80%
+      rgb(252 180 45 / 0%) 80%
     );
   }
 }
