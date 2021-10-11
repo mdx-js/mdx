@@ -33,7 +33,8 @@ This integration is useful if you’re using webpack (or another tool that uses
 webpack, such as Next).
 
 This integration can be combined with the Babel loader to support nonstandard
-JSX runtimes (such as Vue).
+JSX runtimes (such as Vue) or compile modern JavaScript features to ones your
+users support.
 
 If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
 can be used manually.
@@ -119,30 +120,9 @@ DISABLE_V8_COMPILE_CACHE=1 webpack
 ## Types
 
 This package is fully typed with [TypeScript][].
+See [§ Types][types] on our website for information.
 
-An additional `Options` type is exported, which represents acceptable
-configuration.
-
-To enable types for imported `.mdx` files, install `@types/mdx` and use it.
-To use these types in JavaScript, do:
-
-```js
-/**
- * @typedef {import('@types/mdx')}
- */
-
-import Post from './example.mdx'
-// `Post` is now typed.
-```
-
-Alternatively, in TypeScript, do:
-
-```ts
-/// <reference types="@types/mdx" />
-
-import Post from './example.mdx'
-// `Post` is now typed.
-```
+An `Options` type is exported, which represents acceptable configuration.
 
 ## Security
 
@@ -200,6 +180,8 @@ abide by its terms.
 [webpack]: https://webpack.js.org
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[types]: https://v2.mdxjs.com/getting-started/#types
 
 [security]: https://v2.mdxjs.com/getting-started/#security
 

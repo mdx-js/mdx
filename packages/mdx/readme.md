@@ -62,11 +62,6 @@ yarn add @mdx-js/mdx
 
 ## Use
 
-This section describes how to use the API.
-See [§ What is MDX?][what] on how the format works.
-See [§ Integrations][integrations] on how to use MDX with Babel, esbuild,
-Rollup, webpack, etc.
-
 Say we have an MDX document, `example.mdx`:
 
 ```mdx
@@ -75,27 +70,6 @@ export const Thing = () => <>World!</>
 # Hello, <Thing />
 ```
 
-First, a rough idea of what the result will be.
-The below is not the actual output, but it might help to form a mental model:
-
-```js
-/* @jsxRuntime automatic @jsxImportSource react */
-
-export const Thing = () => <>World!</>
-
-export default function MDXContent() {
-  return <h1>Hello, <Thing /></h1>
-}
-```
-
-Some observations:
-
-*   The output is serialized JavaScript that still needs to be evaluated
-*   A comment is injected to configure how JSX is handled
-*   It’s a complete file with import/exports
-*   A component (`MDXContent`) is exported
-
-Now for how to get the actual output.
 Add some code in `example.js` to compile `example.mdx` to JavaScript:
 
 ```js
@@ -110,7 +84,7 @@ async function main() {
 }
 ```
 
-The *actual* output of running `node example.js` is:
+Yields roughly:
 
 ```js
 /* @jsxRuntime automatic @jsxImportSource react */
@@ -134,20 +108,7 @@ function MDXContent(props = {}) {
 export default MDXContent
 ```
 
-Some more observations:
-
-*   JSX is compiled away to function calls and an import of React†
-*   The content component can be given `{components: {h1: MyComponent}}` to use
-    something else for the heading
-*   The content component can be given `{components: {wrapper: MyLayout}}` to
-    wrap the whole content
-
-† `@mdx-js/mdx` is not coupled to React.
-You can also use it with [Preact][], [Vue][], [Emotion][], [Theme UI][theme-ui],
-etc.
-Both the classic and automatic JSX runtimes are supported.
-
-See [§ Using MDX][using-mdx] on how to use the result.
+See [§ Using MDX][using-mdx] for more on how MDX work and how to use the result.
 
 ## API
 
@@ -794,6 +755,7 @@ allowed (and `'mdx'` is the default).
 ## Types
 
 This package is fully typed with [TypeScript][].
+See [§ Types][types] on our website for information.
 
 Additional `CompileOptions`, `EvaluateOptions`, and `ProcessorOptions` types
 are exported, which represents acceptable configuration for their respective
@@ -994,19 +956,11 @@ abide by its terms.
 
 [integrations]: https://v2.mdxjs.com/getting-started/#integrations
 
-[what]: https://v2.mdxjs.com/mdx/
-
 [using-mdx]: https://v2.mdxjs.com/using-mdx/
 
-[preact]: https://v2.mdxjs.com/getting-started/#preact
-
-[vue]: https://v2.mdxjs.com/getting-started/#vue
-
-[emotion]: https://v2.mdxjs.com/getting-started/#emotion
-
-[theme-ui]: https://v2.mdxjs.com/getting-started/#theme-ui
-
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[types]: https://v2.mdxjs.com/getting-started/#types
 
 [security]: https://v2.mdxjs.com/getting-started/#security
 
