@@ -872,7 +872,7 @@ abide by its terms.
 
 [chat]: https://github.com/mdx-js/mdx/discussions
 
-[npm]: https://docs.npjs.com/cli/install
+[npm]: https://docs.npmjs.com/cli/install
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
