@@ -844,7 +844,7 @@ abide by its terms.
 
 ## License
 
-[MIT][] © [Compositor][] and [Vercel][]
+[MIT][] © Compositor and [Vercel][]
 
 [build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
 
@@ -883,8 +883,6 @@ abide by its terms.
 [coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/license
-
-[compositor]: https://compositor.io
 
 [vercel]: https://vercel.com
 
