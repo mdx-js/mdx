@@ -154,15 +154,8 @@ adding support for MDX in your editor:
 
 ### Types
 
-All our APIs are fully typed with
-[TypeScript](https://www.typescriptlang.org).
-To enable types for imported `.mdx`, `.md`, etcetera files, first make sure
-the TypeScript `JSX` namespace is typed (such as by importing the `react`
-types if you’re using that) and then install and use
-[`@types/mdx`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx).
-
 <details>
-  <summary>Show example of types in JavaScript</summary>
+  <summary>Expand example of types in JavaScript</summary>
 
   ```js path="example.js"
   /**
@@ -175,7 +168,7 @@ types if you’re using that) and then install and use
 </details>
 
 <details>
-  <summary>Show example of types in TypeScript</summary>
+  <summary>Expand example of types in TypeScript</summary>
 
   ```ts path="example.ts"
   /// <reference types="react" />
@@ -184,6 +177,13 @@ types if you’re using that) and then install and use
   import Post from './example.mdx' // `Post` is now typed.
   ```
 </details>
+
+All our APIs are fully typed with
+[TypeScript](https://www.typescriptlang.org).
+To enable types for imported `.mdx`, `.md`, etcetera files, first make sure
+the TypeScript `JSX` namespace is typed (such as by importing the `react`
+types if you’re using that) and then install and use
+[`@types/mdx`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx).
 
 ### Security
 
@@ -214,17 +214,8 @@ configure [esbuild’s `target`](https://esbuild.github.io/api/#target).
 
 #### Rollup
 
-We support [Rollup](https://rollupjs.org).
-Install and configure the Rollup plugin [`@mdx-js/rollup`][mdx-rollup].
-This plugin has additional options `include`, `exclude`.
-[Configure your JSX runtime][jsx] depending on which one you use (react, preact,
-vue, etc.)
-
-If you use more modern JavaScript features than what your users support,
-[configure `@rollup/plugin-babel`](/packages/rollup/#note-babel).
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```js path="rollup.config.js"
   import mdx from '@mdx-js/rollup'
@@ -246,24 +237,22 @@ If you use more modern JavaScript features than what your users support,
   ```
 </details>
 
+We support [Rollup](https://rollupjs.org).
+Install and configure the Rollup plugin [`@mdx-js/rollup`][mdx-rollup].
+This plugin has additional options `include`, `exclude`.
+[Configure your JSX runtime][jsx] depending on which one you use (react, preact,
+vue, etc.)
+
+If you use more modern JavaScript features than what your users support,
+[configure `@rollup/plugin-babel`](/packages/rollup/#note-babel).
+
 See also [¶ Vite][vite] and [¶ WMR][wmr], if you’re using Rollup through them,
 for more info.
 
 #### Webpack
 
-We support [webpack](https://webpack.js.org).
-Install and configure the webpack plugin [`@mdx-js/loader`][mdx-loader].
-[Configure your JSX runtime][jsx] depending on which one you use (react, preact,
-vue, etc.)
-
-If you use more modern JavaScript features than what your users support,
-[configure `babel-loader`](/packages/loader/#note-babel).
-
-Getting an error `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`?
-See [this note on `webpack-cli`](/packages/loader/#note-webpack-cli).
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```js path="webpack.config.js"
   module.exports = {
@@ -285,6 +274,17 @@ See [this note on `webpack-cli`](/packages/loader/#note-webpack-cli).
   ```
 </details>
 
+We support [webpack](https://webpack.js.org).
+Install and configure the webpack plugin [`@mdx-js/loader`][mdx-loader].
+[Configure your JSX runtime][jsx] depending on which one you use (react, preact,
+vue, etc.)
+
+If you use more modern JavaScript features than what your users support,
+[configure `babel-loader`](/packages/loader/#note-babel).
+
+Getting an error `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`?
+See [this note on `webpack-cli`](/packages/loader/#note-webpack-cli).
+
 See also [¶ Create React App (CRA)][cra], [¶ Next.js][next], and
 [¶ Vue CLI][vue-cli], if you’re using webpack through them, for more info.
 
@@ -298,20 +298,8 @@ on how to use MDX with Snowpack.
 
 #### Vite
 
-[Vite](https://vitejs.dev) supports Rollup plugins directly in `plugins` in
-your `vite.config.js`.
-
-Install and configure the rollup plugin [`@mdx-js/rollup`][mdx-rollup].
-This plugin has additional options `include`, `exclude`.
-[Configure your JSX runtime][jsx] depending on which one you use (react, preact,
-vue, etc.)
-
-If you use more modern JavaScript features than what your users support,
-[configure Vite’s
-`build.target`](https://vitejs.dev/guide/build.html#browser-compatibility).
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```js path="vite.config.js"
   import {defineConfig} from 'vite'
@@ -325,20 +313,25 @@ If you use more modern JavaScript features than what your users support,
   ```
 </details>
 
+[Vite](https://vitejs.dev) supports Rollup plugins directly in `plugins` in
+your `vite.config.js`.
+
+Install and configure the rollup plugin [`@mdx-js/rollup`][mdx-rollup].
+This plugin has additional options `include`, `exclude`.
+[Configure your JSX runtime][jsx] depending on which one you use (react, preact,
+vue, etc.)
+
+If you use more modern JavaScript features than what your users support,
+[configure Vite’s
+`build.target`](https://vitejs.dev/guide/build.html#browser-compatibility).
+
 See also [¶ Rollup][rollup], which is used in Vite, and see [¶ Vue][vue], if
 you’re using that, for more info.
 
 #### Vue CLI
 
-[Vue CLI](https://cli.vuejs.org) supports webpack plugins directly in
-`configureWebpack.plugins` in your `vue.config.js`.
-
-Install and configure the webpack plugin [`@mdx-js/loader`][mdx-loader].
-This plugin has additional options `include`, `exclude`.
-You have to configure [Vue and Babel][vue] too.
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```js path="vue.config.js"
   module.exports = {
@@ -357,20 +350,20 @@ You have to configure [Vue and Babel][vue] too.
   ```
 </details>
 
+[Vue CLI](https://cli.vuejs.org) supports webpack plugins directly in
+`configureWebpack.plugins` in your `vue.config.js`.
+
+Install and configure the webpack plugin [`@mdx-js/loader`][mdx-loader].
+This plugin has additional options `include`, `exclude`.
+You have to configure [Vue and Babel][vue] too.
+
 See also [¶ webpack][webpack], which is used in Vue CLI, and see [¶ Vue][vue],
 which you’re likely using, for more info.
 
 #### WMR
 
-[WMR](https://github.com/preactjs/wmr) supports Rollup plugins directly by
-[adding them to `plugins`](https://wmr.dev/docs/plugins/) in `wmr.config.mjs`.
-
-Install and configure the rollup plugin [`@mdx-js/rollup`][mdx-rollup].
-[Configure your JSX runtime][jsx] depending on which one you use (react, preact,
-vue, etc.)
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```js path="wmr.config.mjs"
   import {defineConfig} from 'wmr'
@@ -384,6 +377,13 @@ vue, etc.)
   ```
 </details>
 
+[WMR](https://github.com/preactjs/wmr) supports Rollup plugins directly by
+[adding them to `plugins`](https://wmr.dev/docs/plugins/) in `wmr.config.mjs`.
+
+Install and configure the rollup plugin [`@mdx-js/rollup`][mdx-rollup].
+[Configure your JSX runtime][jsx] depending on which one you use (react, preact,
+vue, etc.)
+
 See also [¶ Rollup][rollup], which is used in WMR, and see [¶ Preact][preact],
 if you’re using that, for more info.
 
@@ -391,19 +391,8 @@ if you’re using that, for more info.
 
 #### Babel
 
-You should probably use webpack or Rollup instead of Babel directly as that
-gives the neatest interface.
-It is possible to use `@mdx-js/mdx` in Babel and it’s fast, because it skips
-`@mdx-js/mdx` serialization and Babel parsing, if Babel is used anyway.
-
-Babel does not support syntax extensions to its parser (it has “syntax” plugins
-but those in fact turn certain flags on or off).
-It does support setting a different parser.
-Which in turn lets us choose whether to use the `@mdx-js/mdx` or
-`@babel/parser`.
-
 <details>
-  <summary>Show plugin and sample use</summary>
+  <summary>Expand plugin and sample use</summary>
 
   This plugin:
 
@@ -456,18 +445,23 @@ Which in turn lets us choose whether to use the `@mdx-js/mdx` or
   ```
 </details>
 
+You should probably use webpack or Rollup instead of Babel directly as that
+gives the neatest interface.
+It is possible to use `@mdx-js/mdx` in Babel and it’s fast, because it skips
+`@mdx-js/mdx` serialization and Babel parsing, if Babel is used anyway.
+
+Babel does not support syntax extensions to its parser (it has “syntax” plugins
+but those in fact turn certain flags on or off).
+It does support setting a different parser.
+Which in turn lets us choose whether to use the `@mdx-js/mdx` or
+`@babel/parser`.
+
 ### Site generators
 
 #### Create React App (CRA)
 
-[CRA](https://github.com/facebook/create-react-app) supports webpack plugins
-through webpack loader syntax in imports.
-
-Install the webpack plugin [`@mdx-js/loader`][mdx-loader].
-There is no need to configure it.
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```mdx path="src/content.mdx"
   # Hello, world!
@@ -485,6 +479,12 @@ There is no need to configure it.
   ```
 </details>
 
+[CRA](https://github.com/facebook/create-react-app) supports webpack plugins
+through webpack loader syntax in imports.
+
+Install the webpack plugin [`@mdx-js/loader`][mdx-loader].
+There is no need to configure it.
+
 See also [¶ Webpack][webpack], which is used in CRA, and see [¶ React][react],
 which you’re likely using, for more info.
 
@@ -496,15 +496,8 @@ on how to use MDX with Gatsby.
 
 #### Next.js
 
-[Next](https://nextjs.org) supports webpack plugins by overwriting the webpack
-config in `next.config.js`.
-
-Install and configure the webpack plugin
-[`@mdx-js/loader`][webpack].
-There is no need to configure your JSX runtime as react is already set up.
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```js path="next.config.js"
   module.exports = {
@@ -523,6 +516,13 @@ There is no need to configure your JSX runtime as react is already set up.
   ```
 </details>
 
+[Next](https://nextjs.org) supports webpack plugins by overwriting the webpack
+config in `next.config.js`.
+
+Install and configure the webpack plugin
+[`@mdx-js/loader`][webpack].
+There is no need to configure your JSX runtime as react is already set up.
+
 See also [¶ Webpack][webpack] and [¶ React][react], which you’re using, for
 more on those tools.
 
@@ -534,13 +534,14 @@ on how to use MDX with Parcel.
 
 #### Razzle
 
-[Razzle](https://www.gatsbyjs.com) has their own plugin to support MDX.
+[Razzle](https://razzlejs.org) has their own plugin to support MDX.
 See [`razzle-plugin-mdx`](https://razzlejs.org/plugins/razzle-plugin-mdx)
 on how to use MDX with Razzle.
 
 #### React Static
 
-[React Static](https://www.gatsbyjs.com) has their own plugin to support MDX.
+[React Static](https://github.com/react-static/react-static/) has their own
+plugin to support MDX.
 See [`react-static-plugin-mdx`](https://github.com/react-static/react-static/tree/HEAD/packages/react-static-plugin-mdx)
 on how to use MDX with React Static.
 
@@ -548,15 +549,8 @@ on how to use MDX with React Static.
 
 #### Emotion
 
-[Emotion](https://emotion.sh/docs/introduction) is supported when
-[`options.jsxImportSource`][options-jsximportsource] is set to
-`'@emotion/react'`.
-You can optionally install and configure the React plugin
-[`@mdx-js/react`][mdx-react], which allows for context based component
-passing.
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
@@ -569,23 +563,21 @@ passing.
   ```
 </details>
 
+[Emotion](https://emotion.sh/docs/introduction) is supported when
+[`options.jsxImportSource`][options-jsximportsource] is set to
+`'@emotion/react'`.
+You can optionally install and configure the React plugin
+[`@mdx-js/react`][mdx-react], which allows for context based component
+passing.
+
 See also [¶ React][react], which is used in Emotion, and see
 [¶ Rollup][rollup] and [¶ webpack][webpack], if you’re using them, for more
 info.
 
 #### Ink
 
-[Ink](https://github.com/vadimdemedes/ink) uses the React JSX runtime,
-so set that up.
-You will also want to swap HTML elements out for Ink’s components.
-See [§ Table of components](/table-of-components/) on how to set that up
-and Ink’s documentation on what you can use as replacements.
-
-See also [¶ React][react] and [¶ Node.js][node], which you’re using, for
-more info.
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```mdx path="example.mdx"
   # Hi!
@@ -613,16 +605,19 @@ more info.
   ```
 </details>
 
+[Ink](https://github.com/vadimdemedes/ink) uses the React JSX runtime,
+so set that up.
+You will also want to swap HTML elements out for Ink’s components.
+See [§ Table of components](/table-of-components/) on how to set that up
+and Ink’s documentation on what you can use as replacements.
+
+See also [¶ React][react] and [¶ Node.js][node], which you’re using, for
+more info.
+
 #### Preact
 
-Preact is supported when [`options.jsxImportSource`][options-jsximportsource] is
-set to `'preact'`.
-You can optionally install and configure the Preact plugin
-[`@mdx-js/preact`][mdx-preact], which allows for context based component
-passing.
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
@@ -634,6 +629,12 @@ passing.
   }
   ```
 </details>
+
+Preact is supported when [`options.jsxImportSource`][options-jsximportsource] is
+set to `'preact'`.
+You can optionally install and configure the Preact plugin
+[`@mdx-js/preact`][mdx-preact], which allows for context based component
+passing.
 
 See also [¶ esbuild][esbuild], [¶ Rollup][rollup], and [¶ webpack][webpack],
 which you might be using, for more info.
@@ -655,13 +656,8 @@ which you might be using, for more info.
 
 #### Theme UI
 
-[Theme UI](https://theme-ui.com) is a React-specific library that requires using
-context to access its effective components.
-You can optionally install and configure the React plugin
-[`@mdx-js/react`][mdx-react], which allows for context based component passing.
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   Example w/o `@mdx-js/react`
 
@@ -688,21 +684,19 @@ You can optionally install and configure the React plugin
   ```
 </details>
 
+[Theme UI](https://theme-ui.com) is a React-specific library that requires using
+context to access its effective components.
+You can optionally install and configure the React plugin
+[`@mdx-js/react`][mdx-react], which allows for context based component passing.
+
 See also [¶ Emotion][emotion], [¶ React][react], [¶ esbuild][esbuild],
 [¶ Rollup][rollup], and [¶ webpack][webpack], which you might be using, for more
 info.
 
 #### Vue
 
-Vue 3 is supported when using their custom Babel JSX transformer
-([`@vue/babel-plugin-jsx`](https://github.com/vuejs/jsx-next/tree/dev/packages/babel-plugin-jsx))
-and configuring [`@mdx-js/mdx`][mdx-mdx], [`@mdx-js/rollup`][mdx-react], or
-[`@mdx-js/loader`][mdx-loader] with `jsx: true`.
-You can optionally install and configure the Vue plugin
-[`@mdx-js/vue`][mdx-vue], which allows for context based component passing.
-
 <details>
-  <summary>Show example</summary>
+  <summary>Expand example</summary>
 
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
@@ -716,6 +710,13 @@ You can optionally install and configure the Vue plugin
   }
   ```
 </details>
+
+Vue 3 is supported when using their custom Babel JSX transformer
+([`@vue/babel-plugin-jsx`](https://github.com/vuejs/jsx-next/tree/dev/packages/babel-plugin-jsx))
+and configuring [`@mdx-js/mdx`][mdx-mdx], [`@mdx-js/rollup`][mdx-react], or
+[`@mdx-js/loader`][mdx-loader] with `jsx: true`.
+You can optionally install and configure the Vue plugin
+[`@mdx-js/vue`][mdx-vue], which allows for context based component passing.
 
 See also [¶ Vite][vite] and [¶ Vue CLI][vue-cli], which you might be using,
 for more info.

@@ -45,6 +45,7 @@ async function main() {
 
   const entries = await pAll(
     [...allInfo]
+      .filter((d) => d.info.meta.published !== undefined)
       .sort(
         (a, b) =>
           new Date(b.info.meta.published) - new Date(a.info.meta.published)

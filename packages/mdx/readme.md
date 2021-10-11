@@ -844,7 +844,7 @@ abide by its terms.
 
 ## License
 
-[MIT][] © [Compositor][] and [Vercel][]
+[MIT][] © Compositor and [Vercel][]
 
 [build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
 
@@ -872,7 +872,7 @@ abide by its terms.
 
 [chat]: https://github.com/mdx-js/mdx/discussions
 
-[npm]: https://docs.npjs.com/cli/install
+[npm]: https://docs.npmjs.com/cli/install
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
@@ -883,8 +883,6 @@ abide by its terms.
 [coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/license
-
-[compositor]: https://compositor.io
 
 [vercel]: https://vercel.com
 
@@ -918,7 +916,7 @@ abide by its terms.
 
 [usedynamicimport]: #optionsusedynamicimport
 
-[async-function]: https://developer.mozilla.org/docs/JavaScript/Reference/Global_Objects/AsyncFunction
+[async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction
 
 [function]: https://developer.mozilla.org/docs/JavaScript/Reference/Global_Objects/Function
 
