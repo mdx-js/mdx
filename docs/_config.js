@@ -3,14 +3,6 @@
 // in the dashboard.
 
 import process from 'process'
-import {execSync as exec} from 'child_process'
-
-let branch =
-  process.env.VERCEL_GIT_COMMIT_REF ||
-  String(exec('git rev-parse --abbrev-ref HEAD')).trim()
-
-// To do: `vercel` currently says `master` is used.
-if (branch === 'HEAD' || branch === 'master') branch = 'main'
 
 const site = new URL(process.env.VERCEL_URL || 'https://mdxjs.com')
 
@@ -22,8 +14,8 @@ export const config = {
   output: new URL('./public/', git),
   git,
   gh,
-  ghBlob: new URL('./blob/' + branch + '/', gh),
-  ghTree: new URL('./tree/' + branch + '/', gh),
+  ghBlob: new URL('./blob/main/', gh),
+  ghTree: new URL('./tree/main/', gh),
   site,
   twitter: new URL('https://twitter.com/mdx_js'),
   oc: new URL('https://opencollective.com/unified'),
