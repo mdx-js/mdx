@@ -21,20 +21,20 @@ See [§ Getting started][start] for how to integrate MDX into your project.
 *   [MDX syntax](#mdx-syntax)
     *   [Markdown](#markdown)
     *   [JSX](#jsx)
-    *   [ESM](#esm)
     *   [Expressions](#expressions)
+    *   [ESM](#esm)
 
 ## Prerequisites
 
 It’s important to know markdown
-([see this cheatsheet and tutorial][commonmark-help] for help) and have
-experience with JavaScript (specifically [JSX][jsx-spec]) to write (and enjoy
-writing) MDX.
+(see this [cheatsheet and tutorial][commonmark-help] for help) and have
+experience with JavaScript (specifically [JSX][jsx-spec]) to write and enjoy
+writing MDX.
 
 ## Markdown for the component era
 
 MDX is exciting because it’s an authorable format that lets you seamlessly write
-JSX in your Markdown documents.
+JSX in your markdown documents.
 You can import components, such as interactive charts or alerts, and embed them
 within your content.
 This makes writing long-form content with components a blast.
@@ -51,16 +51,16 @@ JSX and looks as follows:
 </div>
 ```
 
-The heading and the block quote are markdown and those XML-like things are JSX
-instead of HTML.
-Markdown often feels more natural to type than HTML (or JSX) for the common
-things (like emphasis, headings).
+The heading and the block quote are markdown and those HTML-like things are JSX
+instead.
+Markdown often feels more natural to type than HTML/JSX for the common things
+(like emphasis, headings).
 JSX is an extension to JavaScript that *looks* like HTML but makes it convenient
 to use components (reusable things).
 
 This example uses `className` on the `<div>`.
-That’s because this example was written with React in mind which expects classes
-to be added as such.
+That’s because this example was written for React and React expects classes that
+way.
 Other frameworks, such as Vue and Preact, expect classes to be defined
 differently, so note that there are some differences in how JSX has to be
 authored depending on what tools it’s used with.
@@ -78,23 +78,18 @@ braces (`{1 + 1}`) and ESM (`import` and `export`).
 </Note>
 
 The MDX syntax is a mix between markdown and JS(X).
-This gives us something along the lines of [literate programming][lit].
+This gives us something along the lines of literate programming.
 It also gives us an odd mix of two languages: markdown is whitespace sensitive
-and forgiving (what you type may not “work” but it won’t crash) whereas
+and forgiving (what you type may not exactly work but it won’t crash) whereas
 JavaScript is whitespace **insensitive** and **does** crash on typos.
 Weirdly enough we found they combine pretty well!
-See [this description in
-`micromark/mdx-state-machine`](https://github.com/micromark/mdx-state-machine#71-syntax)
-for a formal description of the MDX syntax.
-Some common gotchas with writing MDX are
-[documented here in `micromark/mdx-state-machine`
-](https://github.com/micromark/mdx-state-machine#74-common-mdx-gotchas).
 
 ### Markdown
 
-Traditionally, markdown is used to generate HTML.
-Many developers like writing markup in markdown as it often looks more like
-what’s intended and it is typically terser.
+Markdown often feels more natural to type than HTML/JSX for the common things
+(like emphasis, headings).
+It typically looks more like what’s intended and it is typically terser.
+Traditionally, markdown is mostly used to generate HTML.
 Instead of the following HTML:
 
 ```html
@@ -110,7 +105,7 @@ You can write the equivalent in markdown (or MDX) like so:
 ```
 
 Markdown is good for **content**.
-MDX supports standard markdown syntax ([CommonMark][]):
+MDX supports standard markdown syntax:
 
 ````md
 # Heading (rank 1)
@@ -140,18 +135,19 @@ a [link](https://example.com), an ![image](./image.png), some *emphasis*,
 something **strong**, and finally a little `code()`.
 ````
 
-MDX supports standard markdown only (CommonMark).
-Nonstandard markdown features (such as GFM, frontmatter, footnotes, math, syntax
-highlighting) can be enabled by [configuring plugins][using-plugins].
+MDX supports standard markdown by default ([CommonMark][]).
+Nonstandard markdown features (such as GFM, frontmatter, math, syntax
+highlighting) can be enabled with plugins (see
+[§ Using plugins][using-plugins]).
 
-Certain standard markdown features don’t work in MDX:
+Some markdown features don’t work in MDX:
 
 *   Indented code does not work in MDX:
     ```md
         console.log(1) // this is a paragraph in MDX!
     ```
     The reason for that is so you can nicely indent your components:
-    ```mdx
+    ```html language="mdx"
     <main>
       <article>
         # Hello!
@@ -159,23 +155,22 @@ Certain standard markdown features don’t work in MDX:
     </main>
     ```
 *   Autolinks do not work in MDX.
-    The reason is that they sometimes (such as `<svg:rect>` and
-    `<admin@example.com>`) look *a lot* like JSX components, and we prefer
-    being unambiguous.
+    The reason is that they sometimes look *a lot* like JSX components (such as
+    `<svg:rect>` and `<admin@example.com>`), and we prefer being unambiguous.
     If you want links, use full links:
     `[descriptive text](https://and-the-link-here.com)`
 *   HTML doesn’t work in MDX as it’s replaced by JSX
 *   Unescaped left angle bracket / less than (`<`) and left curly brace (`{`)
-    have to be escaped: `\<` or `\{`
+    have to be escaped: `\<` or `\{` (or use expressions: `{'<'}`, `{'{'}`)
 
 More on how MDX differs from markdown is
 [documented here](https://github.com/micromark/mdx-state-machine#72-deviations-from-markdown).
 
 ### JSX
 
-Recently, more and more developers have started using [JSX][] to generate HTML
-markup.
-JSX is typically combined with a frontend framework like React or Vue.
+[JSX][] is an extension to JavaScript that *looks* like HTML but makes it
+convenient to use components (reusable things).
+JSX is typically combined with a frontend framework like React, Preact, or Vue.
 These frameworks add support for components, which let you change repeating
 things like the following markup:
 
@@ -186,17 +181,17 @@ things like the following markup:
 
 …to JSX (or MDX) like this:
 
-```jsx language="mdx"
+```html language="mdx"
 <Welcome name="Venus" />
 <Welcome name="Mars" />
 ```
 
 JSX is good for **components**.
 It makes repeating things more clear and allows for separation of concerns.
-MDX fully supports [JSX syntax][jsx].
-Here’s some JSX looks a lot like HTML:
+MDX supports JSX syntax.
+The following looks a lot like normal HTML:
 
-```jsx language="mdx"
+```html language="mdx"
 <h1>Heading!</h1>
 
 <abbr title="HyperText Markup Language">HTML</abbr> is a lovely language.
@@ -206,14 +201,16 @@ Here’s some JSX looks a lot like HTML:
 </section>
 ```
 
-You can also use components in MDX.
-Note that you must either define them locally or pass them in later
-(see [§ Using MDX][use]):
+But as previously mentioned you can use components too.
+Note that components must be defined.
+You can import them, define them locally, or pass them in later (see
+[§ Using MDX][use]):
 
-```jsx language="mdx"
+```html language="mdx"
 <MyComponent id="123" />
 
-Or access the `thisOne` component on the `myComponents` object: <myComponents.thisOne />
+You can also use objects with components, such as the `thisOne` component on
+the `myComponents` object: <myComponents.thisOne />
 
 <Component
   open
@@ -226,37 +223,12 @@ Or access the `thisOne` component on the `myComponents` object: <myComponents.th
 There are a few edge cases
 [where MDX differs from JSX](https://github.com/micromark/mdx-state-machine#73-deviations-from-jsx).
 
-### ESM
-
-MDX supports `import` and `export` statements from JavaScript as well.
-These ESM features can be used to define things from within MDX:
-
-```jsx language="mdx"
-import {External} from './some/place.js'
-
-export const Local = props => <span style={{color: 'red'}} {...props} />
-
-An <External>external</External> component and a <Local>local one</Local>.
-```
-
-ESM can also be used for non-components (data):
-
-```jsx language="mdx"
-import {Chart} from './chart.js'
-import population from './population.js'
-export const pi = 3.14
-
-<Chart data={population} label={'Something with ' + pi} />
-```
-
 ### Expressions
 
 MDX also supports JavaScript expressions inside curly braces:
 
 ```jsx language="mdx"
-export const pi = 3.14
-
-Two 🍰 is: {pi * 2}
+Two 🍰 is: {Math.PI * 2}
 ```
 
 Expressions can contain whole JavaScript programs as long as they’re (wrapped
@@ -285,7 +257,28 @@ Expressions can be empty or contain just a comment:
 {/* A comment! */}
 ```
 
-[lit]: https://en.wikipedia.org/wiki/Literate_programming
+### ESM
+
+MDX supports `import` and `export` statements from JavaScript as well.
+These ESM features can be used to define things from within MDX:
+
+```jsx language="mdx"
+import {External} from './some/place.js'
+
+export const Local = props => <span style={{color: 'red'}} {...props} />
+
+An <External>external</External> component and a <Local>local one</Local>.
+```
+
+ESM can also be used for non-components (data):
+
+```jsx language="mdx"
+import {Chart} from './chart.js'
+import population from './population.js'
+export const pi = 3.14
+
+<Chart data={population} label={'Something with ' + pi} />
+```
 
 [commonmark]: https://commonmark.org
 
