@@ -95,14 +95,15 @@ Both the classic and automatic JSX runtimes are supported.
 ## MDX content
 
 We just saw that MDX files are compiled to components.
-You can use that component like any other component in your framework of choice.
-Take for example this file:
+You can use those components like any other component in your framework of
+choice.
+Take this file:
 
 ```mdx path="example.mdx"
 # Hi!
 ```
 
-This file could be imported and used in a React app:
+It could be imported and used in a React app like so:
 
 ```js path="example.js"
 import React from 'react'
@@ -122,7 +123,7 @@ export const Thing = () => <>World</>
 # Hello <Thing />
 ```
 
-This could be imported like so:
+It could be imported in the following ways:
 
 ```js path="example.js"
 // A namespace import to get everything:
@@ -184,7 +185,7 @@ Take this example:
 # Hello *<Planet />*
 ```
 
-This file could be imported from JavaScript and passed components like so:
+It can be imported from JavaScript and passed components like so:
 
 ```js path="example.jsx"
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
@@ -315,7 +316,7 @@ ReactDom.render(
 
 But when you’re nesting MDX files (importing them into each other) it can become
 cumbersome.
-If the MDX was instead importing and using other files:
+Like so:
 
 ```mdx path="post.mdx"
 import License from './license.md'
@@ -343,7 +344,7 @@ Set it up like so:
     set to that package, so either `'@mdx-js/react'`, `'@mdx-js/preact'`, or
     `'@mdx-js/vue'`
 3.  Import `MDXProvider` from that package.
-    Use it to wrap your top-most MDX content components and pass it your
+    Use it to wrap your top-most MDX content component and pass it your
     `components` instead:
 
 ```diff
