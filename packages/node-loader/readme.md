@@ -7,10 +7,12 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
+Node loader for MDX.
+
+<!-- more -->
+
 > 💡 **Experiment**: this is an experimental package that might not work
 > well and might change in minor releases.
-
-Node loader for MDX.
 
 ## Contents
 

@@ -10,6 +10,8 @@
 
 remark plugin to support the MDX syntax (JSX, expressions, import/exports).
 
+<!-- more -->
+
 ## Contents
 
 *   [What is this?](#what-is-this)

@@ -10,6 +10,8 @@
 
 Vue context for MDX.
 
+<!-- more -->
+
 ## Contents
 
 *   [What is this?](#what-is-this)
