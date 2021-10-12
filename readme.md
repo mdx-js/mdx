@@ -1,132 +1,118 @@
 <p align="center">
   <a href="https://mdxjs.com">
-    <img alt="MDX logo" src="https://mdx-logo.now.sh" width="60" />
+    <img alt="MDX" src="https://mdx-logo.now.sh" width="60" />
   </a>
 </p>
 
-# MDX: Markdown for the component era 🚀
+# Markdown for the component era
 
-[![Build Status][build-badge]][build]
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Sponsors][sponsors-badge]][collective]
+[![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[MDX][website] is an authorable format that lets you seamlessly use JSX in your
-markdown documents.
-You can import components, like interactive charts or notifications, and export
-metadata.
+[MDX][website] is an authorable format that lets you seamlessly write JSX in
+your markdown documents.
+You can import components, such as interactive charts or alerts, and embed them
+within your content.
 This makes writing long-form content with components a blast.
+🚀
 
-## Example
+```mdx
+import {Chart} from './snowfall.js'
+export const year = 2018
 
-See MDX in action:
+# Last year’s snowfall
 
-```jsx
-import { Chart } from '../components/chart'
+In {year}, the snowfall was above average.
+It was followed by a warm spring which caused
+flood conditions in many of the nearby rivers.
 
-# Here’s a chart
-
-The chart is rendered inside our MDX document.
-
-<Chart />
+<Chart year={year} color="#fcb32c" />
 ```
 
-## Intro
+See [§ What is MDX](https://v2.mdxjs.com/mdx/) for more info on the format.
+See [§ Playground](https://v2.mdxjs.com/playground/) to try it out.
 
-MDX is markdown for the component era.
-It lets you write JSX embedded inside markdown.
-That’s a great combination because it allows you to use markdown’s often terse
-syntax (such as `# heading`) for the little things and JSX for more advanced
-components.
+## What is this?
 
-❤️ **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
-JSX-based projects.
+This GitHub repository contains several packages for compiling the MDX format to
+JavaScript, integrating with bundlers such as webpack and rollup, and for using
+it with frameworks such as React, Preact, and Vue.
 
-💻 **Everything is a component**: Use existing components inside your
-MDX and import other MDX files as plain components.
+See [§ Getting started](https://v2.mdxjs.com/getting-started/) for how to
+integrate MDX into your project.
 
-🔧 **Customizable**: Decide which component is rendered for each markdown
-element (`{h1: MyHeading}`).
+## Security
 
-📚 **Markdown-based**: The simplicity and elegance of markdown remains,
-you interleave JSX only when you want to.
+See [§ Security][security] on our site for information.
 
-🔥 **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
-during the build stage.
+## Contribute
 
-> [Watch some of these features in action][intro]
+See [§ Contribute][contribute] on our site for ways to get started.
+See [§ Support][support] for ways to get help.
 
-## Getting started
+This project has a [code of conduct][coc].
+By interacting with this repository, organization, or community you agree to
+abide by its terms.
 
-```shell
-npm init mdx
-```
+## Sponsor
 
-Visit [`mdxjs.com`][website] for more info, and check out [Contribute][] below
-to find out how to help out.
-
-## Why?
-
-Before MDX, some of the benefits of writing markdown were lost when integrating
-with JSX.
-Implementations were often template string-based which required lots of escaping
-and cumbersome syntax.
-
-> MDX \[…] is extremely useful for using design system components to render
-> markdown and weaving interactive components in with existing markdown.
->
-> — [@chrisbiscardi][tweet]
-
-MDX seeks to make writing with markdown *and* JSX simpler while being more
-expressive.
-The possibilities are endless when you combine components (that can even be
-dynamic or load data) with the simplicity of markdown for long-form content.
-A nice example of this is [mdx-deck][], a great way to create slides with MDX.
-
-*   Fast
-*   No runtime compilation
-*   [Pluggable][remark-plugins]
-*   Element to React component mapping
-*   React component `import`/`export`
-*   Customizable layouts
-*   [Webpack loader](https://mdxjs.com/getting-started/webpack)
-*   [Parcel plugin](https://mdxjs.com/getting-started/parcel)
-*   [Next.js plugin](https://mdxjs.com/getting-started/next)
-*   [Gatsby plugin](https://mdxjs.com/getting-started/gatsby)
-
-## Sponsors
-
-Support this effort and give back by sponsoring on [OpenCollective][collective]!
+See [§ Sponsor][sponsor] on our site for how to help financially.
 
 <table>
 <tr valign="middle">
-<td width="20%" align="center" colspan="2">
-  <a href="https://www.gatsbyjs.org">Gatsby</a> 🥇<br><br>
-  <a href="https://www.gatsbyjs.org"><img src="https://avatars1.githubusercontent.com/u/12551863?s=256&v=4" width="128"></a>
-</td>
-<td width="20%" align="center" colspan="2">
-  <a href="https://vercel.com">Vercel</a> 🥇<br><br>
+<td width="20%" align="center" rowspan="2" colspan="2">
+  <a href="https://vercel.com">Vercel</a><br><br>
   <a href="https://vercel.com"><img src="https://avatars1.githubusercontent.com/u/14985020?s=256&v=4" width="128"></a>
 </td>
-<td width="20%" align="center" colspan="2">
+<td width="20%" align="center" rowspan="2" colspan="2">
+  <a href="https://motif.land">Motif</a><br><br>
+  <a href="https://motif.land"><img src="https://avatars1.githubusercontent.com/u/74457950?s=256&v=4" width="128"></a>
+</td>
+<td width="20%" align="center" rowspan="2" colspan="2">
+  <a href="https://www.hashicorp.com">HashiCorp</a><br><br>
+  <a href="https://www.hashicorp.com"><img src="https://avatars1.githubusercontent.com/u/761456?s=256&v=4" width="128"></a>
+</td>
+<td width="20%" align="center" rowspan="2" colspan="2">
+  <a href="https://www.gatsbyjs.org">Gatsby</a><br><br>
+  <a href="https://www.gatsbyjs.org"><img src="https://avatars1.githubusercontent.com/u/12551863?s=256&v=4" width="128"></a>
+</td>
+<td width="20%" align="center" rowspan="2" colspan="2">
   <a href="https://www.netlify.com">Netlify</a><br><br>
   <!--OC has a sharper image-->
   <a href="https://www.netlify.com"><img src="https://images.opencollective.com/netlify/4087de2/logo/256.png" width="128"></a>
 </td>
+</tr>
+<tr valign="middle">
+</tr>
+<tr valign="middle">
 <td width="10%" align="center">
-  <a href="https://www.holloway.com">Holloway</a><br><br>
-  <a href="https://www.holloway.com"><img src="https://avatars1.githubusercontent.com/u/35904294?s=128&v=4" width="64"></a>
+  <a href="https://www.coinbase.com">Coinbase</a><br><br>
+  <a href="https://www.coinbase.com"><img src="https://avatars1.githubusercontent.com/u/1885080?s=256&v=4" width="64"></a>
 </td>
 <td width="10%" align="center">
   <a href="https://themeisle.com">ThemeIsle</a><br><br>
   <a href="https://themeisle.com"><img src="https://avatars1.githubusercontent.com/u/58979018?s=128&v=4" width="64"></a>
 </td>
 <td width="10%" align="center">
+  <a href="https://expo.io">Expo</a><br><br>
+  <a href="https://expo.io"><img src="https://avatars1.githubusercontent.com/u/12504344?s=128&v=4" width="64"></a>
+</td>
+<td width="10%" align="center">
   <a href="https://boosthub.io">Boost Hub</a><br><br>
   <a href="https://boosthub.io"><img src="https://images.opencollective.com/boosthub/6318083/logo/128.png" width="64"></a>
 </td>
 <td width="10%" align="center">
-  <a href="https://expo.io">Expo</a><br><br>
-  <a href="https://expo.io"><img src="https://avatars1.githubusercontent.com/u/12504344?s=128&v=4" width="64"></a>
+  <a href="https://www.holloway.com">Holloway</a><br><br>
+  <a href="https://www.holloway.com"><img src="https://avatars1.githubusercontent.com/u/35904294?s=128&v=4" width="64"></a>
 </td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
+<td width="10%"></td>
 </tr>
 <tr valign="middle">
 <td width="100%" align="center" colspan="10">
@@ -137,82 +123,40 @@ Support this effort and give back by sponsoring on [OpenCollective][collective]!
 </tr>
 </table>
 
-## Authors
-
-*   [John Otander][john] ([@4lpine][4lpine]) – [Components AI][]
-*   [Tim Neutkens][tim] ([@timneutkens][timneutkens]) – [Vercel][]
-*   [Guillermo Rauch][guillermo] ([@rauchg][rauchg]) – [Vercel][]
-*   [Brent Jackson][brent] ([@jxnblk][jxnblk]) – [Gatsby](https://gatsbyjs.com)
-
-## Related
-
-See related projects in the [MDX specification][spec].
-
-## Contribute
-
-**MDX** is built by people just like you!
-See the [Support][] and [Contributing][] guidelines on the MDX website for ways
-to (get) help.
-
-This project has a [Code of Conduct][coc].
-By interacting with this repository, organisation, or community you agree to
-abide by its terms.
-
-Want to chat with the community and contributors?
-Join us on [GH Discussions][chat]!
-
 ## License
 
 [MIT][] © Compositor and [Vercel][]
 
+[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
+
+[build]: https://github.com/mdx-js/mdx/actions
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
+
+[coverage]: https://codecov.io/github/mdx-js/mdx
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
 [collective]: https://opencollective.com/unified
-
-[build]: https://github.com/mdx-js/mdx/actions?query=workflow%3A%22CI%22
-
-[build-badge]: https://github.com/mdx-js/mdx/workflows/CI/badge.svg
 
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 
 [chat]: https://github.com/mdx-js/mdx/discussions
 
-[intro]: https://www.youtube.com/watch?v=d2sQiI5NFAM&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u
+[security]: https://v2.mdxjs.com/getting-started/#security
 
-[tweet]: https://twitter.com/chrisbiscardi/status/1022304288326864896
+[contribute]: https://v2.mdxjs.com/community/contribute/
 
-[remark-plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md
+[support]: https://v2.mdxjs.com/community/support/
 
-[website]: https://mdxjs.com
-
-[spec]: https://github.com/mdx-js/specification#related
-
-[john]: https://johno.com
-
-[tim]: https://github.com/timneutkens
-
-[guillermo]: https://rauchg.com
-
-[brent]: https://jxnblk.com
-
-[4lpine]: https://twitter.com/4lpine
-
-[rauchg]: https://twitter.com/rauchg
-
-[timneutkens]: https://twitter.com/timneutkens
-
-[jxnblk]: https://twitter.com/jxnblk
-
-[components ai]: https://components.ai
-
-[vercel]: https://vercel.com
-
-[contribute]: #contribute
-
-[contributing]: https://mdxjs.com/contributing
-
-[support]: https://mdxjs.com/support
+[sponsor]: https://v2.mdxjs.com/community/sponsor/
 
 [coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
-[mdx-deck]: https://github.com/jxnblk/mdx-deck
+[website]: https://v2.mdxjs.com
 
 [mit]: license
+
+[vercel]: https://vercel.com
