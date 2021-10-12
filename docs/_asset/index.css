@@ -208,7 +208,7 @@ pre {
 
 blockquote pre,
 li pre {
-  border-radius: 3px;
+  border-radius: 5px;
   margin-left: 0;
   margin-right: 0;
 }
@@ -231,6 +231,7 @@ pre code {
   word-break: normal;
   overflow: visible;
   word-wrap: normal;
+  border-radius: 5px;
 }
 
 .frame-tab-item {
@@ -607,7 +608,7 @@ button.success {
   color: var(--gray-9);
   background-color: rgba(130 80 223 / 0.15);
   border: 1px solid var(--purple-5);
-  border-radius: 3px;
+  border-radius: 8px;
 }
 
 .legacy {
@@ -654,7 +655,7 @@ button.success {
 .frame {
   background-color: var(--gray-2);
   position: relative;
-  border-radius: 3px;
+  border-radius: 8px;
 }
 
 .frame-tab-bar {
@@ -729,7 +730,7 @@ button.success {
 
 .home-preview {
   border: 1px solid var(--gray-4);
-  border-radius: 3px;
+  border-radius: 8px;
   padding: calc(1em + 1ex);
 }
 
