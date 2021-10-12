@@ -653,7 +653,9 @@ button.success {
 }
 
 .frame {
-  background-color: var(--gray-2);
+  /* gray-1 is used for unselected tabs, but gray-2 is really too much
+   * This is a perfect mix between the two: */
+  background-color: hsl(210, 20.5%, 88.8%);
   position: relative;
   border-radius: 8px;
 }
