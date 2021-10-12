@@ -16,6 +16,8 @@ import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import rehypeRemoveComments from 'rehype-remove-comments'
 import rehypeStringify from 'rehype-stringify'
+import {h} from 'hastscript'
+import {select} from 'hast-util-select'
 import {Root} from '../docs/_asset/root.client.js'
 import {config} from '../docs/_config.js'
 
@@ -92,15 +94,6 @@ async function main() {
           css: ['/index.css'],
           link: [
             {
-              rel: 'stylesheet',
-              href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css'
-            },
-            {
-              rel: 'stylesheet',
-              href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark.min.css',
-              media: '(prefers-color-scheme: dark)'
-            },
-            {
               rel: 'alternate',
               type: 'application/rss+xml',
               title: config.site.hostname,
@@ -110,6 +103,15 @@ async function main() {
           js: '/index.js',
           meta: [{name: 'generator', content: 'mdx + rsc'}]
         })
+        .use(rehypeLazyCss, [
+          {
+            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css'
+          },
+          {
+            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark.min.css',
+            media: '(prefers-color-scheme: dark)'
+          }
+        ])
         .use(rehypeMeta, {
           twitter: true,
           og: true,
@@ -180,6 +182,34 @@ function asStream(buf) {
           return Promise.resolve({value: enc.encode(String(buf))})
         }
       }
+    }
+  }
+}
+
+function rehypeLazyCss(styles) {
+  return (tree) => {
+    const head = select('head', tree)
+    const enabled = []
+    const disabled = []
+
+    let index = -1
+    while (++index < styles.length) {
+      const props = styles[index]
+      enabled.push(
+        h('link', {
+          ...props,
+          rel: 'preload',
+          as: 'style',
+          onLoad: "this.onload=null;this.rel='stylesheet'"
+        })
+      )
+      disabled.push(h('link', {...props, rel: 'stylesheet'}))
+    }
+
+    head.children.push(...enabled)
+
+    if (disabled.length > 0) {
+      head.children.push(h('noscript', disabled))
     }
   }
 }
