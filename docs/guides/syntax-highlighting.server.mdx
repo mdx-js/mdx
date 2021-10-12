@@ -59,8 +59,8 @@ async function main(code) {
   ```
 </details>
 
-<Note type="info">
-  **Note**: you should also use a highlight.js theme somewhere on the page to
+<Note type="important">
+  **Important**: you should also use a highlight.js theme somewhere on the page to
   style code properly.
   For example, to get GitHub Dark from cdnjs:
 
@@ -162,15 +162,15 @@ This would yields the following JSX:
 ```jsx path="output.jsx"
 <>
   <pre>
-    <code class="language-js" meta='filename="index.js"'>
+    <code className="language-js" meta='filename="index.js"'>
       console.log(1)
     </code>
   </pre>
 </>
 ```
 
-<Note type="info">
-  **Note**: the `meta` attribute is not valid HTML, so make sure to handle
+<Note type="important">
+  **Important**: the `meta` attribute is not valid HTML, so make sure to handle
   `code` with a component.
 </Note>
 
@@ -202,16 +202,16 @@ This would yields the following JSX:
 ```jsx path="output.jsx"
 <>
   <pre>
-    <code class="language-js" filename="index.js">
+    <code className="language-js" filename="index.js">
       console.log(1)
     </code>
   </pre>
 </>
 ```
 
-<Note type="info">
-  **Note**: these added attributes are not valid HTML, so make sure to handle
-  `code` with a component.
+<Note type="important">
+  **Important**: these added attributes are not valid HTML, so make sure to
+  handle `code` with a component.
 </Note>
 
 [commonmark]: https://spec.commonmark.org/current/

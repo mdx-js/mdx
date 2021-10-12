@@ -15,10 +15,14 @@
   --gray-7: #424a53;
   --gray-8: #32383f;
   --gray-9: #24292f;
-  --blue-5: #0969da;
-  --yellow-4: #bf8700;
+  --red-5: #cf222e;
+  --yellow-5: #9a6700;
+  --orange-5: #bc4c00;
   --green-5: #1a7f37;
-  --red-5: #da3633;
+  --blue-5: #0969da;
+  --purple-5: #8250df;
+  --pink-5: #bf3989;
+  --coral-5: #c4432b;
   --mdx-yellow: hsl(39deg 97% 58%);
   --hl: var(--blue-5);
   --fg: var(--black);
@@ -553,8 +557,15 @@ button.success {
 .navigation-secondary li {
   white-space: nowrap;
   flex-grow: 1;
-  padding-left: calc(0.25 * (1em + 1ex));
-  padding-right: calc(0.25 * (1em + 1ex));
+}
+
+.navigation-secondary li + li {
+  padding-left: calc(0.5 * (1em + 1ex));
+}
+
+/* Some extra spacing because otherwise the blur is shown over it. */
+.navigation-secondary li:last-child {
+  padding-right: calc(0.5 * (1em + 1ex));
 }
 
 .navigation-secondary ol,
@@ -594,9 +605,19 @@ button.success {
 
 .note {
   color: var(--gray-9);
-  background-color: rgba(56 139 253 / 0.15);
-  border: 1px solid #1f6feb;
+  background-color: rgba(130 80 223 / 0.15);
+  border: 1px solid var(--purple-5);
   border-radius: 3px;
+}
+
+.legacy {
+  background-color: rgba(110 118 129 / 0.15);
+  border-color: var(--gray-4);
+}
+
+.important {
+  background-color: rgba(196 67 43 / 0.15);
+  border-color: var(--coral-5);
 }
 
 .note-inside {
@@ -798,7 +819,6 @@ button.success {
     --gray-7: #21262d;
     --gray-8: #161b22;
     --gray-9: #0d1117;
-    --green-5: #238636;
     --hl: var(--mdx-yellow);
     --fg: var(--white);
     --bg: var(--black);
@@ -1007,6 +1027,14 @@ button.success {
 
   .navigation-secondary li {
     white-space: normal;
+  }
+
+  .navigation-secondary li + li {
+    padding-left: 0;
+  }
+
+  .navigation-secondary li:last-child {
+    padding-right: 0;
   }
 
   .navigation-secondary ol,
