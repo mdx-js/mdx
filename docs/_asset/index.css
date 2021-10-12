@@ -213,8 +213,7 @@ li pre {
   margin-right: 0;
 }
 
-code,
-.hljs {
+code {
   background-color: var(--gray-0);
 }
 
@@ -244,7 +243,7 @@ pre code,
 .hljs,
 .frame-body,
 .frame-tab-item-selected {
-  background-color: #fafafa; /* Color from one-light */
+  background-color: #fafafa !important; /* Color from one-light */
 }
 
 .frame-body-box-fixed-height {
@@ -833,7 +832,7 @@ button.success {
   }
 
   .note {
-    color: var(--gray-3);
+    color: var(--gray-1);
   }
 
   .navigation::before {
@@ -879,7 +878,7 @@ button.success {
   .frame-body,
   .frame-tab-item-selected,
   .frame-tab-item-dark.frame-tab-item-selected {
-    background-color: var(--gray-7);
+    background-color: var(--gray-7) !important;
   }
 
   .frame-tab-item-inactive {
@@ -1088,7 +1087,7 @@ button.success {
 /* Fix a11y. */
 .hljs-built_in,
 .hljs-symbol {
-  color: hsl(24deg 92% 40%);
+  color: hsl(24deg 92% 40%) !important;
 }
 
 .ͼo .cm-activeLineGutter,
@@ -1103,11 +1102,11 @@ button.success {
   }
 
   .hljs-section {
-    color: hsl(216deg 84% 62%);
+    color: hsl(216deg 84% 55%) !important;
   }
 
   .hljs-built_in,
   .hljs-symbol {
-    color: #ffa657;
+    color: #ffa657 !important;
   }
 }
