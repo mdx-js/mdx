@@ -204,7 +204,7 @@ export const Editor = ({children}) => {
         </TabList>
 
         <TabPanel>
-          <noscript>Enable JavaScript to see the rendered result.</noscript>
+          <noscript>Enable JavaScript for the rendered result.</noscript>
           <div className="frame-body frame-body-box-fixed-height frame-body-box">
             {state.file && state.file.result ? (
               <ErrorBoundary FallbackComponent={FallbackComponent}>
