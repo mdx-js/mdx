@@ -1,11 +1,4 @@
-// To do: note that `VERCEL_*` env variables aren’t available, for some reason,
-// I’m suspecting that’s because `vercel.json` is used rather than settings
-// in the dashboard.
-
-import process from 'process'
-
-const site = new URL(process.env.VERCEL_URL || 'https://mdxjs.com')
-
+const site = new URL('https://v2.mdxjs.com')
 const git = new URL('../', import.meta.url)
 const gh = new URL('https://github.com/mdx-js/mdx/')
 
@@ -68,5 +61,6 @@ export const redirect = {
   '/plugins/index.html': '/extending-mdx/#using-plugins',
   '/projects/index.html': '/community/projects/',
   '/support/index.html': '/community/support/',
-  '/syntax/index.html': '/getting-started/#syntax'
+  '/syntax/index.html': '/getting-started/#syntax',
+  '/vue/index.html': '/getting-started/#vue'
 }

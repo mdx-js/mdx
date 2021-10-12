@@ -161,6 +161,10 @@
     {
       "source": "/syntax/",
       "destination": "/getting-started/#syntax"
+    },
+    {
+      "source": "/vue/",
+      "destination": "/getting-started/#vue"
     }
   ]
 }

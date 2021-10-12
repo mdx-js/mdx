@@ -1,3 +1,4 @@
+import {Note} from '../_component/note.server.js'
 export const info = {
   author: [
     {name: 'Chris Biscardi', github: 'christopherbiscardi', twitter: 'chrisbiscardi'}
@@ -5,6 +6,17 @@ export const info = {
   published: new Date('2019-03-11'),
   modified: new Date('2021-11-01')
 }
+
+<Note type="legacy">
+  **Note**: This is an old blog post.
+  The steps described in it are no longer performed by MDX.
+  It now uses an JavaScript AST first rather than generating a string of JSX.
+  It is also no longer required for extra glue code, that combines MDX with a
+  specific framework, to be used on the client.
+  See [§ How MDX works](/using-mdx/#how-mdx-works)
+  and [§ Architecture](/packages/mdx/#architecture) for more info.
+  The below is kept as is for historical purposes.
+</Note>
 
 # Custom pragma
 
@@ -94,8 +106,7 @@ class MDXTag extends Component {
 export default withMDXComponents(MDXTag)
 ```
 
-`MDXTag` is used in the [hast to estree
-conversion](https://github.com/syntax-tree/hast-util-to-estree),
+`MDXTag` is used in the hast to estree conversion,
 which is the final step in the MDX AST pipeline.
 Every renderable element is wrapped in an `MDXTag`, and `MDXTag` handles
 rendering the element later.
@@ -233,9 +244,3 @@ frameworks.
 Since the pragma insertion is the responsibility of the webpack (or other
 bundlers) loader, swapping the pragma can be an option in mdx-loader as long as
 we have a Vue `createElement` to point to.
-
-***
-
-Written by [Chris Biscardi](https://christopherbiscardi.com)
-
-**[\< Back to blog](/blog)**
