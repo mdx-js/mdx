@@ -225,7 +225,7 @@ configure [esbuild’s `target`](https://esbuild.github.io/api/#target).
     // …
     plugins: [
       // …
-      mdx({/* Options… */})
+      mdx({/* jsxImportSource: …, otherOptions… */})
       // Babel is optional.
       babel({
         // Also run on what used to be `.mdx` (but is now JS):
@@ -265,7 +265,10 @@ for more info.
           use: [
             // `babel-loader` is optional:
             {loader: 'babel-loader', options: {}},
-            {loader: '@mdx-js/loader', options: {}}
+            {
+              loader: '@mdx-js/loader',
+              options: {/* jsxImportSource: …, otherOptions… */}
+            }
           ]
         }
       ]
@@ -307,7 +310,7 @@ on how to use MDX with Snowpack.
 
   export default defineConfig({
     plugins: [
-      mdx(/* Options… */)
+      mdx(/* jsxImportSource: …, otherOptions… */)
     ]
   })
   ```
@@ -344,7 +347,7 @@ you’re using that, for more info.
           .options({plugins: ['@vue/babel-plugin-jsx'], /* Other options… */})
         .use('@mdx-js/loader')
           .loader('@mdx-js/loader')
-          .options({jsx: true, /* Other options… */})
+          .options({jsx: true, /* otherOptions… */})
     }
   }
   ```
@@ -371,7 +374,7 @@ which you’re likely using, for more info.
 
   export default defineConfig({
     plugins: [
-      mdx({/* Options… */})
+      mdx({/* jsxImportSource: …, otherOptions… */})
     ]
   })
   ```
@@ -418,7 +421,7 @@ if you’re using that, for more info.
       return compileSync(
         {value, path: options.sourceFilename},
         // Tell `@mdx-js/mdx` to return a Babel tree instead of serialized JS.
-        {recmaPlugins: [recmaBabel], /* Other options… */}
+        {recmaPlugins: [recmaBabel], /* jsxImportSource: …, otherOptions… */}
       ).result
     }
 
@@ -507,7 +510,12 @@ on how to use MDX with Gatsby.
     webpack(config) {
       config.module.rules.push({
         test: /\.mdx?$/,
-        use: [{loader: '@mdx-js/loader', options: {/* Options… */}}]
+        use: [
+          {
+            loader: '@mdx-js/loader',
+            options: {/* jsxImportSource: …, otherOptions… */}
+          }
+        ]
       })
 
       return config
@@ -558,7 +566,7 @@ on how to use MDX with React Static.
   main()
 
   async function main() {
-    const js = String(await compile('# hi', {jsxImportSource: '@emotion/react'}))
+    const js = String(await compile('# hi', {jsxImportSource: '@emotion/react', /* otherOptions… */}))
   }
   ```
 </details>
@@ -625,7 +633,7 @@ more info.
   main()
 
   async function main() {
-    const js = String(await compile('# hi', {jsxImportSource: 'preact'}))
+    const js = String(await compile('# hi', {jsxImportSource: 'preact', /* otherOptions… */}))
   }
   ```
 </details>
@@ -705,7 +713,7 @@ info.
   main()
 
   async function main() {
-    const jsx = String(await compile('# hi', {jsx: true}))
+    const jsx = String(await compile('# hi', {jsx: true, /* otherOptions… */}))
     const js = (await babel.transformAsync(jsx, {plugins: ['@vue/babel-plugin-jsx']})).code
   }
   ```
