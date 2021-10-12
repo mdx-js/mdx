@@ -648,7 +648,7 @@ button.success {
 
 .big {
   font-size: larger;
-  padding: calc(1.5 * (1em + 1ex));
+  padding: calc(0.833 * (1em + 1ex));
 }
 
 .frame {
@@ -1040,6 +1040,10 @@ button.success {
   .navigation-secondary ol,
   .navigation-show-big {
     display: block;
+  }
+
+  .big {
+    padding: calc(1.66 * (1em + 1ex));
   }
 
   .navigation-secondary ol {
