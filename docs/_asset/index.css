@@ -628,14 +628,20 @@ button.success {
   display: block;
   padding: calc(1 * (1em + 1ex));
   margin: calc(2 * (1em + 1ex)) 0;
-  background-color: white;
   border-radius: 8px;
   overflow: hidden;
+  /* yellow */
   background-image: radial-gradient(
-    ellipse at 0% 0%,
-    rgb(252 180 45 / 10%) 20%,
-    rgb(252 180 45 / 0%) 80%
-  );
+      ellipse at 0% 0%,
+      rgb(252 180 45 / 10%) 20%,
+      rgb(252 180 45 / 0%) 80%
+    ),
+    /* purple */
+      radial-gradient(
+        ellipse at 0% 100%,
+        rgb(130 80 223 / 10%) 20%,
+        rgb(130 80 223 / 0%) 80%
+      );
 }
 
 .emoji-list > ul {
@@ -940,15 +946,6 @@ button.success {
     background-color: var(--green-5);
     border-color: var(--green-5);
     color: var(--white);
-  }
-
-  .card {
-    background-color: var(--gray-9);
-    background-image: radial-gradient(
-      ellipse at 0% 0%,
-      rgb(252 180 45 / 10%) 20%,
-      rgb(252 180 45 / 0%) 80%
-    );
   }
 }
 
