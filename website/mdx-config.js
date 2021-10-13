@@ -256,7 +256,7 @@ function rehypePrettyCodeBlocks() {
       }
 
       // Not giant.
-      if (textContent.length < 8192) {
+      if (textContent.length < 8192 && metaProps.copy !== 'no') {
         footer.push({
           type: 'mdxJsxTextElement',
           name: 'CopyButton',

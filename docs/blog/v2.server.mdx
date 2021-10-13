@@ -1,0 +1,231 @@
+import {Note} from '../_component/note.server.js'
+export const info = {
+  author: [
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+  ],
+  published: new Date('2021-11-01'),
+  modified: new Date('2021-11-01')
+}
+
+<Note type="info">
+  **Note**: This page is within progress!
+</Note>
+
+# MDX v2
+
+It’s been 4 years since this project was announced.
+2½ since we released our stable version 1.
+A lot of hard work has now led to a much improved version 2.
+Here’s the highlights:
+
+{/* more */}
+
+<div className="emoji-list">
+  *   📝 **Improved syntax** makes it easier to use markdown in JSX in
+      markdown
+  *   🧑‍💻 **JavaScript expressions** turn `{2 * Math.PI}` into {2 * Math.PI}
+  *   🔌 New **esbuild**, **Rollup**, and **Node.js** integrations
+  *   ⚛️ **Any JSX runtime**: React, Preact, Vue, Emotion, you name it, it all
+      works
+  *   🌳 **Improved AST** exposes info on documents in great detail
+  *   🏃‍♀️ Compiles at least **25% faster**
+  *   🚴 Generated code runs twice as fast (**100% faster**)
+  *   🚄 Bundle size is more than three times as small (**250% smaller**)
+  *   🧵 …and much, much, so much more
+</div>
+
+## Improvements to the MDX format
+
+We’ve spent a lot of time thinking and trying out different ways to improve the
+format.
+Originally, the format was very close to how markdown, and HTML in markdown,
+works.
+We found that the old behavior often yielded unexpected results.
+In v2 we shift the format a little bit closer to how JS(X) works.
+
+Take for example this MDX file:
+
+```html chrome=no
+<div>*hi*?</div>
+
+<div>
+  # hi?
+</div>
+
+<main>
+  <div>
+
+    # hi?
+
+  </div>
+</main>
+```
+
+<div className="big-columns">
+  <div>
+    In v1, that was equivalent to the following JSX:
+
+    ```jsx chrome=no
+    <>
+      <div>*hi*?</div>
+      <div>
+        # hi?
+      </div>
+      <main>
+        <div>
+          <pre><code># hi?</code></pre>
+        </div>
+      </main>
+    </>
+    ```
+  </div>
+
+  <div>
+    In v2, it’s equivalent to the following JSX:
+
+    ```jsx chrome=no
+    <>
+      <div><em>hi</em>?</div>
+      <div>
+        <h1>hi?</h1>
+      </div>
+      <main>
+        <div>
+          <h1>hi?</h1>
+        </div>
+      </main>
+    </>
+    ```
+  </div>
+</div>
+
+We believe it’s more intuitive that markdown “inlines” such as emphasis can form
+between tags on the same line (first `<div>`), “blocks” such as headings can
+form if they’re on their own line (second `<div>`), and indentation is allowed
+rather than forming code (third `<div>`).
+
+We also added JavaScript expressions to the MDX format:
+
+<div className="big-columns">
+  <div>
+    ```jsx path="expressions.mdx" language="mdx" copy=no
+    export const authors = [
+      {name: 'Jane', email: 'hi@jane.com'},
+      {name: 'John', twitter: '@john2002'}
+    ]
+    export const published = new Date('2021-11-01')
+
+    Written by: {new Intl.ListFormat('en').format(authors.map(d => d.name))}.
+
+    Published on: {new Intl.DateTimeFormat('en', {dateStyle: 'long'}).format(published)}.
+    ```
+  </div>
+
+  <div>
+    ```jsx path="equivalent.jsx" copy=no
+    <>
+      <p>Written by: Jane and John.</p>
+      <p>Published on: November 1, 2021.</p>
+    </>
+    ```
+  </div>
+</div>
+
+The format is described in [§ What is MDX?][what]
+
+## Rollup, esbuild, and other integrations
+
+When we started out, Babel, webpack, and React were ubiquitous in the JavaScript
+ecosystem and we built MDX on them.
+For version 2, we’ve worked hard to make it easier to use MDX without them and
+with other tools.
+
+On the bundler size, we’ve added new integrations: `@mdx-js/esbuild` for
+esbuild which is extremely fast as it’s written in Go, and `@mdx-js/rollup` for
+Rollup which is a bundler that’s also used in Vite and WMR.
+You can also import MDX files directly in Node.js with `@mdx-js/node-loader`.
+
+On the framework side, we now compile all JSX away for you to normal JavaScript
+and no longer require any framework-specific code to glue it together with MDX.
+Now any JSX runtime, whether
+[classic or automatic](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
+is supported.
+This means MDX can work with React, Preact, Vue, Emotion, Theme UI, Ink, you
+name it!
+Plus anything that’s yet to be invented.
+
+See [§ Getting started][getting-started] to make a quick start but also for
+in-depth information on how to integrate MDX with many different tools.
+
+## Architectural improvements
+
+To make the syntax of the MDX format better and to allow new integrations and
+arbitrary JSX runtimes, we’ve rewritten almost everything.
+Part of that effort was [micromark][], which is another story, but it means
+we’re fully CommonMark (and optionally GFM) compliant, while also understanding
+more about MDX files.
+
+Now we can throw an early error when there’s a typo and point to exactly where
+it happened, instead of a tool like webpack complaining about an error in an
+intermediate, unrecognizable, and broken string of JavaScript.
+It also means that we have a new AST which describes the MDX syntax in more
+detail — we even expose the embedded JavaScript.
+This detailed AST allows plugins to more easily enhance MDX in powerful new
+ways.
+It also helped solve many edge cases where MDX would previously crash.
+And it let us drop Babel.
+
+A nice side effect of the new architecture is that it also resulted in a
+**400% smaller bundle size**, that compilation is at least **25% faster**, and
+that the generated code runs **200% faster**.
+
+See [§ Architecture][architecture] for how `@mdx-js/mdx` works.
+See [`remark-mdx`][remark-mdx] for more on the AST and see
+[§ Extending MDX][extending] for several plugins that use the new tree to
+enhance MDX.
+
+## Project improvements
+
+*   plain markdown support
+*   fully typed with typescript and completely covered by tests
+*   new website with rewritten documentation and new guides
+*   some stuff about RSC and how the site is made with them?
+
+Now, we think it’s ready.
+**We’re happy to finally release v2!**
+
+## Breaking changes
+
+To do.
+
+[Read the full v2 migration guide](/migrating/v2/)
+
+## 📈 Growth
+
+A major release is always a good time to take a step back and reflect on what’s
+been happening in terms of growth and the greater community.
+The ecosystem surrounding MDX has already grown larger than we ever dreamed.
+We’ve also seen projects/products/application we never even imagined.
+
+## Where to go from here?
+
+To do
+
+## Thanks
+
+We’d like to say thanks to all our contributors and our happy users.
+Special thanks to
+...
+and anyone we may have forgotten.
+
+[what]: /mdx/
+
+[getting-started]: /getting-started/
+
+[extending]: /extending-mdx/
+
+[architecture]: /packages/mdx/#architecture
+
+[remark-mdx]: /packages/remark-mdx/
+
+[micromark]: https://github.com/micromark/micromark
