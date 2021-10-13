@@ -30,9 +30,13 @@ Here’s the highlights:
   *   🌳 **Improved AST** exposes info on documents in great detail
   *   🏃‍♀️ Compiles at least **25% faster**
   *   🚴 Generated code runs twice as fast (**100% faster**)
-  *   🚄 Bundle size is more than three times as small (**250% smaller**)
+  *   🚄 Bundle size of `@mdx-js/mdx` is more than three times as small
+      (**250% smaller**)
   *   🧵 …and much, much, so much more
 </div>
+
+**We’re happy to finally release v2!**
+Let’s dive in!
 
 ## Improvements to the MDX format
 
@@ -131,7 +135,15 @@ We also added JavaScript expressions to the MDX format:
   </div>
 </div>
 
-The format is described in [§ What is MDX?][what]
+As the format moves a little further from markdown towards JS(X), we’ve also
+added support for loading “normal” markdown.
+If you’re using our bundler integration `@mdx-js/loader` (or `@mdx-js/rollup`,
+`@mdx-js/esbuild`, or `@mdx-js/node-loader`, see next section), then that’ll
+just work: import `readme.mdx` and it’s interpreted as the MDX format, import
+`readme.md` and it’s interpreted as markdown (note the extensions: `.mdx` vs.
+`.md`).
+
+The MDX format is described in [§ What is MDX?][what]
 
 ## Rollup, esbuild, and other integrations
 
@@ -147,9 +159,7 @@ You can also import MDX files directly in Node.js with `@mdx-js/node-loader`.
 
 On the framework side, we now compile all JSX away for you to normal JavaScript
 and no longer require any framework-specific code to glue it together with MDX.
-Now any JSX runtime, whether
-[classic or automatic](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
-is supported.
+Now any JSX runtime, whether [classic or automatic][jsx-runtime] is supported.
 This means MDX can work with React, Preact, Vue, Emotion, Theme UI, Ink, you
 name it!
 Plus anything that’s yet to be invented.
@@ -175,30 +185,54 @@ ways.
 It also helped solve many edge cases where MDX would previously crash.
 And it let us drop Babel.
 
-A nice side effect of the new architecture is that it also resulted in a
-**400% smaller bundle size**, that compilation is at least **25% faster**, and
-that the generated code runs **200% faster**.
+A nice side effect of the new architecture is that it also resulted in
+**25% faster** compilation, generated code that runs twice as fast
+(**100% faster**), and that the bundle size of `@mdx-js/mdx` is more than three
+times as small (**250% smaller**).
 
 See [§ Architecture][architecture] for how `@mdx-js/mdx` works.
 See [`remark-mdx`][remark-mdx] for more on the AST and see
 [§ Extending MDX][extending] for several plugins that use the new tree to
 enhance MDX.
 
-## Project improvements
+## TypeScript
 
-*   plain markdown support
-*   fully typed with typescript and completely covered by tests
-*   new website with rewritten documentation and new guides
-*   some stuff about RSC and how the site is made with them?
+All `@mdx-js/*` packages are now fully typed with [TypeScript][] through JSDoc
+comments.
+That means our APIs are exposed as TypeScript types but also that our projects
+are type safe internally.
 
-Now, we think it’s ready.
-**We’re happy to finally release v2!**
+We’ve also published `@types/mdx`, which is types only package you can use
+with whatever (community) integration you’re using to import MDX files, and
+whatever JSX runtime you use, to type those imported components.
+
+See [¶ TypeScript][ts] in § Getting started to set up TypeScript.
+
+## Docs
+
+MDX is a project that’s been touched by many hands over the years.
+We’re grateful for all those contributions and all those individual insights,
+but it also resulted in a somewhat sprawling story with inconsistent and
+sometimes similar content in different places.
+For version 2, we rewrote all our documentation to tell a singular, consistent
+story for both beginners to advanced users.
+
+We also have a new website, which is build on MDX of course, [unified][] itself,
+and [React Server Components (RSC)][rsc].
+While the latter is extremely experimental, and we of course have to dogfood the
+former two as they’re projects we maintain, we think that betting on hybrid
+models, compared to completely server-side sites or completely client-side apps,
+is a good bet to make for the web’s future.
+
+Our new site is extremely fast, gorgeous (subjective but hey), has rich metadata
+including per-page OpenGraph images, has an RSS feed, and scores very well in
+performance and accessibility review projects.
 
 ## Breaking changes
 
 To do.
 
-[Read the full v2 migration guide](/migrating/v2/)
+[Read the full v2 migration guide][migrating]
 
 ## 📈 Growth
 
@@ -228,4 +262,16 @@ and anyone we may have forgotten.
 
 [remark-mdx]: /packages/remark-mdx/
 
+[jsx-runtime]: https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+
 [micromark]: https://github.com/micromark/micromark
+
+[typescript]: https://www.typescriptlang.org
+
+[ts]: /getting-started/#types
+
+[migrating]: /migrating/v2/
+
+[unified]: https://unifiedjs.com
+
+[rsc]: https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html
