@@ -256,7 +256,7 @@ pre code,
 }
 
 .frame-tab-item-dark.frame-tab-item-selected {
-  background-color: #282c34;
+  background-color: #282c34 !important;
   color: var(--white);
 }
 
