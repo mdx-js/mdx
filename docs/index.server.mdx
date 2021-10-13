@@ -26,8 +26,8 @@ This makes writing long-form content with components a blast.
 
 ## What does it do?
 
-<div className="home-columns">
-  <div className="home-column-start">
+<div className="big-columns">
+  <div>
     You write markdown with embedded components through JSX:
 
     ```mdx path="example.mdx"
@@ -44,7 +44,7 @@ This makes writing long-form content with components a blast.
     ```
   </div>
 
-  <div className="home-column-end">
+  <div>
     It’s compiled to JavaScript you can use in any framework that supports JSX:
 
     {/* lint disable */}
@@ -77,14 +77,16 @@ This makes writing long-form content with components a blast.
   Here’s the highlights:
 
   <div className="emoji-list">
-    *   🔁 **Improved syntax** makes it easier to use markdown in JSX, in
+    *   📝 **Improved syntax** makes it easier to use markdown in JSX in
         markdown
-    *   🧩 **Full JavaScript support** turns `{2 * Math.PI}` into {2 * Math.PI}
-    *   🔌 **New integrations** for esbuild, Rollup, and Node.js
-    *   🔥 **Support any JSX runtime**: React, Preact, Vue, Emotion, Ink, you
-        name it
-    *   🎒 **400% smaller** while having more features
-    *   🏃‍♀️ at least **25% faster** while doing more work
+    *   🧑‍💻 **JavaScript expressions** turn `{2 * Math.PI}` into {2 * Math.PI}
+    *   🔌 New **esbuild**, **Rollup**, and **Node.js** integrations
+    *   ⚛️ **Any JSX runtime**: React, Preact, Vue, Emotion, you name it, it all
+        works
+    *   🌳 **Improved AST** exposes info on documents in great detail
+    *   🏃‍♀️ Compiles at least **25% faster**
+    *   🚴 Generated code runs twice as fast (**100% faster**)
+    *   🚄 Bundle size is more than three times as small (**250% smaller**)
     *   🧵 …and much, much, so much more
   </div>
 

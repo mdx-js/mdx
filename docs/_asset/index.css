@@ -1067,14 +1067,13 @@ button.success {
     font-size: 6rem;
   }
 
-  .home-columns {
+  .big-columns {
     display: flex;
     justify-content: space-between;
     margin: 0 calc(-1 * (1em + 1ex));
   }
 
-  .home-column-start,
-  .home-column-end {
+  .big-columns > * {
     width: calc(15 * (1em + 1ex));
     flex: 1;
     margin: 0 calc(1em + 1ex);
