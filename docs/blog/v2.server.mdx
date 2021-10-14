@@ -8,14 +8,13 @@ export const info = {
 }
 
 <Note type="info">
-  **Note**: This page is within progress!
+  **Note**: Info on how to migrate is available in our
+  [Version 2 migration guide][migrating].
 </Note>
 
 # MDX v2
 
-It’s been 4 years since this project was announced.
-2½ since we released our stable version 1.
-A lot of hard work has now led to a much improved version 2.
+Years of hard work have led to a much improved version 2.
 Here’s the highlights:
 
 {/* more */}
@@ -25,18 +24,30 @@ Here’s the highlights:
       markdown
   *   🧑‍💻 **JavaScript expressions** turn `{2 * Math.PI}` into {2 * Math.PI}
   *   🔌 New **esbuild**, **Rollup**, and **Node.js** integrations
-  *   ⚛️ **Any JSX runtime**: React, Preact, Vue, Emotion, you name it, it all
-      works
-  *   🌳 **Improved AST** exposes info on documents in great detail
+  *   ⚛️ **Any JSX runtime**: React, Preact, Vue, Emotion, you name it, it’s
+      all supported
+  *   🌳 **Improved AST** exposes more info in greater detail
   *   🏃‍♀️ Compiles at least **25% faster**
   *   🚴 Generated code runs twice as fast (**100% faster**)
   *   🚄 Bundle size of `@mdx-js/mdx` is more than three times as small
       (**250% smaller**)
-  *   🧵 …and much, much, so much more
+  *   🧵 …and much, so much more
 </div>
 
-**We’re happy to finally release v2!**
+It’s been 4 years since this project was announced.
+2½ since we released our stable version 1.
+**We’re proud to finally release v2!**
 Let’s dive in!
+
+## Contents
+
+*   [Improvements to the MDX format](#improvements-to-the-mdx-format)
+*   [Rollup, esbuild, and other integrations](#rollup-esbuild-and-other-integrations)
+*   [Architectural improvements](#architectural-improvements)
+*   [TypeScript](#typescript)
+*   [Docs & site](#docs--site)
+*   [Breaking changes](#breaking-changes)
+*   [Thanks](#thanks)
 
 ## Improvements to the MDX format
 
@@ -45,7 +56,7 @@ format.
 Originally, the format was very close to how markdown, and HTML in markdown,
 works.
 We found that the old behavior often yielded unexpected results.
-In v2 we shift the format a little bit closer to how JS(X) works.
+In version 2, we shift the format a little bit closer to how JS(X) works.
 
 Take for example this MDX file:
 
@@ -67,7 +78,7 @@ Take for example this MDX file:
 
 <div className="big-columns">
   <div>
-    In v1, that was equivalent to the following JSX:
+    In version 1, that was equivalent to the following JSX:
 
     ```jsx chrome=no
     <>
@@ -85,7 +96,7 @@ Take for example this MDX file:
   </div>
 
   <div>
-    In v2, it’s equivalent to the following JSX:
+    In version 2, it’s equivalent to the following JSX:
 
     ```jsx chrome=no
     <>
@@ -108,7 +119,7 @@ between tags on the same line (first `<div>`), “blocks” such as headings can
 form if they’re on their own line (second `<div>`), and indentation is allowed
 rather than forming code (third `<div>`).
 
-We also added JavaScript expressions to the MDX format:
+We also added support for JavaScript expressions, take for example:
 
 <div className="big-columns">
   <div>
@@ -135,13 +146,12 @@ We also added JavaScript expressions to the MDX format:
   </div>
 </div>
 
-As the format moves a little further from markdown towards JS(X), we’ve also
-added support for loading “normal” markdown.
+As the format moves a little further from markdown towards JSX, we’ve added
+support for loading “normal” markdown without our syntax extensions.
 If you’re using our bundler integration `@mdx-js/loader` (or `@mdx-js/rollup`,
 `@mdx-js/esbuild`, or `@mdx-js/node-loader`, see next section), then that’ll
-just work: import `readme.mdx` and it’s interpreted as the MDX format, import
-`readme.md` and it’s interpreted as markdown (note the extensions: `.mdx` vs.
-`.md`).
+just work: import `readme.mdx` and it’s seen as the MDX format, import
+`readme.md` and it’s seen as markdown based on their extensions.
 
 The MDX format is described in [§ What is MDX?][what]
 
@@ -149,23 +159,23 @@ The MDX format is described in [§ What is MDX?][what]
 
 When we started out, Babel, webpack, and React were ubiquitous in the JavaScript
 ecosystem and we built MDX on them.
-For version 2, we’ve worked hard to make it easier to use MDX without them and
-with other tools.
+For version 2, we worked hard so they’re no longer required and MDX can more
+easily be used with other tools.
 
-On the bundler size, we’ve added new integrations: `@mdx-js/esbuild` for
-esbuild which is extremely fast as it’s written in Go, and `@mdx-js/rollup` for
-Rollup which is a bundler that’s also used in Vite and WMR.
-You can also import MDX files directly in Node.js with `@mdx-js/node-loader`.
+On the bundler side, we’ve added new integrations: `@mdx-js/esbuild` for
+esbuild (an extremely fast bundler) and `@mdx-js/rollup` for Rollup (a bundler
+that’s also used in Vite and WMR).
+You can even import MDX files directly in Node.js with our new
+`@mdx-js/node-loader`.
 
-On the framework side, we now compile all JSX away for you to normal JavaScript
-and no longer require any framework-specific code to glue it together with MDX.
-Now any JSX runtime, whether [classic or automatic][jsx-runtime] is supported.
-This means MDX can work with React, Preact, Vue, Emotion, Theme UI, Ink, you
-name it!
-Plus anything that’s yet to be invented.
+On the runtime side, we can now compile JSX away to normal JavaScript and
+no longer require any framework-specific code to glue them together with MDX.
+Now any JSX runtime, whether [classic or automatic][jsx-runtime], is supported.
+This means MDX can be used with React, Preact, Vue, Emotion, Theme UI, Ink, you
+name it, plus anything that’s yet to be invented!
 
-See [§ Getting started][getting-started] to make a quick start but also for
-in-depth information on how to integrate MDX with many different tools.
+See [§ Getting started][getting-started] for a quick start but also in-depth
+info on how to integrate MDX with many different tools.
 
 ## Architectural improvements
 
@@ -176,76 +186,81 @@ we’re fully CommonMark (and optionally GFM) compliant, while also understandin
 more about MDX files.
 
 Now we can throw an early error when there’s a typo and point to exactly where
-it happened, instead of a tool like webpack complaining about an error in an
+it happened, instead of a bundler like webpack complaining about an error in an
 intermediate, unrecognizable, and broken string of JavaScript.
 It also means that we have a new AST which describes the MDX syntax in more
 detail — we even expose the embedded JavaScript.
-This detailed AST allows plugins to more easily enhance MDX in powerful new
-ways.
-It also helped solve many edge cases where MDX would previously crash.
+This detailed AST allows plugins to enhance MDX in powerful new ways.
+It also helped solve edge cases where MDX would previously crash.
 And it let us drop Babel.
 
-A nice side effect of the new architecture is that it also resulted in
-**25% faster** compilation, generated code that runs twice as fast
-(**100% faster**), and that the bundle size of `@mdx-js/mdx` is more than three
-times as small (**250% smaller**).
+This new architecture results in **25% faster** compilation, generated code
+that runs twice as fast (**100% faster**), and that the bundle size of
+`@mdx-js/mdx` is more than three times as small (**250% smaller**).
 
-See [§ Architecture][architecture] for how `@mdx-js/mdx` works.
-See [`remark-mdx`][remark-mdx] for more on the AST and see
-[§ Extending MDX][extending] for several plugins that use the new tree to
-enhance MDX.
+See [¶ Architecture in `@mdx-js/mdx`][architecture] for how our compiler works.
+See [§ Extending MDX][extending] for several plugins that use the new tree to
+enhance MDX, how to use plugins, and how to create them.
 
 ## TypeScript
 
-All `@mdx-js/*` packages are now fully typed with [TypeScript][] through JSDoc
-comments.
+All [`@mdx-js/*` packages][packages] are now fully typed with [TypeScript][]
+through JSDoc comments.
 That means our APIs are exposed as TypeScript types but also that our projects
 are type safe internally.
 
-We’ve also published `@types/mdx`, which is types only package you can use
-with whatever (community) integration you’re using to import MDX files, and
-whatever JSX runtime you use, to type those imported components.
+We’ve also published [`@types/mdx`][types-mdx], a types-only package that can be
+used with any (community) integration.
+You can use it, if you’re importing MDX files, to type those imported
+components.
 
-See [¶ TypeScript][ts] in § Getting started to set up TypeScript.
+See [¶ TypeScript in § Getting started][ts] for more on how to use configure
+TypeScript.
 
-## Docs
+## Docs & site
 
-MDX is a project that’s been touched by many hands over the years.
-We’re grateful for all those contributions and all those individual insights,
-but it also resulted in a somewhat sprawling story with inconsistent and
-sometimes similar content in different places.
-For version 2, we rewrote all our documentation to tell a singular, consistent
-story for both beginners to advanced users.
+MDX is used and liked a lot.
+Before version 1 we had amassed a total of **2.5m downloads**.
+Now we reach that number every week.
+Our core compiler `@mdx-js/mdx` is used in **61k projects**.
+Our GitHub repo has **11.6k stars**.
 
-We also have a new website, which is build on MDX of course, [unified][] itself,
-and [React Server Components (RSC)][rsc].
-While the latter is extremely experimental, and we of course have to dogfood the
-former two as they’re projects we maintain, we think that betting on hybrid
-models, compared to completely server-side sites or completely client-side apps,
-is a good bet to make for the web’s future.
+Many people help, often with docs.
+85 contributors committed to our repo since version 1.
+We’re grateful for these contributions and all those individual insights,
+but over the years it also resulted in inconsistencies and duplicate content.
 
-Our new site is extremely fast, gorgeous (subjective but hey), has rich metadata
-including per-page OpenGraph images, has an RSS feed, and scores very well in
-performance and accessibility review projects.
+For version 2, we rewrote our docs from beginning to end to tell a consistent
+story for new users, folks wanting to do complex AST and compiler stuff, and
+anyone in between.
+
+We also made a new website.
+It’s built on MDX of course, [unified][] itself, and [React Server Components
+(RSC)][rsc].
+While we have to dogfood the former two as they’re projects we maintain, and the
+latter is extremely experimental, we think compiling things ahead of time and
+betting on hybrid models, compared to completely server-side sites or completely
+client-side apps, is the smart choice for us and the web’s future.
+
+Our new site is heavily optimized and fast, gorgeous (subjective but hey), has
+rich metadata, and scores very well in performance and accessibility review
+tools such as Lighthouse and axe.
+
+See [§ Contribute][contribute] for more on how to help.
 
 ## Breaking changes
 
-To do.
+<Note type="important">
+  **Important**: To do!
+</Note>
 
-[Read the full v2 migration guide][migrating]
-
-## 📈 Growth
-
-A major release is always a good time to take a step back and reflect on what’s
-been happening in terms of growth and the greater community.
-The ecosystem surrounding MDX has already grown larger than we ever dreamed.
-We’ve also seen projects/products/application we never even imagined.
-
-## Where to go from here?
-
-To do
+[Read the full Version 2 migration guide][migrating]
 
 ## Thanks
+
+<Note type="important">
+  **Important**: To do!
+</Note>
 
 We’d like to say thanks to all our contributors and our happy users.
 Special thanks to
@@ -260,8 +275,6 @@ and anyone we may have forgotten.
 
 [architecture]: /packages/mdx/#architecture
 
-[remark-mdx]: /packages/remark-mdx/
-
 [jsx-runtime]: https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
 
 [micromark]: https://github.com/micromark/micromark
@@ -275,3 +288,9 @@ and anyone we may have forgotten.
 [unified]: https://unifiedjs.com
 
 [rsc]: https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html
+
+[packages]: /packages/
+
+[types-mdx]: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx
+
+[contribute]: /community/contribute/
