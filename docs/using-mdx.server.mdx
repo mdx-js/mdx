@@ -146,10 +146,18 @@ console.log(AnotherName) // [Function: Thing]
 
 ### Props
 
-Components, regardless of framework, accept “props” (an object with arbitrary
-data).
-This object is available from within MDX content under the identifier `props`.
-Take for example file:
+It’s possible to use JavaScript expressions, inside curly braces, in MDX:
+
+```mdx path="example.mdx"
+# Hello {'world'.toUpperCase()}
+
+The current year is {2021}
+```
+
+Instead of defining or importing data inside MDX files, data can also be passed
+when the MDX content component is used.
+This object with arbitrary data is available as `props`.
+Take for example:
 
 ```mdx path="example.mdx"
 # Hello {props.name}
@@ -172,7 +180,7 @@ React.createElement(Example, {name: 'Venus', year: 2021})
 You don’t have to pass data.
 You can also define (or import) it within MDX:
 
-```jsx path="example.mdx"
+```jsx path="example.mdx" language="mdx"
 export const year = 2019
 export const fact = 'a particularly snowy year'
 
