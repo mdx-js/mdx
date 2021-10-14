@@ -33,7 +33,8 @@ This integration is useful if you’re using Rollup (or another tool that uses
 Rollup, such as Vite).
 
 This integration can be combined with the Babel plugin to support nonstandard
-JSX runtimes (such as Vue).
+JSX runtimes (such as Vue) or compile modern JavaScript features to ones your
+users support.
 
 If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
 can be used manually.
@@ -70,6 +71,9 @@ export default {
   ]
 }
 ```
+
+See also [¶ Vite][vite] and [¶ WMR][wmr], if you’re using Rollup through them,
+for more info.
 
 ## API
 
@@ -190,3 +194,7 @@ abide by its terms.
 [options]: https://v2.mdxjs.com/packages/mdx/#compilefile-options
 
 [typescript]: https://www.typescriptlang.org
+
+[vite]: https://v2.mdxjs.com/getting-started/#vite
+
+[wmr]: https://v2.mdxjs.com/getting-started/#wmr

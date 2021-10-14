@@ -19,7 +19,7 @@ But, taking the first row for `a` as an example, you can replace that hyperlink
 with `<FancyLink>` by doing:
 
 ```js
-import Readme from './readme.md'
+import Readme from './readme.md' // Assumes an integration is used to compile MDX -> JS.
 import {FancyLink} from './components/fancy-link.js'
 
 <Readme components={{a: FancyLink}} />
@@ -421,8 +421,8 @@ With [`remark-gfm`][gfm] ([see guide][guide-gfm]), you can also use: `del`,
 Other remark plugins that add support for new constructs and advertise that they
 work with rehype, will also work with MDX.
 
-More information on components is available in [§ Components][components] in the
-article on Using MDX.
+More information on components is available in
+[¶ Components in § Using MDX][components].
 
 [gfm]: https://github.com/remarkjs/remark-gfm
 

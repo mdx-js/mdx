@@ -10,14 +10,13 @@ export const info = {
 # GitHub flavored markdown (GFM)
 
 This guide explores how to support GFM features such as autolink literals,
-footnotes, strikethrough, tables, and tasklists.
+footnotes, strikethrough, tables, and task lists.
 MDX supports standard markdown syntax ([CommonMark][]).
-That means [GitHub flavored markdown (GFM)][gfm] features are not supported by
+That means [GitHub flavored markdown (GFM)][gfm] extensions are not supported by
 default.
-These features can be enabled by using a remark plugin:
-[`remark-gfm`][remark-gfm].
-remark plugins can be passed in
-[`options.remarkPlugins`][options-remark-plugins].
+They can be enabled by using a remark plugin: [`remark-gfm`][remark-gfm].
+Such plugins can be passed in [`options.remarkPlugins`][options-remark-plugins].
+More info on plugins is available in [§ Extending MDX][extend]
 
 Say we have an MDX file like this:
 
@@ -49,7 +48,7 @@ A note[^1]
 * [x] done
 ```
 
-The above MDX, with GFM features, can be transformed with the following module:
+The above MDX with GFM can be transformed with the following module:
 
 ```js path="example.js"
 import {promises as fs} from 'node:fs'
@@ -127,3 +126,5 @@ async function main() {
 [remark-gfm]: https://github.com/remarkjs/remark-gfm
 
 [options-remark-plugins]: /packages/mdx/#optionsremarkplugins
+
+[extend]: /extending-mdx/

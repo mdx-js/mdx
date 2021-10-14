@@ -12,8 +12,8 @@ export const info = {
 # What is MDX?
 
 This article explains what the MDX format is.
-It shows the features from markdown, JSX, JavaScript expressions, and ESM
-import/exports that can be used.
+It shows how markdown, JSX, JavaScript expressions, and ESM `import` and
+`export`s can be used.
 See [§ Getting started][start] for how to integrate MDX into your project.
 
 {/* more */}
@@ -31,7 +31,7 @@ See [§ Getting started][start] for how to integrate MDX into your project.
 ## Prerequisites
 
 It’s important to know markdown
-(see this [cheatsheet and tutorial][commonmark-help] for help) and have
+(see this [cheat sheet and tutorial][commonmark-help] for help) and have
 experience with JavaScript (specifically [JSX][jsx-spec]) to write and enjoy
 writing MDX.
 
@@ -57,14 +57,13 @@ JSX and looks as follows:
 
 The heading and the block quote are markdown and those HTML-like things are JSX
 instead.
-Markdown often feels more natural to type than HTML/JSX for the common things
-(like emphasis, headings).
+Markdown often feels more natural to type than HTML or JSX for the common things
+(like emphasis or headings).
 JSX is an extension to JavaScript that *looks* like HTML but makes it convenient
 to use components (reusable things).
 
 This example uses `className` on the `<div>`.
-That’s because this example was written for React and React expects classes that
-way.
+That’s because it was written for React and React expects classes that way.
 Other frameworks, such as Vue and Preact, expect classes to be defined
 differently, so note that there are some differences in how JSX has to be
 authored depending on what tools it’s used with.
@@ -78,7 +77,9 @@ braces (`{1 + 1}`) and ESM (`import` and `export`).
   **Note**:
   You don’t have to use this syntax with `@mdx-js/*` packages.
   Or use it always.
-  With [`options.format`][format], you can opt-in gradually or not at all.
+  If you’re using a bundler integration you can change between MDX and markdown
+  through the file extension (`.mdx` vs. `.md`).
+  Alternatively, [`options.format`][format] can be used.
 </Note>
 
 The MDX syntax is a mix between markdown and JS(X).
@@ -86,14 +87,13 @@ This gives us something along the lines of literate programming.
 It also gives us an odd mix of two languages: markdown is whitespace sensitive
 and forgiving (what you type may not exactly work but it won’t crash) whereas
 JavaScript is whitespace **insensitive** and **does** crash on typos.
-Weirdly enough we found they combine pretty well!
+Weirdly enough we quite like how they combine!
 
 ### Markdown
 
-Markdown often feels more natural to type than HTML/JSX for the common things
-(like emphasis, headings).
+Markdown often feels more natural to type than HTML or JSX for the common things
+(like emphasis and headings).
 It typically looks more like what’s intended and it is typically terser.
-Traditionally, markdown is mostly used to generate HTML.
 Instead of the following HTML:
 
 ```html
@@ -142,7 +142,7 @@ something **strong**, and finally a little `code()`.
 MDX supports standard markdown by default ([CommonMark][]).
 Nonstandard markdown features (such as GFM, frontmatter, math, syntax
 highlighting) can be enabled with plugins (see
-[§ Using plugins][using-plugins]).
+[¶ Using plugins][using-plugins]).
 
 Some markdown features don’t work in MDX:
 
@@ -159,8 +159,8 @@ Some markdown features don’t work in MDX:
     </main>
     ```
 *   Autolinks do not work in MDX.
-    The reason is that they sometimes look *a lot* like JSX components (such as
-    `<svg:rect>` and `<admin@example.com>`), and we prefer being unambiguous.
+    The reason is that they can be indistinguishable from JSX (such as
+    `<svg:rect>`) and we prefer being unambiguous.
     If you want links, use full links:
     `[descriptive text](https://and-the-link-here.com)`
 *   HTML doesn’t work in MDX as it’s replaced by JSX
@@ -235,8 +235,8 @@ MDX also supports JavaScript expressions inside curly braces:
 Two 🍰 is: {Math.PI * 2}
 ```
 
-Expressions can contain whole JavaScript programs as long as they’re (wrapped
-in) an expression that evaluates to something that can be rendered.
+Expressions can contain whole JavaScript programs as long as that they’re
+(wrapped in) an expression that evaluates to something that can be rendered.
 You can use an [IIFE][] like so:
 
 ```jsx language="mdx"

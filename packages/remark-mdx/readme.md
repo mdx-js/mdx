@@ -51,8 +51,8 @@ Its parts can be used separately.
 Typically though, you’d want to move a layer up: `@mdx-js/mdx`.
 That package is the core compiler for turning MDX into JavaScript which
 gives you the most control.
-Or even higher: if you’re using a bundler (webpack, rollup, esbuild), or a site
-builder (gatsby, next) or build system (vite, snowpack) which comes with a
+Or even higher: if you’re using a bundler (webpack, Rollup, esbuild), or a site
+builder (Gatsby, Next.js) or build system (Vite, WMR) which comes with a
 bundler, you’re better off using an integration: see
 [§ Integrations][integrations].
 

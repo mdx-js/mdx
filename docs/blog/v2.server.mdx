@@ -151,7 +151,7 @@ support for loading “normal” markdown without our syntax extensions.
 If you’re using our bundler integration `@mdx-js/loader` (or `@mdx-js/rollup`,
 `@mdx-js/esbuild`, or `@mdx-js/node-loader`, see next section), then that’ll
 just work: import `readme.mdx` and it’s seen as the MDX format, import
-`readme.md` and it’s seen as markdown based on their extensions.
+`readme.md` and it’s seen as markdown, based on their extensions.
 
 The MDX format is described in [§ What is MDX?][what]
 
@@ -159,8 +159,8 @@ The MDX format is described in [§ What is MDX?][what]
 
 When we started out, Babel, webpack, and React were ubiquitous in the JavaScript
 ecosystem and we built MDX on them.
-For version 2, we worked hard so they’re no longer required and MDX can more
-easily be used with other tools.
+For version 2, we worked hard to make them option.
+They’re no longer required and MDX can more easily be used with other tools.
 
 On the bundler side, we’ve added new integrations: `@mdx-js/esbuild` for
 esbuild (an extremely fast bundler) and `@mdx-js/rollup` for Rollup (a bundler
@@ -169,7 +169,7 @@ You can even import MDX files directly in Node.js with our new
 `@mdx-js/node-loader`.
 
 On the runtime side, we can now compile JSX away to normal JavaScript and
-no longer require any framework-specific code to glue them together with MDX.
+no longer need framework-specific code to glue them together with MDX.
 Now any JSX runtime, whether [classic or automatic][jsx-runtime], is supported.
 This means MDX can be used with React, Preact, Vue, Emotion, Theme UI, Ink, you
 name it, plus anything that’s yet to be invented!
@@ -186,8 +186,8 @@ we’re fully CommonMark (and optionally GFM) compliant, while also understandin
 more about MDX files.
 
 Now we can throw an early error when there’s a typo and point to exactly where
-it happened, instead of a bundler like webpack complaining about an error in an
-intermediate, unrecognizable, and broken string of JavaScript.
+it happened, instead of a later bundler like webpack complaining about an error
+in an intermediate, unrecognizable, and broken string of JavaScript.
 It also means that we have a new AST which describes the MDX syntax in more
 detail — we even expose the embedded JavaScript.
 This detailed AST allows plugins to enhance MDX in powerful new ways.
@@ -198,9 +198,10 @@ This new architecture results in **25% faster** compilation, generated code
 that runs twice as fast (**100% faster**), and that the bundle size of
 `@mdx-js/mdx` is more than three times as small (**250% smaller**).
 
-See [¶ Architecture in `@mdx-js/mdx`][architecture] for how our compiler works.
+See [¶ Architecture in `@mdx-js/mdx`][architecture] for more on how our compiler
+works.
 See [§ Extending MDX][extending] for several plugins that use the new tree to
-enhance MDX, how to use plugins, and how to create them.
+enhance MDX, how to use them and other plugins, and how to create plugins.
 
 ## TypeScript
 
@@ -209,8 +210,8 @@ through JSDoc comments.
 That means our APIs are exposed as TypeScript types but also that our projects
 are type safe internally.
 
-We’ve also published [`@types/mdx`][types-mdx], a types-only package that can be
-used with any (community) integration.
+We’ve published [`@types/mdx`][types-mdx], a types-only package that can be used
+with any (community) integration.
 You can use it, if you’re importing MDX files, to type those imported
 components.
 
@@ -221,14 +222,14 @@ TypeScript.
 
 MDX is used and liked a lot.
 Before version 1 we had amassed a total of **2.5m downloads**.
-Now we reach that number every week.
+Now we hit that number every week.
 Our core compiler `@mdx-js/mdx` is used in **61k projects**.
 Our GitHub repo has **11.6k stars**.
 
 Many people help, often with docs.
 85 contributors committed to our repo since version 1.
 We’re grateful for these contributions and all those individual insights,
-but over the years it also resulted in inconsistencies and duplicate content.
+but over the years it did result in some inconsistencies and duplicated content.
 
 For version 2, we rewrote our docs from beginning to end to tell a consistent
 story for new users, folks wanting to do complex AST and compiler stuff, and

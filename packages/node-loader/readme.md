@@ -39,8 +39,8 @@ case it let’s you `import` MD(X) files.
 This integration is useful if you’re using Node and want to import MDX files
 from the file system.
 
-If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
-next) or build system (vite, snowpack) which comes with a bundler, you’re better
+If you’re using a bundler (webpack, Rollup, esbuild), or a site builder (Gatsby,
+Next.js) or build system (Vite, WMR) which comes with a bundler, you’re better
 off using another integration: see
 [§ Integrations][integrations].
 
