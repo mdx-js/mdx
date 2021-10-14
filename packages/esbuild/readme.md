@@ -33,8 +33,11 @@ This package is an esbuild plugin to support MDX.
 This integration is useful if you’re using esbuild (or another tool that uses
 esbuild).
 
-If you want to evaluate MDX code or use a nonstandard JSX runtime (such as Vue),
-then the lower-level compiler (`@mdx-js/mdx`) can be used manually.
+If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
+can be used.
+to support nonstandard JSX runtime (such as Vue), `@mdx-js/mdx` can also be
+used, or our webpack loader (`@mdx-js/loader`) or Rollup plugin
+(`@mdx-js/rollup`).
 
 ## Install
 

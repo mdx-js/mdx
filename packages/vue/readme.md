@@ -86,8 +86,10 @@ directly:
 +createApp(Post, {components})
 ```
 
-See [¶ Vue][start-vue] for how to get started with MDX and Vue.
-See [¶ MDX provider][use-provider] for how to use an MDX provider.
+See [¶ Vue in § Getting started][start-vue] for how to get started with MDX and
+Vue.
+See [¶ MDX provider in § Using MDX][use-provider] for how to use an MDX
+provider.
 
 ## API
 

@@ -10,16 +10,17 @@ export const info = {
 
 # Math
 
-This guide explores how to support math in markdown and MDX so that LaTeX can be
-included in content.
+This guide explores how to support math in MDX.
 MDX supports standard markdown syntax ([CommonMark][]).
 That means math is not supported by default.
-Math can be enabled by using [`remark-math`][remark-math] and either
+Math can be enabled by using a remark plugin: [`remark-math`][remark-math],
+combined with a rehype plugin: either
 [`rehype-katex`][rehype-katex] (KaTeX) or [`rehype-mathjax`][rehype-mathjax]
 (MathJax).
 remark plugins can be passed in
 [`options.remarkPlugins`][options-remark-plugins] and rehype
 plugins in [`options.rehypePlugins`][options-rehype-plugins].
+More info on plugins is available in [§ Extending MDX][extend]
 
 Say we have an MDX file like this:
 
@@ -69,8 +70,8 @@ async function main() {
 </details>
 
 <Note type="important">
-  **Important**: you should also use `katex.css` somewhere on the page to style
-  math properly.
+  **Important**: if you chose `rehype-katex`, you should also use `katex.css`
+  somewhere on the page to style math properly.
   At the time of writing, the last version is:
 
   ```html
@@ -89,3 +90,5 @@ async function main() {
 [options-remark-plugins]: /packages/mdx/#optionsremarkplugins
 
 [options-rehype-plugins]: /packages/mdx/#optionsrehypeplugins
+
+[extend]: /extending-mdx/

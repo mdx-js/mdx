@@ -11,17 +11,18 @@ export const info = {
 # Syntax highlighting
 
 This guide explores how to apply syntax highlighting to code blocks.
-
 MDX supports standard markdown syntax ([CommonMark][]).
 It does not apply syntax highlighting to code blocks by default.
+
 There are two ways to accomplish syntax highlighting: at compile time or at
 runtime.
-Doing it at compile time means extra effort is spent upfront, but that readers
-will have a fast experience because no extra code is sent to them (syntax
-highlighting needs a *lot* of code).
-Doing it at runtime gives more flexibility, but depends on what framework you
-use (so it’s specific to react, preact, vue, etc.) and moves the work and code
-to your users.
+Doing it at compile time means the effort is spent upfront so that readers will
+have a fast experience as no extra code is sent to them (syntax highlighting
+needs a *lot* of code to work).
+Doing it at runtime gives more flexibility by moving the work to the client.
+This can result in a slow experience for readers though.
+It also depends on what framework you use (as in it’s specific to React, Preact,
+Vue, etc.)
 
 ## Syntax highlighting at compile time
 
@@ -60,12 +61,19 @@ async function main(code) {
 </details>
 
 <Note type="important">
-  **Important**: you should also use a highlight.js theme somewhere on the page to
-  style code properly.
+  **Important**: If you chose `rehype-highlight`, then you should also use a
+  highlight.js theme somewhere on the page.
   For example, to get GitHub Dark from cdnjs:
 
   ```html
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark.min.css">
+  ```
+
+  If you chose `@mapbox/rehype-prism`, include something like this instead to
+  get Prism Dark:
+
+  ```html
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-dark.min.css">
   ```
 </Note>
 
@@ -128,21 +136,22 @@ console.log(1)
 ```
 ````
 
-This is a *hidden* part of markdown: it’s normally not rendered.
+The `meta` part is everything after the language (in thise case, `js`).
+This is a *hidden* part of markdown: it’s normally ignored.
 But as the above example shows, it’s a useful place to put some extra fields.
 
 `@mdx-js/mdx` doesn’t know whether you’re handling code as a component or what
 the format of that meta string is, so it defaults to how markdown handles it:
 `meta` is ignored.
 
-The short answer is: use [`remark-mdx-code-meta`][remark-mdx-code-meta],
-it lets you type JSX attributes in the `meta` part and exposes them on the
-`pre` component.
+But what if you want to access `meta`?
+The short answer is: use [`remark-mdx-code-meta`][remark-mdx-code-meta].
+It lets you type JSX attributes in the `meta` part which you can access by
+with a component for `pre`.
 
 The long answer is: do it yourself, however you want, by writing a custom plugin
 to interpret the `meta` field.
-For example, it’s possible to pass that string as a prop by writing a rehype
-plugin:
+For example, it’s possible to pass that string as a prop with a rehype plugin:
 
 ```js path="rehype-meta-as-attributes.js"
 /** @type {import('unified').Plugin<[], import('hast').Root>} */
@@ -170,16 +179,18 @@ This would yields the following JSX:
 ```
 
 <Note type="important">
-  **Important**: the `meta` attribute is not valid HTML, so make sure to handle
-  `code` with a component.
+  **Important**: the `meta` attribute is not valid on `code` elements in HTML.
+  Please make sure to handle it with a `code` component.
 </Note>
 
 The meta string in this example looks a lot like HTML attributes.
-What if we wanted to parse that string and add each “attribute” as a prop?
-Using the same rehype plugin as above, but with a different `onelement`
-function, that can be achieved:
+What if we wanted to add each “attribute” as a prop?
+That can be achieved with the same rehype plugin as above with a different
+`onelement` handler:
 
 ```js path="rehype-meta-as-attributes.js"
+// A regex that looks for a simplified attribute name, optionally followed
+// by a double, single, or unquoted attribute value
 const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
     // …
@@ -210,8 +221,9 @@ This would yields the following JSX:
 ```
 
 <Note type="important">
-  **Important**: these added attributes are not valid HTML, so make sure to
-  handle `code` with a component.
+  **Important**: these arbitrary attributes might not be valid on `code`
+  elements in HTML.
+  Please handle them with a `code` component.
 </Note>
 
 [commonmark]: https://spec.commonmark.org/current/

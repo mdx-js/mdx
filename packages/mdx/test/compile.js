@@ -938,7 +938,7 @@ test('markdown (GFM, with `remark-gfm`)', async () => {
       )
     ),
     '<ul class="contains-task-list">\n<li class="task-list-item"><input type="checkbox" checked="" disabled=""/> a</li>\n<li class="task-list-item"><input type="checkbox" disabled=""/> b</li>\n</ul>',
-    'should support tasklists (`* [x]` -> `input`)'
+    'should support task lists (`* [x]` -> `input`)'
   )
 
   assert.equal(

@@ -12,7 +12,8 @@ export const info = {
 This article explains how to use MDX files in your project.
 It shows how you can pass props and how to import, define, or pass components.
 See [§ Getting started][start] for how to integrate MDX into your project.
-If you’re new to MDX we recommend that you start with [§ What is MDX][what].
+To understand how the MDX format works, we recommend that you start with
+[§ What is MDX][what].
 
 {/* more */}
 
@@ -86,7 +87,7 @@ Some more observations:
 *   The content component can be given `{components: {h1: MyComponent}}` to use
     something else for the heading
 *   The content component can be given `{components: {wrapper: MyLayout}}` to
-    wrap the whole content
+    wrap all content
 
 † MDX is not coupled to React.
 You can also use it with [Preact][],
@@ -116,8 +117,8 @@ import Example from './example.mdx' // Assumes an integration is used to compile
 ReactDom.render(<Example />, document.querySelector('#root'))
 ```
 
-The main content is exported as the default export and all other values are also
-exported.
+The main content is exported as the default export.
+All other values are also exported.
 Take this example:
 
 ```mdx path="example.mdx"
@@ -130,7 +131,7 @@ It could be imported in the following ways:
 
 ```js path="example.js"
 // A namespace import to get everything:
-import * as everything from './example.mdx'
+import * as everything from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 console.log(everything) // {Thing: [Function: Thing], default: [Function: MDXContent]}
 
 // Default export shortcut and a named import specifier:
@@ -145,13 +146,25 @@ console.log(AnotherName) // [Function: Thing]
 
 ### Props
 
-Components, regardless of framework, accept “props” (an object with arbitrary
-data).
-This object is available from within MDX content under the identifier `props`.
-Take for example file:
+In [§ What is MDX][what], we showed that JavaScript expressions, inside curly
+braces, can be used in MDX:
 
 ```mdx path="example.mdx"
-# Hello {props.name}
+import {year} from './data.js'
+export const name = 'world'
+
+# Hello {name.toUpperCase()}
+
+The current year is {year}
+```
+
+Instead of importing or defining data within MDX, data can also be passed
+to `MDXContent`.
+The passed data is called `props`.
+Take for example:
+
+```mdx path="example.mdx"
+# Hello {props.name.toUpperCase()}
 
 The current year is {props.year}
 ```
@@ -166,16 +179,6 @@ React.createElement(Example, {name: 'Venus', year: 2021})
 
 // Use JSX:
 <Example name="Mars" year={2022} />
-```
-
-You don’t have to pass data.
-You can also define (or import) it within MDX:
-
-```jsx path="example.mdx"
-export const year = 2019
-export const fact = 'a particularly snowy year'
-
-{year} has been {fact} when compared to the last decade.
 ```
 
 ### Components
@@ -212,7 +215,7 @@ MDX using imported components!
 Because MDX files *are* components, they can also import each other:
 
 ```jsx path="example.mdx" language="mdx"
-import License from './license.md'
+import License from './license.md' // Assumes an integration is used to compile MDX -> JS.
 import Contributing from './docs/contributing.mdx'
 
 # Hello world
@@ -268,7 +271,7 @@ or not, are as follows:
 ### Layout
 
 There is one special component: the layout.
-If it is defined, it’s used to wrap the whole content.
+If it is defined, it’s used to wrap all content.
 A layout can be defined from within MDX using a default export:
 
 ```js language="mdx"
@@ -322,7 +325,7 @@ cumbersome.
 Like so:
 
 ```mdx path="post.mdx"
-import License from './license.md'
+import License from './license.md' // Assumes an integration is used to compile MDX -> JS.
 import Contributing from './docs/contributing.mdx'
 
 # Hello world
@@ -375,7 +378,7 @@ Set it up like so:
 Now you can remove the explicit and verbose component passing:
 
 ```diff
- import License from './license.md'
+ import License from './license.md' // Assumes an integration is used to compile MDX -> JS.
  import Contributing from './docs/contributing.mdx'
 
  # Hello world

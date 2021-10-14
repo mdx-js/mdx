@@ -84,8 +84,10 @@ directly:
 +<Post components={components} />
 ```
 
-See [¶ Preact][start-preact] for how to get started with MDX and Preact.
-See [¶ MDX provider][use-provider] for how to use an MDX provider.
+See [¶ Preact in § Getting started][start-preact] for how to get started with
+MDX and Preact.
+See [¶ MDX provider in § Using MDX][use-provider] for how to use an MDX
+provider.
 
 ## API
 

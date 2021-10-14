@@ -12,6 +12,7 @@ export const info = {
 
 This article explains how to extend MDX content—specifically, how to *transform*
 content with plugins.
+See [§ Using MDX][use] for how to pass components, props, and the layout.
 See [§ Getting started][start] for how to integrate MDX into your project.
 
 {/* more */}
@@ -26,29 +27,22 @@ See [§ Getting started][start] for how to integrate MDX into your project.
 
 ## Components & plugins
 
-There are several extension points when compiling MDX content with `@mdx-js/mdx`
-or one of its integrations:
+There are three extension points when using `@mdx-js/mdx` or one of its
+integrations:
 
-*   `@mdx-js/mdx` has a bunch of options (see [§ API][api])
-*   Components can be imported, defined locally, or passed at runtime
-    (see [§ Using MDX][use])
-*   Plugins can hook into several stages of compilation (see [remark
+*   Options passed to the compiler (see [¶ API in `@mdx-js/mdx`][api])
+*   Plugins that hook into several stages of compilation (see [remark
     plugins][remark-plugins], [rehype plugins][rehype-plugins], and the new
     recma plugins)
+*   Components passed, defined, or imported at runtime (see [§ Using MDX][use])
 
 Most of the time, these components and plugins are not coupled to MDX.
-For example, if you’re using React with MDX, then you can use
-[`<ReactConfetti />`][react-confetti].
-A different example is that [`remark-gfm`][remark-gfm] can be passed at compile
-time in [`options.remarkPlugins`][options-remark-plugins], to turn
-on GFM features in MDX.
-We think it’s important that the MDX language is not coupled to a single
-framework and that it isn’t its own island but instead works together with
-other projects.
-
-Sometimes though, we need specific components or specific plugins to work with
+For example, if you’re using React, then you can use
+[`<ReactConfetti />`][react-confetti] with MDX.
+Or, you can use the plugin [`remark-gfm`][remark-gfm] to turn on GFM features in
 MDX.
-Some of these are listed here:
+Sometimes, we need specific components or specific plugins to work with MDX.
+We’re compiling those here on this page.
 
 ### List of components
 
@@ -109,7 +103,7 @@ Those fields expect lists of plugins and/or of `[plugin, options]`:
 import {compile} from '@mdx-js/mdx'
 import rehypeKatex from 'rehype-katex' // Render math with KaTeX.
 import remarkFrontmatter from 'remark-frontmatter' // YAML and such.
-import remarkGfm from 'remark-gfm' // Tables, footnotes, strikethrough, tasklists, literal URLs.
+import remarkGfm from 'remark-gfm' // Tables, footnotes, strikethrough, task lists, literal URLs.
 import remarkMath from 'remark-math' // Support math like `$so$`.
 
 const file = '# hi'
@@ -145,10 +139,9 @@ There are several guides and recipes on that in [§ Learn on
 `unifiedjs.com`][learn].
 
 For the MDX specific parts of plugins, it’s recommended to read
-[§ Architecture][architecture] to learn how `@mdx-js/mdx` works.
-
-For info on new node types supported in MDX, see [¶ Syntax tree in
-`remark-mdx`][syntax-tree] and use our interactive
+[¶ Architecture][architecture] to learn how `@mdx-js/mdx` works.
+For info on the node types that represent MDX specific features, see
+[¶ Syntax tree in `remark-mdx`][syntax-tree] and use our interactive
 [§ Playground][playground].
 
 [remark-plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins

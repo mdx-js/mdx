@@ -30,7 +30,7 @@ This package is a webpack plugin to support MDX.
 ## When should I use this?
 
 This integration is useful if you’re using webpack (or another tool that uses
-webpack, such as Next).
+webpack, such as Next.js).
 
 This integration can be combined with the Babel loader to support nonstandard
 JSX runtimes (such as Vue) or compile modern JavaScript features to ones your
@@ -74,6 +74,9 @@ module.exports = {
   }
 }
 ```
+
+See also [¶ Create React App (CRA)][cra], [¶ Next.js][next], and
+[¶ Vue CLI][vue-cli], if you’re using webpack through them, for more info.
 
 ## API
 
@@ -194,3 +197,9 @@ abide by its terms.
 [babel-loader]: https://webpack.js.org/loaders/babel-loader/
 
 [webpack-v8]: https://github.com/wooorm/xdm/issues/11#issuecomment-785043772
+
+[cra]: https://v2.mdxjs.com/getting-started/#create-react-app-cra
+
+[next]: https://v2.mdxjs.com/getting-started/#nextjs
+
+[vue-cli]: https://v2.mdxjs.com/getting-started/#vue-cli

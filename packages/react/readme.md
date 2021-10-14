@@ -84,8 +84,10 @@ directly:
 +<Post components={components} />
 ```
 
-See [¶ React][start-react] for how to get started with MDX and React.
-See [¶ MDX provider][use-provider] for how to use an MDX provider.
+See [¶ React in § Getting started][start-react] for how to get started with MDX
+and React.
+See [¶ MDX provider in § Using MDX][use-provider] for how to use an MDX
+provider.
 
 ## API
 

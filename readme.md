@@ -38,7 +38,7 @@ See [§ Playground](https://v2.mdxjs.com/playground/) to try it out.
 ## What is this?
 
 This GitHub repository contains several packages for compiling the MDX format to
-JavaScript, integrating with bundlers such as webpack and rollup, and for using
+JavaScript, integrating with bundlers such as webpack and Rollup, and for using
 it with frameworks such as React, Preact, and Vue.
 
 See [§ Getting started](https://v2.mdxjs.com/getting-started/) for how to

@@ -39,8 +39,8 @@ It can also evaluate MDX code.
 
 This is the core compiler for turning MDX into JavaScript and which gives you
 the most control.
-If you’re using a bundler (webpack, rollup, esbuild), or a site builder (gatsby,
-next) or build system (vite, snowpack) which comes with a bundler, you’re better
+If you’re using a bundler (webpack, Rollup, esbuild), or a site builder (Gatsby,
+Next.js) or build system (Vite, WMR) which comes with a bundler, you’re better
 off using an integration: see [§ Integrations][integrations].
 
 ## Install
@@ -153,7 +153,7 @@ List of [remark plugins][remark-plugins], presets, and pairs.
 
 ```js
 import remarkFrontmatter from 'remark-frontmatter' // YAML and such.
-import remarkGfm from 'remark-gfm' // Tables, footnotes, strikethrough, tasklists, literal URLs.
+import remarkGfm from 'remark-gfm' // Tables, footnotes, strikethrough, task lists, literal URLs.
 
 await compile(file, {remarkPlugins: [remarkGfm]}) // One plugin.
 await compile(file, {remarkPlugins: [[remarkFrontmatter, 'toml']]}) // A plugin with options.
@@ -242,7 +242,7 @@ because in those it affects *which* files are “registered”:
 Output format to generate (`'program' | 'function-body'`, default: `'program'`).
 In most cases `'program'` should be used, as it results in a whole program.
 Internally, [`evaluate`][eval] uses `outputFormat: 'function-body'` to compile
-to code that can be `eval`ed.
+to code that can be `eval`d.
 In some cases, you might want to do what `evaluate` does in separate steps
 yourself, such as when compiling on the server and running on the client.
 
