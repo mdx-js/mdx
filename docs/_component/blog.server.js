@@ -41,7 +41,7 @@ export const BlogEntry = (props) => {
           <p>{description}</p>
         ) : null}
         <span>
-          <a href={name}>Read more »</a>
+          <a href={name}>Continue reading »</a>
         </span>
       </div>
       <div

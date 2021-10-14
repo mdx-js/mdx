@@ -390,6 +390,10 @@ a {
   transition-property: color;
 }
 
+a.alt {
+  color: var(--purple-5);
+}
+
 .navigation a {
   display: block;
   color: inherit;
