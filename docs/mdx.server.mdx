@@ -14,7 +14,8 @@ export const info = {
 This article explains what MDX is.
 It shows how markdown, JSX, JavaScript expressions, and `import` and
 `export` statements in ESM can be used inside MDX.
-See [§ Getting started][start] for details on how to integrate MDX into your project.
+See [§ Getting started][start] for details on how to integrate MDX into your
+project.
 
 {/* more */}
 
@@ -65,8 +66,8 @@ Other frameworks, such as Vue and Preact, expect classes to be defined
 differently, so note that there are some differences in how JSX has to be
 authored depending on what tools it’s used with.
 
-A few other features from JavaScript are supported in MDX as well: expressions in
-braces (`{1 + 1}`) and ESM (`import` and `export`).
+A few other features from JavaScript are supported in MDX as well: expressions
+in braces (`{1 + 1}`) and ESM (`import` and `export`).
 
 ## MDX syntax
 
@@ -74,16 +75,17 @@ braces (`{1 + 1}`) and ESM (`import` and `export`).
   **Note**:
   You don’t have to use this syntax with `@mdx-js/*` packages.
   Or use it always.
-  If you’re using a bundler integration you can change between MDX and markdown
-  through the file extension (`.mdx` vs. `.md`).
+  If you’re using a bundler integration you can change between MDX and
+  markdown through the file extension (`.mdx` vs. `.md`).
   Alternatively, [`options.format`][format] can be used.
 </Note>
 
 The MDX syntax combines markdown with JSX.
 This gives us something along the lines of literate programming.
-It also gives us an odd mix of two languages: markdown is **whitespace sensitive**
-and **forgiving** (what you type may not exactly work but it won’t crash) whereas
-JavaScript is **whitespace insensitive** and  **unforgiving** (it does crash on typos).
+It also gives us an odd mix of two languages: markdown is **whitespace
+sensitive** and **forgiving** (what you type may not exactly work but it
+won’t crash) whereas JavaScript is **whitespace insensitive** and
+**unforgiving** (it does crash on typos).
 
 Weirdly enough we quite like how they combine!
 
@@ -189,7 +191,7 @@ like in the following example:
 JSX is good for **components**.
 It makes repeating markup more clear and allows for separation of concerns.
 MDX supports JSX syntax.
-The following looks a lot like normal HTML:
+The following looks a lot like HTML:
 
 ```html language="mdx"
 <h1>Heading!</h1>
@@ -260,7 +262,8 @@ Expressions can be empty or contain just a comment:
 ### ESM
 
 MDX supports `import` and `export` statements from JavaScript as well.
-These ESM features can be used within MDX to import components or declare variables:
+These ESM features can be used within MDX to import components or declare
+variables:
 
 ```jsx language="mdx"
 import {External} from './some/place.js'
