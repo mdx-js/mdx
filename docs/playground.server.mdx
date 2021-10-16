@@ -1,3 +1,4 @@
+import {Note} from './_component/note.server.js'
 import {Editor} from './_component/editor.client.js'
 export const navSortSelf = 5
 export const info = {
@@ -8,6 +9,15 @@ export const info = {
   published: new Date('2021-09-13'),
   modified: new Date('2021-11-01')
 }
+
+<Note type="important">
+  **Note** this website is for the upcoming version 2, which hasn’t been
+  released yet.
+  You can be of great help by reading through these docs and letting us know
+  what’s confusing or wrong or other suggestions you have.
+  See [§ Support][support] for where to ask questions and
+  [§ Contribute][contribute] for how to help.
+</Note>
 
 # Playground
 
@@ -28,3 +38,7 @@ Below is an example of markdown in JSX in markdown.
 `}/>
 
 [what]: /mdx/
+
+[support]: /community/support/
+
+[contribute]: /community/contribute/

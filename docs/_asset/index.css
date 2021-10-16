@@ -30,7 +30,6 @@
 }
 
 * {
-  line-height: calc(1em + 1ex);
   box-sizing: border-box;
 }
 
@@ -43,6 +42,7 @@ html {
   font-kerning: normal;
   font-family: var(--sans);
   font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+  line-height: calc(1em + 1ex);
 }
 
 button,
@@ -57,6 +57,7 @@ code {
   font-family: var(--mono);
   font-feature-settings: normal;
   font-size: smaller;
+  line-height: calc(1em + (1 / 0.8 * 1ex));
 }
 
 body {
@@ -73,7 +74,7 @@ h5,
 h6,
 strong,
 th {
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.0125em;
 }
 
@@ -82,13 +83,13 @@ sup {
 }
 
 main {
-  margin-top: calc(4 * (1em + 1ex));
+  margin-block-start: calc(4 * (1em + 1ex));
 }
 
 dd,
 .note,
 .content {
-  padding: 0 calc(1em + 1ex);
+  padding-inline: calc(1em + 1ex);
 }
 
 label {
@@ -112,7 +113,7 @@ blockquote,
 .block,
 .note,
 .frame {
-  margin: calc(1em + 1ex) 0;
+  margin-block: calc(1em + 1ex);
 }
 
 summary {
@@ -122,25 +123,28 @@ summary {
 .anchor {
   display: inline-block;
   width: calc(1em + 1ex);
-  margin-left: calc(-0.75 * (1em + 1ex));
-  margin-right: calc(-0.25 * (1em + 1ex));
+  margin-inline-start: calc(-0.75 * (1em + 1ex));
+  margin-inline-end: calc(-0.25 * (1em + 1ex));
   font-size: 1rem;
 }
 
+a[name],
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  scroll-margin-top: 6rem;
+  display: block;
+  scroll-margin-block-start: 6rem;
 }
 
-h1 {
+h1,
+h2 {
   font-size: 2.5em;
-  margin-top: calc(0.4em + 0.7ex);
-  margin-bottom: calc(0.4em + 0.7ex);
-  padding-bottom: calc(0.2em + 0.2ex);
+  line-height: calc(1em + (1 / 2.5 * 1ex));
+  margin-block: calc(1 / 2.5 * (1em + 1ex));
+  padding-block-end: calc(1 / 2.5 * (1em + 1ex));
 }
 
 h2 {
@@ -149,27 +153,30 @@ h2 {
     rgb(252 180 45 / 10%) 20%,
     rgb(252 180 45 / 0%) 80%
   );
-  font-size: 2em;
-  margin-top: calc(0.5 * (1em + 1.25ex));
-  margin-bottom: calc(0.5 * (1em + 1.25ex));
-  padding-bottom: calc(0.25 * (1em + 1ex));
 }
 
 h1,
 h2 {
-  border-bottom: 1px solid var(--gray-2);
+  border-block-end: 1px solid var(--gray-2);
 }
 
 h3 {
-  font-size: 1.5em;
-  margin-top: calc(0.6667 * (1em + 1.16667ex));
-  margin-bottom: calc(0.6667 * (1em + 1.16667ex));
+  font-size: 2em;
+  line-height: calc(1em + (1 / 1.5 * 1ex));
+  margin-block: calc(1 / 1.5 * (1em + 1ex));
 }
 
 h4 {
   font-size: 1.25em;
-  margin-top: calc(0.8 * (1em + 1.1ex));
-  margin-bottom: calc(0.8 * (1em + 1.1ex));
+  line-height: calc(1em + (1 / 1.25 * 1ex));
+  margin-block: calc(1 / 1.25 * (1em + 1ex));
+}
+
+h5,
+h6 {
+  font-size: 1em;
+  line-height: calc(1em + 1ex);
+  margin-block: calc(1em + 1ex);
 }
 
 h6 {
@@ -183,11 +190,11 @@ svg {
 }
 
 img[align='right'] {
-  padding-left: calc(1em + 1ex);
+  padding-inline-start: calc(1em + 1ex);
 }
 
 img[align='left'] {
-  padding-right: calc(1em + 1ex);
+  padding-inline-end: calc(1em + 1ex);
 }
 
 kbd {
@@ -209,8 +216,7 @@ pre {
 blockquote pre,
 li pre {
   border-radius: 5px;
-  margin-left: 0;
-  margin-right: 0;
+  margin-inline: 0;
 }
 
 code {
@@ -219,7 +225,8 @@ code {
 
 code {
   border-radius: 3px;
-  padding: 0.2em 0.4em;
+  padding-block: calc(0.33 * (1 / 0.8 * 1ex));
+  padding-inline: calc(0.66 * (1 / 0.8 * 1ex));
 }
 
 pre code {
@@ -261,8 +268,7 @@ pre code,
 }
 
 .frame-body > pre:only-child {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-block: 0;
 }
 
 .frame-tab-item-inactive {
@@ -287,7 +293,7 @@ table {
 }
 
 tr {
-  border-top: 1px solid var(--gray-3);
+  border-block-start: 1px solid var(--gray-3);
 }
 
 tr:nth-child(even) {
@@ -297,12 +303,13 @@ tr:nth-child(even) {
 td,
 th {
   border: 1px solid var(--gray-3);
-  padding: 0.4em 0.8em;
+  padding-block: calc(0.33 * (1 / 0.8 * 1ex));
+  padding-inline: calc(0.66 * (1 / 0.8 * 1ex));
 }
 
 blockquote {
   color: var(--gray-6);
-  padding-left: calc(1em + 1ex);
+  padding-inline-start: calc(1em + 1ex);
   position: relative;
 }
 
@@ -314,12 +321,12 @@ blockquote::before {
   background-color: var(--gray-1);
   border-radius: 3px;
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
 }
 
 ol,
 ul {
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 
 ul {
@@ -334,8 +341,7 @@ ul ul,
 ol ul,
 ul ol,
 ol ol {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-block: 0;
 }
 
 ul ul {
@@ -356,32 +362,31 @@ ol ol ol {
 
 li {
   word-wrap: break-all;
-  margin-top: calc(0.25 * (1em + 1ex));
-  margin-bottom: calc(0.25 * (1em + 1ex));
-  margin-left: calc(1em + 1ex);
+  margin-block: calc(0.25 * (1em + 1ex));
+  margin-inline-start: calc(1em + 1ex);
 }
 
 .task-list-item {
   list-style-type: none;
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 
 .task-list-item input {
   margin: 0;
-  margin-right: calc(0.25 * (1em + 1ex));
+  margin-inline-end: calc(0.25 * (1em + 1ex));
 }
 
 dt {
   font-style: italic;
-  margin-bottom: 0;
+  margin-block-end: 0;
 }
 
 dt + dt {
-  margin-top: 0;
+  margin-block-start: 0;
 }
 
 dd {
-  margin-top: 0;
+  margin-block-start: 0;
 }
 
 a {
@@ -472,19 +477,15 @@ button.success {
 
 .navigation {
   position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
+  inset-inline: 0;
+  inset-block-start: 0;
   display: flex;
   padding: calc(0.5 * (1em + 1ex));
 }
 
 .navigation::before {
   content: '';
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   position: absolute;
   z-index: 2;
   background-image: radial-gradient(
@@ -564,12 +565,12 @@ button.success {
 }
 
 .navigation-secondary li + li {
-  padding-left: calc(0.5 * (1em + 1ex));
+  padding-inline-start: calc(0.5 * (1em + 1ex));
 }
 
 /* Some extra spacing because otherwise the blur is shown over it. */
 .navigation-secondary li:last-child {
-  padding-right: calc(0.5 * (1em + 1ex));
+  padding-inline-end: calc(0.5 * (1em + 1ex));
 }
 
 .navigation-secondary ol,
@@ -578,12 +579,12 @@ button.success {
 }
 
 .navigation-tertiary li + li {
-  padding-left: calc(0.5 * (1em + 1ex));
+  padding-inline-start: calc(0.5 * (1em + 1ex));
 }
 
 .skip-to-navigation {
-  left: 0;
-  top: 0;
+  inset-block-start: 0;
+  inset-inline-start: 0;
 }
 
 .skip-to-content,
@@ -626,12 +627,13 @@ button.success {
 
 .note-inside {
   font-size: smaller;
+  line-height: calc(1em + (1 / 0.8 * 1ex));
 }
 
 .card {
   display: block;
   padding: calc(1 * (1em + 1ex));
-  margin: calc(2 * (1em + 1ex)) 0;
+  margin-block: calc(2 * (1em + 1ex));
   border-radius: 8px;
   overflow: hidden;
   /* yellow */
@@ -653,12 +655,14 @@ button.success {
 }
 
 .emoji-list > ul > li {
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 
 .big {
   font-size: larger;
-  padding: calc(0.833 * (1em + 1ex));
+  line-height: calc(1em + (1 / 1.2 * 1ex));
+  padding: calc(1 / 1.2 * (1em + 1ex));
+  margin-block: calc(1 / 1.2 * (1em + 1ex));
 }
 
 .frame {
@@ -671,11 +675,11 @@ button.success {
 
 .frame-tab-bar {
   display: flex;
-  margin-top: calc(1em + 1ex);
+  margin-block-start: calc(1em + 1ex);
   list-style-type: none;
   margin: 0;
   padding: calc(0.25em + 0.25ex);
-  padding-bottom: 0;
+  padding-block-end: 0;
 }
 
 .frame-tab-bar-scroll {
@@ -700,7 +704,7 @@ button.success {
 }
 
 .frame-tab-bar + pre {
-  margin-top: 0;
+  margin-block-start: 0;
 }
 
 .frame-tab-bar + pre code {
@@ -712,7 +716,7 @@ button.success {
   font-family: var(--mono);
   padding: calc(0.25 * (1em + 1ex)) calc(0.75 * (1em + 1ex));
   margin: calc(0.25 * (1em + 1ex));
-  margin-bottom: 0;
+  margin-block-end: 0;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   white-space: nowrap;
@@ -720,10 +724,10 @@ button.success {
 
 .code-frame .copy-button {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  inset-block-end: 0;
+  inset-inline-end: 0;
   /* Lines it out nicely if there’s just one line of code. */
-  margin: calc(0.466 * (1em + 1ex));
+  margin: calc(0.618 * (1em + 1ex));
   backdrop-filter: saturate(200%) blur(1ex);
 }
 
@@ -746,14 +750,14 @@ button.success {
   padding: calc(1em + 1ex);
 }
 
-:is(.home-preview, .card, .frame-body)
+:is(.home-preview, .card, .frame-body, .big-columns > *)
   > :is(h1, h2, h3, h4, p, .block):first-child {
-  margin-top: 0;
+  margin-block-start: 0;
 }
 
-:is(.home-preview, .card, .frame-body)
+:is(.home-preview, .card, .frame-body, .big-columns > *)
   > :is(h1, h2, h3, h4, p, .block):last-child {
-  margin-bottom: 0;
+  margin-block-end: 0;
 }
 
 .home .anchor {
@@ -775,7 +779,7 @@ button.success {
 .playground-result-badge::after {
   content: attr(data-count);
   display: inline-block;
-  margin-left: 1ex;
+  margin-inline-start: 1ex;
   border-radius: 999em;
   padding: 0.75ex 1.5ex;
   font-size: small;
@@ -956,7 +960,9 @@ button.success {
 @media (min-width: 22em) {
   #markdown-for-thecomponent-era {
     font-size: 2rem;
-    line-height: 1;
+    line-height: calc(1em + (1 / 2 * 1ex));
+    margin-block: calc(1 / 2 * (1em + 1ex));
+    padding-block-end: calc(1 / 2 * (1em + 1ex));
   }
 }
 
@@ -967,6 +973,9 @@ button.success {
 
   #markdown-for-thecomponent-era {
     font-size: 3rem;
+    line-height: calc(1em + (1 / 3 * 1ex));
+    margin-block: calc(1 / 3 * (1em + 1ex));
+    padding-block-end: calc(1 / 3 * (1em + 1ex));
   }
 
   .snowfall-bar {
@@ -978,7 +987,9 @@ button.success {
 @media (min-width: 56em) {
   #markdown-for-thecomponent-era {
     font-size: 5rem;
-    margin-top: calc(1em + 1ex);
+    line-height: calc(1em + (1 / 5 * 1ex));
+    margin-block: calc(1 / 5 * (1em + 1ex));
+    padding-block-end: calc(1 / 5 * (1em + 1ex));
   }
 }
 
@@ -986,7 +997,7 @@ button.success {
   blockquote,
   ol,
   ul {
-    margin-left: calc(-1 * (1em + 1ex));
+    margin-inline-start: calc(-1 * (1em + 1ex));
   }
 
   ol blockquote,
@@ -1005,23 +1016,22 @@ button.success {
   .note ul,
   .card ul,
   .emoji-list > ul {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 
   main {
-    margin-left: calc(11 * (1em + 1ex));
+    margin-inline-start: calc(11 * (1em + 1ex));
   }
 
   .navigation-secondary {
     display: block;
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    inset-block: 0;
+    inset-inline-start: 0;
     z-index: 1;
     width: calc(10 * (1em + 1ex));
     padding: calc(1em + 1ex);
-    padding-top: calc(4 * (1em + 1ex));
+    padding-block-start: calc(4 * (1em + 1ex));
     overflow-y: scroll;
   }
 
@@ -1034,11 +1044,11 @@ button.success {
   }
 
   .navigation-secondary li + li {
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 
   .navigation-secondary li:last-child {
-    padding-right: 0;
+    padding-inline-end: 0;
   }
 
   .navigation-secondary ol,
@@ -1050,13 +1060,17 @@ button.success {
     padding: calc(1.66 * (1em + 1ex));
   }
 
+  .big.card {
+    margin-block: calc(1.66 * (1em + 1ex));
+  }
+
   .navigation-secondary ol {
     margin: 0 calc(1em + 1ex);
     list-style-type: circle;
   }
 
   .navigation-secondary li {
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 
   /* Assume they don’t scroll anymore. */
@@ -1069,6 +1083,9 @@ button.success {
 @media (min-width: 76em) {
   #markdown-for-thecomponent-era {
     font-size: 6rem;
+    line-height: calc(1em + (1 / 6 * 1ex));
+    margin-block: calc(1 / 6 * (1em + 1ex));
+    padding-block-end: calc(1 / 6 * (1em + 1ex));
   }
 
   .big-columns {

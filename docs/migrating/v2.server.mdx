@@ -9,5 +9,696 @@ export const info = {
 }
 
 <Note type="important">
-  **Important**: This page is in progress!
+  **Note** this website is for the upcoming version 2, which hasn’t been
+  released yet.
+  You can be of great help by reading through these docs and letting us know
+  what’s confusing or wrong or other suggestions you have.
+  See [§ Support][support] for where to ask questions and
+  [§ Contribute][contribute] for how to help.
 </Note>
+
+<Note type="info">
+  **Note**: Please let us know of any required changes that aren’t mentioned
+  here.
+</Note>
+
+# Migrating from v1 to v2
+
+## Contents
+
+*   [ESM](#esm)
+*   [Update `@mdx-js/*` packages](#update-mdx-js-packages)
+    *   [`@mdx-js/loader`](#mdx-jsloader)
+    *   [`@mdx-js/react`, `@mdx-js/preact`, `@mdx-js/vue`](#mdx-jsreact-mdx-jspreact-mdx-jsvue)
+    *   [`@mdx-js/mdx`](#mdx-jsmdx)
+    *   [`@mdx-js/runtime`](#mdx-jsruntime)
+    *   [`remark-mdx`](#remark-mdx)
+    *   [`@mdx-js/vue-loader`](#mdx-jsvue-loader)
+    *   [`@mdx-js/parcel-plugin-mdx`](#mdx-jsparcel-plugin-mdx)
+    *   [Other packages](#other-packages)
+*   [Update MDX files](#update-mdx-files)
+    *   [JSX](#jsx)
+    *   [Expressions](#expressions)
+    *   [ESM](#esm-1)
+    *   [Markdown](#markdown)
+    *   [GFM](#gfm)
+*   [Update MDX content](#update-mdx-content)
+
+## ESM
+
+When upgrading to version 2, you might run into import problems.
+Our packages are now ESM only.
+You have to load them with `import foo from 'foo'` instead of
+`const foo = require('foo')`.
+You might also have to change other things in your project:
+[please read this][esm-gist].
+
+If you’re having trouble with tools that don’t support ESM, such as Electron,
+you can use a bundler to make a CJS version.
+
+<details>
+  <summary>Expand example of making a CJS bundle</summary>
+
+  With [esbuild](https://esbuild.github.io), this bundles the ESM package
+  `@mdx-js/mdx` as CJS in `vendor/mdx.js`:
+
+  ```sh
+  npx esbuild @mdx-js/mdx --bundle --platform=node --outfile=vendor/mdx.js
+  ```
+</details>
+
+## Update `@mdx-js/*` packages
+
+### `@mdx-js/loader`
+
+To update our webpack loader `@mdx-js/loader`, please first update to recent
+versions of webpack and React.
+Then make sure ESM is supported.
+[ESM is explained above][esm].
+If you’re having trouble using ESM in your webpack config, here’s an example
+that works with our previous `@mdx-js/loader` (`1.6.22`):
+
+<details>
+  <summary>Expand example of a `webpack.config.js` in ESM</summary>
+
+  ```js path="webpack.config.js"
+  import {URL, fileURLToPath} from 'node:url'
+  import webpack from 'webpack'
+
+  const config = {
+    mode: 'none',
+    context: fileURLToPath(new URL('src/', import.meta.url)),
+    entry: ['./index.js'],
+    output: {
+      path: fileURLToPath(new URL('dest/', import.meta.url)),
+      filename: 'bundle.js'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.mdx?$/,
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {presets: ['@babel/preset-env', '@babel/preset-react']}
+            },
+            {
+              loader: '@mdx-js/loader',
+              options: {}
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  export default config
+  ```
+</details>
+
+Then install MDX version 2:
+
+```sh
+npm install @mdx-js/loader@next @mdx-js/react@next remark-gfm
+```
+
+You can update your code as follows:
+
+<div className="big-columns">
+  <div>
+    ```js path="webpack.config.v1.js"
+    // …
+    {
+      test: /\.mdx?$/,
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react'
+            ]
+          }
+        },
+        {
+          loader: '@mdx-js/loader',
+          options: {}
+        }
+      ]
+    }
+    // …
+    ```
+  </div>
+
+  <div>
+    ```js path="webpack.config.v2.js"
+    import remarkGfm from 'remark-gfm'
+
+    // …
+    {
+      test: /\.mdx?$/,
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env'
+            ]
+          }
+        },
+        {
+          loader: '@mdx-js/loader',
+          options: {
+            providerImportSource: '@mdx-js/react',
+            remarkPlugins: [remarkGfm]
+          }
+        }
+      ]
+    }
+    // …
+    ```
+  </div>
+</div>
+
+<Note type="info">
+  **Note**: getting an error `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`?
+  See [this note on `webpack-cli`](/packages/loader/#note-webpack-cli).
+</Note>
+
+The above changes get MDX 2 close to how MDX 1 worked.
+You can make it simpler:
+
+*   [`babel-loader`][babel-loader] is optional.
+    It compiles modern JavaScript to JavaScript your users support.
+    If you don’t need that you can remove it before `@mdx-js/loader`
+*   [`remark-gfm`][remark-gfm] is optional.
+    It adds support for autolink literals, footnotes, strikethrough, tables, and
+    task lists.
+    If you don’t want them, you can uninstall it, remove the import, and remove
+    it from `options.remarkPlugins`.
+    More info in [our guide on GFM][guide-gfm]
+*   [`@mdx-js/react`][mdx-react] is optional.
+    It adds support for context based components passing.
+    If you don’t need that, you can uninstall it and remove
+    `options.providerImportSource`.
+    More info in [¶ MDX provider in § Using MDX][mdx-provider]
+
+`@mdx-js/loader` now supports Preact and other JSX runtimes through
+configuration.
+Using Preact as an example:
+
+```js path="webpack.config.v2-preact.js"
+// …
+{
+  loader: '@mdx-js/loader',
+  options: {
+    jsxImportSource: 'preact',
+    // Optional: either remove the following line or install `@mdx-js/preact`.
+    providerImportSource: '@mdx-js/preact'
+  }
+}
+// …
+```
+
+For more information, please see [§ API in `@mdx-js/loader`][loader-api].
+
+###### Changes
+
+The options accepted by the loader changed:
+
+*   `renderer` is replaced by
+    [`options.jsxImportSource`][mdx-options-jsximportsource],
+    [`options.providerImportSource`][mdx-options-providerimportsource],
+    and others options.
+    More info in [§ API in `@mdx-js/mdx`][mdx-api]
+*   Other options were undocumented but passed to `@mdx-js/mdx`.
+    See `@mdx-js/mdx` below if needed
+
+For more information, please see [§ API in `@mdx-js/loader`][loader-api].
+
+### `@mdx-js/react`, `@mdx-js/preact`, `@mdx-js/vue`
+
+To update our framework integrations, please first update to recent versions of
+React, Preact, or Vue 3.
+Then make sure ESM is supported.
+[ESM is explained above][esm].
+Then install version 2:
+
+```sh
+npm install @mdx-js/react@next # Change `react` to `preact` or `vue` if needed
+```
+
+Note that these packages now only add support for context based components
+passing.
+If you don’t need that, you can uninstall them.
+More info in [¶ MDX provider in § Using MDX][mdx-provider].
+
+###### Changes
+
+The interface of changed slightly:
+
+*   The named export `mdx`, which was a `createElement` function, is removed.
+    You can use your framework’s functions instead: `React.createElement`,
+    `h` from `preact`, etc.
+
+### `@mdx-js/mdx`
+
+To update our core compiler `@mdx-js/mdx`, first make sure ESM is supported.
+[ESM is explained above][esm].
+Then install version 2:
+
+```sh
+npm install @mdx-js/mdx@next @mdx-js/react@next remark-gfm
+```
+
+You can update your code as follows:
+
+<div className="big-columns">
+  <div>
+    ```js path="v1.js"
+    import mdx from '@mdx-js/mdx'
+
+    const result = await mdx('# hi')
+
+    console.log(result)
+    ```
+  </div>
+
+  <div>
+    ```js path="v2.js"
+    import {compile} from '@mdx-js/mdx'
+    import remarkGfm from 'remark-gfm'
+
+    const result = await compile('# hi', {
+      providerImportSource: '@mdx-js/react',
+      remarkPlugins: [remarkGfm]
+    })
+
+    console.log(String(result))
+    ```
+  </div>
+</div>
+
+The above changes get MDX 2 close to how MDX 1 worked.
+You can make it simpler:
+
+*   [`remark-gfm`][remark-gfm] is optional.
+    It adds support for autolink literals, footnotes, strikethrough, tables, and
+    task lists.
+    If you don’t want them, you can uninstall it, remove the import, and remove
+    it from `options.remarkPlugins`.
+    More info in [our guide on GFM][guide-gfm]
+*   [`@mdx-js/react`][mdx-react] is optional.
+    It adds support for context based components passing.
+    If you don’t need that, you can uninstall it and remove
+    `options.providerImportSource`.
+    More info in [¶ MDX provider in § Using MDX][mdx-provider]
+
+`@mdx-js/mdx` now supports Preact and other JSX runtimes through configuration.
+Using Preact as an example:
+
+```js path="v2-preact.js"
+import {compile} from '@mdx-js/mdx'
+
+const result = await compile('# hi', {jsxImportSource: 'preact'})
+```
+
+For more information, please see [§ API in `@mdx-js/mdx`][mdx-api]
+
+###### Changes
+
+The interface of `@mdx-js/mdx` changed:
+
+*   The default export is replaced by the named export [`compile`][mdx-compile]
+*   The named export `sync` is replaced by [`compileSync`][mdx-compilesync]
+*   The named export `createCompiler` is replaced by
+    [`createProcessor`][mdx-createprocessor]
+*   The named export `createMdxAstCompiler` is removed, use `remark` with
+    `remark-mdx` instead
+*   The return value of `compile`, `compileSync` are now [VFile][]s instead of
+    strings
+*   There are new exports [`evaluate`][mdx-evaluate],
+    [`evaluateSync`][mdx-evaluatesync] to eval (compile and run) MDX
+
+Options in version 1 were undocumented.
+If you used them:
+
+*   `filepath` is replaced by accepting a VFile or compatible object as the
+    first argument [`file`][mdx-file]
+*   `compilers` is replaced by
+    [`options.recmaPlugins`][mdx-options-recmaplugins]
+*   `hastPlugins` is replaced by
+    [`options.rehypePlugins`][mdx-options-rehypeplugins]
+*   `mdPlugins` is replaced by
+    [`options.remarkPlugins`][mdx-options-remarkplugins]
+*   `skipExport` is removed, [`evaluate`][mdx-evaluate] can do this
+    automatically
+*   `wrapExport` is removed, use a custom recma plugin instead
+*   There are many new options to support different JSX runtimes, non-React JSX,
+    compile JSX away, source maps, normal markdown, and otherwise change how MDX
+    is compiled
+
+For more information, please see [§ API in `@mdx-js/mdx`][mdx-api].
+
+### `@mdx-js/runtime`
+
+We’ve deprecated `@mdx-js/runtime`.
+Our core compiler `@mdx-js/mdx` can now do the same and more.
+To update, first make sure ESM is supported.
+[ESM is explained above][esm].
+Please also make sure you are using a recent version of React.
+Then uninstall `@mdx-js/runtime` and install `@mdx-js/mdx` and `@mdx-js/react`:
+
+```sh
+npm uninstall @mdx-js/runtime
+npm install @mdx-js/mdx@next @mdx-js/react@next
+```
+
+You can update your code as follows:
+
+<div className="big-columns">
+  <div>
+    ```js path="v1.js"
+    import MDX from '@mdx-js/runtime'
+
+    const components = {/* … */}
+    const value = '# hi'
+
+    export default () => (
+      <MDX components={components}>
+        {value}
+      </MDX>
+    )
+    ```
+  </div>
+
+  <div>
+    ```js path="v2.js"
+    import * as runtime from 'react/jsx-runtime.js'
+    import * as provider from '@mdx-js/react'
+    import {evaluate} from '@mdx-js/mdx'
+
+    const components = {/* … */}
+    const value = '# hi'
+    const {default: Content} = await evaluate(value, {...provider, ...runtime})
+
+    export default () => (
+      <Content components={components} />
+    )
+    ```
+  </div>
+</div>
+
+The above changes get MDX 2 close to how MDX 1 worked.
+You can make it simpler:
+
+*   [`@mdx-js/react`][mdx-react] is optional.
+    It adds support for context based components passing.
+    If you don’t need that, you can uninstall it and remove
+    `options.providerImportSource`.
+    More info in [¶ MDX provider in § Using MDX][mdx-provider]
+
+`@mdx-js/mdx` now supports Preact and other JSX runtimes through configuration.
+Using Emotion as an example:
+
+```js path="v2-emotion.js"
+// …
+import * as runtime from '@emotion/react/jsx-runtime.js'
+// …
+```
+
+For more information, please see [`evaluate` in `@mdx-js/mdx`][mdx-evaluate].
+
+###### Changes
+
+*   The package `@mdx-js/runtime` is replaced by [`evaluate`][mdx-evaluate]
+    from `@mdx-js/mdx`
+*   `evaluate` supports any JSX runtime and providers are optional
+*   `evaluate` yields an `MDXContent` component just like how importing
+    and MDX file works
+*   `evaluate` supports imports and exports inside evaluated MDX
+
+For more information, please see [`evaluate` in `@mdx-js/mdx`][mdx-evaluate].
+
+### `remark-mdx`
+
+To update our remark plugin `remark-mdx`, first make sure ESM is supported.
+[ESM is explained above][esm].
+Then install version 2:
+
+```sh
+npm install remark-mdx@next
+```
+
+For more information, please see [§ Use in `remark-mdx`][remark-mdx-use].
+
+### `@mdx-js/vue-loader`
+
+We’ve deprecated `@mdx-js/vue-loader`.
+Our main loader `@mdx-js/loader` can now do the same and more.
+To update, first remove `@mdx-js/vue-loader` and upgrade to Vue 3.
+Then, see [¶ Vue in § Getting started](/getting-started/#vue) on how to use Vue
+with MDX.
+
+### `@mdx-js/parcel-plugin-mdx`
+
+We’ve deprecated `@mdx-js/parcel-plugin-mdx`.
+Parcel 2 has their own plugin.
+To update, first remove `@mdx-js/parcel-plugin-mdx` and upgrade to Parcel 2.
+Then, see [¶ Parcel in § Getting started](/getting-started/#parcel) on how to
+use Parcel with MDX.
+
+### Other packages
+
+We removed several packages doing internal work for us.
+These packages are:
+
+*   `@mdx-js/util`
+    — no longer needed internal helpers
+*   `@mdx-js/test-util`
+    — no longer needed test helpers, `evaluate` can do them
+*   `gatsby-theme-mdx`
+    — no longer needed website template
+*   `remark-mdx-remove-imports`, `babel-plugin-extract-import-names`
+    — no longer needed transforms, our compiler handles imports
+*   `remark-mdx-remove-exports`, `babel-plugin-remove-export-keywords`
+    — no longer needed transforms, our compiler handles exports
+*   `babel-plugin-html-attributes-to-jsx`
+    — no longer needed transform, something similar is done by
+    [`hast-util-to-estree`](https://github.com/syntax-tree/hast-util-to-estree)
+*   `babel-plugin-apply-mdx-type-props`
+    — no longer needed transform due to the new architecture
+*   `create-mdx`
+    — no longer needed, we recommend to start your project with whatever other
+    integrations you prefer and *then* add MDX to it
+
+## Update MDX files
+
+Now you’ve updated our packages, you can update your MDX files.
+In version 2, we improved the syntax of the MDX format.
+When upgrading, you’ll likely get errors.
+Please read those error messages carefully, as they typically explain what
+happened where and how to fix it.
+
+{/* to do: link to troubleshooting. */}
+
+### JSX
+
+First, let’s kick off with a couple of things that are now possible with JSX in
+MDX.
+You don’t need blank lines between JSX and markdown anymore:
+
+```html chrome=no
+<hgroup>
+# This is a heading now
+</hgroup>
+```
+
+You can now indent your JSX and markdown:
+
+````html chrome=no
+<article>
+  <hgroup>
+    # This is a heading now, not code or plain text
+  </hgroup>
+  <section>
+    ```js
+    // if you do want code blocks, use fenced code
+    ```
+  </section>
+</article>
+````
+
+You can use markdown “inlines” but not “blocks” if the text and tags are on the
+same line:
+
+```html chrome=no
+<div># this is not a heading but *this* is emphasis</div>
+```
+
+Text and tags on one line don’t produce blocks so they don’t produce `<p>`s
+either.
+On separate lines, they do:
+
+```html chrome=no
+<div>
+  This is a `p`.
+</div>
+```
+
+We differentiate using this rule (same line or not).
+Not based on semantics of elements in HTML.
+So you *can* build incorrect HTML (which you shouldn’t):
+
+```html chrome=no
+<h1 className="main">
+  Don’t do this: it’s a `p` in an `h1`
+</h1>
+
+<h1 className="main">Do this: an `h1` with `code`</h1>
+```
+
+We also fixed several cases where JSX was not parsed or handled correctly or
+even crashed.
+More on JSX in MDX is in [¶ JSX in § What is MDX?][what-jsx]
+
+### Expressions
+
+You can now use expressions in MDX to include JavaScript.
+You can also use them as an escape hatch if you ever *just* want strings or JSX
+rather than markdown:
+
+```html chrome=no
+{
+  <h1>
+    This just JSX, these *asterisks* have no meaning.
+  </h1>
+}
+
+This is just {'`text`'}, not code.
+```
+
+More on expressions in MDX is in
+[¶ Expressions in § What is MDX?][what-expressions]
+
+### ESM
+
+You can more easily embed components in MDX because blank lines are allowed:
+
+```js chrome=no
+export const Button = (props) => {
+  const style = {color: 'red'}
+
+  return <button style={style} {...props} />
+}
+```
+
+We also fixed several cases where `import` and `export` were not parsed or
+handled correctly or even crashed.
+More on ESM in MDX is in [¶ ESM in § What is MDX?][what-esm]
+
+### Markdown
+
+We turned off several things that are allowed in regular markdown to make MDX
+less ambiguous.
+More on markdown in MDX and where it differs is in
+[¶ Markdown in § What is MDX?][what-markdown]
+
+### GFM
+
+We turned off GFM features in MDX by default.
+GFM extends CommonMark to add autolink literals, footnotes, strikethrough,
+tables, and task lists.
+If you do want these features, you can use a plugin.
+How to do so is described in [our guide on GFM][guide-gfm].
+
+## Update MDX content
+
+The interface of the generated JavaScript from MDX changed:
+
+*   Missing components now throw an error rather than render their children
+    and emit a warning to the console, which is closer to how frameworks like
+    React handle missing undefined JSX components
+*   `parent.child` combos such as `ol.li`, to pass components, were removed, we
+    recommend to style your `ol`s, `ul`s, and `li`s separately
+*   The special component name `inlineCode` was removed, we recommend to use
+    `pre` for the block version of code, and `code` for both the block and
+    inline versions
+*   `MDXContent.isMDXContent` was removed, we recommend treating `MDXContent`
+    like any other component
+*   Locally defined or imported components precede over passed components
+*   We now “sandbox” components, for lack of a better name.
+    It means that when you pass a component for `h1`, it does get used for
+    `# hi` but not for `<h1>hi</h1>`
+*   You can now pass and use objects of components: if you pass
+    `components={{theme}}`, where `theme` is an object with a `Box` component,
+    it can be used with: `<theme.Box>stuff</theme.Box>`
+
+We also fixed several cases where defined, imported, or passed components
+weren’t handled correctly or even crashed.
+
+***
+
+Phew.
+You made it!
+Welcome on the MDX 2 train, it’s been a journey.
+We know it wasn’t the easiest to migrate, we’re happy you’re still here, we’ll
+try to make migration easier next time.
+With our new AST, we’re probably able to create codemods.
+\<3
+
+[support]: /community/support/
+
+[contribute]: /community/contribute/
+
+[esm]: #esm
+
+[esm-gist]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package
+
+[mdx-api]: /packages/mdx/#api
+
+[remark-mdx-use]: /packages/remark-mdx/#use
+
+[mdx-compile]: /packages/mdx/#compile
+
+[mdx-compilesync]: /packages/mdx/#compilesync
+
+[mdx-createprocessor]: /packages/mdx/#createprocessor
+
+[mdx-evaluate]: /packages/mdx/#evaluate
+
+[mdx-evaluatesync]: /packages/mdx/#evaluatesync
+
+[mdx-react]: /packages/react/
+
+[guide-gfm]: /guides/gfm/
+
+[mdx-provider]: /using-mdx/#mdx-provider.
+
+[remark-gfm]: https://github.com/remarkjs/remark-gfm
+
+[vfile]: https://github.com/vfile/vfile
+
+[mdx-file]: /packages/mdx/#file
+
+[mdx-options-recmaplugins]: /packages/mdx/#optionsrecmaplugins
+
+[mdx-options-remarkplugins]: /packages/mdx/#optionsremarkplugins
+
+[mdx-options-rehypeplugins]: /packages/mdx/#optionsrehypeplugins
+
+[mdx-options-jsximportsource]: /packages/mdx/#optionsjsximportsource
+
+[mdx-options-providerimportsource]: /packages/mdx/#optionsproviderimportsource
+
+[babel-loader]: https://webpack.js.org/loaders/babel-loader/
+
+[loader-api]: /packages/loader/#api
+
+[what-markdown]: /mdx/#markdown
+
+[what-jsx]: /mdx/#jsx
+
+[what-expressions]: /mdx/#expressions
+
+[what-esm]: /mdx/#esm

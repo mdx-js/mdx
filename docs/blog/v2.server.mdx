@@ -7,12 +7,21 @@ export const info = {
   modified: new Date('2021-11-01')
 }
 
+<Note type="important">
+  **Note** this website is for the upcoming version 2, which hasn’t been
+  released yet.
+  You can be of great help by reading through these docs and letting us know
+  what’s confusing or wrong or other suggestions you have.
+  See [§ Support][support] for where to ask questions and
+  [§ Contribute][contribute] for how to help.
+</Note>
+
 <Note type="info">
   **Note**: Info on how to migrate is available in our
   [Version 2 migration guide][migrating].
 </Note>
 
-# MDX v2
+# MDX 2
 
 Years of hard work have led to a much improved version 2.
 Here’s the highlights:
@@ -159,7 +168,7 @@ The MDX format is described in [§ What is MDX?][what]
 
 When we started out, Babel, webpack, and React were ubiquitous in the JavaScript
 ecosystem and we built MDX on them.
-For version 2, we worked hard to make them option.
+For version 2, we worked hard to make them optional.
 They’re no longer required and MDX can more easily be used with other tools.
 
 On the bundler side, we’ve added new integrations: `@mdx-js/esbuild` for
@@ -293,5 +302,7 @@ and anyone we may have forgotten.
 [packages]: /packages/
 
 [types-mdx]: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx
+
+[support]: /community/support/
 
 [contribute]: /community/contribute/

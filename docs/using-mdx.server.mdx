@@ -1,3 +1,4 @@
+import {Note} from './_component/note.server.js'
 export const navSortSelf = 3
 export const info = {
   author: [
@@ -6,6 +7,15 @@ export const info = {
   published: new Date('2021-09-30'),
   modified: new Date('2021-11-01')
 }
+
+<Note type="important">
+  **Note** this website is for the upcoming version 2, which hasn’t been
+  released yet.
+  You can be of great help by reading through these docs and letting us know
+  what’s confusing or wrong or other suggestions you have.
+  See [§ Support][support] for where to ask questions and
+  [§ Contribute][contribute] for how to help.
+</Note>
 
 # Using MDX
 
@@ -415,3 +425,7 @@ Now you can remove the explicit and verbose component passing:
 [vue]: /getting-started/#vue
 
 [toc]: /table-of-components/
+
+[support]: /community/support/
+
+[contribute]: /community/contribute/
