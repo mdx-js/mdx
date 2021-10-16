@@ -172,7 +172,9 @@ Some markdown features don’t work in MDX:
     `<svg:rect>`) and we prefer being unambiguous.
     If you want links, use full links:
     `[descriptive text](https://and-the-link-here.com)`
-*   HTML doesn’t work in MDX as it’s replaced by JSX
+*   HTML doesn’t work in MDX as it’s replaced by JSX.
+    If you want a comment, use a JavaScript comment in braces:
+    `{/* comment! */}`
 *   Unescaped left angle bracket / less than (`<`) and left curly brace (`{`)
     have to be escaped: `\<` or `\{` (or use expressions: `{'<'}`, `{'{'}`)
 
