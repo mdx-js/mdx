@@ -1,3 +1,4 @@
+import {Note} from './_component/note.server.js'
 import {Chart} from './_component/snowfall.server.js'
 export {Home as default} from './_component/home.server.js'
 export const info = {
@@ -8,6 +9,15 @@ export const info = {
   modified: new Date('2021-11-01')
 }
 export const year = 2018
+
+<Note type="important">
+  **Note** this website is for the upcoming version 2, which hasn’t been
+  released yet.
+  You can be of great help by reading through these docs and letting us know
+  what’s confusing or wrong or other suggestions you have.
+  See [§ Support][support] for where to ask questions and
+  [§ Contribute][contribute] for how to help.
+</Note>
 
 {/* lint disable heading-style */}
 
@@ -119,3 +129,11 @@ This makes writing long-form content with components a blast.
 [quote]: https://twitter.com/chrisbiscardi/status/1022304288326864896
 
 [v2]: /blog/v2/
+
+[playground]: /playground/
+
+[getting-started]: /getting-started/
+
+[support]: /community/support/
+
+[contribute]: /community/contribute/

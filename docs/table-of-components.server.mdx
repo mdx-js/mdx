@@ -1,3 +1,4 @@
+import {Note} from './_component/note.server.js'
 export const navSortSelf = 6
 export const info = {
   author: [
@@ -7,6 +8,15 @@ export const info = {
   published: new Date('2020-03-11'),
   modified: new Date('2021-11-01')
 }
+
+<Note type="important">
+  **Note** this website is for the upcoming version 2, which hasn’t been
+  released yet.
+  You can be of great help by reading through these docs and letting us know
+  what’s confusing or wrong or other suggestions you have.
+  See [§ Support][support] for where to ask questions and
+  [§ Contribute][contribute] for how to help.
+</Note>
 
 # Table of components
 
@@ -431,3 +441,7 @@ More information on components is available in
 [commonmark]: https://spec.commonmark.org/current/
 
 [guide-gfm]: /guides/gfm/
+
+[support]: /community/support/
+
+[contribute]: /community/contribute/
