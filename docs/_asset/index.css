@@ -399,6 +399,7 @@ a.alt {
 .navigation a {
   display: block;
   color: inherit;
+  text-decoration: none;
 }
 
 a[aria-current],
@@ -411,6 +412,7 @@ nav a[aria-current],
 nav a:hover,
 nav a:focus {
   color: var(--hl);
+  text-decoration: underline;
 }
 
 .navigation-primary a:hover {
