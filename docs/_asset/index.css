@@ -786,7 +786,7 @@ button.success {
 }
 
 .home-preview {
-  border: 1px solid var(--gray-4);
+  border: 1px solid var(--gray-2);
   border-radius: 8px;
   padding: calc(1em + 1ex);
 }
@@ -812,8 +812,9 @@ button.success {
 }
 
 .snowfall-bar {
-  margin: calc(0.25 * (1em + 1ex));
-  width: calc(0.25 * (1em + 1ex));
+  flex-basis: 0;
+  flex-grow: 1;
+  margin: calc(0.125 * (1em + 1ex));
   background-color: var(--fg);
 }
 
@@ -1075,11 +1076,6 @@ button.success {
 
   .big.card {
     margin-block: calc(2 * (1em + 1ex));
-  }
-
-  .snowfall-bar {
-    margin: calc(0.5 * (1em + 1ex));
-    width: calc(0.5 * (1em + 1ex));
   }
 }
 
