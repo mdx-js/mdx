@@ -144,51 +144,17 @@ h2 {
   font-size: 2.5em;
   line-height: calc(1em + (1 / 2.5 * 1ex));
   margin-block: calc(1 / 2.5 * (1em + 1ex));
-  padding-block-end: 0;
-  position: relative;
-}
-
-.foot-article::before,
-h2::after {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: radial-gradient(
-    ellipse at 50% 0%,
-    hsl(39deg 97% 34% / 20%) 0%,
-    hsl(39deg 97% 34% / 0%) 90%
-  );
-}
-
-h2::after {
-  inset-block-start: 100%;
-  height: calc(1 / 2.5 * (1em + 1ex));
-}
-
-.foot-article {
-  position: relative;
-}
-
-.foot-article::before {
-  inset-block-start: 0;
-  height: calc(1em + 1ex);
-}
-
-h1,
-h2 {
-  border-block-end: 1px solid var(--gray-2);
 }
 
 .foot-article,
 .foot-site {
+  position: relative;
+  margin-block-start: calc(2 * (1em + 1ex));
   border-block-start: 1px solid var(--gray-2);
 }
 
 .foot-site {
-  padding: 1px;
-  margin: -1px;
+  padding-block: calc(1em + 1ex);
 }
 
 h3 {
@@ -901,11 +867,6 @@ button.success {
     }
   }
 
-  h1,
-  h2 {
-    border-bottom-color: var(--gray-6);
-  }
-
   .foot-article,
   .foot-site {
     border-top-color: var(--gray-6);
@@ -1015,7 +976,6 @@ button.success {
     font-size: 2rem;
     line-height: calc(1em + (1 / 2 * 1ex));
     margin-block: calc(1 / 2 * (1em + 1ex));
-    padding-block-end: calc(1 / 2 * (1em + 1ex));
   }
 }
 
@@ -1028,7 +988,6 @@ button.success {
     font-size: 3rem;
     line-height: calc(1em + (1 / 3 * 1ex));
     margin-block: calc(1 / 3 * (1em + 1ex));
-    padding-block-end: calc(1 / 3 * (1em + 1ex));
   }
 
   .snowfall-bar {
@@ -1042,7 +1001,6 @@ button.success {
     font-size: 5rem;
     line-height: calc(1em + (1 / 5 * 1ex));
     margin-block: calc(1 / 5 * (1em + 1ex));
-    padding-block-end: calc(1 / 5 * (1em + 1ex));
   }
 }
 
@@ -1096,7 +1054,6 @@ button.success {
     font-size: 6rem;
     line-height: calc(1em + (1 / 6 * 1ex));
     margin-block: calc(1 / 6 * (1em + 1ex));
-    padding-block-end: calc(1 / 6 * (1em + 1ex));
   }
 
   .big-columns {
