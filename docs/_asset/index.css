@@ -588,6 +588,9 @@ button.success {
   padding-inline-start: calc(0.5 * (1em + 1ex));
 }
 
+.nav-description {
+}
+
 .skip-to-navigation {
   inset-block-start: 0;
   inset-inline-start: 0;
@@ -756,12 +759,12 @@ button.success {
   padding: calc(1em + 1ex);
 }
 
-:is(.home-preview, .card, .frame-body, .big-columns > *)
+:is(.home-preview, .card, .frame-body, .nav-description, .big-columns > *)
   > :is(h1, h2, h3, h4, p, .block):first-child {
   margin-block-start: 0;
 }
 
-:is(.home-preview, .card, .frame-body, .big-columns > *)
+:is(.home-preview, .card, .frame-body, .nav-description, .big-columns > *)
   > :is(h1, h2, h3, h4, p, .block):last-child {
   margin-block-end: 0;
 }
