@@ -852,8 +852,8 @@ button.success {
   .navigation::before {
     background-image: radial-gradient(
       ellipse at 50% 0%,
-      hsl(39deg 97% 34% / 100%) 0%,
-      hsl(39deg 97% 34% / 0%) 150%
+      hsl(39deg 97% 34% / 40%) 0%,
+      hsl(39deg 97% 4% / 40%) 100%
     );
   }
 
@@ -1019,39 +1019,6 @@ button.success {
     margin-inline-start: 0;
   }
 
-  main {
-    margin-inline-start: calc(11 * (1em + 1ex));
-  }
-
-  .navigation-secondary {
-    display: block;
-    position: fixed;
-    inset-block: 0;
-    inset-inline-start: 0;
-    z-index: 1;
-    width: calc(10 * (1em + 1ex));
-    padding: calc(1em + 1ex);
-    padding-block-start: calc(4 * (1em + 1ex));
-    overflow-y: scroll;
-  }
-
-  .navigation-tertiary {
-    flex-grow: 1;
-  }
-
-  .navigation-secondary li {
-    white-space: normal;
-  }
-
-  .navigation-secondary li + li {
-    padding-inline-start: 0;
-  }
-
-  .navigation-secondary li:last-child {
-    padding-inline-end: 0;
-  }
-
-  .navigation-secondary ol,
   .navigation-show-big {
     display: block;
   }
@@ -1062,15 +1029,6 @@ button.success {
 
   .big.card {
     margin-block: calc(1.66 * (1em + 1ex));
-  }
-
-  .navigation-secondary ol {
-    margin: 0 calc(1em + 1ex);
-    list-style-type: circle;
-  }
-
-  .navigation-secondary li {
-    padding-inline-start: 0;
   }
 
   /* Assume they don’t scroll anymore. */
