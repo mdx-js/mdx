@@ -144,15 +144,22 @@ h2 {
   font-size: 2.5em;
   line-height: calc(1em + (1 / 2.5 * 1ex));
   margin-block: calc(1 / 2.5 * (1em + 1ex));
-  padding-block-end: calc(1 / 2.5 * (1em + 1ex));
+  padding-block-end: 0;
+  position: relative;
 }
 
-h2 {
+h2::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline: 0;
+  z-index: -1;
   background-image: radial-gradient(
-    ellipse at 50% 100%,
-    rgb(252 180 45 / 10%) 20%,
-    rgb(252 180 45 / 0%) 80%
+    ellipse at 50% 0%,
+    hsl(39deg 97% 34% / 20%) 0%,
+    hsl(39deg 97% 34% / 0%) 90%
   );
+  height: calc(1 / 2.5 * (1em + 1ex));
 }
 
 h1,
@@ -561,7 +568,6 @@ button.success {
 
 .navigation-secondary li {
   white-space: nowrap;
-  flex-grow: 1;
 }
 
 .navigation-secondary li + li {
