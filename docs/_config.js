@@ -12,7 +12,7 @@ export const config = {
   site,
   twitter: new URL('https://twitter.com/mdx_js'),
   oc: new URL('https://opencollective.com/unified'),
-  color: '#fcb32c',
+  color: '#010409',
   title: 'MDX',
   tags: ['mdx', 'markdown', 'jsx', 'oss', 'react'],
   author: 'MDX contributors'
