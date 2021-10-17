@@ -152,6 +152,10 @@ h2 {
   position: relative;
 }
 
+.foot-site {
+  background-color: var(--gray-0);
+}
+
 .foot-article,
 .foot-site {
   margin-block-start: calc(1 * (1em + 1ex));
@@ -514,10 +518,21 @@ button.success {
   z-index: 2;
   background-image: radial-gradient(
     ellipse at 50% 0%,
-    hsl(39deg 97% 45% / 100%) 0%,
-    hsl(39deg 97% 45% / 0%) 150%
+    hsl(39deg 97% 88% / 90%) 0%,
+    hsl(39deg 97% 96% / 90%) 100%
   );
-  backdrop-filter: saturate(200%) blur(1ex);
+}
+
+/* Note that the `backdrop-filter` itself is applied in light mode. */
+@supports (backdrop-filter: blur(1ex)) {
+  .navigation::before {
+    backdrop-filter: saturate(200%) blur(1ex);
+    background-image: radial-gradient(
+      ellipse at 50% 0%,
+      hsl(39deg 97% 88% / 60%) 0%,
+      hsl(39deg 97% 98% / 60%) 80%
+    );
+  }
 }
 
 .navigation-primary,
@@ -665,13 +680,13 @@ button.success {
   /* yellow */
   background-image: radial-gradient(
       ellipse at 0% 0%,
-      rgb(252 180 45 / 10%) 20%,
+      rgb(252 180 45 / 5%) 20%,
       rgb(252 180 45 / 0%) 80%
     ),
     /* purple */
       radial-gradient(
         ellipse at 0% 100%,
-        rgb(130 80 223 / 10%) 20%,
+        rgb(130 80 223 / 5%) 20%,
         rgb(130 80 223 / 0%) 80%
       );
 }
@@ -889,9 +904,24 @@ button.success {
       background-image: radial-gradient(
         ellipse at 50% 0%,
         hsl(39deg 97% 12% / 60%) 0%,
-        hsl(39deg 97% 4% / 60%) 100%
+        hsl(39deg 97% 4% / 60%) 90%
       );
     }
+  }
+
+  .card {
+    /* yellow */
+    background-image: radial-gradient(
+        ellipse at 0% 0%,
+        rgb(252 180 45 / 10%) 20%,
+        rgb(252 180 45 / 0%) 80%
+      ),
+      /* purple */
+        radial-gradient(
+          ellipse at 0% 100%,
+          rgb(130 80 223 / 10%) 20%,
+          rgb(130 80 223 / 0%) 80%
+        );
   }
 
   .foot-article,
@@ -1036,7 +1066,7 @@ button.success {
   }
 
   .foot-site {
-    padding-block-start: calc(1 * (1em + 1ex));
+    padding-block: calc(1 * (1em + 1ex));
   }
 
   .big {
