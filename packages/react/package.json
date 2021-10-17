@@ -37,11 +37,11 @@
   "types": "index.d.ts",
   "files": [
     "lib/",
-    "complex-types.d.ts",
     "index.d.ts",
     "index.js"
   ],
   "dependencies": {
+    "@types/mdx": "^2.0.0",
     "@types/react": ">=16"
   },
   "peerDependencies": {

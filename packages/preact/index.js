@@ -1,7 +1,3 @@
-/**
- * @typedef {import('./complex-types').Components} Components
- */
-
 export {
   MDXContext,
   MDXProvider,
