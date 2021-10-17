@@ -12,8 +12,8 @@ export const FootArticle = (props) => {
   findPreviousAndNext(navTree)
 
   return (
-    <footer>
-      <div className="content">
+    <footer className="content">
+      <div className="block foot-article">
         {previous || next ? (
           <nav
             aria-label="Category navigation"

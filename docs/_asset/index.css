@@ -148,23 +148,47 @@ h2 {
   position: relative;
 }
 
+.foot-article::before,
 h2::after {
   content: '';
   position: absolute;
-  inset-block-start: 100%;
   inset-inline: 0;
   z-index: -1;
+  pointer-events: none;
   background-image: radial-gradient(
     ellipse at 50% 0%,
     hsl(39deg 97% 34% / 20%) 0%,
     hsl(39deg 97% 34% / 0%) 90%
   );
+}
+
+h2::after {
+  inset-block-start: 100%;
   height: calc(1 / 2.5 * (1em + 1ex));
+}
+
+.foot-article {
+  position: relative;
+}
+
+.foot-article::before {
+  inset-block-start: 0;
+  height: calc(1em + 1ex);
 }
 
 h1,
 h2 {
   border-block-end: 1px solid var(--gray-2);
+}
+
+.foot-article,
+.foot-site {
+  border-block-start: 1px solid var(--gray-2);
+}
+
+.foot-site {
+  padding: 1px;
+  margin: -1px;
 }
 
 h3 {
@@ -479,7 +503,7 @@ button.success {
 .content {
   width: 100%;
   max-width: calc(36 * (1em + 1ex));
-  margin: calc(2 * (1em + 1ex)) auto;
+  margin: calc(1 * (1em + 1ex)) auto;
 }
 
 .navigation {
@@ -880,6 +904,15 @@ button.success {
   h1,
   h2 {
     border-bottom-color: var(--gray-6);
+  }
+
+  .foot-article,
+  .foot-site {
+    border-top-color: var(--gray-6);
+  }
+
+  .foot-site {
+    background-color: var(--gray-8);
   }
 
   h6 {
