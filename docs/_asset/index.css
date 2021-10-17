@@ -415,11 +415,6 @@ nav a:focus {
   text-decoration: underline;
 }
 
-.navigation-primary a:hover {
-  /* Change the SVG */
-  --bg: var(--mdx-yellow);
-}
-
 button,
 a.cta {
   outline: 0;
