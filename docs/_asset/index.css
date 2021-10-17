@@ -1023,6 +1023,28 @@ button.success {
     font-size: 3rem;
     line-height: calc(1em + (1 / 3 * 1ex));
     margin-block: calc(1 / 3 * (1em + 1ex));
+    padding-block: calc(1 / 3 * (1em + 1ex));
+  }
+
+  .foot-article,
+  .foot-site {
+    margin-block-start: calc(2 * (1em + 1ex));
+  }
+
+  .head-article {
+    margin-block-end: calc(2 * (1em + 1ex));
+  }
+
+  .foot-site {
+    padding-block-start: calc(1 * (1em + 1ex));
+  }
+
+  .big {
+    padding: calc(2 * (1em + 1ex));
+  }
+
+  .big.card {
+    margin-block: calc(2 * (1em + 1ex));
   }
 
   .snowfall-bar {
@@ -1036,6 +1058,7 @@ button.success {
     font-size: 5rem;
     line-height: calc(1em + (1 / 5 * 1ex));
     margin-block: calc(1 / 5 * (1em + 1ex));
+    padding-block: calc(2 * 1 / 5 * (1em + 1ex));
   }
 }
 
