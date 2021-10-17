@@ -2,7 +2,7 @@ import React from 'react'
 import {config} from '../_config.js'
 
 export const FootSite = () => (
-  <footer>
+  <footer className="foot-site">
     <div className="content">
       <div
         style={{display: 'flex', justifyContent: 'space-between'}}

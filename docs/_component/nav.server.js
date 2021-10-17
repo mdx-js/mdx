@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {createElement} from 'react'
 import apStyleTitleCase from 'ap-style-title-case'
+import {toH} from 'hast-to-hyperscript'
 import {sortItems} from './sort.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
@@ -28,7 +29,24 @@ export const NavItem = (props) => {
   let published
 
   if (includeDescription) {
-    description = matter.description || meta.description
+    if (meta.descriptionHast) {
+      description = toH(createElement, {
+        type: 'element',
+        tagName: 'div',
+        properties: {className: ['nav-description']},
+        children: meta.descriptionHast.children
+      })
+    } else {
+      description = matter.description || meta.description || null
+
+      if (description) {
+        description = (
+          <div className="nav-description">
+            <p>{description}</p>
+          </div>
+        )
+      }
+    }
   }
 
   if (includePublished && (matter.published || meta.published)) {
@@ -44,8 +62,8 @@ export const NavItem = (props) => {
       ) : (
         defaultTitle
       )}
-      {description ? ' — ' + description : null}
       {published ? ' — ' + published : null}
+      {description || null}
       {!navExcludeGroup && children.length > 0 ? (
         <NavGroup items={children} sort={navSortItems} name={activeName} />
       ) : null}
