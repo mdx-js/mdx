@@ -1,0 +1,23 @@
+import {NavGroup} from '../_component/nav.server.js'
+export const navSortSelf = 1
+
+# Docs
+
+These docs explain the core concepts of MDX.
+How the format works, how to add it to your site, how to use MDX files, and how
+to extend them.
+Reading through these should give you a good understanding of MDX.
+
+{
+  (() => {
+    const category = props.navTree.children.find(
+      item => item.name === '/docs/'
+    )
+
+    return (
+      <nav>
+        <NavGroup items={category.children} includeDescription />
+      </nav>
+    )
+  })()
+}
