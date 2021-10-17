@@ -87,19 +87,15 @@ export const FootArticle = (props) => {
   )
 
   function findPreviousAndNext(item) {
-    const siblings = sortItems(item.children)
+    const siblings = sortItems(item.children, item.data.navSortItems)
     const index = siblings.findIndex((d) => d.name === name)
 
     if (index === -1) {
       return siblings.some((d) => findPreviousAndNext(d))
     }
 
-    if (item.name !== '/') {
-      previous = siblings[index - 1]
-      next = siblings[index + 1]
-      return true
-    }
-
-    return false
+    previous = siblings[index - 1]
+    next = siblings[index + 1]
+    return true
   }
 }
