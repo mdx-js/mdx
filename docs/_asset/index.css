@@ -863,8 +863,8 @@ button.success {
     .navigation::before {
       background-image: radial-gradient(
         ellipse at 50% 0%,
-        hsl(39deg 97% 34% / 40%) 0%,
-        hsl(39deg 97% 4% / 40%) 100%
+        hsl(39deg 97% 12% / 60%) 0%,
+        hsl(39deg 97% 4% / 60%) 100%
       );
     }
   }
