@@ -874,6 +874,10 @@ button.success {
     border-top-color: var(--gray-6);
   }
 
+  .home-preview {
+    border-color: var(--gray-6);
+  }
+
   .foot-site {
     background-color: var(--gray-8);
   }
