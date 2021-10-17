@@ -858,9 +858,20 @@ button.success {
   .navigation::before {
     background-image: radial-gradient(
       ellipse at 50% 0%,
-      hsl(39deg 97% 34% / 40%) 0%,
-      hsl(39deg 97% 4% / 40%) 100%
+      hsl(39deg 97% 12% / 90%) 0%,
+      hsl(39deg 97% 4% / 90%) 100%
     );
+  }
+
+  /* Note that the `backdrop-filter` itself is applied in light mode. */
+  @supports (backdrop-filter: blur(1ex)) {
+    .navigation::before {
+      background-image: radial-gradient(
+        ellipse at 50% 0%,
+        hsl(39deg 97% 34% / 40%) 0%,
+        hsl(39deg 97% 4% / 40%) 100%
+      );
+    }
   }
 
   h1,
