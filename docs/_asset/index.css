@@ -146,15 +146,44 @@ h2 {
   margin-block: calc(1 / 2.5 * (1em + 1ex));
 }
 
+.head-article,
 .foot-article,
 .foot-site {
   position: relative;
-  margin-block-start: calc(2 * (1em + 1ex));
+}
+
+.foot-article,
+.foot-site {
+  margin-block-start: calc(1 * (1em + 1ex));
   border-block-start: 1px solid var(--gray-2);
 }
 
+.head-article {
+  margin-block-end: calc(1 * (1em + 1ex));
+  border-block-end: 1px solid var(--gray-2);
+}
+
+.article-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article-row-start,
+.article-row-end {
+  font-size: smaller;
+  font-size: smaller;
+  line-height: calc(1em + (1 / 0.8 * 1ex));
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.article-row-end {
+  margin-inline-start: auto;
+  text-align: end;
+}
+
 .foot-site {
-  padding-block: calc(1em + 1ex);
+  padding-block: 1px;
 }
 
 h3 {
@@ -406,6 +435,7 @@ a[aria-current],
 a:hover,
 a:focus {
   color: inherit;
+  text-decoration: none;
 }
 
 nav a[aria-current],
@@ -867,6 +897,10 @@ button.success {
   .foot-article,
   .foot-site {
     border-top-color: var(--gray-6);
+  }
+
+  .head-article {
+    border-bottom-color: var(--gray-6);
   }
 
   .home-preview {
