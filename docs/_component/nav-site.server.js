@@ -29,7 +29,7 @@ export const NavSite = (props) => {
         Skip to content
       </a>
       <div className="navigation-primary">
-        <a href="/" aria-current={name === '/' ? 'page' : undefined}>
+        <a href="/" rel="home" aria-current={name === '/' ? 'page' : undefined}>
           <h1>
             <Mdx />
           </h1>
