@@ -128,50 +128,54 @@ async function main() {
               h(
                 'style',
                 `
+                  html {
+                    font-size: 24px;
+                  }
+
                   body {
+                    /* yellow */
+                    background-image: radial-gradient(
+                        ellipse at 0% 0%,
+                        rgb(252 180 45 / 15%) 20%,
+                        rgb(252 180 45 / 0%) 80%
+                      ),
+                      /* purple */
+                        radial-gradient(
+                          ellipse at 0% 100%,
+                          rgb(130 80 223 / 15%) 20%,
+                          rgb(130 80 223 / 0%) 80%
+                        );
                   }
 
-                  .og-banner {
+                  .og-root {
+                    /* Twitter seems to cut 1em off the size in the height,
+                     * compared to facebook. So this’ll look a bit big on FB
+                     * but the assumption is that most folks will share on
+                     * twitter */
+                    height: calc(100vh - calc(2 * (1em + 1ex)));
                     display: flex;
-                    left: 0;
-                    position: fixed;
-                    right: 0;
-                    top: 0;
+                    flex-flow: column;
+                    margin-block: calc(1 * (1em + 1ex));
+                    padding-block: calc(1 * (1em + 1ex));
+                    padding-inline: calc(1 * (1em + 1ex));
+                    background-color: var(--bg);
                   }
 
-                  .og-banner::before {
-                    -webkit-backdrop-filter: saturate(200%) blur(1ex);
-                    backdrop-filter: saturate(200%) blur(1ex);
-                    background-image: radial-gradient(ellipse at 50% 0,#ab7003 0,transparent 150%);
-                    bottom: 0;
-                    content: "";
-                    left: 0;
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    z-index: -1;
+                  .og-head {
+                    margin-block-end: calc(2 * (1em + 1ex));
                   }
 
                   .og-icon {
                     display: block;
                     height: calc(1em + 1ex);
-                    vertical-align: middle;
                     width: auto;
-                    margin: calc(1em + 1ex);
-                    margin-left: calc(2 * (1em + 1ex))
-                  }
-
-                  .og-root {
-                    height: 100vh;
-                    display: flex;
-                    justify-content: center;
-                    flex-flow: column;
-                    padding: calc(2 * (1em + 1ex));
-                    padding-top: calc(5 * (1em + 1ex));
+                    vertical-align: middle;
                   }
 
                   .og-title {
-                    margin: 0;
+                    font-size: 3rem;
+                    line-height: calc(1em + (1 / 3 * 1ex));
+                    margin-block: 0;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
@@ -180,6 +184,13 @@ async function main() {
 
                   .og-description {
                     flex-grow: 1;
+                    overflow: hidden;
+                  }
+
+                  .og-description-inside {
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    display: -webkit-box;
                     overflow: hidden;
                   }
 
@@ -198,45 +209,46 @@ async function main() {
               )
             ]),
             h('body', [
-              h('.og-banner', [
-                s(
-                  'svg.og-icon.og-icon-mdx',
-                  {height: 28.5, width: 69, viewBox: '0 0 138 57'},
-                  [
-                    s('rect', {
-                      fill: 'var(--fg)',
-                      height: 55.5,
-                      rx: 4.5,
-                      width: 136.5,
-                      x: 0.75,
-                      y: 0.75
-                    }),
-                    s(
-                      'g',
-                      {fill: 'none', stroke: 'var(--bg)', strokeWidth: 6},
-                      [
-                        s('path', {
-                          d: 'M16.5 44V19L30.25 32.75l14-14v25'
-                        }),
-                        s('path', {d: 'M70.5 40V10.75'}),
-                        s('path', {d: 'M57 27.25L70.5 40.75l13.5-13.5'}),
-                        s('path', {
-                          d: 'M122.5 41.24L93.25 12M93.5 41.25L122.75 12',
-                          stroke: '#fcb32c'
-                        })
-                      ]
-                    )
-                  ]
-                )
-              ]),
               h('.og-root', [
+                h('.og-head', [
+                  s(
+                    'svg.og-icon.og-icon-mdx',
+                    {height: 28.5, width: 69, viewBox: '0 0 138 57'},
+                    [
+                      s('rect', {
+                        fill: 'var(--fg)',
+                        height: 55.5,
+                        rx: 4.5,
+                        width: 136.5,
+                        x: 0.75,
+                        y: 0.75
+                      }),
+                      s(
+                        'g',
+                        {fill: 'none', stroke: 'var(--bg)', strokeWidth: 6},
+                        [
+                          s('path', {
+                            d: 'M16.5 44V19L30.25 32.75l14-14v25'
+                          }),
+                          s('path', {d: 'M70.5 40V10.75'}),
+                          s('path', {d: 'M57 27.25L70.5 40.75l13.5-13.5'}),
+                          s('path', {
+                            d: 'M122.5 41.24L93.25 12M93.5 41.25L122.75 12'
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                ]),
                 h('h2.og-title', info.meta.title),
                 h('.og-description', [
-                  info.meta.descriptionHast
-                    ? unified()
-                        .use(rehypeSanitize, schema)
-                        .runSync(info.meta.descriptionHast)
-                    : info.meta.description || info.matter.description
+                  h('.og-description-inside', [
+                    info.meta.descriptionHast
+                      ? unified()
+                          .use(rehypeSanitize, schema)
+                          .runSync(info.meta.descriptionHast)
+                      : info.meta.description || info.matter.description
+                  ])
                 ]),
                 h('.og-meta', [
                   h('.og-left', [
@@ -276,9 +288,8 @@ async function main() {
         },
         inputType: 'html',
         // This is doubled in the actual file dimensions.
-        width: 1024,
-        height: 585,
-        darkMode: true
+        width: 1200,
+        height: 628
       })
 
       console.log('OG image `%s`', info.meta.title)
