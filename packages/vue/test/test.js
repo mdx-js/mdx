@@ -1,5 +1,5 @@
 /**
- * @typedef {import('../complex-types').Components} Components
+ * @typedef {import('mdx/types').MDXComponents} Components
  * @typedef {import('vue').Component} AnyComponent
  * @typedef {import('vue').Component<{components?: Components}>} MDXContent
  */
