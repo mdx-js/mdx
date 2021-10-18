@@ -1,7 +1,8 @@
 /**
  * @typedef {import('mdx/types').MDXComponents} Components
+ * @typedef {import('mdx/types').MDXContent} MDXContent
+ * @typedef {import('mdx/types').MDXModule} MDXModule
  * @typedef {import('vue').Component} AnyComponent
- * @typedef {import('vue').Component<{components?: Components}>} MDXContent
  */
 
 import {test} from 'uvu'
@@ -15,7 +16,7 @@ import {useMDXComponents, MDXProvider} from '../index.js'
 
 /**
  * @param {string} value
- * @returns {Promise.<{default: MDXContent}>}
+ * @returns {Promise.<MDXModule>}
  */
 async function evaluate(value) {
   const file = await compile(value, {
