@@ -21,12 +21,11 @@ export const year = 2018
 
 {/* lint disable heading-style */}
 
-Markdown for the\
+MDX: Markdown for the\
 **component era**
 =================
 
-MDX is an authorable format that lets you seamlessly write JSX in your markdown
-documents.
+MDX allows you to use JSX in your markdown content.
 You can import components, such as interactive charts or alerts, and embed them
 within your content.
 This makes writing long-form content with components a blast.
@@ -36,15 +35,16 @@ This makes writing long-form content with components a blast.
 <div className="card big">
   ## New: MDX 2!
 
-  Years of hard work have led to a much improved version 2.
-  Here’s the highlights:
+  Version 2 of MDX was released after years of hard work, and has many
+  improvements.
+  Here are the highlights:
 
   <div className="emoji-list">
     *   📝 **Improved syntax** makes it easier to use markdown in JSX in
         markdown
     *   🧑‍💻 **JavaScript expressions** turn `{2 * Math.PI}` into {2 * Math.PI}
     *   🔌 New **esbuild**, **Rollup**, and **Node.js** integrations
-    *   ⚛️ **Any JSX runtime**: React, Preact, Vue, Emotion, you name it, it’s
+    *   ⚛️ **Any JSX runtime**: React, Preact, Vue, Emotion, you name it, they’re
         all supported
     *   🌳 **Improved AST** exposes more info in greater detail
     *   🏃‍♀️ Compiles at least **25% faster**
@@ -57,7 +57,7 @@ This makes writing long-form content with components a blast.
   [Continue reading »][v2]
 </div>
 
-## What does it do?
+## What does MDX do?
 
 <div className="big-columns">
   <div>
@@ -78,7 +78,8 @@ This makes writing long-form content with components a blast.
   </div>
 
   <div>
-    It’s compiled to JavaScript you can use in any framework that supports JSX:
+    It gets compiled to JavaScript that you can use in any framework that
+    supports JSX:
 
     {/* lint disable */}
 
@@ -111,7 +112,7 @@ You prefer esbuild, Rollup, or webpack.
 You’re using React, Preact, or Vue.
 [Get started »][getting-started]
 
-## In short
+## MDX in short
 
 <div className="emoji-list">
   *   ❤️ **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
@@ -121,7 +122,7 @@ You’re using React, Preact, or Vue.
   *   🔧 **Customizable**: Decide which component is rendered for each markdown
       construct (`{h1: MyHeading}`)
   *   📚 **Markdown-based**: The simplicity and elegance of markdown remains,
-      you interleave JSX only when you want to
+      you use JSX only when you want to
   *   🔥 **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
       during the build stage
 </div>
