@@ -6,24 +6,31 @@ import {sortItems} from './sort.js'
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 export const Layout = (props) => {
-  const {name, navTree, ghUrl, meta = {}} = props
+  const {name, navTree, ghUrl} = props
   const [self, parent] = findSelfAndParent(navTree) || []
   const siblings = parent
     ? sortItems(parent.children, parent.data.navSortItems)
     : []
+  const meta = (self ? self.data.meta : props.meta) || {}
   const index = siblings.indexOf(self)
   const previous = index === -1 ? undefined : siblings[index - 1]
   const next = index === -1 ? undefined : siblings[index + 1]
-  const authors = meta.authors || []
-  const time = (self ? accumulateReadingTime(self) : []).map((d) =>
-    Math.ceil(d)
-  )
+  const metaAuthors = meta.authors || []
+  const metaTime = (
+    self
+      ? accumulateReadingTime(self)
+      : meta.readingTime
+      ? Array.isArray(meta.readingTime)
+        ? meta.readingTime
+        : [meta.readingTime, meta.readingTime]
+      : []
+  ).map((d) => Math.ceil(d))
   let timeLabel
 
-  if (time.length > 1 && time[0] !== time[1]) {
-    timeLabel = time[0] + '-' + time[1] + ' minutes'
-  } else if (time[0]) {
-    timeLabel = time[0] + ' minute' + (time[0] > 1 ? 's' : '')
+  if (metaTime.length > 1 && metaTime[0] !== metaTime[1]) {
+    timeLabel = metaTime[0] + '-' + metaTime[1] + ' minutes'
+  } else if (metaTime[0]) {
+    timeLabel = metaTime[0] + ' minute' + (metaTime[0] > 1 ? 's' : '')
   }
 
   function accumulateReadingTime(d) {
@@ -102,7 +109,7 @@ export const Layout = (props) => {
 
   const readingTime = timeLabel ? <>{timeLabel} read</> : undefined
 
-  const creditsList = authors.map((d, i) => {
+  const creditsList = metaAuthors.map((d, i) => {
     const href = d.github
       ? 'https://github.com/' + d.github
       : d.twitter
