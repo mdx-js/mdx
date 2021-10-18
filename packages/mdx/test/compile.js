@@ -2,8 +2,8 @@
  * @typedef {import('react').FC} FC
  * @typedef {import('hast').Root} Root
  * @typedef {import('../lib/compile.js').VFileCompatible} VFileCompatible
- * @typedef {import('../lib/evaluate.js').MDXContent} MDXContent
- * @typedef {import('../lib/evaluate.js').ExportMap} ExportMap
+ * @typedef {import('mdx/types').MDXContent} MDXContent
+ * @typedef {import('mdx/types').MDXModule} ExportMap
  */
 
 import {Buffer} from 'buffer'
@@ -264,7 +264,6 @@ test('compile', async () => {
     renderToStaticMarkup(
       React.createElement(await run(compileSync('*a*')), {
         components: {
-          /** @param {Object.<string, unknown>} props */
           em(props) {
             return React.createElement('i', props)
           }
@@ -283,7 +282,6 @@ test('compile', async () => {
         ),
         {
           components: {
-            /** @param {Object.<string, unknown>} props */
             em(props) {
               return React.createElement('i', props)
             }

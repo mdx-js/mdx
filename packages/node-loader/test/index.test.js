@@ -19,7 +19,6 @@ test('@mdx-js/node-loader', async () => {
   let Content
 
   try {
-    /* @ts-expect-error file is dynamically generated */
     Content = (await import('./esm-loader.mdx')).default // type-coverage:ignore-line
   } catch (error) {
     const exception = /** @type {NodeJS.ErrnoException} */ (error)
