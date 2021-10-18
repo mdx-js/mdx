@@ -116,7 +116,7 @@ export const Editor = ({children}) => {
               </pre>
             </noscript>
             <CodeMirror
-              value={defaultValue}
+              value={state.value}
               extensions={extensions}
               onUpdate={(v) => {
                 if (v.docChanged) {
@@ -208,7 +208,7 @@ export const Editor = ({children}) => {
           <div className="frame-body frame-body-box-fixed-height frame-body-box">
             {state.file && state.file.result ? (
               <ErrorBoundary FallbackComponent={FallbackComponent}>
-                <state.file.result />
+                {state.file.result()}
               </ErrorBoundary>
             ) : null}
           </div>

@@ -11,9 +11,5 @@ export const Note = (props) => {
     throw new Error('Unknown note type `' + type + '`')
   }
 
-  return (
-    <div className={className.join(' ')}>
-      <div className="note-inside">{children}</div>
-    </div>
-  )
+  return <div className={className.join(' ')}>{children}</div>
 }
