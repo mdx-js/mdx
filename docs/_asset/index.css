@@ -87,7 +87,6 @@ main {
 }
 
 dd,
-.note,
 .content {
   padding-inline: calc(1em + 1ex);
 }
@@ -111,7 +110,6 @@ hr,
 table,
 blockquote,
 .block,
-.note,
 .frame {
   margin-block: calc(1em + 1ex);
 }
@@ -658,6 +656,10 @@ button.success {
   background-color: rgba(130 80 223 / 0.15);
   border: 1px solid var(--purple-5);
   border-radius: 8px;
+  font-size: smaller;
+  line-height: calc(1em + (1 / 0.8 * 1ex));
+  padding-inline: calc(1 / 0.8 * (1em + 1ex));
+  margin-block: calc(1 / 0.8 * (1em + 1ex));
 }
 
 .legacy {
@@ -668,11 +670,6 @@ button.success {
 .important {
   background-color: rgba(196 67 43 / 0.15);
   border-color: var(--coral-5);
-}
-
-.note-inside {
-  font-size: smaller;
-  line-height: calc(1em + (1 / 0.8 * 1ex));
 }
 
 .card {
