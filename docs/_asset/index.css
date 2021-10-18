@@ -164,6 +164,10 @@ h2 {
 
 .head-article {
   margin-block-end: calc(1 * (1em + 1ex));
+}
+
+.navigation,
+.head-article {
   border-block-end: 1px solid var(--gray-2);
 }
 
@@ -930,6 +934,7 @@ button.success {
     border-top-color: var(--gray-6);
   }
 
+  .navigation,
   .head-article {
     border-bottom-color: var(--gray-6);
   }
