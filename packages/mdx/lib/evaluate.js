@@ -2,10 +2,7 @@
  * @typedef {import('vfile').VFileCompatible} VFileCompatible
  * @typedef {import('./util/resolve-evaluate-options.js').EvaluateOptions} EvaluateOptions
  *
- * @typedef {{[name: string]: any}} ComponentMap
- * @typedef {{[props: string]: any, components?: ComponentMap}} MDXContentProps
- * @typedef {(props: MDXContentProps) => any} MDXContent
- * @typedef {{[exports: string]: unknown, default: MDXContent}} ExportMap
+ * @typedef {import('mdx/types').MDXModule} ExportMap
  */
 
 import {compile, compileSync} from './compile.js'

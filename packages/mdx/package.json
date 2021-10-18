@@ -41,6 +41,7 @@
   ],
   "dependencies": {
     "@types/estree-jsx": "^0.0.1",
+    "@types/mdx": "^2.0.0",
     "astring": "^1.6.0",
     "estree-util-build-jsx": "^2.0.0",
     "estree-util-is-identifier-name": "^2.0.0",
