@@ -26,47 +26,44 @@ lowlight.registerLanguage('md', markdown)
 
 function useMdx(defaults) {
   const [state, setState] = useState({...defaults, file: null})
-  const setConfig = useCallback(
-    async (config) => {
-      const file = new VFile({basename: 'example.mdx', value: config.value})
+  const setConfig = useCallback(async (config) => {
+    const file = new VFile({basename: 'example.mdx', value: config.value})
 
-      const capture = (name) => () => (tree) => {
-        file.data[name] = tree
+    const capture = (name) => () => (tree) => {
+      file.data[name] = tree
+    }
+
+    const remarkPlugins = []
+
+    if (config.gfm) remarkPlugins.push(remarkGfm)
+    if (config.frontmatter) remarkPlugins.push(remarkFrontmatter)
+    if (config.math) remarkPlugins.push(remarkMath)
+
+    remarkPlugins.push(capture('mdast'))
+
+    try {
+      file.result = (
+        await evaluate(file, {
+          ...runtime,
+          useDynamicImport: true,
+          remarkPlugins,
+          rehypePlugins: [capture('hast')],
+          recmaPlugins: [capture('esast')]
+        })
+      ).default
+    } catch (error) {
+      const message =
+        error instanceof VFileMessage ? error : new VFileMessage(error)
+
+      if (!file.messages.includes(message)) {
+        file.messages.push(message)
       }
 
-      const remarkPlugins = []
+      message.fatal = true
+    }
 
-      if (config.gfm) remarkPlugins.push(remarkGfm)
-      if (config.frontmatter) remarkPlugins.push(remarkFrontmatter)
-      if (config.math) remarkPlugins.push(remarkMath)
-
-      remarkPlugins.push(capture('mdast'))
-
-      try {
-        file.result = (
-          await evaluate(file, {
-            ...runtime,
-            useDynamicImport: true,
-            remarkPlugins,
-            rehypePlugins: [capture('hast')],
-            recmaPlugins: [capture('esast')]
-          })
-        ).default
-      } catch (error) {
-        const message =
-          error instanceof VFileMessage ? error : new VFileMessage(error)
-
-        if (!file.messages.includes(message)) {
-          file.messages.push(message)
-        }
-
-        message.fatal = true
-      }
-
-      setState({...config, file})
-    },
-    [defaults]
-  )
+    setState({...config, file})
+  }, [])
 
   return [state, setConfig]
 }
@@ -211,7 +208,7 @@ export const Editor = ({children}) => {
           <div className="frame-body frame-body-box-fixed-height frame-body-box">
             {state.file && state.file.result ? (
               <ErrorBoundary FallbackComponent={FallbackComponent}>
-                <state.file.result />
+                {state.file.result()}
               </ErrorBoundary>
             ) : null}
           </div>
