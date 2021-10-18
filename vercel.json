@@ -20,7 +20,7 @@
     },
     {
       "source": "/advanced/components/",
-      "destination": "/using-mdx/"
+      "destination": "/docs/using-mdx/"
     },
     {
       "source": "/advanced/contributing/",
@@ -32,11 +32,11 @@
     },
     {
       "source": "/advanced/retext-plugins/",
-      "destination": "/extending-mdx/#using-plugins"
+      "destination": "/docs/extending-mdx/#using-plugins"
     },
     {
       "source": "/advanced/plugins/",
-      "destination": "/extending-mdx/"
+      "destination": "/docs/extending-mdx/"
     },
     {
       "source": "/advanced/runtime/",
@@ -56,7 +56,7 @@
     },
     {
       "source": "/advanced/typescript/",
-      "destination": "/getting-started/#types"
+      "destination": "/docs/getting-started/#types"
     },
     {
       "source": "/advanced/writing-a-plugin/",
@@ -68,31 +68,31 @@
     },
     {
       "source": "/editor-plugins/",
-      "destination": "/getting-started/#editor"
+      "destination": "/docs/getting-started/#editor"
     },
     {
       "source": "/editors/",
-      "destination": "/getting-started/#editor"
+      "destination": "/docs/getting-started/#editor"
     },
     {
       "source": "/getting-started/create-react-app/",
-      "destination": "/getting-started/#create-react-app-cra"
+      "destination": "/docs/getting-started/#create-react-app-cra"
     },
     {
       "source": "/getting-started/gatsby/",
-      "destination": "/getting-started/#gatsby"
+      "destination": "/docs/getting-started/#gatsby"
     },
     {
       "source": "/getting-started/next/",
-      "destination": "/getting-started/#nextjs"
+      "destination": "/docs/getting-started/#nextjs"
     },
     {
       "source": "/getting-started/parcel/",
-      "destination": "/getting-started/#parcel"
+      "destination": "/docs/getting-started/#parcel"
     },
     {
       "source": "/getting-started/react-static/",
-      "destination": "/getting-started/#react-static"
+      "destination": "/docs/getting-started/#react-static"
     },
     {
       "source": "/getting-started/table-of-components/",
@@ -100,11 +100,15 @@
     },
     {
       "source": "/getting-started/typescript/",
-      "destination": "/getting-started/#types"
+      "destination": "/docs/getting-started/#types"
     },
     {
       "source": "/getting-started/webpack/",
-      "destination": "/getting-started/#webpack"
+      "destination": "/docs/getting-started/#webpack"
+    },
+    {
+      "source": "/getting-started/",
+      "destination": "/docs/getting-started/"
     },
     {
       "source": "/guides/custom-loader/",
@@ -116,7 +120,7 @@
     },
     {
       "source": "/guides/markdown-in-components/",
-      "destination": "/mdx/"
+      "destination": "/docs/what-is-mdx/"
     },
     {
       "source": "/guides/math-blocks/",
@@ -128,27 +132,31 @@
     },
     {
       "source": "/guides/table-of-contents/",
-      "destination": "/extending-mdx/"
+      "destination": "/docs/extending-mdx/"
     },
     {
       "source": "/guides/terminal/",
-      "destination": "/getting-started/#ink"
+      "destination": "/docs/getting-started/#ink"
     },
     {
       "source": "/guides/vue/",
-      "destination": "/getting-started/#vue"
+      "destination": "/docs/getting-started/#vue"
     },
     {
       "source": "/guides/wrapper-customization/",
-      "destination": "/using-mdx/#layout"
+      "destination": "/docs/using-mdx/#layout"
     },
     {
       "source": "/guides/writing-a-plugin/",
-      "destination": "/extending-mdx/#creating-plugins"
+      "destination": "/docs/extending-mdx/#creating-plugins"
+    },
+    {
+      "source": "/mdx/",
+      "destination": "/docs/what-is-mdx/"
     },
     {
       "source": "/plugins/",
-      "destination": "/extending-mdx/#using-plugins"
+      "destination": "/docs/extending-mdx/#using-plugins"
     },
     {
       "source": "/projects/",
@@ -160,11 +168,11 @@
     },
     {
       "source": "/syntax/",
-      "destination": "/getting-started/#syntax"
+      "destination": "/docs/getting-started/#syntax"
     },
     {
       "source": "/vue/",
-      "destination": "/getting-started/#vue"
+      "destination": "/docs/getting-started/#vue"
     }
   ]
 }
