@@ -115,6 +115,7 @@ async function main() {
         .use(rehypeMeta, {
           twitter: true,
           og: true,
+          ogNameInTitle: true,
           copyright: true,
           type: 'article',
           name: config.title,
