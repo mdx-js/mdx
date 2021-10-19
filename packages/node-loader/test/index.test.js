@@ -1,5 +1,5 @@
 /**
- * @typedef {import('react').FC} FC
+ * @typedef {import('mdx/types').MDXContent} MDXContent
  */
 
 import {promises as fs} from 'fs'
@@ -15,7 +15,7 @@ test('@mdx-js/node-loader', async () => {
     'export const Message = () => <>World!</>\n\n# Hello, <Message />'
   )
 
-  /** @type {FC} */
+  /** @type {MDXContent} */
   let Content
 
   try {

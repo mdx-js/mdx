@@ -1,9 +1,8 @@
 /**
- * @typedef {import('react').FC} FC
+ * @typedef {import('mdx/types').MDXModule} MDXModule
+ * @typedef {import('mdx/types').MDXContent} MDXContent
  * @typedef {import('hast').Root} Root
  * @typedef {import('../lib/compile.js').VFileCompatible} VFileCompatible
- * @typedef {import('mdx/types').MDXContent} MDXContent
- * @typedef {import('mdx/types').MDXModule} ExportMap
  */
 
 import {Buffer} from 'buffer'
@@ -569,7 +568,7 @@ test('compile', async () => {
   )
 
   try {
-    // @ts-expect-error runtime.
+    // @ts-expect-error incorrect `detect`.
     createProcessor({format: 'detect'})
     assert.unreachable()
   } catch (/** @type {unknown} */ error) {
@@ -661,7 +660,7 @@ test('compile', async () => {
         remarkPlugins: [
           () => (/** @type {Root} */ tree) => {
             tree.children.unshift({
-              // @ts-expect-error MDXHAST.
+              // @ts-expect-error To do: mdast-util-mdx should probably also extend hast?
               type: 'mdxjsEsm',
               value: '',
               data: {
@@ -1327,7 +1326,7 @@ test('source maps', async () => {
     String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
   )
 
-  const Content = /** @type {FC} */ (
+  const Content = /** @type {MDXContent} */ (
     /* @ts-expect-error file is dynamically generated */
     (await import('./context/sourcemap.js')).default // type-coverage:ignore-line
   )
@@ -1367,7 +1366,7 @@ async function run(input, options = {}) {
  *
  * @param {VFileCompatible} input
  * @param {{keepImport?: boolean}} [options]
- * @return {Promise<ExportMap>}
+ * @return {Promise<MDXModule>}
  */
 async function runWhole(input, options = {}) {
   const name = 'fixture-' + nanoid().toLowerCase() + '.js'
@@ -1386,7 +1385,7 @@ async function runWhole(input, options = {}) {
   await fs.writeFile(fp, doc)
 
   try {
-    /** @type {ExportMap} */
+    /** @type {MDXModule} */
     return await import('./context/' + name)
   } finally {
     // This is not a bug: the `finally` runs after the whole `try` block, but

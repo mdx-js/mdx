@@ -1,9 +1,9 @@
 /**
- * @typedef {import('react').FC} FC
  * @typedef {import('esbuild').BuildFailure} BuildFailure
  * @typedef {import('esbuild').Message} Message
  * @typedef {import('hast').Root} Root
  * @typedef {import('vfile').VFile} VFile
+ * @typedef {import('mdx/types').MDXContent} MDXContent
  */
 
 import {promises as fs} from 'fs'
@@ -31,7 +31,7 @@ test('@mdx-js/esbuild', async () => {
     plugins: [esbuildMdx()]
   })
 
-  /** @type {FC} */
+  /** @type {MDXContent} */
   let Content =
     /* @ts-expect-error file is dynamically generated */
     (await import('./esbuild.js')).default // type-coverage:ignore-line

@@ -1,5 +1,5 @@
 /**
- * @typedef {import('react').FC} ReactComponent
+ * @typedef {import('mdx/types').MDXContent} MDXContent
  * @typedef {import('preact').FunctionComponent<unknown>} PreactComponent
  * @typedef {import('vue').Component} VueComponent
  * @typedef {import('vue').SetupContext} SetupContext
@@ -49,7 +49,7 @@ test('@mdx-js/loader', async () => {
   })
 
   // One for ESM loading CJS, one for webpack.
-  const ContentReact = /** @type {ReactComponent} */ (
+  const ContentReact = /** @type {MDXContent} */ (
     /* @ts-expect-error file is dynamically generated */
     // type-coverage:ignore-next-line
     (await import('./react.cjs')).default.default
