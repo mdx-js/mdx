@@ -9,6 +9,11 @@ export const Home = (props) => {
     <div className="page home">
       <NavSiteSkip />
       <main>
+        {props.meta.schemaOrg && (
+          <script type="application/ld+json">
+            {JSON.stringify(props.meta.schemaOrg)}
+          </script>
+        )}
         <article>
           <div className="content body">{children}</div>
         </article>
