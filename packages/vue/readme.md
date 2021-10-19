@@ -47,13 +47,13 @@ Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 [npm][]:
 
 ```sh
-npm install @mdx-js/vue
+npm install @mdx-js/vue@next
 ```
 
 [yarn][]:
 
 ```sh
-yarn add @mdx-js/vue
+yarn add @mdx-js/vue@next
 ```
 
 ## Use

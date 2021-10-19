@@ -47,13 +47,13 @@ Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 [npm][]:
 
 ```sh
-npm install @mdx-js/esbuild
+npm install @mdx-js/esbuild@next
 ```
 
 [yarn][]:
 
 ```sh
-yarn add @mdx-js/esbuild
+yarn add @mdx-js/esbuild@next
 ```
 
 ## Use

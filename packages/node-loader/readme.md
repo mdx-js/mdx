@@ -52,13 +52,13 @@ Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 [npm][]:
 
 ```sh
-npm install @mdx-js/node-loader
+npm install @mdx-js/node-loader@next
 ```
 
 [yarn][]:
 
 ```sh
-yarn add @mdx-js/node-loader
+yarn add @mdx-js/node-loader@next
 ```
 
 ## Use

@@ -50,13 +50,13 @@ Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 [npm][]:
 
 ```sh
-npm install @mdx-js/preact
+npm install @mdx-js/preact@next
 ```
 
 [yarn][]:
 
 ```sh
-yarn add @mdx-js/preact
+yarn add @mdx-js/preact@next
 ```
 
 ## Use

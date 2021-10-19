@@ -64,13 +64,13 @@ Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 [npm][]:
 
 ```sh
-npm install remark-mdx
+npm install remark-mdx@next
 ```
 
 [yarn][]:
 
 ```sh
-yarn add remark-mdx
+yarn add remark-mdx@next
 ```
 
 ## Use
