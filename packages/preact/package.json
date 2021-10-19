@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/preact",
-  "version": "2.0.0-next.9",
+  "version": "2.0.0-rc.1",
   "description": "Preact context for MDX",
   "license": "MIT",
   "keywords": [
@@ -48,7 +48,7 @@
     "preact": ">=10.0.0"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^2.0.0-next.9",
+    "@mdx-js/mdx": "^2.0.0-rc.1",
     "preact": "^10.0.0",
     "preact-render-to-string": "^5.0.0"
   },

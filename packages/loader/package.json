@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/loader",
-  "version": "2.0.0-next.9",
+  "version": "2.0.0-rc.1",
   "description": "Webpack loader for MDX",
   "license": "MIT",
   "keywords": [
@@ -43,7 +43,7 @@
     "index.cjs"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0-next.9",
+    "@mdx-js/mdx": "^2.0.0-rc.1",
     "loader-utils": "^2.0.0",
     "source-map": "^0.7.0"
   },
