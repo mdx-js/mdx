@@ -35,6 +35,7 @@ project.
     *   [JSX](#jsx)
     *   [Expressions](#expressions)
     *   [ESM](#esm)
+    *   [Interleaving](#interleaving)
 
 ## Prerequisites
 
@@ -290,6 +291,53 @@ export const pi = 3.14
 
 <Chart data={population} label={'Something with ' + pi} />
 ```
+
+### Interleaving
+
+You can use markdown “inlines” but not “blocks” inside JSX if the text and tags
+are on the same line:
+
+```html language="mdx"
+<div># this is not a heading but *this* is emphasis</div>
+```
+
+Text and tags on one line don’t produce blocks so they don’t produce `<p>`s
+either.
+On separate lines, they do:
+
+```html language="mdx"
+<div>
+  This is a `p`.
+</div>
+```
+
+We differentiate using this rule (same line or not).
+Not based on semantics of elements in HTML.
+So you *can* build incorrect HTML (which you shouldn’t):
+
+```html language="mdx"
+<h1 className="main">
+  Don’t do this: it’s a `p` in an `h1`
+</h1>
+
+<h1 className="main">Do this: an `h1` with `code`</h1>
+```
+
+It’s not possible to wrap “blocks” if text and tags are on the same line but the
+corresponding tags are on different lines:
+
+```html language="mdx"
+Welcome! <a href="about.html">
+
+This is home of...
+
+# The Falcons!</a>
+```
+
+That’s because to parse markdown, we first have to divide it into “blocks”.
+So in this case two paragraphs and a heading.
+Leaving an opening `a` tag in the first paragraph and a stray closing `a` tag in
+the heading.
 
 [commonmark]: https://commonmark.org
 

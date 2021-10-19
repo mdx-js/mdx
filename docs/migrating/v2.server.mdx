@@ -50,24 +50,12 @@ When upgrading to version 2, you might run into import problems.
 Our packages are now ESM only.
 You have to load them with `import foo from 'foo'` instead of
 `const foo = require('foo')`.
-You might also have to change other things in your project:
-[please read this][esm-gist].
-
-If you’re having trouble with tools that don’t support ESM, such as Electron,
-you can use a bundler to make a CJS version.
-
-<details>
-  <summary>Expand example of making a CJS bundle</summary>
-
-  With [esbuild](https://esbuild.github.io), this bundles the ESM package
-  `@mdx-js/mdx` as CJS in `vendor/mdx.js`:
-
-  ```sh
-  npx esbuild @mdx-js/mdx --bundle --platform=node --outfile=vendor/mdx.js
-  ```
-</details>
+Please see [¶ ESM in § Troubleshooting MDX][trouble-esm].
 
 ## Update `@mdx-js/*` packages
+
+If you’re experiencing problems, please see [§ Troubleshooting MDX][trouble]
+for common errors and how to solve them.
 
 ### `@mdx-js/loader`
 
@@ -497,18 +485,16 @@ These packages are:
 Now you’ve updated our packages, you can update your MDX files.
 In version 2, we improved the syntax of the MDX format.
 When upgrading, you’ll likely get errors.
-Please read those error messages carefully, as they typically explain what
+Read those error messages carefully, as they typically explain what
 happened where and how to fix it.
-
-{/* to do: link to troubleshooting. */}
+See [§ Troubleshooting MDX][trouble] for common errors and how to solve them.
 
 ### JSX
 
-First, let’s kick off with a couple of things that are now possible with JSX in
-MDX.
+Let’s kick off with a couple of things that are now possible with JSX in MDX.
 You don’t need blank lines between JSX and markdown anymore:
 
-```html chrome=no
+```html language="mdx" chrome=no
 <hgroup>
 # This is a heading now
 </hgroup>
@@ -516,7 +502,7 @@ You don’t need blank lines between JSX and markdown anymore:
 
 You can now indent your JSX and markdown:
 
-````html chrome=no
+````html language="mdx" chrome=no
 <article>
   <hgroup>
     # This is a heading now, not code or plain text
@@ -529,10 +515,10 @@ You can now indent your JSX and markdown:
 </article>
 ````
 
-You can use markdown “inlines” but not “blocks” if the text and tags are on the
-same line:
+You can use markdown “inlines” but not “blocks” inside JSX if the text and tags
+are on the same line:
 
-```html chrome=no
+```html language="mdx" chrome=no
 <div># this is not a heading but *this* is emphasis</div>
 ```
 
@@ -540,7 +526,7 @@ Text and tags on one line don’t produce blocks so they don’t produce `<p>`s
 either.
 On separate lines, they do:
 
-```html chrome=no
+```html language="mdx" chrome=no
 <div>
   This is a `p`.
 </div>
@@ -550,13 +536,29 @@ We differentiate using this rule (same line or not).
 Not based on semantics of elements in HTML.
 So you *can* build incorrect HTML (which you shouldn’t):
 
-```html chrome=no
+```html language="mdx" chrome=no
 <h1 className="main">
   Don’t do this: it’s a `p` in an `h1`
 </h1>
 
 <h1 className="main">Do this: an `h1` with `code`</h1>
 ```
+
+It’s not possible to wrap “blocks” if text and tags are on the same line but the
+corresponding tags are on different lines:
+
+```html language="mdx" chrome=no
+Welcome! <a href="about.html">
+
+This is home of...
+
+# The Falcons!</a>
+```
+
+That’s because to parse markdown, we first have to divide it into “blocks”.
+So in this case two paragraphs and a heading.
+Leaving an opening `a` tag in the first paragraph and a stray closing `a` tag in
+the heading.
 
 We also fixed several cases where JSX was not parsed or handled correctly or
 even crashed.
@@ -568,7 +570,7 @@ You can now use expressions in MDX to include JavaScript.
 You can also use them as an escape hatch if you ever *just* want strings or JSX
 rather than markdown:
 
-```html chrome=no
+```html language="mdx" chrome=no
 {
   <h1>
     This just JSX, these *asterisks* have no meaning.
@@ -644,7 +646,7 @@ You made it!
 Welcome on the MDX 2 train, it’s been a journey.
 We know it wasn’t the easiest to migrate, we’re happy you’re still here, we’ll
 try to make migration easier next time.
-With our new AST, we’re probably able to create codemods.
+With our new AST, we’re able to create codemods from now on.
 \<3
 
 [support]: /community/support/
@@ -653,7 +655,9 @@ With our new AST, we’re probably able to create codemods.
 
 [esm]: #esm
 
-[esm-gist]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package
+[trouble]: /docs/troubleshooting-mdx/
+
+[trouble-esm]: /docs/troubleshooting-mdx/#esm
 
 [mdx-api]: /packages/mdx/#api
 
