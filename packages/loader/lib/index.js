@@ -25,6 +25,7 @@ export function loader(value, callback) {
   // @ts-expect-error: types for webpack/loader-utils are out of sync.
   const options = {...defaults, ...getOptions(this)}
 
+  /* Removed option. */
   /* c8 ignore next 5 */
   if ('renderer' in options) {
     throw new Error(
