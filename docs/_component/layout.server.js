@@ -24,7 +24,7 @@ export const Layout = (props) => {
         ? meta.readingTime
         : [meta.readingTime, meta.readingTime]
       : []
-  ).map((d) => Math.ceil(d))
+  ).map((d) => (d > 15 ? Math.round(d / 5) * 5 : Math.ceil(d)))
   let timeLabel
 
   if (metaTime.length > 1 && metaTime[0] !== metaTime[1]) {
