@@ -21,8 +21,6 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import {VFile} from 'vfile'
-import {components as themeUiComponents, ThemeProvider} from 'theme-ui'
-import {base as themeUiBaseTheme} from '@theme-ui/preset-base'
 import {SourceMapGenerator} from 'source-map'
 import {compile, compileSync, createProcessor, nodeTypes} from '../index.js'
 // @ts-expect-error: make sure a single react is used.
@@ -1309,23 +1307,6 @@ test('MDX (ESM)', async () => {
     ),
     '<div style="color:red"><p>a</p></div>',
     'should support rexporting the default export, and other things, from a source'
-  )
-})
-
-// Skipped due to alpha react in root being picked by theme-ui
-test.skip('theme-ui', async () => {
-  assert.match(
-    renderToStaticMarkup(
-      React.createElement(
-        ThemeProvider,
-        {theme: themeUiBaseTheme},
-        React.createElement(await run(String(compileSync('# h1'))), {
-          components: themeUiComponents
-        })
-      )
-    ),
-    /<style data-emotion="css 16uteme">.css-16uteme{color:var\(--theme-ui-colors-text\);font-family:inherit;line-height:1.125;font-weight:700;font-size:32px;}<\/style><h1 class="css-16uteme">h1<\/h1>/,
-    'should work'
   )
 })
 
