@@ -340,6 +340,7 @@ th {
 
 blockquote {
   color: var(--gray-6);
+  margin-inline-start: 0;
   padding-inline-start: calc(1em + 1ex);
   position: relative;
 }
@@ -1098,31 +1099,6 @@ button.success {
 }
 
 @media (min-width: 64em) {
-  blockquote,
-  ol,
-  ul {
-    margin-inline-start: calc(-1 * (1em + 1ex));
-  }
-
-  ol blockquote,
-  ul blockquote,
-  blockquote blockquote,
-  .note blockquote,
-  .card blockquote,
-  ol ol,
-  ul ol,
-  blockquote ol,
-  .note ol,
-  .card ol,
-  ol ul,
-  ul ul,
-  blockquote ul,
-  .note ul,
-  .card ul,
-  .emoji-list > ul {
-    margin-inline-start: 0;
-  }
-
   .navigation-show-big {
     display: block;
   }
