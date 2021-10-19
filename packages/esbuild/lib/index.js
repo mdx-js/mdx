@@ -125,7 +125,7 @@ export function esbuild(options = {}) {
       let file = new VFile({value: doc, path: data.path})
       /** @type {VFileValue|undefined} */
       let value
-      /** @type {VFileMessage[]} */
+      /** @type {(VFileMessage|Error)[]} */
       let messages = []
       /** @type {Message[]} */
       const errors = []
@@ -136,20 +136,16 @@ export function esbuild(options = {}) {
         file = await process(file)
         value = file.value
         messages = file.messages
-      } catch (error) {
-        const exception = /** @type {VFileMessage} */ (error)
-        exception.fatal = true
-        messages.push(exception)
+      } catch (error_) {
+        const error = /** @type {VFileMessage|Error} */ (error_)
+        if ('fatal' in error) error.fatal = true
+        messages.push(error)
       }
 
       for (const message of messages) {
-        /** @type {{start?: Point, end?: Point}} */
-        // Non-message errors stored on `vfile.messages`.
-        /* c8 ignore next */
-        const location = message.position || {}
-
-        const start = location.start
-        const end = location.end
+        const location = 'position' in message ? message.position : undefined
+        const start = location ? location.start : undefined
+        const end = location ? location.end : undefined
         let length = 0
         let lineStart = 0
         let line = 0
@@ -187,9 +183,14 @@ export function esbuild(options = {}) {
         const match = eol.exec(doc)
         const lineEnd = match ? match.index : doc.length
 
-        ;(message.fatal ? errors : warnings).push({
+        ;(!('fatal' in message) || message.fatal ? errors : warnings).push({
           pluginName: name,
-          text: message.reason,
+          text:
+            'reason' in message
+              ? message.reason
+              : /* Extra fallback to make sure weird values are definitely strings */
+                /* c8 ignore next */
+                message.stack || String(message),
           notes: [],
           location: {
             namespace: 'file',
