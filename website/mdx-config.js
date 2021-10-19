@@ -237,9 +237,7 @@ function rehypePrettyCodeBlocks() {
         header.push(
           h('span.frame-tab-item.frame-tab-item-selected', metaProps.path)
         )
-      }
-
-      if (language) {
+      } else if (language) {
         if (!own.call(languageNames, language)) {
           console.log(
             '[mdx-config]: warn: please add %s to have a nice language name',
@@ -249,7 +247,7 @@ function rehypePrettyCodeBlocks() {
 
         header.push(
           h(
-            'span.frame-tab-item.frame-tab-item-inactive',
+            'span.frame-tab-item.frame-tab-item-language.frame-tab-item-inactive',
             languageNames[language] || language
           )
         )
@@ -268,7 +266,7 @@ function rehypePrettyCodeBlocks() {
       }
 
       if (header) {
-        children.unshift(h('.frame-tab-bar', header))
+        children.unshift(h('.frame-tab-bar.frame-tab-bar-scroll', header))
       }
 
       if (footer) {
