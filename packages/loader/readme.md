@@ -83,7 +83,7 @@ See also [¶ Create React App (CRA)][cra], [¶ Next.js][next], and
 This package exports a [webpack][] plugin as the default export.
 
 Source maps are supported based on how you configure webpack.
-You do not need to pass`options.SourceMapGenerator`.
+You do not need to pass `options.SourceMapGenerator`.
 
 ###### `options`
 

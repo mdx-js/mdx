@@ -1,6 +1,6 @@
 /**
  * @typedef {import('@rollup/pluginutils').FilterPattern} FilterPattern
- * @typedef {import('@mdx-js/mdx/lib/compile').CompileOptions} CompileOptions
+ * @typedef {Omit<import('@mdx-js/mdx').CompileOptions, 'SourceMapGenerator'>} CompileOptions
  * @typedef {import('rollup').Plugin} Plugin
  *
  * @typedef RollupPluginOptions
@@ -10,11 +10,9 @@
  *   List of picomatch patterns to exclude
  *
  * @typedef {CompileOptions & RollupPluginOptions} Options
- *
- * @todo
- *   Support `source-map` always?
  */
 
+import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
 import {createFilter} from '@rollup/pluginutils'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
@@ -27,7 +25,10 @@ import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aw
  */
 export function rollup(options = {}) {
   const {include, exclude, ...rest} = options
-  const {extnames, process} = createFormatAwareProcessors(rest)
+  const {extnames, process} = createFormatAwareProcessors({
+    SourceMapGenerator,
+    ...rest
+  })
   const filter = createFilter(include, exclude)
 
   return {
