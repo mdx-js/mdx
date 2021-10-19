@@ -41,6 +41,7 @@ See [§ Using MDX][use] when you’re all set up and ready to use MDX.
     *   [Site generators](#site-generators)
     *   [JSX runtimes](#jsx-runtimes)
     *   [JavaScript engines](#javascript-engines)
+*   [Further reading](#further-reading)
 
 ## Prerequisites
 
@@ -164,35 +165,31 @@ adding support for MDX in your editor:
 ### Types
 
 <details>
-  <summary>Expand example of types in JavaScript</summary>
+  <summary>Expand example of typed imports</summary>
+
+  First install the package:
+
+  ```sh
+  npm install @types/mdx
+  ```
+
+  …TypeScript should automatically pick it up:
 
   ```js path="example.js"
-  /**
-   * @typedef {import('react')}
-   * @typedef {import('mdx')}
-   */
-
-  import Post from './example.mdx' // `Post` is now typed.
-  ```
-</details>
-
-<details>
-  <summary>Expand example of types in TypeScript</summary>
-
-  ```ts path="example.ts"
-  /// <reference types="react" />
-  /// <reference types="mdx" />
-
-  import Post from './example.mdx' // `Post` is now typed.
+  import Post from './post.mdx' // `Post` is now typed.
   ```
 </details>
 
 All our APIs are fully typed with
 [TypeScript](https://www.typescriptlang.org).
-To enable types for imported `.mdx`, `.md`, etcetera files, first make sure
-the TypeScript `JSX` namespace is typed (such as by importing the `react`
-types if you’re using that) and then install and use
-[`@types/mdx`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx).
+
+To enable types for imported `.mdx`, `.md`, etcetera files, you should make sure
+the TypeScript `JSX` namespace is typed.
+This is done by installing and using the types of your framework, such as
+[`@types/react`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/react).
+Then you can install and use
+[`@types/mdx`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx),
+which adds types to import statements of supported files.
 
 ### Security
 
@@ -777,11 +774,19 @@ alternatively they can be `require`d with the legacy package
 [`@mdx-js/register`][mdx-register].
 See their readmes on how to configure them.
 
+## Further reading
+
+*   If you want to use MDX content in your project, see [§ Using MDX][use]
+*   If you’re getting errors integrating MDX, see
+    [§ Troubleshooting MDX][trouble] or [§ Support][support]
+
 [jsx]: #jsx
 
 [what]: /docs/what-is-mdx/
 
 [use]: /docs/using-mdx/
+
+[trouble]: /docs/troubleshooting-mdx/
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 

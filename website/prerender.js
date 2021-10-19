@@ -142,9 +142,12 @@ async function main() {
                   height: 1490
                 }
               : {
-                  url: new URL('./index.png', canonical),
-                  width: 2048,
-                  height: 1170
+                  url:
+                    name === '/blog/v2/' || name === '/migrating/v2/'
+                      ? new URL('og-v2.png', config.site)
+                      : new URL('./index.png', canonical),
+                  width: 2400,
+                  height: 1256
                 }
         })
         .use(rehypePresetMinify)
