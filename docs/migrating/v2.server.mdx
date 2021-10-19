@@ -635,6 +635,13 @@ The interface of the generated JavaScript from MDX changed:
 *   You can now pass and use objects of components: if you pass
     `components={{theme}}`, where `theme` is an object with a `Box` component,
     it can be used with: `<theme.Box>stuff</theme.Box>`
+*   the values exports from an MDX file are no longer passed to layouts, you
+    can achieve the same with:
+    ```js
+    import * as everything from './example.mdx'
+    const {default: Content, ...exported} = everything
+    <Content {...exported} />
+    ```
 
 We also fixed several cases where defined, imported, or passed components
 weren’t handled correctly or even crashed.
