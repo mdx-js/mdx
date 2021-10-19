@@ -91,11 +91,21 @@ export const Layout = (props) => {
   )
 
   const published = meta.published ? (
-    <>Published on {dateTimeFormat.format(meta.published)}</>
+    <>
+      Published on{' '}
+      <time dateTime={meta.published.toISOString()}>
+        {dateTimeFormat.format(meta.published)}
+      </time>
+    </>
   ) : undefined
 
   const modified = meta.modified ? (
-    <>Modified on {dateTimeFormat.format(meta.modified)}</>
+    <>
+      Modified on{' '}
+      <time dateTime={meta.published.toISOString()}>
+        {dateTimeFormat.format(meta.modified)}
+      </time>
+    </>
   ) : undefined
 
   const date =

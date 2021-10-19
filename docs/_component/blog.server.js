@@ -59,7 +59,12 @@ export const BlogEntry = (props) => {
         </div>
         {meta.published ? (
           <div style={{marginLeft: 'auto', textAlign: 'right'}}>
-            <small>Published on {dateTimeFormat.format(meta.published)}</small>
+            <small>
+              Published on{' '}
+              <time dateTime={meta.published.toISOString()}>
+                {dateTimeFormat.format(meta.published)}
+              </time>
+            </small>
           </div>
         ) : undefined}
       </div>
