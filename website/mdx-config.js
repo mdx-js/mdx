@@ -11,6 +11,8 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkGithub from 'remark-github'
 import remarkGemoji from 'remark-gemoji'
+import remarkStripBadges from 'remark-strip-badges'
+import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs'
 import remarkToc from 'remark-toc'
 import {remarkMdxFrontmatter} from 'remark-mdx-frontmatter'
 import rehypeHighlight from 'rehype-highlight'
@@ -39,6 +41,8 @@ const options = {
     remarkGithub,
     remarkGemoji,
     remarkFrontmatter,
+    remarkStripBadges,
+    remarkSqueezeParagraphs,
     [remarkMdxFrontmatter, {name: 'matter'}],
     [
       remarkToc,
