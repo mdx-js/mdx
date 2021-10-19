@@ -256,18 +256,17 @@ Here are some other examples of passing components:
 
 The following keys can be passed in `components`:
 
-*   HTML equivalents for the things you write with markdown (such as `h1` for
-    `# heading`)**†**
+*   HTML equivalents for the things you write with markdown such as `h1` for
+    `# heading` (see [§ Table of components][toc] for examples)
 *   `wrapper`, which defines the layout (but a local layout takes precedence)
 *   `*` anything else that is a valid JavaScript identifier (`foo`,
     `Quote`, `_`, `$x`, `a1`) for the things you write with JSX (like
     `<So />` or `<like.so />`, note that locally defined components take
     precedence)**‡**
 
-**†** See the [§ Table of components][toc] for examples
-
-**‡** The rules for whether a name in JSX (`x` in `<x>`) is a literal tag name
-or not, are as follows:
+If you ever wondered what the rules are for whether a name in JSX (so `x` in
+`<x>`) is a literal tag name (like `h1`) or not (like `Component`), they are as
+follows:
 
 *   If there’s a dot, it’s a member expression (`<a.b>` -> `h(a.b)`),
     which means that the `b` component is taken from object `a`

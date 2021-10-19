@@ -93,6 +93,8 @@
     "remark-github": "^11.0.0",
     "remark-mdx-frontmatter": "^1.0.0",
     "remark-preset-wooorm": "^9.0.0",
+    "remark-squeeze-paragraphs": "^5.0.0",
+    "remark-strip-badges": "^6.0.0",
     "remark-toc": "^8.0.0",
     "rimraf": "^3.0.0",
     "rodemirror": "^1.0.0",

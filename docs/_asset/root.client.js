@@ -20,6 +20,9 @@ if (typeof document !== 'undefined') {
   const current = document.querySelectorAll('[aria-current]')
   let index = -1
   while (++index < current.length) {
-    current[index].scrollIntoViewIfNeeded()
+    const node = current[index]
+    if (typeof node.scrollIntoViewIfNeeded === 'function') {
+      node.scrollIntoViewIfNeeded()
+    }
   }
 }

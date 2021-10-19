@@ -52,14 +52,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
       <td>
         ```mdx chrome=no
-        [MDX](https://mdxjs.com)
+        [MDX](https://mdxjs.com "title")
         ```
       </td>
 
       <td>
         ```jsx chrome=no
         <>
-          <p><a href="https://mdxjs.com">MDX</a></p>
+          <p><a href="https://mdxjs.com" title="title">MDX</a></p>
         </>
         ```
       </td>
@@ -285,14 +285,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
       <td>
         ```mdx chrome=no
-        ![Alt text](/logo.png)
+        ![Alt text](/logo.png "title")
         ```
       </td>
 
       <td>
         ```jsx chrome=no
         <>
-          <p><img src="/logo.png" alt="Alt text" /></p>
+          <p><img src="/logo.png" alt="Alt text" title="title" /></p>
         </>
         ```
       </td>

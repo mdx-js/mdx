@@ -95,9 +95,19 @@ async function main() {
           link: [
             {
               rel: 'alternate',
+              href: new URL('rss.xml', config.site),
               type: 'application/rss+xml',
-              title: config.site.hostname,
-              href: new URL('rss.xml', config.site)
+              title: config.site.hostname
+            },
+            {
+              rel: 'icon',
+              href: new URL('favicon.ico', config.site),
+              sizes: 'any'
+            },
+            {
+              rel: 'icon',
+              href: new URL('icon.svg', config.site),
+              type: 'image/svg+xml'
             }
           ],
           js: '/index.js',

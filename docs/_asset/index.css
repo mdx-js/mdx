@@ -177,7 +177,6 @@ h2 {
 .article-row-start,
 .article-row-end {
   font-size: smaller;
-  font-size: smaller;
   line-height: calc(1em + (1 / 0.8 * 1ex));
   flex-basis: 0;
   flex-grow: 1;
@@ -756,12 +755,20 @@ button.success {
 
 .frame-tab-item {
   font-family: var(--mono);
-  padding: calc(0.25 * (1em + 1ex)) calc(0.75 * (1em + 1ex));
-  margin: calc(0.25 * (1em + 1ex));
+  font-size: smaller;
+  line-height: calc(1em + (1 / 0.8 * 1ex));
+  padding-block: calc(1 / 0.8 * 0.25 * (1em + 1ex));
+  padding-inline: calc(1 / 0.8 * 0.5 * (1em + 1ex));
+  margin: calc(1 / 0.8 * 0.25 * (1em + 1ex));
   margin-block-end: 0;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   white-space: nowrap;
+}
+
+.frame-tab-item-language {
+  margin-left: auto;
+  padding-inline: 0;
 }
 
 .code-frame .copy-button {

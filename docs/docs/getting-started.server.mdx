@@ -203,8 +203,9 @@ internet write MDX.
 If you do, you might want to look into using `<iframe>`s with `sandbox`, but
 security is hard, and that doesn’t seem to be 100%.
 For Node, [vm2](https://github.com/patriksimek/vm2) sounds interesting.
-But you should probably also sandbox the whole OS (Docker?), perform rate
-limiting, and make sure processes can be killed when taking too long.
+But you should probably also sandbox the whole OS using Docker or similar,
+perform rate limiting, and make sure processes can be killed when taking too
+long.
 
 ## Integrations
 
@@ -303,7 +304,7 @@ for more info.
 </details>
 
 We support [webpack](https://webpack.js.org).
-Install and configure the webpack plugin [`@mdx-js/loader`][mdx-loader].
+Install and configure the webpack loader [`@mdx-js/loader`][mdx-loader].
 [Configure your JSX runtime][jsx] depending on which one you use (React, Preact,
 Vue, etc.)
 
@@ -377,10 +378,10 @@ you’re using that, for more info.
   ```
 </details>
 
-[Vue CLI](https://cli.vuejs.org) supports webpack plugins directly in
+[Vue CLI](https://cli.vuejs.org) supports webpack loaders directly in
 `configureWebpack.plugins` in your `vue.config.js`.
 
-Install and configure the webpack plugin [`@mdx-js/loader`][mdx-loader].
+Install and configure the webpack loader [`@mdx-js/loader`][mdx-loader].
 You have to configure [Vue and Babel][vue] too.
 
 See also [¶ webpack][webpack], which is used in Vue CLI, and see [¶ Vue][vue],
@@ -503,10 +504,10 @@ Which in turn lets us choose whether to use the `@mdx-js/mdx` or
   ```
 </details>
 
-[CRA](https://github.com/facebook/create-react-app) supports webpack plugins
+[CRA](https://github.com/facebook/create-react-app) supports webpack loaders
 through webpack loader syntax in imports.
 
-Install the webpack plugin [`@mdx-js/loader`][mdx-loader].
+Install the webpack loader [`@mdx-js/loader`][mdx-loader].
 There is no need to configure it.
 
 See also [¶ Webpack][webpack], which is used in CRA, and see [¶ React][react],
@@ -555,11 +556,10 @@ on how to use MDX with Gatsby.
   ```
 </details>
 
-[Next](https://nextjs.org) supports webpack plugins by overwriting the webpack
+[Next](https://nextjs.org) supports webpack loaders by overwriting the webpack
 config in `next.config.js`.
 
-Install and configure the webpack plugin
-[`@mdx-js/loader`][webpack].
+Install and configure the webpack loader [`@mdx-js/loader`][webpack].
 There is no need to configure your JSX runtime as React is already set up.
 
 See also [¶ Webpack][webpack] and [¶ React][react], which you’re using, for

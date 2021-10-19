@@ -11,6 +11,8 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkGithub from 'remark-github'
 import remarkGemoji from 'remark-gemoji'
+import remarkStripBadges from 'remark-strip-badges'
+import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs'
 import remarkToc from 'remark-toc'
 import {remarkMdxFrontmatter} from 'remark-mdx-frontmatter'
 import rehypeHighlight from 'rehype-highlight'
@@ -39,6 +41,8 @@ const options = {
     remarkGithub,
     remarkGemoji,
     remarkFrontmatter,
+    remarkStripBadges,
+    remarkSqueezeParagraphs,
     [remarkMdxFrontmatter, {name: 'matter'}],
     [
       remarkToc,
@@ -237,9 +241,7 @@ function rehypePrettyCodeBlocks() {
         header.push(
           h('span.frame-tab-item.frame-tab-item-selected', metaProps.path)
         )
-      }
-
-      if (language) {
+      } else if (language) {
         if (!own.call(languageNames, language)) {
           console.log(
             '[mdx-config]: warn: please add %s to have a nice language name',
@@ -249,7 +251,7 @@ function rehypePrettyCodeBlocks() {
 
         header.push(
           h(
-            'span.frame-tab-item.frame-tab-item-inactive',
+            'span.frame-tab-item.frame-tab-item-language.frame-tab-item-inactive',
             languageNames[language] || language
           )
         )
@@ -268,7 +270,7 @@ function rehypePrettyCodeBlocks() {
       }
 
       if (header) {
-        children.unshift(h('.frame-tab-bar', header))
+        children.unshift(h('.frame-tab-bar.frame-tab-bar-scroll', header))
       }
 
       if (footer) {

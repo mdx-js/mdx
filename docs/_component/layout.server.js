@@ -24,7 +24,7 @@ export const Layout = (props) => {
         ? meta.readingTime
         : [meta.readingTime, meta.readingTime]
       : []
-  ).map((d) => Math.ceil(d))
+  ).map((d) => (d > 15 ? Math.round(d / 5) * 5 : Math.ceil(d)))
   let timeLabel
 
   if (metaTime.length > 1 && metaTime[0] !== metaTime[1]) {
@@ -39,7 +39,7 @@ export const Layout = (props) => {
 
     let index = -1
     while (++index < d.children.length) {
-      const childTime = accumulateReadingTime(d.children[0])
+      const childTime = accumulateReadingTime(d.children[index])
       if (childTime[0]) total[0] = (total[0] || 0) + childTime[0]
       if (childTime[1]) total[1] = (total[1] || 0) + childTime[1]
     }
