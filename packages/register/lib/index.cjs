@@ -38,6 +38,7 @@ function load(filePath, callback) {
   // To fix that, a timeout can be used.
   const id = setTimeout(timeout, 1024)
 
+  /* Something is going wrong in Node/V8 if this happens. */
   /* c8 ignore next 10 */
   function timeout() {
     done(
@@ -54,6 +55,7 @@ function load(filePath, callback) {
   }, done)
 
   function done(error, result) {
+    /* Something is going wrong in Node/V8 if this happens. */
     /* c8 ignore next */
     if (called) return
     called = true

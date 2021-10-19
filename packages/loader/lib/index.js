@@ -1,10 +1,11 @@
 /**
- * @todo support given source map, meta? <https://webpack.js.org/api/loaders/>
- * @todo always add a source map.
- *
+ * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
+ * @typedef {Pick<CompileOptions, 'SourceMapGenerator'>} Defaults
+ * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} Options
  * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
  */
 
+import {SourceMapGenerator} from 'source-map'
 import {getOptions} from 'loader-utils'
 import {compile} from '@mdx-js/mdx'
 
@@ -12,16 +13,19 @@ import {compile} from '@mdx-js/mdx'
  * A Webpack (4+) loader for MDX.
  * See `webpack.cjs`, which wraps this, because Webpack loaders must currently
  * be CommonJS.
- * `file.map` is defined when a `SourceMapGenerator` is passed in options.
  *
  * @this {LoaderContext}
  * @param {string} value
  * @param {(error: Error|null|undefined, content?: string|Buffer, map?: Object) => void} callback
  */
 export function loader(value, callback) {
+  /** @type {Defaults} */
+  const defaults = this.sourceMap ? {SourceMapGenerator} : {}
+  /** @type {CompileOptions} */
   // @ts-expect-error: types for webpack/loader-utils are out of sync.
-  const options = {...getOptions(this)}
+  const options = {...defaults, ...getOptions(this)}
 
+  /* Removed option. */
   /* c8 ignore next 5 */
   if ('renderer' in options) {
     throw new Error(

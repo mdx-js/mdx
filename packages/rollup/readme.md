@@ -79,8 +79,8 @@ for more info.
 
 This package exports a [Rollup][] plugin as the default export.
 
-Source maps are supported when
-[`options.SourceMapGenerator`][options-source-map-generator] is passed in.
+Source maps are supported based on how you configure Rollup.
+You do not need to pass `options.SourceMapGenerator`.
 
 ###### `options`
 
@@ -180,8 +180,6 @@ abide by its terms.
 [pico]: https://github.com/micromatch/picomatch#globbing-features
 
 [rollup]: https://rollupjs.org
-
-[options-source-map-generator]: https://v2.mdxjs.com/packages/mdx/#optionssourcemapgenerator
 
 [rollup-plugin-babel]: https://github.com/rollup/plugins/tree/HEAD/packages/babel
 

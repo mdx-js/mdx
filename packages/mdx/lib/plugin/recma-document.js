@@ -150,9 +150,7 @@ export function recmaDocument(options = {}) {
       // export {a, b as c} from 'd'
       // ```
       else if (child.type === 'ExportNamedDeclaration' && child.source) {
-        /** @type {SimpleLiteral} */
-        // @ts-expect-error `ExportNamedDeclaration.source` can only be a string literal.
-        const source = child.source
+        const source = /** @type {SimpleLiteral} */ (child.source)
 
         // Remove `default` or `as default`, but not `default as`, specifier.
         child.specifiers = child.specifiers.filter((specifier) => {

@@ -1,5 +1,5 @@
 /**
- * @typedef {import('react').FC} FC
+ * @typedef {import('mdx/types').MDXContent} MDXContent
  */
 
 import {promises as fs} from 'fs'
@@ -23,16 +23,22 @@ test('@mdx-js/rollup', async () => {
     plugins: [rollupMdx()]
   })
 
+  const output = (await bundle.generate({format: 'es', sourcemap: true})).output
+
   await fs.writeFile(
     new URL('./rollup.js', import.meta.url),
-    (
-      await bundle.generate({format: 'es'})
-    ).output[0].code.replace(/\/jsx-runtime(?=["'])/g, '$&.js')
+    output[0].code.replace(/\/jsx-runtime(?=["'])/g, '$&.js')
   )
 
-  const Content = /** @type {FC} */ (
+  const Content = /** @type {MDXContent} */ (
     /* @ts-expect-error file is dynamically generated */
     (await import('./rollup.js')).default // type-coverage:ignore-line
+  )
+
+  assert.equal(
+    output[0].map ? output[0].map.mappings : undefined,
+    ';;;MAAaA,UAAU;YAAQ;;;;;;;;iBAE7B;;;;;;;;;;',
+    'should add a source map'
   )
 
   assert.equal(

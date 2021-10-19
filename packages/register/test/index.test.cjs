@@ -1,5 +1,5 @@
 /**
- * @typedef {import('react').FC} FC
+ * @typedef {import('mdx/types').MDXContent} MDXContent
  */
 
 'use strict'
@@ -20,8 +20,7 @@ test('@mdx-js/register', async () => {
   )
 
   // OMG, it works!
-  const Content = /** @type {FC} */ (
-    /* @ts-expect-error file is dynamically generated */
+  const Content = /** @type {MDXContent} */ (
     require('./register.mdx') // type-coverage:ignore-line
   )
 

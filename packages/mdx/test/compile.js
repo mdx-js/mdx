@@ -1,9 +1,8 @@
 /**
- * @typedef {import('react').FC} FC
+ * @typedef {import('mdx/types').MDXModule} MDXModule
+ * @typedef {import('mdx/types').MDXContent} MDXContent
  * @typedef {import('hast').Root} Root
  * @typedef {import('../lib/compile.js').VFileCompatible} VFileCompatible
- * @typedef {import('mdx/types').MDXContent} MDXContent
- * @typedef {import('mdx/types').MDXModule} ExportMap
  */
 
 import {Buffer} from 'buffer'
@@ -21,8 +20,6 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import {VFile} from 'vfile'
-import {components as themeUiComponents, ThemeProvider} from 'theme-ui'
-import {base as themeUiBaseTheme} from '@theme-ui/preset-base'
 import {SourceMapGenerator} from 'source-map'
 import {compile, compileSync, createProcessor, nodeTypes} from '../index.js'
 // @ts-expect-error: make sure a single react is used.
@@ -38,6 +35,20 @@ import 'source-map-support/register.js'
 const renderToStaticMarkup = renderToStaticMarkup_
 
 test('compile', async () => {
+  try {
+    // @ts-expect-error: removed option.
+    await compile('# hi!', {filepath: 'example.mdx'})
+    assert.unreachable()
+  } catch (/** @type {unknown} */ error) {
+    const exception = /** @type {Error} */ (error)
+    console.log(exception.message)
+    assert.match(
+      exception.message,
+      /`options.filepath` is no longer supported/,
+      'should throw when a removed option is passed'
+    )
+  }
+
   assert.equal(
     renderToStaticMarkup(
       React.createElement(await run(await compile('# hi!')))
@@ -557,7 +568,7 @@ test('compile', async () => {
   )
 
   try {
-    // @ts-expect-error runtime.
+    // @ts-expect-error incorrect `detect`.
     createProcessor({format: 'detect'})
     assert.unreachable()
   } catch (/** @type {unknown} */ error) {
@@ -649,7 +660,7 @@ test('compile', async () => {
         remarkPlugins: [
           () => (/** @type {Root} */ tree) => {
             tree.children.unshift({
-              // @ts-expect-error MDXHAST.
+              // @ts-expect-error To do: mdast-util-mdx should probably also extend hast?
               type: 'mdxjsEsm',
               value: '',
               data: {
@@ -1298,23 +1309,6 @@ test('MDX (ESM)', async () => {
   )
 })
 
-// Skipped due to alpha react in root being picked by theme-ui
-test.skip('theme-ui', async () => {
-  assert.match(
-    renderToStaticMarkup(
-      React.createElement(
-        ThemeProvider,
-        {theme: themeUiBaseTheme},
-        React.createElement(await run(String(compileSync('# h1'))), {
-          components: themeUiComponents
-        })
-      )
-    ),
-    /<style data-emotion="css 16uteme">.css-16uteme{color:var\(--theme-ui-colors-text\);font-family:inherit;line-height:1.125;font-weight:700;font-size:32px;}<\/style><h1 class="css-16uteme">h1<\/h1>/,
-    'should work'
-  )
-})
-
 test('source maps', async () => {
   const base = path.resolve(path.join('test', 'context'))
   const file = await compile(
@@ -1332,7 +1326,7 @@ test('source maps', async () => {
     String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
   )
 
-  const Content = /** @type {FC} */ (
+  const Content = /** @type {MDXContent} */ (
     /* @ts-expect-error file is dynamically generated */
     (await import('./context/sourcemap.js')).default // type-coverage:ignore-line
   )
@@ -1372,7 +1366,7 @@ async function run(input, options = {}) {
  *
  * @param {VFileCompatible} input
  * @param {{keepImport?: boolean}} [options]
- * @return {Promise<ExportMap>}
+ * @return {Promise<MDXModule>}
  */
 async function runWhole(input, options = {}) {
   const name = 'fixture-' + nanoid().toLowerCase() + '.js'
@@ -1391,7 +1385,7 @@ async function runWhole(input, options = {}) {
   await fs.writeFile(fp, doc)
 
   try {
-    /** @type {ExportMap} */
+    /** @type {MDXModule} */
     return await import('./context/' + name)
   } finally {
     // This is not a bug: the `finally` runs after the whole `try` block, but

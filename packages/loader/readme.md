@@ -82,9 +82,8 @@ See also [¶ Create React App (CRA)][cra], [¶ Next.js][next], and
 
 This package exports a [webpack][] plugin as the default export.
 
-Source maps are supported when
-[`options.SourceMapGenerator`][options-source-map-generator]
-is passed in.
+Source maps are supported based on how you configure webpack.
+You do not need to pass `options.SourceMapGenerator`.
 
 ###### `options`
 
@@ -191,8 +190,6 @@ abide by its terms.
 [options]: https://v2.mdxjs.com/packages/mdx/#compilefile-options
 
 [typescript]: https://www.typescriptlang.org
-
-[options-source-map-generator]: https://v2.mdxjs.com/packages/mdx/#optionssourcemapgenerator
 
 [babel-loader]: https://webpack.js.org/loaders/babel-loader/
 

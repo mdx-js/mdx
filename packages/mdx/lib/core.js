@@ -32,6 +32,15 @@ import {rehypeRemoveRaw} from './plugin/rehype-remove-raw.js'
 import {remarkMarkAndUnravel} from './plugin/remark-mark-and-unravel.js'
 import {nodeTypes} from './node-types.js'
 
+const removedOptions = [
+  'filepath',
+  'compilers',
+  'hastPlugins',
+  'mdPlugins',
+  'skipExport',
+  'wrapExport'
+]
+
 /**
  * Pipeline to:
  *
@@ -54,8 +63,20 @@ export function createProcessor(options = {}) {
     SourceMapGenerator,
     ...rest
   } = options
+  let index = -1
 
-  // @ts-expect-error runtime.
+  while (++index < removedOptions.length) {
+    const key = removedOptions[index]
+    if (key in options) {
+      throw new Error(
+        '`options.' +
+          key +
+          '` is no longer supported. Please see <https://mdxjs.com/migrating/v2/> for more information'
+      )
+    }
+  }
+
+  // @ts-expect-error allowed in `compile`, but not here.
   if (format === 'detect') {
     throw new Error(
       "Incorrect `format: 'detect'`: `createProcessor` can support either `md` or `mdx`; it does not support detecting the format"

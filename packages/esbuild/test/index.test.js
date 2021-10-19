@@ -1,9 +1,9 @@
 /**
- * @typedef {import('react').FC} FC
  * @typedef {import('esbuild').BuildFailure} BuildFailure
  * @typedef {import('esbuild').Message} Message
  * @typedef {import('hast').Root} Root
  * @typedef {import('vfile').VFile} VFile
+ * @typedef {import('mdx/types').MDXContent} MDXContent
  */
 
 import {promises as fs} from 'fs'
@@ -31,7 +31,7 @@ test('@mdx-js/esbuild', async () => {
     plugins: [esbuildMdx()]
   })
 
-  /** @type {FC} */
+  /** @type {MDXContent} */
   let Content =
     /* @ts-expect-error file is dynamically generated */
     (await import('./esbuild.js')).default // type-coverage:ignore-line
@@ -336,6 +336,71 @@ test('@mdx-js/esbuild', async () => {
   }
 
   await fs.unlink(new URL('./esbuild-warnings.mdx', import.meta.url))
+
+  console.log('\nnote: the preceding errors and warnings are expected!\n')
+
+  await fs.writeFile(
+    new URL('./esbuild-plugin-crash.mdx', import.meta.url),
+    '# hi'
+  )
+
+  try {
+    await esbuild.build({
+      entryPoints: [
+        fileURLToPath(new URL('./esbuild-plugin-crash.mdx', import.meta.url))
+      ],
+      outfile: fileURLToPath(
+        new URL('./esbuild-plugin-crash.js', import.meta.url)
+      ),
+      format: 'esm',
+      plugins: [
+        esbuildMdx({
+          rehypePlugins: [
+            function () {
+              return () => {
+                throw new Error('Something went wrong')
+              }
+            }
+          ]
+        })
+      ]
+    })
+    assert.unreachable('esbuild should throw')
+  } catch (error) {
+    /** @type {BuildFailure} */
+    const result = JSON.parse(JSON.stringify(error))
+
+    for (const message of [...result.errors, ...result.warnings]) {
+      delete message.detail
+      message.text = message.text.split('\n')[0]
+    }
+
+    assert.equal(
+      result,
+      {
+        errors: [
+          {
+            location: {
+              column: 0,
+              file: 'test/esbuild-plugin-crash.mdx',
+              length: 0,
+              line: 0,
+              lineText: '# hi',
+              namespace: 'file',
+              suggestion: ''
+            },
+            notes: [],
+            pluginName: '@mdx-js/esbuild',
+            text: 'Error: Something went wrong'
+          }
+        ],
+        warnings: []
+      },
+      'should pass errors'
+    )
+  }
+
+  await fs.unlink(new URL('./esbuild-plugin-crash.mdx', import.meta.url))
 
   console.log('\nnote: the preceding errors and warnings are expected!\n')
 

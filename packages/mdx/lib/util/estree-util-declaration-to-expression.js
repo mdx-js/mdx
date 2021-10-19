@@ -19,6 +19,8 @@ export function declarationToExpression(declaration) {
 
   if (declaration.type === 'ClassDeclaration') {
     return {...declaration, type: 'ClassExpression'}
+    /* Internal utility so the next shouldn’t happen or a maintainer is making a
+     * mistake. */
     /* c8 ignore next 4 */
   }
 
