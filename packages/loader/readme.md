@@ -7,7 +7,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-webpack plugin for MDX.
+webpack loader for MDX.
 
 <!-- more -->
 
@@ -25,7 +25,7 @@ webpack plugin for MDX.
 
 ## What is this?
 
-This package is a webpack plugin to support MDX.
+This package is a webpack loader to support MDX.
 
 ## When should I use this?
 
