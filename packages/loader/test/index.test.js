@@ -63,12 +63,13 @@ test('@mdx-js/loader', async () => {
 
   await fs.unlink(new URL('react.cjs', base))
 
-  // Preact.
+  // Preact and source maps
   await promisify(webpack)({
     // @ts-expect-error context does not exist on the webpack options types.
     context: fileURLToPath(base),
     entry: './webpack.mdx',
-    mode: 'none',
+    mode: 'development',
+    devtool: 'inline-source-map',
     module: {
       rules: [
         {
@@ -100,6 +101,12 @@ test('@mdx-js/loader', async () => {
     render(h(ContentPreact, {})),
     '<h1>Hello, World!</h1>',
     'should compile (preact)'
+  )
+
+  assert.match(
+    String(await fs.readFile(new URL('preact.cjs', base))),
+    /\/\/# sourceMappingURL/,
+    'should add a source map if requested'
   )
 
   await fs.unlink(new URL('preact.cjs', base))
