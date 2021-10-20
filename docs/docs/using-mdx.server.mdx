@@ -401,6 +401,40 @@ Now you can remove the explicit and verbose component passing:
 +<Contributing />
 ```
 
+When `MDXProvider`s are nested, their components are merged.
+Take this example:
+
+```jsx
+<>
+  <MDXProvider components={{h1: Component1, h2: Component2}}>
+    <MDXProvider components={{h2: Component3, h3: Component4}}>
+      <Content />
+    </MDXProvider>
+  </MDXProvider>
+</>
+```
+
+…which results in `h1`s using `Component1`, `h2`s using `Component3`, and `h3`s
+using `Component4`.
+
+To merge differently or not at all, pass a function to `components`.
+It’s given the current context `components` and what it returns will be used
+instead.
+In this example the current context components are discarded:
+
+```jsx
+<>
+  <MDXProvider components={{h1: Component1, h2: Component2}}>
+    <MDXProvider components={() => ({h2: Component3, h3: Component4})}>
+      <Content />
+    </MDXProvider>
+  </MDXProvider>
+</>
+```
+
+…which results in `h2`s using `Component3` and `h3`s using `Component4`.
+No component is used for `h1`.
+
 [context]: https://reactjs.org/docs/context.html
 
 [start]: /docs/getting-started/
