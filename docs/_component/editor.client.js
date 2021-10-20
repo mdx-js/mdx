@@ -1,4 +1,4 @@
-import React, {useState, useMemo, createElement} from 'react'
+import React, {useState, useMemo, createElement, memo, useCallback} from 'react'
 import {useDebounceFn} from 'ahooks'
 import * as runtime from 'react/jsx-runtime.js'
 import {VFile} from 'vfile'
@@ -66,10 +66,38 @@ function useMdx(defaults) {
 
       setState({...config, file})
     },
-    {wait: 500}
+    {leading: true, trailing: true, wait: 500}
   )
 
   return [state, setConfig]
+}
+
+const ErrorFallback = ({error, resetErrorBoundary}) => {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      <button type="button" onClick={resetErrorBoundary}>
+        Try again
+      </button>
+    </div>
+  )
+}
+
+const MemoizedCodeMirror = memo((props) => (
+  <ErrorBoundary FallbackComponent={ErrorFallback}>
+    <CodeMirror {...props} />
+  </ErrorBoundary>
+))
+
+const FallbackComponent = ({error}) => {
+  const message = new VFileMessage(error)
+  message.fatal = true
+  return (
+    <pre>
+      <code>{String(message)}</code>
+    </pre>
+  )
 }
 
 export const Editor = ({children}) => {
@@ -81,17 +109,15 @@ export const Editor = ({children}) => {
     math: false,
     value: defaultValue
   })
+  const onUpdate = useCallback(
+    (v) => {
+      if (v.docChanged) {
+        setConfig({...state, value: String(v.state.doc)})
+      }
+    },
+    [state, setConfig]
+  )
   const stats = state.file ? statistics(state.file) : {}
-
-  const FallbackComponent = ({error}) => {
-    const message = new VFileMessage(error)
-    message.fatal = true
-    return (
-      <pre>
-        <code>{String(message)}</code>
-      </pre>
-    )
-  }
 
   return (
     <div>
@@ -119,14 +145,10 @@ export const Editor = ({children}) => {
                 </code>
               </pre>
             </noscript>
-            <CodeMirror
+            <MemoizedCodeMirror
               value={state.value}
               extensions={extensions}
-              onUpdate={(v) => {
-                if (v.docChanged) {
-                  setConfig({...state, value: String(v.state.doc)})
-                }
-              }}
+              onUpdate={onUpdate}
             />
           </div>
         </TabPanel>
