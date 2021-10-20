@@ -737,6 +737,22 @@ console.log(await evaluate(file, {...runtime}))
 
 </details>
 
+###### Note: Performance
+
+Compiling (and running) MDX takes time.
+If you’re live-rendering a string of MDX that often changes using a virtual DOM
+based framework (such as React), one performance improvement is to call the
+`MDXContent` component yourself.
+The reason is that the `evaluate` creates a new function each time, which cannot
+be diffed:
+
+```diff
+ const {default: MDXContent} = await evaluate('…')
+
+-<MDXContent {...props} />
++MDXContent(props)
+```
+
 ### `evaluateSync(file, options)`
 
 Compile and run MDX.
