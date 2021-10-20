@@ -8,7 +8,7 @@
  *   Mapping of names for JSX components to React components.
  * @property {boolean} [disableParentContext=false]
  *   Turn off outer component context.
- * @property {ReactNode[]} [children]
+ * @property {ReactNode} [children]
  *   Children.
  *
  * @callback MergeComponents
