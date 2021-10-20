@@ -369,9 +369,11 @@ you’re using that, for more info.
         .use('babel-loader')
           .loader('babel-loader')
           .options({plugins: ['@vue/babel-plugin-jsx'], /* Other options… */})
+          .end()
         .use('@mdx-js/loader')
           .loader('@mdx-js/loader')
           .options({jsx: true, /* otherOptions… */})
+          .end()
     }
   }
   ```
