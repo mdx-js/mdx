@@ -70,7 +70,26 @@ async function main() {
             type: 'root',
             children: select('.body', tree).children
           }))
-          .use(rehypeSanitize, {...defaultSchema, clobber: []})
+          .use(rehypeSanitize, {
+            ...defaultSchema,
+            attributes: {
+              ...defaultSchema.attributes,
+              code: [
+                [
+                  'className',
+                  'language-diff',
+                  'language-html',
+                  'language-js',
+                  'language-jsx',
+                  'language-md',
+                  'language-mdx',
+                  'language-sh',
+                  'language-ts'
+                ]
+              ]
+            },
+            clobber: []
+          })
           .use(rehypeStringify)
           .process(buf)
 
