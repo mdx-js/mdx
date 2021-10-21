@@ -118,7 +118,9 @@ You can update your code as follows:
 
 <div className="big-columns">
   <div>
-    ```js path="webpack.config.v1.js"
+    Before:
+
+    ```js path="webpack.config.js"
     // …
     {
       test: /\.mdx?$/,
@@ -143,7 +145,9 @@ You can update your code as follows:
   </div>
 
   <div>
-    ```js path="webpack.config.v2.js"
+    After:
+
+    ```js path="webpack.config.js"
     import remarkGfm from 'remark-gfm'
 
     // …
@@ -199,7 +203,7 @@ You can make it simpler:
 configuration.
 Using Preact as an example:
 
-```js path="webpack.config.v2-preact.js"
+```js path="webpack.config.js"
 // …
 {
   loader: '@mdx-js/loader',
@@ -267,7 +271,9 @@ You can update your code as follows:
 
 <div className="big-columns">
   <div>
-    ```js path="v1.js"
+    Before:
+
+    ```js path="old.js"
     import mdx from '@mdx-js/mdx'
 
     const result = await mdx('# hi')
@@ -277,7 +283,9 @@ You can update your code as follows:
   </div>
 
   <div>
-    ```js path="v2.js"
+    After:
+
+    ```js path="new.js"
     import {compile} from '@mdx-js/mdx'
     import remarkGfm from 'remark-gfm'
 
@@ -309,7 +317,7 @@ You can make it simpler:
 `@mdx-js/mdx` now supports Preact and other JSX runtimes through configuration.
 Using Preact as an example:
 
-```js path="v2-preact.js"
+```js path="new-preact.js"
 import {compile} from '@mdx-js/mdx'
 
 const result = await compile('# hi', {jsxImportSource: 'preact'})
@@ -370,7 +378,9 @@ You can update your code as follows:
 
 <div className="big-columns">
   <div>
-    ```js path="v1.js"
+    Before:
+
+    ```js path="old.js"
     import MDX from '@mdx-js/runtime'
 
     const components = {/* … */}
@@ -385,7 +395,9 @@ You can update your code as follows:
   </div>
 
   <div>
-    ```js path="v2.js"
+    After:
+
+    ```js path="new.js"
     import * as runtime from 'react/jsx-runtime.js'
     import * as provider from '@mdx-js/react'
     import {evaluate} from '@mdx-js/mdx'
@@ -413,7 +425,7 @@ You can make it simpler:
 `@mdx-js/mdx` now supports Preact and other JSX runtimes through configuration.
 Using Emotion as an example:
 
-```js path="v2-emotion.js"
+```js path="new-emotion.js"
 // …
 import * as runtime from '@emotion/react/jsx-runtime.js'
 // …
