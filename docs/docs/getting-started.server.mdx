@@ -379,14 +379,22 @@ you’re using that, for more info.
   ```
 </details>
 
-[Vue CLI](https://cli.vuejs.org) supports webpack loaders directly in
-`configureWebpack.plugins` in your `vue.config.js`.
+[Vue CLI](https://cli.vuejs.org), in the beta for version 5, supports webpack
+loaders directly in `configureWebpack.plugins` in `vue.config.js`.
 
 Install and configure the webpack loader [`@mdx-js/loader`][mdx-loader].
 You have to configure [Vue and Babel][vue] too.
 
 See also [¶ webpack][webpack], which is used in Vue CLI, and see [¶ Vue][vue],
 which you’re likely using, for more info.
+
+<Note type="info">
+  **Note**: to support ESM in `vue.config.js` or `vue.config.mjs`, you currently
+  have to use their v5.0.0-beta.
+  See [`v5.0.0-beta.0`](https://github.com/vuejs/vue-cli/releases/tag/v5.0.0-beta.0)
+  in their changelog for more info.
+  Their latest beta release is currently `v5.0.0-beta.6`.
+</Note>
 
 #### WMR
 
