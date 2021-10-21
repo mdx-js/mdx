@@ -43,9 +43,19 @@ async function main() {
     files.map(async (url) => ({url, info: JSON.parse(await fs.readFile(url))}))
   )
 
+  const now = new Date()
+
   const entries = await pAll(
     [...allInfo]
-      .filter((d) => d.info.meta.published !== undefined)
+      // All blog entries that are published in the past.
+      .filter(
+        (d) =>
+          d.info.meta.pathname.startsWith('/blog/') &&
+          d.info.meta.pathname !== '/blog/' &&
+          d.info.meta.published !== undefined &&
+          new Date(d.info.meta.published) < now
+      )
+      // Sort.
       .sort(
         (a, b) =>
           new Date(b.info.meta.published) - new Date(a.info.meta.published)
@@ -60,7 +70,26 @@ async function main() {
             type: 'root',
             children: select('.body', tree).children
           }))
-          .use(rehypeSanitize, {...defaultSchema, clobber: []})
+          .use(rehypeSanitize, {
+            ...defaultSchema,
+            attributes: {
+              ...defaultSchema.attributes,
+              code: [
+                [
+                  'className',
+                  'language-diff',
+                  'language-html',
+                  'language-js',
+                  'language-jsx',
+                  'language-md',
+                  'language-mdx',
+                  'language-sh',
+                  'language-ts'
+                ]
+              ]
+            },
+            clobber: []
+          })
           .use(rehypeStringify)
           .process(buf)
 
