@@ -96,6 +96,7 @@ that works with our previous `@mdx-js/loader` (`1.6.22`):
             },
             {
               loader: '@mdx-js/loader',
+              /** @type {import('@mdx-js/loader').Options} */
               options: {}
             }
           ]
@@ -136,6 +137,7 @@ You can update your code as follows:
         },
         {
           loader: '@mdx-js/loader',
+          /** @type {import('@mdx-js/loader').Options} */
           options: {}
         }
       ]
@@ -164,6 +166,7 @@ You can update your code as follows:
         },
         {
           loader: '@mdx-js/loader',
+          /** @type {import('@mdx-js/loader').Options} */
           options: {
             providerImportSource: '@mdx-js/react',
             remarkPlugins: [remarkGfm]
@@ -207,6 +210,7 @@ Using Preact as an example:
 // …
 {
   loader: '@mdx-js/loader',
+  /** @type {import('@mdx-js/loader').Options} */
   options: {
     jsxImportSource: 'preact',
     // Optional: either remove the following line or install `@mdx-js/preact`.
