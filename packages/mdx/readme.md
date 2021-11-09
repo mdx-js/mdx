@@ -892,9 +892,9 @@ abide by its terms.
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[contribute]: https://v2.mdxjs.com/community/contribute/
+[contribute]: https://mdxjs.com/community/contribute/
 
-[support]: https://v2.mdxjs.com/community/support/
+[support]: https://mdxjs.com/community/support/
 
 [coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
@@ -922,7 +922,7 @@ abide by its terms.
 
 [rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
 
-[mdx-syntax]: https://v2.mdxjs.com/mdx/#mdx-syntax
+[mdx-syntax]: https://mdxjs.com/mdx/#mdx-syntax
 
 [use]: #use
 
@@ -968,14 +968,14 @@ abide by its terms.
 
 [astring]: https://github.com/davidbonnet/astring
 
-[integrations]: https://v2.mdxjs.com/getting-started/#integrations
+[integrations]: https://mdxjs.com/getting-started/#integrations
 
-[using-mdx]: https://v2.mdxjs.com/using-mdx/
+[using-mdx]: https://mdxjs.com/using-mdx/
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[types]: https://v2.mdxjs.com/getting-started/#types
+[types]: https://mdxjs.com/getting-started/#types
 
-[security]: https://v2.mdxjs.com/getting-started/#security
+[security]: https://mdxjs.com/getting-started/#security
 
 [typescript]: https://www.typescriptlang.org

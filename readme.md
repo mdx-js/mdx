@@ -32,8 +32,8 @@ flood conditions in many of the nearby rivers.
 <Chart year={year} color="#fcb32c" />
 ```
 
-See [§ What is MDX](https://v2.mdxjs.com/mdx/) for more info on the format.
-See [§ Playground](https://v2.mdxjs.com/playground/) to try it out.
+See [§ What is MDX](https://mdxjs.com/mdx/) for more info on the format.
+See [§ Playground](https://mdxjs.com/playground/) to try it out.
 
 ## What is this?
 
@@ -41,7 +41,7 @@ This GitHub repository contains several packages for compiling the MDX format to
 JavaScript, integrating with bundlers such as webpack and Rollup, and for using
 it with frameworks such as React, Preact, and Vue.
 
-See [§ Getting started](https://v2.mdxjs.com/getting-started/) for how to
+See [§ Getting started](https://mdxjs.com/getting-started/) for how to
 integrate MDX into your project.
 
 ## Security
@@ -145,17 +145,17 @@ See [§ Sponsor][sponsor] on our site for how to help financially.
 
 [chat]: https://github.com/mdx-js/mdx/discussions
 
-[security]: https://v2.mdxjs.com/getting-started/#security
+[security]: https://mdxjs.com/getting-started/#security
 
-[contribute]: https://v2.mdxjs.com/community/contribute/
+[contribute]: https://mdxjs.com/community/contribute/
 
-[support]: https://v2.mdxjs.com/community/support/
+[support]: https://mdxjs.com/community/support/
 
-[sponsor]: https://v2.mdxjs.com/community/sponsor/
+[sponsor]: https://mdxjs.com/community/sponsor/
 
 [coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
-[website]: https://v2.mdxjs.com
+[website]: https://mdxjs.com
 
 [mit]: license
 

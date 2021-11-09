@@ -207,9 +207,9 @@ abide by its terms.
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[contribute]: https://v2.mdxjs.com/community/contribute/
+[contribute]: https://mdxjs.com/community/contribute/
 
-[support]: https://v2.mdxjs.com/community/support/
+[support]: https://mdxjs.com/community/support/
 
 [coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
@@ -219,10 +219,10 @@ abide by its terms.
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[start-react]: https://v2.mdxjs.com/getting-started/#react
+[start-react]: https://mdxjs.com/getting-started/#react
 
-[use-provider]: https://v2.mdxjs.com/using-mdx/#mdx-provider
+[use-provider]: https://mdxjs.com/using-mdx/#mdx-provider
 
-[security]: https://v2.mdxjs.com/getting-started/#security
+[security]: https://mdxjs.com/getting-started/#security
 
 [typescript]: https://www.typescriptlang.org
