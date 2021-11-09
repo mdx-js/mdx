@@ -165,9 +165,9 @@ abide by its terms.
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[contribute]: https://v2.mdxjs.com/community/contribute/
+[contribute]: https://mdxjs.com/community/contribute/
 
-[support]: https://v2.mdxjs.com/community/support/
+[support]: https://mdxjs.com/community/support/
 
 [coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
@@ -177,10 +177,10 @@ abide by its terms.
 
 [require-extensions]: https://nodejs.org/api/modules.html#modules_require_extensions
 
-[eval-sync]: https://v2.mdxjs.com/packages/mdx/#evaluatesyncfile-options
+[eval-sync]: https://mdxjs.com/packages/mdx/#evaluatesyncfile-options
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[security]: https://v2.mdxjs.com/getting-started/#security
+[security]: https://mdxjs.com/getting-started/#security
 
 [typescript]: https://www.typescriptlang.org

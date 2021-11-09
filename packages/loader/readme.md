@@ -179,9 +179,9 @@ abide by its terms.
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[contribute]: https://v2.mdxjs.com/contributing
+[contribute]: https://mdxjs.com/contributing
 
-[support]: https://v2.mdxjs.com/support
+[support]: https://mdxjs.com/support
 
 [coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
@@ -193,11 +193,11 @@ abide by its terms.
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[types]: https://v2.mdxjs.com/getting-started/#types
+[types]: https://mdxjs.com/getting-started/#types
 
-[security]: https://v2.mdxjs.com/getting-started/#security
+[security]: https://mdxjs.com/getting-started/#security
 
-[options]: https://v2.mdxjs.com/packages/mdx/#compilefile-options
+[options]: https://mdxjs.com/packages/mdx/#compilefile-options
 
 [typescript]: https://www.typescriptlang.org
 
@@ -205,8 +205,8 @@ abide by its terms.
 
 [webpack-v8]: https://github.com/wooorm/xdm/issues/11#issuecomment-785043772
 
-[cra]: https://v2.mdxjs.com/getting-started/#create-react-app-cra
+[cra]: https://mdxjs.com/getting-started/#create-react-app-cra
 
-[next]: https://v2.mdxjs.com/getting-started/#nextjs
+[next]: https://mdxjs.com/getting-started/#nextjs
 
-[vue-cli]: https://v2.mdxjs.com/getting-started/#vue-cli
+[vue-cli]: https://mdxjs.com/getting-started/#vue-cli

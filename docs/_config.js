@@ -1,4 +1,4 @@
-const site = new URL('https://v2.mdxjs.com')
+const site = new URL('https://mdxjs.com')
 const git = new URL('../', import.meta.url)
 const gh = new URL('https://github.com/mdx-js/mdx/')
 
