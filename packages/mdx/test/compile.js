@@ -149,13 +149,14 @@ test('compile', async () => {
     '\nnote: the next deprecation is expected (preact is missing an export map)\n'
   )
 
-  assert.equal(
-    render(
-      h(await run(compileSync('?', {jsxImportSource: 'preact/compat'})), {})
-    ),
-    '<p>?</p>',
-    'should support an import source (`@jsxImportSource`)'
-  )
+  // To do: re-enable when `preact/compat` has a correct export map.
+  // assert.equal(
+  //   render(
+  //     h(await run(compileSync('?', {jsxImportSource: 'preact/compat'})), {})
+  //   ),
+  //   '<p>?</p>',
+  //   'should support an import source (`@jsxImportSource`)'
+  // )
 
   assert.equal(
     render(

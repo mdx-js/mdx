@@ -46,8 +46,9 @@
   },
   "scripts": {
     "#prepack": "npm run build",
-    "#": "to do when TS supports CJS: `build: rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" \"*.d.ts\" && tsc && type-coverage`",
-    "test-api": "uvu -r index.cjs test \"\\.c?js$\"",
+    "#1": "to do when TS supports CJS: `build: rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" \"*.d.ts\" && tsc && type-coverage`",
+    "#2": "to do: re-enable when `deasync` is built on Node 17",
+    "#test-api": "uvu -r index.cjs test \"\\.c?js$\"",
     "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
     "test": "npm run test-coverage"
   },

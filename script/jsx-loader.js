@@ -1,16 +1,50 @@
+import {promises as fs} from 'node:fs'
 import path from 'path'
-import {fileURLToPath} from 'url'
+import {URL, fileURLToPath} from 'node:url'
 import {transformSync} from 'esbuild'
 
-const {getFormat, transformSource} = createLoader()
+const {load, getFormat, transformSource} = createLoader()
 
-export {getFormat, transformSource}
+export {load, getFormat, transformSource}
 
 /**
  * A tiny JSX loader.
  */
 export function createLoader() {
-  return {getFormat, transformSource}
+  return {load, getFormat, transformSource}
+
+  // Node version 17.
+  /**
+   * @param {string} url
+   * @param {unknown} context
+   * @param {Function} defaultLoad
+   */
+  async function load(url, context, defaultLoad) {
+    if (path.extname(url) !== '.jsx') {
+      return defaultLoad(url, context, defaultLoad)
+    }
+
+    const fp = fileURLToPath(new URL(url))
+    const value = await fs.readFile(fp)
+    const {code, warnings} = transformSync(String(value), {
+      sourcefile: fileURLToPath(url),
+      sourcemap: 'both',
+      loader: 'jsx',
+      target: 'esnext',
+      format: 'esm'
+    })
+
+    if (warnings && warnings.length > 0) {
+      for (const warning of warnings) {
+        console.log(warning.location)
+        console.log(warning.text)
+      }
+    }
+
+    // V8 on Erbium.
+    /* c8 ignore next 2 */
+    return {format: 'module', source: code}
+  }
 
   /**
    * @param {string} url
