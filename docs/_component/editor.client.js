@@ -1,6 +1,6 @@
 import React, {useState, useMemo, createElement, memo, useCallback} from 'react'
 import {useDebounceFn} from 'ahooks'
-import * as runtime from 'react/jsx-runtime.js'
+import * as runtime from 'react/jsx-runtime'
 import {VFile} from 'vfile'
 import {VFileMessage} from 'vfile-message'
 import {statistics} from 'vfile-statistics'

@@ -25,10 +25,7 @@ test('@mdx-js/rollup', async () => {
 
   const output = (await bundle.generate({format: 'es', sourcemap: true})).output
 
-  await fs.writeFile(
-    new URL('./rollup.js', import.meta.url),
-    output[0].code.replace(/\/jsx-runtime(?=["'])/g, '$&.js')
-  )
+  await fs.writeFile(new URL('./rollup.js', import.meta.url), output[0].code)
 
   const Content = /** @type {MDXContent} */ (
     /* @ts-expect-error file is dynamically generated */

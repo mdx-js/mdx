@@ -172,6 +172,7 @@
     ],
     "prettier": true,
     "rules": {
+      "import/extensions": "off",
       "node/file-extension-in-import": "off",
       "react/prop-types": "off",
       "unicorn/prefer-node-protocol": "off",
