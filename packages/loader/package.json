@@ -44,7 +44,6 @@
   ],
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0-rc.1",
-    "loader-utils": "^2.0.0",
     "source-map": "^0.7.0"
   },
   "peerDependencies": {

@@ -6,11 +6,10 @@
  */
 
 import {SourceMapGenerator} from 'source-map'
-import {getOptions} from 'loader-utils'
 import {compile} from '@mdx-js/mdx'
 
 /**
- * A Webpack (4+) loader for MDX.
+ * A Webpack (5+) loader for MDX.
  * See `webpack.cjs`, which wraps this, because Webpack loaders must currently
  * be CommonJS.
  *
@@ -21,9 +20,7 @@ import {compile} from '@mdx-js/mdx'
 export function loader(value, callback) {
   /** @type {Defaults} */
   const defaults = this.sourceMap ? {SourceMapGenerator} : {}
-  /** @type {CompileOptions} */
-  // @ts-expect-error: types for webpack/loader-utils are out of sync.
-  const options = {...defaults, ...getOptions(this)}
+  const options = /** @type {CompileOptions} */ (this.getOptions())
 
   /* Removed option. */
   /* c8 ignore next 5 */
@@ -33,9 +30,12 @@ export function loader(value, callback) {
     )
   }
 
-  compile({value, path: this.resourcePath}, options).then((file) => {
-    // @ts-expect-error conflict between UInt8Array and Buffer is expected, and a tradeoff made in vfile typings to avoid `@types/node` being required
-    callback(null, file.value, file.map)
-    return file
-  }, callback)
+  compile({value, path: this.resourcePath}, {...defaults, ...options}).then(
+    (file) => {
+      // @ts-expect-error conflict between UInt8Array and Buffer is expected, and a tradeoff made in vfile typings to avoid `@types/node` being required
+      callback(null, file.value, file.map)
+      return file
+    },
+    callback
+  )
 }
