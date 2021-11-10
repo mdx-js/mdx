@@ -1,5 +1,14 @@
 /**
  * @typedef {import('@mdx-js/mdx/lib/compile.js').CompileOptions} CompileOptions
+ *
+ * @typedef LoaderOptions
+ * @property {boolean} [fixRuntimeWithoutExportMap=true]
+ *   Several JSX runtimes, notably React and Emotion, don’t yet have a proper
+ *   export map set up.
+ *   Export maps are needed to map `xxx/jsx-runtime` to an actual file in ESM.
+ *   This option fixes React et al by turning those into `xxx/jsx-runtime.js`.
+ *
+ * @typedef {CompileOptions & LoaderOptions} Options
  */
 
 import {promises as fs} from 'node:fs'
@@ -11,10 +20,18 @@ import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aw
 /**
  * Create smart processors to handle different formats.
  *
- * @param {CompileOptions} [options]
+ * @param {Options} [options]
  */
-export function createLoader(options) {
+export function createLoader(options = {}) {
   const {extnames, process} = createFormatAwareProcessors(options)
+  let fixRuntimeWithoutExportMap = options.fixRuntimeWithoutExportMap
+
+  if (
+    fixRuntimeWithoutExportMap === null ||
+    fixRuntimeWithoutExportMap === undefined
+  ) {
+    fixRuntimeWithoutExportMap = true
+  }
 
   return {load, getFormat, transformSource}
 
@@ -30,16 +47,16 @@ export function createLoader(options) {
       return defaultLoad(url, context, defaultLoad)
     }
 
-    const fp = fileURLToPath(new URL(url))
-    const value = await fs.readFile(fp)
-    const file = await process(new VFile({value, path: new URL(url)}))
+    const value = await fs.readFile(fileURLToPath(new URL(url)))
 
-    // V8 on Erbium.
-    /* c8 ignore next 2 */
-    return {
-      format: 'module',
-      source: String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
+    const file = await process(new VFile({value, path: new URL(url)}))
+    let source = String(file)
+
+    if (fixRuntimeWithoutExportMap) {
+      source = String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
     }
+
+    return {format: 'module', source}
   }
 
   // Pre version 17.
@@ -69,9 +86,13 @@ export function createLoader(options) {
     }
 
     const file = await process(new VFile({value, path: new URL(context.url)}))
-    // V8 on Erbium.
-    /* c8 ignore next 2 */
-    return {source: String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')}
+    let source = String(file)
+
+    if (fixRuntimeWithoutExportMap) {
+      source = String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
+    }
+
+    return {source}
   }
   /* c8 ignore end */
 }

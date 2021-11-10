@@ -145,10 +145,10 @@ test('compile', async () => {
     'should support the automatic runtime (`@jsxRuntime`)'
   )
 
-  console.log(
-    '\nnote: the next deprecation is expected (preact is missing an export map)\n'
-  )
-
+  // console.log(
+  //   '\nnote: the next deprecation is expected (preact is missing an export map)\n'
+  // )
+  //
   // To do: re-enable when `preact/compat` has a correct export map.
   // assert.equal(
   //   render(
@@ -178,12 +178,7 @@ test('compile', async () => {
 
   assert.equal(
     render(
-      h(
-        await run(compileSync('<>1</>', {jsxImportSource: 'preact'}), {
-          keepImport: true
-        }),
-        {}
-      )
+      h(await run(compileSync('<>1</>', {jsxImportSource: 'preact'})), {})
     ),
     '1',
     'should support `jsxImportSource` for `preact`'
@@ -198,8 +193,7 @@ test('compile', async () => {
           ).replace(
             /\/jsx-runtime(?=["'])/g,
             '$&/dist/emotion-react-jsx-runtime.cjs.prod.js'
-          ),
-          {keepImport: true}
+          )
         )
       )
     ),
@@ -947,7 +941,7 @@ test('markdown (GFM, with `remark-gfm`)', async () => {
         await run(compileSync('* [x] a\n* [ ] b', {remarkPlugins: [remarkGfm]}))
       )
     ),
-    '<ul class="contains-task-list">\n<li class="task-list-item"><input type="checkbox" checked="" disabled=""/> a</li>\n<li class="task-list-item"><input type="checkbox" disabled=""/> b</li>\n</ul>',
+    '<ul class="contains-task-list">\n<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> a</li>\n<li class="task-list-item"><input type="checkbox" disabled=""/> b</li>\n</ul>',
     'should support task lists (`* [x]` -> `input`)'
   )
 
@@ -1322,10 +1316,7 @@ test('source maps', async () => {
     Buffer.from(JSON.stringify(file.map)).toString('base64') +
     '\n'
 
-  await fs.writeFile(
-    path.join(base, 'sourcemap.js'),
-    String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
-  )
+  await fs.writeFile(path.join(base, 'sourcemap.js'), String(file))
 
   const Content = /** @type {MDXContent} */ (
     /* @ts-expect-error file is dynamically generated */
@@ -1356,32 +1347,21 @@ test.run()
 /**
  *
  * @param {VFileCompatible} input
- * @param {{keepImport?: boolean}} [options]
  * @return {Promise<MDXContent>}
  */
-async function run(input, options = {}) {
-  return (await runWhole(input, options)).default
+async function run(input) {
+  return (await runWhole(input)).default
 }
 
 /**
  *
  * @param {VFileCompatible} input
- * @param {{keepImport?: boolean}} [options]
  * @return {Promise<MDXModule>}
  */
-async function runWhole(input, options = {}) {
+async function runWhole(input) {
   const name = 'fixture-' + nanoid().toLowerCase() + '.js'
   const fp = path.join('test', 'context', name)
-  let doc = String(input)
-
-  // Extensionless imports only work in faux-ESM (webpack and such),
-  // *not* in Node by default: *except* if there’s an export map defined
-  // in `package.json`.
-  // React doesn’t have one yet (it’s on `master` but not yet released), so add
-  // the extension for ’em:
-  if (!options.keepImport) {
-    doc = doc.replace(/\/jsx-runtime(?=["'])/g, '$&.js')
-  }
+  const doc = String(input)
 
   await fs.writeFile(fp, doc)
 

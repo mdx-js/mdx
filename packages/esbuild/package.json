@@ -50,8 +50,8 @@
     "@types/react-dom": "^17.0.0",
     "@types/unist": "^2.0.0",
     "esbuild": "^0.13.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
+    "react": "^18.0.0-alpha-327d5c484-20211106",
+    "react-dom": "^18.0.0-alpha-327d5c484-20211106",
     "vfile-message": "^3.0.0"
   },
   "scripts": {

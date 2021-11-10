@@ -688,7 +688,7 @@ They come from an automatic JSX runtime that you must import yourself.
 <summary>Example</summary>
 
 ```js
-import * as runtime from 'react/jsx-runtime.js'
+import * as runtime from 'react/jsx-runtime'
 
 const {default: Content} = await evaluate('# hi', {...runtime, ...otherOptions})
 ```
@@ -704,7 +704,7 @@ Needed if you want to support a provider.
 
 ```js
 import * as provider from '@mdx-js/react'
-import * as runtime from 'react/jsx-runtime.js'
+import * as runtime from 'react/jsx-runtime'
 
 const {default: Content} = await evaluate('# hi', {...provider, ...runtime, ...otherOptions})
 ```
@@ -723,7 +723,7 @@ that was exported from the MDX file available too.
 Assuming the contents of `example.mdx` from [§ Use][use] was in `file`, then:
 
 ```js
-import * as runtime from 'react/jsx-runtime.js'
+import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
 
 console.log(await evaluate(file, {...runtime}))

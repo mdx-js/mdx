@@ -2,7 +2,7 @@ import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import {evaluate} from '@mdx-js/mdx'
 import React from 'react'
-import * as runtime from 'react/jsx-runtime.js'
+import * as runtime from 'react/jsx-runtime'
 import {renderToString} from 'react-dom/server.js'
 import {MDXProvider, useMDXComponents, withMDXComponents} from '../index.js'
 
