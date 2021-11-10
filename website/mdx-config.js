@@ -6,6 +6,8 @@
  * @typedef {Root|Content} Node
  */
 
+import path from 'path'
+import process from 'process'
 import {pathToFileURL} from 'url'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
@@ -34,6 +36,10 @@ import {nodeTypes} from '@mdx-js/mdx'
 import {config} from '../docs/_config.js'
 
 const own = {}.hasOwnProperty
+
+const reactUrl = pathToFileURL(
+  path.resolve(process.cwd(), 'node_modules', 'react')
+)
 
 const options = {
   remarkPlugins: [
@@ -84,7 +90,8 @@ const options = {
     rehypePresetMinify,
     [rehypeMinifyUrl, {ignoreMissingSource: true}]
   ],
-  recmaPlugins: [recmaInjectMeta]
+  recmaPlugins: [recmaInjectMeta],
+  jsxImportSource: reactUrl.href
 }
 
 export default options

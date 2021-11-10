@@ -47,8 +47,8 @@ export function createLoader(options = {}) {
       return defaultLoad(url, context, defaultLoad)
     }
 
+    /* eslint-disable-next-line security/detect-non-literal-fs-filename */
     const value = await fs.readFile(fileURLToPath(new URL(url)))
-
     const file = await process(new VFile({value, path: new URL(url)}))
     let source = String(file)
 
