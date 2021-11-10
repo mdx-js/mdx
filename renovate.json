@@ -1,4 +1,10 @@
 {
   "extends": ["config:base", ":preserveSemverRanges"],
-  "schedule": "before 3am on Monday"
+  "schedule": "before 3am on Monday",
+  "packageRules": [
+    {
+      "matchPackageNames": ["react-dom", "react-server-dom-webpack"],
+      "enabled": false
+    }
+  ]
 }
