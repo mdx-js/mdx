@@ -3,7 +3,7 @@
  */
 
 /**
- * @param {Expression[]} expressions
+ * @param {Array<Expression>} expressions
  */
 export function toBinaryAddition(expressions) {
   let index = -1

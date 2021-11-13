@@ -110,7 +110,7 @@ export function esbuild(options = {}) {
     }
 
     /**
-     * @param {Omit.<OnLoadArgs, 'pluginData'> & {pluginData?: {contents?: string|Uint8Array}}} data
+     * @param {Omit<OnLoadArgs, 'pluginData'> & {pluginData?: {contents?: string|Uint8Array}}} data
      * @returns {Promise<OnLoadResult>}
      */
     async function onload(data) {
@@ -125,11 +125,11 @@ export function esbuild(options = {}) {
       let file = new VFile({value: doc, path: data.path})
       /** @type {VFileValue|undefined} */
       let value
-      /** @type {(VFileMessage|Error)[]} */
+      /** @type {Array<VFileMessage|Error>} */
       let messages = []
-      /** @type {Message[]} */
+      /** @type {Array<Message>} */
       const errors = []
-      /** @type {Message[]} */
+      /** @type {Array<Message>} */
       const warnings = []
 
       try {

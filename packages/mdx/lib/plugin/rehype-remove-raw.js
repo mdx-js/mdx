@@ -9,7 +9,7 @@ import {visit} from 'unist-util-visit'
  * This is needed if the format is `md` and `rehype-raw` was not used to parse
  * dangerous HTML into nodes.
  *
- * @type {import('unified').Plugin<void[], Root>}
+ * @type {import('unified').Plugin<Array<void>, Root>}
  */
 export function rehypeRemoveRaw() {
   return (tree) => {

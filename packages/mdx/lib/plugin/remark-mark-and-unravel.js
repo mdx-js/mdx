@@ -15,7 +15,7 @@ import {visit} from 'unist-util-visit'
  * It also marks JSX as being explicitly JSX, so when a user passes a `h1`
  * component, it is used for `# heading` but not for `<h1>heading</h1>`.
  *
- * @type {import('unified').Plugin<void[], Root>}
+ * @type {import('unified').Plugin<Array<void>, Root>}
  */
 export function remarkMarkAndUnravel() {
   return (tree) => {

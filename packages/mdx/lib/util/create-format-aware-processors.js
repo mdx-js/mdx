@@ -13,7 +13,7 @@ import {resolveFileAndOptions} from './resolve-file-and-options.js'
  * Create smart processors to handle different formats.
  *
  * @param {CompileOptions} [compileOptions]
- * @return {{extnames: string[], process: process, processSync: processSync}}
+ * @return {{extnames: Array<string>, process: process, processSync: processSync}}
  */
 export function createFormatAwareProcessors(compileOptions = {}) {
   const mdExtensions = compileOptions.mdExtensions || md
@@ -37,7 +37,8 @@ export function createFormatAwareProcessors(compileOptions = {}) {
   /**
    * Smart processor.
    *
-   * @param {VFileCompatible} vfileCompatible MDX or markdown document
+   * @param {VFileCompatible} vfileCompatible
+   *   MDX or markdown document.
    * @return {Promise<VFile>}
    */
   function process(vfileCompatible) {
@@ -48,7 +49,8 @@ export function createFormatAwareProcessors(compileOptions = {}) {
   /**
    * Sync smart processor.
    *
-   * @param {VFileCompatible} vfileCompatible MDX or markdown document
+   * @param {VFileCompatible} vfileCompatible
+   *   MDX or markdown document.
    * @return {VFile}
    */
   // C8 does not cover `.cjs` files (this is only used for the require hook,
@@ -65,7 +67,8 @@ export function createFormatAwareProcessors(compileOptions = {}) {
    * This caches processors (one for markdown and one for MDX) so that they do
    * not have to be reconstructed for each file.
    *
-   * @param {VFileCompatible} vfileCompatible MDX or markdown document
+   * @param {VFileCompatible} vfileCompatible
+   *   MDX or markdown document.
    * @return {{file: VFile, processor: Processor}}
    */
   function split(vfileCompatible) {

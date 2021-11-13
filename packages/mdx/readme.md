@@ -191,12 +191,12 @@ This is a new ecosystem, currently in beta, to transform [esast][] trees
 
 ###### `options.mdExtensions`
 
-List of markdown extensions, with dot (`string[]`, default: `['.md',
+List of markdown extensions, with dot (`Array<string>`, default: `['.md',
 '.markdown', '.mdown', '.mkdn', '.mkd', '.mdwn', '.mkdown', '.ron']`).
 
 ###### `options.mdxExtensions`
 
-List of MDX extensions, with dot (`string[]`, default: `['.mdx']`).
+List of MDX extensions, with dot (`Array<string>`, default: `['.mdx']`).
 Has no effect in `compile` or `evaluate` but does affect
 [§ Integrations][integrations].
 
@@ -689,7 +689,7 @@ See `options.pragma` for an example.
 
 ###### Returns
 
-`Promise.<VFile>` — Promise that resolves to the compiled JS as a [vfile][].
+`Promise<VFile>` — Promise that resolves to the compiled JS as a [vfile][].
 
 <details>
 <summary>Example</summary>
@@ -790,9 +790,9 @@ const {default: Content} = await evaluate('# hi', {...provider, ...runtime, ...o
 
 ###### Returns
 
-`Promise.<Object>` — Promise that resolves to something that looks a bit like a
-module: an object with a `default` field set to the component and anything else
-that was exported from the MDX file available too.
+`Promise<OMDXModule>` — Promise that resolves to something that looks a bit like
+a module: an object with a `default` field set to the component and anything
+else that was exported from the MDX file available too.
 
 <details>
 <summary>Example</summary>

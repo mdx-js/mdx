@@ -16,7 +16,7 @@ import {CopyButton} from '../docs/_component/copy.client.js'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
-/** @type {{format(items: string[]): string}} */
+/** @type {{format(items: Array<string>): string}} */
 // @ts-expect-error: TS doesn’t know about `ListFormat` yet.
 const listFormat = new Intl.ListFormat('en')
 

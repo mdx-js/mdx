@@ -12,7 +12,9 @@ import {resolveEvaluateOptions} from './util/resolve-evaluate-options.js'
 /**
  * Evaluate MDX.
  *
- * @param {VFileCompatible} vfileCompatible MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be given to `vfile`)
+ * @param {VFileCompatible} vfileCompatible
+ *   MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be
+ *   given to `vfile`).
  * @param {EvaluateOptions} evaluateOptions
  * @return {Promise<ExportMap>}
  */
@@ -26,7 +28,9 @@ export async function evaluate(vfileCompatible, evaluateOptions) {
 /**
  * Synchronously evaluate MDX.
  *
- * @param {VFileCompatible} vfileCompatible MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be given to `vfile`)
+ * @param {VFileCompatible} vfileCompatible
+ *   MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be
+ *   given to `vfile`).
  * @param {EvaluateOptions} evaluateOptions
  * @return {ExportMap}
  */
