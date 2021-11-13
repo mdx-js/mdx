@@ -23,6 +23,8 @@ MDX compiler.
     *   [`compileSync(file, options?)`](#compilesyncfile-options)
     *   [`evaluate(file, options)`](#evaluatefile-options)
     *   [`evaluateSync(file, options)`](#evaluatesyncfile-options)
+    *   [`run(functionBody, options)`](#runfunctionbody-options)
+    *   [`runSync(functionBody, options)`](#runsyncfunctionbody-options)
     *   [`createProcessor(options)`](#createprocessoroptions)
 *   [Types](#types)
 *   [Architecture](#architecture)
@@ -114,7 +116,9 @@ This package exports the following identifiers:
 [`compile`][compile],
 [`compileSync`][compile-sync],
 [`evaluate`][eval],
-[`evaluateSync`][eval-sync], and
+[`evaluateSync`](#evaluatesyncfile-options),
+[`run`][run],
+[`runSync`](#runsyncfunctionbody-options), and
 [`createProcessor`][create-processor].
 There is no default export.
 
@@ -240,7 +244,7 @@ because in those it affects *which* files are “registered”:
 Output format to generate (`'program' | 'function-body'`, default: `'program'`).
 In most cases `'program'` should be used, as it results in a whole program.
 Internally, [`evaluate`][eval] uses `outputFormat: 'function-body'` to compile
-to code that can be `eval`d.
+to code that can be `eval`ed with [`run`][run].
 In some cases, you might want to do what `evaluate` does in separate steps
 yourself, such as when compiling on the server and running on the client.
 
@@ -725,15 +729,13 @@ When possible please use the async `compile`.
 
 ### `evaluate(file, options)`
 
-Compile and run MDX.
-☢️ It’s called **evaluate** because it `eval`s JavaScript.
+> ☢️ **Danger**: It’s called **evaluate** because it `eval`s JavaScript.
+
+[Compile][] and [run][] MDX.
 When possible, please use `compile`, write to a file, and then run with Node,
 or use one of the
 [§ Integrations][integrations].
 But if you trust your content, `evaluate` can work.
-
-`evaluate` wraps code in an [`AsyncFunction`][async-function], `evaluateSync`
-uses a normal [`Function`][function].
 
 Typically, `import` (or `export … from`) do not work here.
 They can be compiled to dynamic `import()` by passing
@@ -832,9 +834,69 @@ be diffed:
 
 ### `evaluateSync(file, options)`
 
+> ☢️ **Danger**: It’s called **evaluate** because it `eval`s JavaScript.
+
 Compile and run MDX.
 Synchronous version of [`evaluate`][eval].
 When possible please use the async `evaluate`.
+
+### `run(functionBody, options)`
+
+> ☢️ **Danger**: This `eval`s JavaScript.
+
+Run MDX compiled as [`options.outputFormat: 'function-body'`][outputformat].
+
+###### `options`
+
+You can pass `jsx`, `jsxs`, and `Fragment` from an automatic JSX runtime as
+`options`.
+You can also pass `useMDXComponents` from a provider in options if the MDX is
+compiled with `options.providerImportSource: '#'` (the exact value of this
+compile option doesn’t matter).
+All other options have to be passed to `compile` instead.
+
+###### Returns
+
+`Promise<MDXModule>` — See `evaluate`
+
+<details>
+<summary>Example</summary>
+
+On the server:
+
+```js
+import {compile} from '@mdx-js/mdx'
+
+const code = String(await compile('# hi', {outputFormat: 'function-body'}))
+// To do: send `code` to the client somehow.
+```
+
+On the client:
+
+```js
+import * as runtime from 'react/jsx-runtime'
+import {run} from '@mdx-js/mdx'
+
+const code = '' // To do: get `code` from server somehow.
+
+const {default: Content} = await run(code, runtime)
+```
+
+…yields:
+
+```js
+[Function: MDXContent]
+```
+
+</details>
+
+### `runSync(functionBody, options)`
+
+> ☢️ **Danger**: This `eval`s JavaScript.
+
+Run MDX.
+Synchronous version of [`run`][run].
+When possible please use the async `run`.
 
 ### `createProcessor(options)`
 
@@ -985,7 +1047,7 @@ abide by its terms.
 
 [eval]: #evaluatefile-options
 
-[eval-sync]: #evaluatesyncfile-options
+[run]: #runfunctionbody-options
 
 [create-processor]: #createprocessoroptions
 
@@ -1008,10 +1070,6 @@ abide by its terms.
 [baseurl]: #optionsbaseurl
 
 [usedynamicimport]: #optionsusedynamicimport
-
-[async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction
-
-[function]: https://developer.mozilla.org/docs/JavaScript/Reference/Global_Objects/Function
 
 [unified]: https://github.com/unifiedjs/unified
 
