@@ -7,6 +7,7 @@
 
 import {buildJsx} from 'estree-util-build-jsx'
 import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
+import {toIdOrMemberExpression} from '../util/estree-util-to-id-or-member-expression.js'
 
 /**
  * A plugin to build JSX into function calls.
@@ -33,13 +34,10 @@ export function recmaJsxBuild(options = {}) {
       tree.body[0] = {
         type: 'VariableDeclaration',
         kind: 'const',
-        declarations: specifiersToDeclarations(tree.body[0].specifiers, {
-          type: 'MemberExpression',
-          object: {type: 'Identifier', name: 'arguments'},
-          property: {type: 'Literal', value: 0},
-          computed: true,
-          optional: false
-        })
+        declarations: specifiersToDeclarations(
+          tree.body[0].specifiers,
+          toIdOrMemberExpression(['arguments', 0])
+        )
       }
     }
   }

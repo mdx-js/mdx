@@ -177,7 +177,8 @@
       "react/prop-types": "off",
       "unicorn/prefer-node-protocol": "off",
       "capitalized-comments": "off",
-      "complexity": "off"
+      "complexity": "off",
+      "max-depth": "off"
     },
     "overrides": [
       {

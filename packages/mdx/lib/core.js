@@ -31,6 +31,7 @@ import {rehypeRecma} from './plugin/rehype-recma.js'
 import {rehypeRemoveRaw} from './plugin/rehype-remove-raw.js'
 import {remarkMarkAndUnravel} from './plugin/remark-mark-and-unravel.js'
 import {nodeTypes} from './node-types.js'
+import {development as defaultDevelopment} from './condition.js'
 
 const removedOptions = [
   'filepath',
@@ -53,6 +54,7 @@ const removedOptions = [
  */
 export function createProcessor(options = {}) {
   const {
+    development = defaultDevelopment,
     jsx,
     format,
     outputFormat,
@@ -102,7 +104,7 @@ export function createProcessor(options = {}) {
   pipeline
     .use(rehypeRecma)
     .use(recmaDocument, {...rest, outputFormat})
-    .use(recmaJsxRewrite, {providerImportSource, outputFormat})
+    .use(recmaJsxRewrite, {development, providerImportSource, outputFormat})
 
   if (!jsx) {
     pipeline.use(recmaJsxBuild, {outputFormat})

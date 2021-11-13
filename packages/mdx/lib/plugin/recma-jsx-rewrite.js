@@ -5,7 +5,6 @@
  * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
  * @typedef {import('estree-jsx').JSXElement} JSXElement
  * @typedef {import('estree-jsx').JSXIdentifier} JSXIdentifier
- * @typedef {import('estree-jsx').JSXMemberExpression} JSXMemberExpression
  * @typedef {import('estree-jsx').JSXNamespacedName} JSXNamespacedName
  * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
  * @typedef {import('estree-jsx').Program} Program
@@ -13,6 +12,7 @@
  * @typedef {import('estree-jsx').Statement} Statement
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
  * @typedef {import('estree-jsx').ObjectPattern} ObjectPattern
+ * @typedef {import('estree-jsx').Identifier} Identifier
  *
  * @typedef {import('estree-walker').SyncHandler} WalkHandler
  *
@@ -21,18 +21,29 @@
  * @typedef RecmaJsxRewriteOptions
  * @property {'program'|'function-body'} [outputFormat='program'] Whether to use an import statement or `arguments[0]` to get the provider
  * @property {string} [providerImportSource] Place to import a provider from
+ * @property {boolean} [development=false] Whether to add extra information to error messages in generated code (can also be passed in Node.js by setting `NODE_ENV=development`)
  *
  * @typedef StackEntry
  * @property {Array.<string>} objects
  * @property {Array.<string>} components
  * @property {Array.<string>} tags
+ * @property {Record.<string, {node: JSXElement, component: boolean}>} references
  * @property {ESFunction} node
  */
 
+import {stringifyPosition} from 'unist-util-stringify-position'
+import {positionFromEstree} from 'unist-util-position-from-estree'
 import {name as isIdentifierName} from 'estree-util-is-identifier-name'
 import {walk} from 'estree-walker'
 import {analyze} from 'periscopic'
 import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
+import {
+  toIdOrMemberExpression,
+  toJsxIdOrMemberExpression
+} from '../util/estree-util-to-id-or-member-expression.js'
+import {toBinaryAddition} from '../util/estree-util-to-binary-addition.js'
+
+const own = {}.hasOwnProperty
 
 /**
  * A plugin that rewrites JSX in functions to accept components as
@@ -44,15 +55,17 @@ import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declar
  * @type {import('unified').Plugin<[RecmaJsxRewriteOptions]|[], Program>}
  */
 export function recmaJsxRewrite(options = {}) {
-  const {providerImportSource, outputFormat} = options
+  const {development, providerImportSource, outputFormat} = options
 
-  return (tree) => {
+  return (tree, file) => {
     // Find everything that’s defined in the top-level scope.
     const scopeInfo = analyze(tree)
     /** @type {Array.<StackEntry>} */
     const fnStack = []
     /** @type {boolean|undefined} */
     let importProvider
+    /** @type {boolean|undefined} */
+    let createErrorHelper
     /** @type {Scope|null} */
     let currentScope
 
@@ -65,7 +78,13 @@ export function recmaJsxRewrite(options = {}) {
           node.type === 'FunctionExpression' ||
           node.type === 'ArrowFunctionExpression'
         ) {
-          fnStack.push({objects: [], components: [], tags: [], node})
+          fnStack.push({
+            objects: [],
+            components: [],
+            tags: [],
+            references: {},
+            node
+          })
         }
 
         let fnScope = fnStack[0]
@@ -100,10 +119,22 @@ export function recmaJsxRewrite(options = {}) {
 
           // `<x.y>`, `<Foo.Bar>`, `<x.y.z>`.
           if (name.type === 'JSXMemberExpression') {
-            // Find the left-most identifier.
-            while (name.type === 'JSXMemberExpression') name = name.object
+            /** @type {string[]} */
+            const ids = []
 
+            // Find the left-most identifier.
+            while (name.type === 'JSXMemberExpression') {
+              ids.unshift(name.property.name)
+              name = name.object
+            }
+
+            ids.unshift(name.name)
+            const fullId = ids.join('.')
             const id = name.name
+
+            if (!own.call(fnScope.references, fullId)) {
+              fnScope.references[fullId] = {node, component: true}
+            }
 
             if (!fnScope.objects.includes(id) && !inScope(currentScope, id)) {
               fnScope.objects.push(id)
@@ -120,11 +151,16 @@ export function recmaJsxRewrite(options = {}) {
           else if (isIdentifierName(name.name) && !/^[a-z]/.test(name.name)) {
             const id = name.name
 
-            if (
-              !fnScope.components.includes(id) &&
-              !inScope(currentScope, id)
-            ) {
-              fnScope.components.push(id)
+            if (!inScope(currentScope, id)) {
+              // No need to add an error for an undefined layout — we use an
+              // `if` later.
+              if (id !== 'MDXLayout' && !own.call(fnScope.references, id)) {
+                fnScope.references[id] = {node, component: true}
+              }
+
+              if (!fnScope.components.includes(id)) {
+                fnScope.components.push(id)
+              }
             }
           }
           // @ts-expect-error Allow fields passed through from mdast through hast to
@@ -147,11 +183,10 @@ export function recmaJsxRewrite(options = {}) {
             }
 
             if (node.closingElement) {
-              node.closingElement.name = {
-                type: 'JSXMemberExpression',
-                object: {type: 'JSXIdentifier', name: '_components'},
-                property: {type: 'JSXIdentifier', name: id}
-              }
+              node.closingElement.name = toJsxIdOrMemberExpression([
+                '_components',
+                id
+              ])
             }
           }
         }
@@ -203,6 +238,26 @@ export function recmaJsxRewrite(options = {}) {
             }
           }
 
+          /** @type {string} */
+          let key
+
+          // Add partials (so for `x.y.z` it’d generate `x` and `x.y` too).
+          for (key in scope.references) {
+            if (own.call(scope.references, key)) {
+              const parts = key.split('.')
+              let index = 0
+              while (++index < parts.length) {
+                const partial = parts.slice(0, index).join('.')
+                if (!own.call(scope.references, partial)) {
+                  scope.references[partial] = {
+                    node: scope.references[key].node,
+                    component: false
+                  }
+                }
+              }
+            }
+          }
+
           if (defaults.length > 0 || actual.length > 0) {
             if (providerImportSource) {
               importProvider = true
@@ -220,13 +275,7 @@ export function recmaJsxRewrite(options = {}) {
               isNamedFunction(scope.node, 'MDXContent') ||
               isNamedFunction(scope.node, '_createMdxContent')
             ) {
-              parameters.push({
-                type: 'MemberExpression',
-                object: {type: 'Identifier', name: 'props'},
-                property: {type: 'Identifier', name: 'components'},
-                computed: false,
-                optional: false
-              })
+              parameters.push(toIdOrMemberExpression(['props', 'components']))
             }
 
             if (defaults.length > 0 || parameters.length > 1) {
@@ -242,13 +291,7 @@ export function recmaJsxRewrite(options = {}) {
               parameters.length > 1
                 ? {
                     type: 'CallExpression',
-                    callee: {
-                      type: 'MemberExpression',
-                      object: {type: 'Identifier', name: 'Object'},
-                      property: {type: 'Identifier', name: 'assign'},
-                      computed: false,
-                      optional: false
-                    },
+                    callee: toIdOrMemberExpression(['Object', 'assign']),
                     arguments: parameters,
                     optional: false
                   }
@@ -316,11 +359,55 @@ export function recmaJsxRewrite(options = {}) {
               }
             }
 
-            fn.body.body.unshift({
-              type: 'VariableDeclaration',
-              kind: 'const',
-              declarations
-            })
+            /** @type {Statement[]} */
+            const statements = [
+              {
+                type: 'VariableDeclaration',
+                kind: 'const',
+                declarations
+              }
+            ]
+
+            const references = Object.keys(scope.references).sort()
+            let index = -1
+            while (++index < references.length) {
+              const id = references[index]
+              const info = scope.references[id]
+              const place = stringifyPosition(positionFromEstree(info.node))
+              /** @type {Expression[]} */
+              const parameters = [
+                {type: 'Literal', value: id},
+                {type: 'Literal', value: info.component}
+              ]
+
+              createErrorHelper = true
+
+              if (development && place !== '1:1-1:1') {
+                parameters.push({type: 'Literal', value: place})
+              }
+
+              statements.push({
+                type: 'IfStatement',
+                test: {
+                  type: 'UnaryExpression',
+                  operator: '!',
+                  prefix: true,
+                  argument: toIdOrMemberExpression(id.split('.'))
+                },
+                consequent: {
+                  type: 'ExpressionStatement',
+                  expression: {
+                    type: 'CallExpression',
+                    callee: {type: 'Identifier', name: '_missingMdxReference'},
+                    arguments: parameters,
+                    optional: false
+                  }
+                },
+                alternate: null
+              })
+            }
+
+            fn.body.body.unshift(...statements)
           }
 
           fnStack.pop()
@@ -333,6 +420,72 @@ export function recmaJsxRewrite(options = {}) {
       tree.body.unshift(
         createImportProvider(providerImportSource, outputFormat)
       )
+    }
+
+    // If potentially missing components are used.
+    if (createErrorHelper) {
+      /** @type {Expression[]} */
+      const message = [
+        {type: 'Literal', value: 'Expected '},
+        {
+          type: 'ConditionalExpression',
+          test: {type: 'Identifier', name: 'component'},
+          consequent: {type: 'Literal', value: 'component'},
+          alternate: {type: 'Literal', value: 'object'}
+        },
+        {type: 'Literal', value: ' `'},
+        {type: 'Identifier', name: 'id'},
+        {
+          type: 'Literal',
+          value:
+            '` to be defined: you likely forgot to import, pass, or provide it.'
+        }
+      ]
+
+      /** @type {Identifier[]} */
+      const parameters = [
+        {type: 'Identifier', name: 'id'},
+        {type: 'Identifier', name: 'component'}
+      ]
+
+      if (development) {
+        message.push({
+          type: 'ConditionalExpression',
+          test: {type: 'Identifier', name: 'place'},
+          consequent: toBinaryAddition([
+            {type: 'Literal', value: '\nIt’s referenced in your code at `'},
+            {type: 'Identifier', name: 'place'},
+            {
+              type: 'Literal',
+              value: (file.path ? '` in `' + file.path : '') + '`'
+            }
+          ]),
+          alternate: {type: 'Literal', value: ''}
+        })
+
+        parameters.push({type: 'Identifier', name: 'place'})
+      }
+
+      tree.body.push({
+        type: 'FunctionDeclaration',
+        id: {type: 'Identifier', name: '_missingMdxReference'},
+        generator: false,
+        async: false,
+        params: parameters,
+        body: {
+          type: 'BlockStatement',
+          body: [
+            {
+              type: 'ThrowStatement',
+              argument: {
+                type: 'NewExpression',
+                callee: {type: 'Identifier', name: 'Error'},
+                arguments: [toBinaryAddition(message)]
+              }
+            }
+          ]
+        }
+      })
     }
   }
 }
@@ -356,13 +509,10 @@ function createImportProvider(providerImportSource, outputFormat) {
     ? {
         type: 'VariableDeclaration',
         kind: 'const',
-        declarations: specifiersToDeclarations(specifiers, {
-          type: 'MemberExpression',
-          object: {type: 'Identifier', name: 'arguments'},
-          property: {type: 'Literal', value: 0},
-          computed: true,
-          optional: false
-        })
+        declarations: specifiersToDeclarations(
+          specifiers,
+          toIdOrMemberExpression(['arguments', 0])
+        )
       }
     : {
         type: 'ImportDeclaration',

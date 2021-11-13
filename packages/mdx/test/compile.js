@@ -41,7 +41,6 @@ test('compile', async () => {
     assert.unreachable()
   } catch (/** @type {unknown} */ error) {
     const exception = /** @type {Error} */ (error)
-    console.log(exception.message)
     assert.match(
       exception.message,
       /`options.filepath` is no longer supported/,
@@ -470,8 +469,6 @@ test('compile', async () => {
     )
   }
 
-  console.log('\nnote: the next warning is expected!\n')
-
   try {
     renderToStaticMarkup(React.createElement(await run(compileSync('<X />'))))
     assert.unreachable()
@@ -479,7 +476,7 @@ test('compile', async () => {
     const exception = /** @type {Error} */ (error)
     assert.match(
       exception.message,
-      /Element type is invalid/,
+      /Expected component `X` to be defined/,
       'should throw if a required component is not passed'
     )
   }
@@ -491,8 +488,43 @@ test('compile', async () => {
     const exception = /** @type {Error} */ (error)
     assert.match(
       exception.message,
-      /Cannot read propert/,
+      /Expected object `a` to be defined/,
       'should throw if a required member is not passed'
+    )
+  }
+
+  try {
+    renderToStaticMarkup(
+      React.createElement(await run(compileSync('<X />', {development: true})))
+    )
+    assert.unreachable()
+  } catch (/** @type {unknown} */ error) {
+    const exception = /** @type {Error} */ (error)
+    assert.match(
+      exception.message,
+      /It’s referenced in your code at `1:1-1:6/,
+      'should pass more info to errors w/ `development: true`'
+    )
+  }
+
+  try {
+    renderToStaticMarkup(
+      React.createElement(
+        await run(
+          compileSync(
+            {value: 'asd <a.b />', path: 'folder/example.mdx'},
+            {development: true}
+          )
+        )
+      )
+    )
+    assert.unreachable()
+  } catch (/** @type {unknown} */ error) {
+    const exception = /** @type {Error} */ (error)
+    assert.match(
+      exception.message,
+      /It’s referenced in your code at `1:5-1:12` in `folder\/example.mdx`/,
+      'should show what file contains the error w/ `development: true`, and `path`'
     )
   }
 
@@ -516,8 +548,6 @@ test('compile', async () => {
     'should support setting components through context with a `providerImportSource`'
   )
 
-  console.log('\nnote: the next warning is expected!\n')
-
   try {
     renderToStaticMarkup(
       React.createElement(
@@ -529,7 +559,7 @@ test('compile', async () => {
     const exception = /** @type {Error} */ (error)
     assert.match(
       exception.message,
-      /Element type is invalid/,
+      /Expected component `X` to be defined/,
       'should throw if a required component is not passed or given to `MDXProvider`'
     )
   }
@@ -736,10 +766,15 @@ test('jsx', async () => {
       '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent /></MDXLayout> : _createMdxContent();',
       '  function _createMdxContent() {',
       '    const {c} = props.components || ({});',
+      '    if (!c) _missingMdxReference("c", false);',
+      '    if (!c.d) _missingMdxReference("c.d", true);',
       '    return <><><a:b /><c.d /></></>;',
       '  }',
       '}',
       'export default MDXContent;',
+      'function _missingMdxReference(id, component) {',
+      '  throw new Error("Expected " + (component ? "component" : "object") + " `" + id + "` to be defined: you likely forgot to import, pass, or provide it.");',
+      '}',
       ''
     ].join('\n'),
     'should serialize fragments, namespaces, members'
