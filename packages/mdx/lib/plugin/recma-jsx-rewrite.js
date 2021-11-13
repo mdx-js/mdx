@@ -12,6 +12,7 @@
  * @typedef {import('estree-jsx').Property} Property
  * @typedef {import('estree-jsx').Statement} Statement
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
+ * @typedef {import('estree-jsx').ObjectPattern} ObjectPattern
  *
  * @typedef {import('estree-walker').SyncHandler} WalkHandler
  *
@@ -35,7 +36,7 @@ import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declar
 
 /**
  * A plugin that rewrites JSX in functions to accept components as
- * `props.components` (when the function is called `MDXContent`), or from
+ * `props.components` (when the function is called `_createMdxContent`), or from
  * a provider (if there is one).
  * It also makes sure that any undefined components are defined: either from
  * received components or as a function that throws an error.
@@ -67,13 +68,21 @@ export function recmaJsxRewrite(options = {}) {
           fnStack.push({objects: [], components: [], tags: [], node})
         }
 
-        const fnScope = fnStack[0]
+        let fnScope = fnStack[0]
 
         if (
           !fnScope ||
-          (!isMdxContent(fnScope.node) && !providerImportSource)
+          (!isNamedFunction(fnScope.node, 'MDXContent') &&
+            !providerImportSource)
         ) {
           return
+        }
+
+        if (
+          fnStack[1] &&
+          isNamedFunction(fnStack[1].node, '_createMdxContent')
+        ) {
+          fnScope = fnStack[1]
         }
 
         const newScope = /** @type {Scope|undefined} */ (
@@ -195,8 +204,6 @@ export function recmaJsxRewrite(options = {}) {
           }
 
           if (defaults.length > 0 || actual.length > 0) {
-            parameters.push({type: 'ObjectExpression', properties: defaults})
-
             if (providerImportSource) {
               importProvider = true
               parameters.push({
@@ -207,8 +214,12 @@ export function recmaJsxRewrite(options = {}) {
               })
             }
 
-            // Accept `components` as a prop if this is the `MDXContent` function.
-            if (isMdxContent(scope.node)) {
+            // Accept `components` as a prop if this is the `MDXContent` or
+            // `_createMdxContent` function.
+            if (
+              isNamedFunction(scope.node, 'MDXContent') ||
+              isNamedFunction(scope.node, '_createMdxContent')
+            ) {
               parameters.push({
                 type: 'MemberExpression',
                 object: {type: 'Identifier', name: 'props'},
@@ -218,22 +229,42 @@ export function recmaJsxRewrite(options = {}) {
               })
             }
 
-            declarations.push({
-              type: 'VariableDeclarator',
-              id: {type: 'Identifier', name: '_components'},
-              init: {
-                type: 'CallExpression',
-                callee: {
-                  type: 'MemberExpression',
-                  object: {type: 'Identifier', name: 'Object'},
-                  property: {type: 'Identifier', name: 'assign'},
-                  computed: false,
-                  optional: false
-                },
-                arguments: parameters,
-                optional: false
-              }
-            })
+            if (defaults.length > 0 || parameters.length > 1) {
+              parameters.unshift({
+                type: 'ObjectExpression',
+                properties: defaults
+              })
+            }
+
+            // If we’re getting components from several sources, merge them.
+            /** @type {Expression} */
+            let componentsInit =
+              parameters.length > 1
+                ? {
+                    type: 'CallExpression',
+                    callee: {
+                      type: 'MemberExpression',
+                      object: {type: 'Identifier', name: 'Object'},
+                      property: {type: 'Identifier', name: 'assign'},
+                      computed: false,
+                      optional: false
+                    },
+                    arguments: parameters,
+                    optional: false
+                  }
+                : parameters[0].type === 'MemberExpression'
+                ? // If we’re only getting components from `props.components`,
+                  // make sure it’s defined.
+                  {
+                    type: 'LogicalExpression',
+                    operator: '||',
+                    left: parameters[0],
+                    right: {type: 'ObjectExpression', properties: []}
+                  }
+                : parameters[0]
+
+            /** @type {ObjectPattern|undefined} */
+            let componentsPattern
 
             // Add components to scope.
             // For `['MyComponent', 'MDXLayout']` this generates:
@@ -243,24 +274,37 @@ export function recmaJsxRewrite(options = {}) {
             // Note that MDXLayout is special as it’s taken from
             // `_components.wrapper`.
             if (actual.length > 0) {
+              componentsPattern = {
+                type: 'ObjectPattern',
+                properties: actual.map((name) => ({
+                  type: 'Property',
+                  kind: 'init',
+                  key: {
+                    type: 'Identifier',
+                    name: name === 'MDXLayout' ? 'wrapper' : name
+                  },
+                  value: {type: 'Identifier', name},
+                  method: false,
+                  shorthand: name !== 'MDXLayout',
+                  computed: false
+                }))
+              }
+            }
+
+            if (scope.tags.length > 0) {
               declarations.push({
                 type: 'VariableDeclarator',
-                id: {
-                  type: 'ObjectPattern',
-                  properties: actual.map((name) => ({
-                    type: 'Property',
-                    kind: 'init',
-                    key: {
-                      type: 'Identifier',
-                      name: name === 'MDXLayout' ? 'wrapper' : name
-                    },
-                    value: {type: 'Identifier', name},
-                    method: false,
-                    shorthand: name !== 'MDXLayout',
-                    computed: false
-                  }))
-                },
-                init: {type: 'Identifier', name: '_components'}
+                id: {type: 'Identifier', name: '_components'},
+                init: componentsInit
+              })
+              componentsInit = {type: 'Identifier', name: '_components'}
+            }
+
+            if (componentsPattern) {
+              declarations.push({
+                type: 'VariableDeclarator',
+                id: componentsPattern,
+                init: componentsInit
               })
             }
 
@@ -328,13 +372,12 @@ function createImportProvider(providerImportSource, outputFormat) {
 }
 
 /**
- * @param {ESFunction} [node]
+ * @param {ESFunction} node
+ * @param {string} name
  * @returns {boolean}
  */
-function isMdxContent(node) {
-  return Boolean(
-    node && 'id' in node && node.id && node.id.name === 'MDXContent'
-  )
+function isNamedFunction(node, name) {
+  return Boolean(node && 'id' in node && node.id && node.id.name === name)
 }
 
 /**

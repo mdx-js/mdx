@@ -34,7 +34,7 @@ test('@mdx-js/rollup', async () => {
 
   assert.equal(
     output[0].map ? output[0].map.mappings : undefined,
-    ';;;MAAaA,UAAU;YAAQ;;;;;;;;iBAE7B;;;;;;;;;;',
+    ';;;MAAaA,UAAU;YAAQ;;;;;;;;;;;;iBAE7B;;;;;;;',
     'should add a source map'
   )
 
