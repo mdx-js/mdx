@@ -76,16 +76,14 @@ import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runti
 export const Thing = () => _jsx(_Fragment, {children: 'World'})
 
 function MDXContent(props = {}) {
-  const _components = Object.assign({h1: 'h1'}, props.components)
-  const {wrapper: MDXLayout} = _components
-  const _content = _jsx(_Fragment, {
-    children: _jsxs(_components.h1, {
-      children: ['Hello ', _jsx(Thing, {})]
-    })
-  })
+  const {wrapper: MDXLayout} = props.components || ({})
   return MDXLayout
-    ? _jsx(MDXLayout, Object.assign({}, props, {children: _content}))
-    : _content
+    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, {})}))
+    : _createMdxContent()
+  function _createMdxContent() {
+     const _components = Object.assign({h1: 'h1'}, props.components)
+     return _jsxs(_components.h1, {children: ['Hello, ', _jsx(Thing, {})]})
+   }
 }
 
 export default MDXContent
@@ -94,10 +92,10 @@ export default MDXContent
 Some more observations:
 
 *   JSX is compiled away to function calls and an import of React†
-*   The content component can be given `{components: {h1: MyComponent}}` to use
-    something else for the heading
 *   The content component can be given `{components: {wrapper: MyLayout}}` to
     wrap all content
+*   The content component can be given `{components: {h1: MyComponent}}` to use
+    something else for the heading
 
 † MDX is not coupled to React.
 You can also use it with [Preact][],

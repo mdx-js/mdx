@@ -470,14 +470,36 @@ export function recmaDocument(options = {}) {
       },
       children: [
         {
-          type: 'JSXExpressionContainer',
-          expression: {type: 'Identifier', name: '_content'}
+          type: 'JSXElement',
+          openingElement: {
+            type: 'JSXOpeningElement',
+            name: {type: 'JSXIdentifier', name: '_createMdxContent'},
+            attributes: [],
+            selfClosing: true
+          },
+          closingElement: null,
+          children: []
         }
       ]
     }
-    /** @type {Expression} */
-    // @ts-expect-error types are wrong: `JSXElement` is an `Expression`.
-    const consequent = element
+
+    // @ts-expect-error: JSXElements are expressions.
+    const consequent = /** @type {Expression} */ (element)
+
+    let argument = content || {type: 'Literal', value: null}
+
+    if (
+      argument &&
+      // @ts-expect-error: fine.
+      argument.type === 'JSXFragment' &&
+      // @ts-expect-error: fine.
+      argument.children.length === 1 &&
+      // @ts-expect-error: fine.
+      argument.children[0].type === 'JSXElement'
+    ) {
+      // @ts-expect-error: fine.
+      argument = argument.children[0]
+    }
 
     return {
       type: 'FunctionDeclaration',
@@ -493,23 +515,26 @@ export function recmaDocument(options = {}) {
         type: 'BlockStatement',
         body: [
           {
-            type: 'VariableDeclaration',
-            kind: 'const',
-            declarations: [
-              {
-                type: 'VariableDeclarator',
-                id: {type: 'Identifier', name: '_content'},
-                init: content || {type: 'Literal', value: null}
-              }
-            ]
-          },
-          {
             type: 'ReturnStatement',
             argument: {
               type: 'ConditionalExpression',
               test: {type: 'Identifier', name: 'MDXLayout'},
               consequent,
-              alternate: {type: 'Identifier', name: '_content'}
+              alternate: {
+                type: 'CallExpression',
+                callee: {type: 'Identifier', name: '_createMdxContent'},
+                arguments: [],
+                optional: false
+              }
+            }
+          },
+          {
+            type: 'FunctionDeclaration',
+            id: {type: 'Identifier', name: '_createMdxContent'},
+            params: [],
+            body: {
+              type: 'BlockStatement',
+              body: [{type: 'ReturnStatement', argument}]
             }
           }
         ]
