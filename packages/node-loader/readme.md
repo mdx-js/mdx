@@ -116,9 +116,10 @@ Create a Node ESM loader to compile MDX to JS.
 ```js
 import {createLoader} from '@mdx-js/node-loader'
 
-const {getFormat, transformSource} = createLoader(/* Options… */)
+// Load is for Node 17+, the rest for 12-16.
+const {load, getFormat, transformSource} = createLoader(/* Options… */)
 
-export {getFormat, transformSource}
+export {load, getFormat, transformSource}
 ```
 
 This example can then be used with `node --experimental-loader=my-loader.js`.

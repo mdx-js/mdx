@@ -378,6 +378,77 @@ export default MDXContent
 
 </details>
 
+###### `options.development`
+
+Whether to add extra information to error messages in generated code
+(`boolean?`, default: `false`).
+The default can be set to `true` in Node.js through environment variables: set
+`NODE_ENV=development`.
+
+<details>
+<summary>Example</summary>
+
+Say we had some MDX that references a component that can be passed or provided
+at runtime:
+
+```mdx
+**Note**<NoteIcon />: some stuff.
+```
+
+And a module to evaluate that:
+
+```js
+import {promises as fs} from 'node:fs'
+import * as runtime from 'react/jsx-runtime'
+import {evaluate} from '@mdx-js/mdx'
+
+main()
+
+async function main() {
+  const path = 'example.mdx'
+  const value = await fs.readFile(path)
+  const MDXContent = (await evaluate({path, value}, runtime)).default
+  console.log(MDXContent())
+}
+```
+
+Running that would normally (production) yield:
+
+```txt
+Error: Expected component `NoteIcon` to be defined: you likely forgot to import, pass, or provide it.
+    at _missingMdxReference (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:27:9)
+    at _createMdxContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:15:20)
+    at MDXContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:9:9)
+    at main (…/example.js:11:15)
+```
+
+But if we change add `development: true` to our example:
+
+```diff
+@@ -7,6 +7,6 @@ main()
+ async function main() {
+   const path = 'example.mdx'
+   const value = await fs.readFile(path)
+-  const MDXContent = (await evaluate({path, value}, runtime)).default
++  const MDXContent = (await evaluate({path, value}, {development: true, ...runtime})).default
+   console.log(MDXContent({}))
+ }
+```
+
+And we’d run it again, we’d get:
+
+```txt
+Error: Expected component `NoteIcon` to be defined: you likely forgot to import, pass, or provide it.
+It’s referenced in your code at `1:9-1:21` in `example.mdx`
+provide it.
+    at _missingMdxReference (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:27:9)
+    at _createMdxContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:15:20)
+    at MDXContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:9:9)
+    at main (…/example.js:11:15)
+```
+
+</details>
+
 ###### `options.SourceMapGenerator`
 
 The `SourceMapGenerator` class from [`source-map`][source-map] (optional).

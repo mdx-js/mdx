@@ -34,6 +34,12 @@
   "sideEffects": false,
   "main": "index.js",
   "types": "index.d.ts",
+  "browser": {
+    "./lib/condition.js": "./lib/condition.browser.js"
+  },
+  "react-native": {
+    "./lib/condition.js": "./lib/condition.browser.js"
+  },
   "files": [
     "lib/",
     "index.d.ts",
