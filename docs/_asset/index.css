@@ -15,14 +15,30 @@
   --gray-7: #424a53;
   --gray-8: #32383f;
   --gray-9: #24292f;
-  --red-5: #cf222e;
-  --yellow-5: #9a6700;
-  --orange-5: #bc4c00;
-  --green-5: #1a7f37;
+  --blue-0: #ddf4ff;
   --blue-5: #0969da;
+  --blue-9: #002155;
+  --green-0: #dafbe1;
+  --green-5: #1a7f37;
+  --green-9: #002d11;
+  --yellow-0: #fff8c5;
+  --yellow-5: #9a6700;
+  --yellow-9: #3b2300;
+  --orange-0: #fff1e5;
+  --orange-5: #bc4c00;
+  --orange-9: #471700;
+  --red-0: #ffebe9;
+  --red-5: #cf222e;
+  --red-9: #4c0014;
+  --purple-0: #fbefff;
   --purple-5: #8250df;
+  --purple-9: #2e1461;
+  --pink-0: #ffeff7;
   --pink-5: #bf3989;
+  --pink-9: #4d0336;
+  --coral-0: #fff0eb;
   --coral-5: #c4432b;
+  --coral-9: #510901;
   --mdx-yellow: hsl(39deg 97% 58%);
   --hl: var(--blue-5);
   --fg: var(--black);
@@ -235,7 +251,6 @@ kbd {
   box-shadow: inset 0 -1px 0 var(--gray-4);
   color: var(--gray-9);
   padding: 0.2em 0.4em;
-  vertical-align: middle;
 }
 
 pre {
@@ -246,7 +261,6 @@ pre {
 
 blockquote pre,
 li pre {
-  border-radius: 5px;
   margin-inline: 0;
 }
 
@@ -268,7 +282,10 @@ pre code {
   word-break: normal;
   overflow: visible;
   word-wrap: normal;
-  border-radius: 5px;
+
+  mask-image: paint(squircle);
+  --squircle-radius: 10px;
+  border-radius: 10px;
 }
 
 .frame-tab-item {
@@ -653,30 +670,55 @@ button.success {
 
 .note {
   color: var(--gray-9);
-  background-color: rgba(130 80 223 / 0.15);
-  border: 1px solid var(--purple-5);
-  border-radius: 8px;
   font-size: smaller;
   line-height: calc(1em + (1 / 0.8 * 1ex));
   padding-inline: calc(1 / 0.8 * (1em + 1ex));
   margin-block: calc(1 / 0.8 * (1em + 1ex));
+  position: relative;
+  z-index: 0;
+  inset: 0;
+  mask-image: paint(squircle);
+  --squircle-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+
+  /* Actually the border color: */
+  background-color: var(--purple-5);
+}
+
+.note::after {
+  content: '';
+  position: absolute;
+  mask-image: paint(squircle);
+  z-index: -1;
+  background-color: hsl(9deg 64% 8%);
+  inset: 0;
+  --squircle-radius: 9px;
+  border-radius: 9px;
+
+  background-color: var(--purple-0);
 }
 
 .legacy {
-  background-color: rgba(110 118 129 / 0.15);
-  border-color: var(--gray-4);
+  background-color: var(--gray-5);
+}
+
+.legacy::after {
+  background-color: var(--gray-0);
 }
 
 .important {
-  background-color: rgba(196 67 43 / 0.15);
-  border-color: var(--coral-5);
+  background-color: var(--red-5);
+}
+
+.important::after {
+  background-color: var(--red-0);
 }
 
 .card {
   display: block;
   padding: calc(1 * (1em + 1ex));
   margin-block: calc(2 * (1em + 1ex));
-  border-radius: 8px;
   overflow: hidden;
   /* yellow */
   background-image: radial-gradient(
@@ -690,6 +732,10 @@ button.success {
         rgb(130 80 223 / 5%) 20%,
         rgb(130 80 223 / 0%) 80%
       );
+
+  mask-image: paint(squircle);
+  --squircle-radius: 20px;
+  border-radius: 20px;
 }
 
 .emoji-list > ul {
@@ -712,7 +758,10 @@ button.success {
    * This is a perfect mix between the two: */
   background-color: hsl(210, 20.5%, 88.8%);
   position: relative;
-  border-radius: 8px;
+
+  mask-image: paint(squircle);
+  --squircle-radius: 10px;
+  border-radius: 10px;
 }
 
 .frame-tab-bar {
@@ -750,6 +799,7 @@ button.success {
 }
 
 .frame-tab-bar + pre code {
+  --squircle-radius: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -795,9 +845,25 @@ button.success {
 }
 
 .home-preview {
-  border: 1px solid var(--gray-2);
-  border-radius: 8px;
+  position: relative;
+  border: 1px solid transparent;
   padding: calc(1em + 1ex);
+  background-color: var(--gray-2);
+  mask-image: paint(squircle);
+  z-index: 0;
+  --squircle-radius: 10px;
+  border-radius: 10px;
+}
+
+.home-preview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--bg);
+  mask-image: paint(squircle);
+  --squircle-radius: 9px;
+  border-radius: 9px;
 }
 
 :is(.home-preview, .card, .frame-body, .nav-description, .big-columns > *)
@@ -897,7 +963,19 @@ button.success {
   }
 
   .note {
-    color: var(--gray-1);
+    color: var(--gray-0);
+  }
+
+  .note::after {
+    background-color: var(--purple-9);
+  }
+
+  .legacy::after {
+    background-color: var(--gray-9);
+  }
+
+  .important::after {
+    background-color: var(--red-9);
   }
 
   .navigation::before {
@@ -945,7 +1023,7 @@ button.success {
   }
 
   .home-preview {
-    border-color: var(--gray-6);
+    background-color: var(--gray-6);
   }
 
   .foot-site {
