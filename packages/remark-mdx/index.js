@@ -11,7 +11,7 @@ import {mdxFromMarkdown, mdxToMarkdown} from 'mdast-util-mdx'
  * Plugin to support MDX (import/exports: `export {x} from 'y'`; expressions:
  * `{1 + 1}`; and JSX: `<Video id={123} />`).
  *
- * @type {import('unified').Plugin<[Options?]|[], Root>}
+ * @type {import('unified').Plugin<[Options?]|Array<void>, Root>}
  */
 export default function remarkMdx(options = {}) {
   const data = this.data()
@@ -25,7 +25,7 @@ export default function remarkMdx(options = {}) {
    * @param {unknown} value
    */
   function add(field, value) {
-    const list = /** @type {unknown[]} */ (
+    const list = /** @type {Array<unknown>} */ (
       // Other extensions
       /* c8 ignore next 2 */
       data[field] ? data[field] : (data[field] = [])

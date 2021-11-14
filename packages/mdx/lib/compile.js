@@ -17,7 +17,9 @@ import {resolveFileAndOptions} from './util/resolve-file-and-options.js'
 /**
  * Compile MDX to JS.
  *
- * @param {VFileCompatible} vfileCompatible MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be given to `vfile`)
+ * @param {VFileCompatible} vfileCompatible
+ *   MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be
+ *   given to `vfile`).
  * @param {CompileOptions} [compileOptions]
  * @return {Promise<VFile>}
  */
@@ -29,7 +31,9 @@ export function compile(vfileCompatible, compileOptions) {
 /**
  * Synchronously compile MDX to JS.
  *
- * @param {VFileCompatible} vfileCompatible MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be given to `vfile`)
+ * @param {VFileCompatible} vfileCompatible
+ *   MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be
+ *   given to `vfile`).
  * @param {CompileOptions} [compileOptions]
  * @return {VFile}
  */

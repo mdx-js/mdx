@@ -18,14 +18,25 @@
  * @typedef {import('estree-jsx').Property} Property
  *
  * @typedef RecmaDocumentOptions
- * @property {'program'|'function-body'} [outputFormat='program'] Whether to use either `import` and `export` statements to get the runtime (and optionally provider) and export the content, or get values from `arguments` and return things
- * @property {boolean} [useDynamicImport=false] Whether to keep `import` (and `export … from`) statements or compile them to dynamic `import()` instead
- * @property {string} [baseUrl] Resolve relative `import` (and `export … from`) relative to this URL
- * @property {string} [pragma='React.createElement'] Pragma for JSX (used in classic runtime)
- * @property {string} [pragmaFrag='React.Fragment'] Pragma for JSX fragments (used in classic runtime)
- * @property {string} [pragmaImportSource='react'] Where to import the identifier of `pragma` from (used in classic runtime)
- * @property {string} [jsxImportSource='react'] Place to import automatic JSX runtimes from (used in automatic runtime)
- * @property {'automatic'|'classic'} [jsxRuntime='automatic'] JSX runtime to use
+ * @property {'program'|'function-body'} [outputFormat='program']
+ *   Whether to use either `import` and `export` statements to get the runtime
+ *   (and optionally provider) and export the content, or get values from
+ *   `arguments` and return things.
+ * @property {boolean} [useDynamicImport=false]
+ *   Whether to keep `import` (and `export … from`) statements or compile them
+ *   to dynamic `import()` instead.
+ * @property {string} [baseUrl]
+ *   Resolve relative `import` (and `export … from`) relative to this URL.
+ * @property {string} [pragma='React.createElement']
+ *   Pragma for JSX (used in classic runtime).
+ * @property {string} [pragmaFrag='React.Fragment']
+ *   Pragma for JSX fragments (used in classic runtime).
+ * @property {string} [pragmaImportSource='react']
+ *   Where to import the identifier of `pragma` from (used in classic runtime).
+ * @property {string} [jsxImportSource='react']
+ *   Place to import automatic JSX runtimes from (used in automatic runtime).
+ * @property {'automatic'|'classic'} [jsxRuntime='automatic']
+ *   JSX runtime to use.
  */
 
 import {URL} from 'url'
@@ -55,11 +66,11 @@ export function recmaDocument(options = {}) {
   } = options
 
   return (tree, file) => {
-    /** @type {Array.<string|[string, string]>} */
+    /** @type {Array<string|[string, string]>} */
     const exportedIdentifiers = []
-    /** @type {Array.<Directive|Statement|ModuleDeclaration>} */
+    /** @type {Array<Directive|Statement|ModuleDeclaration>} */
     const replacement = []
-    /** @type {Array.<string>} */
+    /** @type {Array<string>} */
     const pragmas = []
     let exportAllCount = 0
     /** @type {ExportDefaultDeclaration|ExportSpecifier|undefined} */
@@ -416,7 +427,7 @@ export function recmaDocument(options = {}) {
         } else if (node.declaration) {
           replace = node.declaration
         } else {
-          /** @type {Array.<VariableDeclarator>} */
+          /** @type {Array<VariableDeclarator>} */
           const declarators = node.specifiers
             .filter(
               (specifier) => specifier.local.name !== specifier.exported.name

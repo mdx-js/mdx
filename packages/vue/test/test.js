@@ -16,7 +16,7 @@ import {useMDXComponents, MDXProvider} from '../index.js'
 
 /**
  * @param {string} value
- * @returns {Promise.<MDXModule>}
+ * @returns {Promise<MDXModule>}
  */
 async function evaluate(value) {
   const file = await compile(value, {

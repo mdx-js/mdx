@@ -2,10 +2,14 @@
  * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
  *
  * @typedef RunnerOptions
- * @property {*} Fragment Symbol to use for fragments
- * @property {*} jsx Function to generate an element with static children
- * @property {*} jsxs Function to generate an element with dynamic children
- * @property {*} [useMDXComponents] Function to get `MDXComponents` from context
+ * @property {*} Fragment
+ *   Symbol to use for fragments.
+ * @property {*} jsx
+ *   Function to generate an element with static children.
+ * @property {*} jsxs
+ *   Function to generate an element with dynamic children.
+ * @property {*} [useMDXComponents]
+ *   Function to get `MDXComponents` from context.
  *
  * @typedef {Omit<ProcessorOptions, 'jsx' | 'jsxImportSource' | 'jsxRuntime' | 'pragma' | 'pragmaFrag' | 'pragmaImportSource' | 'providerImportSource' | 'outputFormat'> } EvaluateProcessorOptions
  *

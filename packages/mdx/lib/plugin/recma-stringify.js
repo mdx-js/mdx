@@ -23,7 +23,9 @@
  * @typedef {{[K in Node['type']]: (node: Node, state: State) => void}} Generator
  *
  * @typedef RecmaStringifyOptions
- * @property {SourceMapGenerator} [SourceMapGenerator] Generate a source map by passing a `SourceMapGenerator` from `source-map` in
+ * @property {SourceMapGenerator} [SourceMapGenerator]
+ *   Generate a source map by passing a `SourceMapGenerator` from `source-map`
+ *   in.
  */
 
 // @ts-expect-error baseGenerator is not yet exported by astring typings

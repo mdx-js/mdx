@@ -15,7 +15,7 @@ export const toIdOrMemberExpression = toIdOrMemberExpressionFactory(
 
 export const toJsxIdOrMemberExpression =
   // @ts-expect-error: fine
-  /** @type {(ids: Array.<string|number>) => JSXIdentifier|JSXMemberExpression)} */
+  /** @type {(ids: Array<string|number>) => JSXIdentifier|JSXMemberExpression)} */
   (toIdOrMemberExpressionFactory('JSXIdentifier', 'JSXMemberExpression'))
 
 /**
@@ -25,7 +25,7 @@ export const toJsxIdOrMemberExpression =
 function toIdOrMemberExpressionFactory(idType, memberType) {
   return toIdOrMemberExpression
   /**
-   * @param {Array.<string|number>} ids
+   * @param {Array<string|number>} ids
    * @returns {Identifier|MemberExpression}
    */
   function toIdOrMemberExpression(ids) {

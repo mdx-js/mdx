@@ -6,14 +6,22 @@
  * @typedef {import('./plugin/recma-jsx-rewrite.js').RecmaJsxRewriteOptions} RecmaJsxRewriteOptions
  *
  * @typedef BaseProcessorOptions
- * @property {boolean} [jsx=false] Whether to keep JSX
- * @property {'mdx'|'md'} [format='mdx'] Format of the files to be processed
- * @property {'program'|'function-body'} [outputFormat='program'] Whether to compile to a whole program or a function body.
- * @property {string[]} [mdExtensions] Extensions (with `.`) for markdown
- * @property {string[]} [mdxExtensions] Extensions (with `.`) for MDX
- * @property {PluggableList} [recmaPlugins] List of recma (esast, JavaScript) plugins
- * @property {PluggableList} [remarkPlugins] List of remark (mdast, markdown) plugins
- * @property {PluggableList} [rehypePlugins] List of rehype (hast, HTML) plugins
+ * @property {boolean} [jsx=false]
+ *   Whether to keep JSX.
+ * @property {'mdx'|'md'} [format='mdx']
+ *   Format of the files to be processed.
+ * @property {'program'|'function-body'} [outputFormat='program']
+ *   Whether to compile to a whole program or a function body..
+ * @property {Array<string>} [mdExtensions]
+ *   Extensions (with `.`) for markdown.
+ * @property {Array<string>} [mdxExtensions]
+ *   Extensions (with `.`) for MDX.
+ * @property {PluggableList} [recmaPlugins]
+ *   List of recma (esast, JavaScript) plugins.
+ * @property {PluggableList} [remarkPlugins]
+ *   List of remark (mdast, markdown) plugins.
+ * @property {PluggableList} [rehypePlugins]
+ *   List of rehype (hast, HTML) plugins.
  *
  * @typedef {Omit<RecmaDocumentOptions & RecmaStringifyOptions & RecmaJsxRewriteOptions, 'outputFormat'>} PluginOptions
  * @typedef {BaseProcessorOptions & PluginOptions} ProcessorOptions

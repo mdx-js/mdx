@@ -155,7 +155,7 @@ to interpret the `meta` field.
 For example, it’s possible to pass that string as a prop with a rehype plugin:
 
 ```js path="rehype-meta-as-attributes.js"
-/** @type {import('unified').Plugin<[], import('hast').Root>} */
+/** @type {import('unified').Plugin<Array<void>, import('hast').Root>} */
 function rehypeMetaAsAttributes() {
   return (tree) => {
     visit(tree, 'element', (node) => {

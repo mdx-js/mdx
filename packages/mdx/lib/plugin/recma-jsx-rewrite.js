@@ -19,15 +19,19 @@
  * @typedef {import('periscopic').Scope & {node: Node}} Scope
  *
  * @typedef RecmaJsxRewriteOptions
- * @property {'program'|'function-body'} [outputFormat='program'] Whether to use an import statement or `arguments[0]` to get the provider
- * @property {string} [providerImportSource] Place to import a provider from
- * @property {boolean} [development=false] Whether to add extra information to error messages in generated code (can also be passed in Node.js by setting `NODE_ENV=development`)
+ * @property {'program'|'function-body'} [outputFormat='program']
+ *   Whether to use an import statement or `arguments[0]` to get the provider.
+ * @property {string} [providerImportSource]
+ *   Place to import a provider from.
+ * @property {boolean} [development=false]
+ *   Whether to add extra information to error messages in generated code (can
+ *   also be passed in Node.js by setting `NODE_ENV=development`).
  *
  * @typedef StackEntry
- * @property {Array.<string>} objects
- * @property {Array.<string>} components
- * @property {Array.<string>} tags
- * @property {Record.<string, {node: JSXElement, component: boolean}>} references
+ * @property {Array<string>} objects
+ * @property {Array<string>} components
+ * @property {Array<string>} tags
+ * @property {Record<string, {node: JSXElement, component: boolean}>} references
  * @property {ESFunction} node
  */
 
@@ -60,7 +64,7 @@ export function recmaJsxRewrite(options = {}) {
   return (tree, file) => {
     // Find everything that’s defined in the top-level scope.
     const scopeInfo = analyze(tree)
-    /** @type {Array.<StackEntry>} */
+    /** @type {Array<StackEntry>} */
     const fnStack = []
     /** @type {boolean|undefined} */
     let importProvider
@@ -119,7 +123,7 @@ export function recmaJsxRewrite(options = {}) {
 
           // `<x.y>`, `<Foo.Bar>`, `<x.y.z>`.
           if (name.type === 'JSXMemberExpression') {
-            /** @type {string[]} */
+            /** @type {Array<string>} */
             const ids = []
 
             // Find the left-most identifier.
@@ -192,13 +196,13 @@ export function recmaJsxRewrite(options = {}) {
         }
       },
       leave(node) {
-        /** @type {Array.<Property>} */
+        /** @type {Array<Property>} */
         const defaults = []
-        /** @type {Array.<string>} */
+        /** @type {Array<string>} */
         const actual = []
-        /** @type {Array.<Expression>} */
+        /** @type {Array<Expression>} */
         const parameters = []
-        /** @type {Array.<VariableDeclarator>} */
+        /** @type {Array<VariableDeclarator>} */
         const declarations = []
 
         if (currentScope && currentScope.node === node) {
@@ -359,7 +363,7 @@ export function recmaJsxRewrite(options = {}) {
               }
             }
 
-            /** @type {Statement[]} */
+            /** @type {Array<Statement>} */
             const statements = [
               {
                 type: 'VariableDeclaration',
@@ -374,7 +378,7 @@ export function recmaJsxRewrite(options = {}) {
               const id = references[index]
               const info = scope.references[id]
               const place = stringifyPosition(positionFromEstree(info.node))
-              /** @type {Expression[]} */
+              /** @type {Array<Expression>} */
               const parameters = [
                 {type: 'Literal', value: id},
                 {type: 'Literal', value: info.component}
@@ -424,7 +428,7 @@ export function recmaJsxRewrite(options = {}) {
 
     // If potentially missing components are used.
     if (createErrorHelper) {
-      /** @type {Expression[]} */
+      /** @type {Array<Expression>} */
       const message = [
         {type: 'Literal', value: 'Expected '},
         {
@@ -442,7 +446,7 @@ export function recmaJsxRewrite(options = {}) {
         }
       ]
 
-      /** @type {Identifier[]} */
+      /** @type {Array<Identifier>} */
       const parameters = [
         {type: 'Identifier', name: 'id'},
         {type: 'Identifier', name: 'component'}

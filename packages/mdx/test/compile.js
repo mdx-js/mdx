@@ -216,7 +216,7 @@ test('compile', async () => {
     renderToStaticMarkup(
       React.createElement(await run(compileSync('<X />')), {
         components: {
-          /** @param {Object.<string, unknown>} props */
+          /** @param {Record<string, unknown>} props */
           X(props) {
             return React.createElement('span', props, '!')
           }
@@ -232,7 +232,7 @@ test('compile', async () => {
       React.createElement(await run(compileSync('<x.y />')), {
         components: {
           x: {
-            /** @param {Object.<string, unknown>} props */
+            /** @param {Record<string, unknown>} props */
             y(props) {
               return React.createElement('span', props, '?')
             }
@@ -249,10 +249,10 @@ test('compile', async () => {
       React.createElement(await run(compileSync('<X /> and <X.Y />')), {
         components: {
           X: Object.assign(
-            /** @param {Object.<string, unknown>} props */
+            /** @param {Record<string, unknown>} props */
             (props) => React.createElement('span', props, '!'),
             {
-              /** @param {Object.<string, unknown>} props */
+              /** @param {Record<string, unknown>} props */
               Y(props) {
                 return React.createElement('span', props, '?')
               }
@@ -383,7 +383,7 @@ test('compile', async () => {
       React.createElement(await run(compileSync('a')), {
         components: {
           /**
-           * @param {Object.<string, unknown>} props
+           * @param {Record<string, unknown>} props
            */
           wrapper(props) {
             const {components, ...rest} = props
@@ -421,7 +421,7 @@ test('compile', async () => {
         {
           components: {
             /**
-             * @param {Object.<string, unknown>} props
+             * @param {Record<string, unknown>} props
              */
             wrapper(props) {
               const {components, ...rest} = props

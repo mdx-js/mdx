@@ -2,7 +2,9 @@
  * @typedef {import('estree-jsx').Program} Program
  *
  * @typedef RecmaJsxBuildOptions
- * @property {'program'|'function-body'} [outputFormat='program'] Whether to keep the import of the automatic runtime or get it from `arguments[0]` instead
+ * @property {'program'|'function-body'} [outputFormat='program']
+ *   Whether to keep the import of the automatic runtime or get it from
+ *   `arguments[0]` instead.
  */
 
 import {buildJsx} from 'estree-util-build-jsx'
