@@ -3,7 +3,13 @@
   "schedule": "before 3am on Monday",
   "packageRules": [
     {
-      "matchPackageNames": ["react-dom", "react-server-dom-webpack"],
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "react-server-dom-webpack",
+        "@node-loader/babel",
+        "@node-loader/core"
+      ],
       "enabled": false
     }
   ]
