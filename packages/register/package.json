@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/register",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "description": "Node hook to require MDX",
   "license": "MIT",
   "keywords": [
@@ -35,7 +35,7 @@
     "index.cjs"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0-rc.1"
+    "@mdx-js/mdx": "^2.0.0-rc.2"
   },
   "optionalDependencies": {
     "deasync": "^0.1.0"

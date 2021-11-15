@@ -1,6 +1,6 @@
 {
   "name": "remark-mdx",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "description": "remark plugin to support MDX syntax",
   "license": "MIT",
   "keywords": [

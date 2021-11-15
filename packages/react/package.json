@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/react",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "description": "React context for MDX",
   "license": "MIT",
   "keywords": [
@@ -48,7 +48,7 @@
     "react": ">=16"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^2.0.0-rc.1",
+    "@mdx-js/mdx": "^2.0.0-rc.2",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "react": "^18.0.0-alpha-327d5c484-20211106",

@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "description": "Vue provider for MDX",
   "license": "MIT",
   "keywords": [
@@ -42,7 +42,7 @@
     "vue": ">=3.0.0"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^2.0.0-rc.1",
+    "@mdx-js/mdx": "^2.0.0-rc.2",
     "@types/babel__core": "^7.0.0",
     "@types/mdx": "^2.0.0",
     "@vue/babel-plugin-jsx": "^1.0.0",
