@@ -86,8 +86,13 @@ directly:
 
 See [¶ React in § Getting started][start-react] for how to get started with MDX
 and React.
+
 See [¶ MDX provider in § Using MDX][use-provider] for how to use an MDX
 provider.
+
+If using a custom webpack setup and you wish to use an MDX provider,
+make sure to setup the `providerImportSource` in your webpack config.
+See [the migration docs for an example][mdx-loader-migration-guide].
 
 ## API
 
@@ -221,8 +226,10 @@ abide by its terms.
 
 [start-react]: https://mdxjs.com/getting-started/#react
 
-[use-provider]: https://mdxjs.com/using-mdx/#mdx-provider
+[use-provider]: https://mdxjs.com/docs/using-mdx/#mdx-provider
 
 [security]: https://mdxjs.com/getting-started/#security
 
 [typescript]: https://www.typescriptlang.org
+
+[mdx-loader-migration-guide]: https://mdxjs.com/migrating/v2/#mdx-jsloader
