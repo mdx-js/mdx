@@ -1105,7 +1105,7 @@ abide by its terms.
 
 [integrations]: https://mdxjs.com/getting-started/#integrations
 
-[using-mdx]: https://mdxjs.com/using-mdx/
+[using-mdx]: https://mdxjs.com/docs/using-mdx/
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
