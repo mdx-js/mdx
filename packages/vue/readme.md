@@ -33,11 +33,8 @@ This package is a context based components provider for combining Vue with MDX.
 ## When should I use this?
 
 This package is not needed for MDX to work with Vue.
-But it is nice if you enjoy context-based props passing to avoid repetition.
-This package adds support for a Vue context based interface to set components
-(sometimes known as *shortcodes*) by passing them to an `MDXProvider`, which
-then are used in all nested MDX files implicitly.
-The alternative is to pass those components to each MDX file.
+See [¶ MDX provider in § Using MDX][use-provider] for when and how to use an MDX
+provider.
 
 ## Install
 
@@ -61,7 +58,11 @@ yarn add @mdx-js/vue@next
 ```js
 import {MDXProvider} from '@mdx-js/vue'
 import {createApp} from 'vue'
-import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
+import Post from './post.mdx'
+// ^-- Assumes an integration is used to compile MDX to JS, such as
+// `@mdx-js/esbuild`, `@mdx-js/loader`, `@mdx-js/node-loader`, or
+// `@mdx-js/rollup`, and that it is configured with
+// `options.providerImportSource: '@mdx-js/vue'`.
 
 createApp({
   data() {
@@ -107,7 +108,7 @@ Configuration (`Object`, optional).
 
 ###### `props.components`
 
-Mapping of names for JSX components to React components
+Mapping of names for JSX components to Vue components
 (`Record<string, string|Component|Components>`, optional).
 
 ##### Returns

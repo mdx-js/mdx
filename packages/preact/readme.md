@@ -36,11 +36,8 @@ MDX.
 ## When should I use this?
 
 This package is not needed for MDX to work with Preact.
-But it is nice if you enjoy context-based props passing to avoid repetition.
-This package adds support for a Preact context based interface to set components
-(sometimes known as *shortcodes*) by passing them to an `MDXProvider`, which
-then are used in all nested MDX files implicitly.
-The alternative is to pass those components to each MDX file.
+See [¶ MDX provider in § Using MDX][use-provider] for when and how to use an MDX
+provider.
 
 ## Install
 
@@ -63,7 +60,11 @@ yarn add @mdx-js/preact@next
 
 ```js
 import {MDXProvider} from '@mdx-js/preact'
-import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
+import Post from './post.mdx'
+// ^-- Assumes an integration is used to compile MDX to JS, such as
+// `@mdx-js/esbuild`, `@mdx-js/loader`, `@mdx-js/node-loader`, or
+// `@mdx-js/rollup`, and that it is configured with
+// `options.providerImportSource: '@mdx-js/preact'`.
 
 const components = {
   em: props => <i {...props} />
