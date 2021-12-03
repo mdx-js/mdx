@@ -190,7 +190,7 @@ abide by its terms.
 
 [start-vue]: https://mdxjs.com/getting-started/#vue
 
-[use-provider]: https://mdxjs.com/using-mdx/#mdx-provider
+[use-provider]: https://mdxjs.com/docs/using-mdx/#mdx-provider
 
 [security]: https://mdxjs.com/getting-started/#security
 
