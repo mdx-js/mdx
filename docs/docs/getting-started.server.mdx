@@ -120,6 +120,9 @@ your JSX runtime.
 *   If you’re using **Preact**,
     set [`options.jsxImportSource`][options-jsximportsource] to `'preact'`.
     Optionally install and configure [`@mdx-js/preact`][mdx-preact]
+*   If you’re using **Svelte**,
+    install [`svelte-jsx`][svelte-jsx].
+    Set [`options.jsxImportSource`][options-jsximportsource] to `'svelte-jsx'`.
 *   If you’re using **Vue 3**,
     set [`options.jsx`][options-jsx] to `true`.
     Then use Babel alongside your MDX integration (which is possible with
@@ -142,6 +145,7 @@ For more info on the aforementioned tools, please see their dedicated sections:
 [¶ Emotion][emotion],
 [¶ Preact][preact],
 [¶ React][react],
+[¶ Svelte][svelte],
 [¶ Theme UI][themeui], or
 [¶ Vue][vue].
 
@@ -750,6 +754,29 @@ See also [¶ Emotion][emotion], [¶ React][react], [¶ esbuild][esbuild],
 [¶ Rollup][rollup], and [¶ webpack][webpack], which you might be using, for more
 info.
 
+#### Svelte
+
+<details>
+  <summary>Expand example</summary>
+
+  ```js path="example.js"
+  import {compile} from '@mdx-js/mdx'
+
+  main()
+
+  async function main() {
+    const js = String(await compile('# hi', {jsxImportSource: 'svelte-jsx', /* otherOptions… */}))
+  }
+  ```
+</details>
+
+Svelte is supported when [`options.jsxImportSource`][options-jsximportsource] is
+set to `'svelte-jsx'`, which is a [small package][svelte-jsx] that adds support
+for the JSX automatic runtime to Svelte.
+
+See also [¶ esbuild][esbuild], [¶ Rollup][rollup], and [¶ webpack][webpack],
+which you might be using, for more info.
+
 #### Vue
 
 <details>
@@ -793,6 +820,8 @@ See their readmes on how to configure them.
 *   If you want to use MDX content in your project, see [§ Using MDX][use]
 *   If you’re getting errors integrating MDX, see
     [§ Troubleshooting MDX][trouble] or [§ Support][support]
+
+[svelte-jsx]: https://github.com/kenoxa/svelte-jsx
 
 [jsx]: #jsx
 
@@ -851,6 +880,8 @@ See their readmes on how to configure them.
 [rollup]: #rollup
 
 [snowpack]: #snowpack
+
+[svelte]: #svelte
 
 [themeui]: #theme-ui
 
