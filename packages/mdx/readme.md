@@ -1061,7 +1061,7 @@ abide by its terms.
 
 [rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
 
-[mdx-syntax]: https://mdxjs.com/mdx/#mdx-syntax
+[mdx-syntax]: https://mdxjs.com/docs/what-is-mdx/#mdx-syntax
 
 [use]: #use
 

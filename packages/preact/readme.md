@@ -219,7 +219,7 @@ abide by its terms.
 
 [start-preact]: https://mdxjs.com/getting-started/#preact
 
-[use-provider]: https://mdxjs.com/using-mdx/#mdx-provider
+[use-provider]: https://mdxjs.com/docs/using-mdx/#mdx-provider
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 

@@ -32,7 +32,8 @@ flood conditions in many of the nearby rivers.
 <Chart year={year} color="#fcb32c" />
 ```
 
-See [§ What is MDX](https://mdxjs.com/mdx/) for more info on the format.
+See [§ What is MDX](https://mdxjs.com/docs/what-is-mdx/) for more info on the
+format.
 See [§ Playground](https://mdxjs.com/playground/) to try it out.
 
 ## What is this?

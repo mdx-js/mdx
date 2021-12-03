@@ -179,9 +179,9 @@ abide by its terms.
 
 [yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
-[contribute]: https://mdxjs.com/contributing
+[contribute]: https://mdxjs.com/community/contribute/
 
-[support]: https://mdxjs.com/support
+[support]: https://mdxjs.com/community/support/
 
 [coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
 
