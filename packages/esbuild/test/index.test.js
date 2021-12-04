@@ -45,6 +45,45 @@ test('@mdx-js/esbuild', async () => {
   await fs.unlink(new URL('./esbuild.mdx', import.meta.url))
   await fs.unlink(new URL('./esbuild.js', import.meta.url))
 
+  // Resolve directory.
+  await fs.writeFile(
+    new URL('./esbuild-resolve.mdx', import.meta.url),
+    'import Content from "./folder/file.mdx"\n\n<Content/>'
+  )
+  await fs.mkdir(new URL('./folder', import.meta.url))
+  await fs.writeFile(
+    new URL('./folder/file.mdx', import.meta.url),
+    'import {data} from "./file.js"\n\n{data}'
+  )
+  await fs.writeFile(
+    new URL('./folder/file.js', import.meta.url),
+    'export const data = 0.1'
+  )
+  await esbuild.build({
+    bundle: true,
+    define: {'process.env.NODE_ENV': '"development"'},
+    entryPoints: [
+      fileURLToPath(new URL('./esbuild-resolve.mdx', import.meta.url))
+    ],
+    outfile: fileURLToPath(new URL('./esbuild-resolve.js', import.meta.url)),
+    format: 'esm',
+    plugins: [esbuildMdx()]
+  })
+  /** @type {MDXContent} */
+  Content =
+    /* @ts-expect-error file is dynamically generated */
+    (await import('./esbuild-resolve.js')).default // type-coverage:ignore-line
+
+  assert.equal(
+    renderToStaticMarkup(React.createElement(Content)),
+    '0.1',
+    'should compile'
+  )
+
+  await fs.unlink(new URL('./esbuild-resolve.mdx', import.meta.url))
+  await fs.unlink(new URL('./esbuild-resolve.js', import.meta.url))
+  await fs.rm(new URL('./folder/', import.meta.url), {recursive: true})
+
   // Markdown.
   await fs.writeFile(new URL('./esbuild.md', import.meta.url), '\ta')
 
@@ -337,8 +376,6 @@ test('@mdx-js/esbuild', async () => {
 
   await fs.unlink(new URL('./esbuild-warnings.mdx', import.meta.url))
 
-  console.log('\nnote: the preceding errors and warnings are expected!\n')
-
   await fs.writeFile(
     new URL('./esbuild-plugin-crash.mdx', import.meta.url),
     '# hi'
@@ -466,7 +503,7 @@ test('@mdx-js/esbuild', async () => {
   // Remote markdown.
   await fs.writeFile(
     new URL('./esbuild-with-remote-md.mdx', import.meta.url),
-    'import Content from "https://raw.githubusercontent.com/wooorm/xdm/main/test/files/md-file.md"\n\n<Content />'
+    'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/md-file.md"\n\n<Content />'
   )
 
   await esbuild.build({
@@ -498,7 +535,7 @@ test('@mdx-js/esbuild', async () => {
   // Remote MDX importing more markdown.
   await fs.writeFile(
     new URL('./esbuild-with-remote-mdx.mdx', import.meta.url),
-    'import Content from "https://raw.githubusercontent.com/wooorm/xdm/main/test/files/mdx-file-importing-markdown.mdx"\n\n<Content />'
+    'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/mdx-file-importing-markdown.mdx"\n\n<Content />'
   )
 
   await esbuild.build({
