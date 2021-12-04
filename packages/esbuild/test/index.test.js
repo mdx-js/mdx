@@ -82,7 +82,7 @@ test('@mdx-js/esbuild', async () => {
 
   await fs.unlink(new URL('./esbuild-resolve.mdx', import.meta.url))
   await fs.unlink(new URL('./esbuild-resolve.js', import.meta.url))
-  await fs.rm(new URL('./folder/', import.meta.url), {recursive: true})
+  await fs.rmdir(new URL('./folder/', import.meta.url), {recursive: true})
 
   // Markdown.
   await fs.writeFile(new URL('./esbuild.md', import.meta.url), '\ta')

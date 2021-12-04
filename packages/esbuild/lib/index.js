@@ -212,7 +212,7 @@ export function esbuild(options = {}) {
       assert(file.dirname, 'expected `dirname` to be defined')
 
       // V8 on Erbium.
-      /* c8 ignore next 2 */
+      /* c8 ignore next 9 */
       return {
         contents: value,
         errors,
