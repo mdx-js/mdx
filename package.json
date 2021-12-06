@@ -100,7 +100,7 @@
     "rimraf": "^3.0.0",
     "rodemirror": "^1.0.0",
     "type-coverage": "^2.0.0",
-    "typescript": "~4.4.0",
+    "typescript": "~4.5.0",
     "unified": "^10.0.0",
     "unist-builder": "^3.0.0",
     "unist-util-visit": "^4.0.0",
