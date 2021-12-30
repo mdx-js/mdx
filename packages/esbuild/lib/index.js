@@ -14,9 +14,9 @@
  */
 
 import assert from 'node:assert'
-import {promises as fs} from 'fs'
+import {promises as fs} from 'node:fs'
 import path from 'node:path'
-import process from 'process'
+import process from 'node:process'
 import {URL} from 'url'
 import got from 'got'
 import {VFile} from 'vfile'
