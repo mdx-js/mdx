@@ -13,8 +13,10 @@
  * @typedef {ProcessorOptions & {allowDangerousRemoteMdx?: boolean}} Options
  */
 
-import {promises as fs} from 'fs'
-import process from 'process'
+import assert from 'node:assert'
+import {promises as fs} from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
 import {URL} from 'url'
 import got from 'got'
 import {VFile} from 'vfile'
@@ -49,6 +51,7 @@ export function esbuild(options = {}) {
     const filter = extnamesToRegex(extnames)
     /* eslint-disable-next-line security/detect-non-literal-regexp */
     const filterHttp = new RegExp('^https?:\\/{2}.+' + filter.source)
+    const http = /^https?:\/{2}/
     const filterHttpOrRelative = /^(https?:\/{2}|.{1,2}\/).*/
 
     if (allowDangerousRemoteMdx) {
@@ -205,9 +208,19 @@ export function esbuild(options = {}) {
         })
       }
 
+      // Safety check: the file has a path, so there has to be a `dirname`.
+      assert(file.dirname, 'expected `dirname` to be defined')
+
       // V8 on Erbium.
-      /* c8 ignore next 2 */
-      return {contents: value, errors, warnings, resolveDir: p.cwd()}
+      /* c8 ignore next 9 */
+      return {
+        contents: value,
+        errors,
+        warnings,
+        resolveDir: http.test(file.path)
+          ? p.cwd()
+          : path.resolve(file.cwd, file.dirname)
+      }
     }
   }
 }
