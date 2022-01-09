@@ -23,7 +23,7 @@ test('@mdx-js/rollup', async () => {
     plugins: [rollupMdx()]
   })
 
-  const output = (await bundle.generate({format: 'es', sourcemap: true})).output
+  const {output} = await bundle.generate({format: 'es', sourcemap: true})
 
   await fs.writeFile(new URL('./rollup.js', import.meta.url), output[0].code)
 

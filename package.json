@@ -42,7 +42,7 @@
     "cssnano": "^5.0.0",
     "dlv": "^1.0.0",
     "esbuild": "^0.14.0",
-    "eslint-config-xo-react": "^0.25.0",
+    "eslint-config-xo-react": "^0.26.0",
     "eslint-plugin-es": "^4.0.0",
     "eslint-plugin-react": "^7.0.0",
     "eslint-plugin-react-hooks": "^4.0.0",
@@ -113,7 +113,7 @@
     "xast-util-feed": "^1.0.0",
     "xast-util-sitemap": "^1.0.0",
     "xast-util-to-xml": "^3.0.0",
-    "xo": "^0.46.0"
+    "xo": "^0.47.0"
   },
   "scripts": {
     "postinstall": "patch-package",
@@ -175,6 +175,7 @@
       "import/extensions": "off",
       "node/file-extension-in-import": "off",
       "react/prop-types": "off",
+      "unicorn/no-await-expression-member": "off",
       "unicorn/prefer-node-protocol": "off",
       "capitalized-comments": "off",
       "complexity": "off",
