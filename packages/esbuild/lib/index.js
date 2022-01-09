@@ -13,11 +13,11 @@
  * @typedef {ProcessorOptions & {allowDangerousRemoteMdx?: boolean}} Options
  */
 
+import {URL} from 'url'
 import assert from 'node:assert'
 import {promises as fs} from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-import {URL} from 'url'
 import got from 'got'
 import {VFile} from 'vfile'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
