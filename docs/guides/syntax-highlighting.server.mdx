@@ -78,6 +78,12 @@ async function main(code) {
   ```
 </Note>
 
+<Note type="important">
+  **Important**: `rehype-highlight` requires the use of ESM and will not work with CJS.
+  This means that if using `next.js`, you will need a `next.config.mjs` instead of a `next.config.js`
+  file for your configuration.
+</Note>
+
 ## Syntax highlighting at run time
 
 Use for example
