@@ -7,6 +7,7 @@
         "react",
         "react-dom",
         "react-server-dom-webpack",
+        "typescript",
         "@node-loader/babel",
         "@node-loader/core"
       ],
