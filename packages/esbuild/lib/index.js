@@ -102,6 +102,7 @@ export function esbuild(options = {}) {
 
       return filter.test(href)
         ? onload({
+            suffix: '',
             // Clean search and hash from URL.
             path: Object.assign(new URL(href), {search: '', hash: ''}).href,
             namespace: 'file',
@@ -113,7 +114,7 @@ export function esbuild(options = {}) {
     }
 
     /**
-     * @param {Omit<OnLoadArgs, 'pluginData'> & {pluginData?: {contents?: string|Uint8Array}}} data
+     * @param {Omit<OnLoadArgs, 'pluginData'> & {pluginData?: {contents?: string|Buffer}}} data
      * @returns {Promise<OnLoadResult>}
      */
     async function onload(data) {
