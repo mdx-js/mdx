@@ -3,16 +3,17 @@
   "schedule": "before 3am on Monday",
   "packageRules": [
     {
-      "#": "`got@12` depends on Node 14+",
-      "#": "`react`/`react-dom`/`react-server-dom-webpack` latest don’t support RSC",
-      "#": "`typescript@4.5.0` has a problem with tail calls",
-      "#": "`node-loader@2` depends on Node 16+",
       "matchPackageNames": [
+        // `got@12` depends on Node 14+.
         "got",
+        // `react`/`react-dom`/`react-server-dom-webpack` latest don’t support
+        // RSC.
         "react",
         "react-dom",
         "react-server-dom-webpack",
+        // `typescript@4.5.0` has a problem with tail calls.
         "typescript",
+        // `node-loader@2` depends on Node 16+.
         "@node-loader/babel",
         "@node-loader/core"
       ],
