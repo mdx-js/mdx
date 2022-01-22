@@ -1,23 +1,23 @@
 {
-  "extends": ["config:base", ":preserveSemverRanges"],
-  "schedule": "before 3am on Monday",
-  "packageRules": [
+  extends: ['config:base', ':preserveSemverRanges'],
+  schedule: 'before 3am on Monday',
+  packageRules: [
     {
-      "matchPackageNames": [
+      matchPackageNames: [
         // `got@12` depends on Node 14+.
-        "got",
+        'got',
         // `react`/`react-dom`/`react-server-dom-webpack` latest don’t support
         // RSC.
-        "react",
-        "react-dom",
-        "react-server-dom-webpack",
+        'react',
+        'react-dom',
+        'react-server-dom-webpack',
         // `typescript@4.5.0` has a problem with tail calls.
-        "typescript",
+        'typescript',
         // `node-loader@2` depends on Node 16+.
-        "@node-loader/babel",
-        "@node-loader/core"
+        '@node-loader/babel',
+        '@node-loader/core'
       ],
-      "enabled": false
+      enabled: false
     }
   ]
 }
