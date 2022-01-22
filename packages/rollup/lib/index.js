@@ -33,7 +33,6 @@ export function rollup(options = {}) {
 
   return {
     name: '@mdx-js/rollup',
-    // @ts-expect-error `map` is added if a `SourceMapGenerator` is passed in.
     async transform(value, path) {
       const file = new VFile({value, path})
 
