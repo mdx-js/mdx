@@ -67,7 +67,7 @@
   "devDependencies": {
     "@emotion/react": "^11.0.0",
     "@mdx-js/react": "2.0.0-rc.2",
-    "nanoid": "^3.0.0",
+    "nanoid": "^3.1.31",
     "preact": "^10.0.0",
     "preact-render-to-string": "^5.0.0",
     "react": "^18.0.0-alpha-327d5c484-20211106",
