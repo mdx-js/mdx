@@ -5,13 +5,20 @@
  * @typedef {Pick<CompileOptions, 'SourceMapGenerator'>} Defaults
  * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} Options
  * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
+ * @typedef {import('webpack').Compiler} WebpackCompiler
  * @typedef {(vfileCompatible: VFileCompatible) => Promise<VFile>} Process
  */
 
+import {createHash} from 'node:crypto'
 import {SourceMapGenerator} from 'source-map'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
 
-/** @type {WeakMap<CompileOptions, Process>} */
+const own = {}.hasOwnProperty
+
+// Note: the cache is heavily inspired by:
+// <https://github.com/TypeStrong/ts-loader/blob/5c030bf/src/instance-cache.ts>
+const marker = /** @type {WebpackCompiler} */ ({})
+/** @type {WeakMap<WebpackCompiler, Map<string, Process>>} */
 const cache = new WeakMap()
 
 /**
@@ -28,6 +35,10 @@ export function loader(value, callback) {
   const defaults = this.sourceMap ? {SourceMapGenerator} : {}
   const options = /** @type {CompileOptions} */ (this.getOptions())
   const config = {...defaults, ...options}
+  const hash = getOptionsHash(options)
+  // Some loaders set `undefined` (see `TypeStrong/ts-loader`).
+  /* c8 ignore next */
+  const compiler = this._compiler || marker
 
   /* Removed option. */
   /* c8 ignore next 5 */
@@ -37,15 +48,44 @@ export function loader(value, callback) {
     )
   }
 
-  let process = cache.get(config)
+  let map = cache.get(compiler)
+
+  if (!map) {
+    map = new Map()
+    cache.set(compiler, map)
+  }
+
+  let process = map.get(hash)
 
   if (!process) {
     process = createFormatAwareProcessors(config).process
-    cache.set(config, process)
+    map.set(hash, process)
   }
 
   process({value, path: this.resourcePath}).then((file) => {
     callback(null, file.value, file.map)
     return file
   }, callback)
+}
+
+/**
+ * @param {Options} options
+ */
+function getOptionsHash(options) {
+  const hash = createHash('sha256')
+  /** @type {keyof Options} */
+  let key
+
+  for (key in options) {
+    if (own.call(options, key)) {
+      const value = options[key]
+
+      if (value !== undefined) {
+        const valueString = JSON.stringify(value)
+        hash.update(key + valueString)
+      }
+    }
+  }
+
+  return hash.digest('hex').slice(0, 16)
 }
