@@ -179,8 +179,9 @@ test('evaluate', async () => {
     'should support an `export class` (1)'
   )
 
-  // @ts-expect-error TODO figure out how to narrow class type in JSDoc typescript
-  assert.equal(new mod.A().b, 1, 'should support an `export class` (2)')
+  const A = /** @type {new () => {b: number}} */ (mod.A)
+  const a = new A()
+  assert.equal(a.b, 1, 'should support an `export class` (2)')
 
   mod = await evaluate('export const a = 1\nexport {a as b}\n\n{a}', runtime)
 
