@@ -29,7 +29,7 @@ test('@mdx-js/loader', async () => {
 
   // React.
   await promisify(webpack)({
-    // @ts-expect-error context does not exist on the webpack options types.
+    // @ts-expect-error To do: webpack types miss support for `context`.
     context: fileURLToPath(base),
     entry: './webpack.mdx',
     mode: 'none',
@@ -49,14 +49,13 @@ test('@mdx-js/loader', async () => {
   })
 
   // One for ESM loading CJS, one for webpack.
-  const ContentReact = /** @type {MDXContent} */ (
-    /* @ts-expect-error file is dynamically generated */
-    // type-coverage:ignore-next-line
-    (await import('./react.cjs')).default.default
+  const modReact = /** @type {{default: {default: MDXContent}}} */ (
+    // @ts-expect-error file is dynamically generated
+    await import('./react.cjs')
   )
 
   assert.equal(
-    renderToStaticMarkup(React.createElement(ContentReact)),
+    renderToStaticMarkup(React.createElement(modReact.default.default)),
     '<h1>Hello, World!</h1>',
     'should compile (react)'
   )
@@ -65,7 +64,7 @@ test('@mdx-js/loader', async () => {
 
   // Preact and source maps
   await promisify(webpack)({
-    // @ts-expect-error context does not exist on the webpack options types.
+    // @ts-expect-error To do: webpack types miss support for `context`.
     context: fileURLToPath(base),
     entry: './webpack.mdx',
     mode: 'development',
@@ -91,14 +90,13 @@ test('@mdx-js/loader', async () => {
   })
 
   // One for ESM loading CJS, one for webpack.
-  const ContentPreact = /** @type {PreactComponent} */ (
-    /* @ts-expect-error file is dynamically generated */
-    // type-coverage:ignore-next-line
-    (await import('./preact.cjs')).default.default
+  const modPreact = /** @type {{default: {default: PreactComponent}}} */ (
+    // @ts-expect-error file is dynamically generated.
+    await import('./preact.cjs')
   )
 
   assert.equal(
-    render(h(ContentPreact, {})),
+    render(h(modPreact.default.default, {})),
     '<h1>Hello, World!</h1>',
     'should compile (preact)'
   )
@@ -113,7 +111,7 @@ test('@mdx-js/loader', async () => {
 
   // Vue.
   await promisify(webpack)({
-    // @ts-expect-error context does not exist on the webpack options types.
+    // @ts-expect-error To do: webpack types miss support for `context`.
     context: fileURLToPath(base),
     entry: './webpack.mdx',
     mode: 'none',
@@ -143,15 +141,14 @@ test('@mdx-js/loader', async () => {
   })
 
   // One for ESM loading CJS, one for webpack.
-  const ContentVue = /** @type {VueComponent} */ (
-    /* @ts-expect-error file is dynamically generated */
-    // type-coverage:ignore-next-line
-    (await import('./vue.cjs')).default.default
+  const modVue = /** @type {{default: {default: VueComponent}}} */ (
+    // @ts-expect-error file is dynamically generated
+    await import('./vue.cjs')
   )
 
   const vueResult = await serverRenderer.renderToString(
     vue.createSSRApp({
-      components: {Content: ContentVue},
+      components: {Content: modVue.default.default},
       template: '<Content />'
     })
   )

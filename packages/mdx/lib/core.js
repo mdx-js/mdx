@@ -86,7 +86,8 @@ export function createProcessor(options = {}) {
     }
   }
 
-  // @ts-expect-error allowed in `compile`, but not here.
+  // @ts-expect-error runtime exception for disallowed field here, which is
+  // allowed in `compile`.
   if (format === 'detect') {
     throw new Error(
       "Incorrect `format: 'detect'`: `createProcessor` can support either `md` or `mdx`; it does not support detecting the format"

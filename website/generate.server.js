@@ -69,7 +69,7 @@ async function main() {
 
       data.meta = {authors, ...restInfo, ...data.meta}
 
-      // Sanitize the HAST description:
+      // Sanitize the hast description:
       if (data.meta.descriptionHast) {
         data.meta.descriptionHast = unified()
           .use(rehypeSanitize, schema)

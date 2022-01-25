@@ -131,7 +131,7 @@ test('should support `withComponents`', async () => {
   })
   const With = withMDXComponents((props) => props.children)
 
-  // Bug: this should use the `h2` component too, loggically?
+  // Bug: this should use the `h2` component too, logically?
   // As `withMDXComponents` is deprecated, and it would probably be a breaking
   // change, we can just remove it later.
   assert.equal(

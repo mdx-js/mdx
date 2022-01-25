@@ -28,8 +28,7 @@
  *   in.
  */
 
-// @ts-expect-error baseGenerator is not yet exported by astring typings
-import {baseGenerator, generate} from 'astring'
+import {GENERATOR, generate} from 'astring'
 
 /**
  * A plugin that adds an esast compiler: a small wrapper around `astring` to add
@@ -51,24 +50,26 @@ export function recmaStringify(options = {}) {
       sourceMap = new SourceMapGenerator({file: file.path || 'unknown.mdx'})
     }
 
+    const generator = {
+      ...GENERATOR,
+      JSXAttribute,
+      JSXClosingElement,
+      JSXClosingFragment,
+      JSXElement,
+      JSXEmptyExpression,
+      JSXExpressionContainer,
+      JSXFragment,
+      JSXIdentifier,
+      JSXMemberExpression,
+      JSXNamespacedName,
+      JSXOpeningElement,
+      JSXOpeningFragment,
+      JSXSpreadAttribute,
+      JSXText
+    }
+
     const result = generate(tree, {
-      generator: {
-        ...baseGenerator,
-        JSXAttribute,
-        JSXClosingElement,
-        JSXClosingFragment,
-        JSXElement,
-        JSXEmptyExpression,
-        JSXExpressionContainer,
-        JSXFragment,
-        JSXIdentifier,
-        JSXMemberExpression,
-        JSXNamespacedName,
-        JSXOpeningElement,
-        JSXOpeningFragment,
-        JSXSpreadAttribute,
-        JSXText
-      },
+      generator,
       comments: true,
       sourceMap
     })
