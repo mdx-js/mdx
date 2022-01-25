@@ -97,9 +97,23 @@ This produces the website in `public/`.
 
 To release a new version, do:
 
-*   Draft a release for the next version (vX.X.X)
-*   `yarn && yarn test && yarn lerna publish --force-publish`
-*   Publish release on GitHub
+1.  update `version`s of packages with a patch, minor, or major (make sure to
+    update dependency ranges on monorepo packages when needed):
+    ```sh
+    npm version minor --workspaces --no-git-tag-version
+    ```
+2.  commit and tag using the version (without `v`) as the message:
+    ```sh
+    git commit --all --message 1.2.3 && git tag 1.2.3 && git push && git push --tags
+    ```
+3.  release to the npm registry:
+    ```sh
+    npm publish --workspaces
+    ```
+4.  add a changelog entry for the release on GitHub:
+    ```sh
+    open https://github.com/mdx-js/mdx/releases
+    ```
 
 ## Resources
 
