@@ -224,7 +224,7 @@ abide by its terms.
 
 [support]: https://mdxjs.com/community/support/
 
-[coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
+[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
 
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/remark-mdx/license
 

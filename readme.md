@@ -155,7 +155,7 @@ See [§ Sponsor][sponsor] on our site for how to help financially.
 
 [sponsor]: https://mdxjs.com/community/sponsor/
 
-[coc]: https://github.com/mdx-js/.github/blob/HEAD/code-of-conduct.md
+[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
 
 [website]: https://mdxjs.com
 
