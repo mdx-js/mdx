@@ -180,11 +180,10 @@ export function recmaJsxRewrite(options = {}) {
               fnScope.tags.push(id)
             }
 
-            node.openingElement.name = {
-              type: 'JSXMemberExpression',
-              object: {type: 'JSXIdentifier', name: '_components'},
-              property: name
-            }
+            node.openingElement.name = toJsxIdOrMemberExpression([
+              '_components',
+              id
+            ])
 
             if (node.closingElement) {
               node.closingElement.name = toJsxIdOrMemberExpression([
@@ -224,7 +223,9 @@ export function recmaJsxRewrite(options = {}) {
             defaults.push({
               type: 'Property',
               kind: 'init',
-              key: {type: 'Identifier', name},
+              key: isIdentifierName(name)
+                ? {type: 'Identifier', name}
+                : {type: 'Literal', value: name},
               value: {type: 'Literal', value: name},
               method: false,
               shorthand: false,

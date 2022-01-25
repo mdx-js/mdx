@@ -6,23 +6,35 @@
  * @typedef {import('estree-jsx').JSXMemberExpression} JSXMemberExpression
  */
 
-import {name as isIdentifierName} from 'estree-util-is-identifier-name'
+import {
+  start as esStart,
+  cont as esCont,
+  name as isIdentifierName
+} from 'estree-util-is-identifier-name'
 
 export const toIdOrMemberExpression = toIdOrMemberExpressionFactory(
   'Identifier',
-  'MemberExpression'
+  'MemberExpression',
+  isIdentifierName
 )
 
 export const toJsxIdOrMemberExpression =
   // @ts-expect-error: fine
   /** @type {(ids: Array<string|number>) => JSXIdentifier|JSXMemberExpression)} */
-  (toIdOrMemberExpressionFactory('JSXIdentifier', 'JSXMemberExpression'))
+  (
+    toIdOrMemberExpressionFactory(
+      'JSXIdentifier',
+      'JSXMemberExpression',
+      isJsxIdentifierName
+    )
+  )
 
 /**
- * @param {string} [idType]
- * @param {string} [memberType]
+ * @param {string} idType
+ * @param {string} memberType
+ * @param {(value: string) => boolean} isIdentifier
  */
-function toIdOrMemberExpressionFactory(idType, memberType) {
+function toIdOrMemberExpressionFactory(idType, memberType, isIdentifier) {
   return toIdOrMemberExpression
   /**
    * @param {Array<string|number>} ids
@@ -35,12 +47,18 @@ function toIdOrMemberExpressionFactory(idType, memberType) {
 
     while (++index < ids.length) {
       const name = ids[index]
+      const valid = typeof name === 'string' && isIdentifier(name)
+
+      // A value of `asd.123` could be turned into `asd['123']` in the JS form,
+      // but JSX does not have a form for it, so throw.
+      /* c8 ignore next 3 */
+      if (idType === 'JSXIdentifier' && !valid) {
+        throw new Error('Cannot turn `' + name + '` into a JSX identifier')
+      }
+
       /** @type {Identifier|Literal} */
       // @ts-expect-error: JSX is fine.
-      const id =
-        typeof name === 'string' && isIdentifierName(name)
-          ? {type: idType, name}
-          : {type: 'Literal', value: name}
+      const id = valid ? {type: idType, name} : {type: 'Literal', value: name}
       // @ts-expect-error: JSX is fine.
       object = object
         ? {
@@ -61,4 +79,30 @@ function toIdOrMemberExpressionFactory(idType, memberType) {
 
     return object
   }
+}
+
+/**
+ * Checks if the given string is a valid JSX identifier name.
+ * @param {string} name
+ */
+function isJsxIdentifierName(name) {
+  let index = -1
+
+  while (++index < name.length) {
+    // We currently receive valid input, but this catches bugs and is needed
+    // when externalized.
+    /* c8 ignore next */
+    if (!(index ? jsxCont : esStart)(name.charCodeAt(index))) return false
+  }
+
+  // `false` if `name` is empty.
+  return index > 0
+}
+
+/**
+ * Checks if the given character code can continue a JSX identifier.
+ * @param {number} code
+ */
+function jsxCont(code) {
+  return code === 45 /* `-` */ || esCont(code)
 }
