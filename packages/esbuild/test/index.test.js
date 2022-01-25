@@ -240,16 +240,28 @@ test('@mdx-js/esbuild', async () => {
                * @param {VFile} file
                */
               (tree, file) => {
+                const esm = tree.children[0] // Export
+                // @ts-expect-error To do: mdast-util-mdx should probably also extend hast?
+                assert.ok(esm && esm.type === 'mdxjsEsm')
+                const eol = tree.children[1] // EOL between both, no position.
+                assert.ok(eol && eol.type === 'text')
+                assert.ok(!eol.position)
+                const head = tree.children[2] // Heading
+                assert.ok(head && head.type === 'element')
+                assert.ok(head.position)
+                const text = head.children[0] // Text in heading
+                assert.ok(text && text.type === 'text')
+                const jsx = head.children[1] // JSX in heading
+                // @ts-expect-error To do: mdast-util-mdx should probably also extend hast?
+                assert.ok(jsx && jsx.type === 'mdxJsxTextElement')
+                console.log(head)
                 file.message('1')
-                file.message('2', tree.children[1]) // EOL between both, no position.
+                file.message('2', eol)
                 file.message('3', tree)
-                file.message('4', tree.children[0]) // Export
-                // @ts-expect-error: fine.
-                file.message('5', tree.children[2].children[0]) // Text in heading
-                // @ts-expect-error: fine.
-                file.message('6', tree.children[2].children[1]) // Expression in heading
-                // @ts-expect-error: fine.
-                file.message('7', tree.children[2].position.end).fatal = true // End of heading
+                file.message('4', esm)
+                file.message('5', text) // Text in heading
+                file.message('6', jsx) // JSX in heading
+                file.message('7', head.position.end).fatal = true // End of heading
               }
           ]
         })
