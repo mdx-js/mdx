@@ -176,6 +176,7 @@
       "node/file-extension-in-import": "off",
       "react/prop-types": "off",
       "unicorn/no-await-expression-member": "off",
+      "unicorn/prefer-code-point": "off",
       "unicorn/prefer-node-protocol": "off",
       "capitalized-comments": "off",
       "complexity": "off",

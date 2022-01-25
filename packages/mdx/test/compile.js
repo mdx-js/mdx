@@ -137,6 +137,22 @@ test('compile', async () => {
   assert.equal(
     renderToStaticMarkup(
       React.createElement(
+        await run(
+          compileSync('y', {
+            rehypePlugins: [
+              () => () => ({type: 'element', tagName: 'a-b', children: []})
+            ]
+          })
+        )
+      )
+    ),
+    '<a-b></a-b>',
+    'should compile custom elements'
+  )
+
+  assert.equal(
+    renderToStaticMarkup(
+      React.createElement(
         await run(compileSync('!', {jsxRuntime: 'automatic'}))
       )
     ),
@@ -796,6 +812,26 @@ test('jsx', async () => {
       ''
     ].join('\n'),
     'should serialize fragments, expressions'
+  )
+
+  assert.equal(
+    String(compileSync('{<a-b></a-b>}', {jsx: true})),
+    [
+      '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'function MDXContent(props = {}) {',
+      '  const {wrapper: MDXLayout} = props.components || ({});',
+      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent /></MDXLayout> : _createMdxContent();',
+      '  function _createMdxContent() {',
+      '    const _components = Object.assign({',
+      '      "a-b": "a-b"',
+      '    }, props.components);',
+      '    return <>{<_components.a-b></_components.a-b>}</>;',
+      '  }',
+      '}',
+      'export default MDXContent;',
+      ''
+    ].join('\n'),
+    'should serialize custom elements inside expressions'
   )
 
   assert.equal(
