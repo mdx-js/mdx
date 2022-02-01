@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/node-loader",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0",
   "description": "Experimental Node loader for MDX",
   "license": "MIT",
   "keywords": [
@@ -37,7 +37,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0-rc.2",
+    "@mdx-js/mdx": "^2.0.0",
     "vfile": "^5.0.0"
   },
   "devDependencies": {

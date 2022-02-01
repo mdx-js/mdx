@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0",
   "description": "MDX compiler",
   "license": "MIT",
   "keywords": [
@@ -55,7 +55,7 @@
     "hast-util-to-estree": "^2.0.0",
     "markdown-extensions": "^1.0.0",
     "periscopic": "^3.0.0",
-    "remark-mdx": "^2.0.0-rc.2",
+    "remark-mdx": "^2.0.0",
     "remark-parse": "^10.0.0",
     "remark-rehype": "^10.0.0",
     "unified": "^10.0.0",
@@ -66,7 +66,7 @@
   },
   "devDependencies": {
     "@emotion/react": "^11.0.0",
-    "@mdx-js/react": "2.0.0-rc.2",
+    "@mdx-js/react": "^2.0.0",
     "nanoid": "^3.0.0",
     "preact": "^10.0.0",
     "preact-render-to-string": "^5.0.0",
