@@ -65,14 +65,18 @@ export function withMDXComponents(Component) {
  */
 export function useMDXComponents(components) {
   const contextComponents = React.useContext(MDXContext)
-
-  // Custom merge via a function prop
-  if (typeof components === 'function') {
-    return components(contextComponents)
-  }
-
-  return {...contextComponents, ...components}
+  // Memoize to avoid unnecessary top-level context changes
+  return React.useMemo(() => {
+    // Custom merge via a function prop
+    if (typeof components === 'function') {
+      return components(contextComponents)
+    }
+    return {...contextComponents, ...components}
+  }, [contextComponents, components])
 }
+
+/** @type {Components} */
+const emptyObject = {}
 
 /**
  * Provider for MDX context
@@ -84,7 +88,7 @@ export function MDXProvider({components, children, disableParentContext}) {
   let allComponents = useMDXComponents(components)
 
   if (disableParentContext) {
-    allComponents = components || {}
+    allComponents = components || emptyObject
   }
 
   return React.createElement(
