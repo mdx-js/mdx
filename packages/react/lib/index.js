@@ -75,6 +75,7 @@ export function useMDXComponents(components) {
   }, [contextComponents, components])
 }
 
+/** @type {Components} */
 const emptyObject = {}
 
 /**
