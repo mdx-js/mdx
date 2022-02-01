@@ -3,8 +3,8 @@ export const info = {
   author: [
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
-  published: new Date('2021-11-01'),
-  modified: new Date('2021-11-01')
+  published: new Date('2022-02-01'),
+  modified: new Date('2022-02-01')
 }
 
 <Note type="info">
@@ -128,7 +128,7 @@ We also added support for JavaScript expressions, take for example:
       {name: 'Jane', email: 'hi@jane.com'},
       {name: 'John', twitter: '@john2002'}
     ]
-    export const published = new Date('2021-11-01')
+    export const published = new Date('2022-02-01')
 
     Written by: {new Intl.ListFormat('en').format(authors.map(d => d.name))}.
 
@@ -140,7 +140,7 @@ We also added support for JavaScript expressions, take for example:
     ```jsx path="equivalent.jsx" copy=no
     <>
       <p>Written by: Jane and John.</p>
-      <p>Published on: November 1, 2021.</p>
+      <p>Published on: February 1, 2022.</p>
     </>
     ```
   </div>
