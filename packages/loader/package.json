@@ -58,8 +58,8 @@
     "babel-loader": "^8.0.0",
     "preact": "^10.0.0",
     "preact-render-to-string": "^5.0.0",
-    "react": "^18.0.0-alpha-327d5c484-20211106",
-    "react-dom": "^18.0.0-alpha-327d5c484-20211106",
+    "react": "^18.0.0-beta-24dd07bd2-20211208",
+    "react-dom": "^18.0.0-beta-24dd07bd2-20211208",
     "vue": "^3.0.0",
     "webpack": "^5.0.0"
   },
