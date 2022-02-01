@@ -1,6 +1,9 @@
 /**
  * @typedef {import('mdast').Root} Root
- * @typedef {import('micromark-extension-mdxjs').Options} Options
+ * @typedef {import('micromark-extension-mdxjs').Options} MicromarkOptions
+ * @typedef {import('mdast-util-mdx').ToMarkdownOptions} ToMarkdownOptions
+ * @typedef {MicromarkOptions & ToMarkdownOptions} Options
+ *
  * @typedef {import('mdast-util-mdx')} DoNotTouchAsThisImportItIncludesMdxInTree
  */
 
@@ -17,8 +20,8 @@ export default function remarkMdx(options = {}) {
   const data = this.data()
 
   add('micromarkExtensions', mdxjs(options))
-  add('fromMarkdownExtensions', mdxFromMarkdown)
-  add('toMarkdownExtensions', mdxToMarkdown)
+  add('fromMarkdownExtensions', mdxFromMarkdown())
+  add('toMarkdownExtensions', mdxToMarkdown(options))
 
   /**
    * @param {string} field

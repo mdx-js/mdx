@@ -696,13 +696,13 @@ test('compile', async () => {
         remarkPlugins: [
           () => (/** @type {Root} */ tree) => {
             tree.children.unshift({
-              // @ts-expect-error To do: mdast-util-mdx should probably also extend hast?
               type: 'mdxjsEsm',
               value: '',
               data: {
                 estree: {
                   type: 'Program',
                   comments: [],
+                  sourceType: 'module',
                   body: [
                     {
                       type: 'VariableDeclaration',

@@ -1,9 +1,9 @@
 /**
  * @typedef {import('mdast').Root} Root
  * @typedef {import('mdast').Content} Content
- * @typedef {import('mdast-util-mdx').MDXJsxAttribute} MDXJsxAttribute
- * @typedef {import('mdast-util-mdx').MDXJsxAttributeValueExpression} MDXJsxAttributeValueExpression
- * @typedef {import('mdast-util-mdx').MDXJsxExpressionAttribute} MDXJsxExpressionAttribute
+ * @typedef {import('mdast-util-mdx').MdxJsxAttribute} MdxJsxAttribute
+ * @typedef {import('mdast-util-mdx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
+ * @typedef {import('mdast-util-mdx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
  */
 
 import {test} from 'uvu'
@@ -109,7 +109,7 @@ test('stringify', () => {
         ])
       ])
     ),
-    'Alpha <b/> charlie.\n',
+    'Alpha <b /> charlie.\n',
     'should serialize a tag with a name'
   )
 
@@ -127,7 +127,7 @@ test('stringify', () => {
         ])
       ])
     ),
-    'Alpha <b bravo/> charlie.\n',
+    'Alpha <b bravo /> charlie.\n',
     'should serialize a boolean attribute (element)'
   )
 
@@ -148,7 +148,7 @@ test('stringify', () => {
         ])
       ])
     ),
-    'Alpha <b bravo="bravo"/> charlie.\n',
+    'Alpha <b bravo="bravo" /> charlie.\n',
     'should serialize an attribute (element)'
   )
 
@@ -169,7 +169,7 @@ test('stringify', () => {
         ])
       ])
     ),
-    'Alpha <b br:avo="bravo"/> charlie.\n',
+    'Alpha <b br:avo="bravo" /> charlie.\n',
     'should serialize a prefixed attribute (element)'
   )
 
@@ -190,7 +190,7 @@ test('stringify', () => {
         ])
       ])
     ),
-    'Alpha <b {...props}/> charlie.\n',
+    'Alpha <b {...props} /> charlie.\n',
     'should serialize a attribute expression (element)'
   )
 
@@ -220,7 +220,7 @@ test('stringify', () => {
         ])
       ])
     ),
-    'Alpha <b b={1 + 1}/> charlie.\n',
+    'Alpha <b b={1 + 1} /> charlie.\n',
     'should serialize an expression attribute (element)'
   )
 
@@ -317,7 +317,7 @@ function cleanEstree(tree) {
   visit(tree, onvisit)
 
   /**
-   * @param {Root|Content|MDXJsxAttribute|MDXJsxExpressionAttribute|MDXJsxAttributeValueExpression} node
+   * @param {Root|Content|MdxJsxAttribute|MdxJsxExpressionAttribute|MdxJsxAttributeValueExpression} node
    */
   function onvisit(node) {
     if (
