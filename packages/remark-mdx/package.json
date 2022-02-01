@@ -40,7 +40,7 @@
     "index.js"
   ],
   "dependencies": {
-    "mdast-util-mdx": "^1.0.0",
+    "mdast-util-mdx": "^2.0.0",
     "micromark-extension-mdxjs": "^1.0.0"
   },
   "devDependencies": {

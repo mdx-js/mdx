@@ -4,6 +4,8 @@
  * @typedef {import('hast').Root} Root
  * @typedef {import('vfile').VFile} VFile
  * @typedef {import('mdx/types').MDXContent} MDXContent
+ *
+ * @typedef {import('remark-mdx')}
  */
 
 import {promises as fs} from 'fs'
@@ -241,7 +243,6 @@ test('@mdx-js/esbuild', async () => {
                */
               (tree, file) => {
                 const esm = tree.children[0] // Export
-                // @ts-expect-error To do: mdast-util-mdx should probably also extend hast?
                 assert.ok(esm && esm.type === 'mdxjsEsm')
                 const eol = tree.children[1] // EOL between both, no position.
                 assert.ok(eol && eol.type === 'text')
@@ -252,7 +253,6 @@ test('@mdx-js/esbuild', async () => {
                 const text = head.children[0] // Text in heading
                 assert.ok(text && text.type === 'text')
                 const jsx = head.children[1] // JSX in heading
-                // @ts-expect-error To do: mdast-util-mdx should probably also extend hast?
                 assert.ok(jsx && jsx.type === 'mdxJsxTextElement')
                 console.log(head)
                 file.message('1')
