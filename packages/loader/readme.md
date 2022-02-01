@@ -47,13 +47,13 @@ Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 [npm][]:
 
 ```sh
-npm install @mdx-js/loader@next
+npm install @mdx-js/loader
 ```
 
 [yarn][]:
 
 ```sh
-yarn add @mdx-js/loader@next
+yarn add @mdx-js/loader
 ```
 
 ## Use
@@ -113,20 +113,6 @@ use: [
   },
 ];
 // …
-```
-
-###### Note: `webpack-cli`
-
-`webpack-cli` doesn’t support loaders in ESM directly or even *indirectly*.
-Because `@mdx-js/mdx` itself is ESM, this means the `@mdx-js/loader` loader
-(even though it’s CJS) doesn’t work with `webpack-cli` (it does work when using
-the webpack API).
-To use this loader with `webpack-cli`, set the `DISABLE_V8_COMPILE_CACHE=1`
-environment variable.
-See [this issue][webpack-v8] for details.
-
-```sh
-DISABLE_V8_COMPILE_CACHE=1 webpack
 ```
 
 ## Types
@@ -202,8 +188,6 @@ abide by its terms.
 [typescript]: https://www.typescriptlang.org
 
 [babel-loader]: https://webpack.js.org/loaders/babel-loader/
-
-[webpack-v8]: https://github.com/wooorm/xdm/issues/11#issuecomment-785043772
 
 [cra]: https://mdxjs.com/getting-started/#create-react-app-cra
 

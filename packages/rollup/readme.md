@@ -47,13 +47,13 @@ Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 [npm][]:
 
 ```sh
-npm install @mdx-js/rollup@next
+npm install @mdx-js/rollup
 ```
 
 [yarn][]:
 
 ```sh
-yarn add @mdx-js/rollup@next
+yarn add @mdx-js/rollup
 ```
 
 ## Use

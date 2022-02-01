@@ -115,10 +115,10 @@ async function main() {
         })
         .use(rehypeLazyCss, [
           {
-            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css'
+            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github.min.css'
           },
           {
-            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark.min.css',
+            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github-dark.min.css',
             media: '(prefers-color-scheme: dark)'
           }
         ])

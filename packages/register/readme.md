@@ -49,13 +49,13 @@ Node 12+ is needed to use it.
 [npm][]:
 
 ```sh
-npm install @mdx-js/register@next
+npm install @mdx-js/register
 ```
 
 [yarn][]:
 
 ```sh
-yarn add @mdx-js/register@next
+yarn add @mdx-js/register
 ```
 
 ## Use

@@ -47,13 +47,13 @@ Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 [npm][]:
 
 ```sh
-npm install @mdx-js/react@next
+npm install @mdx-js/react
 ```
 
 [yarn][]:
 
 ```sh
-yarn add @mdx-js/react@next
+yarn add @mdx-js/react
 ```
 
 ## Use

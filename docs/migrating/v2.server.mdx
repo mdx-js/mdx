@@ -4,25 +4,9 @@ export const info = {
   author: [
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
-  published: new Date('2021-11-01'),
-  modified: new Date('2021-11-01')
+  published: new Date('2022-02-01'),
+  modified: new Date('2022-02-01')
 }
-
-<Note type="important">
-  **Note**: V2 is around the corner.
-  This website is for that.
-  It hasn’t been released yet.
-  But you can try out the RC.
-  You can be of great help by reading through these docs and letting us know
-  what’s confusing or wrong or other suggestions you have.
-  See [§ Support][support] for where to ask questions and
-  [§ Contribute][contribute] for how to help.
-</Note>
-
-<Note type="info">
-  **Note**: Please let us know of any required changes that aren’t mentioned
-  here.
-</Note>
 
 # Migrating from v1 to v2
 
@@ -112,7 +96,7 @@ that works with our previous `@mdx-js/loader` (`1.6.22`):
 Then install MDX version 2:
 
 ```sh
-npm install @mdx-js/loader@next @mdx-js/react@next remark-gfm
+npm install @mdx-js/loader @mdx-js/react remark-gfm
 ```
 
 You can update your code as follows:
@@ -179,11 +163,6 @@ You can update your code as follows:
   </div>
 </div>
 
-<Note type="info">
-  **Note**: getting an error `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`?
-  See [this note on `webpack-cli`](/packages/loader/#note-webpack-cli).
-</Note>
-
 The above changes get MDX 2 close to how MDX 1 worked.
 You can make it simpler:
 
@@ -245,7 +224,7 @@ Then make sure ESM is supported.
 Then install version 2:
 
 ```sh
-npm install @mdx-js/react@next # Change `react` to `preact` or `vue` if needed
+npm install @mdx-js/react # Change `react` to `preact` or `vue` if needed
 ```
 
 Note that these packages now only add support for context based components
@@ -268,7 +247,7 @@ To update our core compiler `@mdx-js/mdx`, first make sure ESM is supported.
 Then install version 2:
 
 ```sh
-npm install @mdx-js/mdx@next @mdx-js/react@next remark-gfm
+npm install @mdx-js/mdx @mdx-js/react remark-gfm
 ```
 
 You can update your code as follows:
@@ -375,7 +354,7 @@ Then uninstall `@mdx-js/runtime` and install `@mdx-js/mdx` and `@mdx-js/react`:
 
 ```sh
 npm uninstall @mdx-js/runtime
-npm install @mdx-js/mdx@next @mdx-js/react@next
+npm install @mdx-js/mdx @mdx-js/react
 ```
 
 You can update your code as follows:
@@ -455,7 +434,7 @@ To update our remark plugin `remark-mdx`, first make sure ESM is supported.
 Then install version 2:
 
 ```sh
-npm install remark-mdx@next
+npm install remark-mdx
 ```
 
 For more information, please see [§ Use in `remark-mdx`][remark-mdx-use].
@@ -675,10 +654,6 @@ We know it wasn’t the easiest to migrate, we’re happy you’re still here, w
 try to make migration easier next time.
 With our new AST, we’re able to create codemods from now on.
 \<3
-
-[support]: /community/support/
-
-[contribute]: /community/contribute/
 
 [esm]: #esm
 

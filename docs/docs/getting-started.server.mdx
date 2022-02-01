@@ -5,19 +5,8 @@ export const info = {
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-05'),
-  modified: new Date('2021-11-01')
+  modified: new Date('2022-02-01')
 }
-
-<Note type="important">
-  **Note**: V2 is around the corner.
-  This website is for that.
-  It hasn’t been released yet.
-  But you can try out the RC.
-  You can be of great help by reading through these docs and letting us know
-  what’s confusing or wrong or other suggestions you have.
-  See [§ Support][support] for where to ask questions and
-  [§ Contribute][contribute] for how to help.
-</Note>
 
 # Getting started
 
@@ -318,11 +307,6 @@ If you use more modern JavaScript features than what your users support,
 See also [¶ Create React App (CRA)][cra], [¶ Next.js][next], and
 [¶ Vue CLI][vue-cli], if you’re using webpack through them, for more info.
 
-<Note type="info">
-  **Note**: getting an error `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`?
-  See [this note on `webpack-cli`](/packages/loader/#note-webpack-cli).
-</Note>
-
 ### Build systems
 
 #### Snowpack
@@ -395,10 +379,10 @@ which you’re likely using, for more info.
 
 <Note type="info">
   **Note**: to support ESM in `vue.config.js` or `vue.config.mjs`, you currently
-  have to use their v5.0.0-beta.
+  have to use their v5.0.0-rc.
   See [`v5.0.0-beta.0`](https://github.com/vuejs/vue-cli/releases/tag/v5.0.0-beta.0)
   in their changelog for more info.
-  Their latest beta release is currently `v5.0.0-beta.6`.
+  Their latest beta release is currently `v5.0.0-rc.2`.
 </Note>
 
 #### WMR
@@ -579,13 +563,6 @@ There is no need to configure your JSX runtime as React is already set up.
 
 See also [¶ Webpack][webpack] and [¶ React][react], which you’re using, for
 more on those tools.
-
-<Note type="info">
-  **Note**: to support ESM in Next.js, you currently have to set a flag:
-  `experimental: {esmExternals: true}` in `next.config.js`.
-  See [ES Modules Support](https://nextjs.org/blog/next-11-1#es-modules-support)
-  in their Next.js 11.1 blog post for more info.
-</Note>
 
 #### Parcel
 
@@ -825,6 +802,8 @@ See their readmes on how to configure them.
 
 [jsx]: #jsx
 
+[support]: /community/support/
+
 [what]: /docs/what-is-mdx/
 
 [use]: /docs/using-mdx/
@@ -898,7 +877,3 @@ See their readmes on how to configure them.
 [gatsby]: #gatsby
 
 [docusaurus]: #docusaurus
-
-[support]: /community/support/
-
-[contribute]: /community/contribute/
