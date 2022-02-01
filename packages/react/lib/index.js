@@ -71,6 +71,7 @@ export function useMDXComponents(components) {
     if (typeof components === 'function') {
       return components(contextComponents)
     }
+
     return {...contextComponents, ...components}
   }, [contextComponents, components])
 }
