@@ -128,7 +128,7 @@ export const Editor = ({children}) => {
         <code>{String(error.message)}</code>
       </pre>);
     }
-  }, [state.file.result]);
+  }, [state]);
 
   return (
     <div>
