@@ -119,7 +119,7 @@ export const Editor = ({children}) => {
   )
   const stats = state.file ? statistics(state.file) : {}
 
-  //Create a preview component that can handle errors with try-catch block; hopefully catching invalid JS expressions errors
+  // Create a preview component that can handle errors with try-catch block; for catching invalid JS expressions errors
   const Preview = useCallback(() => {
     try {
       return state.file.result();
