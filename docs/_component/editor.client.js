@@ -119,6 +119,15 @@ export const Editor = ({children}) => {
   )
   const stats = state.file ? statistics(state.file) : {}
 
+  // Create a preview component that can handle errors with try-catch block; for catching invalid JS expressions errors that ErrorBoundary cannot catch.
+  const Preview = useCallback(() => {
+    try {
+      return state.file.result()
+    } catch (error) {
+      return <FallbackComponent error={error} />
+    }
+  }, [state])
+
   return (
     <div>
       <Tabs className="frame">
@@ -232,11 +241,7 @@ export const Editor = ({children}) => {
         <TabPanel>
           <noscript>Enable JavaScript for the rendered result.</noscript>
           <div className="frame-body frame-body-box-fixed-height frame-body-box">
-            {state.file && state.file.result ? (
-              <ErrorBoundary FallbackComponent={FallbackComponent}>
-                {state.file.result()}
-              </ErrorBoundary>
-            ) : null}
+            {state.file && state.file.result ? <Preview /> : null}
           </div>
         </TabPanel>
         <TabPanel>
