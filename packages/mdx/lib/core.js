@@ -4,6 +4,7 @@
  * @typedef {import('./plugin/recma-document.js').RecmaDocumentOptions} RecmaDocumentOptions
  * @typedef {import('./plugin/recma-stringify.js').RecmaStringifyOptions} RecmaStringifyOptions
  * @typedef {import('./plugin/recma-jsx-rewrite.js').RecmaJsxRewriteOptions} RecmaJsxRewriteOptions
+ * @typedef {import('remark-rehype').Options} RemarkRehypeOptions
  *
  * @typedef BaseProcessorOptions
  * @property {boolean} [jsx=false]
@@ -22,6 +23,8 @@
  *   List of remark (mdast, markdown) plugins.
  * @property {PluggableList} [rehypePlugins]
  *   List of rehype (hast, HTML) plugins.
+ * @property {RemarkRehypeOptions} [remarkRehypeOptions]
+ *   Options for remark-rehype plugin.
  *
  * @typedef {Omit<RecmaDocumentOptions & RecmaStringifyOptions & RecmaJsxRewriteOptions, 'outputFormat'>} PluginOptions
  * @typedef {BaseProcessorOptions & PluginOptions} ProcessorOptions
@@ -70,6 +73,7 @@ export function createProcessor(options = {}) {
     recmaPlugins,
     rehypePlugins,
     remarkPlugins,
+    remarkRehypeOptions = {},
     SourceMapGenerator,
     ...rest
   } = options
@@ -103,7 +107,15 @@ export function createProcessor(options = {}) {
   pipeline
     .use(remarkMarkAndUnravel)
     .use(remarkPlugins || [])
-    .use(remarkRehype, {allowDangerousHtml: true, passThrough: nodeTypes})
+    .use(remarkRehype, {
+      ...remarkRehypeOptions,
+      allowDangerousHtml: true,
+      passThrough: Array.isArray(remarkRehypeOptions.passThrough)
+        ? Array.from(
+            new Set([...remarkRehypeOptions.passThrough, ...nodeTypes])
+          )
+        : nodeTypes
+    })
     .use(rehypePlugins || [])
 
   if (format === 'md') {
