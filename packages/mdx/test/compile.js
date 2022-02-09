@@ -1080,7 +1080,7 @@ test('markdown (math, `remark-math`, `rehype-katex`)', async () => {
   )
 })
 
-test('remark-reyhpe options', async () => {
+test('remark-rehype options', async () => {
   assert.equal(
     renderToStaticMarkup(
       React.createElement(
