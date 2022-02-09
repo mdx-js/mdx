@@ -193,6 +193,23 @@ List of recma plugins.
 This is a new ecosystem, currently in beta, to transform [esast][] trees
 (JavaScript).
 
+###### `options.remarkRehypeOptions`
+
+Options to pass through to [`remark-rehype`][remark-rehype].
+The option `allowDangerousHtml` will always be set to `true` and the MDX nodes
+are passed through.
+In particular, you might want to pass `clobberPrefix`, `footnoteLabel`, and
+`footnoteBackLabel`.
+
+<details>
+<summary>Example</summary>
+
+```js
+compile({value: '…'}, {remarkRehypeOptions: {clobberPrefix: 'comment-1'}})
+```
+
+</details>
+
 ###### `options.mdExtensions`
 
 List of markdown extensions, with dot (`Array<string>`, default: `['.md',
@@ -1060,6 +1077,8 @@ abide by its terms.
 [remark-plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins
 
 [rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
+
+[remark-rehype]: https://github.com/remarkjs/remark-rehype
 
 [mdx-syntax]: https://mdxjs.com/docs/what-is-mdx/#mdx-syntax
 
