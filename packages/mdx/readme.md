@@ -195,7 +195,21 @@ This is a new ecosystem, currently in beta, to transform [esast][] trees
 
 ###### `options.remarkRehypeOptions`
 
-Options for remark-rehype plugin.
+Options to pass through to [`remark-rehype`][remark-rehype].
+The option `allowDangerousHtml` will always be set to `true` and the MDX nodes
+are passed through.
+In particular, you might want to pass `clobberPrefix`, `footnoteLabel`, and
+`footnoteBackLabel`.
+
+<details>
+<summary>Example</summary>
+```js
+compile({
+  value: '…',
+  remarkRehypeOptions: {clobberPrefix: 'comment-1'}
+})
+```
+</details>
 
 ###### `options.mdExtensions`
 

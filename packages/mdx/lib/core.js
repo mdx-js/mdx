@@ -24,7 +24,7 @@
  * @property {PluggableList} [rehypePlugins]
  *   List of rehype (hast, HTML) plugins.
  * @property {RemarkRehypeOptions} [remarkRehypeOptions]
- *   Options for remark-rehype plugin.
+ *   Options to pass through to `remark-rehype`.
  *
  * @typedef {Omit<RecmaDocumentOptions & RecmaStringifyOptions & RecmaJsxRewriteOptions, 'outputFormat'>} PluginOptions
  * @typedef {BaseProcessorOptions & PluginOptions} ProcessorOptions
@@ -110,11 +110,7 @@ export function createProcessor(options = {}) {
     .use(remarkRehype, {
       ...remarkRehypeOptions,
       allowDangerousHtml: true,
-      passThrough: Array.isArray(remarkRehypeOptions.passThrough)
-        ? Array.from(
-            new Set([...remarkRehypeOptions.passThrough, ...nodeTypes])
-          )
-        : nodeTypes
+      passThrough: [...(remarkRehypeOptions.passThrough || []), ...nodeTypes]
     })
     .use(rehypePlugins || [])
 
