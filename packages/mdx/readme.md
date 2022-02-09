@@ -203,12 +203,11 @@ In particular, you might want to pass `clobberPrefix`, `footnoteLabel`, and
 
 <details>
 <summary>Example</summary>
+
 ```js
-compile({
-  value: '…',
-  remarkRehypeOptions: {clobberPrefix: 'comment-1'}
-})
+compile({value: '…'}, {remarkRehypeOptions: {clobberPrefix: 'comment-1'}})
 ```
+
 </details>
 
 ###### `options.mdExtensions`
