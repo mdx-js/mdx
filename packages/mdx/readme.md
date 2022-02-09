@@ -193,6 +193,10 @@ List of recma plugins.
 This is a new ecosystem, currently in beta, to transform [esast][] trees
 (JavaScript).
 
+###### `options.remarkRehypeOptions`
+
+Options for remark-rehype plugin.
+
 ###### `options.mdExtensions`
 
 List of markdown extensions, with dot (`Array<string>`, default: `['.md',
