@@ -1079,6 +1079,8 @@ abide by its terms.
 
 [rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
 
+[remark-rehype]: https://github.com/remarkjs/remark-rehype
+
 [mdx-syntax]: https://mdxjs.com/docs/what-is-mdx/#mdx-syntax
 
 [use]: #use
