@@ -110,6 +110,7 @@ export function createProcessor(options = {}) {
     .use(remarkRehype, {
       ...remarkRehypeOptions,
       allowDangerousHtml: true,
+      /* c8 ignore next */
       passThrough: [...(remarkRehypeOptions.passThrough || []), ...nodeTypes]
     })
     .use(rehypePlugins || [])
