@@ -13,7 +13,7 @@
  */
 
 import {SourceMapGenerator} from 'source-map'
-import vfile from 'vfile'
+import VFile from 'vfile'
 import {createFilter} from '@rollup/pluginutils'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
 
@@ -34,7 +34,7 @@ export function rollup(options = {}) {
   return {
     name: '@mdx-js/rollup',
     async transform(value, path) {
-      const file = new vfile.VFile({value, path})
+      const file = new VFile({value, path})
 
       if (
         file.extname &&
