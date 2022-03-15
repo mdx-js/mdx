@@ -39,7 +39,6 @@
  *   JSX runtime to use.
  */
 
-import {URL} from 'url'
 import {analyze} from 'periscopic'
 import {stringifyPosition} from 'unist-util-stringify-position'
 import {positionFromEstree} from 'unist-util-position-from-estree'
