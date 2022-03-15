@@ -2,7 +2,6 @@
 import defaultFs, {promises as fs} from 'fs'
 import path from 'path'
 import process from 'process'
-import {fileURLToPath} from 'url'
 import React from 'react'
 import {pipeToNodeWritable} from 'react-server-dom-webpack/writer'
 import pAll from 'p-all'

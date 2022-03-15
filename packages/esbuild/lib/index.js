@@ -13,7 +13,6 @@
  * @typedef {ProcessorOptions & {allowDangerousRemoteMdx?: boolean}} Options
  */
 
-import {URL} from 'url'
 import assert from 'node:assert'
 import {promises as fs} from 'node:fs'
 import path from 'node:path'

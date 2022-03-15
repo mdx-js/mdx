@@ -7,7 +7,6 @@
 
 import {promises as fs} from 'fs'
 import {promisify} from 'util'
-import {URL, fileURLToPath} from 'url'
 import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import webpack from 'webpack'
