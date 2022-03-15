@@ -9,6 +9,7 @@
  */
 
 import {promises as fs} from 'fs'
+import {fileURLToPath} from 'url'
 import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import esbuild from 'esbuild'

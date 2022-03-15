@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import {promises as fs} from 'fs'
 import path from 'path'
+import {fileURLToPath} from 'url'
 import React from 'react'
 import {renderToString} from 'react-dom/server.js'
 import {createFromReadableStream} from 'react-server-dom-webpack'
