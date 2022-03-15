@@ -241,7 +241,9 @@ export const Editor = ({children}) => {
         <TabPanel>
           <noscript>Enable JavaScript for the rendered result.</noscript>
           <div className="frame-body frame-body-box-fixed-height frame-body-box">
-            {state.file && state.file.result ? <Preview /> : null}
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              {state.file && state.file.result ? <Preview /> : null}
+            </ErrorBoundary>
           </div>
         </TabPanel>
         <TabPanel>
