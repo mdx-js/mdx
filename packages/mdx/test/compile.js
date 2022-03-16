@@ -23,7 +23,7 @@ import {VFile} from 'vfile'
 import {SourceMapGenerator} from 'source-map'
 import {compile, compileSync, createProcessor, nodeTypes} from '../index.js'
 // @ts-expect-error: make sure a single react is used.
-import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server'
+import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server.js'
 import {MDXProvider} from '../../react/index.js'
 
 // Note: Node has an experimental `--enable-source-maps` flag, but most of V8

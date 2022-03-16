@@ -2,7 +2,7 @@ import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import {evaluate, evaluateSync, compile} from '../index.js'
 // @ts-expect-error: make sure a single react is used.
-import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server'
+import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server.js'
 // @ts-expect-error: make sure a single react is used.
 import * as runtime_ from '../../react/node_modules/react/jsx-runtime.js'
 // @ts-expect-error: make sure a single react is used.
