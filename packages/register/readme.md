@@ -74,7 +74,7 @@ export const Thing = () => <>World!</>
 'use strict'
 
 const React = require('react')
-const {renderToStaticMarkup} = require('react-dom/server.js')
+const {renderToStaticMarkup} = require('react-dom/server')
 const Content = require('./example.mdx')
 
 console.log(renderToStaticMarkup(React.createElement(Content)))

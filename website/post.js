@@ -63,7 +63,7 @@ async function main() {
       // Ten most recently published articles.
       .slice(0, 10)
       .map(({info, url}) => async () => {
-        const buf = await fs.readFile(new URL('./index.html', url))
+        const buf = await fs.readFile(new URL('index.html', url))
         const file = await unified()
           .use(rehypeParse)
           .use(() => (tree) => ({
@@ -132,7 +132,7 @@ async function main() {
   await pAll(
     allInfo.map((data) => async () => {
       const {url, info} = data
-      const output = new URL('./index.png', url)
+      const output = new URL('index.png', url)
       let stats
 
       try {

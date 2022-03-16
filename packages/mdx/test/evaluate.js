@@ -2,7 +2,7 @@ import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import {evaluate, evaluateSync, compile} from '../index.js'
 // @ts-expect-error: make sure a single react is used.
-import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server.js'
+import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server'
 // @ts-expect-error: make sure a single react is used.
 import * as runtime_ from '../../react/node_modules/react/jsx-runtime.js'
 // @ts-expect-error: make sure a single react is used.
@@ -83,7 +83,7 @@ test('evaluate', async () => {
         (
           await evaluate(
             'import {number} from "' +
-              new URL('./context/data.js', import.meta.url) +
+              new URL('context/data.js', import.meta.url) +
               '"\n\n{number}',
             {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
           )

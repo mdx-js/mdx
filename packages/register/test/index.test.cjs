@@ -9,7 +9,7 @@ const fs = require('fs').promises
 const {test} = require('uvu')
 const assert = require('uvu/assert')
 const React = require('react')
-const {renderToStaticMarkup} = require('react-dom/server.js')
+const {renderToStaticMarkup} = require('react-dom/server')
 
 test('@mdx-js/register', async () => {
   const base = path.resolve(path.join('test'))

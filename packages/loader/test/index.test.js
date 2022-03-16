@@ -12,7 +12,7 @@ import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import webpack from 'webpack'
 import React from 'react'
-import {renderToStaticMarkup} from 'react-dom/server.js'
+import {renderToStaticMarkup} from 'react-dom/server'
 import {h} from 'preact'
 import {render} from 'preact-render-to-string'
 import * as vue from 'vue'
@@ -20,7 +20,7 @@ import serverRenderer from '@vue/server-renderer'
 
 test('@mdx-js/loader', async () => {
   // Setup.
-  const base = new URL('./', import.meta.url)
+  const base = new URL('.', import.meta.url)
 
   await fs.writeFile(
     new URL('webpack.mdx', base),
