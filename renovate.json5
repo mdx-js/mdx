@@ -4,8 +4,6 @@
   packageRules: [
     {
       matchPackageNames: [
-        // `got@12` depends on Node 14+.
-        'got',
         // `react`/`react-dom`/`react-server-dom-webpack` latest don’t support
         // RSC.
         'react',

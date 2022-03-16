@@ -17,7 +17,7 @@ import assert from 'node:assert'
 import {promises as fs} from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-import got from 'got'
+import fetch from 'node-fetch'
 import {VFile} from 'vfile'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
 import {extnamesToRegex} from '@mdx-js/mdx/lib/util/extnames-to-regex.js'
@@ -97,7 +97,17 @@ export function esbuild(options = {}) {
     async function onloadremote(data) {
       const href = data.path
       console.log('%s: downloading `%s`', remoteNamespace, href)
-      const contents = (await got(href, {cache})).body
+
+      /** @type {string} */
+      let contents
+
+      const cachedContents = cache.get(href)
+      if (cachedContents) {
+        contents = cachedContents
+      } else {
+        contents = await (await fetch(href)).text()
+        cache.set(href, contents)
+      }
 
       return filter.test(href)
         ? onload({
