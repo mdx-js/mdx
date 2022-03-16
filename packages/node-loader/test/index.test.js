@@ -3,7 +3,6 @@
  */
 
 import {promises as fs} from 'fs'
-import {URL} from 'url'
 import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import React from 'react'

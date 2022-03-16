@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import url from 'url'
+import {fileURLToPath} from 'url'
 import process from 'process'
 import webpack from 'webpack'
 import ReactServerWebpackPlugin from 'react-server-dom-webpack/plugin'
@@ -13,9 +13,7 @@ webpack(
     mode: production ? 'production' : 'development',
     devtool: production ? 'source-map' : 'cheap-module-source-map',
     entry: [
-      url.fileURLToPath(
-        new URL('../docs/_asset/index.client.js', import.meta.url)
-      )
+      fileURLToPath(new URL('../docs/_asset/index.client.js', import.meta.url))
     ],
     output: {
       // RSC puts all chunks in `public/` (perhaps due to my weird doing),
@@ -23,7 +21,7 @@ webpack(
       // `public/folder/chunk.js`, even though it’s at `public/chunk.js`.
       // This fixes that!
       publicPath: '/',
-      path: url.fileURLToPath(config.output),
+      path: fileURLToPath(config.output),
       filename: 'index.js'
     },
     module: {
