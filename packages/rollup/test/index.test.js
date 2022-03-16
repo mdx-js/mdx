@@ -8,24 +8,24 @@ import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import {rollup} from 'rollup'
 import React from 'react'
-import {renderToStaticMarkup} from 'react-dom/server.js'
+import {renderToStaticMarkup} from 'react-dom/server'
 import rollupMdx from '../index.js'
 
 test('@mdx-js/rollup', async () => {
   await fs.writeFile(
-    new URL('./rollup.mdx', import.meta.url),
+    new URL('rollup.mdx', import.meta.url),
     'export const Message = () => <>World!</>\n\n# Hello, <Message />'
   )
 
   const bundle = await rollup({
-    input: fileURLToPath(new URL('./rollup.mdx', import.meta.url)),
+    input: fileURLToPath(new URL('rollup.mdx', import.meta.url)),
     external: ['react/jsx-runtime'],
     plugins: [rollupMdx()]
   })
 
   const {output} = await bundle.generate({format: 'es', sourcemap: true})
 
-  await fs.writeFile(new URL('./rollup.js', import.meta.url), output[0].code)
+  await fs.writeFile(new URL('rollup.js', import.meta.url), output[0].code)
 
   const Content = /** @type {MDXContent} */ (
     /* @ts-expect-error file is dynamically generated */
@@ -34,7 +34,7 @@ test('@mdx-js/rollup', async () => {
 
   assert.equal(
     output[0].map ? output[0].map.mappings : undefined,
-    ';;;MAAaA,UAAU;YAAQ;;;;;;;;;;;;iBAE7B;;;;;;;',
+    ';;;MAAaA,OAAU,GAAA,MAAAC,GAAA,CAAAC,QAAA,EAAA;AAAQ,EAAA,QAAA,EAAA,QAAA;;;;;;;;;;;;AAE7B,MAAA,QAAA,EAAA,CAAA,SAAA,EAAAD,GAAA,CAAA,OAAA,EAAA,EAAA,CAAA,CAAA;;;;;;;',
     'should add a source map'
   )
 
@@ -44,8 +44,8 @@ test('@mdx-js/rollup', async () => {
     'should compile'
   )
 
-  await fs.unlink(new URL('./rollup.mdx', import.meta.url))
-  await fs.unlink(new URL('./rollup.js', import.meta.url))
+  await fs.unlink(new URL('rollup.mdx', import.meta.url))
+  await fs.unlink(new URL('rollup.js', import.meta.url))
 })
 
 test.run()

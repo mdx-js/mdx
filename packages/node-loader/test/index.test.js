@@ -6,11 +6,11 @@ import {promises as fs} from 'fs'
 import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import React from 'react'
-import {renderToStaticMarkup} from 'react-dom/server.js'
+import {renderToStaticMarkup} from 'react-dom/server'
 
 test('@mdx-js/node-loader', async () => {
   await fs.writeFile(
-    new URL('./esm-loader.mdx', import.meta.url),
+    new URL('esm-loader.mdx', import.meta.url),
     'export const Message = () => <>World!</>\n\n# Hello, <Message />'
   )
 
@@ -22,7 +22,7 @@ test('@mdx-js/node-loader', async () => {
   } catch (error) {
     const exception = /** @type {NodeJS.ErrnoException} */ (error)
     if (exception.code === 'ERR_UNKNOWN_FILE_EXTENSION') {
-      await fs.unlink(new URL('./esm-loader.mdx', import.meta.url))
+      await fs.unlink(new URL('esm-loader.mdx', import.meta.url))
       throw new Error(
         'Please run Node with `--experimental-loader=./esm-loader.js` to test the ESM loader'
       )
@@ -37,7 +37,7 @@ test('@mdx-js/node-loader', async () => {
     'should compile'
   )
 
-  await fs.unlink(new URL('./esm-loader.mdx', import.meta.url))
+  await fs.unlink(new URL('esm-loader.mdx', import.meta.url))
 })
 
 test.run()

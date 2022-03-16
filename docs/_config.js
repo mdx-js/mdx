@@ -3,12 +3,12 @@ const git = new URL('../', import.meta.url)
 const gh = new URL('https://github.com/mdx-js/mdx/')
 
 export const config = {
-  input: new URL('./docs/', git),
-  output: new URL('./public/', git),
+  input: new URL('docs/', git),
+  output: new URL('public/', git),
   git,
   gh,
-  ghBlob: new URL('./blob/main/', gh),
-  ghTree: new URL('./tree/main/', gh),
+  ghBlob: new URL('blob/main/', gh),
+  ghTree: new URL('tree/main/', gh),
   site,
   twitter: new URL('https://twitter.com/mdx_js'),
   oc: new URL('https://opencollective.com/unified'),

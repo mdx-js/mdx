@@ -23,7 +23,7 @@ export const FootSite = () => (
           </small>
           <br />
           <small>
-            Site on <a href={new URL('./docs/', config.ghTree).href}>GitHub</a>
+            Site on <a href={new URL('docs/', config.ghTree).href}>GitHub</a>
           </small>
           <br />
           <small>

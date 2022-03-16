@@ -145,7 +145,7 @@ async function main() {
                   url:
                     name === '/blog/v2/' || name === '/migrating/v2/'
                       ? new URL('og-v2.png', config.site)
-                      : new URL('./index.png', canonical),
+                      : new URL('index.png', canonical),
                   width: 2400,
                   height: 1256
                 }
@@ -157,12 +157,12 @@ async function main() {
         .use(rehypeStringify, {bogusComments: false})
         .process(
           new VFile({
-            path: new URL('./index.html', url),
+            path: new URL('index.html', url),
             value:
               '<div id=root>' +
               result +
               '</div><script id=payload data-src=' +
-              new URL('./index.nljson', canonical).pathname +
+              new URL('index.nljson', canonical).pathname +
               '></script>',
             data
           })

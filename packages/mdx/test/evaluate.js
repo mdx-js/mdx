@@ -83,7 +83,7 @@ test('evaluate', async () => {
         (
           await evaluate(
             'import {number} from "' +
-              new URL('./context/data.js', import.meta.url) +
+              new URL('context/data.js', import.meta.url) +
               '"\n\n{number}',
             {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
           )
