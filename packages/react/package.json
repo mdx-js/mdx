@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/react",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "React context for MDX",
   "license": "MIT",
   "keywords": [
