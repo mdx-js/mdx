@@ -8,10 +8,9 @@
         // RSC.
         'react',
         'react-dom',
+        'react-fetch',
         'react-server-dom-webpack',
-        // `typescript@4.5.0` has a problem with tail calls.
-        'typescript',
-        // `node-loader@2` depends on Node 16+.
+        // `node-loader@2` depends on Node 16+. Our website is on Vercel/AWS which don’t support Node 16.
         '@node-loader/babel',
         '@node-loader/core'
       ],
