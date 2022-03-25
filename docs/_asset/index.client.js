@@ -1,5 +1,5 @@
 import React from 'react'
-import {hydrateRoot} from 'react-dom'
+import {createRoot} from 'react-dom/client'
 import {createFromFetch} from 'react-server-dom-webpack'
 import {Root} from './root.client.js'
 
@@ -12,7 +12,8 @@ if ('paintWorklet' in CSS) {
 }
 
 async function main() {
-  const $root = document.querySelector('#root')
   const nljson = document.querySelector('#payload').dataset.src
-  hydrateRoot($root, <Root response={createFromFetch(fetch(nljson))} />)
+  const $root = document.querySelector('#root')
+  const root = createRoot($root)
+  root.render(<Root response={createFromFetch(fetch(nljson))} />)
 }

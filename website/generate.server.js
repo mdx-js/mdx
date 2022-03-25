@@ -4,7 +4,7 @@ import path from 'path'
 import process from 'process'
 import {fileURLToPath} from 'url'
 import React from 'react'
-import {pipeToNodeWritable} from 'react-server-dom-webpack/writer'
+import {renderToPipeableStream} from 'react-server-dom-webpack/writer'
 import pAll from 'p-all'
 import {globby} from 'globby'
 import {sitemap} from 'xast-util-sitemap'
@@ -159,7 +159,8 @@ async function main() {
         navTree
       })
 
-      pipeToNodeWritable(element, writeStream, manifest)
+      const {pipe} = renderToPipeableStream(element, manifest)
+      pipe(writeStream)
     }),
     {concurrency: 6}
   )
