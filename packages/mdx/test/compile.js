@@ -532,7 +532,7 @@ test('compile', async () => {
     assert.match(
       exception.message,
       /x is not defined/,
-      'should throw if a required member is not passed'
+      'should throw if a used member is not defined locally (JSX in a function)'
     )
   }
 
