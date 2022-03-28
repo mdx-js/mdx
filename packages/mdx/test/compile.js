@@ -506,6 +506,38 @@ test('compile', async () => {
 
   try {
     renderToStaticMarkup(
+      React.createElement(
+        await run(compileSync('export const a = {}\n\n<a.b />'))
+      )
+    )
+    assert.unreachable()
+  } catch (/** @type {unknown} */ error) {
+    const exception = /** @type {Error} */ (error)
+    assert.match(
+      exception.message,
+      /Expected component `a.b` to be defined/,
+      'should throw if a required member is not passed'
+    )
+  }
+
+  try {
+    renderToStaticMarkup(
+      React.createElement(
+        await run(compileSync('<a render={(x) => <x.y />} />'))
+      )
+    )
+    assert.unreachable()
+  } catch (/** @type {unknown} */ error) {
+    const exception = /** @type {Error} */ (error)
+    assert.match(
+      exception.message,
+      /x is not defined/,
+      'should throw if a required member is not passed'
+    )
+  }
+
+  try {
+    renderToStaticMarkup(
       React.createElement(await run(compileSync('<X />', {development: true})))
     )
     assert.unreachable()
