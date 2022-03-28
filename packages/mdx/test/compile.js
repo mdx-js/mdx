@@ -516,7 +516,7 @@ test('compile', async () => {
     assert.match(
       exception.message,
       /Expected component `a.b` to be defined/,
-      'should throw if a required member is not passed'
+      'should throw if a used member is not defined locally'
     )
   }
 
