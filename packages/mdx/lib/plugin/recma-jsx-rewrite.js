@@ -243,25 +243,8 @@ export function recmaJsxRewrite(options = {}) {
             }
           }
 
-          /** @type {string} */
-          let key
-
-          // Add partials (so for `x.y.z` it’d generate `x` and `x.y` too).
-          for (key in scope.references) {
-            if (own.call(scope.references, key)) {
-              const parts = key.split('.')
-              let index = 0
-              while (++index < parts.length) {
-                const partial = parts.slice(0, index).join('.')
-                if (!own.call(scope.references, partial)) {
-                  scope.references[partial] = {
-                    node: scope.references[key].node,
-                    component: false
-                  }
-                }
-              }
-            }
-          }
+          /** @type {Array<Statement>} */
+          const statements = []
 
           if (defaults.length > 0 || actual.length > 0) {
             if (providerImportSource) {
@@ -356,60 +339,79 @@ export function recmaJsxRewrite(options = {}) {
               })
             }
 
+            statements.push({
+              type: 'VariableDeclaration',
+              kind: 'const',
+              declarations
+            })
+          }
+
+          /** @type {string} */
+          let key
+
+          // Add partials (so for `x.y.z` it’d generate `x` and `x.y` too).
+          for (key in scope.references) {
+            if (own.call(scope.references, key)) {
+              const parts = key.split('.')
+              let index = 0
+              while (++index < parts.length) {
+                const partial = parts.slice(0, index).join('.')
+                if (!own.call(scope.references, partial)) {
+                  scope.references[partial] = {
+                    node: scope.references[key].node,
+                    component: false
+                  }
+                }
+              }
+            }
+          }
+
+          const references = Object.keys(scope.references).sort()
+          let index = -1
+          while (++index < references.length) {
+            const id = references[index]
+            const info = scope.references[id]
+            const place = stringifyPosition(positionFromEstree(info.node))
+            /** @type {Array<Expression>} */
+            const parameters = [
+              {type: 'Literal', value: id},
+              {type: 'Literal', value: info.component}
+            ]
+
+            createErrorHelper = true
+
+            if (development && place !== '1:1-1:1') {
+              parameters.push({type: 'Literal', value: place})
+            }
+
+            statements.push({
+              type: 'IfStatement',
+              test: {
+                type: 'UnaryExpression',
+                operator: '!',
+                prefix: true,
+                argument: toIdOrMemberExpression(id.split('.'))
+              },
+              consequent: {
+                type: 'ExpressionStatement',
+                expression: {
+                  type: 'CallExpression',
+                  callee: {type: 'Identifier', name: '_missingMdxReference'},
+                  arguments: parameters,
+                  optional: false
+                }
+              },
+              alternate: null
+            })
+          }
+
+          if (statements.length > 0) {
             // Arrow functions with an implied return:
             if (fn.body.type !== 'BlockStatement') {
               fn.body = {
                 type: 'BlockStatement',
                 body: [{type: 'ReturnStatement', argument: fn.body}]
               }
-            }
-
-            /** @type {Array<Statement>} */
-            const statements = [
-              {
-                type: 'VariableDeclaration',
-                kind: 'const',
-                declarations
-              }
-            ]
-
-            const references = Object.keys(scope.references).sort()
-            let index = -1
-            while (++index < references.length) {
-              const id = references[index]
-              const info = scope.references[id]
-              const place = stringifyPosition(positionFromEstree(info.node))
-              /** @type {Array<Expression>} */
-              const parameters = [
-                {type: 'Literal', value: id},
-                {type: 'Literal', value: info.component}
-              ]
-
-              createErrorHelper = true
-
-              if (development && place !== '1:1-1:1') {
-                parameters.push({type: 'Literal', value: place})
-              }
-
-              statements.push({
-                type: 'IfStatement',
-                test: {
-                  type: 'UnaryExpression',
-                  operator: '!',
-                  prefix: true,
-                  argument: toIdOrMemberExpression(id.split('.'))
-                },
-                consequent: {
-                  type: 'ExpressionStatement',
-                  expression: {
-                    type: 'CallExpression',
-                    callee: {type: 'Identifier', name: '_missingMdxReference'},
-                    arguments: parameters,
-                    optional: false
-                  }
-                },
-                alternate: null
-              })
             }
 
             fn.body.body.unshift(...statements)

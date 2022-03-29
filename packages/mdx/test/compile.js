@@ -504,6 +504,40 @@ test('compile', async () => {
     )
   }
 
+  // TODO: this is incorrect behavior, will be fixed in GH-1986
+  try {
+    renderToStaticMarkup(
+      React.createElement(
+        await run(compileSync('export const a = {}\n\n<a.b />'))
+      )
+    )
+    assert.unreachable()
+  } catch (/** @type {unknown} */ error) {
+    const exception = /** @type {Error} */ (error)
+    assert.match(
+      exception.message,
+      /Expected component `a.b` to be defined/,
+      'should throw if a used member is not defined locally'
+    )
+  }
+
+  // TODO: this is incorrect behavior, will be fixed in GH-1986
+  try {
+    renderToStaticMarkup(
+      React.createElement(
+        await run(compileSync('<a render={(x) => <x.y />} />'))
+      )
+    )
+    assert.unreachable()
+  } catch (/** @type {unknown} */ error) {
+    const exception = /** @type {Error} */ (error)
+    assert.match(
+      exception.message,
+      /x is not defined/,
+      'should throw if a used member is not defined locally (JSX in a function)'
+    )
+  }
+
   try {
     renderToStaticMarkup(
       React.createElement(await run(compileSync('<X />', {development: true})))
