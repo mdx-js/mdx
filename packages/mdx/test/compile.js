@@ -504,6 +504,7 @@ test('compile', async () => {
     )
   }
 
+  // TODO: this is incorrect behavior, will be fixed in GH-1986
   try {
     renderToStaticMarkup(
       React.createElement(
@@ -520,6 +521,7 @@ test('compile', async () => {
     )
   }
 
+  // TODO: this is incorrect behavior, will be fixed in GH-1986
   try {
     renderToStaticMarkup(
       React.createElement(
