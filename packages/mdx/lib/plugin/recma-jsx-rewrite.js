@@ -136,11 +136,24 @@ export function recmaJsxRewrite(options = {}) {
             const fullId = ids.join('.')
             const id = name.name
 
+            const isInScope = inScope(currentScope, id)
+
             if (!own.call(fnScope.references, fullId)) {
-              fnScope.references[fullId] = {node, component: true}
+              const parentScope = /** @type {Scope|null} */ (
+                currentScope.parent
+              )
+              const parentNode = parentScope && parentScope.node
+              if (
+                !isInScope ||
+                (parentNode &&
+                  parentNode.type === 'FunctionDeclaration' &&
+                  isNamedFunction(parentNode, '_createMdxContent'))
+              ) {
+                fnScope.references[fullId] = {node, component: true}
+              }
             }
 
-            if (!fnScope.objects.includes(id) && !inScope(currentScope, id)) {
+            if (!fnScope.objects.includes(id) && !isInScope) {
               fnScope.objects.push(id)
             }
           }
