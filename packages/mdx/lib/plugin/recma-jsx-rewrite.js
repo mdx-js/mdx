@@ -136,11 +136,25 @@ export function recmaJsxRewrite(options = {}) {
             const fullId = ids.join('.')
             const id = name.name
 
+            const isInScope = inScope(currentScope, id)
+
             if (!own.call(fnScope.references, fullId)) {
-              fnScope.references[fullId] = {node, component: true}
+              const parentScope = /** @type {Scope|null} */ (
+                currentScope.parent
+              )
+              if (
+                !isInScope ||
+                // If the parent scope is `_createMdxContent`, then this
+                // references a component we can add a check statement for.
+                (parentScope &&
+                  parentScope.node.type === 'FunctionDeclaration' &&
+                  isNamedFunction(parentScope.node, '_createMdxContent'))
+              ) {
+                fnScope.references[fullId] = {node, component: true}
+              }
             }
 
-            if (!fnScope.objects.includes(id) && !inScope(currentScope, id)) {
+            if (!fnScope.objects.includes(id) && !isInScope) {
               fnScope.objects.push(id)
             }
           }

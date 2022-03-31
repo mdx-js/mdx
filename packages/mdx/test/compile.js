@@ -504,7 +504,6 @@ test('compile', async () => {
     )
   }
 
-  // TODO: this is incorrect behavior, will be fixed in GH-1986
   try {
     renderToStaticMarkup(
       React.createElement(
@@ -521,11 +520,10 @@ test('compile', async () => {
     )
   }
 
-  // TODO: this is incorrect behavior, will be fixed in GH-1986
   try {
     renderToStaticMarkup(
       React.createElement(
-        await run(compileSync('<a render={(x) => <x.y />} />'))
+        await run(compileSync('<a render={() => <x.y />} />'))
       )
     )
     assert.unreachable()
@@ -533,10 +531,20 @@ test('compile', async () => {
     const exception = /** @type {Error} */ (error)
     assert.match(
       exception.message,
-      /x is not defined/,
+      /Expected object `x` to be defined/,
       'should throw if a used member is not defined locally (JSX in a function)'
     )
   }
+
+  assert.equal(
+    renderToStaticMarkup(
+      React.createElement(
+        await run(compileSync('<a render={(x) => <x.y />} />'))
+      )
+    ),
+    '<a></a>',
+    'should render if a used member is defined locally (JSX in a function)'
+  )
 
   try {
     renderToStaticMarkup(
