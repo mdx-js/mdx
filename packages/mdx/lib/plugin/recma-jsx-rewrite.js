@@ -145,7 +145,8 @@ export function recmaJsxRewrite(options = {}) {
               const parentNode = parentScope && parentScope.node
               if (
                 !isInScope ||
-                // If the parent is a _createMdxContent function, it's a top-level component in MDX.
+                // If the parent scope is `_createMdxContent`, then this
+                // references a component we can add a check statement for.
                 (parentNode &&
                   parentNode.type === 'FunctionDeclaration' &&
                   isNamedFunction(parentNode, '_createMdxContent'))
