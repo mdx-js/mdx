@@ -2,7 +2,7 @@
 
 import React, {Suspense} from 'react'
 
-export const Root = (props) => {
+export function Root(props) {
   const {response} = props
 
   return (

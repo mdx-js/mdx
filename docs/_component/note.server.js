@@ -2,7 +2,7 @@ import React from 'react'
 
 const known = new Set(['info', 'legacy', 'important'])
 
-export const Note = (props) => {
+export function Note(props) {
   const {children, type} = props
   const className = ['note']
 

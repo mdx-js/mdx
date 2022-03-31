@@ -72,7 +72,7 @@ function useMdx(defaults) {
   return [state, setConfig]
 }
 
-const ErrorFallback = ({error, resetErrorBoundary}) => {
+function ErrorFallback({error, resetErrorBoundary}) {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
@@ -90,7 +90,7 @@ const MemoizedCodeMirror = memo((props) => (
   </ErrorBoundary>
 ))
 
-const FallbackComponent = ({error}) => {
+function FallbackComponent({error}) {
   const message = new VFileMessage(error)
   message.fatal = true
   return (
@@ -100,7 +100,7 @@ const FallbackComponent = ({error}) => {
   )
 }
 
-export const Editor = ({children}) => {
+export function Editor({children}) {
   const defaultValue = children
   const extensions = useMemo(() => [basicSetup, oneDark, langMarkdown()], [])
   const [state, setConfig] = useMdx({
