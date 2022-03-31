@@ -142,7 +142,6 @@ export function recmaJsxRewrite(options = {}) {
               const parentScope = /** @type {Scope|null} */ (
                 currentScope.parent
               )
-              const parentNode = parentScope && parentScope.node
               if (
                 !isInScope ||
                 // If the parent scope is `_createMdxContent`, then this
