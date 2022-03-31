@@ -146,9 +146,9 @@ export function recmaJsxRewrite(options = {}) {
                 !isInScope ||
                 // If the parent scope is `_createMdxContent`, then this
                 // references a component we can add a check statement for.
-                (parentNode &&
-                  parentNode.type === 'FunctionDeclaration' &&
-                  isNamedFunction(parentNode, '_createMdxContent'))
+                (parentScope &&
+                  parentScope.node.type === 'FunctionDeclaration' &&
+                  isNamedFunction(parentScope.node, '_createMdxContent'))
               ) {
                 fnScope.references[fullId] = {node, component: true}
               }
