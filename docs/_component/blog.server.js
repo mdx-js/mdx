@@ -5,7 +5,7 @@ import {sortItems} from './sort.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
-export const BlogEntry = (props) => {
+export function BlogEntry(props) {
   const {item} = props
   const {name, data = {}} = item
   const {matter = {}, meta = {}} = data
@@ -72,7 +72,7 @@ export const BlogEntry = (props) => {
   )
 }
 
-export const BlogGroup = (props) => {
+export function BlogGroup(props) {
   const {items, className, sort = 'navSortSelf,meta.title', ...rest} = props
   const sorted = sortItems(items, sort)
 

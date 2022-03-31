@@ -5,7 +5,7 @@ import {sortItems} from './sort.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
-export const Layout = (props) => {
+export function Layout(props) {
   const {name, navTree, ghUrl} = props
   const [self, parent] = findSelfAndParent(navTree) || []
   const siblings = parent

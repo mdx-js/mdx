@@ -6,17 +6,19 @@ import {GitHub} from './icon/github.server.js'
 import {Twitter} from './icon/twitter.server.js'
 import {OpenCollective} from './icon/open-collective.server.js'
 
-export const NavSiteSkip = () => (
-  <a
-    href="#start-of-navigation"
-    id="start-of-content"
-    className="skip-to-navigation"
-  >
-    Skip to navigation
-  </a>
-)
+export function NavSiteSkip() {
+  return (
+    <a
+      href="#start-of-navigation"
+      id="start-of-content"
+      className="skip-to-navigation"
+    >
+      Skip to navigation
+    </a>
+  )
+}
 
-export const NavSite = (props) => {
+export function NavSite(props) {
   const {name, navTree} = props
 
   return (
