@@ -483,6 +483,14 @@ Which in turn lets us choose whether to use the `@mdx-js/mdx` or
 
 #### Create React App (CRA)
 
+<Note type="info">
+  **Note**: rewiring with CRACO (see below) is currently required for CRA 5,
+  due to a bug in `react-scripts`
+  ([`facebook/create-react-app#12166`](https://github.com/facebook/create-react-app/issues/12166)),
+  which is also tracked at
+  [`mdx-js/mdx#1870`](https://github.com/mdx-js/mdx/discussions/1870).
+</Note>
+
 <details>
   <summary>Expand example</summary>
 
@@ -506,7 +514,43 @@ Which in turn lets us choose whether to use the `@mdx-js/mdx` or
 through webpack loader syntax in imports.
 
 Install the webpack loader [`@mdx-js/loader`][mdx-loader].
-There is no need to configure it.
+
+<details>
+  <summary>Expand CRACO example</summary>
+
+  ```js path="craco.config.js"
+  const {addAfterLoader, loaderByName} = require('@craco/craco')
+
+  module.exports = {
+    webpack: {
+      configure(webpackConfig) {
+        addAfterLoader(webpackConfig, loaderByName('babel-loader'), {
+          test: /\.mdx?$/,
+          loader: require.resolve('@mdx-js/loader')
+        })
+        return webpackConfig
+      }
+    }
+  }
+  ```
+
+  ```jsx path="src/App.jsx"
+  import Content from './content.mdx'
+
+  export default function App() {
+    return <Content />
+  }
+  ```
+</details>
+
+For importing MDX without the `!@mdx-js/loader!` prefix, you can add
+the loader to the webpack config, by rewiring `react-scripts` using
+[CRACO](http://github.com/gsoft-inc/craco).
+
+<Note type="info">
+  **Note**: warnings about CRACO having `incorrect peer dependency
+    "react-scripts@^4.0.0"` can be ignored for the above to work.
+</Note>
 
 See also [¶ Webpack][webpack], which is used in CRA, and see [¶ React][react],
 which you’re likely using, for more info.
