@@ -43,7 +43,7 @@ async function main() {
     Object.keys(manifest)
       .filter((d) => path.basename(d) !== 'index.client.js')
       .map(async (d) => {
-        cache[manifest[d]['*'].id] = await import(fileURLToPath(d))
+        cache[manifest[d]['*'].id] = await import(d)
       })
   )
 
