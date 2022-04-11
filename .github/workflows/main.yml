@@ -6,8 +6,6 @@ jobs:
   small:
     name: test / ${{matrix.os}} / ${{matrix.node}}
     runs-on: ${{matrix.os}}
-    env:
-      PUPPETEER_SKIP_DOWNLOAD: 1
     steps:
       - uses: actions/checkout@v3
         with:
@@ -18,13 +16,14 @@ jobs:
           cache: npm
       - run: npm install -g npm && npm install
       - run: npm run test-api
+      - run: npm run docs
     strategy:
       matrix:
         os:
           - macos-latest
           - windows-latest
         node:
-          - '*'
+          - lts/fermium
         include:
           - os: ubuntu-latest
             node: lts/erbium
