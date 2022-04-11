@@ -51,6 +51,7 @@ export function withMDXComponents(Component) {
    */
   function boundMDXComponent(props) {
     const allComponents = useMDXComponents(props.components)
+    // @ts-expect-error: React + Preact in this repo mess with TS.
     return h(Component, {...props, allComponents})
   }
 }

@@ -39,7 +39,7 @@
     "c8": "^7.0.0",
     "capture-website": "^2.0.0",
     "chrome-aws-lambda": "^10.1.0",
-    "cross-env": "^7.0.3",
+    "cross-env": "^7.0.0",
     "cssnano": "^5.0.0",
     "dlv": "^1.0.0",
     "esbuild": "^0.14.0",
