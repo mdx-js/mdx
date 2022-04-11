@@ -43,4 +43,4 @@ jobs:
           cache: npm
       - run: npm install -g npm && npm install
       - run: npm test
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
