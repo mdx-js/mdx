@@ -290,6 +290,17 @@ test('evaluate', async () => {
     'should support an `export all from`, but prefer explicit exports, w/ `useDynamicImport`'
   )
 
+  assert.equal(
+    (
+      await evaluate(
+        'export const x = new URL("example.png", import.meta.url).href',
+        {baseUrl: 'https://example.com', ...runtime}
+      )
+    ).x,
+    'https://example.com/example.png',
+    'should support rewriting `import.meta.url` w/ `baseUrl`'
+  )
+
   assert.throws(
     () => {
       evaluateSync('export * from "a"', runtime)

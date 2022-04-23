@@ -26,7 +26,8 @@
  *   Whether to keep `import` (and `export … from`) statements or compile them
  *   to dynamic `import()` instead.
  * @property {string} [baseUrl]
- *   Resolve relative `import` (and `export … from`) relative to this URL.
+ *   Resolve `import`s (and `export … from`, and `import.meta.url`) relative to
+ *   this URL.
  * @property {string} [pragma='React.createElement']
  *   Pragma for JSX (used in classic runtime).
  * @property {string} [pragmaFrag='React.Fragment']
@@ -42,6 +43,7 @@
 import {analyze} from 'periscopic'
 import {stringifyPosition} from 'unist-util-stringify-position'
 import {positionFromEstree} from 'unist-util-position-from-estree'
+import {visit, SKIP} from 'estree-util-visit'
 import {create} from '../util/estree-util-create.js'
 import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
 import {declarationToExpression} from '../util/estree-util-declaration-to-expression.js'
@@ -295,6 +297,41 @@ export function recmaDocument(options = {}) {
     }
 
     tree.body = replacement
+
+    if (baseUrl) {
+      visit(tree, (node, field, index, parents) => {
+        if (
+          node.type === 'MemberExpression' &&
+          'object' in node &&
+          node.object.type === 'MetaProperty' &&
+          node.property.type === 'Identifier' &&
+          node.object.meta.name === 'import' &&
+          node.object.property.name === 'meta' &&
+          node.property.name === 'url'
+        ) {
+          /** @type {string|number|null} */
+          let prop = field
+          let context = /** @type {Node|Array<Node>} */ (
+            parents[parents.length - 1]
+          )
+
+          // Remove non-standard `ParenthesizedExpression`.
+          if (context && prop) {
+            /* c8 ignore next 5 */
+            if (typeof index === 'number') {
+              // @ts-expect-error: indexable.
+              context = context[prop]
+              prop = index
+            }
+
+            // @ts-expect-error: indexable.
+            context[prop] = {type: 'Literal', value: baseUrl}
+          }
+
+          return SKIP
+        }
+      })
+    }
 
     /**
      * @param {ExportNamedDeclaration|ExportAllDeclaration} node

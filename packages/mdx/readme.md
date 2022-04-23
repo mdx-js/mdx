@@ -360,8 +360,8 @@ return {no, default: MDXContent}
 
 ###### `options.baseUrl`
 
-Resolve relative `import` (and `export … from`) from this URL (`string?`,
-example: `import.meta.url`).
+Resolve `import`s (and `export … from`, and `import.meta.url`) from this URL
+(`string?`, example: `import.meta.url`).
 
 Relative specifiers are non-absolute URLs that start with `/`, `./`, or `../`.
 For example: `/index.js`, `./folder/file.js`, or `../main.js`.
