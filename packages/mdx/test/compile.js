@@ -536,6 +536,7 @@ test('compile', async () => {
     )
   }
 
+  console.log('\nnote: the following warning is expected!\n')
   assert.equal(
     renderToStaticMarkup(
       React.createElement(
@@ -545,6 +546,7 @@ test('compile', async () => {
     '<a></a>',
     'should render if a used member is defined locally (JSX in a function)'
   )
+  console.log('\nnote: the preceding warning is expected!\n')
 
   try {
     renderToStaticMarkup(

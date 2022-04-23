@@ -43,7 +43,7 @@
 import {analyze} from 'periscopic'
 import {stringifyPosition} from 'unist-util-stringify-position'
 import {positionFromEstree} from 'unist-util-position-from-estree'
-import {visit, SKIP} from 'estree-util-visit'
+import {walk} from 'estree-walker'
 import {create} from '../util/estree-util-create.js'
 import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
 import {declarationToExpression} from '../util/estree-util-declaration-to-expression.js'
@@ -299,36 +299,23 @@ export function recmaDocument(options = {}) {
     tree.body = replacement
 
     if (baseUrl) {
-      visit(tree, (node, field, index, parents) => {
-        if (
-          node.type === 'MemberExpression' &&
-          'object' in node &&
-          node.object.type === 'MetaProperty' &&
-          node.property.type === 'Identifier' &&
-          node.object.meta.name === 'import' &&
-          node.object.property.name === 'meta' &&
-          node.property.name === 'url'
-        ) {
-          /** @type {string|number|null} */
-          let prop = field
-          let context = /** @type {Node|Array<Node>} */ (
-            parents[parents.length - 1]
-          )
+      walk(tree, {
+        enter(_node) {
+          const node = /** @type {Node} */ (_node)
 
-          // Remove non-standard `ParenthesizedExpression`.
-          if (context && prop) {
-            /* c8 ignore next 5 */
-            if (typeof index === 'number') {
-              // @ts-expect-error: indexable.
-              context = context[prop]
-              prop = index
-            }
-
-            // @ts-expect-error: indexable.
-            context[prop] = {type: 'Literal', value: baseUrl}
+          if (
+            node.type === 'MemberExpression' &&
+            'object' in node &&
+            node.object.type === 'MetaProperty' &&
+            node.property.type === 'Identifier' &&
+            node.object.meta.name === 'import' &&
+            node.object.property.name === 'meta' &&
+            node.property.name === 'url'
+          ) {
+            /** @type {SimpleLiteral} */
+            const replacement = {type: 'Literal', value: baseUrl}
+            this.replace(replacement)
           }
-
-          return SKIP
         }
       })
     }
