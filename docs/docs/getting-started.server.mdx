@@ -573,40 +573,68 @@ on how to use MDX with Gatsby.
   <summary>Expand example</summary>
 
   ```js path="next.config.js"
-  module.exports = {
-    // Prefer loading of ES Modules over CommonJS
-    experimental: {esmExternals: true},
+  import nextMDX from '@next/mdx'
+
+  const withMDX = nextMDX({
+    // By default only the .mdx extension is supported.
+    extension: /\.mdx?$/,
+    options: {/* providerImportSource: …, otherOptions… */}
+  })
+
+  export default withMDX({
     // Support MDX files as pages:
     pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
-    // Support loading `.md`, `.mdx`:
-    webpack(config, options) {
-      config.module.rules.push({
-        test: /\.mdx?$/,
-        use: [
-          // The default `babel-loader` used by Next:
-          options.defaultLoaders.babel,
-          {
-            loader: '@mdx-js/loader',
-            /** @type {import('@mdx-js/loader').Options} */
-            options: {/* jsxImportSource: …, otherOptions… */}
-          }
-        ]
-      })
+  })
+  ```
+</details>
 
-      return config
-    }
+[Next.js](https://nextjs.org) have their own package for supporting MDX.
+
+Install and configure [`@next/mdx`][@next/mdx].
+There is no need to configure your JSX runtime as React is already set up.
+
+The React provider can be configured in [`pages/_app.js`](https://nextjs.org/docs/advanced-features/custom-app).
+In order to use it, you will have to configure the `providerImportSource` as
+well.
+
+<details>
+  <summary>Expand example</summary>
+
+  ```js path="next.config.js"
+  import nextMDX from '@next/mdx'
+
+  const withMDX = nextMDX({
+    // By default only the .mdx extension is supported.
+    extension: /\.mdx?$/,
+    options: { providerImportSource: '@mdx-js/react',  /* otherOptions… */}
+  })
+
+  export default withMDX({
+    // Support MDX files as pages:
+    pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
+  })
+  ```
+
+  ```jsx path="pages/_app.js"
+  import {MDXProvider} from '@mdx-js/react'
+
+  import {Header} from '../components/Header'
+
+  const components = {
+    h1: Header;
+  }
+
+  export default function App({ Component, pageProps }) {
+    return (
+      <MDXProvider components={components}>
+        <Component {...pageProps} />
+      </MDXProvider>
+    )
   }
   ```
 </details>
 
-[Next](https://nextjs.org) supports webpack loaders by overwriting the webpack
-config in `next.config.js`.
-
-Install and configure the webpack loader [`@mdx-js/loader`][webpack].
-There is no need to configure your JSX runtime as React is already set up.
-
-See also [¶ Webpack][webpack] and [¶ React][react], which you’re using, for
-more on those tools.
+See [Using MDX with Next.js][next-mdx] for more details.
 
 #### Parcel
 
@@ -842,6 +870,8 @@ See their readmes on how to configure them.
 *   If you’re getting errors integrating MDX, see
     [§ Troubleshooting MDX][trouble] or [§ Support][support]
 
+[@next/mdx]: https://github.com/vercel/next.js/tree/canary/packages/next-mdx
+
 [svelte-jsx]: https://github.com/kenoxa/svelte-jsx
 
 [jsx]: #jsx
@@ -873,6 +903,8 @@ See their readmes on how to configure them.
 [mdx-rollup]: /packages/rollup/
 
 [mdx-vue]: /packages/vue/
+
+[next-mdx]: https://nextjs.org/docs/advanced-features/using-mdx
 
 [evaluate]: /packages/mdx/#evaluatefile-options
 
