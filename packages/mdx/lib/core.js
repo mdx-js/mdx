@@ -125,7 +125,7 @@ export function createProcessor(options = {}) {
     .use(recmaJsxRewrite, {development, providerImportSource, outputFormat})
 
   if (!jsx) {
-    pipeline.use(recmaJsxBuild, {outputFormat})
+    pipeline.use(recmaJsxBuild, {development, outputFormat})
   }
 
   pipeline.use(recmaStringify, {SourceMapGenerator}).use(recmaPlugins || [])

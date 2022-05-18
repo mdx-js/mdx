@@ -1,5 +1,6 @@
 /**
  * @typedef {import('estree-jsx').Program} Program
+ * @typedef {import('estree-util-build-jsx').BuildJsxOptions} BuildJsxOptions
  *
  * @typedef RecmaJsxBuildOptions
  * @property {'program'|'function-body'} [outputFormat='program']
@@ -15,13 +16,13 @@ import {toIdOrMemberExpression} from '../util/estree-util-to-id-or-member-expres
  * A plugin to build JSX into function calls.
  * `estree-util-build-jsx` does all the work for us!
  *
- * @type {import('unified').Plugin<[RecmaJsxBuildOptions]|[], Program>}
+ * @type {import('unified').Plugin<[BuildJsxOptions & RecmaJsxBuildOptions?], Program>}
  */
 export function recmaJsxBuild(options = {}) {
-  const {outputFormat} = options
+  const {development, outputFormat} = options
 
-  return (tree) => {
-    buildJsx(tree)
+  return (tree, file) => {
+    buildJsx(tree, {development, filePath: file.history[0]})
 
     // When compiling to a function body, replace the import that was just
     // generated, and get `jsx`, `jsxs`, and `Fragment` from `arguments[0]`
