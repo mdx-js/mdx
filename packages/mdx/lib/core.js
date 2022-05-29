@@ -70,6 +70,7 @@ export function createProcessor(options = {}) {
     format,
     outputFormat,
     providerImportSource,
+    overrideBuiltIn,
     recmaPlugins,
     rehypePlugins,
     remarkPlugins,
@@ -122,7 +123,12 @@ export function createProcessor(options = {}) {
   pipeline
     .use(rehypeRecma)
     .use(recmaDocument, {...rest, outputFormat})
-    .use(recmaJsxRewrite, {development, providerImportSource, outputFormat})
+    .use(recmaJsxRewrite, {
+      development,
+      providerImportSource,
+      outputFormat,
+      overrideBuiltIn
+    })
 
   if (!jsx) {
     pipeline.use(recmaJsxBuild, {outputFormat})

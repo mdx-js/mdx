@@ -100,6 +100,27 @@ test('should support components as a function', async () => {
   )
 })
 
+test('should support overriding literal HTML elements with components', async () => {
+  const {default: Content} = await evaluate('<h1>test</h1>\n# test', {
+    ...runtime,
+    useMDXComponents,
+    overrideBuiltIn: true
+  })
+
+  assert.equal(
+    renderToString(
+      <MDXProvider
+        components={{
+          h1: () => <h1>overridden</h1>
+        }}
+      >
+        <Content />
+      </MDXProvider>
+    ),
+    '<h1>overridden</h1>\n<h1>overridden</h1>'
+  )
+})
+
 test('should support a `disableParentContext` prop (sandbox)', async () => {
   const {default: Content} = await evaluate('# hi', {
     ...runtime,

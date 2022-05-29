@@ -26,6 +26,8 @@
  * @property {boolean} [development=false]
  *   Whether to add extra information to error messages in generated code (can
  *   also be passed in Node.js by setting `NODE_ENV=development`).
+ * @property {boolean} [overrideBuiltIn=false]
+ *   Allow MDXProvider to override literal HTML elements if provided in `components`
  *
  * @typedef StackEntry
  * @property {Array<string>} objects
@@ -59,7 +61,8 @@ const own = {}.hasOwnProperty
  * @type {import('unified').Plugin<[RecmaJsxRewriteOptions]|[], Program>}
  */
 export function recmaJsxRewrite(options = {}) {
-  const {development, providerImportSource, outputFormat} = options
+  const {development, providerImportSource, overrideBuiltIn, outputFormat} =
+    options
 
   return (tree, file) => {
     // Find everything that’s defined in the top-level scope.
@@ -180,6 +183,18 @@ export function recmaJsxRewrite(options = {}) {
                 fnScope.components.push(id)
               }
             }
+          } else if (
+            // @ts-expect-error Allow fields passed through from mdast through hast to
+            // esast.
+            node.data &&
+            // @ts-expect-error Allow fields passed through from mdast through hast to
+            // esast.
+            node.data._mdxExplicitJsx &&
+            !overrideBuiltIn
+          ) {
+            // Do not turn explicit JSX into components from `_components`.
+            // As in, a given `h1` component is used for `# heading` (next case),
+            // but not for `<h1>heading</h1>`.
           } else {
             const id = name.name
 
