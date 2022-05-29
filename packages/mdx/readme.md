@@ -709,8 +709,8 @@ is `'c'` this following will be generated: `import a from 'c'`.
 ###### `options.overrideBuiltIn`
 
 By default `mdx-js/mdx` will never use `useMDXComponents` in order to override
-a native HTML element like `<h1>`.  If `<h1>h1</h1>` should behave the same as
-`# hi` then you'll want to pass `options.overrideBuiltIn=true`.
+a native HTML element like `<h1>`.  If `<h1>hi</h1>` should behave the same as
+`# hi` then you’ll want to pass `options.overrideBuiltIn=true`.
 
 <details>
 <summary>Example</summary>
