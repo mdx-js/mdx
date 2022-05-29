@@ -17,6 +17,7 @@ export const info = {
     *   [`@mdx-js/loader`](#mdx-jsloader)
     *   [`@mdx-js/react`, `@mdx-js/preact`, `@mdx-js/vue`](#mdx-jsreact-mdx-jspreact-mdx-jsvue)
     *   [`@mdx-js/mdx`](#mdx-jsmdx)
+    *   [`@mdx-js/mdx` Sandboxing](#mdx-jsmdx-sandboxing)
     *   [`@mdx-js/runtime`](#mdx-jsruntime)
     *   [`remark-mdx`](#remark-mdx)
     *   [`@mdx-js/vue-loader`](#mdx-jsvue-loader)
@@ -343,6 +344,28 @@ If you used them:
 
 For more information, please see [§ API in `@mdx-js/mdx`][mdx-api].
 
+### `@mdx-js/mdx` Sandboxing
+
+`@mdx-js/mdx` now is “sandboxed” and by default will not override native HTML
+elements.  If you neeed to override the default handling for native HTML
+elements provide the `options.overrideBuiltIn` option.
+
+```js path="new-overrideBuiltIn.js"
+import {evaluate} from '@mdx-js/mdx'
+
+const {default: Content} = await evaluate('<h1>hi</hi>', {overrideBuiltIn: true})
+
+return <Content components={{h1: ()=><h1>override</h1>}} />
+```
+
+###### Changes
+
+`@mdx-js/mdx` in version 1 automatically replaced native HTML tags with their
+matching components.  In version 2 this needs to be excplicitly defined.
+
+*   `options.overrideBuiltIn` is now used to tell the compiler to accept
+    replacing native HTML elements
+
 ### `@mdx-js/runtime`
 
 We’ve deprecated `@mdx-js/runtime`.
@@ -631,6 +654,7 @@ The interface of the generated JavaScript from MDX changed:
 *   We now “sandbox” components, for lack of a better name.
     It means that when you pass a component for `h1`, it does get used for
     `# hi` but not for `<h1>hi</h1>`
+    Disable “sandbox” in order to override native HTML elements.  See [`@mdx-js/mdx` Sandboxing](#mdx-jsmdx-sandboxing)
 *   You can now pass and use objects of components: if you pass
     `components={{theme}}`, where `theme` is an object with a `Box` component,
     it can be used with: `<theme.Box>stuff</theme.Box>`
