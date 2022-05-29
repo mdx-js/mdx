@@ -706,7 +706,38 @@ When in the `classic` runtime, this is used to import the `pragma` function.
 To illustrate with an example: when `pragma` is `'a.b'` and `pragmaImportSource`
 is `'c'` this following will be generated: `import a from 'c'`.
 
-See `options.pragma` for an example.
+###### `options.overrideBuiltIn`
+
+By default `mdx-js/mdx` will never use `useMDXComponents` in order to override
+a native HTML element like `<h1>`.  If `<h1>h1</h1>` should behave the same as
+`# hi` then you'll want to pass `options.overrideBuiltIn=true`.
+
+<details>
+<summary>Example</summary>
+
+```js
+compile('<h1>hi</h1>\n# hi', {overrideBuiltIn: true})
+```
+
+…yields this difference:
+
+```diff
+/*@jsxRuntime automatic @jsxImportSource react*/
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? <MDXLayout {...props}><_createMdxContent /></MDXLayout> : _createMdxContent();
+  function _createMdxContent() {
+    const _components = Object.assign({
+      h1: "h1"
+    }, props.components);
+-    return <><h1>{"hi"}</h1>{"\\n"}<_components.h1>{"hi"}</_components.h1></>;
++    return <><_components.h1>{"hi"}</_components.h1>{"\\n"}<_components.h1>{"hi"}</_components.h1></>;
+  }
+}
+export default MDXContent;
+```
+
+</details>
 
 ###### Returns
 
