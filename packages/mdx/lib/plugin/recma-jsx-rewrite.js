@@ -76,42 +76,42 @@ export function recmaJsxRewrite(options = {}) {
     walk(tree, {
       enter(_node) {
         const node = /** @type {Node} */ (_node)
+        const newScope = /** @type {Scope|undefined} */ (
+          // @ts-expect-error: periscopic doesn’t support JSX.
+          scopeInfo.map.get(node)
+        )
 
         if (
           node.type === 'FunctionDeclaration' ||
           node.type === 'FunctionExpression' ||
           node.type === 'ArrowFunctionExpression'
         ) {
-          fnStack.push({
+          const stackLength = fnStack.push({
             objects: [],
             components: [],
             tags: [],
             references: {},
             node
           })
+
+          // MDXContent only ever contains MDXLayout
+          if (
+            isNamedFunction(node, 'MDXContent') &&
+            newScope &&
+            !inScope(newScope, 'MDXLayout')
+          ) {
+            fnStack[stackLength - 1].components.push('MDXLayout')
+          }
         }
 
-        let fnScope = fnStack[0]
-
+        const fnScope = fnStack[0]
         if (
           !fnScope ||
-          (!isNamedFunction(fnScope.node, 'MDXContent') &&
+          (!isNamedFunction(fnScope.node, '_createMdxContent') &&
             !providerImportSource)
         ) {
           return
         }
-
-        if (
-          fnStack[1] &&
-          isNamedFunction(fnStack[1].node, '_createMdxContent')
-        ) {
-          fnScope = fnStack[1]
-        }
-
-        const newScope = /** @type {Scope|undefined} */ (
-          // @ts-expect-error: periscopic doesn’t support JSX.
-          scopeInfo.map.get(node)
-        )
 
         if (newScope) {
           newScope.node = node
