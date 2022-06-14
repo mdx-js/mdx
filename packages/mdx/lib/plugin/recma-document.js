@@ -481,10 +481,10 @@ export function recmaDocument(options = {}) {
 
   /**
    * @param {Expression} [content]
-   * @param {boolean} [hasLayout]
+   * @param {boolean} [hasInternalLayout]
    * @returns {FunctionDeclaration[]}
    */
-  function createMdxContent(content, hasLayout) {
+  function createMdxContent(content, hasInternalLayout) {
     /** @type {JSXElement} */
     const element = {
       type: 'JSXElement',
@@ -524,13 +524,13 @@ export function recmaDocument(options = {}) {
     }
 
     // @ts-expect-error: JSXElements are expressions.
-    let consequent = /** @type {Expression} */ (element)
+    let result = /** @type {Expression} */ (element)
 
-    if (!hasLayout) {
-      consequent = {
+    if (!hasInternalLayout) {
+      result = {
         type: 'ConditionalExpression',
         test: {type: 'Identifier', name: 'MDXLayout'},
-        consequent,
+        consequent: result,
         alternate: {
           type: 'CallExpression',
           callee: {type: 'Identifier', name: '_createMdxContent'},
@@ -580,7 +580,7 @@ export function recmaDocument(options = {}) {
           body: [
             {
               type: 'ReturnStatement',
-              argument: consequent
+              argument: result
             }
           ]
         }
