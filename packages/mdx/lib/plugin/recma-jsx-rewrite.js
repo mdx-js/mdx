@@ -86,7 +86,7 @@ export function recmaJsxRewrite(options = {}) {
           node.type === 'FunctionExpression' ||
           node.type === 'ArrowFunctionExpression'
         ) {
-          const stackLength = fnStack.push({
+          fnStack.push({
             objects: [],
             components: [],
             tags: [],
@@ -100,7 +100,7 @@ export function recmaJsxRewrite(options = {}) {
             newScope &&
             !inScope(newScope, 'MDXLayout')
           ) {
-            fnStack[stackLength - 1].components.push('MDXLayout')
+            fnStack[0].components.push('MDXLayout')
           }
         }
 
