@@ -893,6 +893,33 @@ test('jsx', async () => {
     'should allow using props'
   )
 
+  assert.equal(
+    String(
+      compileSync(
+        'export default function Layout({components, ...props}) { return <section {...props} /> }\n\na',
+        {jsx: true}
+      )
+    ),
+    [
+      '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'const MDXLayout = function Layout({components, ...props}) {',
+      '  return <section {...props} />;',
+      '};',
+      'function _createMdxContent(props) {',
+      '  const _components = Object.assign({',
+      '    p: "p"',
+      '  }, props.components);',
+      '  return <_components.p>{"a"}</_components.p>;',
+      '}',
+      'function MDXContent(props = {}) {',
+      '  return <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout>;',
+      '}',
+      'export default MDXContent;',
+      ''
+    ].join('\n'),
+    'should not have a conditional expression for MDXLayout when there is an internal layout'
+  )
+
   assert.match(
     String(compileSync("{<w x='y \" z' />}", {jsx: true})),
     /x="y &quot; z"/,
