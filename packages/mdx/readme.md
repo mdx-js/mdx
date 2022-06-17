@@ -92,20 +92,21 @@ Yields roughly:
 /* @jsxRuntime automatic @jsxImportSource react */
 import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
-export const Thing = () => _jsx(_Fragment, {children: 'World!'})
+export const Thing = () => _jsx(_Fragment, {children: 'World'})
 
-function MDXContent(props = {}) {
-  const {wrapper: MDXLayout} = props.components || ({})
-  return MDXLayout
-    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, {})}))
-    : _createMdxContent()
-  function _createMdxContent() {
-     const _components = Object.assign({h1: 'h1'}, props.components)
-     return _jsxs(_components.h1, {children: ['Hello, ', _jsx(Thing, {})]})
-   }
+function _createMdxContent(props) {
+  const _components = Object.assign({h1: 'h1'}, props.components)
+  return _jsxs(_components.h1, {
+    children: ['Hello ', _jsx(Thing, {})]
+  })
 }
 
-export default MDXContent
+export default function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || {}
+  return MDXLayout
+    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, props)}))
+    : _createMdxContent(props)
+}
 ```
 
 See [§ Using MDX][using-mdx] for more on how MDX work and how to use the result.
@@ -295,15 +296,17 @@ async function main(code) {
 …yields:
 
 ```js
-import {Fragment as _Fragment, jsx as _jsx} from 'react/jsx-runtime'
+/* @jsxRuntime automatic @jsxImportSource react */
+import {jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 export const no = 3.14
-function MDXContent(props = {}) { /* … */ }
-export default MDXContent
+function _createMdxContent(props) { /* … */ }
+export default function MDXContent(props = {}) { /* … */ }
 ```
 
 ```js
 const {Fragment: _Fragment, jsx: _jsx} = arguments[0]
 const no = 3.14
+function _createMdxContent(props) { /* … */ }
 function MDXContent(props = {}) { /* … */ }
 return {no, default: MDXContent}
 ```
@@ -352,6 +355,7 @@ console.log(String(compileSync(code, {outputFormat: 'function-body', useDynamicI
 const {Fragment: _Fragment, jsx: _jsx, jsxs: _jsxs} = arguments[0]
 const {name} = await import('./meta.js')
 const {no} = await import('./numbers.js')
+function _createMdxContent(props) { /* … */ }
 function MDXContent(props = {}) { /* … */ }
 return {no, default: MDXContent}
 ```
@@ -393,6 +397,7 @@ async function main() {
 ```js
 import {Fragment as _Fragment, jsx as _jsx} from 'react/jsx-runtime'
 export {number} from 'https://a.full/data.js'
+function _createMdxContent(props) { /* … */ }
 function MDXContent(props = {}) { /* … */ }
 export default MDXContent
 ```
@@ -537,20 +542,19 @@ compile(file, {providerImportSource: '@mdx-js/react'})
 
  export const Thing = () => _jsx(_Fragment, {children: 'World!'})
 
- function MDXContent(props = {}) {
--  const {wrapper: MDXLayout} = props.components || ({})
+ function _createMdxContent(props) {
+-  const _components = Object.assign({h1: 'h1'}, props.components)
++  const _components = Object.assign({h1: 'h1'}, _provideComponents(), props.components)
+   return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
+ }
+
+ export default function MDXContent(props = {}) {
+-  const {wrapper: MDXLayout} = props.components || {}
 +  const {wrapper: MDXLayout} = Object.assign({}, _provideComponents(), props.components)
+
    return MDXLayout
      ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, {})}))
      : _createMdxContent()
-   function _createMdxContent() {
--    const _components = Object.assign({h1: 'h1'}, props.components)
-+    const _components = Object.assign({h1: 'h1'}, _provideComponents(), props.components)
-     return _jsxs(_components.h1, {children: ['Hello, ', _jsx(Thing, {})]})
-   }
- }
-
- export default MDXContent
 ```
 
 </details>
@@ -579,20 +583,20 @@ compile(file, {jsx: true})
 -export const Thing = () => _jsx(_Fragment, {children: 'World!'})
 +export const Thing = () => <>World!</>
 
- function MDXContent(props = {}) {
-   const {wrapper: MDXLayout} = props.components || ({})
-   return MDXLayout
--    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, {})}))
-+    ? <MDXLayout {...props}><_createMdxContent /></MDXLayout>
-     : _createMdxContent()
-   function _createMdxContent() {
-     const _components = Object.assign({h1: 'h1'}, props.components)
--    return _jsxs(_components.h1, {children: ['Hello, ', _jsx(Thing, {})]})
-+    return <_components.h1>{"Hello, "}<Thing /></_components.h1>
-   }
+ function _createMdxContent(props) {
+   const _components = Object.assign({h1: 'h1'}, props.components)
+-  return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
++  return <_components.h1>{"Hello "}<Thing /></_components.h1>
  }
 
- export default MDXContent
+ export default function MDXContent(props = {}) {
+   const {wrapper: MDXLayout} = props.components || {}
+   return MDXLayout
+-    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, props)}))
++    ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout>
+     : _createMdxContent(props)
+ }
+ }
 ```
 
 </details>
