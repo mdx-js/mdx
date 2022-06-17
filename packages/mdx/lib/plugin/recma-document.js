@@ -231,7 +231,7 @@ export function recmaDocument(options = {}) {
           child.expression.type === 'JSXElement')
       ) {
         content = true
-        replacement.push(createMdxContent(child.expression))
+        replacement.push(...createMdxContent(child.expression, Boolean(layout)))
         // The following catch-all branch is because plugins might’ve added
         // other things.
         // Normally, we only have import/export/jsx, but just add whatever’s
@@ -244,7 +244,7 @@ export function recmaDocument(options = {}) {
 
     // If there was no JSX content at all, add an empty function.
     if (!content) {
-      replacement.push(createMdxContent())
+      replacement.push(...createMdxContent(undefined, Boolean(layout)))
     }
 
     exportedIdentifiers.push(['MDXContent', 'default'])
@@ -481,9 +481,10 @@ export function recmaDocument(options = {}) {
 
   /**
    * @param {Expression} [content]
-   * @returns {FunctionDeclaration}
+   * @param {boolean} [hasInternalLayout]
+   * @returns {FunctionDeclaration[]}
    */
-  function createMdxContent(content) {
+  function createMdxContent(content, hasInternalLayout) {
     /** @type {JSXElement} */
     const element = {
       type: 'JSXElement',
@@ -508,7 +509,12 @@ export function recmaDocument(options = {}) {
           openingElement: {
             type: 'JSXOpeningElement',
             name: {type: 'JSXIdentifier', name: '_createMdxContent'},
-            attributes: [],
+            attributes: [
+              {
+                type: 'JSXSpreadAttribute',
+                argument: {type: 'Identifier', name: 'props'}
+              }
+            ],
             selfClosing: true
           },
           closingElement: null,
@@ -518,7 +524,21 @@ export function recmaDocument(options = {}) {
     }
 
     // @ts-expect-error: JSXElements are expressions.
-    const consequent = /** @type {Expression} */ (element)
+    let result = /** @type {Expression} */ (element)
+
+    if (!hasInternalLayout) {
+      result = {
+        type: 'ConditionalExpression',
+        test: {type: 'Identifier', name: 'MDXLayout'},
+        consequent: result,
+        alternate: {
+          type: 'CallExpression',
+          callee: {type: 'Identifier', name: '_createMdxContent'},
+          arguments: [{type: 'Identifier', name: 'props'}],
+          optional: false
+        }
+      }
+    }
 
     let argument = content || {type: 'Literal', value: null}
 
@@ -535,44 +555,36 @@ export function recmaDocument(options = {}) {
       argument = argument.children[0]
     }
 
-    return {
-      type: 'FunctionDeclaration',
-      id: {type: 'Identifier', name: 'MDXContent'},
-      params: [
-        {
-          type: 'AssignmentPattern',
-          left: {type: 'Identifier', name: 'props'},
-          right: {type: 'ObjectExpression', properties: []}
+    return [
+      {
+        type: 'FunctionDeclaration',
+        id: {type: 'Identifier', name: '_createMdxContent'},
+        params: [{type: 'Identifier', name: 'props'}],
+        body: {
+          type: 'BlockStatement',
+          body: [{type: 'ReturnStatement', argument}]
         }
-      ],
-      body: {
-        type: 'BlockStatement',
-        body: [
+      },
+      {
+        type: 'FunctionDeclaration',
+        id: {type: 'Identifier', name: 'MDXContent'},
+        params: [
           {
-            type: 'ReturnStatement',
-            argument: {
-              type: 'ConditionalExpression',
-              test: {type: 'Identifier', name: 'MDXLayout'},
-              consequent,
-              alternate: {
-                type: 'CallExpression',
-                callee: {type: 'Identifier', name: '_createMdxContent'},
-                arguments: [],
-                optional: false
-              }
-            }
-          },
-          {
-            type: 'FunctionDeclaration',
-            id: {type: 'Identifier', name: '_createMdxContent'},
-            params: [],
-            body: {
-              type: 'BlockStatement',
-              body: [{type: 'ReturnStatement', argument}]
-            }
+            type: 'AssignmentPattern',
+            left: {type: 'Identifier', name: 'props'},
+            right: {type: 'ObjectExpression', properties: []}
           }
-        ]
+        ],
+        body: {
+          type: 'BlockStatement',
+          body: [
+            {
+              type: 'ReturnStatement',
+              argument: result
+            }
+          ]
+        }
       }
-    }
+    ]
   }
 }
