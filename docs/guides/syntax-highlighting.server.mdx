@@ -5,7 +5,7 @@ export const info = {
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-06'),
-  modified: new Date('2022-02-01')
+  modified: new Date('2022-06-17')
 }
 
 # Syntax highlighting
@@ -35,15 +35,13 @@ Use either [`rehype-highlight`][rehype-highlight]
 import rehypeHighlight from 'rehype-highlight'
 import {compile} from '@mdx-js/mdx'
 
-main(`~~~js
+const code = `~~~js
 console.log(1)
-~~~`)
+~~~`
 
-async function main(code) {
-  console.log(
-    String(await compile(code, {rehypePlugins: [rehypeHighlight]}))
-  )
-}
+console.log(
+  String(await compile(code, {rehypePlugins: [rehypeHighlight]}))
+)
 ```
 
 <details>

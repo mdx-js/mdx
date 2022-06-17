@@ -4,7 +4,7 @@ export const info = {
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-06'),
-  modified: new Date('2021-11-01')
+  modified: new Date('2022-06-17')
 }
 
 # GitHub flavored markdown (GFM)
@@ -55,15 +55,11 @@ import {promises as fs} from 'node:fs'
 import {compile} from '@mdx-js/mdx'
 import remarkGfm from 'remark-gfm'
 
-main()
-
-async function main() {
-  console.log(
-    String(
-      await compile(await fs.readFile('example.mdx'), {remarkPlugins: [remarkGfm]})
-    )
+console.log(
+  String(
+    await compile(await fs.readFile('example.mdx'), {remarkPlugins: [remarkGfm]})
   )
-}
+)
 ```
 
 <details>

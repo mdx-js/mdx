@@ -5,7 +5,7 @@ export const info = {
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-06'),
-  modified: new Date('2022-02-01')
+  modified: new Date('2022-06-17')
 }
 
 # Math
@@ -36,18 +36,14 @@ import {compile} from '@mdx-js/mdx'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 
-main()
-
-async function main() {
-  console.log(
-    String(
-      await compile(await fs.readFile('example.mdx'), {
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex]
-      })
-    )
+console.log(
+  String(
+    await compile(await fs.readFile('example.mdx'), {
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex]
+    })
   )
-}
+)
 ```
 
 <details>

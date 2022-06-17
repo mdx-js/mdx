@@ -78,12 +78,9 @@ Add some code in `example.js` to compile `example.mdx` to JavaScript:
 import {promises as fs} from 'node:fs'
 import {compile} from '@mdx-js/mdx'
 
-main()
+const compiled = await compile(await fs.readFile('example.mdx'))
 
-async function main() {
-  const compiled = await compile(await fs.readFile('example.mdx'))
-  console.log(String(compiled))
-}
+console.log(String(compiled))
 ```
 
 Yields roughly:
@@ -285,12 +282,10 @@ A module `example.js`:
 ```js
 import {compile} from '@mdx-js/mdx'
 
-main('export const no = 3.14\n\n# hi {no}')
+const code = 'export const no = 3.14\n\n# hi {no}'
 
-async function main(code) {
-  console.log(String(await compile(code, {outputFormat: 'program'}))) // Default
-  console.log(String(await compile(code, {outputFormat: 'function-body'})))
-}
+console.log(String(await compile(code, {outputFormat: 'program'}))) // Default
+console.log(String(await compile(code, {outputFormat: 'function-body'})))
 ```
 
 …yields:
@@ -383,13 +378,10 @@ Say we have a module `example.js`:
 ```js
 import {compile} from '@mdx-js/mdx'
 
-main()
+const code = 'export {number} from "./data.js"\n\n# hi'
+const baseUrl = 'https://a.full/url' // Typically `import.meta.url`
 
-async function main() {
-  const code = 'export {number} from "./data.js"\n\n# hi'
-  const baseUrl = 'https://a.full/url' // Typically `import.meta.url`
-  console.log(String(await compile(code, {baseUrl})))
-}
+console.log(String(await compile(code, {baseUrl})))
 ```
 
 …now running `node example.js` yields:
@@ -428,14 +420,11 @@ import {promises as fs} from 'node:fs'
 import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
 
-main()
+const path = 'example.mdx'
+const value = await fs.readFile(path)
+const MDXContent = (await evaluate({path, value}, runtime)).default
 
-async function main() {
-  const path = 'example.mdx'
-  const value = await fs.readFile(path)
-  const MDXContent = (await evaluate({path, value}, runtime)).default
-  console.log(MDXContent())
-}
+console.log(MDXContent())
 ```
 
 Running that would normally (production) yield:
@@ -451,14 +440,12 @@ Error: Expected component `NoteIcon` to be defined: you likely forgot to import,
 But if we change add `development: true` to our example:
 
 ```diff
-@@ -7,6 +7,6 @@ main()
- async function main() {
-   const path = 'example.mdx'
-   const value = await fs.readFile(path)
--  const MDXContent = (await evaluate({path, value}, runtime)).default
-+  const MDXContent = (await evaluate({path, value}, {development: true, ...runtime})).default
-   console.log(MDXContent({}))
- }
+@@ -7,6 +7,6 @@
+ const path = 'example.mdx'
+ const value = await fs.readFile(path)
+-const MDXContent = (await evaluate({path, value}, runtime)).default
++const MDXContent = (await evaluate({path, value}, {development: true, ...runtime})).default
+ console.log(MDXContent({}))
 ```
 
 And we’d run it again, we’d get:
@@ -491,16 +478,12 @@ import {promises as fs} from 'node:fs'
 import {SourceMapGenerator} from 'source-map'
 import {compile} from '@mdx-js/mdx'
 
-main()
+const file = await compile(
+  {path: 'example.mdx', value: await fs.readFile('example.mdx')},
+  {SourceMapGenerator}
+)
 
-async function main() {
-  const file = await compile(
-    {path: 'example.mdx', value: await fs.readFile('example.mdx')},
-    {SourceMapGenerator}
-  )
-
-  console.log(file.map)
-}
+console.log(file.map)
 ```
 
 …yields:
@@ -724,12 +707,9 @@ import remarkPresetLintConsistent from 'remark-preset-lint-consistent' // Lint r
 import {reporter} from 'vfile-reporter'
 import {compile} from '@mdx-js/mdx'
 
-main()
+const file = await compile('*like this* or _like this_?', {remarkPlugins: [remarkPresetLintConsistent]})
 
-async function main() {
-  const file = await compile('*like this* or _like this_?', {remarkPlugins: [remarkPresetLintConsistent]})
-  console.error(reporter(file))
-}
+console.error(reporter(file))
 ```
 
 Yields:

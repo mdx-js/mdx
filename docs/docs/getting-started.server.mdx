@@ -665,11 +665,7 @@ on how to use MDX with React Static.
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
 
-  main()
-
-  async function main() {
-    const js = String(await compile('# hi', {jsxImportSource: '@emotion/react', /* otherOptions… */}))
-  }
+  const js = String(await compile('# hi', {jsxImportSource: '@emotion/react', /* otherOptions… */}))
   ```
 </details>
 
@@ -731,11 +727,7 @@ more info.
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
 
-  main()
-
-  async function main() {
-    const js = String(await compile('# hi', {jsxImportSource: 'preact', /* otherOptions… */}))
-  }
+  const js = String(await compile('# hi', {jsxImportSource: 'preact', /* otherOptions… */}))
   ```
 </details>
 
@@ -811,11 +803,7 @@ info.
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
 
-  main()
-
-  async function main() {
-    const js = String(await compile('# hi', {jsxImportSource: 'svelte-jsx', /* otherOptions… */}))
-  }
+  const js = String(await compile('# hi', {jsxImportSource: 'svelte-jsx', /* otherOptions… */}))
   ```
 </details>
 
@@ -835,12 +823,8 @@ which you might be using, for more info.
   import {compile} from '@mdx-js/mdx'
   import babel from '@babel/core'
 
-  main()
-
-  async function main() {
-    const jsx = String(await compile('# hi', {jsx: true, /* otherOptions… */}))
-    const js = (await babel.transformAsync(jsx, {plugins: ['@vue/babel-plugin-jsx']})).code
-  }
+  const jsx = String(await compile('# hi', {jsx: true, /* otherOptions… */}))
+  const js = (await babel.transformAsync(jsx, {plugins: ['@vue/babel-plugin-jsx']})).code
   ```
 </details>
 

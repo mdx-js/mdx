@@ -4,7 +4,7 @@ export const info = {
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-06'),
-  modified: new Date('2021-11-01')
+  modified: new Date('2022-06-17')
 }
 
 # Embed
@@ -35,21 +35,19 @@ import fauxOembedTransformer from '@remark-embedder/transformer-oembed'
 const remarkEmbedder = fauxRemarkEmbedder.default
 const oembedTransformer = fauxOembedTransformer.default
 
-main(`
+const code = `
 Check out this video:
 
 https://www.youtube.com/watch?v=dQw4w9WgXcQ
-`)
+`
 
-async function main(code) {
-  console.log(
-    String(
-      await compile(code, {
-        remarkPlugins: [[remarkEmbedder, {transformers: [oembedTransformer]}]]
-      })
-    )
+console.log(
+  String(
+    await compile(code, {
+      remarkPlugins: [[remarkEmbedder, {transformers: [oembedTransformer]}]]
+    })
   )
-}
+)
 ```
 
 <details>

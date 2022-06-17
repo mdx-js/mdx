@@ -4,7 +4,7 @@ export const info = {
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-06'),
-  modified: new Date('2021-11-01')
+  modified: new Date('2022-06-17')
 }
 
 # Frontmatter
@@ -50,12 +50,8 @@ Then without compiling or evaluating the metadata can be accessed like so:
 import {promises as fs} from 'node:fs'
 import yaml from 'js-yaml'
 
-main()
-
-async function main() {
-  console.log(yaml.loadAll(await fs.readFile('post.mdx'))[0])
-  // Prints `{title: 'Hi, World!'}`
-}
+console.log(yaml.loadAll(await fs.readFile('post.mdx'))[0])
+// Prints `{title: 'Hi, World!'}`
 ```
 
 Our compiler, `@mdx-js/mdx`, doesn’t understand YAML frontmatter by default but
@@ -67,15 +63,11 @@ import {promises as fs} from 'node:fs'
 import remarkFrontmatter from 'remark-frontmatter'
 import {compile} from '@mdx-js/mdx'
 
-main()
-
-async function main() {
-  console.log(
-    await compile(await fs.readFile('post.mdx'), {
-      remarkPlugins: [remarkFrontmatter]
-    })
-  )
-}
+console.log(
+  await compile(await fs.readFile('post.mdx'), {
+    remarkPlugins: [remarkFrontmatter]
+  })
+)
 ```
 
 Now it “works”.
