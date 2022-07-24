@@ -224,10 +224,8 @@ export function recmaDocument(options = {}) {
         handleEsm(child)
       } else if (
         child.type === 'ExpressionStatement' &&
-        // @ts-expect-error types are wrong: `JSXElement`/`JSXFragment` are
-        // `Expression`s.
+        // @ts-expect-error types are wrong: `JSXFragment` is an `Expression`.
         (child.expression.type === 'JSXFragment' ||
-          // @ts-expect-error "
           child.expression.type === 'JSXElement')
       ) {
         content = true
@@ -523,7 +521,6 @@ export function recmaDocument(options = {}) {
       ]
     }
 
-    // @ts-expect-error: JSXElements are expressions.
     let result = /** @type {Expression} */ (element)
 
     if (!hasInternalLayout) {
@@ -542,6 +539,7 @@ export function recmaDocument(options = {}) {
 
     let argument = content || {type: 'Literal', value: null}
 
+    // Unwrap a fragment of a single element.
     if (
       argument &&
       // @ts-expect-error: fine.

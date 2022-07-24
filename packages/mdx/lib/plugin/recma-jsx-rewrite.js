@@ -77,7 +77,6 @@ export function recmaJsxRewrite(options = {}) {
       enter(_node) {
         const node = /** @type {Node} */ (_node)
         const newScope = /** @type {Scope|undefined} */ (
-          // @ts-expect-error: periscopic doesn’t support JSX.
           scopeInfo.map.get(node)
         )
 
