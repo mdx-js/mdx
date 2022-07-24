@@ -198,6 +198,7 @@ export function esbuild(options = {}) {
 
         ;(!('fatal' in message) || message.fatal ? errors : warnings).push({
           pluginName: name,
+          id: '',
           text:
             'reason' in message
               ? message.reason
