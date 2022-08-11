@@ -2,7 +2,7 @@ import {start, cont} from 'estree-util-is-identifier-name'
 
 /**
  * Replace all invalid identifier characters with underscores "_"
- * @param {string} str
+ * @param {string} string_
  */
 export function toValidIdentifierName(string_) {
   if (string_.length === 0) return '_'
