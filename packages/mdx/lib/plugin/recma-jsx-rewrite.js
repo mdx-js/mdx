@@ -46,6 +46,7 @@ import {
   toJsxIdOrMemberExpression
 } from '../util/estree-util-to-id-or-member-expression.js'
 import {toBinaryAddition} from '../util/estree-util-to-binary-addition.js'
+import {toValidIdentifierName} from '../util/to-valid-identifier-name.js'
 
 const own = {}.hasOwnProperty
 
@@ -188,6 +189,7 @@ export function recmaJsxRewrite(options = {}) {
             // but not for `<h1>heading</h1>`.
           } else {
             const id = name.name
+            const validId = toValidIdentifierName(id)
 
             if (!fnScope.tags.includes(id)) {
               fnScope.tags.push(id)
@@ -195,13 +197,13 @@ export function recmaJsxRewrite(options = {}) {
 
             node.openingElement.name = toJsxIdOrMemberExpression([
               '_components',
-              id
+              validId
             ])
 
             if (node.closingElement) {
               node.closingElement.name = toJsxIdOrMemberExpression([
                 '_components',
-                id
+                validId
               ])
             }
           }
@@ -236,9 +238,7 @@ export function recmaJsxRewrite(options = {}) {
             defaults.push({
               type: 'Property',
               kind: 'init',
-              key: isIdentifierName(name)
-                ? {type: 'Identifier', name}
-                : {type: 'Literal', value: name},
+              key: {type: 'Identifier', name: toValidIdentifierName(name)},
               value: {type: 'Literal', value: name},
               method: false,
               shorthand: false,
