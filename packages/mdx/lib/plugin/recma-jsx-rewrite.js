@@ -72,6 +72,8 @@ export function recmaJsxRewrite(options = {}) {
     let createErrorHelper
     /** @type {Scope|null} */
     let currentScope
+    /** @type {Map<string, string>} */
+    const invalidComponentNameToVariable = new Map()
 
     walk(tree, {
       enter(_node) {
@@ -193,16 +195,21 @@ export function recmaJsxRewrite(options = {}) {
               fnScope.tags.push(id)
             }
 
-            node.openingElement.name = toJsxIdOrMemberExpression([
-              '_components',
-              id
-            ])
+            let componentName = toJsxIdOrMemberExpression(['_components', id])
+            if (isIdentifierName(id) === false) {
+              let invalidComponentName = invalidComponentNameToVariable.get(id)
+              if (invalidComponentName === undefined) {
+                invalidComponentName = `_component${invalidComponentNameToVariable.size}`
+                invalidComponentNameToVariable.set(id, invalidComponentName)
+              }
+
+              componentName = toJsxIdOrMemberExpression([invalidComponentName])
+            }
+
+            node.openingElement.name = componentName
 
             if (node.closingElement) {
-              node.closingElement.name = toJsxIdOrMemberExpression([
-                '_components',
-                id
-              ])
+              node.closingElement.name = componentName
             }
           }
         }
@@ -233,17 +240,17 @@ export function recmaJsxRewrite(options = {}) {
           let name
 
           for (name of scope.tags) {
-            defaults.push({
-              type: 'Property',
-              kind: 'init',
-              key: isIdentifierName(name)
-                ? {type: 'Identifier', name}
-                : {type: 'Literal', value: name},
-              value: {type: 'Literal', value: name},
-              method: false,
-              shorthand: false,
-              computed: false
-            })
+            if (isIdentifierName(name)) {
+              defaults.push({
+                type: 'Property',
+                kind: 'init',
+                key: {type: 'Identifier', name},
+                value: {type: 'Literal', value: name},
+                method: false,
+                shorthand: false,
+                computed: false
+              })
+            }
           }
 
           actual.push(...scope.components)
@@ -259,7 +266,11 @@ export function recmaJsxRewrite(options = {}) {
           /** @type {Array<Statement>} */
           const statements = []
 
-          if (defaults.length > 0 || actual.length > 0) {
+          if (
+            defaults.length > 0 ||
+            actual.length > 0 ||
+            invalidComponentNameToVariable.size > 0
+          ) {
             if (providerImportSource) {
               importProvider = true
               parameters.push({
@@ -342,6 +353,17 @@ export function recmaJsxRewrite(options = {}) {
                 init: componentsInit
               })
               componentsInit = {type: 'Identifier', name: '_components'}
+            }
+
+            for (const [
+              invalidComponentName,
+              variable
+            ] of invalidComponentNameToVariable) {
+              declarations.push({
+                type: 'VariableDeclarator',
+                id: {type: 'Identifier', name: variable},
+                init: {type: 'Literal', value: invalidComponentName}
+              })
             }
 
             if (componentsPattern) {
