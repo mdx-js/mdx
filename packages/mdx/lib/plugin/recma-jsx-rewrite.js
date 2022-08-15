@@ -195,7 +195,7 @@ export function recmaJsxRewrite(options = {}) {
               fnScope.tags.push(id)
             }
 
-            /** @type {(string | number)[]} */
+            /** @type {Array<string | number>} */
             let jsxIdExpression = ['_components', id]
             if (isIdentifierName(id) === false) {
               let invalidComponentName = idToInvalidComponentName.get(id)
