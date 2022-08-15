@@ -362,10 +362,11 @@ export function recmaJsxRewrite(options = {}) {
               _componentsId,
               _componentName
             ] of idToInvalidComponentName) {
-              // For component IDs that render invalid JSX (ex. <_components.custom-element>),
-              // Generate a separate variable to index into `_components`
-              // i.e. `const _component0 = _components['custom-element']`
-              //      `return <_component0>...`
+              // For JSX IDs that can’t be represented as JavaScript IDs (as in,
+              // those with dashes, such as `custom-element`), generate a
+              // separate variable that is a valid JS ID (such as `_component0`),
+              // and takes it from components:
+              // `const _component0 = _components['custom-element']`
               declarations.push({
                 type: 'VariableDeclarator',
                 id: {type: 'Identifier', name: _componentName},
