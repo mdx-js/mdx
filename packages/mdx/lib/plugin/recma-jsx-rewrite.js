@@ -358,23 +358,25 @@ export function recmaJsxRewrite(options = {}) {
               componentsInit = {type: 'Identifier', name: '_components'}
             }
 
-            for (const [id, componentName] of idToInvalidComponentName) {
-              // For JSX IDs that can’t be represented as JavaScript IDs (as in,
-              // those with dashes, such as `custom-element`), generate a
-              // separate variable that is a valid JS ID (such as `_component0`),
-              // and takes it from components:
-              // `const _component0 = _components['custom-element']`
-              declarations.push({
-                type: 'VariableDeclarator',
-                id: {type: 'Identifier', name: componentName},
-                init: {
-                  type: 'MemberExpression',
-                  object: {type: 'Identifier', name: '_components'},
-                  property: {type: 'Literal', value: id},
-                  computed: true,
-                  optional: false
-                }
-              })
+            if (isNamedFunction(scope.node, '_createMdxContent')) {
+              for (const [id, componentName] of idToInvalidComponentName) {
+                // For JSX IDs that can’t be represented as JavaScript IDs (as in,
+                // those with dashes, such as `custom-element`), generate a
+                // separate variable that is a valid JS ID (such as `_component0`),
+                // and takes it from components:
+                // `const _component0 = _components['custom-element']`
+                declarations.push({
+                  type: 'VariableDeclarator',
+                  id: {type: 'Identifier', name: componentName},
+                  init: {
+                    type: 'MemberExpression',
+                    object: {type: 'Identifier', name: '_components'},
+                    property: {type: 'Literal', value: id},
+                    computed: true,
+                    optional: false
+                  }
+                })
+              }
             }
 
             if (componentsPattern) {

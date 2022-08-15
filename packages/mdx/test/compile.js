@@ -864,7 +864,7 @@ test('jsx', async () => {
       '  return <>{<_component0></_component0>}</>;',
       '}',
       'function MDXContent(props = {}) {',
-      '  const _component0 = _components["a-b"], {wrapper: MDXLayout} = props.components || ({});',
+      '  const {wrapper: MDXLayout} = props.components || ({});',
       '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
       '}',
       'export default MDXContent;',
