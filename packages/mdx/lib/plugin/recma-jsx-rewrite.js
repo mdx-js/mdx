@@ -72,8 +72,8 @@ export function recmaJsxRewrite(options = {}) {
     let createErrorHelper
     /** @type {Scope|null} */
     let currentScope
-    /** @type {Map<string, string>} */
-    const invalidComponentNameToVariable = new Map()
+    /** @type {Map<string | number, string>} */
+    const idToInvalidComponentName = new Map()
 
     walk(tree, {
       enter(_node) {
@@ -198,10 +198,10 @@ export function recmaJsxRewrite(options = {}) {
             /** @type {(string | number)[]} */
             let jsxIdExpression = ['_components', id]
             if (isIdentifierName(id) === false) {
-              let invalidComponentName = invalidComponentNameToVariable.get(id)
+              let invalidComponentName = idToInvalidComponentName.get(id)
               if (invalidComponentName === undefined) {
-                invalidComponentName = `_component${invalidComponentNameToVariable.size}`
-                invalidComponentNameToVariable.set(id, invalidComponentName)
+                invalidComponentName = `_component${idToInvalidComponentName.size}`
+                idToInvalidComponentName.set(id, invalidComponentName)
               }
 
               jsxIdExpression = [invalidComponentName]
@@ -272,7 +272,7 @@ export function recmaJsxRewrite(options = {}) {
           if (
             defaults.length > 0 ||
             actual.length > 0 ||
-            invalidComponentNameToVariable.size > 0
+            idToInvalidComponentName.size > 0
           ) {
             if (providerImportSource) {
               importProvider = true
@@ -359,13 +359,23 @@ export function recmaJsxRewrite(options = {}) {
             }
 
             for (const [
-              invalidComponentName,
-              variable
-            ] of invalidComponentNameToVariable) {
+              _componentsId,
+              _componentName
+            ] of idToInvalidComponentName) {
+              // For component IDs that render invalid JSX (ex. <_components.custom-element>),
+              // Generate a separate variable to index into `_components`
+              // i.e. `const _component0 = _components['custom-element']`
+              //      `return <_component0>...`
               declarations.push({
                 type: 'VariableDeclarator',
-                id: {type: 'Identifier', name: variable},
-                init: {type: 'Literal', value: invalidComponentName}
+                id: {type: 'Identifier', name: _componentName},
+                init: {
+                  type: 'MemberExpression',
+                  object: {type: 'Identifier', name: '_components'},
+                  property: {type: 'Literal', value: _componentsId},
+                  computed: true,
+                  optional: false
+                }
               })
             }
 
