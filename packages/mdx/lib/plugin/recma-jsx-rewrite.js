@@ -195,7 +195,8 @@ export function recmaJsxRewrite(options = {}) {
               fnScope.tags.push(id)
             }
 
-            let componentName = toJsxIdOrMemberExpression(['_components', id])
+            /** @type {(string | number)[]} */
+            let jsxIdExpression = ['_components', id]
             if (isIdentifierName(id) === false) {
               let invalidComponentName = invalidComponentNameToVariable.get(id)
               if (invalidComponentName === undefined) {
@@ -203,13 +204,15 @@ export function recmaJsxRewrite(options = {}) {
                 invalidComponentNameToVariable.set(id, invalidComponentName)
               }
 
-              componentName = toJsxIdOrMemberExpression([invalidComponentName])
+              jsxIdExpression = [invalidComponentName]
             }
 
-            node.openingElement.name = componentName
+            node.openingElement.name =
+              toJsxIdOrMemberExpression(jsxIdExpression)
 
             if (node.closingElement) {
-              node.closingElement.name = componentName
+              node.closingElement.name =
+                toJsxIdOrMemberExpression(jsxIdExpression)
             }
           }
         }
@@ -240,17 +243,17 @@ export function recmaJsxRewrite(options = {}) {
           let name
 
           for (name of scope.tags) {
-            if (isIdentifierName(name)) {
-              defaults.push({
-                type: 'Property',
-                kind: 'init',
-                key: {type: 'Identifier', name},
-                value: {type: 'Literal', value: name},
-                method: false,
-                shorthand: false,
-                computed: false
-              })
-            }
+            defaults.push({
+              type: 'Property',
+              kind: 'init',
+              key: isIdentifierName(name)
+                ? {type: 'Identifier', name}
+                : {type: 'Literal', value: name},
+              value: {type: 'Literal', value: name},
+              method: false,
+              shorthand: false,
+              computed: false
+            })
           }
 
           actual.push(...scope.components)
