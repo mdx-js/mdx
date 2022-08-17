@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/register",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Node hook to require MDX",
   "license": "MIT",
   "keywords": [
