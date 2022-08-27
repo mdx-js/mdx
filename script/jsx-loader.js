@@ -42,7 +42,7 @@ export function createLoader() {
       }
     }
 
-    return {format: 'module', source: code}
+    return {format: 'module', source: code, shortCircuit: true}
   }
 
   // Pre version 17.
