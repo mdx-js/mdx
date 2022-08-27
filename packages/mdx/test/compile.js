@@ -198,12 +198,7 @@ test('compile', async () => {
     renderToStaticMarkup(
       React.createElement(
         await run(
-          String(
-            compileSync('<>+</>', {jsxImportSource: '@emotion/react'})
-          ).replace(
-            /\/jsx-runtime(?=["'])/g,
-            '$&/dist/emotion-react-jsx-runtime.cjs.prod.js'
-          )
+          String(compileSync('<>+</>', {jsxImportSource: '@emotion/react'}))
         )
       )
     ),
