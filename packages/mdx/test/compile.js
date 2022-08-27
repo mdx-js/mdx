@@ -1065,7 +1065,7 @@ test('markdown (GFM, with `remark-gfm`)', async () => {
       )
     ),
     `<p><sup><a href="#user-content-fn-a" id="user-content-fnref-a" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup></p>
-<section data-footnotes="true" class="footnotes"><h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<section data-footnotes="true" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
 <ol>
 <li id="user-content-fn-a">
 <p>b <a href="#user-content-fnref-a" data-footnote-backref="true" class="data-footnote-backref" aria-label="Back to content">↩</a></p>
@@ -1167,7 +1167,7 @@ test('remark-rehype options', async () => {
       )
     ),
     `<p>Text<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup></p>
-<section data-footnotes="true" class="footnotes"><h2 id="footnote-label" class="sr-only">Notes</h2>
+<section data-footnotes="true" class="footnotes"><h2 class="sr-only" id="footnote-label">Notes</h2>
 <ol>
 <li id="user-content-fn-1">
 <p>Note. <a href="#user-content-fnref-1" data-footnote-backref="true" class="data-footnote-backref" aria-label="Back">↩</a></p>
