@@ -638,28 +638,36 @@ See [Using MDX with Next.js][next-mdx] for more details.
 
 #### Astro
 
-[Astro](https://astro.build/) is built on [islands architecture](https://docs.astro.build/concepts/islands/),
-allowing you to use React, Vue, Svelte, and more within your MDX files.
-
-After [creating your first Astro project](https://astro.new/), you can [add the MDX integration](https://docs.astro.build/guides/integrations-guide/mdx/):
+[Astro](https://astro.build/) has an [official MDX integration](https://docs.astro.build/guides/integrations-guide/mdx/).
+We recommend using [the `astro add` CLI](https://docs.astro.build/en/guides/integrations-guide/#automatic-integration-setup)
+to install dependencies and update your config automatically:
 
 ```sh
-astro add mdx
-# Or use `npx` on Windows
+# Using npm
 npx astro add mdx
+# Using yarn
+yarn astro add mdx
+# Using pnpm
+pnpx astro add mdx
 ```
 
-And (optionally) add your favorite component framework(s).
-You can import Markdown, Astro, and other MDX files as components
-out-of-the-box.
+This base setup allows you to import Markdown,
+[Astro](https://docs.astro.build/en/core-concepts/astro-components/),
+and other MDX files as components.
+
+**To add support for [Preact](https://docs.astro.build/en/guides/integrations-guide/preact/), [Vue](https://docs.astro.build/en/guides/integrations-guide/vue/), [Svelte](https://docs.astro.build/en/guides/integrations-guide/svelte/) and more in your MDX,**
+you can install each as a separate integration:
 
 ```sh
-astro add preact
-# Or use `npx` on Windows
+# Using npm
 npx astro add preact
+# Using yarn
+yarn astro add preact
+# Using pnpm
+pnpx astro add preact
 ```
 
-To learn how to configure layouts, support YAML frontmatter, and set up Astro’s
+To learn how to configure layouts, YAML frontmatter, and set up Astro’s
 syntax highlighting, [see Astro’s guide on their MDX
 integration](https://docs.astro.build/guides/integrations-guide/mdx/).
 
