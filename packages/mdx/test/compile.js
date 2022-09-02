@@ -21,6 +21,7 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import {VFile} from 'vfile'
 import {SourceMapGenerator} from 'source-map'
+import * as remarkShikiTwoslash from 'remark-shiki-twoslash'
 import {compile, compileSync, createProcessor, nodeTypes} from '../index.js'
 // @ts-expect-error: make sure a single react is used.
 import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server.js'
@@ -1170,6 +1171,28 @@ test('remark-rehype options', async () => {
 </ol>
 </section>`,
     'should pass options to remark-rehype'
+  )
+})
+
+test('remark-shiki-twoslash with layout function', async () => {
+  renderToStaticMarkup(
+    React.createElement(
+      await run(
+        await compile(
+          `
+export default function ({ children }) { return <div>{children}</div>; }
+
+\`\`\`js twoslash
+console.log('hi')
+\`\`\`
+`,
+          {
+            remarkPlugins: [remarkShikiTwoslash.default],
+            rehypePlugins: [[rehypeRaw, {passThrough: nodeTypes}]]
+          }
+        )
+      )
+    )
   )
 })
 

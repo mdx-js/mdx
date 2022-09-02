@@ -387,11 +387,13 @@ export function recmaJsxRewrite(options = {}) {
               })
             }
 
-            statements.push({
-              type: 'VariableDeclaration',
-              kind: 'const',
-              declarations
-            })
+            if (declarations.length > 0) {
+              statements.push({
+                type: 'VariableDeclaration',
+                kind: 'const',
+                declarations
+              })
+            }
           }
 
           /** @type {string} */
