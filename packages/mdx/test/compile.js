@@ -1175,6 +1175,7 @@ test('remark-rehype options', async () => {
 })
 
 test('remark-shiki-twoslash with layout function', async () => {
+  // Just test that the output can be generated correctly without JS syntax errors
   renderToStaticMarkup(
     React.createElement(
       await run(
