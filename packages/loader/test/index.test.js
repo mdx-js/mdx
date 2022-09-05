@@ -24,11 +24,11 @@ test('@mdx-js/loader', async () => {
 
   await fs.writeFile(
     new URL('webpack.mdx', base),
-    'export const Message = () => <>World!</>\n\n# Hello, <Message />'
+    '# Hello, {<Message />'
   )
 
-  // React.
-  await promisify(webpack)({
+  // Errors.
+  const failedResult = await promisify(webpack)({
     // @ts-expect-error To do: webpack types miss support for `context`.
     context: fileURLToPath(base),
     entry: './webpack.mdx',
@@ -48,6 +48,44 @@ test('@mdx-js/loader', async () => {
     }
   })
 
+  const error = failedResult?.toJson()?.errors?.[0]
+
+  assert.ok(error);
+  assert.equal(
+    error.message,
+    `Module build failed (from ../index.cjs):
+webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding closing brace for \`{\``,
+    'received expected error message'
+  )
+
+  await fs.writeFile(
+    new URL('webpack.mdx', base),
+    'export const Message = () => <>World!</>\n\n# Hello, <Message />'
+  )
+
+  // React.
+  const reactBuild = await promisify(webpack)({
+    // @ts-expect-error To do: webpack types miss support for `context`.
+    context: fileURLToPath(base),
+    entry: './webpack.mdx',
+    mode: 'none',
+    module: {
+      rules: [
+        {
+          test: /\.mdx$/,
+          use: [fileURLToPath(new URL('../index.cjs', import.meta.url))]
+        }
+      ]
+    },
+    output: {
+      path: fileURLToPath(base),
+      filename: 'react.cjs',
+      libraryTarget: 'commonjs'
+    }
+  })
+
+  assert.not.ok(reactBuild?.hasErrors())
+
   // One for ESM loading CJS, one for webpack.
   const modReact = /** @type {{default: {default: MDXContent}}} */ (
     // @ts-expect-error file is dynamically generated
@@ -63,7 +101,7 @@ test('@mdx-js/loader', async () => {
   await fs.unlink(new URL('react.cjs', base))
 
   // Preact and source maps
-  await promisify(webpack)({
+  const preactBuild = await promisify(webpack)({
     // @ts-expect-error To do: webpack types miss support for `context`.
     context: fileURLToPath(base),
     entry: './webpack.mdx',
@@ -89,6 +127,9 @@ test('@mdx-js/loader', async () => {
     }
   })
 
+  assert.not.ok(preactBuild?.hasErrors())
+
+
   // One for ESM loading CJS, one for webpack.
   const modPreact = /** @type {{default: {default: PreactComponent}}} */ (
     // @ts-expect-error file is dynamically generated.
@@ -110,7 +151,7 @@ test('@mdx-js/loader', async () => {
   await fs.unlink(new URL('preact.cjs', base))
 
   // Vue.
-  await promisify(webpack)({
+  const vueBuild = await promisify(webpack)({
     // @ts-expect-error To do: webpack types miss support for `context`.
     context: fileURLToPath(base),
     entry: './webpack.mdx',
@@ -139,6 +180,8 @@ test('@mdx-js/loader', async () => {
       libraryTarget: 'commonjs'
     }
   })
+
+  assert.not.ok(vueBuild?.hasErrors())
 
   // One for ESM loading CJS, one for webpack.
   const modVue = /** @type {{default: {default: VueComponent}}} */ (
