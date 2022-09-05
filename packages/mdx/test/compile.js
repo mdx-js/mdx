@@ -21,7 +21,7 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import {VFile} from 'vfile'
 import {SourceMapGenerator} from 'source-map'
-import * as remarkShikiTwoslash from 'remark-shiki-twoslash'
+import remarkShikiTwoslash from 'remark-shiki-twoslash'
 import {compile, compileSync, createProcessor, nodeTypes} from '../index.js'
 // @ts-expect-error: make sure a single react is used.
 import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server.js'
@@ -1188,7 +1188,7 @@ console.log('hi')
 \`\`\`
 `,
           {
-            remarkPlugins: [remarkShikiTwoslash.default],
+            remarkPlugins: [/** @type any */ (remarkShikiTwoslash).default],
             rehypePlugins: [[rehypeRaw, {passThrough: nodeTypes}]]
           }
         )
