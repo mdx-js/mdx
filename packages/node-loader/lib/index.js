@@ -56,7 +56,7 @@ export function createLoader(options = {}) {
       source = String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
     }
 
-    return {format: 'module', source}
+    return {format: 'module', source, shortCircuit: true}
   }
 
   // Pre version 17.
