@@ -1,6 +1,7 @@
 /**
  * @typedef {import('vfile').VFileCompatible} VFileCompatible
  * @typedef {import('vfile').VFile} VFile
+ * @typedef {import('vfile-message').VFileMessage} VFileMessage
  * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
  * @typedef {Pick<CompileOptions, 'SourceMapGenerator'>} Defaults
  * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} Options
@@ -10,6 +11,7 @@
  */
 
 import {createHash} from 'node:crypto'
+import path from 'node:path';
 import {SourceMapGenerator} from 'source-map'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
 
@@ -62,10 +64,16 @@ export function loader(value, callback) {
     map.set(hash, process)
   }
 
-  process({value, path: this.resourcePath}).then((file) => {
-    callback(null, file.value, file.map)
-    return file
-  }, callback)
+  process({value, path: this.resourcePath}).then(
+    (file) => {
+      callback(null, file.value, file.map)
+    },
+    (/** @type VFileMessage */ e) => {
+      const fpath = path.relative(this.context, this.resourcePath);
+      e.message = `${fpath}:${e.name}: ${e.message}`;
+      callback(e);
+    }
+  )
 }
 
 /**
