@@ -114,7 +114,7 @@
     "xast-util-feed": "^1.0.0",
     "xast-util-sitemap": "^1.0.0",
     "xast-util-to-xml": "^3.0.0",
-    "xo": "^0.51.0"
+    "xo": "^0.52.0"
   },
   "scripts": {
     "postinstall": "patch-package",
