@@ -150,13 +150,13 @@ with a component for `pre`.
 
 The long answer is: do it yourself, however you want, by writing a custom plugin
 to interpret the `meta` field.
-For example, it’s possible to pass that string as a prop with a rehype plugin:
+For example, it’s possible to pass that string as a prop with a remark plugin:
 
-```js path="rehype-meta-as-attributes.js"
+```js path="remark-meta-as-attributes.js"
 import {visit} from 'unist-util-visit'
 
 /** @type {import('unified').Plugin<Array<void>, import('hast').Root>} */
-function rehypeMetaAsAttributes() {
+function remarkMetaAsAttributes() {
   return (tree) => {
     visit(tree, 'element', (node) => {
       if (node.tagName === 'code' && node.data && node.data.meta) {
@@ -186,10 +186,10 @@ This would yields the following JSX:
 
 The meta string in this example looks a lot like HTML attributes.
 What if we wanted to add each “attribute” as a prop?
-That can be achieved with the same rehype plugin as above with a different
+That can be achieved with the same remark plugin as above with a different
 `onelement` handler:
 
-```js path="rehype-meta-as-attributes.js"
+```js path="remark-meta-as-attributes.js"
 // A regex that looks for a simplified attribute name, optionally followed
 // by a double, single, or unquoted attribute value
 const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
