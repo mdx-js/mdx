@@ -49,6 +49,11 @@
   "peerDependencies": {
     "webpack": ">=4"
   },
+  "peerDependenciesMeta": {
+    "webpack": {
+       "optional": true
+     }
+  },
   "devDependencies": {
     "@types/loader-utils": "^2.0.0",
     "@types/react": "^18.0.0",
