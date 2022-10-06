@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/rollup",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Rollup plugin for MDX",
   "license": "MIT",
   "keywords": [
