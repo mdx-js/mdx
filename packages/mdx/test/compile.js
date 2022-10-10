@@ -21,7 +21,6 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import {VFile} from 'vfile'
 import {SourceMapGenerator} from 'source-map'
-import remarkShikiTwoslash from 'remark-shiki-twoslash'
 import {compile, compileSync, createProcessor, nodeTypes} from '../index.js'
 // @ts-expect-error: make sure a single react is used.
 import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server.js'
@@ -1174,8 +1173,8 @@ test('remark-rehype options', async () => {
   )
 })
 
-test('remark-shiki-twoslash with layout function', async () => {
-  // Just test that the output can be generated correctly without JS syntax errors
+/** @see https://github.com/mdx-js/mdx/issues/2112 */
+test.only('layout function with passthrough HTML', async () => {
   renderToStaticMarkup(
     React.createElement(
       await run(
@@ -1183,12 +1182,24 @@ test('remark-shiki-twoslash with layout function', async () => {
           `
 export default function ({ children }) { return <div>{children}</div>; }
 
-\`\`\`js twoslash
-console.log('hi')
-\`\`\`
+<h1>bar</h1>
+<custom-element />
 `,
           {
-            remarkPlugins: [/** @type any */ (remarkShikiTwoslash).default],
+            remarkPlugins: [
+              () => {
+                const transform = async (
+                  /** @type {Root & { children: (import('mdast').Content)[] }} */ tree
+                ) => {
+                  tree.children.push({
+                    type: 'html',
+                    value: `<custom-element />`
+                  })
+                }
+
+                return transform
+              }
+            ],
             rehypePlugins: [[rehypeRaw, {passThrough: nodeTypes}]]
           }
         )
