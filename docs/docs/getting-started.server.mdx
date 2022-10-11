@@ -434,12 +434,12 @@ if you’re using that, for more info.
   // other things through to the normal Babel parser.
   function babelParserWithMdx(value, options) {
     if (
-      options.sourceFilename &&
-      /\.mdx?$/.test(path.extname(options.sourceFilename))
+      options.sourceFileName &&
+      /\.mdx?$/.test(path.extname(options.sourceFileName))
     ) {
       // Babel does not support async parsers, unfortunately.
       return compileSync(
-        {value, path: options.sourceFilename},
+        {value, path: options.sourceFileName},
         // Tell `@mdx-js/mdx` to return a Babel tree instead of serialized JS.
         {recmaPlugins: [recmaBabel], /* jsxImportSource: …, otherOptions… */}
       ).result

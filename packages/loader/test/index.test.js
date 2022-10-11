@@ -22,10 +22,7 @@ test('@mdx-js/loader', async () => {
   // Setup.
   const base = new URL('.', import.meta.url)
 
-  await fs.writeFile(
-    new URL('webpack.mdx', base),
-    '# Hello, {<Message />'
-  )
+  await fs.writeFile(new URL('webpack.mdx', base), '# Hello, {<Message />')
 
   // Errors.
   const failedResult = await promisify(webpack)({
@@ -50,7 +47,7 @@ test('@mdx-js/loader', async () => {
 
   const error = failedResult?.toJson()?.errors?.[0]
 
-  assert.ok(error);
+  assert.ok(error)
   assert.equal(
     error.message,
     `Module build failed (from ../index.cjs):
@@ -128,7 +125,6 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
   })
 
   assert.not.ok(preactBuild?.hasErrors())
-
 
   // One for ESM loading CJS, one for webpack.
   const modPreact = /** @type {{default: {default: PreactComponent}}} */ (

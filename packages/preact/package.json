@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/preact",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Preact context for MDX",
   "license": "MIT",
   "keywords": [
