@@ -1174,7 +1174,7 @@ test('remark-rehype options', async () => {
 })
 
 /** @see https://github.com/mdx-js/mdx/issues/2112 */
-test.only('layout function with passthrough HTML', async () => {
+test('layout function with passthrough HTML', async () => {
   renderToStaticMarkup(
     React.createElement(
       await run(
