@@ -51,7 +51,7 @@
     "@types/react-dom": "^18.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "rollup": "^2.0.0"
+    "rollup": "^3.0.0"
   },
   "scripts": {
     "prepack": "npm run build",

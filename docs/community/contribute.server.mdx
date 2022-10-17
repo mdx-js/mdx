@@ -91,6 +91,13 @@ This ensures everything is okay, from code style to unit tests to types.
 To build the site, first do `npm install`, then do `npm run docs`.
 This produces the website in `public/`.
 
+<Note type="important">
+  **Important**: the site uses several experimental packages.
+  They require Node.js 14, and don’t work in earlier or later
+  versions.
+  To build the site, please use Node.js 14 (with `nvm`: `nvm use 14`).
+</Note>
+
 ### Release
 
 To release a new version, do:
