@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/rollup",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Rollup plugin for MDX",
   "license": "MIT",
   "keywords": [
@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0",
-    "@rollup/pluginutils": "^4.0.0",
+    "@rollup/pluginutils": "^5.0.0",
     "source-map": "^0.7.0",
     "vfile": "^5.0.0"
   },
@@ -51,7 +51,7 @@
     "@types/react-dom": "^18.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "rollup": "^2.0.0"
+    "rollup": "^3.0.0"
   },
   "scripts": {
     "prepack": "npm run build",

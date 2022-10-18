@@ -1173,6 +1173,35 @@ test('remark-rehype options', async () => {
   )
 })
 
+// See <https://github.com/mdx-js/mdx/issues/2112>
+test('should support custom elements with layouts', async () => {
+  assert.equal(
+    renderToStaticMarkup(
+      React.createElement(
+        await run(
+          await compile('export default function () {}', {
+            rehypePlugins: [
+              /** @type {import('unified').Plugin<[], import('hast').Root>} */
+              function () {
+                return function (tree) {
+                  tree.children.push({
+                    type: 'element',
+                    tagName: 'custom-element',
+                    properties: {},
+                    children: []
+                  })
+                }
+              }
+            ]
+          })
+        )
+      )
+    ),
+    '',
+    'should not crash if element names are used that are not valid JavaScript identifiers, with layouts'
+  )
+})
+
 test('MDX (JSX)', async () => {
   assert.equal(
     renderToStaticMarkup(

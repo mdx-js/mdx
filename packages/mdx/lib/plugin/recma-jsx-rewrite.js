@@ -32,6 +32,7 @@
  * @property {Array<string>} components
  * @property {Array<string>} tags
  * @property {Record<string, {node: JSXElement, component: boolean}>} references
+ * @property {Map<string|number, string>} idToInvalidComponentName
  * @property {ESFunction} node
  */
 
@@ -72,8 +73,6 @@ export function recmaJsxRewrite(options = {}) {
     let createErrorHelper
     /** @type {Scope|null} */
     let currentScope
-    /** @type {Map<string | number, string>} */
-    const idToInvalidComponentName = new Map()
 
     walk(tree, {
       enter(_node) {
@@ -92,6 +91,7 @@ export function recmaJsxRewrite(options = {}) {
             components: [],
             tags: [],
             references: {},
+            idToInvalidComponentName: new Map(),
             node
           })
 
@@ -198,10 +198,11 @@ export function recmaJsxRewrite(options = {}) {
             /** @type {Array<string | number>} */
             let jsxIdExpression = ['_components', id]
             if (isIdentifierName(id) === false) {
-              let invalidComponentName = idToInvalidComponentName.get(id)
+              let invalidComponentName =
+                fnScope.idToInvalidComponentName.get(id)
               if (invalidComponentName === undefined) {
-                invalidComponentName = `_component${idToInvalidComponentName.size}`
-                idToInvalidComponentName.set(id, invalidComponentName)
+                invalidComponentName = `_component${fnScope.idToInvalidComponentName.size}`
+                fnScope.idToInvalidComponentName.set(id, invalidComponentName)
               }
 
               jsxIdExpression = [invalidComponentName]
@@ -272,7 +273,7 @@ export function recmaJsxRewrite(options = {}) {
           if (
             defaults.length > 0 ||
             actual.length > 0 ||
-            idToInvalidComponentName.size > 0
+            scope.idToInvalidComponentName.size > 0
           ) {
             if (providerImportSource) {
               importProvider = true
@@ -359,7 +360,10 @@ export function recmaJsxRewrite(options = {}) {
             }
 
             if (isNamedFunction(scope.node, '_createMdxContent')) {
-              for (const [id, componentName] of idToInvalidComponentName) {
+              for (const [
+                id,
+                componentName
+              ] of scope.idToInvalidComponentName) {
                 // For JSX IDs that can’t be represented as JavaScript IDs (as in,
                 // those with dashes, such as `custom-element`), generate a
                 // separate variable that is a valid JS ID (such as `_component0`),
@@ -387,11 +391,13 @@ export function recmaJsxRewrite(options = {}) {
               })
             }
 
-            statements.push({
-              type: 'VariableDeclaration',
-              kind: 'const',
-              declarations
-            })
+            if (declarations.length > 0) {
+              statements.push({
+                type: 'VariableDeclaration',
+                kind: 'const',
+                declarations
+              })
+            }
           }
 
           /** @type {string} */

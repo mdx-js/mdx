@@ -1,0 +1,80 @@
+diff --git a/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-node-register.js b/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-node-register.js
+index ad8aaca..16dd552 100644
+--- a/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-node-register.js
++++ b/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-node-register.js
+@@ -69,7 +69,7 @@ module.exports = function register() {
+     }
+   };
+ 
+-  require.extensions['.client.js'] = function (module, path) {
++  require.extensions['.client.mdx'] = require.extensions['.client.md'] = require.extensions['.client.js'] = function (module, path) {
+     var moduleId = url.pathToFileURL(path).href;
+     var moduleReference = {
+       $$typeof: MODULE_REFERENCE,
+@@ -85,11 +85,11 @@ module.exports = function register() {
+   Module._resolveFilename = function (request, parent, isMain, options) {
+     var resolved = originalResolveFilename.apply(this, arguments);
+ 
+-    if (resolved.endsWith('.server.js')) {
+-      if (parent && parent.filename && !parent.filename.endsWith('.server.js')) {
++    if (resolved.endsWith('.server.mdx') || resolved.endsWith('.server.md') || resolved.endsWith('.server.js')) {
++      if (parent && parent.filename && !parent.filename.endsWith('.server.mdx') && !parent.filename.endsWith('.server.md') && !parent.filename.endsWith('.server.js')) {
+         var reason;
+ 
+-        if (request.endsWith('.server.js')) {
++        if (request.endsWith('.server.mdx') || request.endsWith('.server.md') || request.endsWith('.server.js')) {
+           reason = "\"" + request + "\"";
+         } else {
+           reason = "\"" + request + "\" (which expands to \"" + resolved + "\")";
+diff --git a/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-plugin.js b/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-plugin.js
+index a78c39c..c26a388 100644
+--- a/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-plugin.js
++++ b/node_modules/react-server-dom-webpack/cjs/react-server-dom-webpack-plugin.js
+@@ -61,7 +61,7 @@ class ReactFlightWebpackPlugin {
+       this.clientReferences = [{
+         directory: '.',
+         recursive: true,
+-        include: /\.client\.(js|ts|jsx|tsx)$/
++        include: /\.client\.(js|ts|jsx|tsx|md|mdx)$/
+       }];
+     } else if (typeof options.clientReferences === 'string' || !isArray(options.clientReferences)) {
+       this.clientReferences = [options.clientReferences];
+@@ -162,7 +162,7 @@ class ReactFlightWebpackPlugin {
+             // TODO: Hook into deps instead of the target module.
+             // That way we know by the type of dep whether to include.
+             // It also resolves conflicts when the same module is in multiple chunks.
+-            if (!/\.client\.(js|ts)x?$/.test(module.resource)) {
++            if (!/\.client\.(js|ts|md)x?$/.test(module.resource)) {
+               return;
+             }
+ 
+diff --git a/node_modules/react-server-dom-webpack/esm/react-server-dom-webpack-node-loader.js b/node_modules/react-server-dom-webpack/esm/react-server-dom-webpack-node-loader.js
+index 15742ac..2cfc007 100644
+--- a/node_modules/react-server-dom-webpack/esm/react-server-dom-webpack-node-loader.js
++++ b/node_modules/react-server-dom-webpack/esm/react-server-dom-webpack-node-loader.js
+@@ -78,13 +78,13 @@ async function resolve(specifier, context, defaultResolve) {
+ 
+   var resolved = await defaultResolve(specifier, context, defaultResolve);
+ 
+-  if (resolved.url.endsWith('.server.js')) {
++  if (resolved.url.endsWith('.server.mdx') || resolved.url.endsWith('.server.md') || resolved.url.endsWith('.server.js')) {
+     var parentURL = context.parentURL;
+ 
+-    if (parentURL && !parentURL.endsWith('.server.js')) {
++    if (parentURL && !parentURL.endsWith('.server.mdx') && !parentURL.endsWith('.server.md') && !parentURL.endsWith('.server.js')) {
+       var reason;
+ 
+-      if (specifier.endsWith('.server.js')) {
++      if (specifier.endsWith('.server.mdx') || specifier.endsWith('.server.md') || specifier.endsWith('.server.js')) {
+         reason = "\"" + specifier + "\"";
+       } else {
+         reason = "\"" + specifier + "\" (which expands to \"" + resolved.url + "\")";
+@@ -239,7 +239,7 @@ async function parseExportNamesInto(transformedSource, names, parentURL, default
+ async function transformSource(source, context, defaultTransformSource) {
+   var transformed = await defaultTransformSource(source, context, defaultTransformSource);
+ 
+-  if (context.format === 'module' && context.url.endsWith('.client.js')) {
++  if (context.format === 'module' && (context.url.endsWith('.client.mdx') || context.url.endsWith('.client.md') || context.url.endsWith('.client.js'))) {
+     var transformedSource = transformed.source;
+ 
+     if (typeof transformedSource !== 'string') {
