@@ -53,7 +53,7 @@ export function createLoader(options = {}) {
     let source = String(file)
 
     if (fixRuntimeWithoutExportMap) {
-      source = String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
+      source = String(file).replace(/\/jsx-runtime(?=["'])/, '$&.js')
     }
 
     return {format: 'module', source, shortCircuit: true}
@@ -89,7 +89,7 @@ export function createLoader(options = {}) {
     let source = String(file)
 
     if (fixRuntimeWithoutExportMap) {
-      source = String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
+      source = String(file).replace(/\/jsx-runtime(?=["'])/, '$&.js')
     }
 
     return {source}
