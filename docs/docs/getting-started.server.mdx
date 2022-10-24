@@ -124,6 +124,10 @@ your JSX runtime.
 *   If you’re using **Theme UI**,
     install and configure [`@mdx-js/react`][mdx-react].
     Then wrap your MDX content in a `<ThemeProvider />`
+*   If you’re using **Solid**,
+    install [`solid-jsx`][solid-jsx].
+    Set [`options.jsxImportSource`][options-jsximportsource] to
+    `'solid-jsx'`.
 
 Other JSX runtimes are supported by setting
 [`options.jsxImportSource`][options-jsximportsource].
@@ -134,6 +138,7 @@ For more info on the aforementioned tools, please see their dedicated sections:
 [¶ Emotion][emotion],
 [¶ Preact][preact],
 [¶ React][react],
+[¶ Solid][solid],
 [¶ Svelte][svelte],
 [¶ Theme UI][themeui], or
 [¶ Vue][vue].
@@ -857,6 +862,24 @@ for context based component passing.
 See also [¶ Vite][vite] and [¶ Vue CLI][vue-cli], which you might be using,
 for more info.
 
+#### Solid
+
+<details>
+  <summary>Expand example</summary>
+
+  ```js path="example.js"
+  import {compile} from '@mdx-js/mdx'
+
+  const js = String(await compile('# hi', {jsxImportSource: 'solid-jsx', /* otherOptions… */}))
+  ```
+</details>
+
+Solid is supported when [`options.jsxImportSource`][options-jsximportsource] is
+set to `'solid-jsx'`.
+
+See also [¶ Vite][vite] and [¶ Rollup][rollup] which you might be using, for
+more info.
+
 ### JavaScript engines
 
 #### Node.js
@@ -874,6 +897,8 @@ See their readmes on how to configure them.
     [§ Troubleshooting MDX][trouble] or [§ Support][support]
 
 [@next/mdx]: https://github.com/vercel/next.js/tree/canary/packages/next-mdx
+
+[solid-jsx]: https://github.com/high1/solid-jsx
 
 [svelte-jsx]: https://github.com/kenoxa/svelte-jsx
 
@@ -940,6 +965,8 @@ See their readmes on how to configure them.
 [rollup]: #rollup
 
 [snowpack]: #snowpack
+
+[solid]: #solid
 
 [svelte]: #svelte
 
