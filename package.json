@@ -35,7 +35,7 @@
     "ahooks": "^3.0.0",
     "ap-style-title-case": "^1.0.0",
     "autoprefixer": "^10.0.0",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "^9.0.0",
     "c8": "^7.0.0",
     "capture-website": "^3.0.0",
     "chrome-aws-lambda": "^10.1.0",
