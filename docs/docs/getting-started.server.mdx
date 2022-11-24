@@ -346,14 +346,10 @@ If you use more modern JavaScript features than what your users support,
 [configure Vite’s
 `build.target`](https://vitejs.dev/guide/build.html#browser-compatibility).
 
-<details>
-  <summary>Possible Compatibility Issue</summary>
-  As for [vite](https://github.com/vitejs/vite) 3, `rollup@^2.79.1` is applied.
-  You might notice that there was a warning of peer dependency problem. Please
-  ignore it or add `rollup` manually to your devDependencies with 
-  **version `^2.79.1`**. This avoids possible incompatibility, for when the 
-  version of `rollup` is not specified, `rollup@>=3` will be install by default.
-</details>
+<Note type="info">
+  **note**: Vite 3 requires the older `rollup@<3`. Make sure `rollup@3` is not
+  installed.
+</Note>
 
 See also [¶ Rollup][rollup], which is used in Vite, and see [¶ Vue][vue], if
 you’re using that, for more info.
