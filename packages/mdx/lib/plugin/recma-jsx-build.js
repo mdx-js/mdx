@@ -32,7 +32,7 @@ export function recmaJsxBuild(options = {}) {
       tree.body[0] &&
       tree.body[0].type === 'ImportDeclaration' &&
       typeof tree.body[0].source.value === 'string' &&
-      /\/jsx-runtime$/.test(tree.body[0].source.value)
+      /\/jsx-(dev-)?runtime$/.test(tree.body[0].source.value)
     ) {
       tree.body[0] = {
         type: 'VariableDeclaration',
