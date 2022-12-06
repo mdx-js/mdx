@@ -559,40 +559,6 @@ test('compile', async () => {
     'should expose source information in the automatic jsx dev runtime'
   )
 
-  assert.equal(
-    compileSync({value: '<X />', path: 'path/to/file.js'}, {development: true})
-      .value,
-    [
-      '/*@jsxRuntime automatic @jsxImportSource react*/',
-      'import {jsxDEV as _jsxDEV} from "react/jsx-dev-runtime";',
-      'function _createMdxContent(props) {',
-      '  const {X} = props.components || ({});',
-      '  if (!X) _missingMdxReference("X", true, "1:1-1:6");',
-      '  return _jsxDEV(X, {}, undefined, false, {',
-      '    fileName: "path/to/file.js",',
-      '    lineNumber: 1,',
-      '    columnNumber: 1',
-      '  }, this);',
-      '}',
-      'function MDXContent(props = {}) {',
-      '  const {wrapper: MDXLayout} = props.components || ({});',
-      '  return MDXLayout ? _jsxDEV(MDXLayout, Object.assign({}, props, {',
-      '    children: _jsxDEV(_createMdxContent, props, undefined, false, {',
-      '      fileName: "path/to/file.js"',
-      '    }, this)',
-      '  }), undefined, false, {',
-      '    fileName: "path/to/file.js"',
-      '  }, this) : _createMdxContent(props);',
-      '}',
-      'export default MDXContent;',
-      'function _missingMdxReference(id, component, place) {',
-      '  throw new Error("Expected " + (component ? "component" : "object") + " `" + id + "` to be defined: you likely forgot to import, pass, or provide it." + (place ? "\\nIt’s referenced in your code at `" + place + "` in `path/to/file.js`" : ""));',
-      '}',
-      ''
-    ].join('\n'),
-    'should support the jsx dev runtime'
-  )
-
   try {
     renderToStaticMarkup(
       React.createElement(await run(compileSync('<X />', {development: true})))
@@ -1552,6 +1518,40 @@ test('MDX (ESM)', async () => {
     ),
     '<div style="color:red"><p>a</p></div>',
     'should support rexporting the default export, and other things, from a source'
+  )
+
+  assert.equal(
+    compileSync({value: '<X />', path: 'path/to/file.js'}, {development: true})
+      .value,
+    [
+      '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'import {jsxDEV as _jsxDEV} from "react/jsx-dev-runtime";',
+      'function _createMdxContent(props) {',
+      '  const {X} = props.components || ({});',
+      '  if (!X) _missingMdxReference("X", true, "1:1-1:6");',
+      '  return _jsxDEV(X, {}, undefined, false, {',
+      '    fileName: "path/to/file.js",',
+      '    lineNumber: 1,',
+      '    columnNumber: 1',
+      '  }, this);',
+      '}',
+      'function MDXContent(props = {}) {',
+      '  const {wrapper: MDXLayout} = props.components || ({});',
+      '  return MDXLayout ? _jsxDEV(MDXLayout, Object.assign({}, props, {',
+      '    children: _jsxDEV(_createMdxContent, props, undefined, false, {',
+      '      fileName: "path/to/file.js"',
+      '    }, this)',
+      '  }), undefined, false, {',
+      '    fileName: "path/to/file.js"',
+      '  }, this) : _createMdxContent(props);',
+      '}',
+      'export default MDXContent;',
+      'function _missingMdxReference(id, component, place) {',
+      '  throw new Error("Expected " + (component ? "component" : "object") + " `" + id + "` to be defined: you likely forgot to import, pass, or provide it." + (place ? "\\nIt’s referenced in your code at `" + place + "` in `path/to/file.js`" : ""));',
+      '}',
+      ''
+    ].join('\n'),
+    'should support the jsx dev runtime'
   )
 })
 
