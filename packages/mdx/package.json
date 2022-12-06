@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "2.1.1",
+  "version": "2.1.5",
   "description": "MDX compiler",
   "license": "MIT",
   "keywords": [
@@ -46,11 +46,11 @@
     "index.js"
   ],
   "dependencies": {
-    "@types/estree-jsx": "^0.0.1",
+    "@types/estree-jsx": "^1.0.0",
     "@types/mdx": "^2.0.0",
-    "astring": "^1.6.0",
     "estree-util-build-jsx": "^2.0.0",
     "estree-util-is-identifier-name": "^2.0.0",
+    "estree-util-to-js": "^1.1.0",
     "estree-walker": "^3.0.0",
     "hast-util-to-estree": "^2.0.0",
     "markdown-extensions": "^1.0.0",
@@ -67,7 +67,7 @@
   "devDependencies": {
     "@emotion/react": "^11.0.0",
     "@mdx-js/react": "^2.0.0",
-    "nanoid": "^3.0.0",
+    "nanoid": "^4.0.0",
     "preact": "^10.0.0",
     "preact-render-to-string": "^5.0.0",
     "react": "^18.0.0",

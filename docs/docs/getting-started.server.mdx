@@ -5,7 +5,7 @@ export const info = {
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-10-05'),
-  modified: new Date('2022-02-01')
+  modified: new Date('2022-06-17')
 }
 
 # Getting started
@@ -124,6 +124,10 @@ your JSX runtime.
 *   If you’re using **Theme UI**,
     install and configure [`@mdx-js/react`][mdx-react].
     Then wrap your MDX content in a `<ThemeProvider />`
+*   If you’re using **Solid**,
+    install [`solid-jsx`][solid-jsx].
+    Set [`options.jsxImportSource`][options-jsximportsource] to
+    `'solid-jsx'`.
 
 Other JSX runtimes are supported by setting
 [`options.jsxImportSource`][options-jsximportsource].
@@ -134,6 +138,7 @@ For more info on the aforementioned tools, please see their dedicated sections:
 [¶ Emotion][emotion],
 [¶ Preact][preact],
 [¶ React][react],
+[¶ Solid][solid],
 [¶ Svelte][svelte],
 [¶ Theme UI][themeui], or
 [¶ Vue][vue].
@@ -144,17 +149,17 @@ Once everything is set up in your project, you can enhance the experience by
 adding support for MDX in your editor:
 
 *   With **VS Code**,
-    try [`silvenon/vscode-mdx`](https://github.com/silvenon/vscode-mdx)
+    try [`mdx-js/vscode-mdx`](https://github.com/mdx-js/vscode-mdx)
     and/or [`xyc/vscode-mdx-preview`](https://github.com/xyc/vscode-mdx-preview)
 *   With **Vim**,
     try [`jxnblk/vim-mdx-js`](https://github.com/jxnblk/vim-mdx-js)
 *   With **Sublime Text**,
     try [`jonsuh/mdx-sublime`](https://github.com/jonsuh/mdx-sublime)
 *   With **JetBrains IntelliJ/WebStorm**,
-    try [`valentinnodan/mdx-intellij-plugin`](https://github.com/valentinnodan/mdx-intellij-plugin)
+    try [`JetBrains/mdx-intellij-plugin`](https://github.com/JetBrains/intellij-plugins/tree/master/mdx)
 
 <Note type="info">
-  **Note**: we’re looking for help with atom, emacs, and others!
+  **Note**: we’re looking for help with emacs and others!
 </Note>
 
 ### Types
@@ -341,6 +346,11 @@ If you use more modern JavaScript features than what your users support,
 [configure Vite’s
 `build.target`](https://vitejs.dev/guide/build.html#browser-compatibility).
 
+<Note type="info">
+  **Note**: Vite 3 requires the older `rollup@2`.
+  Make sure `rollup@3` is not installed.
+</Note>
+
 See also [¶ Rollup][rollup], which is used in Vite, and see [¶ Vue][vue], if
 you’re using that, for more info.
 
@@ -434,12 +444,12 @@ if you’re using that, for more info.
   // other things through to the normal Babel parser.
   function babelParserWithMdx(value, options) {
     if (
-      options.sourceFilename &&
-      /\.mdx?$/.test(path.extname(options.sourceFilename))
+      options.sourceFileName &&
+      /\.mdx?$/.test(path.extname(options.sourceFileName))
     ) {
       // Babel does not support async parsers, unfortunately.
       return compileSync(
-        {value, path: options.sourceFilename},
+        {value, path: options.sourceFileName},
         // Tell `@mdx-js/mdx` to return a Babel tree instead of serialized JS.
         {recmaPlugins: [recmaBabel], /* jsxImportSource: …, otherOptions… */}
       ).result
@@ -480,6 +490,25 @@ Which in turn lets us choose whether to use the `@mdx-js/mdx` or
 `@babel/parser`.
 
 ### Site generators
+
+#### Astro
+
+[Astro](https://astro.build/) has an [official MDX integration](https://docs.astro.build/guides/integrations-guide/mdx/).
+You can add the integration with the Astro CLI (recommended):
+
+```sh
+npx astro add mdx
+```
+
+This base setup allows you to import markdown, Astro components,
+and other MDX files as components.  To use
+other UI framework components in your MDX files
+(e.g. Preact, Vue, Svelte and more),
+see Astro’s [Framework components](https://docs.astro.build/en/core-concepts/framework-components/) guide.
+
+To learn how to configure layouts, YAML frontmatter, and set up Astro’s
+syntax highlighting, [see their MDX
+integration docs](https://docs.astro.build/guides/integrations-guide/mdx/).
 
 #### Create React App (CRA)
 
@@ -548,8 +577,9 @@ the loader to the webpack config, by rewiring `react-scripts` using
 [CRACO](http://github.com/gsoft-inc/craco).
 
 <Note type="info">
-  **Note**: warnings about CRACO having `incorrect peer dependency
-        "react-scripts@^4.0.0"` can be ignored for the above to work.
+  **Note**: warnings about CRACO having
+  `incorrect peer dependency "react-scripts@^4.0.0"`
+  can be ignored for the above to work.
 </Note>
 
 See also [¶ Webpack][webpack], which is used in CRA, and see [¶ React][react],
@@ -664,11 +694,7 @@ on how to use MDX with React Static.
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
 
-  main()
-
-  async function main() {
-    const js = String(await compile('# hi', {jsxImportSource: '@emotion/react', /* otherOptions… */}))
-  }
+  const js = String(await compile('# hi', {jsxImportSource: '@emotion/react', /* otherOptions… */}))
   ```
 </details>
 
@@ -730,11 +756,7 @@ more info.
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
 
-  main()
-
-  async function main() {
-    const js = String(await compile('# hi', {jsxImportSource: 'preact', /* otherOptions… */}))
-  }
+  const js = String(await compile('# hi', {jsxImportSource: 'preact', /* otherOptions… */}))
   ```
 </details>
 
@@ -810,11 +832,7 @@ info.
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
 
-  main()
-
-  async function main() {
-    const js = String(await compile('# hi', {jsxImportSource: 'svelte-jsx', /* otherOptions… */}))
-  }
+  const js = String(await compile('# hi', {jsxImportSource: 'svelte-jsx', /* otherOptions… */}))
   ```
 </details>
 
@@ -834,12 +852,8 @@ which you might be using, for more info.
   import {compile} from '@mdx-js/mdx'
   import babel from '@babel/core'
 
-  main()
-
-  async function main() {
-    const jsx = String(await compile('# hi', {jsx: true, /* otherOptions… */}))
-    const js = (await babel.transformAsync(jsx, {plugins: ['@vue/babel-plugin-jsx']})).code
-  }
+  const jsx = String(await compile('# hi', {jsx: true, /* otherOptions… */}))
+  const js = (await babel.transformAsync(jsx, {plugins: ['@vue/babel-plugin-jsx']})).code
   ```
 </details>
 
@@ -852,6 +866,24 @@ for context based component passing.
 
 See also [¶ Vite][vite] and [¶ Vue CLI][vue-cli], which you might be using,
 for more info.
+
+#### Solid
+
+<details>
+  <summary>Expand example</summary>
+
+  ```js path="example.js"
+  import {compile} from '@mdx-js/mdx'
+
+  const js = String(await compile('# hi', {jsxImportSource: 'solid-jsx', /* otherOptions… */}))
+  ```
+</details>
+
+Solid is supported when [`options.jsxImportSource`][options-jsximportsource] is
+set to `'solid-jsx'`.
+
+See also [¶ Vite][vite] and [¶ Rollup][rollup] which you might be using, for
+more info.
 
 ### JavaScript engines
 
@@ -870,6 +902,8 @@ See their readmes on how to configure them.
     [§ Troubleshooting MDX][trouble] or [§ Support][support]
 
 [@next/mdx]: https://github.com/vercel/next.js/tree/canary/packages/next-mdx
+
+[solid-jsx]: https://github.com/high1/solid-jsx
 
 [svelte-jsx]: https://github.com/kenoxa/svelte-jsx
 
@@ -936,6 +970,8 @@ See their readmes on how to configure them.
 [rollup]: #rollup
 
 [snowpack]: #snowpack
+
+[solid]: #solid
 
 [svelte]: #svelte
 

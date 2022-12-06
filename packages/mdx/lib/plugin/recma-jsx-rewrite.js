@@ -32,6 +32,7 @@
  * @property {Array<string>} components
  * @property {Array<string>} tags
  * @property {Record<string, {node: JSXElement, component: boolean}>} references
+ * @property {Map<string|number, string>} idToInvalidComponentName
  * @property {ESFunction} node
  */
 
@@ -76,6 +77,9 @@ export function recmaJsxRewrite(options = {}) {
     walk(tree, {
       enter(_node) {
         const node = /** @type {Node} */ (_node)
+        const newScope = /** @type {Scope|undefined} */ (
+          scopeInfo.map.get(node)
+        )
 
         if (
           node.type === 'FunctionDeclaration' ||
@@ -87,31 +91,28 @@ export function recmaJsxRewrite(options = {}) {
             components: [],
             tags: [],
             references: {},
+            idToInvalidComponentName: new Map(),
             node
           })
+
+          // MDXContent only ever contains MDXLayout
+          if (
+            isNamedFunction(node, 'MDXContent') &&
+            newScope &&
+            !inScope(newScope, 'MDXLayout')
+          ) {
+            fnStack[0].components.push('MDXLayout')
+          }
         }
 
-        let fnScope = fnStack[0]
-
+        const fnScope = fnStack[0]
         if (
           !fnScope ||
-          (!isNamedFunction(fnScope.node, 'MDXContent') &&
+          (!isNamedFunction(fnScope.node, '_createMdxContent') &&
             !providerImportSource)
         ) {
           return
         }
-
-        if (
-          fnStack[1] &&
-          isNamedFunction(fnStack[1].node, '_createMdxContent')
-        ) {
-          fnScope = fnStack[1]
-        }
-
-        const newScope = /** @type {Scope|undefined} */ (
-          // @ts-expect-error: periscopic doesn’t support JSX.
-          scopeInfo.map.get(node)
-        )
 
         if (newScope) {
           newScope.node = node
@@ -194,16 +195,25 @@ export function recmaJsxRewrite(options = {}) {
               fnScope.tags.push(id)
             }
 
-            node.openingElement.name = toJsxIdOrMemberExpression([
-              '_components',
-              id
-            ])
+            /** @type {Array<string | number>} */
+            let jsxIdExpression = ['_components', id]
+            if (isIdentifierName(id) === false) {
+              let invalidComponentName =
+                fnScope.idToInvalidComponentName.get(id)
+              if (invalidComponentName === undefined) {
+                invalidComponentName = `_component${fnScope.idToInvalidComponentName.size}`
+                fnScope.idToInvalidComponentName.set(id, invalidComponentName)
+              }
+
+              jsxIdExpression = [invalidComponentName]
+            }
+
+            node.openingElement.name =
+              toJsxIdOrMemberExpression(jsxIdExpression)
 
             if (node.closingElement) {
-              node.closingElement.name = toJsxIdOrMemberExpression([
-                '_components',
-                id
-              ])
+              node.closingElement.name =
+                toJsxIdOrMemberExpression(jsxIdExpression)
             }
           }
         }
@@ -260,7 +270,11 @@ export function recmaJsxRewrite(options = {}) {
           /** @type {Array<Statement>} */
           const statements = []
 
-          if (defaults.length > 0 || actual.length > 0) {
+          if (
+            defaults.length > 0 ||
+            actual.length > 0 ||
+            scope.idToInvalidComponentName.size > 0
+          ) {
             if (providerImportSource) {
               importProvider = true
               parameters.push({
@@ -345,6 +359,30 @@ export function recmaJsxRewrite(options = {}) {
               componentsInit = {type: 'Identifier', name: '_components'}
             }
 
+            if (isNamedFunction(scope.node, '_createMdxContent')) {
+              for (const [
+                id,
+                componentName
+              ] of scope.idToInvalidComponentName) {
+                // For JSX IDs that can’t be represented as JavaScript IDs (as in,
+                // those with dashes, such as `custom-element`), generate a
+                // separate variable that is a valid JS ID (such as `_component0`),
+                // and takes it from components:
+                // `const _component0 = _components['custom-element']`
+                declarations.push({
+                  type: 'VariableDeclarator',
+                  id: {type: 'Identifier', name: componentName},
+                  init: {
+                    type: 'MemberExpression',
+                    object: {type: 'Identifier', name: '_components'},
+                    property: {type: 'Literal', value: id},
+                    computed: true,
+                    optional: false
+                  }
+                })
+              }
+            }
+
             if (componentsPattern) {
               declarations.push({
                 type: 'VariableDeclarator',
@@ -353,11 +391,13 @@ export function recmaJsxRewrite(options = {}) {
               })
             }
 
-            statements.push({
-              type: 'VariableDeclaration',
-              kind: 'const',
-              declarations
-            })
+            if (declarations.length > 0) {
+              statements.push({
+                type: 'VariableDeclaration',
+                kind: 'const',
+                declarations
+              })
+            }
           }
 
           /** @type {string} */

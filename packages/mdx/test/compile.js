@@ -198,12 +198,7 @@ test('compile', async () => {
     renderToStaticMarkup(
       React.createElement(
         await run(
-          String(
-            compileSync('<>+</>', {jsxImportSource: '@emotion/react'})
-          ).replace(
-            /\/jsx-runtime(?=["'])/g,
-            '$&/dist/emotion-react-jsx-runtime.cjs.prod.js'
-          )
+          String(compileSync('<>+</>', {jsxImportSource: '@emotion/react'}))
         )
       )
     ),
@@ -570,24 +565,24 @@ test('compile', async () => {
     [
       '/*@jsxRuntime automatic @jsxImportSource react*/',
       'import {jsxDEV as _jsxDEV} from "react/jsx-dev-runtime";',
+      'function _createMdxContent(props) {',
+      '  const {X} = props.components || ({});',
+      '  if (!X) _missingMdxReference("X", true, "1:1-1:6");',
+      '  return _jsxDEV(X, {}, undefined, false, {',
+      '    fileName: "path/to/file.js",',
+      '    lineNumber: 1,',
+      '    columnNumber: 1',
+      '  }, this);',
+      '}',
       'function MDXContent(props = {}) {',
       '  const {wrapper: MDXLayout} = props.components || ({});',
       '  return MDXLayout ? _jsxDEV(MDXLayout, Object.assign({}, props, {',
-      '    children: _jsxDEV(_createMdxContent, {}, undefined, false, {',
+      '    children: _jsxDEV(_createMdxContent, props, undefined, false, {',
       '      fileName: "path/to/file.js"',
       '    }, this)',
       '  }), undefined, false, {',
       '    fileName: "path/to/file.js"',
-      '  }, this) : _createMdxContent();',
-      '  function _createMdxContent() {',
-      '    const {X} = props.components || ({});',
-      '    if (!X) _missingMdxReference("X", true, "1:1-1:6");',
-      '    return _jsxDEV(X, {}, undefined, false, {',
-      '      fileName: "path/to/file.js",',
-      '      lineNumber: 1,',
-      '      columnNumber: 1',
-      '    }, this);',
-      '  }',
+      '  }, this) : _createMdxContent(props);',
       '}',
       'export default MDXContent;',
       'function _missingMdxReference(id, component, place) {',
@@ -828,16 +823,16 @@ test('jsx', async () => {
     String(compileSync('*a*', {jsx: true})),
     [
       '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'function _createMdxContent(props) {',
+      '  const _components = Object.assign({',
+      '    p: "p",',
+      '    em: "em"',
+      '  }, props.components);',
+      '  return <_components.p><_components.em>{"a"}</_components.em></_components.p>;',
+      '}',
       'function MDXContent(props = {}) {',
       '  const {wrapper: MDXLayout} = props.components || ({});',
-      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent /></MDXLayout> : _createMdxContent();',
-      '  function _createMdxContent() {',
-      '    const _components = Object.assign({',
-      '      p: "p",',
-      '      em: "em"',
-      '    }, props.components);',
-      '    return <_components.p><_components.em>{"a"}</_components.em></_components.p>;',
-      '  }',
+      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
       '}',
       'export default MDXContent;',
       ''
@@ -849,12 +844,12 @@ test('jsx', async () => {
     String(compileSync('<a {...b} c d="1" e={1} />', {jsx: true})),
     [
       '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'function _createMdxContent(props) {',
+      '  return <a {...b} c d="1" e={1} />;',
+      '}',
       'function MDXContent(props = {}) {',
       '  const {wrapper: MDXLayout} = props.components || ({});',
-      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent /></MDXLayout> : _createMdxContent();',
-      '  function _createMdxContent() {',
-      '    return <a {...b} c d="1" e={1} />;',
-      '  }',
+      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
       '}',
       'export default MDXContent;',
       ''
@@ -866,15 +861,15 @@ test('jsx', async () => {
     String(compileSync('<><a:b /><c.d/></>', {jsx: true})),
     [
       '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'function _createMdxContent(props) {',
+      '  const {c} = props.components || ({});',
+      '  if (!c) _missingMdxReference("c", false);',
+      '  if (!c.d) _missingMdxReference("c.d", true);',
+      '  return <><><a:b /><c.d /></></>;',
+      '}',
       'function MDXContent(props = {}) {',
       '  const {wrapper: MDXLayout} = props.components || ({});',
-      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent /></MDXLayout> : _createMdxContent();',
-      '  function _createMdxContent() {',
-      '    const {c} = props.components || ({});',
-      '    if (!c) _missingMdxReference("c", false);',
-      '    if (!c.d) _missingMdxReference("c.d", true);',
-      '    return <><><a:b /><c.d /></></>;',
-      '  }',
+      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
       '}',
       'export default MDXContent;',
       'function _missingMdxReference(id, component) {',
@@ -890,12 +885,12 @@ test('jsx', async () => {
     [
       '/*@jsxRuntime automatic @jsxImportSource react*/',
       '/*1*/',
+      'function _createMdxContent(props) {',
+      '  return <><>{"a "}{}{" b"}</></>;',
+      '}',
       'function MDXContent(props = {}) {',
       '  const {wrapper: MDXLayout} = props.components || ({});',
-      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent /></MDXLayout> : _createMdxContent();',
-      '  function _createMdxContent() {',
-      '    return <><>{"a "}{}{" b"}</></>;',
-      '  }',
+      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
       '}',
       'export default MDXContent;',
       ''
@@ -907,15 +902,15 @@ test('jsx', async () => {
     String(compileSync('{<a-b></a-b>}', {jsx: true})),
     [
       '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'function _createMdxContent(props) {',
+      '  const _components = Object.assign({',
+      '    "a-b": "a-b"',
+      '  }, props.components), _component0 = _components["a-b"];',
+      '  return <>{<_component0></_component0>}</>;',
+      '}',
       'function MDXContent(props = {}) {',
       '  const {wrapper: MDXLayout} = props.components || ({});',
-      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent /></MDXLayout> : _createMdxContent();',
-      '  function _createMdxContent() {',
-      '    const _components = Object.assign({',
-      '      "a-b": "a-b"',
-      '    }, props.components);',
-      '    return <>{<_components.a-b></_components.a-b>}</>;',
-      '  }',
+      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
       '}',
       'export default MDXContent;',
       ''
@@ -927,20 +922,47 @@ test('jsx', async () => {
     String(compileSync('Hello {props.name}', {jsx: true})),
     [
       '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'function _createMdxContent(props) {',
+      '  const _components = Object.assign({',
+      '    p: "p"',
+      '  }, props.components);',
+      '  return <_components.p>{"Hello "}{props.name}</_components.p>;',
+      '}',
       'function MDXContent(props = {}) {',
       '  const {wrapper: MDXLayout} = props.components || ({});',
-      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent /></MDXLayout> : _createMdxContent();',
-      '  function _createMdxContent() {',
-      '    const _components = Object.assign({',
-      '      p: "p"',
-      '    }, props.components);',
-      '    return <_components.p>{"Hello "}{props.name}</_components.p>;',
-      '  }',
+      '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
       '}',
       'export default MDXContent;',
       ''
     ].join('\n'),
     'should allow using props'
+  )
+
+  assert.equal(
+    String(
+      compileSync(
+        'export default function Layout({components, ...props}) { return <section {...props} /> }\n\na',
+        {jsx: true}
+      )
+    ),
+    [
+      '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'const MDXLayout = function Layout({components, ...props}) {',
+      '  return <section {...props} />;',
+      '};',
+      'function _createMdxContent(props) {',
+      '  const _components = Object.assign({',
+      '    p: "p"',
+      '  }, props.components);',
+      '  return <_components.p>{"a"}</_components.p>;',
+      '}',
+      'function MDXContent(props = {}) {',
+      '  return <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout>;',
+      '}',
+      'export default MDXContent;',
+      ''
+    ].join('\n'),
+    'should not have a conditional expression for MDXLayout when there is an internal layout'
   )
 
   assert.match(
@@ -1088,7 +1110,7 @@ test('markdown (GFM, with `remark-gfm`)', async () => {
       )
     ),
     `<p><sup><a href="#user-content-fn-a" id="user-content-fnref-a" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup></p>
-<section data-footnotes="true" class="footnotes"><h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<section data-footnotes="true" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
 <ol>
 <li id="user-content-fn-a">
 <p>b <a href="#user-content-fnref-a" data-footnote-backref="true" class="data-footnote-backref" aria-label="Back to content">↩</a></p>
@@ -1190,7 +1212,7 @@ test('remark-rehype options', async () => {
       )
     ),
     `<p>Text<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup></p>
-<section data-footnotes="true" class="footnotes"><h2 id="footnote-label" class="sr-only">Notes</h2>
+<section data-footnotes="true" class="footnotes"><h2 class="sr-only" id="footnote-label">Notes</h2>
 <ol>
 <li id="user-content-fn-1">
 <p>Note. <a href="#user-content-fnref-1" data-footnote-backref="true" class="data-footnote-backref" aria-label="Back">↩</a></p>
@@ -1198,6 +1220,35 @@ test('remark-rehype options', async () => {
 </ol>
 </section>`,
     'should pass options to remark-rehype'
+  )
+})
+
+// See <https://github.com/mdx-js/mdx/issues/2112>
+test('should support custom elements with layouts', async () => {
+  assert.equal(
+    renderToStaticMarkup(
+      React.createElement(
+        await run(
+          await compile('export default function () {}', {
+            rehypePlugins: [
+              /** @type {import('unified').Plugin<[], import('hast').Root>} */
+              function () {
+                return function (tree) {
+                  tree.children.push({
+                    type: 'element',
+                    tagName: 'custom-element',
+                    properties: {},
+                    children: []
+                  })
+                }
+              }
+            ]
+          })
+        )
+      )
+    ),
+    '',
+    'should not crash if element names are used that are not valid JavaScript identifiers, with layouts'
   )
 })
 

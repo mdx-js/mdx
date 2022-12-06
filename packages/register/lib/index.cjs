@@ -19,7 +19,7 @@ function register(options) {
   let index = -1
 
   while (++index < extnames.length) {
-    // eslint-disable-next-line node/no-deprecated-api
+    // eslint-disable-next-line n/no-deprecated-api
     require.extensions[extnames[index]] = mdx
   }
 

@@ -27,7 +27,7 @@ jobs:
           - '*'
         include:
           - os: ubuntu-latest
-            node: lts/erbium
+            node: lts/fermium
   full:
     name: full build
     runs-on: ubuntu-latest

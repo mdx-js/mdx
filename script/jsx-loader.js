@@ -1,7 +1,7 @@
-import path from 'path'
 import {promises as fs} from 'node:fs'
+import path from 'node:path'
 import {URL, fileURLToPath} from 'node:url'
-import {transformSync} from 'esbuild'
+import {transform, transformSync} from 'esbuild'
 
 const {load, getFormat, transformSource} = createLoader()
 
@@ -26,8 +26,9 @@ export function createLoader() {
 
     const fp = fileURLToPath(new URL(url))
     const value = await fs.readFile(fp)
-    const {code, warnings} = transformSync(String(value), {
-      sourcefile: fileURLToPath(url),
+
+    const {code, warnings} = await transform(String(value), {
+      sourcefile: fp,
       sourcemap: 'both',
       loader: 'jsx',
       target: 'esnext',
@@ -41,11 +42,10 @@ export function createLoader() {
       }
     }
 
-    // V8 on Erbium.
-    /* c8 ignore next 2 */
-    return {format: 'module', source: code}
+    return {format: 'module', source: code, shortCircuit: true}
   }
 
+  // Pre version 17.
   /**
    * @param {string} url
    * @param {unknown} context

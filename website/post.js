@@ -309,7 +309,7 @@ async function main() {
         await fs.unlink(output)
       } catch {}
 
-      await captureWebsite.file(file.value, output, {
+      await captureWebsite.file(file.value, fileURLToPath(output), {
         launchOptions: {
           args: chromium.args,
           defaultViewport: chromium.defaultViewport,

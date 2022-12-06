@@ -3,8 +3,8 @@
  *
  * @typedef LoaderOptions
  * @property {boolean} [fixRuntimeWithoutExportMap=true]
- *   Several JSX runtimes, notably React and Emotion, don’t yet have a proper
- *   export map set up.
+ *   Several JSX runtimes, notably React below 18 and Emotion below 11.10.0,
+ *   don’t yet have a proper export map set up.
  *   Export maps are needed to map `xxx/jsx-runtime` to an actual file in ESM.
  *   This option fixes React et al by turning those into `xxx/jsx-runtime.js`.
  *
@@ -53,10 +53,10 @@ export function createLoader(options = {}) {
     let source = String(file)
 
     if (fixRuntimeWithoutExportMap) {
-      source = String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
+      source = String(file).replace(/\/jsx-runtime(?=["'])/, '$&.js')
     }
 
-    return {format: 'module', source}
+    return {format: 'module', source, shortCircuit: true}
   }
 
   // Pre version 17.
@@ -89,7 +89,7 @@ export function createLoader(options = {}) {
     let source = String(file)
 
     if (fixRuntimeWithoutExportMap) {
-      source = String(file).replace(/\/jsx-runtime(?=["'])/g, '$&.js')
+      source = String(file).replace(/\/jsx-runtime(?=["'])/, '$&.js')
     }
 
     return {source}

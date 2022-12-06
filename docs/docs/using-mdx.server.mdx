@@ -5,7 +5,7 @@ export const info = {
     {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
   ],
   published: new Date('2021-09-30'),
-  modified: new Date('2021-11-14')
+  modified: new Date('2022-06-17')
 }
 
 # Using MDX
@@ -64,18 +64,19 @@ import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runti
 
 export const Thing = () => _jsx(_Fragment, {children: 'World'})
 
-function MDXContent(props = {}) {
-  const {wrapper: MDXLayout} = props.components || ({})
-  return MDXLayout
-    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, {})}))
-    : _createMdxContent()
-  function _createMdxContent() {
-     const _components = Object.assign({h1: 'h1'}, props.components)
-     return _jsxs(_components.h1, {children: ['Hello, ', _jsx(Thing, {})]})
-   }
+function _createMdxContent(props) {
+  const _components = Object.assign({h1: 'h1'}, props.components)
+  return _jsxs(_components.h1, {
+    children: ['Hello ', _jsx(Thing, {})]
+  })
 }
 
-export default MDXContent
+export default function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || {}
+  return MDXLayout
+    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, props)}))
+    : _createMdxContent(props)
+}
 ```
 
 Some more observations:

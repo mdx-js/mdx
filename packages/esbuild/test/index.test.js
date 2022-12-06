@@ -209,9 +209,10 @@ test('@mdx-js/esbuild', async () => {
         },
         notes: [],
         pluginName: '@mdx-js/esbuild',
-        text: 'Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)'
+        text: 'Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)',
+        id: ''
       },
-      'should pass errors'
+      'should pass errors (1)'
     )
   }
 
@@ -288,7 +289,8 @@ test('@mdx-js/esbuild', async () => {
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: '7'
+            text: '7',
+            id: ''
           }
         ],
         warnings: [
@@ -304,7 +306,8 @@ test('@mdx-js/esbuild', async () => {
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: '1'
+            text: '1',
+            id: ''
           },
           {
             location: {
@@ -318,7 +321,8 @@ test('@mdx-js/esbuild', async () => {
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: '2'
+            text: '2',
+            id: ''
           },
           {
             location: {
@@ -332,7 +336,8 @@ test('@mdx-js/esbuild', async () => {
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: '3'
+            text: '3',
+            id: ''
           },
           {
             location: {
@@ -346,7 +351,8 @@ test('@mdx-js/esbuild', async () => {
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: '4'
+            text: '4',
+            id: ''
           },
           {
             location: {
@@ -360,7 +366,8 @@ test('@mdx-js/esbuild', async () => {
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: '5'
+            text: '5',
+            id: ''
           },
           {
             location: {
@@ -374,7 +381,8 @@ test('@mdx-js/esbuild', async () => {
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: '6'
+            text: '6',
+            id: ''
           }
         ]
       },
@@ -436,12 +444,13 @@ test('@mdx-js/esbuild', async () => {
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: 'Error: Something went wrong'
+            text: 'Error: Something went wrong',
+            id: ''
           }
         ],
         warnings: []
       },
-      'should pass errors'
+      'should pass errors (2)'
     )
   }
 
