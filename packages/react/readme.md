@@ -158,8 +158,13 @@ components.
 
 This package is fully typed with [TypeScript][].
 
-An additional `Components` type is exported, which represents the acceptable
-configuration for the functions and components from this project.
+To enable types for imported `.mdx`, `.md`, etcetera files, you should make sure
+the TypeScript `JSX` namespace is typed.
+This is done by installing and using the types of your framework, such as
+[`@types/react`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/react).
+Then you can install and use
+[`@types/mdx`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx),
+which adds types to import statements of supported files.
 
 ## Security
 

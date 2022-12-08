@@ -127,9 +127,6 @@ Get current components from the MDX Context.
 
 This package is fully typed with [TypeScript][].
 
-An additional `Components` type is exported, which represents the acceptable
-configuration for the functions and components from this project.
-
 ## Security
 
 See [§ Security][security] on our website for information.
