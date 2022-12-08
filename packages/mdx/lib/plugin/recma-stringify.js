@@ -14,6 +14,7 @@ import {toJs, jsx} from 'estree-util-to-js'
  * A plugin that adds an esast compiler: a small wrapper around `astring` to add
  * support for serializing JSX.
  *
+ * @this {import('unified').Processor}
  * @type {import('unified').Plugin<[RecmaStringifyOptions]|[], Program, string>}
  */
 export function recmaStringify(options = {}) {

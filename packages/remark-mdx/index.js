@@ -14,6 +14,7 @@ import {mdxFromMarkdown, mdxToMarkdown} from 'mdast-util-mdx'
  * Plugin to support MDX (import/exports: `export {x} from 'y'`; expressions:
  * `{1 + 1}`; and JSX: `<Video id={123} />`).
  *
+ * @this {import('unified').Processor}
  * @type {import('unified').Plugin<[Options?]|Array<void>, Root>}
  */
 export default function remarkMdx(options = {}) {
