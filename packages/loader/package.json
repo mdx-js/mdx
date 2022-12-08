@@ -55,7 +55,7 @@
     "@types/react-dom": "^18.0.0",
     "@vue/babel-plugin-jsx": "^1.0.0",
     "@vue/server-renderer": "^3.0.0",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "^9.0.0",
     "preact": "^10.0.0",
     "preact-render-to-string": "^5.0.0",
     "react": "^18.0.0",

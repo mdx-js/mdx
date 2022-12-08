@@ -1,5 +1,5 @@
 import React, {createElement} from 'react'
-import apStyleTitleCase from 'ap-style-title-case'
+import {apStyleTitleCase} from 'ap-style-title-case'
 import {toH} from 'hast-to-hyperscript'
 import {sortItems} from './sort.js'
 
