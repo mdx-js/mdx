@@ -358,6 +358,22 @@ If you use more modern JavaScript features than what your users support,
   Make sure `rollup@3` is not installed.
 </Note>
 
+<Note type="info">
+  **Note**: If you also use `vitejs/vite-plugin-react`, you need to force
+  `@mdx-js/rollup` to run in the `pre` phase before it:
+
+  ```js path="vite.config.js"
+  // …
+  export default defineConfig({
+    plugins: [
+      {enforce: 'pre', ...mdx(/* jsxImportSource: …, otherOptions… */)},
+      react()
+    ]
+  })
+  // …
+  ```
+</Note>
+
 See also [¶ Rollup][rollup], which is used in Vite, and see [¶ Vue][vue], if
 you’re using that, for more info.
 
