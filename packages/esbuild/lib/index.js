@@ -13,7 +13,7 @@
  * @typedef {ProcessorOptions & {allowDangerousRemoteMdx?: boolean}} Options
  */
 
-import assert from 'node:assert/strict'
+import assert from 'node:assert'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
