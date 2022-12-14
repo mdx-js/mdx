@@ -6,6 +6,8 @@ import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_mo
 // @ts-expect-error: make sure a single react is used.
 import * as runtime_ from '../../react/node_modules/react/jsx-runtime.js'
 // @ts-expect-error: make sure a single react is used.
+import * as devRuntime from '../../react/node_modules/react/jsx-dev-runtime.js'
+// @ts-expect-error: make sure a single react is used.
 import React_ from '../../react/node_modules/react/index.js'
 import * as provider from '../../react/index.js'
 
@@ -30,7 +32,6 @@ test('evaluate', async () => {
 
   assert.throws(
     () => {
-      // @ts-expect-error: missing required arguments
       evaluateSync('a', {Fragment: runtime.Fragment})
     },
     /Expected `jsx` given to `evaluate`/,
@@ -39,11 +40,18 @@ test('evaluate', async () => {
 
   assert.throws(
     () => {
-      // @ts-expect-error: missing required arguments
       evaluateSync('a', {Fragment: runtime.Fragment, jsx: runtime.jsx})
     },
     /Expected `jsxs` given to `evaluate`/,
     'should throw on missing `jsxs`'
+  )
+
+  assert.throws(
+    () => {
+      evaluateSync('a', {Fragment: runtime.Fragment, development: true})
+    },
+    /Expected `jsxDEV` given to `evaluate`/,
+    'should throw on missing `jsxDEV` in dev mode'
   )
 
   assert.equal(
@@ -59,6 +67,27 @@ test('evaluate', async () => {
       React.createElement(evaluateSync('# hi!', runtime).default)
     ),
     '<h1>hi!</h1>',
+    'should evaluate (sync)'
+  )
+
+  assert.equal(
+    renderToStaticMarkup(
+      React.createElement(
+        (await evaluate('# hi dev!', {development: true, ...devRuntime}))
+          .default
+      )
+    ),
+    '<h1>hi dev!</h1>',
+    'should evaluate (sync)'
+  )
+
+  assert.equal(
+    renderToStaticMarkup(
+      React.createElement(
+        evaluateSync('# hi dev!', {development: true, ...devRuntime}).default
+      )
+    ),
+    '<h1>hi dev!</h1>',
     'should evaluate (sync)'
   )
 
