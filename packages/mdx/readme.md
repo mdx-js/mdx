@@ -75,7 +75,7 @@ export const Thing = () => <>World!</>
 Add some code in `example.js` to compile `example.mdx` to JavaScript:
 
 ```js
-import {promises as fs} from 'node:fs'
+import fs from 'node:fs/promises'
 import {compile} from '@mdx-js/mdx'
 
 const compiled = await compile(await fs.readFile('example.mdx'))
@@ -481,7 +481,7 @@ object form).
 Assuming `example.mdx` from [§ Use][use] exists, then:
 
 ```js
-import {promises as fs} from 'node:fs'
+import fs from 'node:fs/promises'
 import {SourceMapGenerator} from 'source-map'
 import {compile} from '@mdx-js/mdx'
 

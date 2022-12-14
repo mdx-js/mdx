@@ -1,4 +1,4 @@
-import {promises as fs} from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import {URL, fileURLToPath} from 'node:url'
 import {transform, transformSync} from 'esbuild'

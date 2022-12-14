@@ -13,8 +13,8 @@
  * @typedef {ProcessorOptions & {allowDangerousRemoteMdx?: boolean}} Options
  */
 
-import assert from 'node:assert'
-import {promises as fs} from 'node:fs'
+import assert from 'node:assert/strict'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import fetch from 'node-fetch'
