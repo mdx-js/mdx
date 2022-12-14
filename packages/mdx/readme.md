@@ -398,8 +398,10 @@ export default MDXContent
 
 ###### `options.development`
 
-Whether to add extra information to error messages in generated code
+Whether to add extra info to error messages in generated code
 (`boolean?`, default: `false`).
+This also results in the development automatic JSX runtime (`/jsx-dev-runtime`,
+`jsxDEV`) being used, which passes positional info to nodes.
 The default can be set to `true` in Node.js through environment variables: set
 `NODE_ENV=development`.
 
@@ -416,7 +418,7 @@ at runtime:
 And a module to evaluate that:
 
 ```js
-import {promises as fs} from 'node:fs'
+import fs from 'node:fs/promises'
 import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
 
@@ -441,6 +443,11 @@ But if we change add `development: true` to our example:
 
 ```diff
 @@ -7,6 +7,6 @@
+ import fs from 'node:fs/promises'
+-import * as runtime from 'react/jsx-runtime'
++import * as runtime from 'react/jsx-dev-runtime'
+ import {evaluate} from '@mdx-js/mdx'
+
  const path = 'example.mdx'
  const value = await fs.readFile(path)
 -const MDXContent = (await evaluate({path, value}, runtime)).default

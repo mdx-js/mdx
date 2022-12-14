@@ -24,8 +24,12 @@
  * @property {string} [providerImportSource]
  *   Place to import a provider from.
  * @property {boolean} [development=false]
- *   Whether to add extra information to error messages in generated code (can
- *   also be passed in Node.js by setting `NODE_ENV=development`).
+ *   Whether to add extra info to error messages in generated code.
+ *   This also results in the development automatic JSX runtime
+ *   (`/jsx-dev-runtime`, `jsxDEV`) being used, which passes positional info to
+ *   nodes.
+ *   The default can be set to `true` in Node.js through environment variables:
+ *   set `NODE_ENV=development`.
  *
  * @typedef StackEntry
  * @property {Array<string>} objects

@@ -551,6 +551,7 @@ test('compile', async () => {
       ).value
     )
   )({})
+
   assert.equal(
     // @ts-expect-error React attaches source information on this property,
     // but it’s private and untyped.
