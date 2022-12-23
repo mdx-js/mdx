@@ -138,6 +138,12 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
     'should compile (preact)'
   )
 
+  assert.ok(
+    // @ts-expect-error Type definitions don’t define __source.
+    modPreact.default.default({}).__source,
+    'should infer the development option from webpack’s mode'
+  )
+
   assert.match(
     String(await fs.readFile(new URL('preact.cjs', base))),
     /\/\/# sourceMappingURL/,
