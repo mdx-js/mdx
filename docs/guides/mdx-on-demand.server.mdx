@@ -28,7 +28,11 @@ On the server:
 ```js path="server.js"
 import {compile} from '@mdx-js/mdx'
 
-const code = String(await compile('# hi', {outputFormat: 'function-body' /* …otherOptions */ }))
+const code = String(await compile('# hi', {
+  outputFormat: 'function-body',
+  development: false, // Avoid use of the jsxDEV runtime
+  /* …otherOptions */ 
+}))
 // To do: send `code` to the client somehow.
 ```
 
@@ -82,7 +86,11 @@ export default function Page({code}) {
 
 export async function getStaticProps() {
   const code = String(
-    await compile('# hi', {outputFormat: 'function-body' /* …otherOptions */})
+    await compile('# hi', {
+      outputFormat: 'function-body',
+      development: false, // Avoid use of the jsxDEV runtime
+      /* …otherOptions */
+    })
   )
   return {props: {code}}
 }
