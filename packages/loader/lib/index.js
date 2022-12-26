@@ -35,7 +35,10 @@ const cache = new WeakMap()
 export function loader(value, callback) {
   /** @type {Defaults} */
   const defaults = this.sourceMap ? {SourceMapGenerator} : {}
-  const options = /** @type {CompileOptions} */ (this.getOptions())
+  const options = {
+    development: this.mode === 'development',
+    .../** @type {CompileOptions} */ (this.getOptions())
+  }
   const config = {...defaults, ...options}
   const hash = getOptionsHash(options)
   // Some loaders set `undefined` (see `TypeStrong/ts-loader`).

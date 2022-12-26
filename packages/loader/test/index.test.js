@@ -95,6 +95,13 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
     'should compile (react)'
   )
 
+  const reactOutput = await fs.readFile(new URL('react.cjs', base), 'utf8')
+  assert.not.match(
+    reactOutput,
+    /react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_\d+__\.jsxDEV/,
+    'should infer the development option from webpack’s production mode'
+  )
+
   await fs.unlink(new URL('react.cjs', base))
 
   // Preact and source maps
@@ -138,8 +145,15 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
     'should compile (preact)'
   )
 
+  const preactOutput = await fs.readFile(new URL('preact.cjs', base), 'utf8')
   assert.match(
-    String(await fs.readFile(new URL('preact.cjs', base))),
+    preactOutput,
+    /preact_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_\d+__\.jsxDEV/,
+    'should infer the development option from webpack’s development mode'
+  )
+
+  assert.match(
+    preactOutput,
     /\/\/# sourceMappingURL/,
     'should add a source map if requested'
   )
