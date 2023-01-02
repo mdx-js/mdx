@@ -2,8 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "lib": ["ES2020"],
-    "module": "ES2020",
-    "moduleResolution": "node",
+    "module": "Node16",
     "allowJs": true,
     "checkJs": true,
     "declaration": true,
