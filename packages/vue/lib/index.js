@@ -1,5 +1,5 @@
 /**
- * @typedef {import('mdx/types').MDXComponents} Components
+ * @typedef {import('mdx/types.js').MDXComponents} Components
  */
 
 import {provide, inject, createVNode, Fragment} from 'vue'

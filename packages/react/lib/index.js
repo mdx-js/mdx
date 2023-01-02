@@ -1,6 +1,6 @@
 /**
  * @typedef {import('react').ReactNode} ReactNode
- * @typedef {import('mdx/types').MDXComponents} Components
+ * @typedef {import('mdx/types.js').MDXComponents} Components
  *
  * @typedef Props
  *   Configuration.
