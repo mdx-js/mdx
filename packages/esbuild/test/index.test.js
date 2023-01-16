@@ -3,7 +3,7 @@
  * @typedef {import('esbuild').Message} Message
  * @typedef {import('hast').Root} Root
  * @typedef {import('vfile').VFile} VFile
- * @typedef {import('mdx/types').MDXContent} MDXContent
+ * @typedef {import('mdx/types.js').MDXContent} MDXContent
  *
  * @typedef {import('remark-mdx')}
  */

@@ -1,5 +1,5 @@
 /**
- * @typedef {import('mdx/types').MDXContent} MDXContent
+ * @typedef {import('mdx/types.js').MDXContent} MDXContent
  */
 
 import {promises as fs} from 'fs'

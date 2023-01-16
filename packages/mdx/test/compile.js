@@ -1,6 +1,6 @@
 /**
- * @typedef {import('mdx/types').MDXModule} MDXModule
- * @typedef {import('mdx/types').MDXContent} MDXContent
+ * @typedef {import('mdx/types.js').MDXModule} MDXModule
+ * @typedef {import('mdx/types.js').MDXContent} MDXContent
  * @typedef {import('hast').Root} Root
  * @typedef {import('../lib/compile.js').VFileCompatible} VFileCompatible
  */

@@ -2,7 +2,7 @@
  * @typedef {import('vfile').VFileCompatible} VFileCompatible
  * @typedef {import('./util/resolve-evaluate-options.js').EvaluateOptions} EvaluateOptions
  *
- * @typedef {import('mdx/types').MDXModule} ExportMap
+ * @typedef {import('mdx/types.js').MDXModule} ExportMap
  */
 
 import {compile, compileSync} from './compile.js'
