@@ -1,5 +1,6 @@
 /**
  * @typedef {import('hast').Root} Root
+ * @typedef {import('mdast-util-to-hast').Raw} DoNotRemoveUsedToAddRawToNodeType
  */
 
 import {visit} from 'unist-util-visit'
