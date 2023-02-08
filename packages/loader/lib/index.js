@@ -69,7 +69,7 @@ export function loader(value, callback) {
 
   process({value, path: this.resourcePath}).then(
     (file) => {
-      callback(null, file.value, file.map)
+      callback(null, file.value, file.map || undefined)
     },
     (/** @type VFileMessage */ error) => {
       const fpath = path.relative(this.context, this.resourcePath)
