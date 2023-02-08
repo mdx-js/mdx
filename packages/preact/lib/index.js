@@ -1,6 +1,6 @@
 /**
  * @typedef {import('preact').ComponentChildren} ComponentChildren
- * @typedef {import('mdx/types').MDXComponents} Components
+ * @typedef {import('mdx/types.js').MDXComponents} Components
  *
  * @typedef Props
  *   Configuration.

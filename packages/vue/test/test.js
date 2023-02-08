@@ -1,7 +1,7 @@
 /**
- * @typedef {import('mdx/types').MDXComponents} Components
- * @typedef {import('mdx/types').MDXContent} MDXContent
- * @typedef {import('mdx/types').MDXModule} MDXModule
+ * @typedef {import('mdx/types.js').MDXComponents} Components
+ * @typedef {import('mdx/types.js').MDXContent} MDXContent
+ * @typedef {import('mdx/types.js').MDXModule} MDXModule
  * @typedef {import('vue').Component} AnyComponent
  */
 
