@@ -300,7 +300,7 @@ test('stringify', () => {
 })
 
 /**
- * @template {Root|Content} Tree
+ * @template {Root | Content} Tree
  * @param {Tree} tree
  * @returns {Tree}
  */
@@ -311,13 +311,13 @@ function clean(tree) {
 }
 
 /**
- * @param {Root|Content} tree
+ * @param {Root | Content} tree
  */
 function cleanEstree(tree) {
   visit(tree, onvisit)
 
   /**
-   * @param {Root|Content|MdxJsxAttribute|MdxJsxExpressionAttribute|MdxJsxAttributeValueExpression} node
+   * @param {Root | Content | MdxJsxAttribute | MdxJsxExpressionAttribute | MdxJsxAttributeValueExpression} node
    */
   function onvisit(node) {
     if (

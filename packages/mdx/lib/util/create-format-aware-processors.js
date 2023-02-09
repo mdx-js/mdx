@@ -1,7 +1,7 @@
 /**
- * @typedef {import('vfile').VFileCompatible} VFileCompatible
- * @typedef {import('vfile').VFile} VFile
  * @typedef {import('unified').Processor} Processor
+ * @typedef {import('vfile').VFile} VFile
+ * @typedef {import('vfile').VFileCompatible} VFileCompatible
  * @typedef {import('../compile.js').CompileOptions} CompileOptions
  */
 
@@ -12,12 +12,15 @@ import {resolveFileAndOptions} from './resolve-file-and-options.js'
 /**
  * Create smart processors to handle different formats.
  *
- * @param {CompileOptions} [compileOptions]
+ * @param {CompileOptions | null | undefined} [compileOptions]
+ *   configuration.
  * @return {{extnames: Array<string>, process: process, processSync: processSync}}
+ *   Smart processor.
  */
-export function createFormatAwareProcessors(compileOptions = {}) {
-  const mdExtensions = compileOptions.mdExtensions || md
-  const mdxExtensions = compileOptions.mdxExtensions || mdx
+export function createFormatAwareProcessors(compileOptions) {
+  const compileOptions_ = compileOptions || {}
+  const mdExtensions = compileOptions_.mdExtensions || md
+  const mdxExtensions = compileOptions_.mdxExtensions || mdx
   /** @type {Processor} */
   let cachedMarkdown
   /** @type {Processor} */
@@ -25,9 +28,9 @@ export function createFormatAwareProcessors(compileOptions = {}) {
 
   return {
     extnames:
-      compileOptions.format === 'md'
+      compileOptions_.format === 'md'
         ? mdExtensions
-        : compileOptions.format === 'mdx'
+        : compileOptions_.format === 'mdx'
         ? mdxExtensions
         : mdExtensions.concat(mdxExtensions),
     process,
@@ -40,6 +43,7 @@ export function createFormatAwareProcessors(compileOptions = {}) {
    * @param {VFileCompatible} vfileCompatible
    *   MDX or markdown document.
    * @return {Promise<VFile>}
+   *   File.
    */
   function process(vfileCompatible) {
     const {file, processor} = split(vfileCompatible)
@@ -52,6 +56,7 @@ export function createFormatAwareProcessors(compileOptions = {}) {
    * @param {VFileCompatible} vfileCompatible
    *   MDX or markdown document.
    * @return {VFile}
+   *   File.
    */
   // C8 does not cover `.cjs` files (this is only used for the require hook,
   // which has to be CJS).
@@ -70,11 +75,12 @@ export function createFormatAwareProcessors(compileOptions = {}) {
    * @param {VFileCompatible} vfileCompatible
    *   MDX or markdown document.
    * @return {{file: VFile, processor: Processor}}
+   *   File and corresponding processor.
    */
   function split(vfileCompatible) {
     const {file, options} = resolveFileAndOptions(
       vfileCompatible,
-      compileOptions
+      compileOptions_
     )
     const processor =
       options.format === 'md'

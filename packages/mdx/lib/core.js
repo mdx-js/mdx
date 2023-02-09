@@ -1,33 +1,39 @@
 /**
- * @typedef {import('unified').Processor} Processor
+ * @typedef {import('remark-rehype').Options} RemarkRehypeOptions
  * @typedef {import('unified').PluggableList} PluggableList
+ * @typedef {import('unified').Processor} Processor
  * @typedef {import('./plugin/recma-document.js').RecmaDocumentOptions} RecmaDocumentOptions
  * @typedef {import('./plugin/recma-stringify.js').RecmaStringifyOptions} RecmaStringifyOptions
  * @typedef {import('./plugin/recma-jsx-rewrite.js').RecmaJsxRewriteOptions} RecmaJsxRewriteOptions
- * @typedef {import('remark-rehype').Options} RemarkRehypeOptions
- *
+ */
+
+/**
  * @typedef BaseProcessorOptions
- * @property {boolean} [jsx=false]
+ *   Base configuration.
+ * @property {boolean | null | undefined} [jsx=false]
  *   Whether to keep JSX.
- * @property {'mdx'|'md'} [format='mdx']
+ * @property {'mdx' | 'md' | null | undefined} [format='mdx']
  *   Format of the files to be processed.
- * @property {'program'|'function-body'} [outputFormat='program']
+ * @property {'function-body' | 'program'} [outputFormat='program']
  *   Whether to compile to a whole program or a function body..
- * @property {Array<string>} [mdExtensions]
+ * @property {Array<string> | null | undefined} [mdExtensions]
  *   Extensions (with `.`) for markdown.
- * @property {Array<string>} [mdxExtensions]
+ * @property {Array<string> | null | undefined} [mdxExtensions]
  *   Extensions (with `.`) for MDX.
- * @property {PluggableList} [recmaPlugins]
+ * @property {PluggableList | null | undefined} [recmaPlugins]
  *   List of recma (esast, JavaScript) plugins.
- * @property {PluggableList} [remarkPlugins]
+ * @property {PluggableList | null | undefined} [remarkPlugins]
  *   List of remark (mdast, markdown) plugins.
- * @property {PluggableList} [rehypePlugins]
+ * @property {PluggableList | null | undefined} [rehypePlugins]
  *   List of rehype (hast, HTML) plugins.
- * @property {RemarkRehypeOptions} [remarkRehypeOptions]
+ * @property {RemarkRehypeOptions | null | undefined} [remarkRehypeOptions]
  *   Options to pass through to `remark-rehype`.
  *
  * @typedef {Omit<RecmaDocumentOptions & RecmaStringifyOptions & RecmaJsxRewriteOptions, 'outputFormat'>} PluginOptions
+ *   Configuration for internal plugins.
+ *
  * @typedef {BaseProcessorOptions & PluginOptions} ProcessorOptions
+ *   Configuration for processor.
  */
 
 import {unified} from 'unified'
@@ -60,12 +66,14 @@ const removedOptions = [
  * 2. Transform through remark (mdast), rehype (hast), and recma (esast)
  * 3. Serialize as JavaScript
  *
- * @param {ProcessorOptions} [options]
+ * @param {ProcessorOptions | null | undefined} [options]
+ *   Configuration.
  * @return {Processor}
+ *   Processor.
  */
-export function createProcessor(options = {}) {
+export function createProcessor(options) {
   const {
-    development = defaultDevelopment,
+    development,
     jsx,
     format,
     outputFormat,
@@ -73,15 +81,19 @@ export function createProcessor(options = {}) {
     recmaPlugins,
     rehypePlugins,
     remarkPlugins,
-    remarkRehypeOptions = {},
+    remarkRehypeOptions,
     SourceMapGenerator,
     ...rest
-  } = options
+  } = options || {}
+  const dev =
+    development === null || development === undefined
+      ? defaultDevelopment
+      : development
   let index = -1
 
   while (++index < removedOptions.length) {
     const key = removedOptions[index]
-    if (key in options) {
+    if (options && key in options) {
       throw new Error(
         '`options.' +
           key +
@@ -104,14 +116,18 @@ export function createProcessor(options = {}) {
     pipeline.use(remarkMdx)
   }
 
+  const extraNodeTypes = remarkRehypeOptions
+    ? /* c8 ignore next */
+      remarkRehypeOptions.passThrough || []
+    : []
+
   pipeline
     .use(remarkMarkAndUnravel)
     .use(remarkPlugins || [])
     .use(remarkRehype, {
       ...remarkRehypeOptions,
       allowDangerousHtml: true,
-      /* c8 ignore next */
-      passThrough: [...(remarkRehypeOptions.passThrough || []), ...nodeTypes]
+      passThrough: [...extraNodeTypes, ...nodeTypes]
     })
     .use(rehypePlugins || [])
 
@@ -122,10 +138,14 @@ export function createProcessor(options = {}) {
   pipeline
     .use(rehypeRecma)
     .use(recmaDocument, {...rest, outputFormat})
-    .use(recmaJsxRewrite, {development, providerImportSource, outputFormat})
+    .use(recmaJsxRewrite, {
+      development: dev,
+      providerImportSource,
+      outputFormat
+    })
 
   if (!jsx) {
-    pipeline.use(recmaJsxBuild, {development, outputFormat})
+    pipeline.use(recmaJsxBuild, {development: dev, outputFormat})
   }
 
   pipeline.use(recmaStringify, {SourceMapGenerator}).use(recmaPlugins || [])

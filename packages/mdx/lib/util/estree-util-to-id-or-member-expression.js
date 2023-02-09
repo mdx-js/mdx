@@ -1,9 +1,9 @@
 /**
  * @typedef {import('estree-jsx').Identifier} Identifier
- * @typedef {import('estree-jsx').Literal} Literal
  * @typedef {import('estree-jsx').JSXIdentifier} JSXIdentifier
- * @typedef {import('estree-jsx').MemberExpression} MemberExpression
  * @typedef {import('estree-jsx').JSXMemberExpression} JSXMemberExpression
+ * @typedef {import('estree-jsx').Literal} Literal
+ * @typedef {import('estree-jsx').MemberExpression} MemberExpression
  */
 
 import {
@@ -20,7 +20,7 @@ export const toIdOrMemberExpression = toIdOrMemberExpressionFactory(
 
 export const toJsxIdOrMemberExpression =
   // @ts-expect-error: fine
-  /** @type {(ids: Array<string|number>) => JSXIdentifier|JSXMemberExpression)} */
+  /** @type {(ids: Array<string | number>) => JSXIdentifier | JSXMemberExpression)} */
   (
     toIdOrMemberExpressionFactory(
       'JSXIdentifier',
@@ -37,12 +37,12 @@ export const toJsxIdOrMemberExpression =
 function toIdOrMemberExpressionFactory(idType, memberType, isIdentifier) {
   return toIdOrMemberExpression
   /**
-   * @param {Array<string|number>} ids
-   * @returns {Identifier|MemberExpression}
+   * @param {Array<string | number>} ids
+   * @returns {Identifier | MemberExpression}
    */
   function toIdOrMemberExpression(ids) {
     let index = -1
-    /** @type {Identifier|Literal|MemberExpression|undefined} */
+    /** @type {Identifier | Literal | MemberExpression | undefined} */
     let object
 
     while (++index < ids.length) {
@@ -56,7 +56,7 @@ function toIdOrMemberExpressionFactory(idType, memberType, isIdentifier) {
         throw new Error('Cannot turn `' + name + '` into a JSX identifier')
       }
 
-      /** @type {Identifier|Literal} */
+      /** @type {Identifier | Literal} */
       // @ts-expect-error: JSX is fine.
       const id = valid ? {type: idType, name} : {type: 'Literal', value: name}
       // @ts-expect-error: JSX is fine.

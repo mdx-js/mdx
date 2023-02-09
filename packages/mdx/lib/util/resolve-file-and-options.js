@@ -12,7 +12,7 @@ import {md} from './extnames.js'
  * might contain `format: 'detect'`.
  *
  * @param {VFileCompatible} vfileCompatible
- * @param {CompileOptions} [options]
+ * @param {CompileOptions | null | undefined} [options]
  * @returns {{file: VFile, options: ProcessorOptions}}
  */
 export function resolveFileAndOptions(vfileCompatible, options) {
@@ -35,7 +35,7 @@ export function resolveFileAndOptions(vfileCompatible, options) {
 }
 
 /**
- * @param {VFileCompatible} [value]
+ * @param {VFileCompatible | null | undefined} [value]
  * @returns {value is VFile}
  */
 function looksLikeAVFile(value) {

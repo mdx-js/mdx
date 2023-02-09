@@ -4,14 +4,15 @@
  *
  * @typedef Props
  *   Configuration.
- * @property {Components} [components]
+ * @property {Components | null | undefined} [components]
  *   Mapping of names for JSX components to Preact components.
- * @property {boolean} [disableParentContext=false]
+ * @property {boolean | null | undefined} [disableParentContext=false]
  *   Turn off outer component context.
- * @property {ComponentChildren} [children]
+ * @property {ComponentChildren | null | undefined} [children]
  *   Children.
  *
  * @callback MergeComponents
+ *   Custom merge function.
  * @param {Components} currentComponents
  *   Current components from the context.
  * @returns {Components}
@@ -34,7 +35,7 @@ import {useContext} from 'preact/hooks'
 export const MDXContext = createContext({})
 
 /**
- * @param {import('react').ComponentType<any>} Component
+ * @param {import('preact').ComponentType<any>} Component
  * @deprecated
  *   This export is marked as a legacy feature.
  *   That means it’s no longer recommended for use as it might be removed
@@ -46,12 +47,11 @@ export function withMDXComponents(Component) {
   return boundMDXComponent
 
   /**
-   * @param {Record<string, unknown> & {components?: Components}} props
+   * @param {Record<string, unknown> & {components?: Components | null | undefined}} props
    * @returns {JSX.Element}
    */
   function boundMDXComponent(props) {
     const allComponents = useMDXComponents(props.components)
-    // @ts-expect-error: React + Preact in this repo mess with TS.
     return h(Component, {...props, allComponents})
   }
 }
@@ -59,7 +59,7 @@ export function withMDXComponents(Component) {
 /**
  * Get current components from the MDX Context.
  *
- * @param {Components|MergeComponents} [components]
+ * @param {Components | MergeComponents | null | undefined} [components]
  *   Additional components to use or a function that takes the current
  *   components and filters/merges/changes them.
  * @returns {Components}
@@ -76,6 +76,9 @@ export function useMDXComponents(components) {
   return {...contextComponents, ...components}
 }
 
+/** @type {Components} */
+const emptyObject = {}
+
 /**
  * Provider for MDX context
  *
@@ -86,9 +89,12 @@ export function MDXProvider({components, children, disableParentContext}) {
   let allComponents = useMDXComponents(components)
 
   if (disableParentContext) {
-    allComponents = components || {}
+    allComponents = components || emptyObject
   }
 
-  // @ts-expect-error: preact types are wrong.
-  return h(MDXContext.Provider, {value: allComponents}, children)
+  return h(
+    MDXContext.Provider,
+    {value: allComponents, children: undefined},
+    children
+  )
 }

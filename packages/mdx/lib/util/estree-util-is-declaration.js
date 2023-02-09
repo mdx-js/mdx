@@ -1,18 +1,20 @@
 /**
+ * @typedef {import('estree-jsx').Node} Node
  * @typedef {import('estree-jsx').Declaration} Declaration
  */
 
 /**
- * @param {unknown} node
+ * Check if `node` is a declaration.
+ *
+ * @param {Node} node
+ *   Node to check.
  * @returns {node is Declaration}
+ *   Whether `node` is a declaration.
  */
 export function isDeclaration(node) {
-  /** @type {string} */
-  // @ts-expect-error Hush typescript, looks like `type` is available.
-  const type = node && typeof node === 'object' && node.type
   return Boolean(
-    type === 'FunctionDeclaration' ||
-      type === 'ClassDeclaration' ||
-      type === 'VariableDeclaration'
+    node.type === 'FunctionDeclaration' ||
+      node.type === 'ClassDeclaration' ||
+      node.type === 'VariableDeclaration'
   )
 }

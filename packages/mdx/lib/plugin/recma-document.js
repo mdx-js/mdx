@@ -1,9 +1,9 @@
 /**
  * @typedef {import('estree-jsx').Directive} Directive
- * @typedef {import('estree-jsx').ExportDefaultDeclaration} ExportDefaultDeclaration
- * @typedef {import('estree-jsx').ExportSpecifier} ExportSpecifier
- * @typedef {import('estree-jsx').ExportNamedDeclaration} ExportNamedDeclaration
  * @typedef {import('estree-jsx').ExportAllDeclaration} ExportAllDeclaration
+ * @typedef {import('estree-jsx').ExportDefaultDeclaration} ExportDefaultDeclaration
+ * @typedef {import('estree-jsx').ExportNamedDeclaration} ExportNamedDeclaration
+ * @typedef {import('estree-jsx').ExportSpecifier} ExportSpecifier
  * @typedef {import('estree-jsx').Expression} Expression
  * @typedef {import('estree-jsx').FunctionDeclaration} FunctionDeclaration
  * @typedef {import('estree-jsx').ImportDeclaration} ImportDeclaration
@@ -11,32 +11,35 @@
  * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
  * @typedef {import('estree-jsx').Node} Node
  * @typedef {import('estree-jsx').Program} Program
+ * @typedef {import('estree-jsx').Property} Property
  * @typedef {import('estree-jsx').SimpleLiteral} SimpleLiteral
+ * @typedef {import('estree-jsx').SpreadElement} SpreadElement
  * @typedef {import('estree-jsx').Statement} Statement
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
- * @typedef {import('estree-jsx').SpreadElement} SpreadElement
- * @typedef {import('estree-jsx').Property} Property
- *
+ */
+
+/**
  * @typedef RecmaDocumentOptions
- * @property {'program'|'function-body'} [outputFormat='program']
+ *   Configuration for internal plugin `recma-document`.
+ * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
  *   Whether to use either `import` and `export` statements to get the runtime
  *   (and optionally provider) and export the content, or get values from
  *   `arguments` and return things.
- * @property {boolean} [useDynamicImport=false]
+ * @property {boolean | null | undefined} [useDynamicImport=false]
  *   Whether to keep `import` (and `export … from`) statements or compile them
  *   to dynamic `import()` instead.
- * @property {string} [baseUrl]
+ * @property {string | null | undefined} [baseUrl]
  *   Resolve `import`s (and `export … from`, and `import.meta.url`) relative to
  *   this URL.
- * @property {string} [pragma='React.createElement']
+ * @property {string | null | undefined} [pragma='React.createElement']
  *   Pragma for JSX (used in classic runtime).
- * @property {string} [pragmaFrag='React.Fragment']
+ * @property {string | null | undefined} [pragmaFrag='React.Fragment']
  *   Pragma for JSX fragments (used in classic runtime).
- * @property {string} [pragmaImportSource='react']
+ * @property {string | null | undefined} [pragmaImportSource='react']
  *   Where to import the identifier of `pragma` from (used in classic runtime).
- * @property {string} [jsxImportSource='react']
+ * @property {string | null | undefined} [jsxImportSource='react']
  *   Place to import automatic JSX runtimes from (used in automatic runtime).
- * @property {'automatic'|'classic'} [jsxRuntime='automatic']
+ * @property {'automatic' | 'classic' | null | undefined} [jsxRuntime='automatic']
  *   JSX runtime to use.
  */
 
@@ -52,31 +55,34 @@ import {isDeclaration} from '../util/estree-util-is-declaration.js'
 /**
  * A plugin to wrap the estree in `MDXContent`.
  *
- * @type {import('unified').Plugin<[RecmaDocumentOptions]|[], Program>}
+ * @type {import('unified').Plugin<[RecmaDocumentOptions | null | undefined] | [], Program>}
  */
-export function recmaDocument(options = {}) {
-  const {
-    baseUrl,
-    useDynamicImport,
-    outputFormat = 'program',
-    pragma = 'React.createElement',
-    pragmaFrag = 'React.Fragment',
-    pragmaImportSource = 'react',
-    jsxImportSource = 'react',
-    jsxRuntime = 'automatic'
-  } = options
+export function recmaDocument(options) {
+  // Always given inside `@mdx-js/mdx`
+  /* c8 ignore next */
+  const options_ = options || {}
+  const baseUrl = options_.baseUrl || undefined
+  const useDynamicImport = options_.useDynamicImport || undefined
+  const outputFormat = options_.outputFormat || 'program'
+  const pragma =
+    options_.pragma === undefined ? 'React.createElement' : options_.pragma
+  const pragmaFrag =
+    options_.pragmaFrag === undefined ? 'React.Fragment' : options_.pragmaFrag
+  const pragmaImportSource = options_.pragmaImportSource || 'react'
+  const jsxImportSource = options_.jsxImportSource || 'react'
+  const jsxRuntime = options_.jsxRuntime || 'automatic'
 
   return (tree, file) => {
-    /** @type {Array<string|[string, string]>} */
+    /** @type {Array<[string, string] | string>} */
     const exportedIdentifiers = []
-    /** @type {Array<Directive|Statement|ModuleDeclaration>} */
+    /** @type {Array<Directive | ModuleDeclaration | Statement>} */
     const replacement = []
     /** @type {Array<string>} */
     const pragmas = []
     let exportAllCount = 0
-    /** @type {ExportDefaultDeclaration|ExportSpecifier|undefined} */
+    /** @type {ExportDefaultDeclaration | ExportSpecifier | undefined} */
     let layout
-    /** @type {boolean|undefined} */
+    /** @type {boolean | undefined} */
     let content
     /** @type {Node} */
     let child
@@ -298,9 +304,7 @@ export function recmaDocument(options = {}) {
 
     if (baseUrl) {
       walk(tree, {
-        enter(_node) {
-          const node = /** @type {Node} */ (_node)
-
+        enter(node) {
           if (
             node.type === 'MemberExpression' &&
             'object' in node &&
@@ -319,7 +323,7 @@ export function recmaDocument(options = {}) {
     }
 
     /**
-     * @param {ExportNamedDeclaration|ExportAllDeclaration} node
+     * @param {ExportAllDeclaration | ExportNamedDeclaration} node
      * @returns {void}
      */
     function handleExport(node) {
@@ -348,7 +352,7 @@ export function recmaDocument(options = {}) {
     }
 
     /**
-     * @param {ImportDeclaration|ExportNamedDeclaration|ExportAllDeclaration} node
+     * @param {ExportAllDeclaration | ExportNamedDeclaration | ImportDeclaration} node
      * @returns {void}
      */
     function handleEsm(node) {
@@ -375,7 +379,7 @@ export function recmaDocument(options = {}) {
         node.source = create(node.source, {type: 'Literal', value})
       }
 
-      /** @type {Statement|ModuleDeclaration|undefined} */
+      /** @type {ModuleDeclaration | Statement | undefined} */
       let replace
       /** @type {Expression} */
       let init
@@ -478,9 +482,9 @@ export function recmaDocument(options = {}) {
   }
 
   /**
-   * @param {Expression} [content]
-   * @param {boolean} [hasInternalLayout]
-   * @returns {FunctionDeclaration[]}
+   * @param {Expression | undefined} [content]
+   * @param {boolean | undefined} [hasInternalLayout]
+   * @returns {Array<FunctionDeclaration>}
    */
   function createMdxContent(content, hasInternalLayout) {
     /** @type {JSXElement} */
@@ -575,12 +579,7 @@ export function recmaDocument(options = {}) {
         ],
         body: {
           type: 'BlockStatement',
-          body: [
-            {
-              type: 'ReturnStatement',
-              argument: result
-            }
-          ]
+          body: [{type: 'ReturnStatement', argument: result}]
         }
       }
     ]

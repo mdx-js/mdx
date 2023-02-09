@@ -2,9 +2,12 @@
  * @typedef {import('mdast').Root} Root
  * @typedef {import('micromark-extension-mdxjs').Options} MicromarkOptions
  * @typedef {import('mdast-util-mdx').ToMarkdownOptions} ToMarkdownOptions
+ * @typedef {import('mdast-util-mdx')} DoNotTouchAsThisIncludesMdxInTree
+ */
+
+/**
  * @typedef {MicromarkOptions & ToMarkdownOptions} Options
- *
- * @typedef {import('mdast-util-mdx')} DoNotTouchAsThisImportItIncludesMdxInTree
+ *   Configuration.
  */
 
 import {mdxjs} from 'micromark-extension-mdxjs'
@@ -15,9 +18,9 @@ import {mdxFromMarkdown, mdxToMarkdown} from 'mdast-util-mdx'
  * `{1 + 1}`; and JSX: `<Video id={123} />`).
  *
  * @this {import('unified').Processor}
- * @type {import('unified').Plugin<[Options?]|Array<void>, Root>}
+ * @type {import('unified').Plugin<[Options | null | undefined] | [], Root>}
  */
-export default function remarkMdx(options = {}) {
+export default function remarkMdx(options) {
   const data = this.data()
 
   add('micromarkExtensions', mdxjs(options))

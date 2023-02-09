@@ -2,7 +2,6 @@
  * @typedef {import('mdx/types.js').MDXContent} MDXContent
  * @typedef {import('preact').FunctionComponent<unknown>} PreactComponent
  * @typedef {import('vue').Component} VueComponent
- * @typedef {import('vue').SetupContext} SetupContext
  */
 
 import {promises as fs} from 'fs'

@@ -1,5 +1,6 @@
 /* @jsx h */
 /* @jsxFrag Fragment */
+
 import {test} from 'uvu'
 import * as assert from 'uvu/assert'
 import {h} from 'preact'

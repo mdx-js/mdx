@@ -1,30 +1,30 @@
 /**
- * @typedef {import('estree-jsx').Node} Node
  * @typedef {import('estree-jsx').Expression} Expression
- * @typedef {import('estree-jsx').Function} ESFunction
+ * @typedef {import('estree-jsx').Function} EstreeFunction
+ * @typedef {import('estree-jsx').Identifier} Identifier
  * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
  * @typedef {import('estree-jsx').JSXElement} JSXElement
- * @typedef {import('estree-jsx').JSXIdentifier} JSXIdentifier
- * @typedef {import('estree-jsx').JSXNamespacedName} JSXNamespacedName
  * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
+ * @typedef {import('estree-jsx').Node} Node
+ * @typedef {import('estree-jsx').ObjectPattern} ObjectPattern
  * @typedef {import('estree-jsx').Program} Program
  * @typedef {import('estree-jsx').Property} Property
  * @typedef {import('estree-jsx').Statement} Statement
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
- * @typedef {import('estree-jsx').ObjectPattern} ObjectPattern
- * @typedef {import('estree-jsx').Identifier} Identifier
- *
- * @typedef {import('estree-walker').SyncHandler} WalkHandler
  *
  * @typedef {import('periscopic').Scope & {node: Node}} Scope
- *
+ */
+
+/**
  * @typedef RecmaJsxRewriteOptions
- * @property {'program'|'function-body'} [outputFormat='program']
+ *   Configuration for internal plugin `recma-jsx-rewrite`.
+ * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
  *   Whether to use an import statement or `arguments[0]` to get the provider.
- * @property {string} [providerImportSource]
+ * @property {string | null | undefined} [providerImportSource]
  *   Place to import a provider from.
- * @property {boolean} [development=false]
+ * @property {boolean | null | undefined} [development=false]
  *   Whether to add extra info to error messages in generated code.
+ *
  *   This also results in the development automatic JSX runtime
  *   (`/jsx-dev-runtime`, `jsxDEV`) being used, which passes positional info to
  *   nodes.
@@ -37,7 +37,7 @@
  * @property {Array<string>} tags
  * @property {Record<string, {node: JSXElement, component: boolean}>} references
  * @property {Map<string|number, string>} idToInvalidComponentName
- * @property {ESFunction} node
+ * @property {EstreeFunction} node
  */
 
 import {stringifyPosition} from 'unist-util-stringify-position'
@@ -61,27 +61,26 @@ const own = {}.hasOwnProperty
  * It also makes sure that any undefined components are defined: either from
  * received components or as a function that throws an error.
  *
- * @type {import('unified').Plugin<[RecmaJsxRewriteOptions]|[], Program>}
+ * @type {import('unified').Plugin<[RecmaJsxRewriteOptions | null | undefined] | [], Program>}
  */
-export function recmaJsxRewrite(options = {}) {
-  const {development, providerImportSource, outputFormat} = options
+export function recmaJsxRewrite(options) {
+  // Always given inside `@mdx-js/mdx`
+  /* c8 ignore next */
+  const {development, providerImportSource, outputFormat} = options || {}
 
   return (tree, file) => {
     // Find everything that’s defined in the top-level scope.
     const scopeInfo = analyze(tree)
     /** @type {Array<StackEntry>} */
     const fnStack = []
-    /** @type {boolean|undefined} */
-    let importProvider
-    /** @type {boolean|undefined} */
-    let createErrorHelper
-    /** @type {Scope|null} */
+    let importProvider = false
+    let createErrorHelper = false
+    /** @type {Scope | undefined} */
     let currentScope
 
     walk(tree, {
-      enter(_node) {
-        const node = /** @type {Node} */ (_node)
-        const newScope = /** @type {Scope|undefined} */ (
+      enter(node) {
+        const newScope = /** @type {Scope | undefined} */ (
           scopeInfo.map.get(node)
         )
 
@@ -144,7 +143,7 @@ export function recmaJsxRewrite(options = {}) {
             const isInScope = inScope(currentScope, id)
 
             if (!own.call(fnScope.references, fullId)) {
-              const parentScope = /** @type {Scope|null} */ (
+              const parentScope = /** @type {Scope | undefined} */ (
                 currentScope.parent
               )
               if (
@@ -242,7 +241,7 @@ export function recmaJsxRewrite(options = {}) {
           node.type === 'FunctionExpression' ||
           node.type === 'ArrowFunctionExpression'
         ) {
-          const fn = /** @type {ESFunction} */ (node)
+          const fn = node
           const scope = fnStack[fnStack.length - 1]
           /** @type {string} */
           let name
@@ -326,7 +325,7 @@ export function recmaJsxRewrite(options = {}) {
                   }
                 : parameters[0]
 
-            /** @type {ObjectPattern|undefined} */
+            /** @type {ObjectPattern | undefined} */
             let componentsPattern
 
             // Add components to scope.
@@ -558,7 +557,7 @@ export function recmaJsxRewrite(options = {}) {
 /**
  * @param {string} providerImportSource
  * @param {RecmaJsxRewriteOptions['outputFormat']} outputFormat
- * @returns {Statement|ModuleDeclaration}
+ * @returns {Statement | ModuleDeclaration}
  */
 function createImportProvider(providerImportSource, outputFormat) {
   /** @type {Array<ImportSpecifier>} */
@@ -587,7 +586,7 @@ function createImportProvider(providerImportSource, outputFormat) {
 }
 
 /**
- * @param {ESFunction} node
+ * @param {EstreeFunction} node
  * @param {string} name
  * @returns {boolean}
  */
@@ -598,9 +597,10 @@ function isNamedFunction(node, name) {
 /**
  * @param {Scope} scope
  * @param {string} id
+ * @returns {boolean}
  */
 function inScope(scope, id) {
-  /** @type {Scope|null} */
+  /** @type {Scope | undefined} */
   let currentScope = scope
 
   while (currentScope) {

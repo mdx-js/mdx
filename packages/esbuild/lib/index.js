@@ -7,10 +7,12 @@
  * @typedef {import('esbuild').Message} Message
  * @typedef {import('vfile').VFileValue} VFileValue
  * @typedef {import('vfile-message').VFileMessage} VFileMessage
- * @typedef {import('unist').Point} Point
  * @typedef {import('@mdx-js/mdx/lib/core.js').ProcessorOptions} ProcessorOptions
- *
- * @typedef {ProcessorOptions & {allowDangerousRemoteMdx?: boolean}} Options
+ */
+
+/**
+ * @typedef {ProcessorOptions & {allowDangerousRemoteMdx?: boolean | null | undefined}} Options
+ *   Configuration.
  */
 
 import assert from 'node:assert'
@@ -32,11 +34,11 @@ const p = process
 /**
  * Compile MDX w/ esbuild.
  *
- * @param {Options} [options]
+ * @param {Options | null | undefined} [options]
  * @return {Plugin}
  */
-export function esbuild(options = {}) {
-  const {allowDangerousRemoteMdx, ...rest} = options
+export function esbuild(options) {
+  const {allowDangerousRemoteMdx, ...rest} = options || {}
   const name = '@mdx-js/esbuild'
   const remoteNamespace = name + '-remote'
   const {extnames, process} = createFormatAwareProcessors(rest)
@@ -123,22 +125,24 @@ export function esbuild(options = {}) {
     }
 
     /**
-     * @param {Omit<OnLoadArgs, 'pluginData'> & {pluginData?: {contents?: string|Buffer}}} data
+     * @param {Omit<OnLoadArgs, 'pluginData'> & {pluginData?: {contents?: Buffer | string | null | undefined}}} data
      * @returns {Promise<OnLoadResult>}
      */
     async function onload(data) {
       /** @type {string} */
       const doc = String(
-        data.pluginData && data.pluginData.contents !== undefined
+        data.pluginData &&
+          data.pluginData.contents !== null &&
+          data.pluginData.contents !== undefined
           ? data.pluginData.contents
           : /* eslint-disable-next-line security/detect-non-literal-fs-filename */
             await fs.readFile(data.path)
       )
 
       let file = new VFile({value: doc, path: data.path})
-      /** @type {VFileValue|undefined} */
+      /** @type {VFileValue | undefined} */
       let value
-      /** @type {Array<VFileMessage|Error>} */
+      /** @type {Array<Error | VFileMessage>} */
       let messages = []
       /** @type {Array<Message>} */
       const errors = []
@@ -150,7 +154,7 @@ export function esbuild(options = {}) {
         value = file.value
         messages = file.messages
       } catch (error_) {
-        const error = /** @type {VFileMessage|Error} */ (error_)
+        const error = /** @type {Error | VFileMessage} */ (error_)
         if ('fatal' in error) error.fatal = true
         messages.push(error)
       }

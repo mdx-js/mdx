@@ -5,12 +5,15 @@
 
 /**
  * Turn a declaration into an expression.
+ *
  * Doesn’t work for variable declarations, but that’s fine for our use case
  * because currently we’re using this utility for export default declarations,
  * which can’t contain variable declarations.
  *
  * @param {Declaration} declaration
+ *   Declaration.
  * @returns {Expression}
+ *   Expression.
  */
 export function declarationToExpression(declaration) {
   if (declaration.type === 'FunctionDeclaration') {

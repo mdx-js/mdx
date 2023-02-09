@@ -1,18 +1,17 @@
 /**
+ * @typedef {import('estree-jsx').ExportSpecifier} ExportSpecifier
+ * @typedef {import('estree-jsx').Expression} Expression
  * @typedef {import('estree-jsx').Identifier} Identifier
  * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
  * @typedef {import('estree-jsx').ImportDefaultSpecifier} ImportDefaultSpecifier
  * @typedef {import('estree-jsx').ImportNamespaceSpecifier} ImportNamespaceSpecifier
- * @typedef {import('estree-jsx').ExportSpecifier} ExportSpecifier
- * @typedef {import('estree-jsx').ObjectPattern} ObjectPattern
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
- * @typedef {import('estree-jsx').Expression} Expression
  */
 
 import {create} from './estree-util-create.js'
 
 /**
- * @param {Array<ImportSpecifier|ImportDefaultSpecifier|ImportNamespaceSpecifier|ExportSpecifier>} specifiers
+ * @param {Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier | ExportSpecifier>} specifiers
  * @param {Expression} init
  * @returns {Array<VariableDeclarator>}
  */
@@ -20,10 +19,10 @@ export function specifiersToDeclarations(specifiers, init) {
   let index = -1
   /** @type {Array<VariableDeclarator>} */
   const declarations = []
-  /** @type {Array<ImportSpecifier|ImportDefaultSpecifier|ExportSpecifier>} */
+  /** @type {Array<ImportSpecifier | ImportDefaultSpecifier | ExportSpecifier>} */
   const otherSpecifiers = []
   // Can only be one according to JS syntax.
-  /** @type {ImportNamespaceSpecifier|undefined} */
+  /** @type {ImportNamespaceSpecifier | undefined} */
   let importNamespaceSpecifier
 
   while (++index < specifiers.length) {
