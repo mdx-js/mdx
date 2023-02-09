@@ -7,6 +7,10 @@
  * @typedef {import('estree-jsx').Expression} Expression
  * @typedef {import('estree-jsx').FunctionDeclaration} FunctionDeclaration
  * @typedef {import('estree-jsx').ImportDeclaration} ImportDeclaration
+ * @typedef {import('estree-jsx').ImportDefaultSpecifier} ImportDefaultSpecifier
+ * @typedef {import('estree-jsx').ImportExpression} ImportExpression
+ * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
+ * @typedef {import('estree-jsx').Literal} Literal
  * @typedef {import('estree-jsx').JSXElement} JSXElement
  * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
  * @typedef {import('estree-jsx').Node} Node
@@ -186,25 +190,38 @@ export function recmaDocument(options) {
             layout = specifier
 
             // Make it just an import: `import MDXLayout from '…'`.
-            handleEsm(
-              create(specifier, {
-                type: 'ImportDeclaration',
-                specifiers: [
-                  // Default as default / something else as default.
-                  specifier.local.name === 'default'
-                    ? {
-                        type: 'ImportDefaultSpecifier',
-                        local: {type: 'Identifier', name: 'MDXLayout'}
-                      }
-                    : create(specifier.local, {
-                        type: 'ImportSpecifier',
-                        imported: specifier.local,
-                        local: {type: 'Identifier', name: 'MDXLayout'}
-                      })
-                ],
-                source: create(source, {type: 'Literal', value: source.value})
+            /** @type {Array<ImportDefaultSpecifier | ImportSpecifier>} */
+            const specifiers = []
+
+            // Default as default / something else as default.
+            if (specifier.local.name === 'default') {
+              specifiers.push({
+                type: 'ImportDefaultSpecifier',
+                local: {type: 'Identifier', name: 'MDXLayout'}
               })
-            )
+            } else {
+              /** @type {ImportSpecifier} */
+              const importSpecifier = {
+                type: 'ImportSpecifier',
+                imported: specifier.local,
+                local: {type: 'Identifier', name: 'MDXLayout'}
+              }
+              create(specifier.local, importSpecifier)
+              specifiers.push(importSpecifier)
+            }
+
+            /** @type {Literal} */
+            const from = {type: 'Literal', value: source.value}
+            create(source, from)
+
+            /** @type {ImportDeclaration} */
+            const declaration = {
+              type: 'ImportDeclaration',
+              specifiers,
+              source: from
+            }
+            create(specifier, declaration)
+            handleEsm(declaration)
 
             return false
           }
@@ -376,7 +393,10 @@ export function recmaDocument(options) {
           // with import maps (<https://github.com/WICG/import-maps>).
         }
 
-        node.source = create(node.source, {type: 'Literal', value})
+        /** @type {Literal} */
+        const literal = {type: 'Literal', value}
+        create(node.source, literal)
+        node.source = literal
       }
 
       /** @type {ModuleDeclaration | Statement | undefined} */
@@ -416,13 +436,10 @@ export function recmaDocument(options) {
           // export * from 'a'
           // //=> const _exportAll0 = await import('a')
           // ```
-          init = {
-            type: 'AwaitExpression',
-            argument: create(node, {
-              type: 'ImportExpression',
-              source: node.source
-            })
-          }
+          /** @type {ImportExpression} */
+          const argument = {type: 'ImportExpression', source: node.source}
+          create(node, argument)
+          init = {type: 'AwaitExpression', argument}
 
           if (
             (node.type === 'ImportDeclaration' ||

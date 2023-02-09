@@ -3,13 +3,15 @@
  */
 
 /**
- * @template {Node} N
- * @param {Node} template
- * @param {N} node
- * @returns {N}
+ * @param {Node} from
+ *   Node to take from.
+ * @param {Node} to
+ *   Node to add to.
+ * @returns {void}
+ *   Nothing.
  */
-export function create(template, node) {
-  /** @type {Array<keyof template>} */
+export function create(from, to) {
+  /** @type {Array<keyof Node>} */
   // @ts-expect-error: `start`, `end`, `comments` are custom Acorn fields.
   const fields = ['start', 'end', 'loc', 'range', 'comments']
   let index = -1
@@ -17,11 +19,9 @@ export function create(template, node) {
   while (++index < fields.length) {
     const field = fields[index]
 
-    if (field in template) {
+    if (field in from) {
       // @ts-expect-error: assume they’re settable.
-      node[field] = template[field]
+      to[field] = from[field]
     }
   }
-
-  return node
 }
