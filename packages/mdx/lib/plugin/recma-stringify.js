@@ -3,7 +3,8 @@
  * @typedef {typeof import('source-map').SourceMapGenerator} SourceMapGenerator
  *
  * @typedef RecmaStringifyOptions
- * @property {SourceMapGenerator} [SourceMapGenerator]
+ *   Configuration for internal plugin `recma-stringify`.
+ * @property {SourceMapGenerator | null | undefined} [SourceMapGenerator]
  *   Generate a source map by passing a `SourceMapGenerator` from `source-map`
  *   in.
  */
@@ -15,10 +16,12 @@ import {toJs, jsx} from 'estree-util-to-js'
  * support for serializing JSX.
  *
  * @this {import('unified').Processor}
- * @type {import('unified').Plugin<[RecmaStringifyOptions]|[], Program, string>}
+ * @type {import('unified').Plugin<[RecmaStringifyOptions | null | undefined] | [], Program, string>}
  */
-export function recmaStringify(options = {}) {
-  const {SourceMapGenerator} = options
+export function recmaStringify(options) {
+  // Always given inside `@mdx-js/mdx`
+  /* c8 ignore next */
+  const {SourceMapGenerator} = options || {}
 
   Object.assign(this, {Compiler: compiler})
 

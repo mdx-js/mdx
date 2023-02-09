@@ -7,10 +7,11 @@ import {visit} from 'unist-util-visit'
 
 /**
  * A tiny plugin that removes raw HTML.
+ *
  * This is needed if the format is `md` and `rehype-raw` was not used to parse
  * dangerous HTML into nodes.
  *
- * @type {import('unified').Plugin<Array<void>, Root>}
+ * @type {import('unified').Plugin<[], Root>}
  */
 export function rehypeRemoveRaw() {
   return (tree) => {

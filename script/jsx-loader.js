@@ -37,8 +37,11 @@ export function createLoader() {
 
     if (warnings && warnings.length > 0) {
       for (const warning of warnings) {
-        console.log(warning.location)
-        console.log(warning.text)
+        console.log(
+          'script/jsx-loader.js: warning: %j: %s',
+          warning.location,
+          warning.text
+        )
       }
     }
 

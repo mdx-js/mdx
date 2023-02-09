@@ -7,7 +7,7 @@
  */
 export function toBinaryAddition(expressions) {
   let index = -1
-  /** @type {Expression|undefined} */
+  /** @type {Expression | undefined} */
   let left
 
   while (++index < expressions.length) {

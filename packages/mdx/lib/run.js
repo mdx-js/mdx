@@ -7,7 +7,9 @@ const AsyncFunction = Object.getPrototypeOf(run).constructor
  * @param {{toString(): string}} file
  *   JS document to run.
  * @param {unknown} options
- * @return {Promise<*>}
+ *   Parameter.
+ * @return {Promise<any>}
+ *   Anthing.
  */
 export async function run(file, options) {
   // V8 on Erbium.
@@ -21,7 +23,9 @@ export async function run(file, options) {
  * @param {{toString(): string}} file
  *   JS document to run.
  * @param {unknown} options
- * @return {*}
+ *   Parameter.
+ * @return {any}
+ *   Anthing.
  */
 export function runSync(file, options) {
   // eslint-disable-next-line no-new-func

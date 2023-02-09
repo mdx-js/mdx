@@ -1,13 +1,23 @@
 /**
+ * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
  * @typedef {import('vfile').VFileCompatible} VFileCompatible
  * @typedef {import('vfile').VFile} VFile
  * @typedef {import('vfile-message').VFileMessage} VFileMessage
- * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
- * @typedef {Pick<CompileOptions, 'SourceMapGenerator'>} Defaults
- * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} Options
  * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
  * @typedef {import('webpack').Compiler} WebpackCompiler
- * @typedef {(vfileCompatible: VFileCompatible) => Promise<VFile>} Process
+ */
+
+/**
+ * @typedef {Pick<CompileOptions, 'SourceMapGenerator'>} Defaults
+ * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} Options
+ *   Configuration.
+ *
+ * @callback Process
+ *   Process.
+ * @param {VFileCompatible} vfileCompatible
+ *   Input.
+ * @returns {Promise<VFile>}
+ *   File.
  */
 
 import {createHash} from 'node:crypto'
@@ -30,7 +40,7 @@ const cache = new WeakMap()
  *
  * @this {LoaderContext}
  * @param {string} value
- * @param {(error: Error|null|undefined, content?: string|Buffer, map?: Object) => void} callback
+ * @param {LoaderContext['callback']} callback
  */
 export function loader(value, callback) {
   /** @type {Defaults} */
@@ -69,7 +79,9 @@ export function loader(value, callback) {
 
   process({value, path: this.resourcePath}).then(
     (file) => {
-      callback(null, file.value, file.map || undefined)
+      // @ts-expect-error: `webpack` is not compiled with `exactOptionalPropertyTypes`,
+      // so it does not allow `file.map` to be `undefined` here.
+      callback(null, file.value, file.map)
     },
     (/** @type VFileMessage */ error) => {
       const fpath = path.relative(this.context, this.resourcePath)

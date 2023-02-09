@@ -1,15 +1,22 @@
 /**
  * @typedef {import('@rollup/pluginutils').FilterPattern} FilterPattern
- * @typedef {Omit<import('@mdx-js/mdx').CompileOptions, 'SourceMapGenerator'>} CompileOptions
  * @typedef {import('rollup').Plugin} Plugin
+ * @typedef {import('rollup').SourceDescription} SourceDescription
+ */
+
+/**
+ * @typedef {Omit<import('@mdx-js/mdx').CompileOptions, 'SourceMapGenerator'>} CompileOptions
+ *   Default configuration.
  *
  * @typedef RollupPluginOptions
+ *   Extra configuration.
  * @property {FilterPattern} [include]
  *   List of picomatch patterns to include
  * @property {FilterPattern} [exclude]
  *   List of picomatch patterns to exclude
  *
  * @typedef {CompileOptions & RollupPluginOptions} Options
+ *   Configuration.
  */
 
 import {SourceMapGenerator} from 'source-map'
@@ -20,11 +27,13 @@ import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aw
 /**
  * Compile MDX w/ rollup.
  *
- * @param {Options} [options]
+ * @param {Options | null | undefined} [options]
+ *   Configuration.
  * @return {Plugin}
+ *   Rollup plugin.
  */
-export function rollup(options = {}) {
-  const {include, exclude, ...rest} = options
+export function rollup(options) {
+  const {include, exclude, ...rest} = options || {}
   const {extnames, process} = createFormatAwareProcessors({
     SourceMapGenerator,
     ...rest
@@ -42,7 +51,11 @@ export function rollup(options = {}) {
         extnames.includes(file.extname)
       ) {
         const compiled = await process(file)
-        return {code: String(compiled.value), map: compiled.map}
+        const code = String(compiled.value)
+        /** @type {SourceDescription} */
+        // @ts-expect-error: a) `undefined` is fine, b) `sourceRoot: undefined` is fine too.
+        const result = {code, map: compiled.map}
+        return result
         // V8 on Erbium.
         /* c8 ignore next 2 */
       }

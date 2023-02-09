@@ -1,8 +1,5 @@
 /**
  * @typedef {import('mdast').Root} Root
- * @typedef {import('mdast').Content} Content
- * @typedef {Root|Content} Node
- * @typedef {Extract<Node, import('unist').Parent>} Parent
  *
  * @typedef {import('remark-mdx')} DoNotTouchAsThisImportItIncludesMdxInTree
  */
@@ -12,19 +9,18 @@ import {visit} from 'unist-util-visit'
 /**
  * A tiny plugin that unravels `<p><h1>x</h1></p>` but also
  * `<p><Component /></p>` (so it has no knowledge of “HTML”).
+ *
  * It also marks JSX as being explicitly JSX, so when a user passes a `h1`
  * component, it is used for `# heading` but not for `<h1>heading</h1>`.
  *
- * @type {import('unified').Plugin<Array<void>, Root>}
+ * @type {import('unified').Plugin<[], Root>}
  */
 export function remarkMarkAndUnravel() {
   return (tree) => {
-    visit(tree, (node, index, parent_) => {
-      const parent = /** @type {Parent} */ (parent_)
+    visit(tree, (node, index, parent) => {
       let offset = -1
       let all = true
-      /** @type {boolean|undefined} */
-      let oneOrMore
+      let oneOrMore = false
 
       if (parent && typeof index === 'number' && node.type === 'paragraph') {
         const children = node.children

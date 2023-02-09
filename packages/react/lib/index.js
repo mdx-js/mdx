@@ -4,14 +4,15 @@
  *
  * @typedef Props
  *   Configuration.
- * @property {Components} [components]
+ * @property {Components | MergeComponents | null | undefined} [components]
  *   Mapping of names for JSX components to React components.
- * @property {boolean} [disableParentContext=false]
+ * @property {boolean | null | undefined} [disableParentContext=false]
  *   Turn off outer component context.
- * @property {ReactNode} [children]
+ * @property {ReactNode | null | undefined} [children]
  *   Children.
  *
  * @callback MergeComponents
+ *   Custom merge function.
  * @param {Components} currentComponents
  *   Current components from the context.
  * @returns {Components}
@@ -45,7 +46,7 @@ export function withMDXComponents(Component) {
   return boundMDXComponent
 
   /**
-   * @param {Record<string, unknown> & {components?: Components}} props
+   * @param {Record<string, unknown> & {components?: Components | null | undefined}} props
    * @returns {JSX.Element}
    */
   function boundMDXComponent(props) {
@@ -57,7 +58,7 @@ export function withMDXComponents(Component) {
 /**
  * Get current components from the MDX Context.
  *
- * @param {Components|MergeComponents} [components]
+ * @param {Components | MergeComponents | null | undefined} [components]
  *   Additional components to use or a function that takes the current
  *   components and filters/merges/changes them.
  * @returns {Components}
@@ -65,6 +66,7 @@ export function withMDXComponents(Component) {
  */
 export function useMDXComponents(components) {
   const contextComponents = React.useContext(MDXContext)
+
   // Memoize to avoid unnecessary top-level context changes
   return React.useMemo(() => {
     // Custom merge via a function prop
@@ -86,10 +88,16 @@ const emptyObject = {}
  * @returns {JSX.Element}
  */
 export function MDXProvider({components, children, disableParentContext}) {
-  let allComponents = useMDXComponents(components)
+  /** @type {Components} */
+  let allComponents
 
   if (disableParentContext) {
-    allComponents = components || emptyObject
+    allComponents =
+      typeof components === 'function'
+        ? components({})
+        : components || emptyObject
+  } else {
+    allComponents = useMDXComponents(components)
   }
 
   return React.createElement(

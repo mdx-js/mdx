@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
+ */
+
 'use strict'
 
 /**
@@ -5,6 +9,7 @@
  *
  * @todo once webpack supports ESM loaders, remove this wrapper.
  *
+ * @this {LoaderContext}
  * @param {string} code
  */
 module.exports = function (code) {

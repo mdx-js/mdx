@@ -2,26 +2,29 @@
  * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
  *
  * @typedef RunnerOptions
- * @property {*} Fragment
+ *   Configuration with JSX runtime.
+ * @property {any} Fragment
  *   Symbol to use for fragments.
- * @property {*} [jsx]
+ * @property {any} [jsx]
  *   Function to generate an element with static children in production mode.
- * @property {*} [jsxs]
+ * @property {any} [jsxs]
  *   Function to generate an element with dynamic children in production mode.
- * @property {*} [jsxDEV]
+ * @property {any} [jsxDEV]
  *   Function to generate an element in development mode.
- * @property {*} [useMDXComponents]
+ * @property {any} [useMDXComponents]
  *   Function to get `MDXComponents` from context.
  *
  * @typedef {Omit<ProcessorOptions, 'jsx' | 'jsxImportSource' | 'jsxRuntime' | 'pragma' | 'pragmaFrag' | 'pragmaImportSource' | 'providerImportSource' | 'outputFormat'> } EvaluateProcessorOptions
+ *   Compile configuration without JSX options for evaluation.
  *
  * @typedef {EvaluateProcessorOptions & RunnerOptions} EvaluateOptions
+ *   Configuration for evaluation.
  */
 
 /**
  * Split compiletime options from runtime options.
  *
- * @param {EvaluateOptions} options
+ * @param {EvaluateOptions | null | undefined} options
  * @returns {{compiletime: ProcessorOptions, runtime: RunnerOptions}}
  */
 export function resolveEvaluateOptions(options) {

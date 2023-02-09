@@ -98,7 +98,6 @@
     "remark-squeeze-paragraphs": "^5.0.0",
     "remark-strip-badges": "^6.0.0",
     "remark-toc": "^8.0.0",
-    "rimraf": "^3.0.0",
     "rodemirror": "^2.0.0",
     "type-coverage": "^2.0.0",
     "typescript": "^4.0.0",
@@ -119,7 +118,6 @@
   "scripts": {
     "postinstall": "patch-package",
     "prepare": "husky install",
-    "clean": "npm exec -c \"rimraf node_modules\" --workspaces",
     "docs-prep": "node --unhandled-rejections=strict website/prep.js && postcss docs/_asset/index.css -o public/index.css",
     "docs-bundle-dev": "cross-env NODE_ENV=development node --unhandled-rejections=strict website/bundle.js",
     "docs-bundle-prod": "cross-env NODE_ENV=production node --unhandled-rejections=strict website/bundle.js",

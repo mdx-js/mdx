@@ -39,8 +39,9 @@
   "types": "index.d.ts",
   "files": [
     "lib/",
-    "index.d.ts",
-    "index.cjs"
+    "index.cjs",
+    "index.d.cts",
+    "index.d.ts"
   ],
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0",
@@ -65,7 +66,7 @@
   },
   "scripts": {
     "prepack": "npm run build",
-    "build": "rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" && tsc && type-coverage",
+    "build": "tsc --build --clean && tsc --build && type-coverage",
     "test-api": "uvu test \"\\.js$\"",
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
     "test": "npm run build && npm run test-coverage"

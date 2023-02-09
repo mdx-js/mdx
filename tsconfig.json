@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es2021",
-    "lib": ["es2021"],
-    "module": "node16",
     "checkJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2021"],
+    "module": "node16",
+    "newLine": "lf",
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "target": "es2021"
   }
 }

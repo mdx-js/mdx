@@ -1,5 +1,4 @@
 /**
- * @typedef {import('mdx/types.js').MDXComponents} Components
  * @typedef {import('mdx/types.js').MDXContent} MDXContent
  * @typedef {import('mdx/types.js').MDXModule} MDXModule
  * @typedef {import('vue').Component} AnyComponent
@@ -39,7 +38,7 @@ async function evaluate(value) {
 
 /**
  * @param {AnyComponent} root
- * @param {Record<string, unknown>} [rootProps]
+ * @param {Record<string, unknown> | null | undefined} [rootProps]
  * @returns {Promise<string>}
  */
 async function vueToString(root, rootProps) {

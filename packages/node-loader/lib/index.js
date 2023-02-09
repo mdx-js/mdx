@@ -2,13 +2,15 @@
  * @typedef {import('@mdx-js/mdx/lib/compile.js').CompileOptions} CompileOptions
  *
  * @typedef LoaderOptions
- * @property {boolean} [fixRuntimeWithoutExportMap=true]
+ *   Extra configuration.
+ * @property {boolean | null | undefined} [fixRuntimeWithoutExportMap=true]
  *   Several JSX runtimes, notably React below 18 and Emotion below 11.10.0,
  *   don’t yet have a proper export map set up.
  *   Export maps are needed to map `xxx/jsx-runtime` to an actual file in ESM.
  *   This option fixes React et al by turning those into `xxx/jsx-runtime.js`.
  *
  * @typedef {CompileOptions & LoaderOptions} Options
+ *   Configuration.
  */
 
 import fs from 'node:fs/promises'
@@ -20,11 +22,12 @@ import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aw
 /**
  * Create smart processors to handle different formats.
  *
- * @param {Options} [options]
+ * @param {Options | null | undefined} [options]
  */
-export function createLoader(options = {}) {
-  const {extnames, process} = createFormatAwareProcessors(options)
-  let fixRuntimeWithoutExportMap = options.fixRuntimeWithoutExportMap
+export function createLoader(options) {
+  const options_ = options || {}
+  const {extnames, process} = createFormatAwareProcessors(options_)
+  let fixRuntimeWithoutExportMap = options_.fixRuntimeWithoutExportMap
 
   if (
     fixRuntimeWithoutExportMap === null ||

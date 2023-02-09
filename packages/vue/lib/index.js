@@ -4,7 +4,7 @@
 
 import {provide, inject, createVNode, Fragment} from 'vue'
 
-/** @type {import('vue').Component<{components?: Components}>} */
+/** @type {import('vue').Component<{components?: Components | null | undefined}>} */
 export const MDXProvider = {
   name: 'MDXProvider',
   props: {components: {type: Object, default: () => ({})}},

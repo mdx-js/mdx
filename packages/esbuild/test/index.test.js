@@ -1,11 +1,10 @@
 /**
  * @typedef {import('esbuild').BuildFailure} BuildFailure
- * @typedef {import('esbuild').Message} Message
  * @typedef {import('hast').Root} Root
  * @typedef {import('vfile').VFile} VFile
  * @typedef {import('mdx/types.js').MDXContent} MDXContent
  *
- * @typedef {import('remark-mdx')}
+ * @typedef {import('remark-mdx')} DoNotTouchIncludeMathInTree
  */
 
 import {promises as fs} from 'fs'
@@ -251,7 +250,6 @@ test('@mdx-js/esbuild', async () => {
                 assert.ok(text && text.type === 'text')
                 const jsx = head.children[1] // JSX in heading
                 assert.ok(jsx && jsx.type === 'mdxJsxTextElement')
-                console.log(head)
                 file.message('1')
                 file.message('2', eol)
                 file.message('3', tree)

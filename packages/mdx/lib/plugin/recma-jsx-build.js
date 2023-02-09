@@ -1,11 +1,16 @@
 /**
  * @typedef {import('estree-jsx').Program} Program
  * @typedef {import('estree-util-build-jsx').BuildJsxOptions} BuildJsxOptions
- *
- * @typedef RecmaJsxBuildOptions
- * @property {'program'|'function-body'} [outputFormat='program']
+ */
+
+/**
+ * @typedef ExtraOptions
+ *   Configuration for internal plugin `recma-jsx-build`.
+ * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
  *   Whether to keep the import of the automatic runtime or get it from
  *   `arguments[0]` instead.
+ *
+ * @typedef {BuildJsxOptions & ExtraOptions} RecmaJsxBuildOptions
  */
 
 import {buildJsx} from 'estree-util-build-jsx'
@@ -16,10 +21,12 @@ import {toIdOrMemberExpression} from '../util/estree-util-to-id-or-member-expres
  * A plugin to build JSX into function calls.
  * `estree-util-build-jsx` does all the work for us!
  *
- * @type {import('unified').Plugin<[BuildJsxOptions & RecmaJsxBuildOptions?], Program>}
+ * @type {import('unified').Plugin<[RecmaJsxBuildOptions | null | undefined] | [], Program>}
  */
-export function recmaJsxBuild(options = {}) {
-  const {development, outputFormat} = options
+export function recmaJsxBuild(options) {
+  // Always given inside `@mdx-js/mdx`
+  /* c8 ignore next */
+  const {development, outputFormat} = options || {}
 
   return (tree, file) => {
     buildJsx(tree, {development, filePath: file.history[0]})
