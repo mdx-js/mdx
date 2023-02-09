@@ -1,10 +1,11 @@
 /**
+ * @typedef {import('estree-jsx').AssignmentProperty} AssignmentProperty
  * @typedef {import('estree-jsx').ExportSpecifier} ExportSpecifier
  * @typedef {import('estree-jsx').Expression} Expression
  * @typedef {import('estree-jsx').Identifier} Identifier
- * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
  * @typedef {import('estree-jsx').ImportDefaultSpecifier} ImportDefaultSpecifier
  * @typedef {import('estree-jsx').ImportNamespaceSpecifier} ImportNamespaceSpecifier
+ * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
  */
 
@@ -36,13 +37,14 @@ export function specifiersToDeclarations(specifiers, init) {
   }
 
   if (importNamespaceSpecifier) {
-    declarations.push(
-      create(importNamespaceSpecifier, {
-        type: 'VariableDeclarator',
-        id: importNamespaceSpecifier.local,
-        init
-      })
-    )
+    /** @type {VariableDeclarator} */
+    const declarator = {
+      type: 'VariableDeclarator',
+      id: importNamespaceSpecifier.local,
+      init
+    }
+    create(importNamespaceSpecifier, declarator)
+    declarations.push(declarator)
   }
 
   declarations.push({
@@ -65,7 +67,8 @@ export function specifiersToDeclarations(specifiers, init) {
           key = specifier.local
         }
 
-        return create(specifier, {
+        /** @type {AssignmentProperty} */
+        const property = {
           type: 'Property',
           kind: 'init',
           shorthand: key.name === value.name,
@@ -73,7 +76,9 @@ export function specifiersToDeclarations(specifiers, init) {
           computed: false,
           key,
           value
-        })
+        }
+        create(specifier, property)
+        return property
       })
     },
     init: importNamespaceSpecifier
