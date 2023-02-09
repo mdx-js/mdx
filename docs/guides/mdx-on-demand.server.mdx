@@ -28,7 +28,14 @@ On the server:
 ```js path="server.js"
 import {compile} from '@mdx-js/mdx'
 
-const code = String(await compile('# hi', {outputFormat: 'function-body' /* …otherOptions */ }))
+const code = String(await compile('# hi', {
+  outputFormat: 'function-body',
+  development: false
+  // ^-- Generate code for production.
+  // `false` if you use `/jsx-runtime` on client, `true` if you use
+  // `/jsx-dev-runtime`.
+  /* …otherOptions */
+}))
 // To do: send `code` to the client somehow.
 ```
 
@@ -36,7 +43,8 @@ On the client:
 
 ```js path="client.js"
 import {run} from '@mdx-js/mdx'
-import * as runtime from 'react/jsx-runtime'
+import * as runtime from 'react/jsx-runtime' // Production.
+// import * as runtime from 'react/jsx-dev-runtime' // Development.
 
 const code = '' // To do: get `code` from server somehow.
 
@@ -64,7 +72,8 @@ Next.
 
 ```js path="pages/hello.js"
 import {useState, useEffect, Fragment} from 'react'
-import * as runtime from 'react/jsx-runtime'
+import * as runtime from 'react/jsx-runtime' // Production.
+// import * as runtime from 'react/jsx-dev-runtime' // Development.
 import {compile, run} from '@mdx-js/mdx'
 
 export default function Page({code}) {
@@ -82,7 +91,14 @@ export default function Page({code}) {
 
 export async function getStaticProps() {
   const code = String(
-    await compile('# hi', {outputFormat: 'function-body' /* …otherOptions */})
+    await compile('# hi', {
+      outputFormat: 'function-body',
+      development: false,
+      // ^-- Generate code for production.
+      // `false` if you use `/jsx-runtime` on client, `true` if you use
+      // `/jsx-dev-runtime`.
+      /* …otherOptions */
+    })
   )
   return {props: {code}}
 }
