@@ -193,7 +193,7 @@ You can also import several types about the API of MDX files from `@types/mdx`.
 For example:
 
 ```js path="example.ts"
-import type {MDXComponents} from 'mdx/types'
+import type {MDXComponents} from 'mdx/types.js'
 ```
 
 ### Security
@@ -514,31 +514,40 @@ Which in turn lets us choose whether to use the `@mdx-js/mdx` or
 
 #### Astro
 
-[Astro](https://astro.build/) has an [official MDX integration](https://docs.astro.build/guides/integrations-guide/mdx/).
+[Astro](https://astro.build/) has their own MDX integration.
 You can add the integration with the Astro CLI (recommended):
 
 ```sh
 npx astro add mdx
 ```
 
-This base setup allows you to import markdown, Astro components,
-and other MDX files as components.  To use
-other UI framework components in your MDX files
-(e.g. Preact, Vue, Svelte and more),
-see Astro’s [Framework components](https://docs.astro.build/en/core-concepts/framework-components/) guide.
+This base setup allows you to import markdown, Astro components, and other MDX
+files as components.
+To use components from frameworks in your MDX files, see Astro’s
+[Framework components](https://docs.astro.build/core-concepts/framework-components/)
+guide.
 
-To learn how to configure layouts, YAML frontmatter, and set up Astro’s
-syntax highlighting, [see their MDX
+For more on how to combine Astro and MDX, see [their MDX
 integration docs](https://docs.astro.build/guides/integrations-guide/mdx/).
 
 #### Create React App (CRA)
 
 <Note type="info">
-  **Note**: rewiring with CRACO (see below) is currently required for CRA 5,
-  due to a bug in `react-scripts`
+  **Note**: it’s currently probably not a good idea to use CRA.
+</Note>
+
+<Note type="info">
+  **Note**: rewiring with CRACO is currently required for CRA 5, due to a bug
+  in `react-scripts`
   ([`facebook/create-react-app#12166`](https://github.com/facebook/create-react-app/issues/12166)),
   which is also tracked at
   [`mdx-js/mdx#1870`](https://github.com/mdx-js/mdx/discussions/1870).
+</Note>
+
+<Note type="info">
+  **Note**: warnings about CRACO having
+  `incorrect peer dependency "react-scripts@^4.0.0"`
+  can currently be ignored.
 </Note>
 
 <details>
@@ -559,11 +568,6 @@ integration docs](https://docs.astro.build/guides/integrations-guide/mdx/).
   }
   ```
 </details>
-
-[CRA](https://github.com/facebook/create-react-app) supports webpack loaders
-through webpack loader syntax in imports.
-
-Install the webpack loader [`@mdx-js/loader`][mdx-loader].
 
 <details>
   <summary>Expand CRACO example</summary>
@@ -593,15 +597,14 @@ Install the webpack loader [`@mdx-js/loader`][mdx-loader].
   ```
 </details>
 
+[CRA](https://github.com/facebook/create-react-app) supports webpack loaders
+through webpack loader syntax in imports.
+
+Install the webpack loader [`@mdx-js/loader`][mdx-loader].
+
 For importing MDX without the `!@mdx-js/loader!` prefix, you can add
 the loader to the webpack config, by rewiring `react-scripts` using
 [CRACO](http://github.com/gsoft-inc/craco).
-
-<Note type="info">
-  **Note**: warnings about CRACO having
-  `incorrect peer dependency "react-scripts@^4.0.0"`
-  can be ignored for the above to work.
-</Note>
 
 See also [¶ Webpack][webpack], which is used in CRA, and see [¶ React][react],
 which you’re likely using, for more info.
@@ -624,15 +627,15 @@ on how to use MDX with Gatsby.
   <summary>Expand example</summary>
 
   ```js path="next.config.js"
-  import nextMDX from '@next/mdx'
+  import nextMdx from '@next/mdx'
 
-  const withMDX = nextMDX({
+  const withMdx = nextMdx({
     // By default only the .mdx extension is supported.
     extension: /\.mdx?$/,
     options: {/* providerImportSource: …, otherOptions… */}
   })
 
-  export default withMDX({
+  export default withMdx({
     // Support MDX files as pages:
     pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
   })
@@ -649,18 +652,18 @@ In order to use it, you need to configure the `providerImportSource` as
 well.
 
 <details>
-  <summary>Expand example</summary>
+  <summary>Expand provider example</summary>
 
   ```js path="next.config.js"
-  import nextMDX from '@next/mdx'
+  import nextMdx from '@next/mdx'
 
-  const withMDX = nextMDX({
+  const withMdx = nextMdx({
     // By default only the .mdx extension is supported.
     extension: /\.mdx?$/,
     options: {providerImportSource: '@mdx-js/react',  /* otherOptions… */}
   })
 
-  export default withMDX({
+  export default withMdx({
     // Support MDX files as pages:
     pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
   })
