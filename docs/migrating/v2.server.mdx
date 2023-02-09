@@ -387,7 +387,7 @@ You can update your code as follows:
 
     const components = {/* … */}
     const value = '# hi'
-    const {default: Content} = await evaluate(value, {...provider, ...runtime})
+    const {default: Content} = await evaluate(value, {...provider, ...runtime, development: false})
 
     export default () => (
       <Content components={components} />

@@ -112,7 +112,8 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-ReactDom.render(<Example />, document.querySelector('#root'))
+const root = ReactDom.createRoot(document.getElementById('root'))
+root.render(<Example />)
 ```
 
 The main content is exported as the default export.
@@ -290,7 +291,9 @@ precedence).
 
 ## MDX provider
 
+You probably don’t need a provider.
 Passing components is typically fine.
+Providers often only add extra weight.
 Take for example this file:
 
 ```mdx path="post.mdx"
@@ -311,11 +314,11 @@ const components = {
   table: Table
 }
 
-ReactDom.render(
-  <Post components={components} />,
-  document.querySelector('#root')
-)
+const root = ReactDom.createRoot(document.getElementById('root'))
+root.render(<Post components={components} />)
 ```
+
+That works, those components are used.
 
 But when you’re nesting MDX files (importing them into each other) it can become
 cumbersome.
@@ -363,13 +366,13 @@ Set it up like so:
    table: Table
  }
 
- ReactDom.render(
--  <Post components={components} />,
+ const root = ReactDom.createRoot(document.getElementById('root'))
+-root.render(<Post components={components} />)
++root.render(
 +  <MDXProvider components={components}>
 +    <Post />
-+  </MDXProvider>,
-   document.querySelector('#root')
- )
++  </MDXProvider>
++)
 ```
 
 Now you can remove the explicit and verbose component passing:
@@ -422,6 +425,9 @@ In this example the current context components are discarded:
 
 …which results in `h2`s using `Component3` and `h3`s using `Component4`.
 No component is used for `h1`.
+
+If you’re not nesting MDX files, or not nesting them often, don’t use
+providers: pass components explicitly.
 
 [context]: https://reactjs.org/docs/context.html
 
