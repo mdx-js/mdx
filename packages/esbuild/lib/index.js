@@ -225,7 +225,7 @@ export function esbuild(options = {}) {
       // V8 on Erbium.
       /* c8 ignore next 9 */
       return {
-        contents: value,
+        contents: value || '',
         errors,
         warnings,
         resolveDir: http.test(file.path)

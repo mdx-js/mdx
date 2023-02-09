@@ -2,6 +2,7 @@
  * @typedef {import('@rollup/pluginutils').FilterPattern} FilterPattern
  * @typedef {Omit<import('@mdx-js/mdx').CompileOptions, 'SourceMapGenerator'>} CompileOptions
  * @typedef {import('rollup').Plugin} Plugin
+ * @typedef {import('rollup').SourceDescription} SourceDescription
  *
  * @typedef RollupPluginOptions
  * @property {FilterPattern} [include]
@@ -42,7 +43,11 @@ export function rollup(options = {}) {
         extnames.includes(file.extname)
       ) {
         const compiled = await process(file)
-        return {code: String(compiled.value), map: compiled.map}
+        const code = String(compiled.value)
+        /** @type {SourceDescription} */
+        // @ts-expect-error: a) `undefined` is fine, b) `sourceRoot: undefined` is fine too.
+        const result = {code, map: compiled.map}
+        return result
         // V8 on Erbium.
         /* c8 ignore next 2 */
       }
