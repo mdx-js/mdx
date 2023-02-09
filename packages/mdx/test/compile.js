@@ -1256,7 +1256,7 @@ test('MDX (JSX)', async () => {
     renderToStaticMarkup(
       React.createElement(await run(compileSync('<a>b</a>\t<b>c</b>')))
     ),
-    '<a>b</a>\n\t\n<b>c</b>',
+    '<a>b</a>\n<b>c</b>',
     'should unravel JSX (text) and whitespace as only children'
   )
 
@@ -1361,6 +1361,46 @@ test('MDX (JSX)', async () => {
       )
     ),
     '<i>the sum of one and one is: 2</i>',
+    'should support JSX in expressions'
+  )
+
+  // Important: there should not be whitespace in the `tr`.
+  // This is normally not present, but unraveling makes this a bit more complex.
+  // See: <https://github.com/mdx-js/mdx/issues/2000>.
+  assert.equal(
+    compileSync(`<table>
+  <thead>
+    <tr>
+      <th>a</th>
+      <th>b</th>
+    </tr>
+  </thead>
+</table>`).value,
+    [
+      '/*@jsxRuntime automatic @jsxImportSource react*/',
+      'import {jsx as _jsx, jsxs as _jsxs} from "react/jsx-runtime";',
+      'function _createMdxContent(props) {',
+      '  return _jsx("table", {',
+      '    children: _jsx("thead", {',
+      '      children: _jsxs("tr", {',
+      '        children: [_jsx("th", {',
+      '          children: "a"',
+      '        }), _jsx("th", {',
+      '          children: "b"',
+      '        })]',
+      '      })',
+      '    })',
+      '  });',
+      '}',
+      'function MDXContent(props = {}) {',
+      '  const {wrapper: MDXLayout} = props.components || ({});',
+      '  return MDXLayout ? _jsx(MDXLayout, Object.assign({}, props, {',
+      '    children: _jsx(_createMdxContent, props)',
+      '  })) : _createMdxContent(props);',
+      '}',
+      'export default MDXContent;',
+      ''
+    ].join('\n'),
     'should support JSX in expressions'
   )
 })
