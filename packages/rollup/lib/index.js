@@ -56,8 +56,6 @@ export function rollup(options) {
         // @ts-expect-error: a) `undefined` is fine, b) `sourceRoot: undefined` is fine too.
         const result = {code, map: compiled.map}
         return result
-        // V8 on Erbium.
-        /* c8 ignore next 2 */
       }
     }
   }

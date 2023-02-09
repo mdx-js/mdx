@@ -119,9 +119,7 @@ export function esbuild(options) {
             namespace: 'file',
             pluginData: {contents}
           })
-        : // V8 on Erbium.
-          /* c8 ignore next 2 */
-          {contents, loader: 'js', resolveDir: p.cwd()}
+        : {contents, loader: 'js', resolveDir: p.cwd()}
     }
 
     /**
@@ -226,8 +224,6 @@ export function esbuild(options) {
       // Safety check: the file has a path, so there has to be a `dirname`.
       assert(file.dirname, 'expected `dirname` to be defined')
 
-      // V8 on Erbium.
-      /* c8 ignore next 9 */
       return {
         contents: value || '',
         errors,
