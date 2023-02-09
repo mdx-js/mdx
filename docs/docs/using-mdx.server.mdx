@@ -112,7 +112,8 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-ReactDom.render(<Example />, document.querySelector('#root'))
+const root = ReactDom.createRoot(document.getElementById('root'))
+root.render(<Example />)
 ```
 
 The main content is exported as the default export.
@@ -311,10 +312,8 @@ const components = {
   table: Table
 }
 
-ReactDom.render(
-  <Post components={components} />,
-  document.querySelector('#root')
-)
+const root = ReactDom.createRoot(document.getElementById('root'))
+root.render(<Post components={components} />)
 ```
 
 But when you’re nesting MDX files (importing them into each other) it can become
@@ -363,13 +362,13 @@ Set it up like so:
    table: Table
  }
 
- ReactDom.render(
--  <Post components={components} />,
+ const root = ReactDom.createRoot(document.getElementById('root'))
+-root.render(<Post components={components} />)
++root.render(
 +  <MDXProvider components={components}>
 +    <Post />
-+  </MDXProvider>,
-   document.querySelector('#root')
- )
++  </MDXProvider>
++)
 ```
 
 Now you can remove the explicit and verbose component passing:
