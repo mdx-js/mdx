@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: ${{matrix.node}}
           cache: npm
-      - run: npm install
+      - run: npm ci
       - run: npm run test-api
     strategy:
       matrix:
@@ -41,6 +41,6 @@ jobs:
         with:
           node-version: node
           cache: npm
-      - run: npm install
+      - run: npm ci
       - run: npm test
       - uses: codecov/codecov-action@v3
