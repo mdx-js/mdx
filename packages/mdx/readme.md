@@ -130,7 +130,7 @@ MDX document to parse (`string`, [`Buffer`][buffer] in UTF-8, [`vfile`][vfile],
 or anything that can be given to `vfile`).
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 ```js
 import {VFile} from 'vfile'
@@ -149,7 +149,7 @@ await compile(new VFile({path: 'path/to/file.mdx', value: '🤭'}))
 List of [remark plugins][remark-plugins], presets, and pairs.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 ```js
 import remarkFrontmatter from 'remark-frontmatter' // YAML and such.
@@ -168,7 +168,7 @@ await compile(file, {remarkPlugins: [[remarkGfm, {singleTilde: false}], remarkFr
 List of [rehype plugins][rehype-plugins], presets, and pairs.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 ```js
 import rehypeKatex from 'rehype-katex' // Render math with KaTeX.
@@ -200,7 +200,7 @@ In particular, you might want to pass `clobberPrefix`, `footnoteLabel`, and
 `footnoteBackLabel`.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 ```js
 compile({value: '…'}, {remarkRehypeOptions: {clobberPrefix: 'comment-1'}})
@@ -233,7 +233,7 @@ The format cannot be detected if a file is passed without a path or extension:
 So pass a full vfile (with `path`) or an object with a path.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 ```js
 compile({value: '…'}) // Seen as MDX
@@ -256,7 +256,7 @@ because in those it affects *which* files are “registered”:
 
 ###### `options.outputFormat`
 
-Output format to generate (`'program' | 'function-body'`, default: `'program'`).
+Output format to generate (`'function-body' | 'program'`, default: `'program'`).
 In most cases `'program'` should be used, as it results in a whole program.
 Internally, [`evaluate`][eval] uses `outputFormat: 'function-body'` to compile
 to code that can be `eval`ed with [`run`][run].
@@ -275,7 +275,7 @@ statements, but you can support them by setting
 [`options.useDynamicImport`][usedynamicimport].
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 A module `example.js`:
 
@@ -322,7 +322,7 @@ JavaScript modules, whereas `import()` is available inside function bodies.
 When you turn `useDynamicImport` on, you should probably set [`options.baseUrl`][baseurl] too.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 Say we have a couple modules:
 
@@ -371,7 +371,7 @@ imports should run relative the path *b*.
 Another example is when evaluating code, whether in Node or a browser.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 Say we have a module `example.js`:
 
@@ -406,7 +406,7 @@ The default can be set to `true` in Node.js through environment variables: set
 `NODE_ENV=development`.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 Say we had some MDX that references a component that can be passed or provided
 at runtime:
@@ -476,7 +476,7 @@ When given, the resulting file will have a `map` field set to a source map (in
 object form).
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 Assuming `example.mdx` from [§ Use][use] exists, then:
 
@@ -515,7 +515,7 @@ The provider must export a `useMDXComponents`, which is called to access an
 object of components.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
@@ -556,7 +556,7 @@ The default is to compile JSX away so that the resulting file is immediately
 runnable.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
@@ -598,7 +598,7 @@ The classic runtime compiles to calls such as `h('p')`, the automatic runtime
 compiles to `import _jsx from '$importSource/jsx-runtime'\n_jsx('p')`.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
@@ -625,10 +625,10 @@ compile(file, {jsxRuntime: 'classic'})
 
 Place to import automatic JSX runtimes from (`string?`, default: `'react'`).
 When in the `automatic` runtime, this is used to define an import for
-`_Fragment`, `_jsx`, and `_jsxs`.
+`Fragment`, `jsx`, `jsxs`, and `jsxDEV`.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
@@ -657,7 +657,7 @@ You should most probably define `pragmaFrag` and `pragmaImportSource` too when
 changing this.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
@@ -707,7 +707,7 @@ See `options.pragma` for an example.
 `Promise<VFile>` — Promise that resolves to the compiled JS as a [vfile][].
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 ```js
 import remarkPresetLintConsistent from 'remark-preset-lint-consistent' // Lint rules to check for consistent markdown.
@@ -749,6 +749,8 @@ Typically, `import` (or `export … from`) do not work here.
 They can be compiled to dynamic `import()` by passing
 [`options.useDynamicImport`][usedynamicimport].
 
+> ☢️ **Danger**: you likely must set `development: boolean`.
+
 ###### `file`
 
 See [`compile`][compile].
@@ -759,25 +761,33 @@ Most options are the same as [`compile`][compile], with the following
 exceptions:
 
 *   `providerImportSource` is replaced by `useMDXComponents`
-*   `jsx*` and `pragma*` options are replaced by `jsx`, `jsxs`, and `Fragment`
+*   `jsx*` and `pragma*` options are replaced by `Fragment`, `jsx`, `jsxs`, and
+    `jsxDEV`
 *   `outputFormat` is set to `function-body`
 
 ###### `options.jsx`
 
 ###### `options.jsxs`
 
+###### `options.jsxDEV`
+
 ###### `options.Fragment`
 
-These three options are required.
+These options are required: `Fragment` always, when `development: true`
+then `jsx` and `jsxs`, when `development: false` then `jsxDEV`.
 They come from an automatic JSX runtime that you must import yourself.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 ```js
 import * as runtime from 'react/jsx-runtime'
 
-const {default: Content} = await evaluate('# hi', {...runtime, ...otherOptions})
+const {default: Content} = await evaluate('# hi', {
+  ...runtime,
+  ...otherOptions,
+  development: false
+})
 ```
 
 </details>
@@ -787,25 +797,30 @@ const {default: Content} = await evaluate('# hi', {...runtime, ...otherOptions})
 Needed if you want to support a provider.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 ```js
 import * as provider from '@mdx-js/react'
 import * as runtime from 'react/jsx-runtime'
 
-const {default: Content} = await evaluate('# hi', {...provider, ...runtime, ...otherOptions})
+const {default: Content} = await evaluate('# hi', {
+  ...provider,
+  ...runtime,
+  ...otherOptions,
+  development: false
+})
 ```
 
 </details>
 
 ###### Returns
 
-`Promise<OMDXModule>` — Promise that resolves to something that looks a bit like
+`Promise<MDXModule>` — Promise that resolves to something that looks a bit like
 a module: an object with a `default` field set to the component and anything
 else that was exported from the MDX file available too.
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 Assuming the contents of `example.mdx` from [§ Use][use] was in `file`, then:
 
@@ -813,7 +828,7 @@ Assuming the contents of `example.mdx` from [§ Use][use] was in `file`, then:
 import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
 
-console.log(await evaluate(file, {...runtime}))
+console.log(await evaluate(file, {...runtime, development: false}))
 ```
 
 …yields:
@@ -856,8 +871,8 @@ Run MDX compiled as [`options.outputFormat: 'function-body'`][outputformat].
 
 ###### `options`
 
-You can pass `jsx`, `jsxs`, and `Fragment` from an automatic JSX runtime as
-`options`.
+You can pass `Fragment`, `jsx`, `jsxs`, and `jsxDEV`, from an automatic JSX
+runtime as `options`.
 You can also pass `useMDXComponents` from a provider in options if the MDX is
 compiled with `options.providerImportSource: '#'` (the exact value of this
 compile option doesn’t matter).
@@ -868,14 +883,17 @@ All other options have to be passed to `compile` instead.
 `Promise<MDXModule>` — See `evaluate`
 
 <details>
-<summary>Example</summary>
+<summary>Expand example</summary>
 
 On the server:
 
 ```js
 import {compile} from '@mdx-js/mdx'
 
-const code = String(await compile('# hi', {outputFormat: 'function-body'}))
+const code = String(await compile('# hi', {
+  outputFormat: 'function-body',
+  development: false
+}))
 // To do: send `code` to the client somehow.
 ```
 
@@ -934,15 +952,15 @@ what unified does: please read through the [`unifiedjs/unified`][unified] readme
 know about unified: [`core.js#L65`][core].
 The processor goes through these steps:
 
-1.  Parse MDX (serialized markdown with embedded JSX, ESM, and expressions)
+1.  parse MDX (serialized markdown with embedded JSX, ESM, and expressions)
     to mdast (markdown syntax tree)
-2.  Transform through remark (markdown ecosystem)
-3.  Transform mdast to hast (HTML syntax tree)
-4.  Transform through rehype (HTML ecosystem)
-5.  Transform hast to esast (JS syntax tree)
-6.  Do the work needed to get a component
-7.  Transform through recma (JS ecosystem)
-8.  Serialize esast as JavaScript
+2.  transform through remark (markdown ecosystem)
+3.  transform mdast to hast (HTML syntax tree)
+4.  transform through rehype (HTML ecosystem)
+5.  transform hast to esast (JS syntax tree)
+6.  do the work needed to get a component
+7.  transform through recma (JS ecosystem)
+8.  serialize esast as JavaScript
 
 The *input* is MDX (serialized markdown with embedded JSX, ESM, and
 expressions).
