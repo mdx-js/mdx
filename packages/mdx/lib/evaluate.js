@@ -21,8 +21,6 @@ import {resolveEvaluateOptions} from './util/resolve-evaluate-options.js'
  */
 export async function evaluate(vfileCompatible, evaluateOptions) {
   const {compiletime, runtime} = resolveEvaluateOptions(evaluateOptions)
-  // V8 on Erbium.
-  /* c8 ignore next 2 */
   return run(await compile(vfileCompatible, compiletime), runtime)
 }
 

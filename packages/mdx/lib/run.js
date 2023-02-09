@@ -12,8 +12,6 @@ const AsyncFunction = Object.getPrototypeOf(run).constructor
  *   Anthing.
  */
 export async function run(file, options) {
-  // V8 on Erbium.
-  /* c8 ignore next 2 */
   return new AsyncFunction(String(file))(options)
 }
 
