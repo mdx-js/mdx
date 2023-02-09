@@ -2,6 +2,7 @@
  * @typedef {import('remark-rehype').Options} RemarkRehypeOptions
  * @typedef {import('unified').PluggableList} PluggableList
  * @typedef {import('unified').Processor} Processor
+ * @typedef {import('./plugin/rehype-recma.js').Options} RehypeRecmaOptions
  * @typedef {import('./plugin/recma-document.js').RecmaDocumentOptions} RecmaDocumentOptions
  * @typedef {import('./plugin/recma-stringify.js').RecmaStringifyOptions} RecmaStringifyOptions
  * @typedef {import('./plugin/recma-jsx-rewrite.js').RecmaJsxRewriteOptions} RecmaJsxRewriteOptions
@@ -29,7 +30,7 @@
  * @property {RemarkRehypeOptions | null | undefined} [remarkRehypeOptions]
  *   Options to pass through to `remark-rehype`.
  *
- * @typedef {Omit<RecmaDocumentOptions & RecmaStringifyOptions & RecmaJsxRewriteOptions, 'outputFormat'>} PluginOptions
+ * @typedef {Omit<RehypeRecmaOptions & RecmaDocumentOptions & RecmaStringifyOptions & RecmaJsxRewriteOptions, 'outputFormat'>} PluginOptions
  *   Configuration for internal plugins.
  *
  * @typedef {BaseProcessorOptions & PluginOptions} ProcessorOptions
@@ -82,6 +83,8 @@ export function createProcessor(options) {
     rehypePlugins,
     remarkPlugins,
     remarkRehypeOptions,
+    elementAttributeNameCase,
+    stylePropertyNameCase,
     SourceMapGenerator,
     ...rest
   } = options || {}
@@ -136,7 +139,7 @@ export function createProcessor(options) {
   }
 
   pipeline
-    .use(rehypeRecma)
+    .use(rehypeRecma, {elementAttributeNameCase, stylePropertyNameCase})
     .use(recmaDocument, {...rest, outputFormat})
     .use(recmaJsxRewrite, {
       development: dev,

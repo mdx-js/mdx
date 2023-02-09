@@ -943,6 +943,60 @@ test('jsx', async () => {
     /a & b &#123; c &lt; d/,
     'should serialize `<` and `{` in JSX text'
   )
+
+  assert.match(
+    String(
+      compileSync('', {
+        rehypePlugins: [
+          /** @type {import('unified').Plugin<[], import('hast').Root>} */
+          function () {
+            return function (tree) {
+              tree.children.push({
+                type: 'element',
+                tagName: 'a',
+                properties: {
+                  className: 'b',
+                  style: '-webkit-box-shadow: 0 0 1px 0 red'
+                },
+                children: []
+              })
+            }
+          }
+        ],
+        jsx: true
+      })
+    ),
+    /className="b"/,
+    'should use React props and DOM styles by default'
+  )
+
+  assert.match(
+    String(
+      compileSync('', {
+        rehypePlugins: [
+          /** @type {import('unified').Plugin<[], import('hast').Root>} */
+          function () {
+            return function (tree) {
+              tree.children.push({
+                type: 'element',
+                tagName: 'a',
+                properties: {
+                  className: 'b',
+                  style: '-webkit-box-shadow: 0 0 1px 0 red'
+                },
+                children: []
+              })
+            }
+          }
+        ],
+        elementAttributeNameCase: 'html',
+        stylePropertyNameCase: 'css',
+        jsx: true
+      })
+    ),
+    /class="b"/,
+    'should support `elementAttributeNameCase` and `stylePropertyNameCase`'
+  )
 })
 
 test('markdown (CM)', async () => {

@@ -702,6 +702,22 @@ is `'c'` this following will be generated: `import a from 'c'`.
 
 See `options.pragma` for an example.
 
+###### `options.elementAttributeNameCase`
+
+Specify casing to use for attribute names (`'html' | 'react`, default:
+`'react'`).
+
+This casing is used for hast elements, not for embedded MDX JSX nodes
+(components that someone authored manually).
+
+###### `options.stylePropertyNameCase`
+
+Specify casing to use for property names in `style` objects (`'css' | 'dom`,
+default: `'dom'`).
+
+This casing is used for hast elements, not for embedded MDX JSX nodes
+(components that someone authored manually).
+
 ###### Returns
 
 `Promise<VFile>` — Promise that resolves to the compiled JS as a [vfile][].
