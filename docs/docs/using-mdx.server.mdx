@@ -291,7 +291,9 @@ precedence).
 
 ## MDX provider
 
+You probably don’t need a provider.
 Passing components is typically fine.
+Providers often only add extra weight.
 Take for example this file:
 
 ```mdx path="post.mdx"
@@ -315,6 +317,8 @@ const components = {
 const root = ReactDom.createRoot(document.getElementById('root'))
 root.render(<Post components={components} />)
 ```
+
+That works, those components are used.
 
 But when you’re nesting MDX files (importing them into each other) it can become
 cumbersome.
@@ -421,6 +425,9 @@ In this example the current context components are discarded:
 
 …which results in `h2`s using `Component3` and `h3`s using `Component4`.
 No component is used for `h1`.
+
+If you’re not nesting MDX files, or not nesting them often, don’t use
+providers: pass components explicitly.
 
 [context]: https://reactjs.org/docs/context.html
 
