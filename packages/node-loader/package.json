@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/node-loader",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Experimental Node loader for MDX",
   "license": "MIT",
   "keywords": [
