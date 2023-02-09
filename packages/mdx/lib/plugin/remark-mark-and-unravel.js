@@ -1,4 +1,5 @@
 /**
+ * @typedef {import('mdast').Content} Content
  * @typedef {import('mdast').Root} Root
  *
  * @typedef {import('remark-mdx')} DoNotTouchAsThisImportItIncludesMdxInTree
@@ -47,6 +48,9 @@ export function remarkMarkAndUnravel() {
         if (all && oneOrMore) {
           offset = -1
 
+          /** @type {Array<Content>} */
+          const newChildren = []
+
           while (++offset < children.length) {
             const child = children[offset]
 
@@ -59,9 +63,18 @@ export function remarkMarkAndUnravel() {
               // @ts-expect-error: content model is fine.
               child.type = 'mdxFlowExpression'
             }
+
+            if (
+              child.type === 'text' &&
+              /^[\t\r\n ]+$/.test(String(child.value))
+            ) {
+              // Empty.
+            } else {
+              newChildren.push(child)
+            }
           }
 
-          parent.children.splice(index, 1, ...children)
+          parent.children.splice(index, 1, ...newChildren)
           return index
         }
       }
