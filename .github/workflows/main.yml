@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: ${{matrix.node}}
           cache: npm
-      - run: npm install -g npm && npm install
+      - run: npm ci
       - run: npm run test-api
     strategy:
       matrix:
@@ -24,10 +24,10 @@ jobs:
           - macos-latest
           - windows-latest
         node:
-          - '*'
+          - node
         include:
           - os: ubuntu-latest
-            node: lts/fermium
+            node: lts/gallium
   full:
     name: full build
     runs-on: ubuntu-latest
@@ -39,8 +39,8 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: '*'
+          node-version: node
           cache: npm
-      - run: npm install -g npm && npm install
+      - run: npm ci
       - run: npm test
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
