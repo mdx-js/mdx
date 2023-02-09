@@ -4,7 +4,7 @@
  *
  * @typedef Props
  *   Configuration.
- * @property {Components | null | undefined} [components]
+ * @property {Components | MergeComponents | null | undefined} [components]
  *   Mapping of names for JSX components to Preact components.
  * @property {boolean | null | undefined} [disableParentContext=false]
  *   Turn off outer component context.
@@ -86,10 +86,16 @@ const emptyObject = {}
  * @returns {JSX.Element}
  */
 export function MDXProvider({components, children, disableParentContext}) {
-  let allComponents = useMDXComponents(components)
+  /** @type {Components} */
+  let allComponents
 
   if (disableParentContext) {
-    allComponents = components || emptyObject
+    allComponents =
+      typeof components === 'function'
+        ? components({})
+        : components || emptyObject
+  } else {
+    allComponents = useMDXComponents(components)
   }
 
   return h(
