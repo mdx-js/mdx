@@ -46,7 +46,9 @@
     "index.js"
   ],
   "dependencies": {
+    "@types/estree": "^1.0.0",
     "@types/estree-jsx": "^1.0.0",
+    "@types/hast": "^2.0.0",
     "@types/mdx": "^2.0.0",
     "estree-util-build-jsx": "^2.0.0",
     "estree-util-is-identifier-name": "^2.0.0",
@@ -58,6 +60,7 @@
     "remark-mdx": "^2.0.0",
     "remark-parse": "^10.0.0",
     "remark-rehype": "^10.0.0",
+    "source-map": "^0.7.0",
     "unified": "^10.0.0",
     "unist-util-position-from-estree": "^1.0.0",
     "unist-util-stringify-position": "^3.0.0",
@@ -77,7 +80,6 @@
     "remark-frontmatter": "^4.0.0",
     "remark-gfm": "^3.0.0",
     "remark-math": "^5.0.0",
-    "source-map": "^0.7.0",
     "source-map-support": "^0.5.0",
     "unist-util-remove-position": "^4.0.0"
   },
