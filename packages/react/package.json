@@ -41,11 +41,16 @@
     "index.js"
   ],
   "dependencies": {
-    "@types/mdx": "^2.0.0",
-    "@types/react": ">=16"
+    "@types/mdx": "^2.0.0"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+    "@types/react": ">=16"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@mdx-js/mdx": "^2.0.0",
