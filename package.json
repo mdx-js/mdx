@@ -40,7 +40,7 @@
     "chrome-aws-lambda": "^10.1.0",
     "codemirror": "^6.0.0",
     "cross-env": "^7.0.0",
-    "cssnano": "^5.0.0",
+    "cssnano": "^6.0.0",
     "dlv": "^1.0.0",
     "esbuild": "^0.17.0",
     "eslint-config-xo-react": "^0.27.0",
