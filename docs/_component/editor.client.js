@@ -8,6 +8,7 @@ import {reporter} from 'vfile-reporter'
 import {evaluate} from '@mdx-js/mdx'
 import remarkGfm from 'remark-gfm'
 import remarkFrontmatter from 'remark-frontmatter'
+import remarkDirective from 'remark-directive'
 import remarkMath from 'remark-math'
 import CodeMirror from 'rodemirror'
 import {basicSetup} from 'codemirror'
@@ -29,7 +30,8 @@ function useMdx(defaults) {
   const [state, setState] = useState({...defaults, file: null})
   const {run: setConfig} = useDebounceFn(
     async (config) => {
-      const file = new VFile({basename: 'example.mdx', value: config.value})
+      const basename = config.formatMd ? 'example.md' : 'example.mdx'
+      const file = new VFile({basename, value: config.value})
 
       const capture = (name) => () => (tree) => {
         file.data[name] = tree
@@ -40,6 +42,7 @@ function useMdx(defaults) {
       if (config.gfm) remarkPlugins.push(remarkGfm)
       if (config.frontmatter) remarkPlugins.push(remarkFrontmatter)
       if (config.math) remarkPlugins.push(remarkMath)
+      if (config.directive) remarkPlugins.push(remarkDirective)
 
       remarkPlugins.push(capture('mdast'))
 
@@ -104,8 +107,10 @@ export function Editor({children}) {
   const defaultValue = children
   const extensions = useMemo(() => [basicSetup, oneDark, langMarkdown()], [])
   const [state, setConfig] = useMdx({
+    formatMd: false,
     gfm: false,
     frontmatter: false,
+    directive: false,
     math: false,
     value: defaultValue
   })
@@ -196,6 +201,33 @@ export function Editor({children}) {
               Use{' '}
               <a href="https://github.com/remarkjs/remark-math/tree/main/packages/remark-math">
                 <code>remark-math</code>
+              </a>
+            </label>
+            <label>
+              <input
+                checked={state.directive}
+                type="checkbox"
+                onChange={() =>
+                  setConfig({...state, directive: !state.directive})
+                }
+              />{' '}
+              Use{' '}
+              <a href="https://github.com/remarkjs/remark-directive">
+                <code>remark-directive</code>
+              </a>
+            </label>
+            <hr />
+            <label>
+              <input
+                checked={state.formatMd}
+                type="checkbox"
+                onChange={() =>
+                  setConfig({...state, formatMd: !state.formatMd})
+                }
+              />{' '}
+              Use{' '}
+              <a href="https://mdxjs.com/packages/mdx/#optionsformat">
+                <code>format: &apos;md&apos;</code>
               </a>
             </label>
           </form>
