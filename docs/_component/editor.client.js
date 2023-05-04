@@ -146,7 +146,7 @@ export function Editor({children}) {
           </Tab>
         </TabList>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             <noscript>
               <pre>
                 <code className="hljs language-md">
@@ -161,8 +161,8 @@ export function Editor({children}) {
             />
           </div>
         </TabPanel>
-        <TabPanel>
-          <form className="frame-body frame-body-box frame-body-box-fixed-height">
+        <TabPanel className="tab-panel-scrollable">
+          <form className="frame-body frame-body-box">
             <label>
               <input
                 checked={state.gfm}
@@ -238,16 +238,16 @@ export function Editor({children}) {
           })}
         </TabList>
 
-        <TabPanel>
+        <TabPanel className="tab-panel-scrollable">
           <noscript>Enable JavaScript for the rendered result.</noscript>
-          <div className="frame-body frame-body-box-fixed-height frame-body-box">
+          <div className="frame-body frame-body-box">
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               {state.file && state.file.result ? <Preview /> : null}
             </ErrorBoundary>
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             {state.file ? (
               stats.fatal ? (
                 <pre>
@@ -267,7 +267,7 @@ export function Editor({children}) {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             {state.file && state.file.data.mdast ? (
               <pre>
                 <code className="hljs language-js">
@@ -284,7 +284,7 @@ export function Editor({children}) {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             {state.file && state.file.data.hast ? (
               <pre>
                 <code className="hljs language-js">
@@ -301,7 +301,7 @@ export function Editor({children}) {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             {state.file && state.file.data.esast ? (
               <pre>
                 <code className="hljs language-js">

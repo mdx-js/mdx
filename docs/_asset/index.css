@@ -301,11 +301,6 @@ pre code,
   background-color: #fafafa !important; /* Color from one-light */
 }
 
-.frame-body-box-fixed-height {
-  height: 20rem;
-  overflow-y: auto;
-}
-
 .frame-body-box {
   padding: calc(1em + 1ex);
 }
@@ -762,10 +757,21 @@ button.success {
   mask-image: paint(squircle);
   --squircle-radius: 10px;
   border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  min-height: 10rem;
+  height: 24rem;
+  resize: vertical;
 }
 
 .frame-tab-bar {
+  flex-shrink: 0;
   display: flex;
+  flex-direction: row;
+  align-items: stretch;
   margin-block-start: calc(1em + 1ex);
   list-style-type: none;
   margin: 0;
@@ -776,10 +782,6 @@ button.success {
 .frame-tab-bar-scroll {
   overflow-x: auto;
   overflow-y: hidden;
-  flex: 1;
-  flex-direction: row;
-  align-items: stretch;
-  flex-grow: 1;
   mask-image: linear-gradient(
     to right,
     hsl(0deg 0% 100% / 30%),
@@ -789,9 +791,52 @@ button.success {
   );
 }
 
+.react-tabs__tab-panel {
+}
+
+.react-tabs__tab-panel--selected {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Preview / Options */
+.react-tabs__tab-panel--selected.tab-panel-scrollable {
+  overflow: auto;
+}
+
 .frame-body {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+
+.react-tabs__tab-panel--selected > .frame-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.react-tabs__tab-panel--selected:not(.tab-panel-scrollable) > .frame-body {
+  overflow: hidden;
+}
+
+.frame-body > div,
+.frame-body > pre {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.frame-body > div > div.cm-editor {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.frame-body > pre > code {
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .frame-tab-bar + pre {
@@ -921,11 +966,6 @@ button.success {
   font-family: var(--mono);
   font-feature-settings: normal;
   font-size: 1rem;
-}
-
-.ͼ1 .cm-scroller,
-.ͼ1 .cm-content {
-  min-height: 20rem;
 }
 
 .ͼo {
