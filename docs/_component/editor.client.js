@@ -10,6 +10,7 @@ import remarkGfm from 'remark-gfm'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkDirective from 'remark-directive'
 import remarkMath from 'remark-math'
+import {removePosition} from 'unist-util-remove-position'
 import CodeMirror from 'rodemirror'
 import {basicSetup} from 'codemirror'
 import {markdown as langMarkdown} from '@codemirror/lang-markdown'
@@ -56,6 +57,12 @@ function useMdx(defaults) {
             recmaPlugins: [capture('esast')]
           })
         ).default
+
+        if (!config.position) {
+          removePosition(file.data.mdast, {force: true})
+          removePosition(file.data.hast, {force: true})
+          removePosition(file.data.esast, {force: true})
+        }
       } catch (error) {
         const message =
           error instanceof VFileMessage ? error : new VFileMessage(error)
@@ -108,6 +115,7 @@ export function Editor({children}) {
   const extensions = useMemo(() => [basicSetup, oneDark, langMarkdown()], [])
   const [state, setConfig] = useMdx({
     formatMd: false,
+    position: false,
     gfm: false,
     frontmatter: false,
     directive: false,
@@ -228,6 +236,19 @@ export function Editor({children}) {
               Use{' '}
               <a href="https://mdxjs.com/packages/mdx/#optionsformat">
                 <code>format: &apos;md&apos;</code>
+              </a>
+            </label>
+            <label>
+              <input
+                checked={state.position}
+                type="checkbox"
+                onChange={() =>
+                  setConfig({...state, position: !state.position})
+                }
+              />{' '}
+              Use{' '}
+              <a href="https://github.com/syntax-tree/unist#position">
+                <code>position</code>
               </a>
             </label>
           </form>
