@@ -59,7 +59,7 @@
     "lint-staged": "^13.0.0",
     "lowlight": "^2.0.0",
     "p-all": "^4.0.0",
-    "patch-package": "^6.0.0",
+    "patch-package": "^7.0.0",
     "periscopic": "^3.0.0",
     "postcss": "^8.0.0",
     "postcss-cli": "^10.0.0",
