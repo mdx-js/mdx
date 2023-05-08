@@ -50,7 +50,7 @@
   "devDependencies": {
     "@mdx-js/mdx": "^2.0.0",
     "preact": "^10.0.0",
-    "preact-render-to-string": "^5.0.0"
+    "preact-render-to-string": "^6.0.0"
   },
   "scripts": {
     "prepack": "npm run build",
