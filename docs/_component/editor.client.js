@@ -142,7 +142,7 @@ export function Editor({children}) {
   }, [state])
 
   return (
-    <div>
+    <div className="playground-editor">
       <Tabs className="frame">
         <TabList className="frame-tab-bar frame-tab-bar-scroll">
           <Tab
@@ -176,6 +176,41 @@ export function Editor({children}) {
         </TabPanel>
         <TabPanel>
           <form className="frame-body frame-body-box frame-body-box-fixed-height">
+            <fieldset>
+              <label>
+                <input
+                  type="radio"
+                  name="language"
+                  checked={!state.formatMd}
+                  onChange={() => {
+                    setConfig({...state, formatMd: false})
+                  }}
+                />{' '}
+                Use <code>MDX</code>
+              </label>
+              <span style={{margin: '1em'}}>{' | '}</span>
+              <label>
+                <input
+                  type="radio"
+                  name="language"
+                  checked={state.formatMd}
+                  onChange={() => {
+                    setConfig({...state, formatMd: true})
+                  }}
+                />{' '}
+                Use <code>CommonMark</code>
+              </label>
+            </fieldset>
+            <label>
+              <input
+                checked={state.position}
+                type="checkbox"
+                onChange={() =>
+                  setConfig({...state, position: !state.position})
+                }
+              />{' '}
+              Show positional info
+            </label>
             <label>
               <input
                 checked={state.gfm}
@@ -223,30 +258,6 @@ export function Editor({children}) {
               <a href="https://github.com/remarkjs/remark-directive">
                 <code>remark-directive</code>
               </a>
-            </label>
-            <hr />
-            <label>
-              <input
-                checked={state.formatMd}
-                type="checkbox"
-                onChange={() =>
-                  setConfig({...state, formatMd: !state.formatMd})
-                }
-              />{' '}
-              Use{' '}
-              <a href="https://mdxjs.com/packages/mdx/#optionsformat">
-                <code>format: &apos;md&apos;</code>
-              </a>
-            </label>
-            <label>
-              <input
-                checked={state.position}
-                type="checkbox"
-                onChange={() =>
-                  setConfig({...state, position: !state.position})
-                }
-              />{' '}
-              Show positional info
             </label>
           </form>
         </TabPanel>
