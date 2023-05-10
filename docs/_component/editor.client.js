@@ -10,6 +10,7 @@ import remarkGfm from 'remark-gfm'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkDirective from 'remark-directive'
 import remarkMath from 'remark-math'
+import {visit as visitEstree} from 'estree-util-visit'
 import {removePosition} from 'unist-util-remove-position'
 import CodeMirror from 'rodemirror'
 import {basicSetup} from 'codemirror'
@@ -22,7 +23,6 @@ import {lowlight} from 'lowlight/lib/core.js'
 import javascript from 'highlight.js/lib/languages/javascript'
 import json from 'highlight.js/lib/languages/json'
 import markdown from 'highlight.js/lib/languages/markdown'
-import {visit as visitEstree} from 'estree-util-visit'
 
 lowlight.registerLanguage('js', javascript)
 lowlight.registerLanguage('json', json)
