@@ -246,10 +246,7 @@ export function Editor({children}) {
                   setConfig({...state, position: !state.position})
                 }
               />{' '}
-              Use{' '}
-              <a href="https://github.com/syntax-tree/unist#position">
-                <code>position</code>
-              </a>
+              Show positional info
             </label>
           </form>
         </TabPanel>
