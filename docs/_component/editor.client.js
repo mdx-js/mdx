@@ -130,7 +130,7 @@ export function Editor({children}) {
 
   return (
     <div>
-      <Tabs className="frame">
+      <Tabs className="frame frame-resizeable">
         <TabList className="frame-tab-bar frame-tab-bar-scroll">
           <Tab
             className="frame-tab-item frame-tab-item-dark"
@@ -161,7 +161,7 @@ export function Editor({children}) {
             />
           </div>
         </TabPanel>
-        <TabPanel className="tab-panel-scrollable">
+        <TabPanel className="tab-panel-scrollable playground-editor-options-tab-panel">
           <form className="frame-body frame-body-box">
             <label>
               <input
@@ -202,7 +202,7 @@ export function Editor({children}) {
         </TabPanel>
       </Tabs>
 
-      <Tabs className="frame">
+      <Tabs className="frame frame-resizeable">
         <TabList className="frame-tab-bar frame-tab-bar-scroll">
           {[
             'Run',

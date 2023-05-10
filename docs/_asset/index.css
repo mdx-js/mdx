@@ -757,7 +757,9 @@ button.success {
   mask-image: paint(squircle);
   --squircle-radius: 10px;
   border-radius: 10px;
+}
 
+.frame-resizeable {
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -936,6 +938,10 @@ button.success {
   flex-grow: 1;
   margin: calc(0.125 * (1em + 1ex));
   background-color: var(--fg);
+}
+
+.playground-editor-options-tab-panel label {
+  margin-block: calc(0.5em);
 }
 
 .playground-result-badge::after {
