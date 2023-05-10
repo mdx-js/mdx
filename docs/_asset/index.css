@@ -941,7 +941,7 @@ button.success {
 }
 
 .playground-editor-options-tab-panel label {
-  margin-block: calc(0.5em);
+  margin-block: 0.5em;
 }
 
 .playground-result-badge::after {
