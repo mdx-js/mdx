@@ -86,7 +86,10 @@ function ErrorFallback({error, resetErrorBoundary}) {
 
 const MemoizedCodeMirror = memo((props) => (
   <ErrorBoundary FallbackComponent={ErrorFallback}>
-    <CodeMirror {...props} />
+    <CodeMirror
+      {...props}
+      elementProps={{className: 'playground-editor-code-mirror'}}
+    />
   </ErrorBoundary>
 ))
 

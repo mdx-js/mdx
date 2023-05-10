@@ -823,7 +823,7 @@ button.success {
   overflow: hidden;
 }
 
-.frame-body > div,
+.frame-body > .playground-editor-code-mirror,
 .frame-body > pre {
   flex-grow: 1;
   display: flex;
