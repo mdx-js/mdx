@@ -22,10 +22,23 @@ import {lowlight} from 'lowlight/lib/core.js'
 import javascript from 'highlight.js/lib/languages/javascript'
 import json from 'highlight.js/lib/languages/json'
 import markdown from 'highlight.js/lib/languages/markdown'
+import {visit as visitEstree} from 'estree-util-visit'
 
 lowlight.registerLanguage('js', javascript)
 lowlight.registerLanguage('json', json)
 lowlight.registerLanguage('md', markdown)
+
+export function removePositionEsast(tree) {
+  visitEstree(tree, remove)
+  return tree
+
+  function remove(node) {
+    delete node.loc
+    delete node.start
+    delete node.end
+    delete node.range
+  }
+}
 
 function useMdx(defaults) {
   const [state, setState] = useState({...defaults, file: null})
@@ -61,7 +74,7 @@ function useMdx(defaults) {
         if (!config.position) {
           removePosition(file.data.mdast, {force: true})
           removePosition(file.data.hast, {force: true})
-          removePosition(file.data.esast, {force: true})
+          removePositionEsast(file.data.esast)
         }
       } catch (error) {
         const message =
