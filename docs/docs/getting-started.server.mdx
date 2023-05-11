@@ -125,7 +125,7 @@ your JSX runtime.
     install and configure [`@mdx-js/react`][mdx-react].
     Then wrap your MDX content in a `<ThemeProvider />`
 *   If you’re using **Solid**,
-    set [`options.jsxImportSource`][options-jsximportsource] to `'solid-js'`
+    set [`options.jsxImportSource`][options-jsximportsource] to `'solid-js/h'`
 
 Other JSX runtimes are supported by setting
 [`options.jsxImportSource`][options-jsximportsource].
@@ -899,12 +899,12 @@ for more info.
   ```js path="example.js"
   import {compile} from '@mdx-js/mdx'
 
-  const js = String(await compile('# hi', {jsxImportSource: 'solid-js', /* otherOptions… */}))
+  const js = String(await compile('# hi', {jsxImportSource: 'solid-js/h', /* otherOptions… */}))
   ```
 </details>
 
 Solid is supported when [`options.jsxImportSource`][options-jsximportsource] is
-set to `'solid-js'`.
+set to `'solid-js/h'`.
 
 See also [¶ Vite][vite] and [¶ Rollup][rollup] which you might be using, for
 more info.
