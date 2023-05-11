@@ -7,6 +7,7 @@ import {statistics} from 'vfile-statistics'
 import {reporter} from 'vfile-reporter'
 import {evaluate} from '@mdx-js/mdx'
 import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkDirective from 'remark-directive'
 import remarkMath from 'remark-math'
@@ -52,13 +53,15 @@ function useMdx(defaults) {
       }
 
       const remarkPlugins = []
-
       if (config.gfm) remarkPlugins.push(remarkGfm)
       if (config.frontmatter) remarkPlugins.push(remarkFrontmatter)
       if (config.math) remarkPlugins.push(remarkMath)
       if (config.directive) remarkPlugins.push(remarkDirective)
-
       remarkPlugins.push(capture('mdast'))
+
+      const rehypePlugins = []
+      if (config.rehypeRaw) rehypePlugins.push(rehypeRaw)
+      rehypePlugins.push(capture('hast'))
 
       try {
         file.result = (
@@ -66,7 +69,7 @@ function useMdx(defaults) {
             ...runtime,
             useDynamicImport: true,
             remarkPlugins,
-            rehypePlugins: [capture('hast')],
+            rehypePlugins,
             recmaPlugins: [capture('esast')]
           })
         ).default
@@ -133,6 +136,7 @@ export function Editor({children}) {
     frontmatter: false,
     directive: false,
     math: false,
+    rehypeRaw: false,
     value: defaultValue
   })
   const onUpdate = useCallback(
@@ -270,6 +274,19 @@ export function Editor({children}) {
               Use{' '}
               <a href="https://github.com/remarkjs/remark-directive">
                 <code>remark-directive</code>
+              </a>
+            </label>
+            <label>
+              <input
+                checked={state.rehypeRaw}
+                type="checkbox"
+                onChange={() =>
+                  setConfig({...state, rehypeRaw: !state.rehypeRaw})
+                }
+              />{' '}
+              Use{' '}
+              <a href="https://github.com/rehypejs/rehype-raw">
+                <code>rehype-raw</code>
               </a>
             </label>
           </form>
