@@ -64,7 +64,7 @@
     "postcss": "^8.0.0",
     "postcss-cli": "^10.0.0",
     "prettier": "^2.0.0",
-    "puppeteer-core": "^19.0.0",
+    "puppeteer-core": "^20.0.0",
     "react": "0.0.0-experimental-1159ff619-20220324",
     "react-dom": "0.0.0-experimental-1159ff619-20220324",
     "react-error-boundary": "^3.0.0",
