@@ -112,7 +112,10 @@ function ErrorFallback({error, resetErrorBoundary}) {
 
 const MemoizedCodeMirror = memo((props) => (
   <ErrorBoundary FallbackComponent={ErrorFallback}>
-    <CodeMirror {...props} />
+    <CodeMirror
+      {...props}
+      elementProps={{className: 'playground-editor-code-mirror'}}
+    />
   </ErrorBoundary>
 ))
 
@@ -160,7 +163,7 @@ export function Editor({children}) {
 
   return (
     <div className="playground-editor">
-      <Tabs className="frame">
+      <Tabs className="frame frame-resizeable">
         <TabList className="frame-tab-bar frame-tab-bar-scroll">
           <Tab
             className="frame-tab-item frame-tab-item-dark"
@@ -176,7 +179,7 @@ export function Editor({children}) {
           </Tab>
         </TabList>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             <noscript>
               <pre>
                 <code className="hljs language-md">
@@ -191,8 +194,8 @@ export function Editor({children}) {
             />
           </div>
         </TabPanel>
-        <TabPanel>
-          <form className="frame-body frame-body-box frame-body-box-fixed-height">
+        <TabPanel className="tab-panel-scrollable playground-editor-options-tab-panel">
+          <form className="frame-body frame-body-box">
             <fieldset>
               <label>
                 <input
@@ -205,7 +208,7 @@ export function Editor({children}) {
                 />{' '}
                 Use <code>MDX</code>
               </label>
-              <span style={{margin: '1em'}}>{' '}</span>
+              <span style={{margin: '1em'}}> </span>
               <label>
                 <input
                   type="radio"
@@ -293,7 +296,7 @@ export function Editor({children}) {
         </TabPanel>
       </Tabs>
 
-      <Tabs className="frame">
+      <Tabs className="frame frame-resizeable">
         <TabList className="frame-tab-bar frame-tab-bar-scroll">
           {[
             'Run',
@@ -329,16 +332,16 @@ export function Editor({children}) {
           })}
         </TabList>
 
-        <TabPanel>
+        <TabPanel className="tab-panel-scrollable">
           <noscript>Enable JavaScript for the rendered result.</noscript>
-          <div className="frame-body frame-body-box-fixed-height frame-body-box">
+          <div className="frame-body frame-body-box">
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               {state.file && state.file.result ? <Preview /> : null}
             </ErrorBoundary>
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             {state.file ? (
               stats.fatal ? (
                 <pre>
@@ -358,7 +361,7 @@ export function Editor({children}) {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             {state.file && state.file.data.mdast ? (
               <pre>
                 <code className="hljs language-js">
@@ -375,7 +378,7 @@ export function Editor({children}) {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             {state.file && state.file.data.hast ? (
               <pre>
                 <code className="hljs language-js">
@@ -392,7 +395,7 @@ export function Editor({children}) {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="frame-body frame-body-box-fixed-height">
+          <div className="frame-body">
             {state.file && state.file.data.esast ? (
               <pre>
                 <code className="hljs language-js">
