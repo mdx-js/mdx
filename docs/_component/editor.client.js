@@ -29,7 +29,7 @@ lowlight.registerLanguage('js', javascript)
 lowlight.registerLanguage('json', json)
 lowlight.registerLanguage('md', markdown)
 
-export function removePositionEsast(tree) {
+function removePositionEsast(tree) {
   visitEstree(tree, remove)
   return tree
 
