@@ -5,7 +5,7 @@ import {VFile} from 'vfile'
 import {VFileMessage} from 'vfile-message'
 import {statistics} from 'vfile-statistics'
 import {reporter} from 'vfile-reporter'
-import {evaluate} from '@mdx-js/mdx'
+import {evaluate, nodeTypes} from '@mdx-js/mdx'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import remarkFrontmatter from 'remark-frontmatter'
@@ -60,7 +60,8 @@ function useMdx(defaults) {
       remarkPlugins.push(capture('mdast'))
 
       const rehypePlugins = []
-      if (config.rehypeRaw) rehypePlugins.push(rehypeRaw)
+      if (config.rehypeRaw)
+        rehypePlugins.push([rehypeRaw, {passThrough: nodeTypes}])
       rehypePlugins.push(capture('hast'))
 
       try {
