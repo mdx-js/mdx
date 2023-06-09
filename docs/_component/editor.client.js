@@ -205,7 +205,7 @@ export function Editor({children}) {
                 />{' '}
                 Use <code>MDX</code>
               </label>
-              <span style={{margin: '1em'}}>{' | '}</span>
+              <span style={{margin: '1em'}}>{' '}</span>
               <label>
                 <input
                   type="radio"
