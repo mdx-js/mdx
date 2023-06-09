@@ -29,18 +29,6 @@ lowlight.registerLanguage('js', javascript)
 lowlight.registerLanguage('json', json)
 lowlight.registerLanguage('md', markdown)
 
-function removePositionEsast(tree) {
-  visitEstree(tree, remove)
-  return tree
-
-  function remove(node) {
-    delete node.loc
-    delete node.start
-    delete node.end
-    delete node.range
-  }
-}
-
 function useMdx(defaults) {
   const [state, setState] = useState({...defaults, file: null})
   const {run: setConfig} = useDebounceFn(
@@ -415,4 +403,16 @@ export function Editor({children}) {
       </Tabs>
     </div>
   )
+}
+
+function removePositionEsast(tree) {
+  visitEstree(tree, remove)
+  return tree
+
+  function remove(node) {
+    delete node.loc
+    delete node.start
+    delete node.end
+    delete node.range
+  }
 }
