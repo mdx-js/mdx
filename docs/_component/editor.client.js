@@ -5,10 +5,14 @@ import {VFile} from 'vfile'
 import {VFileMessage} from 'vfile-message'
 import {statistics} from 'vfile-statistics'
 import {reporter} from 'vfile-reporter'
-import {evaluate} from '@mdx-js/mdx'
+import {evaluate, nodeTypes} from '@mdx-js/mdx'
 import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 import remarkFrontmatter from 'remark-frontmatter'
+import remarkDirective from 'remark-directive'
 import remarkMath from 'remark-math'
+import {visit as visitEstree} from 'estree-util-visit'
+import {removePosition} from 'unist-util-remove-position'
 import CodeMirror from 'rodemirror'
 import {basicSetup} from 'codemirror'
 import {markdown as langMarkdown} from '@codemirror/lang-markdown'
@@ -29,19 +33,24 @@ function useMdx(defaults) {
   const [state, setState] = useState({...defaults, file: null})
   const {run: setConfig} = useDebounceFn(
     async (config) => {
-      const file = new VFile({basename: 'example.mdx', value: config.value})
+      const basename = config.formatMd ? 'example.md' : 'example.mdx'
+      const file = new VFile({basename, value: config.value})
 
       const capture = (name) => () => (tree) => {
         file.data[name] = tree
       }
 
       const remarkPlugins = []
-
       if (config.gfm) remarkPlugins.push(remarkGfm)
       if (config.frontmatter) remarkPlugins.push(remarkFrontmatter)
       if (config.math) remarkPlugins.push(remarkMath)
-
+      if (config.directive) remarkPlugins.push(remarkDirective)
       remarkPlugins.push(capture('mdast'))
+
+      const rehypePlugins = []
+      if (config.rehypeRaw)
+        rehypePlugins.push([rehypeRaw, {passThrough: nodeTypes}])
+      rehypePlugins.push(capture('hast'))
 
       try {
         file.result = (
@@ -49,10 +58,16 @@ function useMdx(defaults) {
             ...runtime,
             useDynamicImport: true,
             remarkPlugins,
-            rehypePlugins: [capture('hast')],
+            rehypePlugins,
             recmaPlugins: [capture('esast')]
           })
         ).default
+
+        if (!config.position) {
+          removePosition(file.data.mdast, {force: true})
+          removePosition(file.data.hast, {force: true})
+          removePositionEsast(file.data.esast)
+        }
       } catch (error) {
         const message =
           error instanceof VFileMessage ? error : new VFileMessage(error)
@@ -107,9 +122,13 @@ export function Editor({children}) {
   const defaultValue = children
   const extensions = useMemo(() => [basicSetup, oneDark, langMarkdown()], [])
   const [state, setConfig] = useMdx({
+    formatMd: false,
+    position: false,
     gfm: false,
     frontmatter: false,
+    directive: false,
     math: false,
+    rehypeRaw: false,
     value: defaultValue
   })
   const onUpdate = useCallback(
@@ -132,7 +151,7 @@ export function Editor({children}) {
   }, [state])
 
   return (
-    <div>
+    <div className="playground-editor">
       <Tabs className="frame frame-resizeable">
         <TabList className="frame-tab-bar frame-tab-bar-scroll">
           <Tab
@@ -166,6 +185,41 @@ export function Editor({children}) {
         </TabPanel>
         <TabPanel className="tab-panel-scrollable playground-editor-options-tab-panel">
           <form className="frame-body frame-body-box">
+            <fieldset>
+              <label>
+                <input
+                  type="radio"
+                  name="language"
+                  checked={!state.formatMd}
+                  onChange={() => {
+                    setConfig({...state, formatMd: false})
+                  }}
+                />{' '}
+                Use <code>MDX</code>
+              </label>
+              <span style={{margin: '1em'}}> </span>
+              <label>
+                <input
+                  type="radio"
+                  name="language"
+                  checked={state.formatMd}
+                  onChange={() => {
+                    setConfig({...state, formatMd: true})
+                  }}
+                />{' '}
+                Use <code>CommonMark</code>
+              </label>
+            </fieldset>
+            <label>
+              <input
+                checked={state.position}
+                type="checkbox"
+                onChange={() =>
+                  setConfig({...state, position: !state.position})
+                }
+              />{' '}
+              Show positional info
+            </label>
             <label>
               <input
                 checked={state.gfm}
@@ -199,6 +253,32 @@ export function Editor({children}) {
               Use{' '}
               <a href="https://github.com/remarkjs/remark-math/tree/main/packages/remark-math">
                 <code>remark-math</code>
+              </a>
+            </label>
+            <label>
+              <input
+                checked={state.directive}
+                type="checkbox"
+                onChange={() =>
+                  setConfig({...state, directive: !state.directive})
+                }
+              />{' '}
+              Use{' '}
+              <a href="https://github.com/remarkjs/remark-directive">
+                <code>remark-directive</code>
+              </a>
+            </label>
+            <label>
+              <input
+                checked={state.rehypeRaw}
+                type="checkbox"
+                onChange={() =>
+                  setConfig({...state, rehypeRaw: !state.rehypeRaw})
+                }
+              />{' '}
+              Use{' '}
+              <a href="https://github.com/rehypejs/rehype-raw">
+                <code>rehype-raw</code>
               </a>
             </label>
           </form>
@@ -323,4 +403,16 @@ export function Editor({children}) {
       </Tabs>
     </div>
   )
+}
+
+function removePositionEsast(tree) {
+  visitEstree(tree, remove)
+  return tree
+
+  function remove(node) {
+    delete node.loc
+    delete node.start
+    delete node.end
+    delete node.range
+  }
 }

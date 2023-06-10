@@ -748,6 +748,17 @@ button.success {
   margin-block: calc(1 / 1.2 * (1em + 1ex));
 }
 
+.playground-editor fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.playground-editor fieldset label {
+  display: inline;
+}
+
 .frame {
   /* gray-1 is used for unselected tabs, but gray-2 is really too much
    * This is a perfect mix between the two: */
