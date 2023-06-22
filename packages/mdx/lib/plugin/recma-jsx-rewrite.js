@@ -246,7 +246,7 @@ export function recmaJsxRewrite(options) {
           /** @type {string} */
           let name
 
-          for (name of scope.tags) {
+          for (name of scope.tags.sort()) {
             defaults.push({
               type: 'Property',
               kind: 'init',
