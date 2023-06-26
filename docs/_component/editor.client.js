@@ -37,7 +37,7 @@ function useMdx(defaults) {
       const file = new VFile({basename, value: config.value})
 
       const capture = (name) => () => (tree) => {
-        file.data[name] = tree
+        file.data[name] = structuredClone(tree)
       }
 
       const remarkPlugins = []
