@@ -36,7 +36,7 @@
  * @property {Array<string>} components
  * @property {Array<string>} tags
  * @property {Record<string, {node: JSXElement, component: boolean}>} references
- * @property {Map<string|number, string>} idToInvalidComponentName
+ * @property {Map<string, string>} idToInvalidComponentName
  * @property {EstreeFunction} node
  */
 
@@ -246,7 +246,7 @@ export function recmaJsxRewrite(options) {
           /** @type {string} */
           let name
 
-          for (name of scope.tags) {
+          for (name of scope.tags.sort()) {
             defaults.push({
               type: 'Property',
               kind: 'init',
@@ -269,6 +269,8 @@ export function recmaJsxRewrite(options) {
               actual.push(name)
             }
           }
+
+          actual.sort()
 
           /** @type {Array<Statement>} */
           const statements = []
@@ -363,10 +365,9 @@ export function recmaJsxRewrite(options) {
             }
 
             if (isNamedFunction(scope.node, '_createMdxContent')) {
-              for (const [
-                id,
-                componentName
-              ] of scope.idToInvalidComponentName) {
+              for (const [id, componentName] of [
+                ...scope.idToInvalidComponentName
+              ].sort(([a], [b]) => a.localeCompare(b))) {
                 // For JSX IDs that can’t be represented as JavaScript IDs (as in,
                 // those with dashes, such as `custom-element`), generate a
                 // separate variable that is a valid JS ID (such as `_component0`),
@@ -374,7 +375,10 @@ export function recmaJsxRewrite(options) {
                 // `const _component0 = _components['custom-element']`
                 declarations.push({
                   type: 'VariableDeclarator',
-                  id: {type: 'Identifier', name: componentName},
+                  id: {
+                    type: 'Identifier',
+                    name: componentName
+                  },
                   init: {
                     type: 'MemberExpression',
                     object: {type: 'Identifier', name: '_components'},
