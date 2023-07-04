@@ -270,6 +270,8 @@ export function recmaJsxRewrite(options) {
             }
           }
 
+          actual.sort()
+
           /** @type {Array<Statement>} */
           const statements = []
 
@@ -363,10 +365,9 @@ export function recmaJsxRewrite(options) {
             }
 
             if (isNamedFunction(scope.node, '_createMdxContent')) {
-              for (const [
-                id,
-                componentName
-              ] of scope.idToInvalidComponentName) {
+              for (const id of [
+                ...scope.idToInvalidComponentName.keys()
+              ].sort()) {
                 // For JSX IDs that can’t be represented as JavaScript IDs (as in,
                 // those with dashes, such as `custom-element`), generate a
                 // separate variable that is a valid JS ID (such as `_component0`),
@@ -374,7 +375,12 @@ export function recmaJsxRewrite(options) {
                 // `const _component0 = _components['custom-element']`
                 declarations.push({
                   type: 'VariableDeclarator',
-                  id: {type: 'Identifier', name: componentName},
+                  id: {
+                    type: 'Identifier',
+                    name: /** @type {string} */ (
+                      scope.idToInvalidComponentName.get(id)
+                    )
+                  },
                   init: {
                     type: 'MemberExpression',
                     object: {type: 'Identifier', name: '_components'},
