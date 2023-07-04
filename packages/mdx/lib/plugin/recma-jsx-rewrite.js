@@ -36,7 +36,7 @@
  * @property {Array<string>} components
  * @property {Array<string>} tags
  * @property {Record<string, {node: JSXElement, component: boolean}>} references
- * @property {Map<string|number, string>} idToInvalidComponentName
+ * @property {Map<string, string>} idToInvalidComponentName
  * @property {EstreeFunction} node
  */
 
@@ -365,9 +365,9 @@ export function recmaJsxRewrite(options) {
             }
 
             if (isNamedFunction(scope.node, '_createMdxContent')) {
-              for (const id of [
-                ...scope.idToInvalidComponentName.keys()
-              ].sort()) {
+              for (const [id, componentName] of [
+                ...scope.idToInvalidComponentName
+              ].sort(([a], [b]) => a.localeCompare(b))) {
                 // For JSX IDs that can’t be represented as JavaScript IDs (as in,
                 // those with dashes, such as `custom-element`), generate a
                 // separate variable that is a valid JS ID (such as `_component0`),
@@ -377,9 +377,7 @@ export function recmaJsxRewrite(options) {
                   type: 'VariableDeclarator',
                   id: {
                     type: 'Identifier',
-                    name: /** @type {string} */ (
-                      scope.idToInvalidComponentName.get(id)
-                    )
+                    name: componentName
                   },
                   init: {
                     type: 'MemberExpression',
