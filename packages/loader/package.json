@@ -67,7 +67,7 @@
   "scripts": {
     "prepack": "npm run build",
     "build": "tsc --build --clean && tsc --build && type-coverage",
-    "test-api": "uvu test \"\\.js$\"",
+    "test-api": "node --test",
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
     "test": "npm run build && npm run test-coverage"
   },

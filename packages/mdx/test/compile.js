@@ -5,11 +5,11 @@
  * @typedef {import('../lib/compile.js').VFileCompatible} VFileCompatible
  */
 
+import assert from 'node:assert/strict'
 import {Buffer} from 'buffer'
 import {promises as fs} from 'fs'
 import path from 'path'
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
+import {test} from 'node:test'
 import {nanoid} from 'nanoid'
 import {h} from 'preact'
 import {render} from 'preact-render-to-string'
@@ -35,18 +35,13 @@ import 'source-map-support/register.js'
 const renderToStaticMarkup = renderToStaticMarkup_
 
 test('compile', async () => {
-  try {
+  assert.throws(
     // @ts-expect-error: removed option.
-    await compile('# hi!', {filepath: 'example.mdx'})
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.match(
-      exception.message,
-      /`options.filepath` is no longer supported/,
-      'should throw when a removed option is passed'
+    () => compile('# hi!', {filepath: 'example.mdx'}),
+    new Error(
+      '`options.filepath` is no longer supported. Please see <https://mdxjs.com/migrating/v2/> for more information'
     )
-  }
+  )
 
   assert.equal(
     renderToStaticMarkup(
@@ -304,21 +299,16 @@ test('compile', async () => {
     'should *not* support overwriting components in exports'
   )
 
-  try {
-    renderToStaticMarkup(
-      React.createElement(
-        await run(compileSync('export var X = () => <Y />\n\n<X />'))
-      )
-    )
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.match(
-      exception.message,
-      /Y is not defined/,
-      'should throw on missing components in exported components'
-    )
-  }
+  await assert.rejects(
+    async () =>
+      renderToStaticMarkup(
+        React.createElement(
+          await run(compileSync('export var X = () => <Y />\n\n<X />'))
+        )
+      ),
+    new ReferenceError('Y is not defined'),
+    'should throw on missing components in exported components'
+  )
 
   assert.equal(
     renderToStaticMarkup(
@@ -461,75 +451,65 @@ test('compile', async () => {
     'should *not* support multiple layouts (2)'
   )
 
-  try {
-    renderToStaticMarkup(
-      React.createElement(await run(compileSync('export default a')))
-    )
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.equal(
-      exception.message,
-      'a is not defined',
-      'should support an identifier as an export default'
-    )
-  }
-
-  try {
-    renderToStaticMarkup(React.createElement(await run(compileSync('<X />'))))
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.match(
-      exception.message,
-      /Expected component `X` to be defined/,
-      'should throw if a required component is not passed'
-    )
-  }
-
-  try {
-    renderToStaticMarkup(React.createElement(await run(compileSync('<a.b />'))))
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.match(
-      exception.message,
-      /Expected object `a` to be defined/,
-      'should throw if a required member is not passed'
-    )
-  }
-
-  try {
-    renderToStaticMarkup(
-      React.createElement(
-        await run(compileSync('export const a = {}\n\n<a.b />'))
+  await assert.rejects(
+    async () => {
+      renderToStaticMarkup(
+        React.createElement(await run(compileSync('export default a')))
       )
-    )
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.match(
-      exception.message,
-      /Expected component `a.b` to be defined/,
-      'should throw if a used member is not defined locally'
-    )
-  }
+    },
+    new ReferenceError('a is not defined'),
+    'should support an identifier as an export default'
+  )
 
-  try {
-    renderToStaticMarkup(
-      React.createElement(
-        await run(compileSync('<a render={() => <x.y />} />'))
+  await assert.rejects(
+    async () => {
+      renderToStaticMarkup(React.createElement(await run(compileSync('<X />'))))
+    },
+    new Error(
+      'Expected component `X` to be defined: you likely forgot to import, pass, or provide it.'
+    ),
+    'should throw if a required component is not passed'
+  )
+
+  await assert.rejects(
+    async () => {
+      renderToStaticMarkup(
+        React.createElement(await run(compileSync('<a.b />')))
       )
-    )
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.match(
-      exception.message,
-      /Expected object `x` to be defined/,
-      'should throw if a used member is not defined locally (JSX in a function)'
-    )
-  }
+    },
+    new Error(
+      'Expected object `a` to be defined: you likely forgot to import, pass, or provide it.'
+    ),
+    'should throw if a required member is not passed'
+  )
+
+  await assert.rejects(
+    async () => {
+      renderToStaticMarkup(
+        React.createElement(
+          await run(compileSync('export const a = {}\n\n<a.b />'))
+        )
+      )
+    },
+    new Error(
+      'Expected component `a.b` to be defined: you likely forgot to import, pass, or provide it.'
+    ),
+    'should throw if a used member is not defined locally'
+  )
+
+  await assert.rejects(
+    async () => {
+      renderToStaticMarkup(
+        React.createElement(
+          await run(compileSync('<a render={() => <x.y />} />'))
+        )
+      )
+    },
+    new Error(
+      'Expected object `x` to be defined: you likely forgot to import, pass, or provide it.'
+    ),
+    'should throw if a used member is not defined locally (JSX in a function)'
+  )
 
   console.log('\nnote: the following warning is expected!\n')
   assert.equal(
@@ -552,7 +532,7 @@ test('compile', async () => {
     )
   )({})
 
-  assert.equal(
+  assert.deepEqual(
     // @ts-expect-error React attaches source information on this property,
     // but it’s private and untyped.
     developmentSourceNode._source,
@@ -560,40 +540,38 @@ test('compile', async () => {
     'should expose source information in the automatic jsx dev runtime'
   )
 
-  try {
-    renderToStaticMarkup(
-      React.createElement(await run(compileSync('<X />', {development: true})))
-    )
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.match(
-      exception.message,
-      /It’s referenced in your code at `1:1-1:6/,
-      'should pass more info to errors w/ `development: true`'
-    )
-  }
+  await assert.rejects(
+    async () => {
+      renderToStaticMarkup(
+        React.createElement(
+          await run(compileSync('<X />', {development: true}))
+        )
+      )
+    },
+    new Error(
+      'Expected component `X` to be defined: you likely forgot to import, pass, or provide it.\nIt’s referenced in your code at `1:1-1:6`'
+    ),
+    'should pass more info to errors w/ `development: true`'
+  )
 
-  try {
-    renderToStaticMarkup(
-      React.createElement(
-        await run(
-          compileSync(
-            {value: 'asd <a.b />', path: 'folder/example.mdx'},
-            {development: true}
+  await assert.rejects(
+    async () => {
+      renderToStaticMarkup(
+        React.createElement(
+          await run(
+            compileSync(
+              {value: 'asd <a.b />', path: 'folder/example.mdx'},
+              {development: true}
+            )
           )
         )
       )
-    )
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.match(
-      exception.message,
-      /It’s referenced in your code at `1:5-1:12` in `folder\/example.mdx`/,
-      'should show what file contains the error w/ `development: true`, and `path`'
-    )
-  }
+    },
+    new Error(
+      'Expected object `a` to be defined: you likely forgot to import, pass, or provide it.\nIt’s referenced in your code at `1:5-1:12` in `folder/example.mdx`'
+    ),
+    'should show what file contains the error w/ `development: true`, and `path`'
+  )
 
   assert.equal(
     renderToStaticMarkup(
@@ -615,21 +593,21 @@ test('compile', async () => {
     'should support setting components through context with a `providerImportSource`'
   )
 
-  try {
-    renderToStaticMarkup(
-      React.createElement(
-        await run(compileSync('<X />', {providerImportSource: '@mdx-js/react'}))
+  await assert.rejects(
+    async () => {
+      renderToStaticMarkup(
+        React.createElement(
+          await run(
+            compileSync('<X />', {providerImportSource: '@mdx-js/react'})
+          )
+        )
       )
-    )
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.match(
-      exception.message,
-      /Expected component `X` to be defined/,
-      'should throw if a required component is not passed or given to `MDXProvider`'
-    )
-  }
+    },
+    new Error(
+      'Expected component `X` to be defined: you likely forgot to import, pass, or provide it.'
+    ),
+    'should throw if a required component is not passed or given to `MDXProvider`'
+  )
 
   assert.equal(
     renderToStaticMarkup(
@@ -659,18 +637,16 @@ test('compile', async () => {
     'should support `format: mdx`'
   )
 
-  try {
-    // @ts-expect-error incorrect `detect`.
-    createProcessor({format: 'detect'})
-    assert.unreachable()
-  } catch (/** @type {unknown} */ error) {
-    const exception = /** @type {Error} */ (error)
-    assert.equal(
-      exception.message,
-      "Incorrect `format: 'detect'`: `createProcessor` can support either `md` or `mdx`; it does not support detecting the format",
-      'should not support `format: detect`'
-    )
-  }
+  assert.throws(
+    () => {
+      // @ts-expect-error incorrect `detect`.
+      createProcessor({format: 'detect'})
+    },
+    new Error(
+      "Incorrect `format: 'detect'`: `createProcessor` can support either `md` or `mdx`; it does not support detecting the format"
+    ),
+    'should not support `format: detect`'
+  )
 
   assert.equal(
     renderToStaticMarkup(
@@ -1503,7 +1479,7 @@ test('MDX (ESM)', async () => {
     'should support exporting an object pattern'
   )
 
-  assert.equal(
+  assert.deepEqual(
     (
       await runWhole(
         compileSync(
@@ -1665,30 +1641,29 @@ test('source maps', async () => {
   await fs.writeFile(path.join(base, 'sourcemap.js'), String(file))
 
   const Content = /** @type {MDXContent} */ (
-    /* @ts-expect-error file is dynamically generated */
+    /* @ts-ignore file is dynamically generated */
     (await import('./context/sourcemap.js')).default // type-coverage:ignore-line
   )
 
-  try {
-    renderToStaticMarkup(React.createElement(Content))
-    assert.unreachable()
-  } catch (error) {
-    const exception = /** @type {Error} */ (error)
-    const match = /at Component \(file:([^)]+)\)/.exec(String(exception.stack))
-    const place =
-      path.posix.join(...base.split(path.sep), 'unknown.mdx') + ':2:3'
+  assert.throws(
+    () => {
+      renderToStaticMarkup(React.createElement(Content))
+    },
+    (error) => {
+      const exception = /** @type {Error} */ (error)
+      const match = /at Component \(file:([^)]+)\)/.exec(
+        String(exception.stack)
+      )
+      const place =
+        path.posix.join(...base.split(path.sep), 'unknown.mdx') + ':2:3'
 
-    assert.equal(
-      match && match[1].slice(-place.length),
-      place,
-      'should support source maps'
-    )
-  }
+      return place === match?.[1].slice(-place.length)
+    },
+    'should support source maps'
+  )
 
   await fs.unlink(path.join(base, 'sourcemap.js'))
 })
-
-test.run()
 
 /**
  *

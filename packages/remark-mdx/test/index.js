@@ -6,8 +6,8 @@
  * @typedef {import('mdast-util-mdx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
  */
 
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
+import assert from 'node:assert/strict'
+import {test} from 'node:test'
 import {u} from 'unist-builder'
 import {unified} from 'unified'
 import remarkParse from 'remark-parse'
@@ -19,7 +19,7 @@ import remarkMdx from '../index.js'
 const basic = unified().use(remarkParse).use(remarkMdx)
 
 test('parse: basics', () => {
-  assert.equal(
+  assert.deepEqual(
     clean(basic.parse('Alpha <b/> charlie.')),
     u('root', [
       u('paragraph', [
@@ -31,7 +31,7 @@ test('parse: basics', () => {
     'should parse a self-closing tag'
   )
 
-  assert.equal(
+  assert.deepEqual(
     clean(basic.parse('Alpha <b></b> charlie.')),
     u('root', [
       u('paragraph', [
@@ -43,7 +43,7 @@ test('parse: basics', () => {
     'should parse an opening and a closing tag'
   )
 
-  assert.equal(
+  assert.deepEqual(
     clean(basic.parse('Alpha <></> charlie.')),
     u('root', [
       u('paragraph', [
@@ -55,7 +55,7 @@ test('parse: basics', () => {
     'should parse fragments'
   )
 
-  assert.equal(
+  assert.deepEqual(
     clean(basic.parse('Alpha <b>*bravo*</b> charlie.')),
     u('root', [
       u('paragraph', [
@@ -69,7 +69,7 @@ test('parse: basics', () => {
     'should parse markdown inside tags'
   )
 
-  assert.equal(
+  assert.deepEqual(
     clean(basic.parse('Alpha {1 + 1} charlie.')),
     u('root', [
       u('paragraph', [
@@ -351,5 +351,3 @@ function cleanEstree(tree) {
     }
   }
 }
-
-test.run()

@@ -4,11 +4,11 @@
  * @typedef {import('vue').Component} VueComponent
  */
 
+import assert from 'node:assert/strict'
 import {promises as fs} from 'fs'
+import {test} from 'node:test'
 import {promisify} from 'util'
 import {fileURLToPath} from 'url'
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
 import webpack from 'webpack'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
@@ -80,11 +80,11 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
     }
   })
 
-  assert.not.ok(reactBuild?.hasErrors())
+  assert.ok(!reactBuild?.hasErrors())
 
   // One for ESM loading CJS, one for webpack.
   const modReact = /** @type {{default: {default: MDXContent}}} */ (
-    // @ts-expect-error file is dynamically generated
+    // @ts-ignore file is dynamically generated
     await import('./react.cjs')
   )
 
@@ -95,7 +95,7 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
   )
 
   const reactOutput = await fs.readFile(new URL('react.cjs', base), 'utf8')
-  assert.not.match(
+  assert.doesNotMatch(
     reactOutput,
     /react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_\d+__\.jsxDEV/,
     'should infer the development option from webpack’s production mode'
@@ -130,11 +130,11 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
     }
   })
 
-  assert.not.ok(preactBuild?.hasErrors())
+  assert.ok(!preactBuild?.hasErrors())
 
   // One for ESM loading CJS, one for webpack.
   const modPreact = /** @type {{default: {default: PreactComponent}}} */ (
-    // @ts-expect-error file is dynamically generated.
+    // @ts-ignore file is dynamically generated.
     await import('./preact.cjs')
   )
 
@@ -190,11 +190,11 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
     }
   })
 
-  assert.not.ok(vueBuild?.hasErrors())
+  assert.ok(!vueBuild?.hasErrors())
 
   // One for ESM loading CJS, one for webpack.
   const modVue = /** @type {{default: {default: VueComponent}}} */ (
-    // @ts-expect-error file is dynamically generated
+    // @ts-ignore file is dynamically generated
     await import('./vue.cjs')
   )
 
@@ -217,5 +217,3 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
   // Clean.
   await fs.unlink(new URL('webpack.mdx', base))
 })
-
-test.run()

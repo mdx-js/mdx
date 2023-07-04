@@ -7,10 +7,10 @@
  * @typedef {import('remark-mdx')} DoNotTouchIncludeMathInTree
  */
 
+import assert from 'node:assert/strict'
 import {promises as fs} from 'fs'
+import {test} from 'node:test'
 import {fileURLToPath} from 'url'
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
 import esbuild from 'esbuild'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
@@ -140,36 +140,30 @@ test('@mdx-js/esbuild', async () => {
   await fs.writeFile(new URL('esbuild.mdx', import.meta.url), 'a')
 
   console.log('\nnote: the following error is expected!\n')
-  try {
-    await esbuild.build({
+  await assert.rejects(
+    esbuild.build({
       entryPoints: [fileURLToPath(new URL('esbuild.md', import.meta.url))],
       outfile: fileURLToPath(new URL('esbuild-md-as-mdx.js', import.meta.url)),
       plugins: [esbuildMdx({format: 'mdx'})]
-    })
-    assert.unreachable()
-  } catch (error) {
-    assert.match(
-      String(error),
-      /No loader is configured for "\.md" files/,
-      'should not handle `.md` files w/ `format: mdx`'
-    )
-  }
+    }),
+    new Error(
+      'Build failed with 1 error:\nerror: No loader is configured for ".md" files: test/esbuild.md'
+    ),
+    'should not handle `.md` files w/ `format: mdx`'
+  )
 
   console.log('\nnote: the following error is expected!\n')
-  try {
-    await esbuild.build({
+  await assert.rejects(
+    esbuild.build({
       entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
       outfile: fileURLToPath(new URL('esbuild-md-as-mdx.js', import.meta.url)),
       plugins: [esbuildMdx({format: 'md'})]
-    })
-    assert.unreachable()
-  } catch (error) {
-    assert.match(
-      String(error),
-      /No loader is configured for "\.mdx" files/,
-      'should not handle `.mdx` files w/ `format: md`'
-    )
-  }
+    }),
+    new Error(
+      'Build failed with 1 error:\nerror: No loader is configured for ".mdx" files: test/esbuild.mdx'
+    ),
+    'should not handle `.mdx` files w/ `format: md`'
+  )
 
   await fs.unlink(new URL('esbuild.md', import.meta.url))
   await fs.unlink(new URL('esbuild.mdx', import.meta.url))
@@ -181,39 +175,40 @@ test('@mdx-js/esbuild', async () => {
     'asd <https://example.com>?'
   )
 
-  try {
-    await esbuild.build({
+  await assert.rejects(
+    esbuild.build({
       entryPoints: [
         fileURLToPath(new URL('esbuild-broken.mdx', import.meta.url))
       ],
       outfile: fileURLToPath(new URL('esbuild.js', import.meta.url)),
       plugins: [esbuildMdx()]
-    })
-    assert.unreachable('esbuild should throw')
-  } catch (error) {
-    const exception = /** @type {BuildFailure} */ (error)
-    const message = exception.errors[0]
-    delete message.detail
-    assert.equal(
-      message,
-      {
-        location: {
-          column: 11,
-          file: 'test/esbuild-broken.mdx',
-          length: 1,
-          line: 1,
-          lineText: 'asd <https://example.com>?',
-          namespace: 'file',
-          suggestion: ''
+    }),
+    (error) => {
+      const exception = /** @type {BuildFailure} */ (error)
+      const message = exception.errors[0]
+      delete message.detail
+      assert.deepEqual(
+        message,
+        {
+          location: {
+            column: 11,
+            file: 'test/esbuild-broken.mdx',
+            length: 1,
+            line: 1,
+            lineText: 'asd <https://example.com>?',
+            namespace: 'file',
+            suggestion: ''
+          },
+          notes: [],
+          pluginName: '@mdx-js/esbuild',
+          text: 'Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)',
+          id: ''
         },
-        notes: [],
-        pluginName: '@mdx-js/esbuild',
-        text: 'Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)',
-        id: ''
-      },
-      'should pass errors (1)'
-    )
-  }
+        'should pass errors (1)'
+      )
+      return true
+    }
+  )
 
   await fs.unlink(new URL('esbuild-broken.mdx', import.meta.url))
 
@@ -222,8 +217,8 @@ test('@mdx-js/esbuild', async () => {
     'export const Message = () => <>World!</>\n\n# Hello, <Message />'
   )
 
-  try {
-    await esbuild.build({
+  await assert.rejects(
+    esbuild.build({
       entryPoints: [
         fileURLToPath(new URL('esbuild-warnings.mdx', import.meta.url))
       ],
@@ -239,17 +234,17 @@ test('@mdx-js/esbuild', async () => {
                */
               (tree, file) => {
                 const esm = tree.children[0] // Export
-                assert.ok(esm && esm.type === 'mdxjsEsm')
+                assert.equal(esm?.type, 'mdxjsEsm')
                 const eol = tree.children[1] // EOL between both, no position.
-                assert.ok(eol && eol.type === 'text')
+                assert.equal(eol?.type, 'text')
                 assert.ok(!eol.position)
                 const head = tree.children[2] // Heading
-                assert.ok(head && head.type === 'element')
+                assert.equal(head?.type, 'element')
                 assert.ok(head.position)
                 const text = head.children[0] // Text in heading
-                assert.ok(text && text.type === 'text')
+                assert.equal(text?.type, 'text')
                 const jsx = head.children[1] // JSX in heading
-                assert.ok(jsx && jsx.type === 'mdxJsxTextElement')
+                assert.equal(jsx?.type, 'mdxJsxTextElement')
                 file.message('1')
                 file.message('2', eol)
                 file.message('3', tree)
@@ -261,132 +256,133 @@ test('@mdx-js/esbuild', async () => {
           ]
         })
       ]
-    })
-    assert.unreachable('esbuild should throw')
-  } catch (error) {
-    /** @type {BuildFailure} */
-    const result = JSON.parse(JSON.stringify(error))
+    }),
+    (error) => {
+      /** @type {BuildFailure} */
+      const result = JSON.parse(JSON.stringify(error))
 
-    for (const message of [...result.errors, ...result.warnings]) {
-      delete message.detail
+      for (const message of [...result.errors, ...result.warnings]) {
+        delete message.detail
+      }
+
+      assert.deepEqual(
+        result,
+        {
+          errors: [
+            {
+              location: {
+                column: 20,
+                file: 'test/esbuild-warnings.mdx',
+                length: 1,
+                line: 3,
+                lineText: '# Hello, <Message />',
+                namespace: 'file',
+                suggestion: ''
+              },
+              notes: [],
+              pluginName: '@mdx-js/esbuild',
+              text: '7',
+              id: ''
+            }
+          ],
+          warnings: [
+            {
+              location: {
+                column: 0,
+                file: 'test/esbuild-warnings.mdx',
+                length: 0,
+                line: 0,
+                lineText: 'export const Message = () => <>World!</>',
+                namespace: 'file',
+                suggestion: ''
+              },
+              notes: [],
+              pluginName: '@mdx-js/esbuild',
+              text: '1',
+              id: ''
+            },
+            {
+              location: {
+                column: 0,
+                file: 'test/esbuild-warnings.mdx',
+                length: 0,
+                line: 0,
+                lineText: 'export const Message = () => <>World!</>',
+                namespace: 'file',
+                suggestion: ''
+              },
+              notes: [],
+              pluginName: '@mdx-js/esbuild',
+              text: '2',
+              id: ''
+            },
+            {
+              location: {
+                column: 0,
+                file: 'test/esbuild-warnings.mdx',
+                length: 40,
+                line: 1,
+                lineText: 'export const Message = () => <>World!</>',
+                namespace: 'file',
+                suggestion: ''
+              },
+              notes: [],
+              pluginName: '@mdx-js/esbuild',
+              text: '3',
+              id: ''
+            },
+            {
+              location: {
+                column: 0,
+                file: 'test/esbuild-warnings.mdx',
+                length: 40,
+                line: 1,
+                lineText: 'export const Message = () => <>World!</>',
+                namespace: 'file',
+                suggestion: ''
+              },
+              notes: [],
+              pluginName: '@mdx-js/esbuild',
+              text: '4',
+              id: ''
+            },
+            {
+              location: {
+                column: 2,
+                file: 'test/esbuild-warnings.mdx',
+                length: 7,
+                line: 3,
+                lineText: '# Hello, <Message />',
+                namespace: 'file',
+                suggestion: ''
+              },
+              notes: [],
+              pluginName: '@mdx-js/esbuild',
+              text: '5',
+              id: ''
+            },
+            {
+              location: {
+                column: 9,
+                file: 'test/esbuild-warnings.mdx',
+                length: 11,
+                line: 3,
+                lineText: '# Hello, <Message />',
+                namespace: 'file',
+                suggestion: ''
+              },
+              notes: [],
+              pluginName: '@mdx-js/esbuild',
+              text: '6',
+              id: ''
+            }
+          ]
+        },
+        'should pass warnings'
+      )
+      return true
     }
-
-    assert.equal(
-      result,
-      {
-        errors: [
-          {
-            location: {
-              column: 20,
-              file: 'test/esbuild-warnings.mdx',
-              length: 1,
-              line: 3,
-              lineText: '# Hello, <Message />',
-              namespace: 'file',
-              suggestion: ''
-            },
-            notes: [],
-            pluginName: '@mdx-js/esbuild',
-            text: '7',
-            id: ''
-          }
-        ],
-        warnings: [
-          {
-            location: {
-              column: 0,
-              file: 'test/esbuild-warnings.mdx',
-              length: 0,
-              line: 0,
-              lineText: 'export const Message = () => <>World!</>',
-              namespace: 'file',
-              suggestion: ''
-            },
-            notes: [],
-            pluginName: '@mdx-js/esbuild',
-            text: '1',
-            id: ''
-          },
-          {
-            location: {
-              column: 0,
-              file: 'test/esbuild-warnings.mdx',
-              length: 0,
-              line: 0,
-              lineText: 'export const Message = () => <>World!</>',
-              namespace: 'file',
-              suggestion: ''
-            },
-            notes: [],
-            pluginName: '@mdx-js/esbuild',
-            text: '2',
-            id: ''
-          },
-          {
-            location: {
-              column: 0,
-              file: 'test/esbuild-warnings.mdx',
-              length: 40,
-              line: 1,
-              lineText: 'export const Message = () => <>World!</>',
-              namespace: 'file',
-              suggestion: ''
-            },
-            notes: [],
-            pluginName: '@mdx-js/esbuild',
-            text: '3',
-            id: ''
-          },
-          {
-            location: {
-              column: 0,
-              file: 'test/esbuild-warnings.mdx',
-              length: 40,
-              line: 1,
-              lineText: 'export const Message = () => <>World!</>',
-              namespace: 'file',
-              suggestion: ''
-            },
-            notes: [],
-            pluginName: '@mdx-js/esbuild',
-            text: '4',
-            id: ''
-          },
-          {
-            location: {
-              column: 2,
-              file: 'test/esbuild-warnings.mdx',
-              length: 7,
-              line: 3,
-              lineText: '# Hello, <Message />',
-              namespace: 'file',
-              suggestion: ''
-            },
-            notes: [],
-            pluginName: '@mdx-js/esbuild',
-            text: '5',
-            id: ''
-          },
-          {
-            location: {
-              column: 9,
-              file: 'test/esbuild-warnings.mdx',
-              length: 11,
-              line: 3,
-              lineText: '# Hello, <Message />',
-              namespace: 'file',
-              suggestion: ''
-            },
-            notes: [],
-            pluginName: '@mdx-js/esbuild',
-            text: '6',
-            id: ''
-          }
-        ]
-      },
-      'should pass warnings'
-    )
-  }
+  )
 
   await fs.unlink(new URL('esbuild-warnings.mdx', import.meta.url))
 
@@ -395,8 +391,8 @@ test('@mdx-js/esbuild', async () => {
     '# hi'
   )
 
-  try {
-    await esbuild.build({
+  await assert.rejects(
+    esbuild.build({
       entryPoints: [
         fileURLToPath(new URL('esbuild-plugin-crash.mdx', import.meta.url))
       ],
@@ -415,42 +411,43 @@ test('@mdx-js/esbuild', async () => {
           ]
         })
       ]
-    })
-    assert.unreachable('esbuild should throw')
-  } catch (error) {
-    /** @type {BuildFailure} */
-    const result = JSON.parse(JSON.stringify(error))
+    }),
+    (error) => {
+      /** @type {BuildFailure} */
+      const result = JSON.parse(JSON.stringify(error))
 
-    for (const message of [...result.errors, ...result.warnings]) {
-      delete message.detail
-      message.text = message.text.split('\n')[0]
+      for (const message of [...result.errors, ...result.warnings]) {
+        delete message.detail
+        message.text = message.text.split('\n')[0]
+      }
+
+      assert.deepEqual(
+        result,
+        {
+          errors: [
+            {
+              location: {
+                column: 0,
+                file: 'test/esbuild-plugin-crash.mdx',
+                length: 0,
+                line: 0,
+                lineText: '# hi',
+                namespace: 'file',
+                suggestion: ''
+              },
+              notes: [],
+              pluginName: '@mdx-js/esbuild',
+              text: 'Error: Something went wrong',
+              id: ''
+            }
+          ],
+          warnings: []
+        },
+        'should pass errors (2)'
+      )
+      return true
     }
-
-    assert.equal(
-      result,
-      {
-        errors: [
-          {
-            location: {
-              column: 0,
-              file: 'test/esbuild-plugin-crash.mdx',
-              length: 0,
-              line: 0,
-              lineText: '# hi',
-              namespace: 'file',
-              suggestion: ''
-            },
-            notes: [],
-            pluginName: '@mdx-js/esbuild',
-            text: 'Error: Something went wrong',
-            id: ''
-          }
-        ],
-        warnings: []
-      },
-      'should pass errors (2)'
-    )
-  }
+  )
 
   await fs.unlink(new URL('esbuild-plugin-crash.mdx', import.meta.url))
 
@@ -579,5 +576,3 @@ test('@mdx-js/esbuild', async () => {
   await fs.unlink(new URL('esbuild-with-remote-mdx.mdx', import.meta.url))
   await fs.unlink(new URL('esbuild-with-remote-mdx.js', import.meta.url))
 })
-
-test.run()
