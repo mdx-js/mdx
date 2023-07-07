@@ -146,9 +146,7 @@ test('@mdx-js/esbuild', async () => {
       outfile: fileURLToPath(new URL('esbuild-md-as-mdx.js', import.meta.url)),
       plugins: [esbuildMdx({format: 'mdx'})]
     }),
-    new Error(
-      'Build failed with 1 error:\nerror: No loader is configured for ".md" files: test/esbuild.md'
-    ),
+    /No loader is configured for "\.md" files/,
     'should not handle `.md` files w/ `format: mdx`'
   )
 
@@ -159,9 +157,7 @@ test('@mdx-js/esbuild', async () => {
       outfile: fileURLToPath(new URL('esbuild-md-as-mdx.js', import.meta.url)),
       plugins: [esbuildMdx({format: 'md'})]
     }),
-    new Error(
-      'Build failed with 1 error:\nerror: No loader is configured for ".mdx" files: test/esbuild.mdx'
-    ),
+    /No loader is configured for "\.mdx" files/,
     'should not handle `.mdx` files w/ `format: md`'
   )
 

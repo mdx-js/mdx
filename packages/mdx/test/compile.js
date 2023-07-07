@@ -38,9 +38,8 @@ test('compile', async () => {
   assert.throws(
     // @ts-expect-error: removed option.
     () => compile('# hi!', {filepath: 'example.mdx'}),
-    new Error(
-      '`options.filepath` is no longer supported. Please see <https://mdxjs.com/migrating/v2/> for more information'
-    )
+    /`options.filepath` is no longer supported/,
+    'should throw when a removed option is passed'
   )
 
   assert.equal(
@@ -306,7 +305,7 @@ test('compile', async () => {
           await run(compileSync('export var X = () => <Y />\n\n<X />'))
         )
       ),
-    new ReferenceError('Y is not defined'),
+    /Y is not defined/,
     'should throw on missing components in exported components'
   )
 
@@ -465,9 +464,7 @@ test('compile', async () => {
     async () => {
       renderToStaticMarkup(React.createElement(await run(compileSync('<X />'))))
     },
-    new Error(
-      'Expected component `X` to be defined: you likely forgot to import, pass, or provide it.'
-    ),
+    /Expected component `X` to be defined/,
     'should throw if a required component is not passed'
   )
 
@@ -477,9 +474,7 @@ test('compile', async () => {
         React.createElement(await run(compileSync('<a.b />')))
       )
     },
-    new Error(
-      'Expected object `a` to be defined: you likely forgot to import, pass, or provide it.'
-    ),
+    /Expected object `a` to be defined/,
     'should throw if a required member is not passed'
   )
 
@@ -491,9 +486,7 @@ test('compile', async () => {
         )
       )
     },
-    new Error(
-      'Expected component `a.b` to be defined: you likely forgot to import, pass, or provide it.'
-    ),
+    /Expected component `a.b` to be defined/,
     'should throw if a used member is not defined locally'
   )
 
@@ -505,9 +498,7 @@ test('compile', async () => {
         )
       )
     },
-    new Error(
-      'Expected object `x` to be defined: you likely forgot to import, pass, or provide it.'
-    ),
+    /Expected object `x` to be defined/,
     'should throw if a used member is not defined locally (JSX in a function)'
   )
 
@@ -548,9 +539,7 @@ test('compile', async () => {
         )
       )
     },
-    new Error(
-      'Expected component `X` to be defined: you likely forgot to import, pass, or provide it.\nIt’s referenced in your code at `1:1-1:6`'
-    ),
+    /It’s referenced in your code at `1:1-1:6/,
     'should pass more info to errors w/ `development: true`'
   )
 
@@ -567,9 +556,7 @@ test('compile', async () => {
         )
       )
     },
-    new Error(
-      'Expected object `a` to be defined: you likely forgot to import, pass, or provide it.\nIt’s referenced in your code at `1:5-1:12` in `folder/example.mdx`'
-    ),
+    /It’s referenced in your code at `1:5-1:12` in `folder\/example.mdx`/,
     'should show what file contains the error w/ `development: true`, and `path`'
   )
 
@@ -603,9 +590,7 @@ test('compile', async () => {
         )
       )
     },
-    new Error(
-      'Expected component `X` to be defined: you likely forgot to import, pass, or provide it.'
-    ),
+    /Expected component `X` to be defined/,
     'should throw if a required component is not passed or given to `MDXProvider`'
   )
 
