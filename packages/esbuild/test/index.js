@@ -182,6 +182,7 @@ test('@mdx-js/esbuild', async () => {
     (error) => {
       const exception = /** @type {BuildFailure} */ (error)
       const message = exception.errors[0]
+      // type-coverage:ignore-next-line
       delete message.detail
       assert.deepEqual(
         message,
@@ -258,6 +259,7 @@ test('@mdx-js/esbuild', async () => {
       const result = JSON.parse(JSON.stringify(error))
 
       for (const message of [...result.errors, ...result.warnings]) {
+        // type-coverage:ignore-next-line
         delete message.detail
       }
 
@@ -413,6 +415,7 @@ test('@mdx-js/esbuild', async () => {
       const result = JSON.parse(JSON.stringify(error))
 
       for (const message of [...result.errors, ...result.warnings]) {
+        // type-coverage:ignore-next-line
         delete message.detail
         message.text = message.text.split('\n')[0]
       }
