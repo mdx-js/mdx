@@ -2,9 +2,9 @@
  * @typedef {import('mdx/types.js').MDXContent} MDXContent
  */
 
+import assert from 'node:assert/strict'
 import {promises as fs} from 'fs'
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
+import {test} from 'node:test'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 
@@ -39,5 +39,3 @@ test('@mdx-js/node-loader', async () => {
 
   await fs.unlink(new URL('esm-loader.mdx', import.meta.url))
 })
-
-test.run()

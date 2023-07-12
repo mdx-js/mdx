@@ -2,10 +2,10 @@
  * @typedef {import('mdx/types.js').MDXContent} MDXContent
  */
 
+import assert from 'node:assert/strict'
 import {promises as fs} from 'fs'
+import {test} from 'node:test'
 import {fileURLToPath} from 'url'
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
 import {rollup} from 'rollup'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
@@ -47,5 +47,3 @@ test('@mdx-js/rollup', async () => {
   await fs.unlink(new URL('rollup.mdx', import.meta.url))
   await fs.unlink(new URL('rollup.js', import.meta.url))
 })
-
-test.run()

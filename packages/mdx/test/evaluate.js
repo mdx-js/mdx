@@ -1,5 +1,5 @@
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
+import assert from 'node:assert/strict'
+import {test} from 'node:test'
 import {evaluate, evaluateSync, compile} from '../index.js'
 // @ts-expect-error: make sure a single react is used.
 import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server.js'
@@ -293,7 +293,7 @@ test('evaluate', async () => {
     'should support an `export default as from` w/ `useDynamicImport`'
   )
 
-  assert.equal(
+  assert.deepEqual(
     {
       ...(await evaluate('export * from "./context/data.js"', {
         baseUrl: import.meta.url,
@@ -307,7 +307,7 @@ test('evaluate', async () => {
   )
 
   // I’m not sure if this makes sense, but it is how Node works.
-  assert.equal(
+  assert.deepEqual(
     {
       ...(await evaluate(
         'export {default as number} from "./context/data.js"\nexport * from "./context/data.js"',
@@ -388,5 +388,3 @@ test('evaluate', async () => {
     'should support a provider w/ `useMDXComponents`'
   )
 })
-
-test.run()

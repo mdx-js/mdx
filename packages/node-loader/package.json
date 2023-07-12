@@ -49,7 +49,7 @@
   "scripts": {
     "prepack": "npm run build",
     "build": "tsc --build --clean && tsc --build && type-coverage",
-    "test-api": "node --no-warnings --experimental-loader=./test/react-18-node-loader.js ../../node_modules/uvu/bin.js test \"\\.js$\"",
+    "test-api": "node --no-warnings --experimental-loader=./test/react-18-node-loader.js test/index.js",
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
     "test": "npm run build && npm run test-coverage"
   },

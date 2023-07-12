@@ -3,9 +3,9 @@
 // * @jsx h
 // * @jsxFrag Fragment
 // Note: this is unused by otherwise `xo` or so seems to fail?
+import assert from 'node:assert/strict'
+import {test} from 'node:test'
 import {h} from 'preact'
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
 import * as runtime from 'preact/jsx-runtime'
 import {render} from 'preact-render-to-string'
 import {evaluate} from '@mdx-js/mdx'
@@ -223,5 +223,3 @@ test('should support `withComponents`', async () => {
     '<h1 style="color: tomato;">hi</h1>\n<h2>hello</h2>'
   )
 })
-
-test.run()

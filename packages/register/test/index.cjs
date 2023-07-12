@@ -4,10 +4,10 @@
 
 'use strict'
 
+const assert = require('node:assert/strict')
 const path = require('path')
 const fs = require('fs').promises
-const {test} = require('uvu')
-const assert = require('uvu/assert')
+const {test} = require('node:test')
 const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')
 
@@ -32,5 +32,3 @@ test('@mdx-js/register', async () => {
 
   await fs.unlink(path.join(base, 'register.mdx'))
 })
-
-test.run()

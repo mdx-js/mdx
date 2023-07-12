@@ -2,8 +2,8 @@
  * @typedef {import('react').ReactNode} ReactNode
  */
 
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
+import assert from 'node:assert/strict'
+import {test} from 'node:test'
 import {evaluate} from '@mdx-js/mdx'
 import React from 'react'
 import * as runtimeRaw from 'react/jsx-runtime'
@@ -214,5 +214,3 @@ test('should support `withComponents`', async () => {
     '<h1 style="color:tomato">hi</h1>\n<h2>hello</h2>'
   )
 })
-
-test.run()

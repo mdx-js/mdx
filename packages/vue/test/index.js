@@ -4,8 +4,8 @@
  * @typedef {import('vue').Component} AnyComponent
  */
 
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
+import assert from 'node:assert/strict'
+import {test} from 'node:test'
 import * as babel from '@babel/core'
 import {compile} from '@mdx-js/mdx'
 import {run} from '@mdx-js/mdx/lib/run.js'
@@ -129,5 +129,3 @@ test('should support the MDX provider w/o content', async () => {
     ''
   )
 })
-
-test.run()
