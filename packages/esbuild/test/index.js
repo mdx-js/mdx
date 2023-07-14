@@ -102,6 +102,7 @@ test('@mdx-js/esbuild', async (t) => {
       plugins: [esbuildMdx()]
     })
 
+    /** @type {MDXContent} */
     const Content =
       /* @ts-expect-error file is dynamically generated */
       (await import('./esbuild-md.js')).default // type-coverage:ignore-line
@@ -128,6 +129,7 @@ test('@mdx-js/esbuild', async (t) => {
       plugins: [esbuildMdx({mdExtensions: [], mdxExtensions: ['.md']})]
     })
 
+    /** @type {MDXContent} */
     const Content =
       /* @ts-expect-error file is dynamically generated */
       (await import('./esbuild-md-as-mdx.js')).default // type-coverage:ignore-line
@@ -471,6 +473,7 @@ test('@mdx-js/esbuild', async (t) => {
       bundle: true
     })
 
+    /** @type {MDXContent} */
     const Content =
       /** @ts-expect-error file is dynamically generated */
       (await import('./esbuild-compile-from-memory.js')).default // type-coverage:ignore-line
@@ -499,6 +502,7 @@ test('@mdx-js/esbuild', async (t) => {
         bundle: true
       })
 
+      /** @type {MDXContent} */
       const Content =
         /** @ts-expect-error file is dynamically generated */
         (await import('./esbuild-compile-from-memory-empty.js')).default // type-coverage:ignore-line
@@ -531,6 +535,7 @@ test('@mdx-js/esbuild', async (t) => {
       plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
     })
 
+    /** @type {MDXContent} */
     const Content =
       /* @ts-expect-error file is dynamically generated */
       (await import('./esbuild-with-remote-md.js')).default // type-coverage:ignore-line
@@ -568,6 +573,7 @@ test('@mdx-js/esbuild', async (t) => {
       plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
     })
 
+    /** @type {MDXContent} */
     const Content =
       /* @ts-expect-error file is dynamically generated */
       (await import('./esbuild-with-remote-mdx.js')).default // type-coverage:ignore-line
