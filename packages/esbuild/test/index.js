@@ -16,177 +16,187 @@ import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 import esbuildMdx from '../index.js'
 
-test('@mdx-js/esbuild', async () => {
-  // MDX.
-  await fs.writeFile(
-    new URL('esbuild.mdx', import.meta.url),
-    'export const Message = () => <>World!</>\n\n# Hello, <Message />'
-  )
+test('@mdx-js/esbuild', async (t) => {
+  await t.test('MDX', async () => {
+    await fs.writeFile(
+      new URL('esbuild.mdx', import.meta.url),
+      'export const Message = () => <>World!</>\n\n# Hello, <Message />'
+    )
 
-  await esbuild.build({
-    bundle: true,
-    define: {'process.env.NODE_ENV': '"development"'},
-    entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
-    outfile: fileURLToPath(new URL('esbuild.js', import.meta.url)),
-    format: 'esm',
-    plugins: [esbuildMdx()]
+    await esbuild.build({
+      bundle: true,
+      define: {'process.env.NODE_ENV': '"development"'},
+      entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
+      outfile: fileURLToPath(new URL('esbuild.js', import.meta.url)),
+      format: 'esm',
+      plugins: [esbuildMdx()]
+    })
+
+    /** @type {MDXContent} */
+    const Content =
+      /* @ts-expect-error file is dynamically generated */
+      (await import('./esbuild.js')).default // type-coverage:ignore-line
+
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<h1>Hello, World!</h1>',
+      'should compile'
+    )
   })
 
-  /** @type {MDXContent} */
-  let Content =
-    /* @ts-expect-error file is dynamically generated */
-    (await import('./esbuild.js')).default // type-coverage:ignore-line
+  await fs.rm(new URL('esbuild.mdx', import.meta.url), {force: true})
+  await fs.rm(new URL('esbuild.js', import.meta.url), {force: true})
 
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '<h1>Hello, World!</h1>',
-    'should compile'
-  )
+  await t.test('Resolve directory', async () => {
+    await fs.writeFile(
+      new URL('esbuild-resolve.mdx', import.meta.url),
+      'import Content from "./folder/file.mdx"\n\n<Content/>'
+    )
+    await fs.mkdir(new URL('folder', import.meta.url))
+    await fs.writeFile(
+      new URL('folder/file.mdx', import.meta.url),
+      'import {data} from "./file.js"\n\n{data}'
+    )
+    await fs.writeFile(
+      new URL('folder/file.js', import.meta.url),
+      'export const data = 0.1'
+    )
+    await esbuild.build({
+      bundle: true,
+      define: {'process.env.NODE_ENV': '"development"'},
+      entryPoints: [
+        fileURLToPath(new URL('esbuild-resolve.mdx', import.meta.url))
+      ],
+      outfile: fileURLToPath(new URL('esbuild-resolve.js', import.meta.url)),
+      format: 'esm',
+      plugins: [esbuildMdx()]
+    })
+    /** @type {MDXContent} */
+    const Content =
+      /* @ts-expect-error file is dynamically generated */
+      (await import('./esbuild-resolve.js')).default // type-coverage:ignore-line
 
-  await fs.unlink(new URL('esbuild.mdx', import.meta.url))
-  await fs.unlink(new URL('esbuild.js', import.meta.url))
-
-  // Resolve directory.
-  await fs.writeFile(
-    new URL('esbuild-resolve.mdx', import.meta.url),
-    'import Content from "./folder/file.mdx"\n\n<Content/>'
-  )
-  await fs.mkdir(new URL('folder', import.meta.url))
-  await fs.writeFile(
-    new URL('folder/file.mdx', import.meta.url),
-    'import {data} from "./file.js"\n\n{data}'
-  )
-  await fs.writeFile(
-    new URL('folder/file.js', import.meta.url),
-    'export const data = 0.1'
-  )
-  await esbuild.build({
-    bundle: true,
-    define: {'process.env.NODE_ENV': '"development"'},
-    entryPoints: [
-      fileURLToPath(new URL('esbuild-resolve.mdx', import.meta.url))
-    ],
-    outfile: fileURLToPath(new URL('esbuild-resolve.js', import.meta.url)),
-    format: 'esm',
-    plugins: [esbuildMdx()]
-  })
-  /** @type {MDXContent} */
-  Content =
-    /* @ts-expect-error file is dynamically generated */
-    (await import('./esbuild-resolve.js')).default // type-coverage:ignore-line
-
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '0.1',
-    'should compile'
-  )
-
-  await fs.unlink(new URL('esbuild-resolve.mdx', import.meta.url))
-  await fs.unlink(new URL('esbuild-resolve.js', import.meta.url))
-  await fs.rmdir(new URL('folder/', import.meta.url), {recursive: true})
-
-  // Markdown.
-  await fs.writeFile(new URL('esbuild.md', import.meta.url), '\ta')
-
-  await esbuild.build({
-    bundle: true,
-    define: {'process.env.NODE_ENV': '"development"'},
-    entryPoints: [fileURLToPath(new URL('esbuild.md', import.meta.url))],
-    outfile: fileURLToPath(new URL('esbuild-md.js', import.meta.url)),
-    format: 'esm',
-    plugins: [esbuildMdx()]
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '0.1',
+      'should compile'
+    )
   })
 
-  Content =
-    /* @ts-expect-error file is dynamically generated */
-    (await import('./esbuild-md.js')).default // type-coverage:ignore-line
-
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '<pre><code>a\n</code></pre>',
-    'should compile `.md`'
-  )
-
-  await fs.unlink(new URL('esbuild.md', import.meta.url))
-  await fs.unlink(new URL('esbuild-md.js', import.meta.url))
-
-  // `.md` as MDX extension.
-  await fs.writeFile(new URL('esbuild.md', import.meta.url), '\ta')
-
-  await esbuild.build({
-    bundle: true,
-    define: {'process.env.NODE_ENV': '"development"'},
-    entryPoints: [fileURLToPath(new URL('esbuild.md', import.meta.url))],
-    outfile: fileURLToPath(new URL('esbuild-md-as-mdx.js', import.meta.url)),
-    format: 'esm',
-    plugins: [esbuildMdx({mdExtensions: [], mdxExtensions: ['.md']})]
+  await fs.rm(new URL('esbuild-resolve.mdx', import.meta.url), {force: true})
+  await fs.rm(new URL('esbuild-resolve.js', import.meta.url), {force: true})
+  await fs.rm(new URL('folder/', import.meta.url), {
+    force: true,
+    recursive: true
   })
 
-  Content =
-    /* @ts-expect-error file is dynamically generated */
-    (await import('./esbuild-md-as-mdx.js')).default // type-coverage:ignore-line
+  await t.test('Markdown', async () => {
+    await fs.writeFile(new URL('esbuild.md', import.meta.url), '\ta')
 
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '<p>a</p>',
-    'should compile `.md` as MDX w/ configuration'
-  )
+    await esbuild.build({
+      bundle: true,
+      define: {'process.env.NODE_ENV': '"development"'},
+      entryPoints: [fileURLToPath(new URL('esbuild.md', import.meta.url))],
+      outfile: fileURLToPath(new URL('esbuild-md.js', import.meta.url)),
+      format: 'esm',
+      plugins: [esbuildMdx()]
+    })
 
-  await fs.unlink(new URL('esbuild.md', import.meta.url))
-  await fs.unlink(new URL('esbuild-md-as-mdx.js', import.meta.url))
+    const Content =
+      /* @ts-expect-error file is dynamically generated */
+      (await import('./esbuild-md.js')).default // type-coverage:ignore-line
 
-  // File not in `extnames`:
-  await fs.writeFile(new URL('esbuild.md', import.meta.url), 'a')
-  await fs.writeFile(new URL('esbuild.mdx', import.meta.url), 'a')
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<pre><code>a\n</code></pre>',
+      'should compile `.md`'
+    )
+  })
 
-  console.log('\nnote: the following error is expected!\n')
-  await assert.rejects(
-    esbuild.build({
+  await fs.rm(new URL('esbuild.md', import.meta.url), {force: true})
+  await fs.rm(new URL('esbuild-md.js', import.meta.url), {force: true})
+
+  await t.test('`.md` as MDX extension', async () => {
+    await fs.writeFile(new URL('esbuild.md', import.meta.url), '\ta')
+
+    await esbuild.build({
+      bundle: true,
+      define: {'process.env.NODE_ENV': '"development"'},
       entryPoints: [fileURLToPath(new URL('esbuild.md', import.meta.url))],
       outfile: fileURLToPath(new URL('esbuild-md-as-mdx.js', import.meta.url)),
-      plugins: [esbuildMdx({format: 'mdx'})]
-    }),
-    /No loader is configured for "\.md" files/,
-    'should not handle `.md` files w/ `format: mdx`'
-  )
+      format: 'esm',
+      plugins: [esbuildMdx({mdExtensions: [], mdxExtensions: ['.md']})]
+    })
 
-  console.log('\nnote: the following error is expected!\n')
-  await assert.rejects(
-    esbuild.build({
-      entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
-      outfile: fileURLToPath(new URL('esbuild-md-as-mdx.js', import.meta.url)),
-      plugins: [esbuildMdx({format: 'md'})]
-    }),
-    /No loader is configured for "\.mdx" files/,
-    'should not handle `.mdx` files w/ `format: md`'
-  )
+    const Content =
+      /* @ts-expect-error file is dynamically generated */
+      (await import('./esbuild-md-as-mdx.js')).default // type-coverage:ignore-line
 
-  await fs.unlink(new URL('esbuild.md', import.meta.url))
-  await fs.unlink(new URL('esbuild.mdx', import.meta.url))
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<p>a</p>',
+      'should compile `.md` as MDX w/ configuration'
+    )
+  })
 
-  console.log('\nnote: the following errors and warnings are expected!\n')
+  await fs.rm(new URL('esbuild.md', import.meta.url), {force: true})
+  await fs.rm(new URL('esbuild-md-as-mdx.js', import.meta.url), {force: true})
 
-  await fs.writeFile(
-    new URL('esbuild-broken.mdx', import.meta.url),
-    'asd <https://example.com>?'
-  )
+  await t.test('File not in `extnames`', async () => {
+    await fs.writeFile(new URL('esbuild.md', import.meta.url), 'a')
+    await fs.writeFile(new URL('esbuild.mdx', import.meta.url), 'a')
 
-  await assert.rejects(
-    esbuild.build({
-      entryPoints: [
-        fileURLToPath(new URL('esbuild-broken.mdx', import.meta.url))
-      ],
-      outfile: fileURLToPath(new URL('esbuild.js', import.meta.url)),
-      plugins: [esbuildMdx()]
-    }),
-    (error) => {
-      const exception = /** @type {BuildFailure} */ (error)
-      const message = exception.errors[0]
-      // type-coverage:ignore-next-line
-      delete message.detail
-      assert.deepEqual(
-        message,
-        {
+    console.log('\nnote: the following error is expected!\n')
+    await assert.rejects(
+      esbuild.build({
+        entryPoints: [fileURLToPath(new URL('esbuild.md', import.meta.url))],
+        outfile: fileURLToPath(
+          new URL('esbuild-md-as-mdx.js', import.meta.url)
+        ),
+        plugins: [esbuildMdx({format: 'mdx'})]
+      }),
+      /No loader is configured for "\.md" files/,
+      'should not handle `.md` files w/ `format: mdx`'
+    )
+
+    console.log('\nnote: the following error is expected!\n')
+    await assert.rejects(
+      esbuild.build({
+        entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
+        outfile: fileURLToPath(
+          new URL('esbuild-md-as-mdx.js', import.meta.url)
+        ),
+        plugins: [esbuildMdx({format: 'md'})]
+      }),
+      /No loader is configured for "\.mdx" files/,
+      'should not handle `.mdx` files w/ `format: md`'
+    )
+  })
+
+  await fs.rm(new URL('esbuild.md', import.meta.url), {force: true})
+  await fs.rm(new URL('esbuild.mdx', import.meta.url), {force: true})
+
+  await t.test('should pass errors (1)', async () => {
+    console.log('\nnote: the following errors and warnings are expected!\n')
+    await fs.writeFile(
+      new URL('esbuild-broken.mdx', import.meta.url),
+      'asd <https://example.com>?'
+    )
+
+    await assert.rejects(
+      esbuild.build({
+        entryPoints: [
+          fileURLToPath(new URL('esbuild-broken.mdx', import.meta.url))
+        ],
+        outfile: fileURLToPath(new URL('esbuild.js', import.meta.url)),
+        plugins: [esbuildMdx()]
+      }),
+      (error) => {
+        const exception = /** @type {BuildFailure} */ (error)
+        const message = exception.errors[0]
+        // type-coverage:ignore-next-line
+        delete message.detail
+        assert.deepEqual(message, {
           location: {
             column: 11,
             file: 'test/esbuild-broken.mdx',
@@ -200,72 +210,70 @@ test('@mdx-js/esbuild', async () => {
           pluginName: '@mdx-js/esbuild',
           text: 'Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)',
           id: ''
-        },
-        'should pass errors (1)'
-      )
-      return true
-    }
-  )
-
-  await fs.unlink(new URL('esbuild-broken.mdx', import.meta.url))
-
-  await fs.writeFile(
-    new URL('esbuild-warnings.mdx', import.meta.url),
-    'export const Message = () => <>World!</>\n\n# Hello, <Message />'
-  )
-
-  await assert.rejects(
-    esbuild.build({
-      entryPoints: [
-        fileURLToPath(new URL('esbuild-warnings.mdx', import.meta.url))
-      ],
-      outfile: fileURLToPath(new URL('esbuild-warnings.js', import.meta.url)),
-      format: 'esm',
-      plugins: [
-        esbuildMdx({
-          rehypePlugins: [
-            () =>
-              /**
-               * @param {Root} tree
-               * @param {VFile} file
-               */
-              (tree, file) => {
-                const esm = tree.children[0] // Export
-                assert.equal(esm?.type, 'mdxjsEsm')
-                const eol = tree.children[1] // EOL between both, no position.
-                assert.equal(eol?.type, 'text')
-                assert.ok(!eol.position)
-                const head = tree.children[2] // Heading
-                assert.equal(head?.type, 'element')
-                assert.ok(head.position)
-                const text = head.children[0] // Text in heading
-                assert.equal(text?.type, 'text')
-                const jsx = head.children[1] // JSX in heading
-                assert.equal(jsx?.type, 'mdxJsxTextElement')
-                file.message('1')
-                file.message('2', eol)
-                file.message('3', tree)
-                file.message('4', esm)
-                file.message('5', text) // Text in heading
-                file.message('6', jsx) // JSX in heading
-                file.message('7', head.position.end).fatal = true // End of heading
-              }
-          ]
         })
-      ]
-    }),
-    (error) => {
-      /** @type {BuildFailure} */
-      const result = JSON.parse(JSON.stringify(error))
-
-      for (const message of [...result.errors, ...result.warnings]) {
-        // type-coverage:ignore-next-line
-        delete message.detail
+        return true
       }
+    )
+  })
 
-      assert.deepEqual(
-        result,
-        {
+  await fs.rm(new URL('esbuild-broken.mdx', import.meta.url), {force: true})
+
+  await t.test('should pass warnings', async () => {
+    await fs.writeFile(
+      new URL('esbuild-warnings.mdx', import.meta.url),
+      'export const Message = () => <>World!</>\n\n# Hello, <Message />'
+    )
+
+    await assert.rejects(
+      esbuild.build({
+        entryPoints: [
+          fileURLToPath(new URL('esbuild-warnings.mdx', import.meta.url))
+        ],
+        outfile: fileURLToPath(new URL('esbuild-warnings.js', import.meta.url)),
+        format: 'esm',
+        plugins: [
+          esbuildMdx({
+            rehypePlugins: [
+              () =>
+                /**
+                 * @param {Root} tree
+                 * @param {VFile} file
+                 */
+                (tree, file) => {
+                  const esm = tree.children[0] // Export
+                  assert.equal(esm?.type, 'mdxjsEsm')
+                  const eol = tree.children[1] // EOL between both, no position.
+                  assert.equal(eol?.type, 'text')
+                  assert.ok(!eol.position)
+                  const head = tree.children[2] // Heading
+                  assert.equal(head?.type, 'element')
+                  assert.ok(head.position)
+                  const text = head.children[0] // Text in heading
+                  assert.equal(text?.type, 'text')
+                  const jsx = head.children[1] // JSX in heading
+                  assert.equal(jsx?.type, 'mdxJsxTextElement')
+                  file.message('1')
+                  file.message('2', eol)
+                  file.message('3', tree)
+                  file.message('4', esm)
+                  file.message('5', text) // Text in heading
+                  file.message('6', jsx) // JSX in heading
+                  file.message('7', head.position.end).fatal = true // End of heading
+                }
+            ]
+          })
+        ]
+      }),
+      (error) => {
+        /** @type {BuildFailure} */
+        const result = JSON.parse(JSON.stringify(error))
+
+        for (const message of [...result.errors, ...result.warnings]) {
+          // type-coverage:ignore-next-line
+          delete message.detail
+        }
+
+        assert.deepEqual(result, {
           errors: [
             {
               location: {
@@ -375,54 +383,52 @@ test('@mdx-js/esbuild', async () => {
               id: ''
             }
           ]
-        },
-        'should pass warnings'
-      )
-      return true
-    }
-  )
-
-  await fs.unlink(new URL('esbuild-warnings.mdx', import.meta.url))
-
-  await fs.writeFile(
-    new URL('esbuild-plugin-crash.mdx', import.meta.url),
-    '# hi'
-  )
-
-  await assert.rejects(
-    esbuild.build({
-      entryPoints: [
-        fileURLToPath(new URL('esbuild-plugin-crash.mdx', import.meta.url))
-      ],
-      outfile: fileURLToPath(
-        new URL('esbuild-plugin-crash.js', import.meta.url)
-      ),
-      format: 'esm',
-      plugins: [
-        esbuildMdx({
-          rehypePlugins: [
-            function () {
-              return () => {
-                throw new Error('Something went wrong')
-              }
-            }
-          ]
         })
-      ]
-    }),
-    (error) => {
-      /** @type {BuildFailure} */
-      const result = JSON.parse(JSON.stringify(error))
-
-      for (const message of [...result.errors, ...result.warnings]) {
-        // type-coverage:ignore-next-line
-        delete message.detail
-        message.text = message.text.split('\n')[0]
+        return true
       }
+    )
+  })
 
-      assert.deepEqual(
-        result,
-        {
+  await fs.rm(new URL('esbuild-warnings.mdx', import.meta.url), {force: true})
+
+  await t.test('should pass errors (2)', async () => {
+    await fs.writeFile(
+      new URL('esbuild-plugin-crash.mdx', import.meta.url),
+      '# hi'
+    )
+
+    await assert.rejects(
+      esbuild.build({
+        entryPoints: [
+          fileURLToPath(new URL('esbuild-plugin-crash.mdx', import.meta.url))
+        ],
+        outfile: fileURLToPath(
+          new URL('esbuild-plugin-crash.js', import.meta.url)
+        ),
+        format: 'esm',
+        plugins: [
+          esbuildMdx({
+            rehypePlugins: [
+              function () {
+                return () => {
+                  throw new Error('Something went wrong')
+                }
+              }
+            ]
+          })
+        ]
+      }),
+      (error) => {
+        /** @type {BuildFailure} */
+        const result = JSON.parse(JSON.stringify(error))
+
+        for (const message of [...result.errors, ...result.warnings]) {
+          // type-coverage:ignore-next-line
+          delete message.detail
+          message.text = message.text.split('\n')[0]
+        }
+
+        assert.deepEqual(result, {
           errors: [
             {
               location: {
@@ -441,19 +447,152 @@ test('@mdx-js/esbuild', async () => {
             }
           ],
           warnings: []
-        },
-        'should pass errors (2)'
-      )
-      return true
+        })
+        return true
+      }
+    )
+  })
+
+  await fs.rm(new URL('esbuild-plugin-crash.mdx', import.meta.url), {
+    force: true
+  })
+
+  await t.test('should compile from `pluginData.content`', async () => {
+    console.log('\nnote: the preceding errors and warnings are expected!\n')
+
+    await esbuild.build({
+      entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
+      outfile: fileURLToPath(
+        new URL('esbuild-compile-from-memory.js', import.meta.url)
+      ),
+      plugins: [inlinePlugin(`# Test`), esbuildMdx()],
+      define: {'process.env.NODE_ENV': '"development"'},
+      format: 'esm',
+      bundle: true
+    })
+
+    const Content =
+      /** @ts-expect-error file is dynamically generated */
+      (await import('./esbuild-compile-from-memory.js')).default // type-coverage:ignore-line
+
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<h1>Test</h1>'
+    )
+  })
+
+  await fs.rm(new URL('esbuild-compile-from-memory.js', import.meta.url), {
+    force: true
+  })
+
+  await t.test(
+    'should compile from `pluginData.content` when an empty string is passed',
+    async () => {
+      await esbuild.build({
+        entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
+        outfile: fileURLToPath(
+          new URL('esbuild-compile-from-memory-empty.js', import.meta.url)
+        ),
+        plugins: [inlinePlugin(``), esbuildMdx()],
+        define: {'process.env.NODE_ENV': '"development"'},
+        format: 'esm',
+        bundle: true
+      })
+
+      const Content =
+        /** @ts-expect-error file is dynamically generated */
+        (await import('./esbuild-compile-from-memory-empty.js')).default // type-coverage:ignore-line
+
+      assert.equal(renderToStaticMarkup(React.createElement(Content)), '')
     }
   )
 
-  await fs.unlink(new URL('esbuild-plugin-crash.mdx', import.meta.url))
+  await fs.rm(
+    new URL('esbuild-compile-from-memory-empty.js', import.meta.url),
+    {force: true}
+  )
 
-  console.log('\nnote: the preceding errors and warnings are expected!\n')
+  await t.test('Remote markdown', async () => {
+    await fs.writeFile(
+      new URL('esbuild-with-remote-md.mdx', import.meta.url),
+      'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/md-file.md"\n\n<Content />'
+    )
 
-  /** @type {(contents: string) => import('esbuild').Plugin} */
-  const inlinePlugin = (contents) => ({
+    await esbuild.build({
+      entryPoints: [
+        fileURLToPath(new URL('esbuild-with-remote-md.mdx', import.meta.url))
+      ],
+      outfile: fileURLToPath(
+        new URL('esbuild-with-remote-md.js', import.meta.url)
+      ),
+      bundle: true,
+      define: {'process.env.NODE_ENV': '"development"'},
+      format: 'esm',
+      plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
+    })
+
+    const Content =
+      /* @ts-expect-error file is dynamically generated */
+      (await import('./esbuild-with-remote-md.js')).default // type-coverage:ignore-line
+
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<p>Some content.</p>',
+      'should compile remote markdown files w/ `allowDangerousRemoteMdx`'
+    )
+  })
+
+  await fs.rm(new URL('esbuild-with-remote-md.mdx', import.meta.url), {
+    force: true
+  })
+  await fs.rm(new URL('esbuild-with-remote-md.js', import.meta.url), {
+    force: true
+  })
+
+  await t.test('Remote MDX importing more markdown', async () => {
+    await fs.writeFile(
+      new URL('esbuild-with-remote-mdx.mdx', import.meta.url),
+      'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/mdx-file-importing-markdown.mdx"\n\n<Content />'
+    )
+
+    await esbuild.build({
+      entryPoints: [
+        fileURLToPath(new URL('esbuild-with-remote-mdx.mdx', import.meta.url))
+      ],
+      outfile: fileURLToPath(
+        new URL('esbuild-with-remote-mdx.js', import.meta.url)
+      ),
+      bundle: true,
+      define: {'process.env.NODE_ENV': '"development"'},
+      format: 'esm',
+      plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
+    })
+
+    const Content =
+      /* @ts-expect-error file is dynamically generated */
+      (await import('./esbuild-with-remote-mdx.js')).default // type-coverage:ignore-line
+
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<h1>heading</h1>\n<p>A <span style="color:red">little pill</span>.</p>\n<p>Some content.</p>',
+      'should compile remote MD, MDX, and JS files w/ `allowDangerousRemoteMdx`'
+    )
+  })
+
+  await fs.rm(new URL('esbuild-with-remote-mdx.mdx', import.meta.url), {
+    force: true
+  })
+  await fs.rm(new URL('esbuild-with-remote-mdx.js', import.meta.url), {
+    force: true
+  })
+})
+
+/**
+ * @param {string} contents
+ * @returns {import('esbuild').Plugin}
+ */
+function inlinePlugin(contents) {
+  return {
     name: 'inline plugin',
     setup(build) {
       build.onResolve({filter: /esbuild\.mdx/}, () => ({
@@ -461,117 +600,5 @@ test('@mdx-js/esbuild', async () => {
         pluginData: {contents}
       }))
     }
-  })
-
-  await esbuild.build({
-    entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
-    outfile: fileURLToPath(
-      new URL('esbuild-compile-from-memory.js', import.meta.url)
-    ),
-    plugins: [inlinePlugin(`# Test`), esbuildMdx()],
-    define: {'process.env.NODE_ENV': '"development"'},
-    format: 'esm',
-    bundle: true
-  })
-
-  Content =
-    /** @ts-expect-error file is dynamically generated */
-    (await import('./esbuild-compile-from-memory.js')).default // type-coverage:ignore-line
-
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '<h1>Test</h1>',
-    'should compile from `pluginData.content`'
-  )
-
-  await fs.unlink(new URL('esbuild-compile-from-memory.js', import.meta.url))
-
-  await esbuild.build({
-    entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
-    outfile: fileURLToPath(
-      new URL('esbuild-compile-from-memory-empty.js', import.meta.url)
-    ),
-    plugins: [inlinePlugin(``), esbuildMdx()],
-    define: {'process.env.NODE_ENV': '"development"'},
-    format: 'esm',
-    bundle: true
-  })
-
-  Content =
-    /** @ts-expect-error file is dynamically generated */
-    (await import('./esbuild-compile-from-memory-empty.js')).default // type-coverage:ignore-line
-
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '',
-    'should compile from `pluginData.content` when an empty string is passed'
-  )
-
-  await fs.unlink(
-    new URL('esbuild-compile-from-memory-empty.js', import.meta.url)
-  )
-
-  // Remote markdown.
-  await fs.writeFile(
-    new URL('esbuild-with-remote-md.mdx', import.meta.url),
-    'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/md-file.md"\n\n<Content />'
-  )
-
-  await esbuild.build({
-    entryPoints: [
-      fileURLToPath(new URL('esbuild-with-remote-md.mdx', import.meta.url))
-    ],
-    outfile: fileURLToPath(
-      new URL('esbuild-with-remote-md.js', import.meta.url)
-    ),
-    bundle: true,
-    define: {'process.env.NODE_ENV': '"development"'},
-    format: 'esm',
-    plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
-  })
-
-  Content =
-    /* @ts-expect-error file is dynamically generated */
-    (await import('./esbuild-with-remote-md.js')).default // type-coverage:ignore-line
-
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '<p>Some content.</p>',
-    'should compile remote markdown files w/ `allowDangerousRemoteMdx`'
-  )
-
-  await fs.unlink(new URL('esbuild-with-remote-md.mdx', import.meta.url))
-  await fs.unlink(new URL('esbuild-with-remote-md.js', import.meta.url))
-
-  // Remote MDX importing more markdown.
-  await fs.writeFile(
-    new URL('esbuild-with-remote-mdx.mdx', import.meta.url),
-    'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/mdx-file-importing-markdown.mdx"\n\n<Content />'
-  )
-
-  await esbuild.build({
-    entryPoints: [
-      fileURLToPath(new URL('esbuild-with-remote-mdx.mdx', import.meta.url))
-    ],
-    outfile: fileURLToPath(
-      new URL('esbuild-with-remote-mdx.js', import.meta.url)
-    ),
-    bundle: true,
-    define: {'process.env.NODE_ENV': '"development"'},
-    format: 'esm',
-    plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
-  })
-
-  Content =
-    /* @ts-expect-error file is dynamically generated */
-    (await import('./esbuild-with-remote-mdx.js')).default // type-coverage:ignore-line
-
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '<h1>heading</h1>\n<p>A <span style="color:red">little pill</span>.</p>\n<p>Some content.</p>',
-    'should compile remote MD, MDX, and JS files w/ `allowDangerousRemoteMdx`'
-  )
-
-  await fs.unlink(new URL('esbuild-with-remote-mdx.mdx', import.meta.url))
-  await fs.unlink(new URL('esbuild-with-remote-mdx.js', import.meta.url))
-})
+  }
+}
