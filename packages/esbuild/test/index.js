@@ -17,7 +17,7 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import esbuildMdx from '../index.js'
 
 test('@mdx-js/esbuild', async (t) => {
-  await t.test('MDX', async () => {
+  await t.test('should compile MDX', async () => {
     await fs.writeFile(
       new URL('esbuild.mdx', import.meta.url),
       'export const Message = () => <>World!</>\n\n# Hello, <Message />'
@@ -47,7 +47,7 @@ test('@mdx-js/esbuild', async (t) => {
   await fs.rm(new URL('esbuild.mdx', import.meta.url), {force: true})
   await fs.rm(new URL('esbuild.js', import.meta.url), {force: true})
 
-  await t.test('Resolve directory', async () => {
+  await t.test('should resolve directory and compile', async () => {
     await fs.writeFile(
       new URL('esbuild-resolve.mdx', import.meta.url),
       'import Content from "./folder/file.mdx"\n\n<Content/>'
@@ -76,11 +76,7 @@ test('@mdx-js/esbuild', async (t) => {
       /* @ts-expect-error file is dynamically generated */
       (await import('./esbuild-resolve.js')).default // type-coverage:ignore-line
 
-    assert.equal(
-      renderToStaticMarkup(React.createElement(Content)),
-      '0.1',
-      'should compile'
-    )
+    assert.equal(renderToStaticMarkup(React.createElement(Content)), '0.1')
   })
 
   await fs.rm(new URL('esbuild-resolve.mdx', import.meta.url), {force: true})
@@ -90,7 +86,7 @@ test('@mdx-js/esbuild', async (t) => {
     recursive: true
   })
 
-  await t.test('Markdown', async () => {
+  await t.test('should compile `.md`', async () => {
     await fs.writeFile(new URL('esbuild.md', import.meta.url), '\ta')
 
     await esbuild.build({
@@ -109,15 +105,14 @@ test('@mdx-js/esbuild', async (t) => {
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),
-      '<pre><code>a\n</code></pre>',
-      'should compile `.md`'
+      '<pre><code>a\n</code></pre>'
     )
   })
 
   await fs.rm(new URL('esbuild.md', import.meta.url), {force: true})
   await fs.rm(new URL('esbuild-md.js', import.meta.url), {force: true})
 
-  await t.test('`.md` as MDX extension', async () => {
+  await t.test('should compile `.md` as MDX w/ configuration', async () => {
     await fs.writeFile(new URL('esbuild.md', import.meta.url), '\ta')
 
     await esbuild.build({
@@ -134,17 +129,13 @@ test('@mdx-js/esbuild', async (t) => {
       /* @ts-expect-error file is dynamically generated */
       (await import('./esbuild-md-as-mdx.js')).default // type-coverage:ignore-line
 
-    assert.equal(
-      renderToStaticMarkup(React.createElement(Content)),
-      '<p>a</p>',
-      'should compile `.md` as MDX w/ configuration'
-    )
+    assert.equal(renderToStaticMarkup(React.createElement(Content)), '<p>a</p>')
   })
 
   await fs.rm(new URL('esbuild.md', import.meta.url), {force: true})
   await fs.rm(new URL('esbuild-md-as-mdx.js', import.meta.url), {force: true})
 
-  await t.test('File not in `extnames`', async () => {
+  await t.test('should not handle `.md` files w/ `format: mdx`', async () => {
     await fs.writeFile(new URL('esbuild.md', import.meta.url), 'a')
     await fs.writeFile(new URL('esbuild.mdx', import.meta.url), 'a')
 
@@ -157,10 +148,11 @@ test('@mdx-js/esbuild', async (t) => {
         ),
         plugins: [esbuildMdx({format: 'mdx'})]
       }),
-      /No loader is configured for "\.md" files/,
-      'should not handle `.md` files w/ `format: mdx`'
+      /No loader is configured for "\.md" files/
     )
+  })
 
+  await t.test('should not handle `.mdx` files w/ `format: md`', async () => {
     console.log('\nnote: the following error is expected!\n')
     await assert.rejects(
       esbuild.build({
@@ -170,8 +162,7 @@ test('@mdx-js/esbuild', async (t) => {
         ),
         plugins: [esbuildMdx({format: 'md'})]
       }),
-      /No loader is configured for "\.mdx" files/,
-      'should not handle `.mdx` files w/ `format: md`'
+      /No loader is configured for "\.mdx" files/
     )
   })
 
@@ -516,36 +507,38 @@ test('@mdx-js/esbuild', async (t) => {
     {force: true}
   )
 
-  await t.test('Remote markdown', async () => {
-    await fs.writeFile(
-      new URL('esbuild-with-remote-md.mdx', import.meta.url),
-      'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/md-file.md"\n\n<Content />'
-    )
+  await t.test(
+    'should compile remote markdown files w/ `allowDangerousRemoteMdx`',
+    async () => {
+      await fs.writeFile(
+        new URL('esbuild-with-remote-md.mdx', import.meta.url),
+        'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/md-file.md"\n\n<Content />'
+      )
 
-    await esbuild.build({
-      entryPoints: [
-        fileURLToPath(new URL('esbuild-with-remote-md.mdx', import.meta.url))
-      ],
-      outfile: fileURLToPath(
-        new URL('esbuild-with-remote-md.js', import.meta.url)
-      ),
-      bundle: true,
-      define: {'process.env.NODE_ENV': '"development"'},
-      format: 'esm',
-      plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
-    })
+      await esbuild.build({
+        entryPoints: [
+          fileURLToPath(new URL('esbuild-with-remote-md.mdx', import.meta.url))
+        ],
+        outfile: fileURLToPath(
+          new URL('esbuild-with-remote-md.js', import.meta.url)
+        ),
+        bundle: true,
+        define: {'process.env.NODE_ENV': '"development"'},
+        format: 'esm',
+        plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
+      })
 
-    /** @type {MDXContent} */
-    const Content =
-      /* @ts-expect-error file is dynamically generated */
-      (await import('./esbuild-with-remote-md.js')).default // type-coverage:ignore-line
+      /** @type {MDXContent} */
+      const Content =
+        /* @ts-expect-error file is dynamically generated */
+        (await import('./esbuild-with-remote-md.js')).default // type-coverage:ignore-line
 
-    assert.equal(
-      renderToStaticMarkup(React.createElement(Content)),
-      '<p>Some content.</p>',
-      'should compile remote markdown files w/ `allowDangerousRemoteMdx`'
-    )
-  })
+      assert.equal(
+        renderToStaticMarkup(React.createElement(Content)),
+        '<p>Some content.</p>'
+      )
+    }
+  )
 
   await fs.rm(new URL('esbuild-with-remote-md.mdx', import.meta.url), {
     force: true
@@ -554,36 +547,38 @@ test('@mdx-js/esbuild', async (t) => {
     force: true
   })
 
-  await t.test('Remote MDX importing more markdown', async () => {
-    await fs.writeFile(
-      new URL('esbuild-with-remote-mdx.mdx', import.meta.url),
-      'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/mdx-file-importing-markdown.mdx"\n\n<Content />'
-    )
+  await t.test(
+    'should compile remote MD, MDX, and JS files w/ `allowDangerousRemoteMdx`',
+    async () => {
+      await fs.writeFile(
+        new URL('esbuild-with-remote-mdx.mdx', import.meta.url),
+        'import Content from "https://raw.githubusercontent.com/mdx-js/mdx/main/packages/esbuild/test/files/mdx-file-importing-markdown.mdx"\n\n<Content />'
+      )
 
-    await esbuild.build({
-      entryPoints: [
-        fileURLToPath(new URL('esbuild-with-remote-mdx.mdx', import.meta.url))
-      ],
-      outfile: fileURLToPath(
-        new URL('esbuild-with-remote-mdx.js', import.meta.url)
-      ),
-      bundle: true,
-      define: {'process.env.NODE_ENV': '"development"'},
-      format: 'esm',
-      plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
-    })
+      await esbuild.build({
+        entryPoints: [
+          fileURLToPath(new URL('esbuild-with-remote-mdx.mdx', import.meta.url))
+        ],
+        outfile: fileURLToPath(
+          new URL('esbuild-with-remote-mdx.js', import.meta.url)
+        ),
+        bundle: true,
+        define: {'process.env.NODE_ENV': '"development"'},
+        format: 'esm',
+        plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
+      })
 
-    /** @type {MDXContent} */
-    const Content =
-      /* @ts-expect-error file is dynamically generated */
-      (await import('./esbuild-with-remote-mdx.js')).default // type-coverage:ignore-line
+      /** @type {MDXContent} */
+      const Content =
+        /* @ts-expect-error file is dynamically generated */
+        (await import('./esbuild-with-remote-mdx.js')).default // type-coverage:ignore-line
 
-    assert.equal(
-      renderToStaticMarkup(React.createElement(Content)),
-      '<h1>heading</h1>\n<p>A <span style="color:red">little pill</span>.</p>\n<p>Some content.</p>',
-      'should compile remote MD, MDX, and JS files w/ `allowDangerousRemoteMdx`'
-    )
-  })
+      assert.equal(
+        renderToStaticMarkup(React.createElement(Content)),
+        '<h1>heading</h1>\n<p>A <span style="color:red">little pill</span>.</p>\n<p>Some content.</p>'
+      )
+    }
+  )
 
   await fs.rm(new URL('esbuild-with-remote-mdx.mdx', import.meta.url), {
     force: true
