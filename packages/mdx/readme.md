@@ -92,7 +92,10 @@ import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runti
 export const Thing = () => _jsx(_Fragment, {children: 'World'})
 
 function _createMdxContent(props) {
-  const _components = Object.assign({h1: 'h1'}, props.components)
+  const _components = {
+    h1: 'h1',
+    ...props.components
+  }
   return _jsxs(_components.h1, {
     children: ['Hello ', _jsx(Thing, {})]
   })
@@ -533,14 +536,20 @@ compile(file, {providerImportSource: '@mdx-js/react'})
  export const Thing = () => _jsx(_Fragment, {children: 'World!'})
 
  function _createMdxContent(props) {
--  const _components = Object.assign({h1: 'h1'}, props.components)
-+  const _components = Object.assign({h1: 'h1'}, _provideComponents(), props.components)
+   const _components = {
+     h1: 'h1',
++    ..._provideComponents(),
+     ...props.components
+   }
    return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
  }
 
  export default function MDXContent(props = {}) {
 -  const {wrapper: MDXLayout} = props.components || {}
-+  const {wrapper: MDXLayout} = Object.assign({}, _provideComponents(), props.components)
++  const {wrapper: MDXLayout} = {
++    ..._provideComponents(),
++    ...props.components
++  }
 
    return MDXLayout
      ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, {})}))
@@ -574,7 +583,10 @@ compile(file, {jsx: true})
 +export const Thing = () => <>World!</>
 
  function _createMdxContent(props) {
-   const _components = Object.assign({h1: 'h1'}, props.components)
+   const _components = {
+     h1: 'h1',
+     ...props.components
+   }
 -  return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
 +  return <_components.h1>{"Hello "}<Thing /></_components.h1>
  }
