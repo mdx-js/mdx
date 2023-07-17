@@ -18,89 +18,10 @@ import remarkMdx from '../index.js'
 
 const basic = unified().use(remarkParse).use(remarkMdx)
 
-test('parse: basics', () => {
-  assert.deepEqual(
-    clean(basic.parse('Alpha <b/> charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse a self-closing tag'
-  )
-
-  assert.deepEqual(
-    clean(basic.parse('Alpha <b></b> charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse an opening and a closing tag'
-  )
-
-  assert.deepEqual(
-    clean(basic.parse('Alpha <></> charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: null, attributes: []}, []),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse fragments'
-  )
-
-  assert.deepEqual(
-    clean(basic.parse('Alpha <b>*bravo*</b> charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: 'b', attributes: []}, [
-          u('emphasis', [u('text', 'bravo')])
-        ]),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse markdown inside tags'
-  )
-
-  assert.deepEqual(
-    clean(basic.parse('Alpha {1 + 1} charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxTextExpression', {data: {estree: null}}, '1 + 1'),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse expressions'
-  )
-})
-
-test('stringify', () => {
-  const basic = unified().use(remarkStringify).use(remarkMdx)
-
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, []),
-          u('text', ' charlie.')
-        ])
-      ])
-    ),
-    'Alpha <></> charlie.\n',
-    'should serialize an empty nameless fragment'
-  )
-
-  assert.equal(
-    basic.stringify(
+test('parse: basics', async (t) => {
+  await t.test('should parse a self-closing tag', () => {
+    assert.deepEqual(
+      clean(basic.parse('Alpha <b/> charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
@@ -108,195 +29,291 @@ test('stringify', () => {
           u('text', ' charlie.')
         ])
       ])
-    ),
-    'Alpha <b /> charlie.\n',
-    'should serialize a tag with a name'
-  )
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
+  await t.test('should parse an opening and a closing tag', () => {
+    assert.deepEqual(
+      clean(basic.parse('Alpha <b></b> charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
-            {name: 'b', attributes: [u('mdxJsxAttribute', {name: 'bravo'})]},
-            []
-          ),
+          u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
           u('text', ' charlie.')
         ])
       ])
-    ),
-    'Alpha <b bravo /> charlie.\n',
-    'should serialize a boolean attribute (element)'
-  )
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
+  await t.test('should parse fragments', () => {
+    assert.deepEqual(
+      clean(basic.parse('Alpha <></> charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
-            {
-              name: 'b',
-              attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]
-            },
-            []
-          ),
+          u('mdxJsxTextElement', {name: null, attributes: []}, []),
           u('text', ' charlie.')
         ])
       ])
-    ),
-    'Alpha <b bravo="bravo" /> charlie.\n',
-    'should serialize an attribute (element)'
-  )
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
+  await t.test('should parse markdown inside tags', () => {
+    assert.deepEqual(
+      clean(basic.parse('Alpha <b>*bravo*</b> charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
-            {
-              name: 'b',
-              attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]
-            },
-            []
-          ),
+          u('mdxJsxTextElement', {name: 'b', attributes: []}, [
+            u('emphasis', [u('text', 'bravo')])
+          ]),
           u('text', ' charlie.')
         ])
       ])
-    ),
-    'Alpha <b br:avo="bravo" /> charlie.\n',
-    'should serialize a prefixed attribute (element)'
-  )
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
+  await t.test('should parse expressions', () => {
+    assert.deepEqual(
+      clean(basic.parse('Alpha {1 + 1} charlie.')),
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
-            {
-              name: 'b',
-              attributes: [u('mdxJsxExpressionAttribute', '...props')]
-            },
-            []
-          ),
+          u('mdxTextExpression', {data: {estree: null}}, '1 + 1'),
           u('text', ' charlie.')
         ])
       ])
-    ),
-    'Alpha <b {...props} /> charlie.\n',
-    'should serialize a attribute expression (element)'
-  )
+    )
+  })
+})
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
-            {
-              name: 'b',
-              attributes: [
-                u('mdxJsxAttribute', {
-                  name: 'b',
-                  value: u(
-                    'mdxJsxAttributeValueExpression',
-                    {data: {estree: undefined}},
-                    '1 + 1'
-                  )
-                })
-              ]
-            },
-            []
-          ),
-          u('text', ' charlie.')
-        ])
-      ])
-    ),
-    'Alpha <b b={1 + 1} /> charlie.\n',
-    'should serialize an expression attribute (element)'
-  )
+test('stringify', async (t) => {
+  const basic = unified().use(remarkStringify).use(remarkMdx)
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('link', {url: 'https://mdxjs.com'}, [
-            u('text', 'https://mdxjs.com')
+  await t.test('should serialize an empty nameless fragment', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u('mdxJsxTextElement', {name: null, attributes: []}, []),
+            u('text', ' charlie.')
           ])
         ])
-      ])
-    ),
-    '[https://mdxjs.com](https://mdxjs.com)\n',
-    'should write out a url as the raw value'
-  )
+      ),
+      'Alpha <></> charlie.\n'
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, [
-            u('text', '1 < 3')
-          ]),
-          u('text', ' bravo.')
+  await t.test('should serialize a tag with a name', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
+            u('text', ' charlie.')
+          ])
         ])
-      ])
-    ),
-    'Alpha <>1 \\< 3</> bravo.\n',
-    'should encode `<` in text'
-  )
+      ),
+      'Alpha <b /> charlie.\n'
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, [
-            u('text', '1 { 3')
-          ]),
-          u('text', ' bravo.')
+  await t.test('should serialize a boolean attribute (element)', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u(
+              'mdxJsxTextElement',
+              {name: 'b', attributes: [u('mdxJsxAttribute', {name: 'bravo'})]},
+              []
+            ),
+            u('text', ' charlie.')
+          ])
         ])
-      ])
-    ),
-    'Alpha <>1 \\{ 3</> bravo.\n',
-    'should encode `{` in text'
-  )
+      ),
+      'Alpha <b bravo /> charlie.\n'
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxTextExpression', ''),
-          u('text', ' bravo.')
+  await t.test('should serialize an attribute (element)', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u(
+              'mdxJsxTextElement',
+              {
+                name: 'b',
+                attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]
+              },
+              []
+            ),
+            u('text', ' charlie.')
+          ])
         ])
-      ])
-    ),
-    'Alpha {} bravo.\n',
-    'should serialize empty expressions'
-  )
+      ),
+      'Alpha <b bravo="bravo" /> charlie.\n'
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxTextExpression', '1 + 1'),
-          u('text', ' bravo.')
+  await t.test('should serialize a prefixed attribute (element)', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u(
+              'mdxJsxTextElement',
+              {
+                name: 'b',
+                attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]
+              },
+              []
+            ),
+            u('text', ' charlie.')
+          ])
         ])
-      ])
-    ),
-    'Alpha {1 + 1} bravo.\n',
-    'should serialize expressions'
-  )
+      ),
+      'Alpha <b br:avo="bravo" /> charlie.\n'
+    )
+  })
+
+  await t.test('should serialize a attribute expression (element)', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u(
+              'mdxJsxTextElement',
+              {
+                name: 'b',
+                attributes: [u('mdxJsxExpressionAttribute', '...props')]
+              },
+              []
+            ),
+            u('text', ' charlie.')
+          ])
+        ])
+      ),
+      'Alpha <b {...props} /> charlie.\n'
+    )
+  })
+
+  await t.test('should serialize an expression attribute (element)', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u(
+              'mdxJsxTextElement',
+              {
+                name: 'b',
+                attributes: [
+                  u('mdxJsxAttribute', {
+                    name: 'b',
+                    value: u(
+                      'mdxJsxAttributeValueExpression',
+                      {data: {estree: undefined}},
+                      '1 + 1'
+                    )
+                  })
+                ]
+              },
+              []
+            ),
+            u('text', ' charlie.')
+          ])
+        ])
+      ),
+      'Alpha <b b={1 + 1} /> charlie.\n'
+    )
+  })
+
+  await t.test('should write out a url as the raw value', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('link', {url: 'https://mdxjs.com'}, [
+              u('text', 'https://mdxjs.com')
+            ])
+          ])
+        ])
+      ),
+      '[https://mdxjs.com](https://mdxjs.com)\n'
+    )
+  })
+
+  await t.test('should encode `<` in text', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u('mdxJsxTextElement', {name: null, attributes: []}, [
+              u('text', '1 < 3')
+            ]),
+            u('text', ' bravo.')
+          ])
+        ])
+      ),
+      'Alpha <>1 \\< 3</> bravo.\n'
+    )
+  })
+
+  await t.test('should encode `{` in text', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u('mdxJsxTextElement', {name: null, attributes: []}, [
+              u('text', '1 { 3')
+            ]),
+            u('text', ' bravo.')
+          ])
+        ])
+      ),
+      'Alpha <>1 \\{ 3</> bravo.\n'
+    )
+  })
+
+  await t.test('should serialize empty expressions', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u('mdxTextExpression', ''),
+            u('text', ' bravo.')
+          ])
+        ])
+      ),
+      'Alpha {} bravo.\n'
+    )
+  })
+
+  await t.test('should serialize expressions', () => {
+    assert.equal(
+      basic.stringify(
+        u('root', [
+          u('paragraph', [
+            u('text', 'Alpha '),
+            u('mdxTextExpression', '1 + 1'),
+            u('text', ' bravo.')
+          ])
+        ])
+      ),
+      'Alpha {1 + 1} bravo.\n'
+    )
+  })
 })
 
 /**
