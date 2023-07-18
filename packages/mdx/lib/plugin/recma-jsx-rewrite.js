@@ -9,6 +9,7 @@
  * @typedef {import('estree-jsx').ObjectPattern} ObjectPattern
  * @typedef {import('estree-jsx').Program} Program
  * @typedef {import('estree-jsx').Property} Property
+ * @typedef {import('estree-jsx').SpreadElement} SpreadElement
  * @typedef {import('estree-jsx').Statement} Statement
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
  *
@@ -222,7 +223,7 @@ export function recmaJsxRewrite(options) {
         }
       },
       leave(node) {
-        /** @type {Array<Property>} */
+        /** @type {Array<Property | SpreadElement>} */
         const defaults = []
         /** @type {Array<string>} */
         const actual = []
@@ -300,24 +301,17 @@ export function recmaJsxRewrite(options) {
             }
 
             if (defaults.length > 0 || parameters.length > 1) {
-              parameters.unshift({
-                type: 'ObjectExpression',
-                properties: defaults
-              })
+              for (const parameter of parameters) {
+                defaults.push({type: 'SpreadElement', argument: parameter})
+              }
             }
 
             // If we’re getting components from several sources, merge them.
             /** @type {Expression} */
             let componentsInit =
-              parameters.length > 1
-                ? {
-                    type: 'CallExpression',
-                    callee: toIdOrMemberExpression(['Object', 'assign']),
-                    arguments: parameters,
-                    optional: false
-                  }
-                : parameters[0].type === 'MemberExpression'
-                ? // If we’re only getting components from `props.components`,
+              defaults.length > 0
+                ? {type: 'ObjectExpression', properties: defaults}
+                : // If we’re only getting components from `props.components`,
                   // make sure it’s defined.
                   {
                     type: 'LogicalExpression',
@@ -325,7 +319,6 @@ export function recmaJsxRewrite(options) {
                     left: parameters[0],
                     right: {type: 'ObjectExpression', properties: []}
                   }
-                : parameters[0]
 
             /** @type {ObjectPattern | undefined} */
             let componentsPattern
