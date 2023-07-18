@@ -139,9 +139,9 @@ test('@mdx-js/esbuild', async (t) => {
     await fs.writeFile(new URL('esbuild.md', import.meta.url), 'a')
     await fs.writeFile(new URL('esbuild.mdx', import.meta.url), 'a')
 
-    console.log('\nnote: the following error is expected!\n')
     await assert.rejects(
       esbuild.build({
+        logLevel: 'silent',
         entryPoints: [fileURLToPath(new URL('esbuild.md', import.meta.url))],
         outfile: fileURLToPath(
           new URL('esbuild-md-as-mdx.js', import.meta.url)
@@ -153,9 +153,9 @@ test('@mdx-js/esbuild', async (t) => {
   })
 
   await t.test('should not handle `.mdx` files w/ `format: md`', async () => {
-    console.log('\nnote: the following error is expected!\n')
     await assert.rejects(
       esbuild.build({
+        logLevel: 'silent',
         entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
         outfile: fileURLToPath(
           new URL('esbuild-md-as-mdx.js', import.meta.url)
@@ -170,7 +170,6 @@ test('@mdx-js/esbuild', async (t) => {
   await fs.rm(new URL('esbuild.mdx', import.meta.url), {force: true})
 
   await t.test('should pass errors (1)', async () => {
-    console.log('\nnote: the following errors and warnings are expected!\n')
     await fs.writeFile(
       new URL('esbuild-broken.mdx', import.meta.url),
       'asd <https://example.com>?'
@@ -178,6 +177,7 @@ test('@mdx-js/esbuild', async (t) => {
 
     await assert.rejects(
       esbuild.build({
+        logLevel: 'silent',
         entryPoints: [
           fileURLToPath(new URL('esbuild-broken.mdx', import.meta.url))
         ],
@@ -219,6 +219,7 @@ test('@mdx-js/esbuild', async (t) => {
 
     await assert.rejects(
       esbuild.build({
+        logLevel: 'silent',
         entryPoints: [
           fileURLToPath(new URL('esbuild-warnings.mdx', import.meta.url))
         ],
@@ -392,6 +393,7 @@ test('@mdx-js/esbuild', async (t) => {
 
     await assert.rejects(
       esbuild.build({
+        logLevel: 'silent',
         entryPoints: [
           fileURLToPath(new URL('esbuild-plugin-crash.mdx', import.meta.url))
         ],
@@ -451,8 +453,6 @@ test('@mdx-js/esbuild', async (t) => {
   })
 
   await t.test('should compile from `pluginData.content`', async () => {
-    console.log('\nnote: the preceding errors and warnings are expected!\n')
-
     await esbuild.build({
       entryPoints: [fileURLToPath(new URL('esbuild.mdx', import.meta.url))],
       outfile: fileURLToPath(
