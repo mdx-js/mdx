@@ -187,9 +187,13 @@ test('compile', async (t) => {
   await t.test(
     'should support an import source (`@jsxImportSource`)',
     async () => {
+      const node = await run(
+        compileSync('?', {jsxImportSource: 'preact/compat'})
+      )
       assert.equal(
         render(
-          h(await run(compileSync('?', {jsxImportSource: 'preact/compat'})), {})
+          // @ts-expect-error: this fails because react/preact types conflict.
+          h(node, {})
         ),
         '<p>?</p>'
       )
@@ -200,19 +204,19 @@ test('compile', async (t) => {
     'should support `pragma`, `pragmaFrag` for `preact/compat`',
 
     async () => {
+      const node = await run(
+        compileSync('<>%</>', {
+          jsxRuntime: 'classic',
+          pragma: 'preact.createElement',
+          pragmaFrag: 'preact.Fragment',
+          pragmaImportSource: 'preact/compat'
+        })
+      )
+
       assert.equal(
         render(
-          h(
-            await run(
-              compileSync('<>%</>', {
-                jsxRuntime: 'classic',
-                pragma: 'preact.createElement',
-                pragmaFrag: 'preact.Fragment',
-                pragmaImportSource: 'preact/compat'
-              })
-            ),
-            {}
-          )
+          // @ts-expect-error: this fails because react/preact types conflict.
+          h(node, {})
         ),
         '%'
       )
@@ -223,9 +227,12 @@ test('compile', async (t) => {
     'should support `jsxImportSource` for `preact`',
 
     async () => {
+      const node = await run(compileSync('<>1</>', {jsxImportSource: 'preact'}))
+
       assert.equal(
         render(
-          h(await run(compileSync('<>1</>', {jsxImportSource: 'preact'})), {})
+          // @ts-expect-error: this fails because react/preact types conflict.
+          h(node, {})
         ),
         '1'
       )

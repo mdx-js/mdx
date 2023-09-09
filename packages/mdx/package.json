@@ -72,7 +72,7 @@
     "@mdx-js/react": "^2.0.0",
     "nanoid": "^4.0.0",
     "preact": "^10.0.0",
-    "preact-render-to-string": "^5.0.0",
+    "preact-render-to-string": "^6.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "rehype-katex": "^6.0.0",
@@ -90,7 +90,18 @@
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
     "test": "npm run build && npm run test-coverage"
   },
-  "xo": false,
+  "xo": {
+    "prettier": true,
+    "rules": {
+      "complexity": "off",
+      "max-depth": "off",
+      "n/file-extension-in-import": "off",
+      "unicorn/no-await-expression-member": "off",
+      "unicorn/prefer-at": "off",
+      "unicorn/prefer-code-point": "off",
+      "unicorn/prefer-node-protocol": "off"
+    }
+  },
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,

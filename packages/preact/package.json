@@ -50,7 +50,7 @@
   "devDependencies": {
     "@mdx-js/mdx": "^2.0.0",
     "preact": "^10.0.0",
-    "preact-render-to-string": "^5.0.0"
+    "preact-render-to-string": "^6.0.0"
   },
   "scripts": {
     "prepack": "npm run build",
@@ -59,7 +59,21 @@
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
     "test": "npm run build && npm run test-coverage"
   },
-  "xo": false,
+  "xo": {
+    "overrides": [
+      {
+        "files": [
+          "**/*.jsx"
+        ],
+        "extends": "xo-react"
+      }
+    ],
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off",
+      "unicorn/prefer-node-protocol": "off"
+    }
+  },
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,

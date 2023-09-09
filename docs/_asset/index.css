@@ -716,7 +716,8 @@ button.success {
   margin-block: calc(2 * (1em + 1ex));
   overflow: hidden;
   /* yellow */
-  background-image: radial-gradient(
+  background-image:
+    radial-gradient(
       ellipse at 0% 0%,
       rgb(252 180 45 / 5%) 20%,
       rgb(252 180 45 / 0%) 80%
@@ -1056,7 +1057,8 @@ button.success {
 
   .card {
     /* yellow */
-    background-image: radial-gradient(
+    background-image:
+      radial-gradient(
         ellipse at 0% 0%,
         rgb(252 180 45 / 10%) 20%,
         rgb(252 180 45 / 0%) 80%

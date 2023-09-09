@@ -50,7 +50,6 @@ export function esbuild(options) {
    */
   function setup(build) {
     const filter = extnamesToRegex(extnames)
-    /* eslint-disable-next-line security/detect-non-literal-regexp */
     const filterHttp = new RegExp('^https?:\\/{2}.+' + filter.source)
     const http = /^https?:\/{2}/
     const filterHttpOrRelative = /^(https?:\/{2}|.{1,2}\/).*/
@@ -133,8 +132,7 @@ export function esbuild(options) {
           data.pluginData.contents !== null &&
           data.pluginData.contents !== undefined
           ? data.pluginData.contents
-          : /* eslint-disable-next-line security/detect-non-literal-fs-filename */
-            await fs.readFile(data.path)
+          : await fs.readFile(data.path)
       )
 
       let file = new VFile({value: doc, path: data.path})

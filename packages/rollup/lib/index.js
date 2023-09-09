@@ -1,6 +1,6 @@
 /**
  * @typedef {import('@rollup/pluginutils').FilterPattern} FilterPattern
- * @typedef {import('rollup').Plugin} Plugin
+ * @typedef {import('rollup').Plugin<unknown>} Plugin
  * @typedef {import('rollup').SourceDescription} SourceDescription
  */
 

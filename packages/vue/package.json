@@ -62,5 +62,13 @@
     "strict": true,
     "ignoreCatch": true
   },
+  "xo": {
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off",
+      "unicorn/prefer-node-protocol": "off",
+      "unicorn/prefer-string-replace-all": "off"
+    }
+  },
   "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
 }

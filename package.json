@@ -40,14 +40,13 @@
     "chrome-aws-lambda": "^10.1.0",
     "codemirror": "^6.0.0",
     "cross-env": "^7.0.0",
-    "cssnano": "^5.0.0",
+    "cssnano": "^6.0.0",
     "dlv": "^1.0.0",
-    "esbuild": "^0.17.0",
+    "esbuild": "^0.19.0",
     "eslint-config-xo-react": "^0.27.0",
     "eslint-plugin-es": "^4.0.0",
     "eslint-plugin-react": "^7.0.0",
     "eslint-plugin-react-hooks": "^4.0.0",
-    "eslint-plugin-security": "^1.0.0",
     "estree-util-value-to-estree": "^2.0.0",
     "estree-util-visit": "^1.0.0",
     "globby": "^13.0.0",
@@ -57,15 +56,15 @@
     "hastscript": "^7.0.0",
     "highlight.js": "^11.0.0",
     "husky": "^8.0.0",
-    "lint-staged": "^13.0.0",
+    "lint-staged": "^14.0.0",
     "lowlight": "^2.0.0",
     "p-all": "^4.0.0",
-    "patch-package": "^6.0.0",
+    "patch-package": "^8.0.0",
     "periscopic": "^3.0.0",
     "postcss": "^8.0.0",
     "postcss-cli": "^10.0.0",
-    "prettier": "^2.0.0",
-    "puppeteer-core": "^19.0.0",
+    "prettier": "^3.0.0",
+    "puppeteer-core": "^21.0.0",
     "react": "0.0.0-experimental-1159ff619-20220324",
     "react-dom": "0.0.0-experimental-1159ff619-20220324",
     "react-error-boundary": "^3.0.0",
@@ -115,7 +114,7 @@
     "xast-util-feed": "^1.0.0",
     "xast-util-sitemap": "^1.0.0",
     "xast-util-to-xml": "^3.0.0",
-    "xo": "^0.54.0"
+    "xo": "^0.56.0"
   },
   "scripts": {
     "postinstall": "patch-package",
@@ -130,8 +129,8 @@
     "docs-prod": "npm run docs-prep && npm run docs-bundle-prod && npm run docs-generate && npm run docs-prerender && npm run docs-post",
     "docs": "npm run docs-prod",
     "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
-    "format": "remark . -qfo && remark . -e mdx -u mdx -qfo && prettier . -w --loglevel warn && xo --fix",
-    "lint": "remark . -qf && remark . -e mdx -u mdx -qf && prettier . -c --loglevel warn && xo",
+    "format": "remark . -qfo && remark . -e mdx -u mdx -qfo && prettier . -w --log-level warn && xo --fix",
+    "lint": "remark . -qf && remark . -e mdx -u mdx -qf && prettier . -c --log-level warn && xo",
     "build": "npm run build --workspaces --if-present",
     "test-api": "npm run test-api --workspaces --if-present",
     "test-coverage": "npm run test-coverage --workspaces --if-present",
@@ -165,23 +164,16 @@
     "envs": [
       "shared-node-browser"
     ],
-    "extensions": [
-      "jsx",
-      "cjs"
-    ],
     "prettier": true,
     "rules": {
-      "import/extensions": "off",
       "n/file-extension-in-import": "off",
       "react/prop-types": "off",
       "unicorn/no-await-expression-member": "off",
-      "unicorn/prefer-code-point": "off",
+      "unicorn/prefer-at": "off",
       "unicorn/prefer-logical-operator-over-ternary": "off",
       "unicorn/prefer-node-protocol": "off",
       "unicorn/prefer-top-level-await": "off",
-      "capitalized-comments": "off",
-      "complexity": "off",
-      "max-depth": "off"
+      "complexity": "off"
     },
     "overrides": [
       {
@@ -194,35 +186,9 @@
       },
       {
         "files": [
-          "docs/**/*.js",
-          "packages/{mdx,react,preact}/test/**/*.{js,jsx}",
-          "website/**/*.js"
+          "docs/**/*.js"
         ],
         "extends": "xo-react"
-      },
-      {
-        "files": [
-          "packages/*/lib/**/*.js",
-          "packages/remark-mdx/index.js"
-        ],
-        "extends": [
-          "plugin:es/restrict-to-es2019",
-          "plugin:security/recommended"
-        ],
-        "rules": {
-          "security/detect-object-injection": "off"
-        }
-      },
-      {
-        "files": [
-          "**/*.d.ts"
-        ],
-        "rules": {
-          "@typescript-eslint/consistent-indexed-object-style": [
-            "error",
-            "index-signature"
-          ]
-        }
       }
     ]
   },

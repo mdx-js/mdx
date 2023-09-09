@@ -139,6 +139,7 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
   )
 
   assert.equal(
+    // @ts-expect-error: preact + react conflict.
     render(h(modPreact.default.default, {})),
     '<h1>Hello, World!</h1>',
     'should compile (preact)'

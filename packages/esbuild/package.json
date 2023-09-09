@@ -49,7 +49,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/unist": "^2.0.0",
-    "esbuild": "^0.17.0",
+    "esbuild": "^0.19.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "vfile-message": "^3.0.0"
@@ -61,7 +61,15 @@
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
     "test": "npm run build && npm run test-coverage"
   },
-  "xo": false,
+  "xo": {
+    "prettier": true,
+    "rules": {
+      "complexity": "off",
+      "n/file-extension-in-import": "off",
+      "unicorn/no-await-expression-member": "off",
+      "unicorn/prefer-node-protocol": "off"
+    }
+  },
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,
