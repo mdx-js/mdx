@@ -94,7 +94,7 @@
     "remark-gemoji": "^7.0.0",
     "remark-gfm": "^3.0.0",
     "remark-github": "^11.0.0",
-    "remark-mdx-frontmatter": "^2.0.0",
+    "remark-mdx-frontmatter": "^3.0.0",
     "remark-preset-wooorm": "^9.0.0",
     "remark-squeeze-paragraphs": "^5.0.0",
     "remark-strip-badges": "^6.0.0",
