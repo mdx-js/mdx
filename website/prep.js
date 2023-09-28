@@ -65,6 +65,7 @@ async function main() {
 
   console.log('✔ %d redirects', Object.keys(redirect).length)
 
+  // To do: drop Vercel.
   const vercelRedirects = []
   let redirectFrom
 
@@ -76,6 +77,7 @@ async function main() {
     }
   }
 
+  // To do: drop Vercel.
   const vercelInfo = JSON.parse(String(await fs.readFile('vercel.json')))
   await fs.writeFile(
     'vercel.json',
@@ -93,7 +95,7 @@ async function main() {
 function buildRedirect(to) {
   const abs = new URL(to, config.site)
   return u('root', [
-    // To do: remove.
+    // To do: remove `name`.
     u('doctype', {name: 'html'}),
     h('html', {lang: 'en'}, [
       h('head', [
