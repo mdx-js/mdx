@@ -46,8 +46,6 @@
     "hast-to-hyperscript": "^10.0.0",
     "hast-util-select": "^5.0.0",
     "hastscript": "^7.0.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^14.0.0",
     "p-all": "^4.0.0",
     "patch-package": "^8.0.0",
     "periscopic": "^3.0.0",
@@ -99,7 +97,6 @@
   },
   "scripts": {
     "postinstall": "patch-package",
-    "prepare": "husky install",
     "docs-prep": "node --unhandled-rejections=strict website/prep.js && postcss docs/_asset/index.css -o public/index.css",
     "docs-bundle-dev": "cross-env NODE_ENV=development node --unhandled-rejections=strict website/bundle.js",
     "docs-bundle-prod": "cross-env NODE_ENV=production node --unhandled-rejections=strict website/bundle.js",
@@ -117,18 +114,6 @@
     "test-api": "npm run test-api --workspaces --if-present",
     "test-coverage": "npm run test-coverage --workspaces --if-present",
     "test": "npm run build && npm run format && npm run test-coverage"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [],
-    "*.{css,html,json,js,jsx,ts,tsx,yml}": [
-      "prettier --write"
-    ],
-    "*.md": [
-      "remark -qfo --"
-    ],
-    "*.mdx": [
-      "remark -u mdx -qfo --"
-    ]
   },
   "browserslist": [
     "last 2 versions",
