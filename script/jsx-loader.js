@@ -1,11 +1,10 @@
 import fs from 'node:fs/promises'
-import path from 'node:path'
-import {URL, fileURLToPath} from 'node:url'
-import {transform, transformSync} from 'esbuild'
+import {fileURLToPath} from 'node:url'
+import {transform} from 'esbuild'
 
-const {load, getFormat, transformSource} = createLoader()
+const {getFormat, load, transformSource} = createLoader()
 
-export {load, getFormat, transformSource}
+export {getFormat, load, transformSource}
 
 /**
  * A tiny JSX loader.
@@ -15,49 +14,47 @@ export function createLoader() {
 
   // Node version 17.
   /**
-   * @param {string} url
+   * @param {string} href
    * @param {unknown} context
    * @param {Function} defaultLoad
    */
-  async function load(url, context, defaultLoad) {
-    if (path.extname(url) !== '.jsx') {
-      return defaultLoad(url, context, defaultLoad)
+  async function load(href, context, defaultLoad) {
+    const url = new URL(href)
+
+    if (!url.pathname.endsWith('.jsx')) {
+      return defaultLoad(href, context, defaultLoad)
     }
 
-    const fp = fileURLToPath(new URL(url))
-    const value = await fs.readFile(fp)
-
-    const {code, warnings} = await transform(String(value), {
-      sourcefile: fp,
-      sourcemap: 'both',
+    const {code, warnings} = await transform(String(await fs.readFile(url)), {
+      format: 'esm',
       loader: 'jsx',
-      target: 'esnext',
-      format: 'esm'
+      sourcefile: fileURLToPath(url),
+      sourcemap: 'both',
+      target: 'esnext'
     })
 
-    if (warnings && warnings.length > 0) {
+    if (warnings) {
       for (const warning of warnings) {
-        console.log(
-          'script/jsx-loader.js: warning: %j: %s',
-          warning.location,
-          warning.text
-        )
+        console.log(warning.location)
+        console.log(warning.text)
       }
     }
 
-    return {format: 'module', source: code, shortCircuit: true}
+    return {format: 'module', shortCircuit: true, source: code}
   }
 
   // Pre version 17.
   /**
-   * @param {string} url
+   * @param {string} href
    * @param {unknown} context
    * @param {Function} defaultGetFormat
    */
-  function getFormat(url, context, defaultGetFormat) {
-    return path.extname(url) === '.jsx'
+  function getFormat(href, context, defaultGetFormat) {
+    const url = new URL(href)
+
+    return url.pathname.endsWith('.jsx')
       ? {format: 'module'}
-      : defaultGetFormat(url, context, defaultGetFormat)
+      : defaultGetFormat(href, context, defaultGetFormat)
   }
 
   /**
@@ -66,19 +63,21 @@ export function createLoader() {
    * @param {Function} defaultTransformSource
    */
   async function transformSource(value, context, defaultTransformSource) {
-    if (path.extname(context.url) !== '.jsx') {
+    const url = new URL(context.url)
+
+    if (!url.pathname.endsWith('.jsx')) {
       return defaultTransformSource(value, context, defaultTransformSource)
     }
 
-    const {code, warnings} = transformSync(String(value), {
-      sourcefile: fileURLToPath(context.url),
-      sourcemap: 'both',
+    const {code, warnings} = await transform(String(value), {
+      format: context.format === 'module' ? 'esm' : 'cjs',
       loader: 'jsx',
-      target: 'esnext',
-      format: context.format === 'module' ? 'esm' : 'cjs'
+      sourcefile: fileURLToPath(url),
+      sourcemap: 'both',
+      target: 'esnext'
     })
 
-    if (warnings && warnings.length > 0) {
+    if (warnings) {
       for (const warning of warnings) {
         console.log(warning.location)
         console.log(warning.text)
