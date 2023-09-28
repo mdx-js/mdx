@@ -33,12 +33,12 @@ webpack(
     plugins: [new ReactServerWebpackPlugin({isServer: false})]
   },
   (error, stats) => {
-    const info = stats && stats.toJson()
+    const info = stats ? stats.toJson() : undefined
 
     if (error) throw error
 
-    if (stats.hasErrors()) {
-      for (error of info.errors) console.error(error)
+    if (info && info.errors && stats && stats.hasErrors()) {
+      for (const error of info.errors) console.error(error)
       throw new Error('Finished running webpack with errors')
     }
 

@@ -16,8 +16,6 @@ import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import rehypeRemoveComments from 'rehype-remove-comments'
 import rehypeStringify from 'rehype-stringify'
-import {h} from 'hastscript'
-import {select} from 'hast-util-select'
 import {Root} from '../docs/_asset/root.client.js'
 import {config} from '../docs/_config.js'
 
@@ -27,7 +25,9 @@ main().catch((error) => {
 
 async function main() {
   const manifest = JSON.parse(
-    await fs.readFile(new URL('react-client-manifest.json', config.output))
+    String(
+      await fs.readFile(new URL('react-client-manifest.json', config.output))
+    )
   )
 
   // We have to fake webpack for SSR.
@@ -59,7 +59,9 @@ async function main() {
       const buf = await fs.readFile(url)
 
       const data = JSON.parse(
-        await fs.readFile(new URL('.' + name + 'index.json', config.output))
+        String(
+          await fs.readFile(new URL('.' + name + 'index.json', config.output))
+        )
       )
       // Create a browser stream that RSC needs for getting it’s content.
       const response = createFromReadableStream(asStream(buf))
@@ -73,7 +75,7 @@ async function main() {
         result = renderToString(React.createElement(Root, {response}))
         if (!result.includes('<!--$!-->')) break
         await sleep(48)
-        if (new Date() > now + 5000) {
+        if (Date.now() > now + 5000) {
           throw new Error(
             'Cannot prerender `' +
               name +
@@ -95,18 +97,18 @@ async function main() {
           link: [
             {
               rel: 'alternate',
-              href: new URL('rss.xml', config.site),
+              href: new URL('rss.xml', config.site).href,
               type: 'application/rss+xml',
               title: config.site.hostname
             },
             {
               rel: 'icon',
-              href: new URL('favicon.ico', config.site),
+              href: new URL('favicon.ico', config.site).href,
               sizes: 'any'
             },
             {
               rel: 'icon',
-              href: new URL('icon.svg', config.site),
+              href: new URL('icon.svg', config.site).href,
               type: 'image/svg+xml'
             }
           ],
@@ -128,15 +130,15 @@ async function main() {
           image:
             name === '/'
               ? {
-                  url: new URL('og.png', config.site),
+                  url: new URL('og.png', config.site).href,
                   width: 3062,
                   height: 1490
                 }
               : {
                   url:
                     name === '/blog/v2/' || name === '/migrating/v2/'
-                      ? new URL('og-v2.png', config.site)
-                      : new URL('index.png', canonical),
+                      ? new URL('og-v2.png', config.site).href
+                      : new URL('index.png', canonical).href,
                   width: 2400,
                   height: 1256
                 }
@@ -159,7 +161,7 @@ async function main() {
           })
         )
 
-      await fs.mkdir(file.dirname, {recursive: true})
+      if (file.dirname) await fs.mkdir(file.dirname, {recursive: true})
       await fs.writeFile(file.path, String(file))
       console.log('  prerender: `%s`', name)
     }),

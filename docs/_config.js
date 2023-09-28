@@ -18,6 +18,7 @@ export const config = {
   author: 'MDX contributors'
 }
 
+/** @type {Record<string, string>} */
 export const redirect = {
   '/about/index.html': '/community/about/',
   '/advanced/index.html': '/guides/',
