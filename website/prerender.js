@@ -151,12 +151,7 @@ async function main() {
         .process(
           new VFile({
             path: new URL('index.html', url),
-            value:
-              '<div id=root>' +
-              result +
-              '</div><script id=payload data-src=' +
-              new URL('index.nljson', canonical).pathname +
-              '></script>',
+            value: '<div id=root>' + result + '</div>',
             data
           })
         )
