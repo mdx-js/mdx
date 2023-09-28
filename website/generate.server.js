@@ -4,11 +4,19 @@ import path from 'path'
 import process from 'process'
 import {fileURLToPath} from 'url'
 import React from 'react'
-import {renderToPipeableStream} from 'react-server-dom-webpack/writer'
+import {renderToString} from 'react-dom/server'
 import pAll from 'p-all'
 import {globby} from 'globby'
 import {sitemap} from 'xast-util-sitemap'
 import {unified} from 'unified'
+import {VFile} from 'vfile'
+import rehypeParse from 'rehype-parse'
+import rehypeDocument from 'rehype-document'
+import rehypeMeta from 'rehype-meta'
+import rehypePresetMinify from 'rehype-preset-minify'
+import rehypeMinifyUrl from 'rehype-minify-url'
+import rehypeRemoveComments from 'rehype-remove-comments'
+import rehypeStringify from 'rehype-stringify'
 import rehypeSanitize from 'rehype-sanitize'
 import {toXml} from 'xast-util-to-xml'
 import {Layout} from '../docs/_component/layout.server.js'
@@ -30,17 +38,12 @@ async function main() {
     })
   ).map((d) => new URL(d, config.input))
 
-  const manifest = JSON.parse(
-    await fs.readFile(new URL('react-client-manifest.json', config.output))
-  )
-
   const allInfo = await pAll(
     files.map((url) => async () => {
       const name = url.href
         .slice(config.input.href.length - 1)
         .replace(/\.server\.mdx?$/, '/')
         .replace(/\/index\/$/, '/')
-      const nljsonUrl = new URL('.' + name + 'index.nljson', config.output)
       const jsonUrl = new URL('.' + name + 'index.json', config.output)
       const ghUrl = new URL(
         url.href.slice(config.git.href.length),
@@ -75,7 +78,7 @@ async function main() {
           .runSync(data.meta.descriptionHast)
       }
 
-      return {name, url, ghUrl, nljsonUrl, jsonUrl, data, Content}
+      return {name, url, ghUrl, jsonUrl, data, Content}
     }),
     {concurrency: 6}
   )
@@ -111,7 +114,7 @@ async function main() {
     toXml(
       sitemap(
         allInfo.map((d) => ({
-          url: new URL(d.name, config.site),
+          url: new URL(d.name, config.site).href,
           modified: d.data && d.data.meta && d.data.meta.modified,
           lang: 'en'
         }))
@@ -142,13 +145,10 @@ async function main() {
 
   await pAll(
     allInfo.map((d) => async () => {
-      const {name, data, Content, ghUrl, nljsonUrl, jsonUrl} = d
+      const {name, data, Content, ghUrl, jsonUrl} = d
 
       await fs.mkdir(path.dirname(fileURLToPath(jsonUrl)), {recursive: true})
       await fs.writeFile(jsonUrl, JSON.stringify(data))
-      const writeStream = defaultFs.createWriteStream(nljsonUrl)
-
-      writeStream.on('close', () => console.log('  generate: `%s`', name))
 
       const element = React.createElement(Content, {
         components: {wrapper: Layout},
@@ -158,8 +158,82 @@ async function main() {
         navTree
       })
 
-      const {pipe} = renderToPipeableStream(element, manifest)
-      pipe(writeStream)
+      const result = renderToString(element)
+
+      const canonical = new URL(name, config.site)
+      data.meta.origin = canonical.origin
+      data.meta.pathname = canonical.pathname
+
+      const file = await unified()
+        .use(rehypeParse, {fragment: true})
+        .use(rehypeDocument, {
+          language: 'en',
+          css: ['/index.css'],
+          link: [
+            {
+              rel: 'alternate',
+              href: new URL('rss.xml', config.site).href,
+              type: 'application/rss+xml',
+              title: config.site.hostname
+            },
+            {
+              rel: 'icon',
+              href: new URL('favicon.ico', config.site).href,
+              sizes: 'any'
+            },
+            {
+              rel: 'icon',
+              href: new URL('icon.svg', config.site).href,
+              type: 'image/svg+xml'
+            }
+          ],
+          js: '/index.js',
+          meta: [{name: 'generator', content: 'mdx + rsc'}]
+        })
+        .use(rehypeMeta, {
+          twitter: true,
+          og: true,
+          ogNameInTitle: true,
+          copyright: true,
+          type: 'article',
+          name: config.title,
+          siteTags: config.tags,
+          siteAuthor: config.author,
+          siteTwitter: '@' + config.twitter.pathname.slice(1),
+          separator: ' | ',
+          color: config.color,
+          image:
+            name === '/'
+              ? {
+                  url: new URL('og.png', config.site).href,
+                  width: 3062,
+                  height: 1490
+                }
+              : {
+                  url:
+                    name === '/blog/v2/' || name === '/migrating/v2/'
+                      ? new URL('og-v2.png', config.site).href
+                      : new URL('index.png', canonical).href,
+                  width: 2400,
+                  height: 1256
+                }
+        })
+        .use(rehypePresetMinify)
+        .use(rehypeMinifyUrl, {from: canonical.href})
+        // Hydration doesn’t work if these two are on:
+        .use(rehypeRemoveComments, false)
+        .use(rehypeStringify, {bogusComments: false})
+        .process(
+          new VFile({
+            path: new URL('index.html', jsonUrl),
+            value: result,
+            data
+          })
+        )
+
+      if (file.dirname) await fs.mkdir(file.dirname, {recursive: true})
+      await fs.writeFile(file.path, String(file))
+      console.log('  generate: `%s`', name)
     }),
     {concurrency: 6}
   )

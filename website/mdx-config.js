@@ -86,6 +86,7 @@ const options = {
       }
     ],
     // Minify things — mostly needed so `prerender` can also minify.
+    // To do: can be removed?
     rehypePresetMinify,
     [rehypeMinifyUrl, {ignoreMissingSource: true}]
   ],

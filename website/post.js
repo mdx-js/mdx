@@ -35,6 +35,7 @@ async function main() {
     'utf8'
   )
 
+  // To do: nljsons are removed; generate images from HTML.
   const files = (
     await globby('**/index.nljson', {cwd: fileURLToPath(config.output)})
   ).map((d) => new URL(d + '/../index.json', config.output))
