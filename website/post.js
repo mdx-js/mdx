@@ -1,3 +1,8 @@
+/**
+ * @typedef {import('xast-util-feed').Entry} Entry
+ */
+
+import assert from 'assert'
 import {promises as fs} from 'fs'
 import {fileURLToPath} from 'url'
 import pAll from 'p-all'
@@ -35,15 +40,20 @@ async function main() {
     'utf8'
   )
 
-  // To do: nljsons are removed; generate images from HTML.
   const files = (
-    await globby('**/index.nljson', {cwd: fileURLToPath(config.output)})
-  ).map((d) => new URL(d + '/../index.json', config.output))
+    await globby('**/index.json', {cwd: fileURLToPath(config.output)})
+  ).map((d) => {
+    return new URL(d, config.output)
+  })
 
   const allInfo = await Promise.all(
-    files.map(async (url) => ({url, info: JSON.parse(await fs.readFile(url))}))
+    files.map(async (url) => ({
+      url,
+      info: JSON.parse(String(await fs.readFile(url)))
+    }))
   )
 
+  // RSS feed.
   const now = new Date()
 
   const entries = await pAll(
@@ -59,54 +69,64 @@ async function main() {
       // Sort.
       .sort(
         (a, b) =>
-          new Date(b.info.meta.published) - new Date(a.info.meta.published)
+          new Date(b.info.meta.published).valueOf() -
+          new Date(a.info.meta.published).valueOf()
       )
       // Ten most recently published articles.
       .slice(0, 10)
-      .map(({info, url}) => async () => {
-        const buf = await fs.readFile(new URL('index.html', url))
-        const file = await unified()
-          .use(rehypeParse)
-          .use(() => (tree) => ({
-            type: 'root',
-            children: select('.body', tree).children
-          }))
-          .use(rehypeSanitize, {
-            ...defaultSchema,
-            attributes: {
-              ...defaultSchema.attributes,
-              code: [
-                [
-                  'className',
-                  'language-diff',
-                  'language-html',
-                  'language-js',
-                  'language-jsx',
-                  'language-md',
-                  'language-mdx',
-                  'language-sh',
-                  'language-ts'
+      .map(({info, url}) =>
+        /**
+         * @returns {Promise<Entry>}
+         */
+        async () => {
+          const buf = await fs.readFile(new URL('index.html', url))
+          const file = await unified()
+            .use(rehypeParse)
+            .use(() => (tree) => {
+              const node = select('.body', tree)
+              assert(node)
+              return {
+                type: 'root',
+                children: node.children
+              }
+            })
+            .use(rehypeSanitize, {
+              ...defaultSchema,
+              attributes: {
+                ...defaultSchema.attributes,
+                code: [
+                  [
+                    'className',
+                    'language-diff',
+                    'language-html',
+                    'language-js',
+                    'language-jsx',
+                    'language-md',
+                    'language-mdx',
+                    'language-sh',
+                    'language-ts'
+                  ]
                 ]
-              ]
-            },
-            clobber: []
-          })
-          .use(rehypeStringify)
-          .process(buf)
+              },
+              clobber: []
+            })
+            .use(rehypeStringify)
+            .process(buf)
 
-        return {
-          title: info.meta.title,
-          description: info.meta.description,
-          descriptionHtml: file.value,
-          author: info.meta.author,
-          url: new URL(
-            url.href.slice(config.output.href.length - 1) + '/../',
-            config.site
-          ).href,
-          modified: info.meta.modified,
-          published: info.meta.published
+          return {
+            title: info.meta.title,
+            description: info.meta.description,
+            descriptionHtml: String(file),
+            author: info.meta.author,
+            url: new URL(
+              url.href.slice(config.output.href.length - 1) + '/../',
+              config.site
+            ).href,
+            modified: info.meta.modified,
+            published: info.meta.published
+          }
         }
-      }),
+      ),
     {concurrency: 6}
   )
 
@@ -149,7 +169,8 @@ async function main() {
       const file = new VFile({path: url})
       const tree = await processor.run(
         u('root', [
-          u('doctype'),
+          // To do: remove `name`.
+          u('doctype', {name: 'html'}),
           h('html', {lang: 'en'}, [
             h('head', [
               h('meta', {charSet: 'utf8'}),
@@ -314,7 +335,8 @@ async function main() {
         launchOptions: {
           args: chromium.args,
           defaultViewport: chromium.defaultViewport,
-          executablePath: await chromium.executablePath
+          executablePath: await chromium.executablePath,
+          headless: 'new'
         },
         inputType: 'html',
         // This is doubled in the actual file dimensions.
