@@ -23,8 +23,6 @@
     "packages/rollup"
   ],
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
     "@node-loader/babel": "^1.0.0",
     "@node-loader/core": "^1.0.0",
     "ap-style-title-case": "^2.0.0",

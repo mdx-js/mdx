@@ -19,7 +19,7 @@ import rehypeRemoveComments from 'rehype-remove-comments'
 import rehypeStringify from 'rehype-stringify'
 import rehypeSanitize from 'rehype-sanitize'
 import {toXml} from 'xast-util-to-xml'
-import {Layout} from '../docs/_component/layout.server.js'
+import {Layout} from '../docs/_component/layout.server.jsx'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 

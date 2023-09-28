@@ -1,10 +1,10 @@
 import React from 'react'
 import {config} from '../_config.js'
-import {NavGroup} from './nav.server.js'
-import {Mdx} from './icon/mdx.server.js'
-import {GitHub} from './icon/github.server.js'
-import {Twitter} from './icon/twitter.server.js'
-import {OpenCollective} from './icon/open-collective.server.js'
+import {NavGroup} from './nav.server.jsx'
+import {Mdx} from './icon/mdx.server.jsx'
+import {GitHub} from './icon/github.server.jsx'
+import {Twitter} from './icon/twitter.server.jsx'
+import {OpenCollective} from './icon/open-collective.server.jsx'
 
 export function NavSiteSkip() {
   return (

@@ -1,7 +1,7 @@
-import {createLoader} from '@mdx-js/node-loader'
-import * as babel from '@node-loader/babel'
+import {createLoader as createMdxLoader} from '@mdx-js/node-loader'
+import {createLoader as createJsxLoader} from '../script/jsx-loader.js'
 import config from './mdx-config.js'
 
-const loader = {loaders: [createLoader(config), babel]}
+const loader = {loaders: [createJsxLoader(), createMdxLoader(config)]}
 
 export default loader
