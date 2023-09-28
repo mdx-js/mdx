@@ -88,7 +88,9 @@
     "xo": "^0.56.0"
   },
   "scripts": {
-    "docs-prep": "node website/prep.js && postcss docs/_asset/index.css -o public/index.css",
+    "docs-js": "esbuild docs/_asset/index.js --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/index.js --target=es2020",
+    "docs-css": "postcss docs/_asset/index.css -o public/index.css",
+    "docs-prep": "node website/prep.js && npm run docs-js && npm run docs-css",
     "docs-generate": "cross-env NODE_LOADER_CONFIG=website/loader.js node --no-warnings --experimental-loader @node-loader/core website/generate.js",
     "docs-post": "node website/post.js",
     "docs": "npm run docs-prep && npm run docs-generate && npm run docs-post",
@@ -129,7 +131,7 @@
     "overrides": [
       {
         "files": [
-          "docs/_asset/index.client.js"
+          "docs/_asset/index.js"
         ],
         "envs": [
           "browser"

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import defaultFs, {promises as fs} from 'fs'
+import {promises as fs} from 'fs'
 import path from 'path'
 import process from 'process'
 import {fileURLToPath} from 'url'
@@ -15,7 +15,6 @@ import rehypeDocument from 'rehype-document'
 import rehypeMeta from 'rehype-meta'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeMinifyUrl from 'rehype-minify-url'
-import rehypeRemoveComments from 'rehype-remove-comments'
 import rehypeStringify from 'rehype-stringify'
 import rehypeSanitize from 'rehype-sanitize'
 import {toXml} from 'xast-util-to-xml'
@@ -188,7 +187,7 @@ async function main() {
             }
           ],
           js: '/index.js',
-          meta: [{name: 'generator', content: 'mdx + rsc'}]
+          meta: [{name: 'generator', content: 'mdx'}]
         })
         .use(rehypeMeta, {
           twitter: true,
@@ -220,8 +219,6 @@ async function main() {
         })
         .use(rehypePresetMinify)
         .use(rehypeMinifyUrl, {from: canonical.href})
-        // Hydration doesn’t work if these two are on:
-        .use(rehypeRemoveComments, false)
         .use(rehypeStringify, {bogusComments: false})
         .process(
           new VFile({
