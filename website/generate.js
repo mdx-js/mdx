@@ -1,4 +1,10 @@
 #!/usr/bin/env node
+/**
+ * @typedef {import('hast').Properties} Properties
+ * @typedef {import('hast').Root} Root
+ */
+
+import assert from 'assert'
 import {promises as fs} from 'fs'
 import path from 'path'
 import process from 'process'
@@ -9,6 +15,8 @@ import pAll from 'p-all'
 import {globby} from 'globby'
 import {sitemap} from 'xast-util-sitemap'
 import {unified} from 'unified'
+import {h} from 'hastscript'
+import {select} from 'hast-util-select'
 import {VFile} from 'vfile'
 import rehypeParse from 'rehype-parse'
 import rehypeDocument from 'rehype-document'
@@ -23,7 +31,6 @@ import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
 /** @type {{format(items: Array<string>): string}} */
-// @ts-expect-error: TS doesn’t know about `ListFormat` yet.
 const listFormat = new Intl.ListFormat('en')
 
 main().catch((error) => {
@@ -217,6 +224,15 @@ async function main() {
                   height: 1256
                 }
         })
+        .use(rehypeLazyCss, [
+          {
+            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github.min.css'
+          },
+          {
+            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github-dark.min.css',
+            media: '(prefers-color-scheme: dark)'
+          }
+        ])
         .use(rehypePresetMinify)
         .use(rehypeMinifyUrl, {from: canonical.href})
         .use(rehypeStringify, {bogusComments: false})
@@ -239,4 +255,46 @@ async function main() {
     console.error = error
     console.log('✔ Generate')
   })
+}
+
+/**
+ * @param {ReadonlyArray<Properties>} styles
+ *   Styles.
+ * @returns
+ *   Transform.
+ */
+function rehypeLazyCss(styles) {
+  /**
+   * @param {Root} tree
+   *   Styles.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  return (tree) => {
+    const head = select('head', tree)
+    assert(head)
+    const enabled = []
+    const disabled = []
+
+    let index = -1
+    while (++index < styles.length) {
+      // To do: structured clone.
+      const props = styles[index]
+      enabled.push(
+        h('link', {
+          ...props,
+          rel: 'preload',
+          as: 'style',
+          onLoad: "this.onload=null;this.rel='stylesheet'"
+        })
+      )
+      disabled.push(h('link', {...props, rel: 'stylesheet'}))
+    }
+
+    head.children.push(...enabled)
+
+    if (disabled.length > 0) {
+      head.children.push(h('noscript', disabled))
+    }
+  }
 }
