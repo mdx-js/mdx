@@ -12,7 +12,6 @@ import {unified} from 'unified'
 import rehypeSanitize from 'rehype-sanitize'
 import {toXml} from 'xast-util-to-xml'
 import {Layout} from '../docs/_component/layout.server.js'
-import {CopyButton} from '../docs/_component/copy.client.js'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
@@ -152,7 +151,7 @@ async function main() {
       writeStream.on('close', () => console.log('  generate: `%s`', name))
 
       const element = React.createElement(Content, {
-        components: {wrapper: Layout, CopyButton},
+        components: {wrapper: Layout},
         ...data,
         name,
         ghUrl,

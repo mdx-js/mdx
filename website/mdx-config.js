@@ -28,7 +28,6 @@ import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeRaw from 'rehype-raw'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import {visit} from 'unist-util-visit'
-import {toText} from 'hast-util-to-text'
 import {h, s} from 'hastscript'
 import {analyze} from 'periscopic'
 import {valueToEstree} from 'estree-util-value-to-estree'
@@ -238,7 +237,6 @@ function rehypePrettyCodeBlocks() {
 
       const children = [node]
       const className = (code.properties && code.properties.className) || []
-      const textContent = toText(node)
       const lang = className.find((value) => value.slice(0, 9) === 'language-')
       const header = []
       const footer = []
@@ -262,18 +260,6 @@ function rehypePrettyCodeBlocks() {
             languageNames[language] || language
           )
         )
-      }
-
-      // Not giant.
-      if (textContent.length < 8192 && metaProps.copy !== 'no') {
-        footer.push({
-          type: 'mdxJsxTextElement',
-          name: 'CopyButton',
-          attributes: [
-            {type: 'mdxJsxAttribute', name: 'value', value: textContent}
-          ],
-          children: []
-        })
       }
 
       if (header) {

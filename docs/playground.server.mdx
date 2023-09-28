@@ -1,5 +1,3 @@
-import {Note} from './_component/note.server.js'
-import {Editor} from './_component/editor.client.js'
 export const navSortSelf = 5
 export const info = {
   author: [
@@ -9,12 +7,6 @@ export const info = {
   published: new Date('2021-09-13'),
   modified: new Date('2021-11-01')
 }
-export const playgroundSource = `Hello, world!
-Below is an example of markdown in JSX.
-
-<div style={{padding: '1rem', backgroundColor: 'violet'}}>
-  Try and change the background color to \`tomato\`.
-</div>`
 
 # Playground
 
@@ -25,7 +17,5 @@ ASTs.
 This can be helpful for debugging or exploring.
 To read about how the MDX format works, we recommend that you start with
 [§ What is MDX][what].
-
-<Editor children={playgroundSource} />
 
 [what]: /docs/what-is-mdx/
