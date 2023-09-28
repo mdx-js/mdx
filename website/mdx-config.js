@@ -28,6 +28,7 @@ import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeRaw from 'rehype-raw'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import {visit} from 'unist-util-visit'
+import {toText} from 'hast-util-to-text'
 import {h, s} from 'hastscript'
 import {analyze} from 'periscopic'
 import {valueToEstree} from 'estree-util-value-to-estree'
@@ -204,6 +205,7 @@ function rehypePrettyCodeBlocks() {
     ts: 'TypeScript'
   }
 
+  /** @param {import('hast').Root} tree */
   return (tree) => {
     visit(tree, 'element', (node, index, parent) => {
       if (node.tagName !== 'pre') {
@@ -221,6 +223,7 @@ function rehypePrettyCodeBlocks() {
         return
       }
 
+      /** @type {Record<string, string>} */
       const metaProps = {}
 
       if (code.data && code.data.meta) {
@@ -236,12 +239,26 @@ function rehypePrettyCodeBlocks() {
         return
       }
 
+      const textContent = toText(node)
       const children = [node]
       const className = (code.properties && code.properties.className) || []
       const lang = className.find((value) => value.slice(0, 9) === 'language-')
-      const header = []
       const footer = []
+      const header = []
       const language = metaProps.language || (lang ? lang.slice(9) : undefined)
+
+      // Not giant.
+      if (textContent.length < 8192 && metaProps.copy !== 'no') {
+        footer.push({
+          type: 'element',
+          tagName: 'button',
+          properties: {
+            className: ['copy-button'],
+            dataValue: textContent
+          },
+          children: []
+        })
+      }
 
       if (metaProps.path) {
         header.push(
