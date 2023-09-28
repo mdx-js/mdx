@@ -4,10 +4,6 @@
   packageRules: [
     {
       matchPackageNames: [
-        // `react`/`react-dom` latest don’t support
-        // RSC.
-        'react',
-        'react-dom',
         // `node-loader@2` depends on Node 16+. Our website is on Vercel/AWS which don’t support Node 16.
         '@node-loader/core'
       ],
