@@ -51,7 +51,7 @@
     "@types/hast": "^2.0.0",
     "@types/mdx": "^2.0.0",
     "estree-util-build-jsx": "^2.0.0",
-    "estree-util-is-identifier-name": "^2.0.0",
+    "estree-util-is-identifier-name": "^3.0.0",
     "estree-util-to-js": "^1.1.0",
     "estree-walker": "^3.0.0",
     "hast-util-to-estree": "^2.0.0",
