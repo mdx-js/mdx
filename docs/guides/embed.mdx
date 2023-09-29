@@ -1,0 +1,123 @@
+export const navSortSelf = 5
+export const info = {
+  author: [
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+  ],
+  published: new Date('2021-10-06'),
+  modified: new Date('2022-06-17')
+}
+
+# Embed
+
+This guide explores how to embed things like tweets, gists or codepens in
+markdown. {/* more */}
+MDX supports standard markdown syntax ([CommonMark][]).
+It does not support embeds by default.
+
+There are two ways to accomplish embeds: at compile time or at runtime.
+Doing it at compile time means the effort is spent upfront so that readers will
+have a fast experience as no requests have to be made on the client.
+Doing it at runtime gives more flexibility by moving the work to the client.
+This can result in a slow experience for readers though.
+It also depends on what framework you use (as in it’s specific to React, Preact,
+Vue, etc.)
+
+## Embeds at compile time
+
+You can use [`@remark-embedder/core`][remark-embedder] by doing something like
+this:
+
+```tsx path="example.js"
+import {compile} from '@mdx-js/mdx'
+// Node currently can’t pick up on the default exports by `@remark-embedder`.
+import fauxRemarkEmbedder from '@remark-embedder/core'
+import fauxOembedTransformer from '@remark-embedder/transformer-oembed'
+const remarkEmbedder = fauxRemarkEmbedder.default
+const oembedTransformer = fauxOembedTransformer.default
+
+const code = `
+Check out this video:
+
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+`
+
+console.log(
+  String(
+    await compile(code, {
+      remarkPlugins: [[remarkEmbedder, {transformers: [oembedTransformer]}]]
+    })
+  )
+)
+```
+
+<details>
+  <summary>Expand equivalent JSX</summary>
+
+  ```tsx path="output.jsx"
+  <>
+    <p>Check out this video:</p>
+    <iframe width="200" height="113" src="https://www.youtube.com/embed/dQw4w9WgXcQ?feature=oembed" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+  </>
+  ```
+</details>
+
+## Embeds at run time
+
+You can use the React-specific [MDX Embed][mdx-embed] to embed things in MDX.
+Here is an example MDX file that uses a specific embed without `@mdx-js/react`:
+
+```mdx path="example.mdx"
+import {CodePen} from 'mdx-embed'
+
+Here’s a codepen, and some other blog post text.
+
+<CodePen codePenId="PNaGbb" />
+```
+
+<details>
+  <summary>Expand equivalent JSX</summary>
+
+  ```tsx path="output.jsx"
+  <>
+    <p>Here’s a codepen, and some other blog post text.</p>
+    <CodePen codePenId="PNaGbb" />
+  </>
+  ```
+</details>
+
+If you don’t want to use explicit imports in MDX files:
+
+```mdx path="example.mdx"
+Here’s a codepen, and some other blog post text.
+
+<CodePen codePenId="PNaGbb" />
+```
+
+Then you can either pass all components:
+
+```tsx path="example.jsx"
+import * as embeds from 'mdx-embed'
+import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+<Example components={...embeds} />
+```
+
+Or, if you’ve installed and configured [`@mdx-js/react`][mdx-react], you can
+also use `MDXEmbedProvider`:
+
+```tsx path="example.jsx"
+import {MDXEmbedProvider} from 'mdx-embed'
+import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+<MDXEmbedProvider>
+  <Example />
+</MDXEmbedProvider>
+```
+
+[commonmark]: https://spec.commonmark.org/current/
+
+[remark-embedder]: https://github.com/remark-embedder/core
+
+[mdx-embed]: https://www.mdx-embed.com/
+
+[mdx-react]: /packages/react/

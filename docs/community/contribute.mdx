@@ -1,0 +1,147 @@
+import {Note} from '../_component/note.jsx'
+export const navSortSelf = 2
+export const info = {
+  author: [
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+  ],
+  published: new Date('2018-11-04'),
+  modified: new Date('2022-01-25')
+}
+
+# Contribute
+
+This article explains how to contribute to MDX.
+Please read through the following guidelines.
+
+{/* more */}
+
+<Note type="important">
+  **Important**: before participating in our community, please read our
+  [code of conduct][coc].
+  By interacting with this repository, organization, or community you agree to
+  abide by its terms.
+</Note>
+
+## Contributions
+
+There’s several ways to contribute, not just by writing code.
+If you have questions, see [§ Support][support].
+If you can provide financial support, see [§ Sponsor][sponsor].
+
+### Improve docs
+
+As a user you’re perfect for helping us improve our docs.
+Typo corrections, error fixes, better explanations, new examples, etcetera.
+All MDX docs live in `docs/`.
+
+You can run the docs locally by following those steps:
+
+*   Use Node.js 14
+*   Install latest npm (not the one coming with Node.js 14): `npm install -g npm`
+*   Install repository packages: `npm install`
+*   Build the docs site: `npm run docs`
+*   Test the static docs site: `npx serve public`
+
+### Improve issues
+
+Some issues lack information, aren’t reproducible, or are just incorrect.
+You can help by trying to make them easier to resolve.
+Existing issues might benefit from your unique experience or opinions.
+
+### Write code
+
+Code contributions are very welcome.
+It’s probably a good idea to first post a question or open an issue to report a
+bug or suggest a new feature before creating a pull request.
+
+## Submitting an issue
+
+*   The issue tracker is for issues.
+    Use discussions for support
+*   Search the issue tracker (including closed issues) before opening a new
+    issue
+*   Ensure you’re using the latest version of our packages
+*   Use a clear and descriptive title
+*   Include as much information as possible: steps to reproduce the issue,
+    error message, version, operating system, etcetera
+*   The more time you put into an issue, the better we will be able to help you
+*   The best issue report is a [failing test][unit-test] proving it
+
+## Submitting a pull request
+
+*   See [¶ Project][project] below for info on how the project is structured,
+    how to test, and how to build the site
+*   Non-trivial changes are often best discussed in an issue first, to prevent
+    you from doing unnecessary work
+*   For ambitious tasks, you should try to get your work in front of the
+    community for feedback as soon as possible
+*   New features should be accompanied by tests and documentation
+*   Don’t include unrelated changes
+*   Test before submitting code by running `npm test`
+*   Write a convincing description of why we should land your pull request:
+    it’s your job to convince us
+
+## Project
+
+### Structure
+
+MDX is a monorepo.
+All packages are in `packages/`.
+Documentation is in `docs/`.
+
+### Tests
+
+To run the tests, first do `npm install`, then do `npm test`.
+This ensures everything is okay, from code style to unit tests to types.
+
+### Site
+
+To build the site, first do `npm install`, then do `npm run docs`.
+This produces the website in `public/`.
+
+<Note type="important">
+  **Important**: the site uses several experimental packages.
+  They require Node.js 14, and don’t work in earlier or later
+  versions.
+  To build the site, please use Node.js 14 (with `nvm`: `nvm use 14`).
+</Note>
+
+### Release
+
+To release a new version, do:
+
+1.  update `version`s of packages with a patch, minor, or major (make sure to
+    update dependency ranges on monorepo packages when needed):
+    ```sh
+    npm version minor --workspaces --no-git-tag-version
+    ```
+2.  commit and tag using the version (without `v`) as the message:
+    ```sh
+    git commit --all --message 1.2.3 && git tag 1.2.3 && git push && git push --tags
+    ```
+3.  release to the npm registry:
+    ```sh
+    npm publish --workspaces
+    ```
+4.  add a changelog entry for the release on GitHub:
+    ```sh
+    open https://github.com/mdx-js/mdx/releases
+    ```
+
+## Resources
+
+*   [Good first issues in the MDX repository](https://github.com/mdx-js/mdx/labels/good%20first%20issue%20👋)
+*   [How to contribute to open source](https://opensource.guide/how-to-contribute/)
+*   [Making your first contribution](https://medium.com/@vadimdemedes/making-your-first-contribution-de6576ddb190)
+*   [Using pull requests](https://help.github.com/articles/about-pull-requests/)
+*   [GitHub help](https://help.github.com)
+
+[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
+
+[unit-test]: https://twitter.com/sindresorhus/status/579306280495357953
+
+[support]: /community/support/
+
+[sponsor]: /community/sponsor/
+
+[project]: #project

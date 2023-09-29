@@ -1,14 +1,15 @@
 /**
- * @typedef {import('estree-jsx').Program} Program
+ * @typedef {import('@wooorm/starry-night').Grammar} Grammar
+ * @typedef {import('hast').ElementContent} ElementContent
  * @typedef {import('hast').Root} Root
- * @typedef {import('hast').Text} Text
- * @typedef {import('hast').Content} Content
- * @typedef {Root|Content} Node
  */
 
 import path from 'path'
 import process from 'process'
 import {pathToFileURL} from 'url'
+import {common, createStarryNight} from '@wooorm/starry-night'
+import sourceMdx from '@wooorm/starry-night/source.mdx'
+import sourceTsx from '@wooorm/starry-night/source.tsx'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkGithub from 'remark-github'
@@ -17,7 +18,6 @@ import remarkStripBadges from 'remark-strip-badges'
 import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs'
 import remarkToc from 'remark-toc'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
-import rehypeHighlight from 'rehype-highlight'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeInferDescriptionMeta from 'rehype-infer-description-meta'
 import rehypeInferReadingTimeMeta from 'rehype-infer-reading-time-meta'
@@ -29,6 +29,7 @@ import rehypeRaw from 'rehype-raw'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import {visit} from 'unist-util-visit'
 import {toText} from 'hast-util-to-text'
+import {toString} from 'hast-util-to-string'
 import {h, s} from 'hastscript'
 import {analyze} from 'periscopic'
 import {valueToEstree} from 'estree-util-value-to-estree'
@@ -79,14 +80,17 @@ const options = {
         content: link()
       }
     ],
-    [
-      rehypeHighlight,
-      {
-        subset: false,
-        aliases: {markdown: 'mdx'}
-      }
-    ],
+    [rehypeStarryNight, {grammars: [...common, sourceMdx, sourceTsx]}],
+    // To do: use starry-night.
+    // [
+    //   rehypeHighlight,
+    //   {
+    //     subset: false,
+    //     aliases: {markdown: 'mdx'}
+    //   }
+    // ],
     // Minify things — mostly needed so `prerender` can also minify.
+    // To do: can be removed?
     rehypePresetMinify,
     [rehypeMinifyUrl, {ignoreMissingSource: true}]
   ],
@@ -196,14 +200,16 @@ function rehypePrettyCodeBlocks() {
     diff: 'Diff',
     html: 'HTML',
     js: 'JavaScript',
-    jsx: 'JSX',
+    jsx: 'JavaScript',
     md: 'Markdown',
     mdx: 'MDX',
     sh: 'Shell',
     txt: 'Plain text',
-    ts: 'TypeScript'
+    ts: 'TypeScript',
+    tsx: 'TypeScript'
   }
 
+  /** @param {import('hast').Root} tree */
   return (tree) => {
     visit(tree, 'element', (node, index, parent) => {
       if (node.tagName !== 'pre') {
@@ -221,6 +227,7 @@ function rehypePrettyCodeBlocks() {
         return
       }
 
+      /** @type {Record<string, string>} */
       const metaProps = {}
 
       if (code.data && code.data.meta) {
@@ -236,13 +243,26 @@ function rehypePrettyCodeBlocks() {
         return
       }
 
+      const textContent = toText(node)
       const children = [node]
       const className = (code.properties && code.properties.className) || []
-      const textContent = toText(node)
       const lang = className.find((value) => value.slice(0, 9) === 'language-')
-      const header = []
       const footer = []
+      const header = []
       const language = metaProps.language || (lang ? lang.slice(9) : undefined)
+
+      // Not giant.
+      if (textContent.length < 8192 && metaProps.copy !== 'no') {
+        footer.push({
+          type: 'element',
+          tagName: 'button',
+          properties: {
+            className: ['copy-button'],
+            dataValue: textContent
+          },
+          children: []
+        })
+      }
 
       if (metaProps.path) {
         header.push(
@@ -264,18 +284,6 @@ function rehypePrettyCodeBlocks() {
         )
       }
 
-      // Not giant.
-      if (textContent.length < 8192 && metaProps.copy !== 'no') {
-        footer.push({
-          type: 'mdxJsxTextElement',
-          name: 'CopyButton',
-          attributes: [
-            {type: 'mdxJsxAttribute', name: 'value', value: textContent}
-          ],
-          children: []
-        })
-      }
-
       if (header) {
         children.unshift(h('.frame-tab-bar.frame-tab-bar-scroll', header))
       }
@@ -285,6 +293,100 @@ function rehypePrettyCodeBlocks() {
       }
 
       parent.children[index] = h('.frame.code-frame', children)
+    })
+  }
+}
+
+// See:
+// <https://github.com/wooorm/starry-night#example-integrate-with-unified-remark-and-rehype>.
+/**
+ * @typedef Options
+ *   Configuration (optional)
+ * @property {Array<Grammar> | null | undefined} [grammars]
+ *   Grammars to support (default: `common`).
+ */
+
+/**
+ * Highlight code with `starry-night`.
+ *
+ * @param {Options | null | undefined} options
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
+ */
+function rehypeStarryNight(options) {
+  const settings = options || {}
+  const grammars = settings.grammars || common
+  const starryNightPromise = createStarryNight(grammars)
+  const prefix = 'language-'
+
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {Promise<undefined>}
+   *   Nothing.
+   */
+  return async function (tree) {
+    const starryNight = await starryNightPromise
+
+    visit(tree, 'element', function (node, index, parent) {
+      if (!parent || index === null || node.tagName !== 'pre') {
+        return
+      }
+
+      const head = node.children[0]
+
+      if (
+        !head ||
+        head.type !== 'element' ||
+        head.tagName !== 'code' ||
+        !head.properties
+      ) {
+        return
+      }
+
+      const classes = head.properties.className
+
+      if (!Array.isArray(classes)) return
+
+      const language = classes.find(function (d) {
+        return typeof d === 'string' && d.startsWith(prefix)
+      })
+
+      if (typeof language !== 'string') return
+
+      const name = language.slice(prefix.length)
+
+      const scope = starryNight.flagToScope(name)
+
+      // Maybe warn?
+      if (!scope) {
+        if (name !== 'txt') console.warn('Missing language: %s', name)
+        return
+      }
+
+      const fragment = starryNight.highlight(toString(head), scope)
+      const children = /** @type {Array<ElementContent>} */ (fragment.children)
+
+      parent.children.splice(index, 1, {
+        type: 'element',
+        tagName: 'pre',
+        properties: {},
+        children: [
+          {
+            type: 'element',
+            tagName: 'code',
+            properties: {
+              className: [
+                'language-' + scope.replace(/^source\./, '').replace(/\./g, '-')
+              ]
+            },
+            children
+          }
+        ]
+      })
     })
   }
 }

@@ -1,0 +1,459 @@
+import {Note} from '../_component/note.jsx'
+export const navSortSelf = 3
+export const info = {
+  author: [
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+  ],
+  published: new Date('2021-09-30'),
+  modified: new Date('2022-06-17')
+}
+
+# Using MDX
+
+This article explains how to use MDX files in your project.
+It shows how you can pass props and how to import, define, or pass components. {/* more */}
+See [§ Getting started][start] for how to integrate MDX into your project.
+To understand how the MDX format works, we recommend that you start with
+[§ What is MDX][what].
+
+## Contents
+
+*   [How MDX works](#how-mdx-works)
+*   [MDX content](#mdx-content)
+    *   [Props](#props)
+    *   [Components](#components)
+    *   [Layout](#layout)
+*   [MDX provider](#mdx-provider)
+
+## How MDX works
+
+An integration compiles MDX syntax to JavaScript.
+Say we have an MDX document, `example.mdx`:
+
+```mdx path="input.mdx"
+export const Thing = () => <>World</>
+
+# Hello <Thing />
+```
+
+That’s *roughly* turned into the following JavaScript.
+The below might help to form a mental model:
+
+```tsx path="output-outline.jsx"
+/* @jsxRuntime automatic @jsxImportSource react */
+
+export const Thing = () => <>World</>
+
+export default function MDXContent() {
+  return <h1>Hello <Thing /></h1>
+}
+```
+
+Some observations:
+
+*   The output is serialized JavaScript that still needs to be evaluated
+*   A comment is injected to configure how JSX is handled
+*   It’s a complete file with import/exports
+*   A component (`MDXContent`) is exported
+
+The *actual* output is:
+
+```tsx path="output-actual.js"
+/* @jsxRuntime automatic @jsxImportSource react */
+import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
+
+export const Thing = () => _jsx(_Fragment, {children: 'World'})
+
+function _createMdxContent(props) {
+  const _components = {
+    h1: 'h1',
+    ...props.components
+  }
+  return _jsxs(_components.h1, {
+    children: ['Hello ', _jsx(Thing, {})]
+  })
+}
+
+export default function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || {}
+  return MDXLayout
+    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, props)}))
+    : _createMdxContent(props)
+}
+```
+
+Some more observations:
+
+*   JSX is compiled away to function calls and an import of React†
+*   The content component can be given `{components: {wrapper: MyLayout}}` to
+    wrap all content
+*   The content component can be given `{components: {h1: MyComponent}}` to use
+    something else for the heading
+
+† MDX is not coupled to React.
+You can also use it with [Preact][],
+[Vue][], [Emotion][],
+[Theme UI][],
+etc.
+Both the classic and automatic JSX runtimes are supported.
+
+## MDX content
+
+We just saw that MDX files are compiled to components.
+You can use those components like any other component in your framework of
+choice.
+Take this file:
+
+```mdx path="example.mdx"
+# Hi!
+```
+
+It could be imported and used in a React app like so:
+
+```tsx path="example.js"
+import React from 'react'
+import ReactDom from 'react-dom'
+import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+const root = ReactDom.createRoot(document.getElementById('root'))
+root.render(<Example />)
+```
+
+The main content is exported as the default export.
+All other values are also exported.
+Take this example:
+
+```mdx path="example.mdx"
+export const Thing = () => <>World</>
+
+# Hello <Thing />
+```
+
+It could be imported in the following ways:
+
+```tsx path="example.js"
+// A namespace import to get everything:
+import * as everything from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+console.log(everything) // {Thing: [Function: Thing], default: [Function: MDXContent]}
+
+// Default export shortcut and a named import specifier:
+import Content, {Thing} from './example.mdx'
+console.log(Content) // [Function: MDXContent]
+console.log(Thing) // [Function: Thing]
+
+// Import specifier with another local name:
+import {Thing as AnotherName} from './example.mdx'
+console.log(AnotherName) // [Function: Thing]
+```
+
+### Props
+
+In [§ What is MDX][what], we showed that JavaScript expressions, inside curly
+braces, can be used in MDX:
+
+```mdx path="example.mdx"
+import {year} from './data.js'
+export const name = 'world'
+
+# Hello {name.toUpperCase()}
+
+The current year is {year}
+```
+
+Instead of importing or defining data within MDX, data can also be passed
+to `MDXContent`.
+The passed data is called `props`.
+Take for example:
+
+```mdx path="example.mdx"
+# Hello {props.name.toUpperCase()}
+
+The current year is {props.year}
+```
+
+This file could be used as:
+
+```tsx path="example.jsx"
+import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+// Use a `createElement` call:
+React.createElement(Example, {name: 'Venus', year: 2021})
+
+// Use JSX:
+<Example name="Mars" year={2022} />
+```
+
+### Components
+
+There is one special prop: `components`.
+It takes an object mapping component names to components.
+Take this example:
+
+```mdx path="example.mdx"
+# Hello *<Planet />*
+```
+
+It can be imported from JavaScript and passed components like so:
+
+```tsx path="example.jsx"
+import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+<Example components={{Planet: () => <span style={{color: 'tomato'}}>Pluto</span>}} />
+```
+
+You don’t have to pass components.
+You can also define or import them within MDX:
+
+```mdx path="example.mdx"
+import {Box, Heading} from 'rebass'
+
+MDX using imported components!
+
+<Box>
+  <Heading>Here’s a heading</Heading>
+</Box>
+```
+
+Because MDX files *are* components, they can also import each other:
+
+```mdx path="example.mdx"
+import License from './license.md' // Assumes an integration is used to compile MDX -> JS.
+import Contributing from './docs/contributing.mdx'
+
+# Hello world
+
+<License />
+
+---
+
+<Contributing />
+```
+
+Here are some other examples of passing components:
+
+```tsx path="example.jsx"
+<Example
+  components={{
+    // Map `h1` (`# heading`) to use `h2`s.
+    h1: 'h2',
+    // Rewrite `em`s (`*like so*`) to `i` with a goldenrod foreground color.
+    em: (props) => <i style={{color: 'goldenrod'}} {...props} />,
+    // Pass a layout (using the special `'wrapper'` key).
+    wrapper: ({components, ...rest}) => <main {...rest} />,
+    // Pass a component.
+    Planet: () => 'Neptune',
+    // This nested component can be used as `<theme.text>hi</theme.text>`
+    theme: {text: (props) => <span style={{color: 'grey'}} {...props} />}
+  }}
+/>
+```
+
+The following keys can be passed in `components`:
+
+*   HTML equivalents for the things you write with markdown such as `h1` for
+    `# heading` (see [§ Table of components][toc] for examples)
+*   `wrapper`, which defines the layout (but a local layout takes precedence)
+*   `*` anything else that is a valid JavaScript identifier (`foo`,
+    `Quote`, `_`, `$x`, `a1`) for the things you write with JSX (like
+    `<So />` or `<like.so />`, note that locally defined components take
+    precedence)**‡**
+
+If you ever wondered what the rules are for whether a name in JSX (so `x` in
+`<x>`) is a literal tag name (like `h1`) or not (like `Component`), they are as
+follows:
+
+*   If there’s a dot, it’s a member expression (`<a.b>` -> `h(a.b)`),
+    which means that the `b` component is taken from object `a`
+*   Otherwise, if the name is not a valid identifier, it’s a literal (`<a-b>` ->
+    `h('a-b')`)
+*   Otherwise, if it starts with a lowercase, it’s a literal (`<a>` -> `h('a')`)
+*   Otherwise, it’s an identifier (`<A>` -> `h(A)`), which means a component `A`
+
+### Layout
+
+There is one special component: the layout.
+If it is defined, it’s used to wrap all content.
+A layout can be defined from within MDX using a default export:
+
+```mdx
+export default function Layout({children}) {
+  return <main>{children}</main>;
+}
+
+All the things.
+```
+
+The layout can also be imported and *then* exported with an `export … from`:
+
+{/* Note: `language` because theme in VS Code is broken. */}
+
+```tsx language="mdx"
+export {Layout as default} from './components.js'
+```
+
+The layout can also be passed as `components.wrapper` (but a local one takes
+precedence).
+
+## MDX provider
+
+You probably don’t need a provider.
+Passing components is typically fine.
+Providers often only add extra weight.
+Take for example this file:
+
+```mdx path="post.mdx"
+# Hello world
+```
+
+Used like so:
+
+```tsx path="app.jsx"
+import React from 'react'
+import ReactDom from 'react-dom'
+import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
+import {Heading, /* … */ Table} from './components/index.js'
+
+const components = {
+  h1: Heading.H1,
+  // …
+  table: Table
+}
+
+const root = ReactDom.createRoot(document.getElementById('root'))
+root.render(<Post components={components} />)
+```
+
+That works, those components are used.
+
+But when you’re nesting MDX files (importing them into each other) it can become
+cumbersome.
+Like so:
+
+```mdx path="post.mdx"
+import License from './license.md' // Assumes an integration is used to compile MDX -> JS.
+import Contributing from './docs/contributing.mdx'
+
+# Hello world
+
+<License components={props.components} />
+
+---
+
+<Contributing components={props.components} />
+```
+
+To solve this, a *[context][]* can be used in React, Preact, and Vue.
+Context provides a way to pass data through the component tree without having to
+pass props down manually at every level.
+Set it up like so:
+
+1.  Install either [`@mdx-js/react`][mdx-react], [`@mdx-js/preact`][mdx-preact],
+    or [`@mdx-js/vue`][mdx-vue],
+    depending on what framework you’re using
+2.  Configure your MDX integration with
+    [`options.providerImportSource`][options-provider-import-source]
+    set to that package, so either `'@mdx-js/react'`, `'@mdx-js/preact'`, or
+    `'@mdx-js/vue'`
+3.  Import `MDXProvider` from that package.
+    Use it to wrap your top-most MDX content component and pass it your
+    `components` instead:
+
+```diff
+ import React from 'react'
+ import ReactDom from 'react-dom'
+ import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
+ import {Heading, /* … */ Table} from './components/index.js'
++import {MDXProvider} from '@mdx-js/react'
+
+ const components = {
+   h1: Heading.H1,
+   // …
+   table: Table
+ }
+
+ const root = ReactDom.createRoot(document.getElementById('root'))
+-root.render(<Post components={components} />)
++root.render(
++  <MDXProvider components={components}>
++    <Post />
++  </MDXProvider>
++)
+```
+
+Now you can remove the explicit and verbose component passing:
+
+```diff
+ import License from './license.md' // Assumes an integration is used to compile MDX -> JS.
+ import Contributing from './docs/contributing.mdx'
+
+ # Hello world
+
+-<License components={props.components} />
++<License />
+
+ ---
+
+-<Contributing components={props.components} />
++<Contributing />
+```
+
+When `MDXProvider`s are nested, their components are merged.
+Take this example:
+
+```tsx
+<>
+  <MDXProvider components={{h1: Component1, h2: Component2}}>
+    <MDXProvider components={{h2: Component3, h3: Component4}}>
+      <Content />
+    </MDXProvider>
+  </MDXProvider>
+</>
+```
+
+…which results in `h1`s using `Component1`, `h2`s using `Component3`, and `h3`s
+using `Component4`.
+
+To merge differently or not at all, pass a function to `components`.
+It’s given the current context `components` and what it returns will be used
+instead.
+In this example the current context components are discarded:
+
+```tsx
+<>
+  <MDXProvider components={{h1: Component1, h2: Component2}}>
+    <MDXProvider components={() => ({h2: Component3, h3: Component4})}>
+      <Content />
+    </MDXProvider>
+  </MDXProvider>
+</>
+```
+
+…which results in `h2`s using `Component3` and `h3`s using `Component4`.
+No component is used for `h1`.
+
+If you’re not nesting MDX files, or not nesting them often, don’t use
+providers: pass components explicitly.
+
+[context]: https://reactjs.org/docs/context.html
+
+[start]: /docs/getting-started/
+
+[what]: /docs/what-is-mdx/
+
+[mdx-react]: /packages/react/
+
+[mdx-preact]: /packages/preact/
+
+[mdx-vue]: /packages/vue/
+
+[options-provider-import-source]: /packages/mdx/#optionsproviderimportsource
+
+[emotion]: /docs/getting-started/#emotion
+
+[preact]: /docs/getting-started/#preact
+
+[theme ui]: /docs/getting-started/#theme-ui
+
+[vue]: /docs/getting-started/#vue
+
+[toc]: /table-of-components/

@@ -21,17 +21,13 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import {VFile} from 'vfile'
 import {SourceMapGenerator} from 'source-map'
+import {renderToStaticMarkup} from 'react-dom/server'
 // Note: Node has an experimental `--enable-source-maps` flag, but most of V8
 // doesn’t seem to support it.
 // So instead use a userland module.
 import 'source-map-support/register.js'
 import {compile, compileSync, createProcessor, nodeTypes} from '../index.js'
-// @ts-expect-error: make sure a single react is used.
-import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server.js'
 import {MDXProvider} from '../../react/index.js'
-
-/** @type {import('react-dom/server').renderToStaticMarkup} */
-const renderToStaticMarkup = renderToStaticMarkup_
 
 test('compile', async (t) => {
   await t.test('should throw when a removed option is passed', () => {

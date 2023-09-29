@@ -57,7 +57,7 @@ async function main() {
       const file = new VFile({path: new URL('.' + from, config.output)})
       const tree = await processor.run(buildRedirect(to), file)
       file.value = processor.stringify(tree)
-      await fs.mkdir(file.dirname, {recursive: true})
+      if (file.dirname) await fs.mkdir(file.dirname, {recursive: true})
       await fs.writeFile(file.path, String(file))
     }),
     {concurrency: 6}
@@ -65,6 +65,7 @@ async function main() {
 
   console.log('✔ %d redirects', Object.keys(redirect).length)
 
+  // To do: drop Vercel.
   const vercelRedirects = []
   let redirectFrom
 
@@ -76,7 +77,8 @@ async function main() {
     }
   }
 
-  const vercelInfo = JSON.parse(await fs.readFile('vercel.json'))
+  // To do: drop Vercel.
+  const vercelInfo = JSON.parse(String(await fs.readFile('vercel.json')))
   await fs.writeFile(
     'vercel.json',
     JSON.stringify({...vercelInfo, redirects: vercelRedirects}, null, 2) + '\n'
@@ -85,22 +87,30 @@ async function main() {
   console.log('✔ `vercel.json` redirects')
 }
 
+/**
+ *
+ * @param {string} to
+ * @returns  {import('hast').Root}
+ */
 function buildRedirect(to) {
   const abs = new URL(to, config.site)
   return u('root', [
-    u('doctype'),
+    // To do: remove `name`.
+    u('doctype', {name: 'html'}),
     h('html', {lang: 'en'}, [
       h('head', [
         h('meta', {charSet: 'utf8'}),
         h('title', 'Redirecting…'),
-        h('link', {rel: 'canonical', href: abs}),
+        h('link', {rel: 'canonical', href: String(abs)}),
         h('script', 'location = ' + JSON.stringify(abs)),
         h('meta', {httpEquiv: 'refresh', content: '0;url=' + abs}),
         h('meta', {name: 'robots', content: 'noindex'})
       ]),
       h('body', [
         h('h1', 'Redirecting…'),
-        h('p', [h('a', {href: abs}, 'Click here if you are not redirected.')])
+        h('p', [
+          h('a', {href: String(abs)}, 'Click here if you are not redirected.')
+        ])
       ])
     ])
   ])

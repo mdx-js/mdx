@@ -325,7 +325,7 @@ export function recmaJsxRewrite(options) {
 
             // Add components to scope.
             // For `['MyComponent', 'MDXLayout']` this generates:
-            // ```js
+            // ```tsx
             // const {MyComponent, wrapper: MDXLayout} = _components
             // ```
             // Note that MDXLayout is special as it’s taken from

@@ -1,0 +1,154 @@
+import {Note} from './_component/note.jsx'
+import {Chart} from './_component/snowfall.jsx'
+export {Home as default} from './_component/home.jsx'
+export const info = {
+  author: [
+    {name: 'John Otander', github: 'johno', twitter: '4lpine'}
+  ],
+  published: new Date('2017-12-23'),
+  modified: new Date('2022-02-01'),
+  schemaOrg: {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "additionalType": "ComputerLanguage",
+    "name": "MDX",
+    "description": "an authorable format for writing JSX in markdown documents",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, MacOS, Linux",
+    "url": "https://mdxjs.com",
+    "sameAs": [
+      "https://www.wikidata.org/wiki/Q95971592",
+      "https://www.wikidata.org/wiki/Q27966906",
+      "https://www.wikidata.org/wiki/Q95961071",
+      "https://en.wikipedia.org/wiki/MDX_(markup_language)",
+      "https://github.com/mdx-js/mdx"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  }
+}
+export const year = 2018
+
+{/* lint disable heading-style */}
+
+Markdown for the\
+**component era**
+=================
+
+MDX allows you to use JSX in your markdown content.
+You can import components, such as interactive charts or alerts, and embed them
+within your content.
+This makes writing long-form content with components a blast. {/* more */}
+🚀
+[Continue reading »][what]
+
+<div className="card big">
+  ## New: MDX 2!
+
+  Version 2 of MDX was released after years of hard work, and has many
+  improvements.
+  Here are the highlights:
+
+  <div className="emoji-list">
+    *   📝 **Improved syntax** makes it easier to use markdown in JSX
+    *   🧑‍💻 **JavaScript expressions** turn `{2 * Math.PI}` into {2 * Math.PI}
+    *   🔌 New **esbuild**, **Rollup**, and **Node.js** integrations
+    *   ⚛️ **Any JSX runtime**: React, Preact, Vue, Emotion, you name it, they’re
+        all supported
+    *   🌳 **Improved AST** exposes more info in greater detail
+    *   🏃‍♀️ Compiles at least **25% faster**
+    *   🚴 Generated code runs twice as fast (**100% faster**)
+    *   🚄 Bundle size of `@mdx-js/mdx` is more than three times as small
+        (**250% smaller**)
+    *   🧵 …and much, so much more
+  </div>
+
+  [Continue reading »][v2]
+</div>
+
+## What does MDX do?
+
+<div className="big-columns">
+  <div>
+    You write markdown with embedded components through JSX:
+
+    ```mdx path="example.mdx"
+    import {Chart} from './snowfall.js'
+    export const year = 2018
+
+    # Last year’s snowfall
+
+    In {year}, the snowfall was above average.
+    It was followed by a warm spring which caused
+    flood conditions in many of the nearby rivers.
+
+    <Chart year={year} color="#fcb32c" />
+    ```
+  </div>
+
+  <div>
+    It gets compiled to JavaScript that you can use in any framework that
+    supports JSX:
+
+    {/* lint disable */}
+
+    <div className="home-preview">
+      # Last year’s snowfall
+
+      In {year}, the snowfall was above average.
+      It was followed by a warm spring which caused flood conditions in many of
+      the nearby rivers.
+
+      <Chart year={year} color="#fcb32c" />
+    </div>
+
+    {/* lint enable */}
+  </div>
+</div>
+
+We made an interactive playground where you can try MDX out and see what it
+turns into.
+[Play »][playground]
+
+## Get started
+
+There are integrations for most bundlers, frameworks, and editors.
+Whether you build with Next.js, Docusaurus, or Gatsby.
+You prefer esbuild, Rollup, or webpack.
+You’re using React, Preact, or Vue.
+[Get started »][getting-started]
+
+## MDX in short
+
+<div className="emoji-list">
+  *   ❤️ **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
+      JSX-based projects
+  *   💻 **Everything is a component**: Use existing components in your
+      MDX and import other MDX files as components
+  *   🔧 **Customizable**: Decide which component is rendered for each markdown
+      construct (`{h1: MyHeading}`)
+  *   📚 **Markdown-based**: The simplicity and elegance of markdown remains,
+      you use JSX only when you want to
+  *   🔥 **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
+      during the build stage
+</div>
+
+{/* To do: quotes. */}
+
+> It’s extremely useful for using design system components to render markdown
+> and weaving interactive components in with existing markdown.
+>
+> — [**@chrisbiscardi**][quote]
+
+[quote]: https://twitter.com/chrisbiscardi/status/1022304288326864896
+
+[what]: /docs/what-is-mdx/
+
+[v2]: /blog/v2/
+
+[playground]: /playground/
+
+[getting-started]: /docs/getting-started/

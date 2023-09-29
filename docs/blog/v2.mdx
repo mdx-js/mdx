@@ -1,0 +1,345 @@
+import {Note} from '../_component/note.jsx'
+export const info = {
+  author: [
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+  ],
+  published: new Date('2022-02-01'),
+  modified: new Date('2022-02-01')
+}
+
+<Note type="info">
+  **Note**: Info on how to migrate is available in our
+  [Version 2 migration guide][migrating].
+</Note>
+
+# MDX 2
+
+Version 2 of MDX was released after years of hard work, and has many
+improvements.
+Here are the highlights:
+
+{/* more */}
+
+<div className="emoji-list">
+  *   📝 **Improved syntax** makes it easier to use markdown in JSX
+  *   🧑‍💻 **JavaScript expressions** turn `{2 * Math.PI}` into {2 * Math.PI}
+  *   🔌 New **esbuild**, **Rollup**, and **Node.js** integrations
+  *   ⚛️ **Any JSX runtime**: React, Preact, Vue, Emotion, you name it, they’re
+      all supported
+  *   🌳 **Improved AST** exposes more info in greater detail
+  *   🏃‍♀️ Compiles at least **25% faster**
+  *   🚴 Generated code runs twice as fast (**100% faster**)
+  *   🚄 Bundle size of `@mdx-js/mdx` is more than three times as small
+      (**250% smaller**)
+  *   🧵 …and much, so much more
+</div>
+
+It’s been 4 years since this project was announced.
+2½ since we released our stable version 1.
+**We’re proud to finally release v2!**
+Let’s dive in!
+
+## Contents
+
+*   [Improvements to the MDX format](#improvements-to-the-mdx-format)
+*   [Rollup, esbuild, and other integrations](#rollup-esbuild-and-other-integrations)
+*   [Architectural improvements](#architectural-improvements)
+*   [TypeScript](#typescript)
+*   [Docs & site](#docs--site)
+*   [Breaking changes](#breaking-changes)
+*   [Thanks](#thanks)
+
+## Improvements to the MDX format
+
+We’ve spent a lot of time thinking and trying out different ways to improve the
+format.
+Originally, the format was very close to how markdown, and HTML in markdown,
+works.
+We found that the old behavior often yielded unexpected results.
+In version 2, we shift the format a little bit closer to how JS(X) works.
+
+Take for example this MDX file:
+
+```mdx chrome=no
+<div>*hi*?</div>
+
+<div>
+  # hi?
+</div>
+
+<main>
+  <div>
+
+    # hi?
+
+  </div>
+</main>
+```
+
+<div className="big-columns">
+  <div>
+    In version 1, that was equivalent to the following JSX:
+
+    ```tsx chrome=no
+    <>
+      <div>*hi*?</div>
+      <div>
+        # hi?
+      </div>
+      <main>
+        <div>
+          <pre><code># hi?</code></pre>
+        </div>
+      </main>
+    </>
+    ```
+  </div>
+
+  <div>
+    In version 2, it’s equivalent to the following JSX:
+
+    ```tsx chrome=no
+    <>
+      <div><em>hi</em>?</div>
+      <div>
+        <h1>hi?</h1>
+      </div>
+      <main>
+        <div>
+          <h1>hi?</h1>
+        </div>
+      </main>
+    </>
+    ```
+  </div>
+</div>
+
+We believe it’s more intuitive that markdown “inlines” such as emphasis can form
+between tags on the same line (first `<div>`), “blocks” such as headings can
+form if they’re on their own line (second `<div>`), and indentation is allowed
+rather than forming code (third `<div>`).
+
+We also added support for JavaScript expressions, take for example:
+
+<div className="big-columns">
+  <div>
+    ```mdx path="expressions.mdx"
+    export const authors = [
+      {name: 'Jane', email: 'hi@jane.com'},
+      {name: 'John', twitter: '@john2002'}
+    ]
+    export const published = new Date('2022-02-01')
+
+    Written by: {new Intl.ListFormat('en').format(authors.map(d => d.name))}.
+
+    Published on: {new Intl.DateTimeFormat('en', {dateStyle: 'long'}).format(published)}.
+    ```
+  </div>
+
+  <div>
+    ```tsx path="equivalent.jsx"
+    <>
+      <p>Written by: Jane and John.</p>
+      <p>Published on: February 1, 2022.</p>
+    </>
+    ```
+  </div>
+</div>
+
+As the format moves a little further from markdown towards JSX, we’ve added
+support for loading “normal” markdown without our syntax extensions.
+If you’re using our bundler integration `@mdx-js/loader` (or `@mdx-js/rollup`,
+`@mdx-js/esbuild`, or `@mdx-js/node-loader`, see next section), then that’ll
+just work: import `readme.mdx` and it’s seen as the MDX format, import
+`readme.md` and it’s seen as markdown, based on their extensions.
+
+The MDX format is described in [§ What is MDX?][what]
+
+## Rollup, esbuild, and other integrations
+
+When we started out, Babel, webpack, and React were ubiquitous in the JavaScript
+ecosystem and we built MDX on them.
+For version 2, we worked hard to make them optional.
+They’re no longer required and MDX can more easily be used with other tools.
+
+On the bundler side, we’ve added new integrations: `@mdx-js/esbuild` for
+esbuild (an extremely fast bundler) and `@mdx-js/rollup` for Rollup (a bundler
+that’s also used in Vite and WMR).
+You can even import MDX files directly in Node.js with our new
+`@mdx-js/node-loader`.
+
+On the runtime side, we can now compile JSX away to normal JavaScript and
+no longer need framework-specific code to glue them together with MDX.
+Now any JSX runtime, whether [classic or automatic][jsx-runtime], is supported.
+This means MDX can be used with React, Preact, Vue, Emotion, Theme UI, Ink, you
+name it, plus anything that’s yet to be invented!
+
+See [§ Getting started][getting-started] for a quick start but also in-depth
+info on how to integrate MDX with many different tools.
+
+## Architectural improvements
+
+To make the syntax of the MDX format better and to allow new integrations and
+arbitrary JSX runtimes, we’ve rewritten almost everything.
+Part of that effort was [micromark][], which is another story, but it means
+we’re fully CommonMark (and optionally GFM) compliant, while also understanding
+more about MDX files.
+
+Now we can throw an early error when there’s a typo and point to exactly where
+it happened, instead of a later bundler like webpack complaining about an error
+in an intermediate, unrecognizable, and broken string of JavaScript.
+It also means that we have a new AST which describes the MDX syntax in more
+detail — we even expose the embedded JavaScript.
+This detailed AST allows plugins to enhance MDX in powerful new ways.
+It also helped solve edge cases where MDX would previously crash.
+And it let us drop Babel.
+
+This new architecture results in **25% faster** compilation, generated code
+that runs twice as fast (**100% faster**), and that the bundle size of
+`@mdx-js/mdx` is more than three times as small (**250% smaller**).
+
+See [¶ Architecture in `@mdx-js/mdx`][architecture] for more on how our compiler
+works.
+See [§ Extending MDX][extending] for several plugins that use the new tree to
+enhance MDX, how to use them and other plugins, and how to create plugins.
+
+## TypeScript
+
+All [`@mdx-js/*` packages][packages] are now fully typed with [TypeScript][]
+through JSDoc comments.
+That means our APIs are exposed as TypeScript types but also that our projects
+are type safe internally.
+
+We’ve published [`@types/mdx`][types-mdx], a types-only package that can be used
+with any (community) integration.
+You can use it, if you’re importing MDX files, to type those imported
+components.
+
+See [¶ TypeScript in § Getting started][ts] for more on how to use configure
+TypeScript.
+
+## Docs & site
+
+MDX is used and liked a lot.
+Before version 1 we had amassed a total of **2.5m downloads**.
+Now we hit that number every week.
+Our core compiler `@mdx-js/mdx` is used in **61k projects**.
+Our GitHub repo has **11.6k stars**.
+
+Many people help, often with docs.
+85 contributors committed to our repo since version 1.
+We’re grateful for these contributions and all those individual insights,
+but over the years it did result in some inconsistencies and duplicated content.
+
+For version 2, we rewrote our docs from beginning to end to tell a consistent
+story for new users, folks wanting to do complex AST and compiler stuff, and
+anyone in between.
+
+We also made a new website.
+It’s built on MDX of course, [unified][] itself, and [React Server Components
+(RSC)][rsc].
+While we have to dogfood the former two as they’re projects we maintain, and the
+latter is extremely experimental, we think compiling things ahead of time and
+betting on hybrid models, compared to completely server-side sites or completely
+client-side apps, is the smart choice for us and the web’s future.
+
+Our new site is heavily optimized and fast, gorgeous (subjective but hey), has
+rich metadata, and scores very well in performance and accessibility review
+tools such as Lighthouse and axe.
+
+See [§ Contribute][contribute] for more on how to help.
+
+## Breaking changes
+
+When you’re ready to migrate, please see the
+[Version 2 migration guide][migrating].
+
+## Thanks
+
+We’d like to say thanks to all our contributors and our happy users.
+Special thanks to
+Thanks to John Otander ([**@johno**](https://github.com/johno)),
+Christian Murphy ([**@ChristianMurphy**](https://github.com/ChristianMurphy)),
+JounQin ([**@JounQin**](https://github.com/JounQin)),
+Jack Bates ([**@jablko**](https://github.com/jablko)),
+Sam Chen ([**@chenxsan**](https://github.com/chenxsan)),
+Sam Robbins ([**@samrobbins85**](https://github.com/samrobbins85)),
+Remco Haszing ([**@remcohaszing**](https://github.com/remcohaszing)),
+LB ([**@laurieontech**](https://github.com/laurieontech)),
+Gabriel Kirkley ([**@gdgkirkley**](https://github.com/gdgkirkley)>),
+Hung-I Wang ([**@Gowee**](https://github.com/Gowee)),
+Ilham Wahabi ([**@iwgx**](https://github.com/iwgx)),
+Kaito Sugimoto ([**@HelloRusk**](https://github.com/HelloRusk)),
+Karl Horky ([**@karlhorky**](https://github.com/karlhorky)),
+Katie Hughes ([**@glitteringkatie**](https://github.com/glitteringkatie)),
+Lachlan Campbell ([**@lachlanjc**](https://github.com/lachlanjc)),
+Marcy Sutton ([**@marcysutton**](https://github.com/marcysutton)),
+Marius Gundersen ([**@mariusGundersen**](https://github.com/mariusGundersen)),
+Marius-Remus Mate,
+Mark Skelton ([**@mskelton**](https://github.com/mskelton)),
+Martin V ([**@ndresx**](https://github.com/ndresx)),
+Matija Marohnić ([**@silvenon**](https://github.com/silvenon)),
+Michael Oliver ([**@michaeloliverx**](https://github.com/michaeloliverx)),
+Michaël De Boey ([**@MichaelDeBoey**](https://github.com/MichaelDeBoey)),
+Muescha ([**@muescha**](https://github.com/muescha)),
+Norviah ([**@Norviah**](https://github.com/Norviah)),
+Paul Scanlon ([**@PaulieScanlon**](https://github.com/PaulieScanlon)),
+Peter Mouland ([**@peter-mouland**](https://github.com/peter-mouland)),
+Prince Wilson ([**@maxcell**](https://github.com/maxcell)),
+Rafael Almeida ([**@rafaelalmeidatk**](https://github.com/rafaelalmeidatk)),
+Rodrez ([**@rodrez**](https://github.com/rodrez)),
+Rongjian Zhang ([**@pd4d10**](https://github.com/pd4d10)),
+Taeheon Kim ([**@lonyele**](https://github.com/lonyele)),
+Tom Parker-Shemilt ([**@palfrey**](https://github.com/palfrey)),
+Try Ajitiono ([**@imballinst**](https://github.com/imballinst)),
+Yamagishi Kazutoshi ([**@ykzts**](https://github.com/ykzts)),
+Yoav Kadosh ([**@ykadosh**](https://github.com/ykadosh)),
+Yordis Prieto ([**@Yordis**](https://github.com/Yordis)),
+Adrian Foong ([**@adrfoong**](https://github.com/adrfoong)),
+Dan Abramov ([**@gaearon**](https://github.com/gaearon)),
+[**@ihupoo**](https://github.com/ihupoo),
+[**@nikhog**](https://github.com/nikhog),
+[**@redallen**](https://github.com/redallen),
+Akshay Kadam ([**@deadcoder0904**](https://github.com/deadcoder0904)),
+я котик пур-пур ([**@mvasilkov**](https://github.com/mvasilkov)),
+Anders D. Johnson ([**@AndersDJohnson**](https://github.com/AndersDJohnson)),
+Andrew Aylett ([**@andrewaylett**](https://github.com/andrewaylett)),
+Ankeet Maini ([**@ankeetmaini**](https://github.com/ankeetmaini)),
+Biswas Nandamuri ([**@Biswas-N**](https://github.com/Biswas-N)),
+Bret ([**@bcomnes**](https://github.com/bcomnes)),
+Chris Chinchilla ([**@ChrisChinchilla**](https://github.com/ChrisChinchilla)),
+Christopher Biscardi ([**@ChristopherBiscardi**](https://github.com/ChristopherBiscardi)),
+Dan Overton ([**@dan-overton**](https://github.com/dan-overton)),
+Domitrius ([**@domitriusclark**](https://github.com/domitriusclark)),
+Dovi Winberger ([**@dowi**](https://github.com/dowi)),
+Emmie Päivärinta ([**@emmiep**](https://github.com/emmiep)),
+Eugene Ghanizadeh ([**@loreanvictor**](https://github.com/loreanvictor)),
+and anyone we may have forgotten.
+
+[what]: /docs/what-is-mdx/
+
+[getting-started]: /docs/getting-started/
+
+[extending]: /docs/extending-mdx/
+
+[architecture]: /packages/mdx/#architecture
+
+[jsx-runtime]: https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+
+[micromark]: https://github.com/micromark/micromark
+
+[typescript]: https://www.typescriptlang.org
+
+[ts]: /docs/getting-started/#types
+
+[migrating]: /migrating/v2/
+
+[unified]: https://unifiedjs.com
+
+[rsc]: https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html
+
+[packages]: /packages/
+
+[types-mdx]: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx
+
+[contribute]: /community/contribute/

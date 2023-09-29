@@ -1,0 +1,238 @@
+import {Note} from '../_component/note.jsx'
+export const navSortSelf = 4
+export const info = {
+  author: [
+    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+  ],
+  published: new Date('2021-10-06'),
+  modified: new Date('2022-08-27')
+}
+
+# Syntax highlighting
+
+This guide explores how to apply syntax highlighting to code
+blocks. {/* more */}
+MDX supports standard markdown syntax ([CommonMark][]).
+It does not apply syntax highlighting to code blocks by default.
+
+There are two ways to accomplish syntax highlighting: at compile time or at
+runtime.
+Doing it at compile time means the effort is spent upfront so that readers will
+have a fast experience as no extra code is sent to them (syntax highlighting
+needs a *lot* of code to work).
+Doing it at runtime gives more flexibility by moving the work to the client.
+This can result in a slow experience for readers though.
+It also depends on what framework you use (as in it’s specific to React, Preact,
+Vue, etc.)
+
+## Syntax highlighting at compile time
+
+Use either [`rehype-highlight`][rehype-highlight]
+(`highlight.js`) or [`@mapbox/rehype-prism`][rehype-prism]
+(Prism) by doing something like this:
+
+```tsx path="example.js"
+import rehypeHighlight from 'rehype-highlight'
+import {compile} from '@mdx-js/mdx'
+
+const code = `~~~js
+console.log(1)
+~~~`
+
+console.log(
+  String(await compile(code, {rehypePlugins: [rehypeHighlight]}))
+)
+```
+
+<details>
+  <summary>Expand equivalent JSX</summary>
+
+  ```tsx path="output.jsx"
+  <>
+    <pre>
+      <code className="hljs language-js">
+        <span className="hljs-built_in">console</span>.log(
+        <span className="hljs-number">1</span>)
+      </code>
+    </pre>
+  </>
+  ```
+</details>
+
+<Note type="important">
+  **Important**: If you chose `rehype-highlight`, then you should also use a
+  highlight.js theme somewhere on the page.
+  For example, to get GitHub Dark from cdnjs:
+
+  ```html
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github-dark.min.css">
+  ```
+
+  If you chose `@mapbox/rehype-prism`, include something like this instead to
+  get Prism Dark:
+
+  ```html
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism-dark.min.css">
+  ```
+</Note>
+
+## Syntax highlighting at run time
+
+Use for example
+[`react-syntax-highlighter`][react-syntax-highlighter],
+by doing something like this:
+
+```tsx path="example.jsx"
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import Post from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+
+<Post components={{code}} />
+
+function code({className, ...props}) {
+  const match = /language-(\w+)/.exec(className || '')
+  return match
+    ? <SyntaxHighlighter language={match[1]} PreTag="div" {...props} />
+    : <code className={className} {...props} />
+}
+```
+
+<details>
+  <summary>Expand equivalent JSX</summary>
+
+  ```tsx path="output.jsx"
+  <>
+    <pre>
+      <div
+        className="language-js"
+        style={{
+          display: 'block',
+          overflowX: 'auto',
+          padding: '0.5em',
+          background: '#F0F0F0',
+          color: '#444'
+        }}
+      >
+        <code style={{whiteSpace: 'pre'}}>
+          <span>console.</span>
+          <span style={{color: '#397300'}}>log</span>
+          <span>(</span>
+          <span style={{color: '#880000'}}>1</span>
+          <span>)</span>
+        </code>
+      </div>
+    </pre>
+  </>
+  ```
+</details>
+
+## Syntax highlighting with the `meta` field
+
+Markdown supports a meta string for code:
+
+````mdx path="example.mdx"
+```js filename="index.js"
+console.log(1)
+```
+````
+
+The `meta` part is everything after the language (in this case, `js`).
+This is a *hidden* part of markdown: it’s normally ignored.
+But as the above example shows, it’s a useful place to put some extra fields.
+
+`@mdx-js/mdx` doesn’t know whether you’re handling code as a component or what
+the format of that meta string is, so it defaults to how markdown handles it:
+`meta` is ignored.
+
+But what if you want to access `meta`?
+The short answer is: use [`remark-mdx-code-meta`][remark-mdx-code-meta].
+It lets you type JSX attributes in the `meta` part which you can access by
+with a component for `pre`.
+
+The long answer is: do it yourself, however you want, by writing a custom plugin
+to interpret the `meta` field.
+For example, it’s possible to pass that string as a prop with a rehype plugin:
+
+```tsx path="rehype-meta-as-attributes.js"
+import {visit} from 'unist-util-visit'
+
+/** @type {import('unified').Plugin<[], import('hast').Root>} */
+function rehypeMetaAsAttributes() {
+  return (tree) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'code' && node.data && node.data.meta) {
+        node.properties.meta = node.data.meta
+      }
+    })
+  }
+}
+```
+
+This would yields the following JSX:
+
+```tsx path="output.jsx"
+<>
+  <pre>
+    <code className="language-js" meta='filename="index.js"'>
+      console.log(1)
+    </code>
+  </pre>
+</>
+```
+
+<Note type="important">
+  **Important**: the `meta` attribute is not valid on `code` elements in HTML.
+  Please make sure to handle it with a `code` component.
+</Note>
+
+The meta string in this example looks a lot like HTML attributes.
+What if we wanted to add each “attribute” as a prop?
+That can be achieved with the same rehype plugin as above with a different
+`onelement` handler:
+
+```tsx path="rehype-meta-as-attributes.js"
+// A regex that looks for a simplified attribute name, optionally followed
+// by a double, single, or unquoted attribute value
+const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
+
+    // …
+    visit(tree, 'element', (node) => {
+      let match
+
+      if (node.tagName === 'code' && node.data && node.data.meta) {
+        re.lastIndex = 0 // Reset regex.
+
+        while ((match = re.exec(node.data.meta))) {
+          node.properties[match[1]] = match[2] || match[3] || match[4] || ''
+        }
+      }
+    })
+    // …
+```
+
+This would yields the following JSX:
+
+```tsx path="output.jsx"
+<>
+  <pre>
+    <code className="language-js" filename="index.js">
+      console.log(1)
+    </code>
+  </pre>
+</>
+```
+
+<Note type="important">
+  **Important**: these arbitrary attributes might not be valid on `code`
+  elements in HTML.
+  Please handle them with a `code` component.
+</Note>
+
+[commonmark]: https://spec.commonmark.org/current/
+
+[rehype-highlight]: https://github.com/rehypejs/rehype-highlight
+
+[rehype-prism]: https://github.com/mapbox/rehype-prism
+
+[react-syntax-highlighter]: https://github.com/react-syntax-highlighter/react-syntax-highlighter
+
+[remark-mdx-code-meta]: https://github.com/remcohaszing/remark-mdx-code-meta

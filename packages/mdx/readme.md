@@ -74,7 +74,7 @@ export const Thing = () => <>World!</>
 
 Add some code in `example.js` to compile `example.mdx` to JavaScript:
 
-```js
+```tsx
 import fs from 'node:fs/promises'
 import {compile} from '@mdx-js/mdx'
 
@@ -85,7 +85,7 @@ console.log(String(compiled))
 
 Yields roughly:
 
-```js
+```tsx
 /* @jsxRuntime automatic @jsxImportSource react */
 import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
@@ -135,7 +135,7 @@ or anything that can be given to `vfile`).
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import {VFile} from 'vfile'
 import {compile} from '@mdx-js/mdx'
 
@@ -154,7 +154,7 @@ List of [remark plugins][remark-plugins], presets, and pairs.
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import remarkFrontmatter from 'remark-frontmatter' // YAML and such.
 import remarkGfm from 'remark-gfm' // Tables, footnotes, strikethrough, task lists, literal URLs.
 
@@ -173,7 +173,7 @@ List of [rehype plugins][rehype-plugins], presets, and pairs.
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import rehypeKatex from 'rehype-katex' // Render math with KaTeX.
 import remarkMath from 'remark-math' // Support math like `$so$`.
 
@@ -205,7 +205,7 @@ In particular, you might want to pass `clobberPrefix`, `footnoteLabel`, and
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 compile({value: '…'}, {remarkRehypeOptions: {clobberPrefix: 'comment-1'}})
 ```
 
@@ -238,7 +238,7 @@ So pass a full vfile (with `path`) or an object with a path.
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 compile({value: '…'}) // Seen as MDX
 compile({value: '…'}, {format: 'md'}) // Seen as markdown
 compile({value: '…', path: 'readme.md'}) // Seen as markdown
@@ -282,7 +282,7 @@ statements, but you can support them by setting
 
 A module `example.js`:
 
-```js
+```tsx
 import {compile} from '@mdx-js/mdx'
 
 const code = 'export const no = 3.14\n\n# hi {no}'
@@ -293,7 +293,7 @@ console.log(String(await compile(code, {outputFormat: 'function-body'})))
 
 …yields:
 
-```js
+```tsx
 /* @jsxRuntime automatic @jsxImportSource react */
 import {jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 export const no = 3.14
@@ -301,7 +301,7 @@ function _createMdxContent(props) { /* … */ }
 export default function MDXContent(props = {}) { /* … */ }
 ```
 
-```js
+```tsx
 const {Fragment: _Fragment, jsx: _jsx} = arguments[0]
 const no = 3.14
 function _createMdxContent(props) { /* … */ }
@@ -329,7 +329,7 @@ When you turn `useDynamicImport` on, you should probably set [`options.baseUrl`]
 
 Say we have a couple modules:
 
-```js
+```tsx
 // meta.js:
 export const title = 'World'
 
@@ -349,7 +349,7 @@ console.log(String(compileSync(code, {outputFormat: 'function-body', useDynamicI
 
 …now running `node example.js` yields:
 
-```js
+```tsx
 const {Fragment: _Fragment, jsx: _jsx, jsxs: _jsxs} = arguments[0]
 const {name} = await import('./meta.js')
 const {no} = await import('./numbers.js')
@@ -378,7 +378,7 @@ Another example is when evaluating code, whether in Node or a browser.
 
 Say we have a module `example.js`:
 
-```js
+```tsx
 import {compile} from '@mdx-js/mdx'
 
 const code = 'export {number} from "./data.js"\n\n# hi'
@@ -389,7 +389,7 @@ console.log(String(await compile(code, {baseUrl})))
 
 …now running `node example.js` yields:
 
-```js
+```tsx
 import {Fragment as _Fragment, jsx as _jsx} from 'react/jsx-runtime'
 export {number} from 'https://a.full/data.js'
 function _createMdxContent(props) { /* … */ }
@@ -420,7 +420,7 @@ at runtime:
 
 And a module to evaluate that:
 
-```js
+```tsx
 import fs from 'node:fs/promises'
 import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
@@ -483,7 +483,7 @@ object form).
 
 Assuming `example.mdx` from [§ Use][use] exists, then:
 
-```js
+```tsx
 import fs from 'node:fs/promises'
 import {SourceMapGenerator} from 'source-map'
 import {compile} from '@mdx-js/mdx'
@@ -498,7 +498,7 @@ console.log(file.map)
 
 …yields:
 
-```js
+```tsx
 {
   version: 3,
   sources: ['example.mdx'],
@@ -522,7 +522,7 @@ object of components.
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {providerImportSource: '@mdx-js/react'})
 ```
 
@@ -569,7 +569,7 @@ runnable.
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {jsx: true})
 ```
 
@@ -614,7 +614,7 @@ compiles to `import _jsx from '$importSource/jsx-runtime'\n_jsx('p')`.
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {jsxRuntime: 'classic'})
 ```
 
@@ -644,7 +644,7 @@ When in the `automatic` runtime, this is used to define an import for
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {jsxImportSource: 'preact'})
 ```
 
@@ -673,7 +673,7 @@ changing this.
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {
   jsxRuntime: 'classic',
   pragma: 'preact.createElement',
@@ -737,7 +737,7 @@ This casing is used for hast elements, not for embedded MDX JSX nodes
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import remarkPresetLintConsistent from 'remark-preset-lint-consistent' // Lint rules to check for consistent markdown.
 import {reporter} from 'vfile-reporter'
 import {compile} from '@mdx-js/mdx'
@@ -808,7 +808,7 @@ They come from an automatic JSX runtime that you must import yourself.
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import * as runtime from 'react/jsx-runtime'
 
 const {default: Content} = await evaluate('# hi', {
@@ -827,7 +827,7 @@ Needed if you want to support a provider.
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import * as provider from '@mdx-js/react'
 import * as runtime from 'react/jsx-runtime'
 
@@ -852,7 +852,7 @@ else that was exported from the MDX file available too.
 
 Assuming the contents of `example.mdx` from [§ Use][use] was in `file`, then:
 
-```js
+```tsx
 import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
 
@@ -861,7 +861,7 @@ console.log(await evaluate(file, {...runtime, development: false}))
 
 …yields:
 
-```js
+```tsx
 {Thing: [Function: Thing], default: [Function: MDXContent]}
 ```
 
@@ -915,7 +915,7 @@ All other options have to be passed to `compile` instead.
 
 On the server:
 
-```js
+```tsx
 import {compile} from '@mdx-js/mdx'
 
 const code = String(await compile('# hi', {
@@ -927,7 +927,7 @@ const code = String(await compile('# hi', {
 
 On the client:
 
-```js
+```tsx
 import * as runtime from 'react/jsx-runtime'
 import {run} from '@mdx-js/mdx'
 
@@ -938,7 +938,7 @@ const {default: Content} = await run(code, runtime)
 
 …yields:
 
-```js
+```tsx
 [Function: MDXContent]
 ```
 
