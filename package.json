@@ -23,7 +23,7 @@
     "packages/rollup"
   ],
   "devDependencies": {
-    "@node-loader/core": "^1.0.0",
+    "@node-loader/core": "^2.0.0",
     "@wooorm/starry-night": "^3.0.0",
     "ap-style-title-case": "^2.0.0",
     "acorn": "^8.0.0",
