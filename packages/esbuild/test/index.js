@@ -247,9 +247,12 @@ test('@mdx-js/esbuild', async (t) => {
                   const jsx = head.children[1] // JSX in heading
                   assert.equal(jsx?.type, 'mdxJsxTextElement')
                   file.message('1')
+                  // @ts-expect-error: to do: fix types.
                   file.message('2', eol)
+                  // @ts-expect-error: to do: fix types.
                   file.message('3', tree)
                   file.message('4', esm)
+                  // @ts-expect-error: to do: fix types.
                   file.message('5', text) // Text in heading
                   file.message('6', jsx) // JSX in heading
                   file.message('7', head.position.end).fatal = true // End of heading
