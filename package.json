@@ -24,7 +24,9 @@
   ],
   "devDependencies": {
     "@node-loader/core": "^1.0.0",
+    "@wooorm/starry-night": "^3.0.0",
     "ap-style-title-case": "^2.0.0",
+    "acorn": "^8.0.0",
     "autoprefixer": "^10.0.0",
     "c8": "^7.0.0",
     "capture-website": "^3.0.0",
@@ -32,7 +34,7 @@
     "copy-to-clipboard": "^3.0.0",
     "cross-env": "^7.0.0",
     "cssnano": "^6.0.0",
-    "devlop": "^1.1.0",
+    "devlop": "^1.0.0",
     "dlv": "^1.0.0",
     "esbuild": "^0.19.0",
     "eslint-config-xo-react": "^0.27.0",
@@ -43,6 +45,7 @@
     "globby": "^13.0.0",
     "hast-to-hyperscript": "^10.0.0",
     "hast-util-select": "^5.0.0",
+    "hast-util-to-jsx-runtime": "^2.0.0",
     "hast-util-to-text": "^3.0.0",
     "hastscript": "^7.0.0",
     "p-all": "^4.0.0",
@@ -53,9 +56,9 @@
     "puppeteer-core": "^21.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-error-boundary": "^4.0.0",
     "rehype-autolink-headings": "^6.0.0",
     "rehype-document": "^6.0.0",
-    "rehype-highlight": "^6.0.0",
     "rehype-infer-description-meta": "^1.0.0",
     "rehype-infer-reading-time-meta": "^1.0.0",
     "rehype-infer-title-meta": "^1.0.0",
@@ -70,6 +73,7 @@
     "rehype-slug": "^5.0.0",
     "rehype-stringify": "^9.0.0",
     "remark-cli": "^11.0.0",
+    "remark-directive": "^2.0.0",
     "remark-frontmatter": "^4.0.0",
     "remark-gemoji": "^7.0.0",
     "remark-gfm": "^3.0.0",
@@ -83,6 +87,7 @@
     "typescript": "^5.0.0",
     "unified": "^10.0.0",
     "unist-builder": "^3.0.0",
+    "unist-util-remove-position": "^4.0.0",
     "unist-util-visit": "^4.0.0",
     "vfile": "^5.0.0",
     "xast-util-feed": "^1.0.0",
@@ -91,7 +96,7 @@
     "xo": "^0.56.0"
   },
   "scripts": {
-    "docs-js": "esbuild docs/_asset/index.js --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/index.js --target=es2020",
+    "docs-js": "esbuild docs/_asset/index.js --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/index.js --target=es2020 && esbuild docs/_asset/editor.jsx --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/editor.js --target=es2020",
     "docs-css": "postcss docs/_asset/index.css -o public/index.css",
     "docs-prep": "node website/prep.js && npm run docs-js && npm run docs-css",
     "docs-generate": "cross-env NODE_LOADER_CONFIG=website/loader.js node --no-warnings --experimental-loader @node-loader/core website/generate.js",
@@ -123,6 +128,7 @@
     "prettier": true,
     "rules": {
       "n/file-extension-in-import": "off",
+      "react/jsx-no-bind": "off",
       "react/prop-types": "off",
       "unicorn/no-await-expression-member": "off",
       "unicorn/prefer-at": "off",
@@ -134,6 +140,7 @@
     "overrides": [
       {
         "files": [
+          "docs/_asset/editor.jsx",
           "docs/_asset/index.js"
         ],
         "envs": [
@@ -142,9 +149,13 @@
       },
       {
         "files": [
+          "docs/**/*.jsx",
           "docs/**/*.js"
         ],
-        "extends": "xo-react"
+        "extends": "xo-react",
+        "rules": {
+          "react/react-in-jsx-scope": "off"
+        }
       }
     ]
   },

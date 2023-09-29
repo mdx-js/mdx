@@ -193,7 +193,9 @@ async function main() {
               type: 'image/svg+xml'
             }
           ],
-          js: '/index.js',
+          // To do: only include editor on playground?
+          // Or use more editors.
+          js: ['/index.js', '/editor.js'],
           meta: [{name: 'generator', content: 'mdx'}]
         })
         .use(rehypeMeta, {
@@ -225,13 +227,7 @@ async function main() {
                 }
         })
         .use(rehypeLazyCss, [
-          {
-            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github.min.css'
-          },
-          {
-            href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github-dark.min.css',
-            media: '(prefers-color-scheme: dark)'
-          }
+          {href: 'https://esm.sh/@wooorm/starry-night@3/style/both.css'}
         ])
         .use(rehypePresetMinify)
         .use(rehypeMinifyUrl, {from: canonical.href})

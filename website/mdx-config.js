@@ -17,7 +17,6 @@ import remarkStripBadges from 'remark-strip-badges'
 import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs'
 import remarkToc from 'remark-toc'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
-import rehypeHighlight from 'rehype-highlight'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeInferDescriptionMeta from 'rehype-infer-description-meta'
 import rehypeInferReadingTimeMeta from 'rehype-infer-reading-time-meta'
@@ -79,13 +78,14 @@ const options = {
         content: link()
       }
     ],
-    [
-      rehypeHighlight,
-      {
-        subset: false,
-        aliases: {markdown: 'mdx'}
-      }
-    ],
+    // To do: use starry-night.
+    // [
+    //   rehypeHighlight,
+    //   {
+    //     subset: false,
+    //     aliases: {markdown: 'mdx'}
+    //   }
+    // ],
     // Minify things — mostly needed so `prerender` can also minify.
     // To do: can be removed?
     rehypePresetMinify,
