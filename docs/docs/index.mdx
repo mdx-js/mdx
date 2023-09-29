@@ -1,20 +1,22 @@
-import {NavGroup} from '../_component/nav.server.jsx'
-export const navSortSelf = 6
+import {NavGroup} from '../_component/nav.jsx'
+export const navSortSelf = 1
 export const info = {
   author: [{name: 'MDX Contributors'}],
   published: new Date('2021-11-01'),
   modified: new Date('2021-11-01')
 }
 
-# Community
+# Docs
 
-These pages explain how to contribute, get help, sponsor us, share your work,
-and some background information.
+These docs explain the core concepts of MDX.
+How the format works, how to add it to your site, how to use MDX files, and how
+to extend them.
+Reading through these should give you a good understanding of MDX.
 
 {
   (() => {
     const category = props.navTree.children.find(
-      item => item.name === '/community/'
+      item => item.name === '/docs/'
     )
 
     return (

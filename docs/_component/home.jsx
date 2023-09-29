@@ -1,6 +1,6 @@
 import React from 'react'
-import {NavSite, NavSiteSkip} from './nav-site.server.jsx'
-import {FootSite} from './foot-site.server.jsx'
+import {NavSite, NavSiteSkip} from './nav-site.jsx'
+import {FootSite} from './foot-site.jsx'
 
 export function Home(props) {
   const {name, navTree, children} = props

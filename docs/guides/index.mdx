@@ -1,0 +1,26 @@
+import {NavGroup} from '../_component/nav.jsx'
+export const navSortSelf = 2
+export const info = {
+  author: [{name: 'MDX Contributors'}],
+  published: new Date('2021-11-01'),
+  modified: new Date('2021-11-01')
+}
+
+# Guides
+
+These guides explain how to accomplish several common use cases and patterns
+around MDX.
+
+{
+  (() => {
+    const category = props.navTree.children.find(
+      item => item.name === '/guides/'
+    )
+
+    return (
+      <nav>
+        <NavGroup items={category.children} includeDescription />
+      </nav>
+    )
+  })()
+}

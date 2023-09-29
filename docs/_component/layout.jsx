@@ -1,6 +1,6 @@
 import React from 'react'
-import {NavSite, NavSiteSkip} from './nav-site.server.jsx'
-import {FootSite} from './foot-site.server.jsx'
+import {NavSite, NavSiteSkip} from './nav-site.jsx'
+import {FootSite} from './foot-site.jsx'
 import {sortItems} from './sort.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})

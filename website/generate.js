@@ -26,7 +26,7 @@ import rehypeMinifyUrl from 'rehype-minify-url'
 import rehypeStringify from 'rehype-stringify'
 import rehypeSanitize from 'rehype-sanitize'
 import {toXml} from 'xast-util-to-xml'
-import {Layout} from '../docs/_component/layout.server.jsx'
+import {Layout} from '../docs/_component/layout.jsx'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
@@ -39,7 +39,7 @@ main().catch((error) => {
 
 async function main() {
   const files = (
-    await globby(['**/*.server.{md,mdx}', '!_component/*'], {
+    await globby(['**/*.{md,mdx}', '!_component/*'], {
       cwd: fileURLToPath(config.input)
     })
   ).map((d) => new URL(d, config.input))
@@ -48,7 +48,7 @@ async function main() {
     files.map((url) => async () => {
       const name = url.href
         .slice(config.input.href.length - 1)
-        .replace(/\.server\.mdx?$/, '/')
+        .replace(/\.mdx?$/, '/')
         .replace(/\/index\/$/, '/')
       const jsonUrl = new URL('.' + name + 'index.json', config.output)
       const ghUrl = new URL(
