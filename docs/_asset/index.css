@@ -1288,3 +1288,10 @@ button.success {
 .playground-controls select {
   padding: 0.5ex;
 }
+
+/* Can’t have bold things; they mess with the textarea */
+.playground .pl-mh,
+.playground .pl-mh .pl-en,
+.playground .pl-ms {
+  font-weight: normal !important;
+}
