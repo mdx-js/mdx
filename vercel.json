@@ -1,6 +1,7 @@
 {
   "public": true,
   "trailingSlash": true,
+  "#": "redeploy",
   "redirects": [
     {
       "source": "/about/",
