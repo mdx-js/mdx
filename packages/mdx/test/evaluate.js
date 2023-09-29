@@ -1,24 +1,18 @@
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
-import {evaluate, evaluateSync, compile} from '../index.js'
-// @ts-expect-error: make sure a single react is used.
-import {renderToStaticMarkup as renderToStaticMarkup_} from '../../react/node_modules/react-dom/server.js'
-// @ts-expect-error: make sure a single react is used.
-import * as runtime_ from '../../react/node_modules/react/jsx-runtime.js'
-// @ts-expect-error: make sure a single react is used.
-import * as devRuntime from '../../react/node_modules/react/jsx-dev-runtime.js'
-// @ts-expect-error: make sure a single react is used.
-import React_ from '../../react/node_modules/react/index.js'
+import {renderToStaticMarkup} from 'react-dom/server'
+import * as runtime_ from 'react/jsx-runtime'
+import * as devRuntime_ from 'react/jsx-dev-runtime'
+import React from 'react'
 import * as provider from '../../react/index.js'
-
-/** @type {import('react-dom/server').renderToStaticMarkup} */
-const renderToStaticMarkup = renderToStaticMarkup_
+import {evaluate, evaluateSync, compile} from '../index.js'
 
 /** @type {{Fragment: unknown, jsx: unknown, jsxs: unknown}} */
+// @ts-expect-error: types are wrong.
 const runtime = runtime_
-
-/** @type {import('react')} */
-const React = React_
+/** @type {{Fragment: unknown, jsxDEV: unknown}} */
+// @ts-expect-error: types are wrong.
+const devRuntime = devRuntime_
 
 test('evaluate', async (t) => {
   await t.test('should throw on missing `Fragment`', async () => {
