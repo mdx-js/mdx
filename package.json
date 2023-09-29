@@ -49,7 +49,7 @@
     "hast-util-to-jsx-runtime": "^2.0.0",
     "hast-util-to-text": "^3.0.0",
     "hastscript": "^7.0.0",
-    "p-all": "^4.0.0",
+    "p-all": "^5.0.0",
     "periscopic": "^3.0.0",
     "postcss": "^8.0.0",
     "postcss-cli": "^10.0.0",
