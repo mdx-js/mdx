@@ -48,7 +48,7 @@
   "dependencies": {
     "@types/estree": "^1.0.0",
     "@types/estree-jsx": "^1.0.0",
-    "@types/hast": "^2.0.0",
+    "@types/hast": "^3.0.1",
     "@types/mdx": "^2.0.0",
     "estree-util-build-jsx": "^2.0.0",
     "estree-util-is-identifier-name": "^2.0.0",
