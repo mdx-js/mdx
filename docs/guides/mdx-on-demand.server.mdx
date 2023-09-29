@@ -25,7 +25,7 @@ This is similar to what [`mdx-bundler`][mdx-bundler] and
 
 On the server:
 
-```js path="server.js"
+```tsx path="server.js"
 import {compile} from '@mdx-js/mdx'
 
 const code = String(await compile('# hi', {
@@ -41,7 +41,7 @@ const code = String(await compile('# hi', {
 
 On the client:
 
-```js path="client.js"
+```tsx path="client.js"
 import {run} from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime' // Production.
 // import * as runtime from 'react/jsx-dev-runtime' // Development.
@@ -70,7 +70,7 @@ and runs in one.
 Some frameworks let you write the server and client code in one file, such as
 Next.
 
-```js path="pages/hello.js"
+```tsx path="pages/hello.js"
 import {useState, useEffect, Fragment} from 'react'
 import * as runtime from 'react/jsx-runtime' // Production.
 // import * as runtime from 'react/jsx-dev-runtime' // Development.

@@ -70,7 +70,7 @@ export const Thing = () => <>World!</>
 
 …and our module `example.cjs` looks as follows:
 
-```js
+```tsx
 'use strict'
 
 const React = require('react')
@@ -102,7 +102,7 @@ It changes Node’s internals.
 
 To pass options, you can make your own hook, such as this `my-hook.cjs`:
 
-```js
+```tsx
 'use strict'
 
 const register = require('@mdx-js/register/lib/index.cjs')

@@ -33,7 +33,7 @@ through the `MDXTag` elements that are inbetween `pre` and `code`.
 
 {/* more */}
 
-```js
+```tsx
 exports.preToCodeBlock = preProps => {
   if (
     // children is MDXTag
@@ -63,7 +63,7 @@ So `MDXTag` is a real Component in the middle of all of the other MDX
 rendered elements.
 All of the code is included here for reference.
 
-```js
+```tsx
 import React, {Component} from 'react'
 
 import {withMDXComponents} from './mdx-provider'
@@ -111,7 +111,7 @@ which is the final step in the MDX AST pipeline.
 Every renderable element is wrapped in an `MDXTag`, and `MDXTag` handles
 rendering the element later.
 
-```js
+```tsx
 return `<MDXTag name="${node.tagName}" components={components}${
   parentNode.tagName ? ` parentName="${parentNode.tagName}"` : ''
 }${props ? ` props={${props}}` : ''}>${children}</MDXTag>`
@@ -131,7 +131,7 @@ testing
 
 turns into the following React code
 
-```js
+```tsx
 export default ({components, ...props}) => (
   <MDXTag name="wrapper" components={components}>
     <MDXTag name="h1" components={components}>{`a title`}</MDXTag>{' '}
@@ -164,7 +164,7 @@ resulting in the following HTML
 
 With the new approach, the above MDX transforms into this new React code
 
-```js
+```tsx
 const layoutProps = {}
 export default function MDXContent({components, ...props}) {
   return (
@@ -203,7 +203,7 @@ Reproduced here is our `createElement` function and the logic for how
 we decide whether or not MDX should take over the rendering of the
 `createElement` call.
 
-```js
+```tsx
 export default function (type, props) {
   const args = arguments
   const mdxType = props && props.mdxType

@@ -73,7 +73,7 @@ export const Thing = () => <>World!</>
 
 …and our module `example.js` looks as follows:
 
-```js
+```tsx
 import {renderToStaticMarkup} from 'react-dom/server'
 import React from 'react'
 import Content from './example.mdx'
@@ -128,7 +128,7 @@ This option fixes React et al by turning those into `xxx/jsx-runtime.js`.
 
 `my-loader.js`:
 
-```js
+```tsx
 import {createLoader} from '@mdx-js/node-loader'
 
 // Load is for Node 17+, the rest for 12-16.

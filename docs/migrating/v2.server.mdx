@@ -57,7 +57,7 @@ that works with our previous `@mdx-js/loader` (`1.6.22`):
 <details>
   <summary>Expand example of a `webpack.config.js` in ESM</summary>
 
-  ```js path="webpack.config.js"
+  ```tsx path="webpack.config.js"
   import {URL, fileURLToPath} from 'node:url'
   import webpack from 'webpack'
 
@@ -105,7 +105,7 @@ You can update your code as follows:
   <div>
     Before:
 
-    ```js path="webpack.config.js"
+    ```tsx path="webpack.config.js"
     // …
     {
       test: /\.mdx?$/,
@@ -133,7 +133,7 @@ You can update your code as follows:
   <div>
     After:
 
-    ```js path="webpack.config.js"
+    ```tsx path="webpack.config.js"
     import remarkGfm from 'remark-gfm'
 
     // …
@@ -185,7 +185,7 @@ You can make it simpler:
 configuration.
 Using Preact as an example:
 
-```js path="webpack.config.js"
+```tsx path="webpack.config.js"
 // …
 {
   loader: '@mdx-js/loader',
@@ -256,7 +256,7 @@ You can update your code as follows:
   <div>
     Before:
 
-    ```js path="old.js"
+    ```tsx path="old.js"
     import mdx from '@mdx-js/mdx'
 
     const result = await mdx('# hi')
@@ -268,7 +268,7 @@ You can update your code as follows:
   <div>
     After:
 
-    ```js path="new.js"
+    ```tsx path="new.js"
     import {compile} from '@mdx-js/mdx'
     import remarkGfm from 'remark-gfm'
 
@@ -300,7 +300,7 @@ You can make it simpler:
 `@mdx-js/mdx` now supports Preact and other JSX runtimes through configuration.
 Using Preact as an example:
 
-```js path="new-preact.js"
+```tsx path="new-preact.js"
 import {compile} from '@mdx-js/mdx'
 
 const result = await compile('# hi', {jsxImportSource: 'preact'})
@@ -363,7 +363,7 @@ You can update your code as follows:
   <div>
     Before:
 
-    ```js path="old.js"
+    ```tsx path="old.js"
     import MDX from '@mdx-js/runtime'
 
     const components = {/* … */}
@@ -380,7 +380,7 @@ You can update your code as follows:
   <div>
     After:
 
-    ```js path="new.js"
+    ```tsx path="new.js"
     import * as runtime from 'react/jsx-runtime'
     import * as provider from '@mdx-js/react'
     import {evaluate} from '@mdx-js/mdx'
@@ -408,7 +408,7 @@ You can make it simpler:
 `@mdx-js/mdx` now supports Preact and other JSX runtimes through configuration.
 Using Emotion as an example:
 
-```js path="new-emotion.js"
+```tsx path="new-emotion.js"
 // …
 import * as runtime from '@emotion/react/jsx-runtime'
 // …
@@ -493,7 +493,7 @@ See [§ Troubleshooting MDX][trouble] for common errors and how to solve them.
 Let’s kick off with a couple of things that are now possible with JSX in MDX.
 You don’t need blank lines between JSX and markdown anymore:
 
-```html language="mdx" chrome=no
+```mdx chrome=no
 <hgroup>
 # This is a heading now
 </hgroup>
@@ -501,7 +501,7 @@ You don’t need blank lines between JSX and markdown anymore:
 
 You can now indent your JSX and markdown:
 
-````html language="mdx" chrome=no
+````mdx chrome=no
 <article>
   <hgroup>
     # This is a heading now, not code or plain text
@@ -517,7 +517,7 @@ You can now indent your JSX and markdown:
 You can use markdown “inlines” but not “blocks” inside JSX if the text and tags
 are on the same line:
 
-```html language="mdx" chrome=no
+```mdx chrome=no
 <div># this is not a heading but *this* is emphasis</div>
 ```
 
@@ -525,7 +525,7 @@ Text and tags on one line don’t produce blocks so they don’t produce `<p>`s
 either.
 On separate lines, they do:
 
-```html language="mdx" chrome=no
+```mdx chrome=no
 <div>
   This is a `p`.
 </div>
@@ -535,7 +535,7 @@ We differentiate using this rule (same line or not).
 Not based on semantics of elements in HTML.
 So you *can* build incorrect HTML (which you shouldn’t):
 
-```html language="mdx" chrome=no
+```mdx chrome=no
 <h1 className="main">
   Don’t do this: it’s a `p` in an `h1`
 </h1>
@@ -546,7 +546,7 @@ So you *can* build incorrect HTML (which you shouldn’t):
 It’s not possible to wrap “blocks” if text and tags are on the same line but the
 corresponding tags are on different lines:
 
-```html language="mdx" chrome=no
+```mdx chrome=no
 Welcome! <a href="about.html">
 
 This is home of...
@@ -569,7 +569,7 @@ You can now use expressions in MDX to include JavaScript.
 You can also use them as an escape hatch if you ever *just* want strings or JSX
 rather than markdown:
 
-```html language="mdx" chrome=no
+```mdx chrome=no
 {
   <h1>
     This just JSX, these *asterisks* have no meaning.
@@ -586,7 +586,9 @@ More on expressions in MDX is in
 
 You can more easily embed components in MDX because blank lines are allowed:
 
-```js chrome=no
+{/* Note: `language` because theme in VS Code is broken. */}
+
+```tsx language="mdx" chrome=no
 export const Button = (props) => {
   const style = {color: 'red'}
 
@@ -636,7 +638,7 @@ The interface of the generated JavaScript from MDX changed:
     it can be used with: `<theme.Box>stuff</theme.Box>`
 *   the values exports from an MDX file are no longer passed to layouts, you
     can achieve the same with:
-    ```js
+    ```tsx
     import * as everything from './example.mdx'
     const {default: Content, ...exported} = everything
     <Content {...exported} />

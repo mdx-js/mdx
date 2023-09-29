@@ -145,11 +145,11 @@ highlighting) can be enabled with plugins (see
 Some markdown features don’t work in MDX:
 
 *   Indented code does not work in MDX:
-    ```md
+    ```mdx
         console.log(1) // this is a paragraph in MDX!
     ```
     The reason for that is so you can nicely indent your components:
-    ```html language="mdx"
+    ```mdx
     <main>
       <article>
         # Hello!
@@ -186,7 +186,7 @@ things like the following markup:
 
 …to JSX (or MDX) like this:
 
-```html language="mdx"
+```mdx
 <Welcome name="Venus" />
 <Welcome name="Mars" />
 ```
@@ -196,7 +196,7 @@ It makes repeating things more clear and allows for separation of concerns.
 MDX supports JSX syntax.
 The following looks a lot like HTML:
 
-```html language="mdx"
+```mdx
 <h1>Heading!</h1>
 
 <abbr title="HyperText Markup Language">HTML</abbr> is a lovely language.
@@ -211,7 +211,7 @@ Note that components must be defined.
 You can import them, define them locally, or pass them in later (see
 [§ Using MDX][use]):
 
-```html language="mdx"
+```mdx
 <MyComponent id="123" />
 
 You can also use objects with components, such as the `thisOne` component on
@@ -232,7 +232,7 @@ There are a few edge cases
 
 MDX also supports JavaScript expressions inside curly braces:
 
-```jsx language="mdx"
+```mdx
 Two 🍰 is: {Math.PI * 2}
 ```
 
@@ -240,7 +240,7 @@ Expressions can contain whole JavaScript programs as long as they’re
 (wrapped in) an expression that evaluates to something that can be rendered.
 You can use an [IIFE][] like so:
 
-```jsx language="mdx"
+```mdx
 {(function () {
   const guess = Math.random()
 
@@ -267,7 +267,7 @@ Expressions can be empty or contain just a comment:
 MDX supports `import` and `export` statements from JavaScript as well.
 These ESM features can be used within MDX to define things:
 
-```jsx language="mdx"
+```mdx
 import {External} from './some/place.js'
 
 export const Local = props => <span style={{color: 'red'}} {...props} />
@@ -277,7 +277,7 @@ An <External>external</External> component and a <Local>local one</Local>.
 
 ESM can also be used for non-components (data):
 
-```jsx language="mdx"
+```mdx
 import {Chart} from './chart.js'
 import population from './population.js'
 export const pi = 3.14
@@ -290,7 +290,7 @@ export const pi = 3.14
 You can use markdown “inlines” but not “blocks” inside JSX if the text and tags
 are on the same line:
 
-```html language="mdx"
+```mdx
 <div># this is not a heading but *this* is emphasis</div>
 ```
 
@@ -298,7 +298,7 @@ Text and tags on one line don’t produce blocks so they don’t produce `<p>`s
 either.
 On separate lines, they do:
 
-```html language="mdx"
+```mdx
 <div>
   This is a `p`.
 </div>
@@ -308,7 +308,7 @@ We differentiate using this rule (same line or not).
 Not based on semantics of elements in HTML.
 So you *can* build incorrect HTML (which you shouldn’t):
 
-```html language="mdx"
+```mdx
 <h1 className="main">
   Don’t do this: it’s a `p` in an `h1`
 </h1>
@@ -319,7 +319,7 @@ So you *can* build incorrect HTML (which you shouldn’t):
 It’s not possible to wrap “blocks” if text and tags are on the same line but the
 corresponding tags are on different lines:
 
-```html language="mdx"
+```mdx
 Welcome! <a href="about.html">
 
 This is home of...

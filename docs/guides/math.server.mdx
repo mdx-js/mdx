@@ -25,12 +25,12 @@ More info on plugins is available in [§ Extending MDX][extend]
 Say we have an MDX file like this:
 
 ```mdx path="example.mdx"
-# $\sqrt{a^2 + b^2}$
+# $$\sqrt{a^2 + b^2}$$
 ```
 
 The above MDX with math can be transformed with the following module:
 
-```js path="example.js"
+```tsx path="example.js"
 import fs from 'node:fs/promises'
 import {compile} from '@mdx-js/mdx'
 import rehypeKatex from 'rehype-katex'
@@ -49,7 +49,7 @@ console.log(
 <details>
   <summary>Expand equivalent JSX</summary>
 
-  ```jsx path="output.jsx"
+  ```tsx path="output.jsx"
   <>
     <h1>
       <span className="math math-inline">

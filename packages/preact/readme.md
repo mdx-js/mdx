@@ -58,7 +58,7 @@ yarn add @mdx-js/preact
 
 ## Use
 
-```js
+```tsx
 import {MDXProvider} from '@mdx-js/preact'
 import Post from './post.mdx'
 // ^-- Assumes an integration is used to compile MDX to JS, such as

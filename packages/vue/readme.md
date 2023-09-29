@@ -55,7 +55,7 @@ yarn add @mdx-js/vue
 
 ## Use
 
-```js
+```tsx
 import {MDXProvider} from '@mdx-js/vue'
 import {createApp} from 'vue'
 import Post from './post.mdx'

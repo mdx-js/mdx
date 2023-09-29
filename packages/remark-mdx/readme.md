@@ -75,7 +75,7 @@ yarn add remark-mdx
 
 ## Use
 
-```js
+```tsx
 import {remark} from 'remark'
 import remarkMdx from 'remark-mdx'
 
@@ -139,7 +139,7 @@ This package is fully typed with [TypeScript][].
 If you’re working with the syntax tree, make sure to import this plugin
 somewhere in your types, as that registers the new node types in the tree.
 
-```js
+```tsx
 /**
  * @typedef {import('remark-mdx')}
  */

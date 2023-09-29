@@ -18,7 +18,7 @@ and what the normal JSX equivalent would be.
 But, taking the first row for `a` as an example, you can replace that hyperlink
 with `<FancyLink>` by doing:
 
-```js
+```tsx
 import Readme from './readme.md' // Assumes an integration is used to compile MDX -> JS.
 import {FancyLink} from './components/fancy-link.js'
 
@@ -47,7 +47,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <p><a href="https://mdxjs.com" title="title">MDX</a></p>
         </>
@@ -65,7 +65,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <blockquote>
             <p>A greater than…</p>
@@ -86,7 +86,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <p>
             A backslash<br />
@@ -104,14 +104,14 @@ More information on how to use markdown can be found in [CommonMark][].
         ````mdx chrome=no
         Some `backticks` for inline.
 
-        ```js
+        ```tsx
         backtick.fences('for blocks')
         ```
         ````
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <p>
             Some <code>backticks</code> for inline.
@@ -133,7 +133,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <p>Some <em>asterisks</em> for emphasis.</p>
         </>
@@ -151,7 +151,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <h1>One number sign…</h1>
         </>
@@ -169,7 +169,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <h2>Two number signs…</h2>
         </>
@@ -187,7 +187,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <h3>Three number signs…</h3>
         </>
@@ -205,7 +205,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <h4>Four number signs…</h4>
         </>
@@ -223,7 +223,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <h5>Five number signs…</h5>
         </>
@@ -241,7 +241,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <h6>Six number signs…</h6>
         </>
@@ -261,7 +261,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <p>Three asterisks for a thematic break:</p>
           <hr />
@@ -280,7 +280,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <p><img src="/logo.png" alt="Alt text" title="title" /></p>
         </>
@@ -300,7 +300,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <ul>
             <li>asterisks for unordered items</li>
@@ -323,7 +323,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <ol>
             <li>decimals and a dot for ordered</li>
@@ -343,7 +343,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <p>Just some text…</p>
         </>
@@ -356,14 +356,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
       <td>
         ````mdx chrome=no
-        ```js
+        ```tsx
         backtick.fences('for blocks')
         ```
         ````
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <pre><code className="language-javascript">backtick.fences('for blocks')
           </code></pre>
@@ -382,7 +382,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <p>Two <strong>asterisks</strong> for strong.</p>
         </>
@@ -400,7 +400,7 @@ More information on how to use markdown can be found in [CommonMark][].
       </td>
 
       <td>
-        ```jsx chrome=no
+        ```tsx chrome=no
         <>
           <ul>
             <li>asterisks for unordered</li>

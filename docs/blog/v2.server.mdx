@@ -60,7 +60,7 @@ In version 2, we shift the format a little bit closer to how JS(X) works.
 
 Take for example this MDX file:
 
-```html chrome=no
+```mdx chrome=no
 <div>*hi*?</div>
 
 <div>
@@ -80,7 +80,7 @@ Take for example this MDX file:
   <div>
     In version 1, that was equivalent to the following JSX:
 
-    ```jsx chrome=no
+    ```tsx chrome=no
     <>
       <div>*hi*?</div>
       <div>
@@ -98,7 +98,7 @@ Take for example this MDX file:
   <div>
     In version 2, it’s equivalent to the following JSX:
 
-    ```jsx chrome=no
+    ```tsx chrome=no
     <>
       <div><em>hi</em>?</div>
       <div>
@@ -123,7 +123,7 @@ We also added support for JavaScript expressions, take for example:
 
 <div className="big-columns">
   <div>
-    ```jsx path="expressions.mdx" language="mdx"
+    ```mdx path="expressions.mdx"
     export const authors = [
       {name: 'Jane', email: 'hi@jane.com'},
       {name: 'John', twitter: '@john2002'}
@@ -137,7 +137,7 @@ We also added support for JavaScript expressions, take for example:
   </div>
 
   <div>
-    ```jsx path="equivalent.jsx"
+    ```tsx path="equivalent.jsx"
     <>
       <p>Written by: Jane and John.</p>
       <p>Published on: February 1, 2022.</p>

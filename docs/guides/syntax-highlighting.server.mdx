@@ -31,7 +31,7 @@ Use either [`rehype-highlight`][rehype-highlight]
 (`highlight.js`) or [`@mapbox/rehype-prism`][rehype-prism]
 (Prism) by doing something like this:
 
-```js path="example.js"
+```tsx path="example.js"
 import rehypeHighlight from 'rehype-highlight'
 import {compile} from '@mdx-js/mdx'
 
@@ -47,7 +47,7 @@ console.log(
 <details>
   <summary>Expand equivalent JSX</summary>
 
-  ```js path="output.jsx"
+  ```tsx path="output.jsx"
   <>
     <pre>
       <code className="hljs language-js">
@@ -82,7 +82,7 @@ Use for example
 [`react-syntax-highlighter`][react-syntax-highlighter],
 by doing something like this:
 
-```jsx path="example.jsx"
+```tsx path="example.jsx"
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import Post from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
@@ -99,7 +99,7 @@ function code({className, ...props}) {
 <details>
   <summary>Expand equivalent JSX</summary>
 
-  ```jsx path="output.jsx"
+  ```tsx path="output.jsx"
   <>
     <pre>
       <div
@@ -129,7 +129,7 @@ function code({className, ...props}) {
 
 Markdown supports a meta string for code:
 
-````md path="example.md"
+````mdx path="example.mdx"
 ```js filename="index.js"
 console.log(1)
 ```
@@ -152,10 +152,10 @@ The long answer is: do it yourself, however you want, by writing a custom plugin
 to interpret the `meta` field.
 For example, it’s possible to pass that string as a prop with a rehype plugin:
 
-```js path="rehype-meta-as-attributes.js"
+```tsx path="rehype-meta-as-attributes.js"
 import {visit} from 'unist-util-visit'
 
-/** @type {import('unified').Plugin<Array<void>, import('hast').Root>} */
+/** @type {import('unified').Plugin<[], import('hast').Root>} */
 function rehypeMetaAsAttributes() {
   return (tree) => {
     visit(tree, 'element', (node) => {
@@ -169,7 +169,7 @@ function rehypeMetaAsAttributes() {
 
 This would yields the following JSX:
 
-```jsx path="output.jsx"
+```tsx path="output.jsx"
 <>
   <pre>
     <code className="language-js" meta='filename="index.js"'>
@@ -189,7 +189,7 @@ What if we wanted to add each “attribute” as a prop?
 That can be achieved with the same rehype plugin as above with a different
 `onelement` handler:
 
-```js path="rehype-meta-as-attributes.js"
+```tsx path="rehype-meta-as-attributes.js"
 // A regex that looks for a simplified attribute name, optionally followed
 // by a double, single, or unquoted attribute value
 const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
@@ -211,7 +211,7 @@ const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
 This would yields the following JSX:
 
-```jsx path="output.jsx"
+```tsx path="output.jsx"
 <>
   <pre>
     <code className="language-js" filename="index.js">

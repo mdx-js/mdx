@@ -51,7 +51,7 @@ The pragma implementation will also cause JSX HTML elements to be rendered with
 the component mapping passed to MDXProvider.
 So, the following will result in two identically rendered `h1`s:
 
-```js
+```mdx
 # Hello, world!
 
 <h1>Hello, world!</h1>
@@ -67,7 +67,7 @@ form which allows you to customize the merge.
 By ignoring outer context components and returning a new component mapping, you
 will restore the old behavior:
 
-```js
+```tsx
 <MDXProvider components={components}>
   <MDXProvider components={outerComponents => newComponents}>
     {children}

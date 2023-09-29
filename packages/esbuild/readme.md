@@ -60,7 +60,7 @@ yarn add @mdx-js/esbuild
 
 Do something like this with the esbuild API:
 
-```js
+```tsx
 import esbuild from 'esbuild'
 import mdx from '@mdx-js/esbuild'
 
@@ -110,7 +110,7 @@ When passing `allowDangerousRemoteMdx`, MD(X) and JS files can be imported from
 `http:` and `https:` urls.
 Take this `index.mdx` file:
 
-```jsx
+```tsx
 import Readme from 'https://raw.githubusercontent.com/mdx-js/mdx/main/readme.md'
 
 Here’s the readme:
@@ -120,7 +120,7 @@ Here’s the readme:
 
 And a module `build.js`:
 
-```js
+```tsx
 import esbuild from 'esbuild'
 import mdx from '@mdx-js/esbuild'
 
@@ -135,7 +135,7 @@ await esbuild.build({
 Running that (`node build.js`) and evaluating `output.js` (depends on how you
 evaluate React stuff) would give:
 
-```jsx
+```tsx
 <p>Here’s the readme:</p>
 <h1>MDX: Markdown for the component era 🚀</h1>
 {/* … */}

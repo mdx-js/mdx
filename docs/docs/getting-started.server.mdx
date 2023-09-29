@@ -173,7 +173,7 @@ adding support for MDX in your editor:
 
   …TypeScript should automatically pick it up:
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import Post from './post.mdx' // `Post` is now typed.
   ```
 </details>
@@ -192,7 +192,7 @@ which adds types to import statements of supported files.
 You can also import several types about the API of MDX files from `@types/mdx`.
 For example:
 
-```js path="example.ts"
+```tsx path="example.ts"
 import type {MDXComponents} from 'mdx/types.js'
 ```
 
@@ -218,7 +218,7 @@ long.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import esbuild from 'esbuild'
   import mdx from '@mdx-js/esbuild'
 
@@ -245,7 +245,7 @@ configure [esbuild’s `target`](https://esbuild.github.io/api/#target).
 <details>
   <summary>Expand example</summary>
 
-  ```js path="rollup.config.js"
+  ```tsx path="rollup.config.js"
   import mdx from '@mdx-js/rollup'
   import {babel} from '@rollup/plugin-babel'
 
@@ -282,7 +282,7 @@ for more info.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="webpack.config.js"
+  ```tsx path="webpack.config.js"
   module.exports = {
     module: {
       // …
@@ -330,7 +330,7 @@ on how to use MDX with Snowpack.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="vite.config.js"
+  ```tsx path="vite.config.js"
   import {defineConfig} from 'vite'
   import mdx from '@mdx-js/rollup'
 
@@ -360,7 +360,7 @@ If you use more modern JavaScript features than what your users support,
   **Note**: If you also use `vitejs/vite-plugin-react`, you need to force
   `@mdx-js/rollup` to run in the `pre` phase before it:
 
-  ```js path="vite.config.js"
+  ```tsx path="vite.config.js"
   // …
   export default defineConfig({
     plugins: [
@@ -380,7 +380,7 @@ you’re using that, for more info.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="vue.config.js"
+  ```tsx path="vue.config.js"
   module.exports = {
     chainWebpack: config => {
       config.module
@@ -421,7 +421,7 @@ which you’re likely using, for more info.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="wmr.config.mjs"
+  ```tsx path="wmr.config.mjs"
   import {defineConfig} from 'wmr'
   import mdx from '@mdx-js/rollup'
 
@@ -450,7 +450,7 @@ if you’re using that, for more info.
 
   This plugin:
 
-  ```js path="plugin.js"
+  ```tsx path="plugin.js"
   import path from 'node:path'
   import parser from '@babel/parser'
   import estreeToBabel from 'estree-to-babel'
@@ -490,7 +490,7 @@ if you’re using that, for more info.
 
   Can be used like so with the Babel API:
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import babel from '@babel/core'
   import {babelPluginSyntaxMdx} from './plugin.js'
 
@@ -559,7 +559,7 @@ integration docs](https://docs.astro.build/guides/integrations-guide/mdx/).
   This is **markdown** with <span style={{color: "red"}}>JSX</span>: MDX!
   ```
 
-  ```jsx path="src/App.jsx"
+  ```tsx path="src/App.jsx"
   /* eslint-disable import/no-webpack-loader-syntax */
   import Content from '!@mdx-js/loader!./content.mdx'
 
@@ -572,7 +572,7 @@ integration docs](https://docs.astro.build/guides/integrations-guide/mdx/).
 <details>
   <summary>Expand CRACO example</summary>
 
-  ```js path="craco.config.js"
+  ```tsx path="craco.config.js"
   const {addAfterLoader, loaderByName} = require('@craco/craco')
 
   module.exports = {
@@ -588,7 +588,7 @@ integration docs](https://docs.astro.build/guides/integrations-guide/mdx/).
   }
   ```
 
-  ```jsx path="src/App.jsx"
+  ```tsx path="src/App.jsx"
   import Content from './content.mdx'
 
   export default function App() {
@@ -626,7 +626,7 @@ on how to use MDX with Gatsby.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="next.config.js"
+  ```tsx path="next.config.js"
   import nextMdx from '@next/mdx'
 
   const withMdx = nextMdx({
@@ -654,7 +654,7 @@ well.
 <details>
   <summary>Expand provider example</summary>
 
-  ```js path="next.config.js"
+  ```tsx path="next.config.js"
   import nextMdx from '@next/mdx'
 
   const withMdx = nextMdx({
@@ -669,7 +669,7 @@ well.
   })
   ```
 
-  ```jsx path="pages/_app.js"
+  ```tsx path="pages/_app.js"
   import {MDXProvider} from '@mdx-js/react'
   import {Header} from '../components/Header.js'
 
@@ -715,7 +715,7 @@ on how to use MDX with React Static.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import {compile} from '@mdx-js/mdx'
 
   const js = String(await compile('# hi', {jsxImportSource: '@emotion/react', /* otherOptions… */}))
@@ -741,7 +741,7 @@ info.
   # Hi!
   ```
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import React from 'react'
   import {render, Text} from 'ink'
   import Content from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
@@ -777,7 +777,7 @@ more info.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import {compile} from '@mdx-js/mdx'
 
   const js = String(await compile('# hi', {jsxImportSource: 'preact', /* otherOptions… */}))
@@ -816,7 +816,7 @@ which you might be using, for more info.
 
   Example w/o `@mdx-js/react`
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import {base} from '@theme-ui/preset-base'
   import {components, ThemeProvider} from 'theme-ui'
   import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
@@ -828,7 +828,7 @@ which you might be using, for more info.
 
   Example w/ `@mdx-js/react`
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import {base} from '@theme-ui/preset-base'
   import {ThemeProvider} from 'theme-ui'
   import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
@@ -853,7 +853,7 @@ info.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import {compile} from '@mdx-js/mdx'
 
   const js = String(await compile('# hi', {jsxImportSource: 'svelte-jsx', /* otherOptions… */}))
@@ -872,7 +872,7 @@ which you might be using, for more info.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import {compile} from '@mdx-js/mdx'
   import babel from '@babel/core'
 
@@ -896,7 +896,7 @@ for more info.
 <details>
   <summary>Expand example</summary>
 
-  ```js path="example.js"
+  ```tsx path="example.js"
   import {compile} from '@mdx-js/mdx'
 
   const js = String(await compile('# hi', {jsxImportSource: 'solid-js/h', /* otherOptions… */}))

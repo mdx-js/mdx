@@ -50,7 +50,7 @@ A note[^1]
 
 The above MDX with GFM can be transformed with the following module:
 
-```js path="example.js"
+```tsx path="example.js"
 import fs from 'node:fs/promises'
 import {compile} from '@mdx-js/mdx'
 import remarkGfm from 'remark-gfm'
@@ -65,7 +65,7 @@ console.log(
 <details>
   <summary>Expand equivalent JSX</summary>
 
-  ```jsx path="output.jsx"
+  ```tsx path="output.jsx"
   <>
     <h1>GFM</h1>
     <h2>Autolink literals</h2>

@@ -137,7 +137,7 @@ export function recmaDocument(options) {
     // Find the `export default`, the JSX expression, and leave the rest
     // (import/exports) as they are.
     for (child of tree.body) {
-      // ```js
+      // ```tsx
       // export default props => <>{props.children}</>
       // ```
       //
@@ -168,7 +168,7 @@ export function recmaDocument(options) {
           ]
         })
       }
-      // ```js
+      // ```tsx
       // export {a, b as c} from 'd'
       // ```
       else if (child.type === 'ExportNamedDeclaration' && child.source) {
@@ -234,7 +234,7 @@ export function recmaDocument(options) {
           handleExport(child)
         }
       }
-      // ```js
+      // ```tsx
       // export {a, b as c}
       // export * from 'a'
       // ```
@@ -345,7 +345,7 @@ export function recmaDocument(options) {
      */
     function handleExport(node) {
       if (node.type === 'ExportNamedDeclaration') {
-        // ```js
+        // ```tsx
         // export function a() {}
         // export class A {}
         // export var a = 1
@@ -356,7 +356,7 @@ export function recmaDocument(options) {
           )
         }
 
-        // ```js
+        // ```tsx
         // export {a, b as c}
         // export {a, b as c} from 'd'
         // ```

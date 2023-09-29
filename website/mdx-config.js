@@ -1,14 +1,15 @@
 /**
- * @typedef {import('estree-jsx').Program} Program
+ * @typedef {import('@wooorm/starry-night').Grammar} Grammar
+ * @typedef {import('hast').ElementContent} ElementContent
  * @typedef {import('hast').Root} Root
- * @typedef {import('hast').Text} Text
- * @typedef {import('hast').Content} Content
- * @typedef {Root|Content} Node
  */
 
 import path from 'path'
 import process from 'process'
 import {pathToFileURL} from 'url'
+import {common, createStarryNight} from '@wooorm/starry-night'
+import sourceMdx from '@wooorm/starry-night/source.mdx'
+import sourceTsx from '@wooorm/starry-night/source.tsx'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkGithub from 'remark-github'
@@ -28,6 +29,7 @@ import rehypeRaw from 'rehype-raw'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import {visit} from 'unist-util-visit'
 import {toText} from 'hast-util-to-text'
+import {toString} from 'hast-util-to-string'
 import {h, s} from 'hastscript'
 import {analyze} from 'periscopic'
 import {valueToEstree} from 'estree-util-value-to-estree'
@@ -78,6 +80,7 @@ const options = {
         content: link()
       }
     ],
+    [rehypeStarryNight, {grammars: [...common, sourceMdx, sourceTsx]}],
     // To do: use starry-night.
     // [
     //   rehypeHighlight,
@@ -197,12 +200,13 @@ function rehypePrettyCodeBlocks() {
     diff: 'Diff',
     html: 'HTML',
     js: 'JavaScript',
-    jsx: 'JSX',
+    jsx: 'JavaScript',
     md: 'Markdown',
     mdx: 'MDX',
     sh: 'Shell',
     txt: 'Plain text',
-    ts: 'TypeScript'
+    ts: 'TypeScript',
+    tsx: 'TypeScript'
   }
 
   /** @param {import('hast').Root} tree */
@@ -289,6 +293,100 @@ function rehypePrettyCodeBlocks() {
       }
 
       parent.children[index] = h('.frame.code-frame', children)
+    })
+  }
+}
+
+// See:
+// <https://github.com/wooorm/starry-night#example-integrate-with-unified-remark-and-rehype>.
+/**
+ * @typedef Options
+ *   Configuration (optional)
+ * @property {Array<Grammar> | null | undefined} [grammars]
+ *   Grammars to support (default: `common`).
+ */
+
+/**
+ * Highlight code with `starry-night`.
+ *
+ * @param {Options | null | undefined} options
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
+ */
+function rehypeStarryNight(options) {
+  const settings = options || {}
+  const grammars = settings.grammars || common
+  const starryNightPromise = createStarryNight(grammars)
+  const prefix = 'language-'
+
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {Promise<undefined>}
+   *   Nothing.
+   */
+  return async function (tree) {
+    const starryNight = await starryNightPromise
+
+    visit(tree, 'element', function (node, index, parent) {
+      if (!parent || index === null || node.tagName !== 'pre') {
+        return
+      }
+
+      const head = node.children[0]
+
+      if (
+        !head ||
+        head.type !== 'element' ||
+        head.tagName !== 'code' ||
+        !head.properties
+      ) {
+        return
+      }
+
+      const classes = head.properties.className
+
+      if (!Array.isArray(classes)) return
+
+      const language = classes.find(function (d) {
+        return typeof d === 'string' && d.startsWith(prefix)
+      })
+
+      if (typeof language !== 'string') return
+
+      const name = language.slice(prefix.length)
+
+      const scope = starryNight.flagToScope(name)
+
+      // Maybe warn?
+      if (!scope) {
+        if (name !== 'txt') console.warn('Missing language: %s', name)
+        return
+      }
+
+      const fragment = starryNight.highlight(toString(head), scope)
+      const children = /** @type {Array<ElementContent>} */ (fragment.children)
+
+      parent.children.splice(index, 1, {
+        type: 'element',
+        tagName: 'pre',
+        properties: {},
+        children: [
+          {
+            type: 'element',
+            tagName: 'code',
+            properties: {
+              className: [
+                'language-' + scope.replace(/^source\./, '').replace(/\./g, '-')
+              ]
+            },
+            children
+          }
+        ]
+      })
     })
   }
 }

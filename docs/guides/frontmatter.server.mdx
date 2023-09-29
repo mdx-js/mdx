@@ -26,7 +26,7 @@ export const title = 'Hi, ' + name + '!'
 
 Can be used like so:
 
-```js path="example.js"
+```tsx path="example.js"
 import * as Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
 
 console.log(Post.title) // Prints 'Hi, World!'
@@ -46,7 +46,7 @@ title: Hi, World!
 
 Then without compiling or evaluating the metadata can be accessed like so:
 
-```js path="example.js"
+```tsx path="example.js"
 import fs from 'node:fs/promises'
 import yaml from 'js-yaml'
 
@@ -58,7 +58,7 @@ Our compiler, `@mdx-js/mdx`, doesn’t understand YAML frontmatter by default bu
 it can be enabled by using a remark plugin,
 [`remark-frontmatter`][remark-frontmatter]:
 
-```js path="example.js"
+```tsx path="example.js"
 import fs from 'node:fs/promises'
 import remarkFrontmatter from 'remark-frontmatter'
 import {compile} from '@mdx-js/mdx'
