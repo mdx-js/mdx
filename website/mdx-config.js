@@ -129,7 +129,7 @@ function unifiedInferRemoteMeta() {
 
     if (parts[1] === 'docs') {
       fp = ('/' + parts.slice(2).join('/'))
-        .replace(/\.server\.mdx$/, '/')
+        .replace(/\.mdx$/, '/')
         .replace(/\/index\/$/, '/')
     } else {
       // Symlinks, which we have to hack around.
