@@ -23,9 +23,10 @@ export function recmaStringify(options) {
   /* c8 ignore next */
   const {SourceMapGenerator} = options || {}
 
-  Object.assign(this, {Compiler: compiler})
+  // @ts-expect-error: to do: improve types.
+  this.compiler = compiler
 
-  /** @type {import('unified').CompilerFunction<Program, string>} */
+  /** @type {import('unified').Compiler<Program, string>} */
   function compiler(tree, file) {
     const result = SourceMapGenerator
       ? toJs(tree, {

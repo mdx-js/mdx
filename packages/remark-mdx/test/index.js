@@ -322,7 +322,7 @@ test('stringify', async (t) => {
  * @returns {Tree}
  */
 function clean(tree) {
-  removePosition(tree, true)
+  removePosition(tree, {force: true})
   cleanEstree(tree)
   return tree
 }
@@ -345,6 +345,7 @@ function cleanEstree(tree) {
         node.type === 'mdxJsxAttributeValueExpression' ||
         node.type === 'mdxJsxExpressionAttribute') &&
       node.data &&
+      'estree' in node.data &&
       node.data.estree
     ) {
       node.data.estree = null

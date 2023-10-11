@@ -38,7 +38,7 @@
   ],
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0",
-    "vfile": "^5.0.0"
+    "vfile": "^6.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

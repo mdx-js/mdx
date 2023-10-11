@@ -1366,7 +1366,7 @@ test('markdown (GFM, with `remark-gfm`)', async (t) => {
 <section data-footnotes="true" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
 <ol>
 <li id="user-content-fn-a">
-<p>b <a href="#user-content-fnref-a" data-footnote-backref="true" class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+<p>b <a href="#user-content-fnref-a" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
 </section>`
@@ -1477,7 +1477,7 @@ test('remark-rehype options', async () => {
 <section data-footnotes="true" class="footnotes"><h2 class="sr-only" id="footnote-label">Notes</h2>
 <ol>
 <li id="user-content-fn-1">
-<p>Note. <a href="#user-content-fnref-1" data-footnote-backref="true" class="data-footnote-backref" aria-label="Back">↩</a></p>
+<p>Note. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
 </section>`,
@@ -1697,7 +1697,7 @@ test('MDX (JSX)', async (t) => {
     )
   })
 
-  await t.test('should support JSX in expressions', () => {
+  await t.test('should not include whitespace in tables', () => {
     // Important: there should not be whitespace in the `tr`.
     // This is normally not present, but unraveling makes this a bit more complex.
     // See: <https://github.com/mdx-js/mdx/issues/2000>.
@@ -1728,9 +1728,12 @@ test('MDX (JSX)', async (t) => {
         '}',
         'function MDXContent(props = {}) {',
         '  const {wrapper: MDXLayout} = props.components || ({});',
-        '  return MDXLayout ? _jsx(MDXLayout, Object.assign({}, props, {',
-        '    children: _jsx(_createMdxContent, props)',
-        '  })) : _createMdxContent(props);',
+        '  return MDXLayout ? _jsx(MDXLayout, {',
+        '    ...props,',
+        '    children: _jsx(_createMdxContent, {',
+        '      ...props',
+        '    })',
+        '  }) : _createMdxContent(props);',
         '}',
         'export default MDXContent;',
         ''
@@ -1961,11 +1964,14 @@ test('MDX (ESM)', async (t) => {
         '}',
         'function MDXContent(props = {}) {',
         '  const {wrapper: MDXLayout} = props.components || ({});',
-        '  return MDXLayout ? _jsxDEV(MDXLayout, Object.assign({}, props, {',
-        '    children: _jsxDEV(_createMdxContent, props, undefined, false, {',
+        '  return MDXLayout ? _jsxDEV(MDXLayout, {',
+        '    ...props,',
+        '    children: _jsxDEV(_createMdxContent, {',
+        '      ...props',
+        '    }, undefined, false, {',
         '      fileName: "path/to/file.js"',
         '    }, this)',
-        '  }), undefined, false, {',
+        '  }, undefined, false, {',
         '    fileName: "path/to/file.js"',
         '  }, this) : _createMdxContent(props);',
         '}',

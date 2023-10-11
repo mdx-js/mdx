@@ -1,7 +1,11 @@
-import React, {createElement} from 'react'
+import React from 'react'
+// @ts-expect-error: untyped.
+import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
 import {apStyleTitleCase} from 'ap-style-title-case'
-import {toH} from 'hast-to-hyperscript'
+import {toJsxRuntime} from 'hast-util-to-jsx-runtime'
 import {sortItems} from './sort.js'
+
+const runtime = {Fragment, jsx, jsxs}
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
@@ -36,7 +40,7 @@ export function BlogEntry(props) {
       </h3>
       <div>
         {meta.descriptionHast ? (
-          toH(createElement, meta.descriptionHast)
+          toJsxRuntime(meta.descriptionHast, runtime)
         ) : description ? (
           <p>{description}</p>
         ) : null}

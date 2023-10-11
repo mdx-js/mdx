@@ -61,24 +61,23 @@ for (const copy of copies) {
 }
 
 /**
- * @param {Event} event
+ * @this {HTMLButtonElement}
  */
-function onclick(event) {
-  const node = event.target
+function onclick() {
   assert(copyIcon)
   assert(copiedIcon)
-  assert(node instanceof HTMLButtonElement)
+  assert(this instanceof HTMLButtonElement)
 
-  const value = node.dataset.value
+  const value = this.dataset.value
   assert(value !== undefined)
 
-  node.classList.add('success')
-  node.replaceChildren(copiedIcon.cloneNode(true))
+  this.classList.add('success')
+  this.replaceChildren(copiedIcon.cloneNode(true))
 
   copyToClipboard(value)
 
-  setTimeout(function () {
-    node.classList.remove('success')
-    node.replaceChildren(copyIcon.cloneNode(true))
+  setTimeout(() => {
+    this.classList.remove('success')
+    this.replaceChildren(copyIcon.cloneNode(true))
   }, 2000)
 }

@@ -456,7 +456,7 @@ function Playground() {
                 name="development"
                 checked={development}
                 onChange={function () {
-                  setJsx(true)
+                  setDevelopment(true)
                 }}
               />{' '}
               generate for development (<code>development: true</code>)

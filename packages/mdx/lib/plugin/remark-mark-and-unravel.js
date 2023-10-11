@@ -84,6 +84,7 @@ export function remarkMarkAndUnravel() {
         node.type === 'mdxJsxTextElement'
       ) {
         const data = node.data || (node.data = {})
+        // @ts-expect-error: to do: type.
         data._mdxExplicitJsx = true
       }
     })

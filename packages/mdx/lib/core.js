@@ -127,6 +127,7 @@ export function createProcessor(options) {
   pipeline
     .use(remarkMarkAndUnravel)
     .use(remarkPlugins || [])
+    // @ts-expect-error: to do: fix types of `passThrough`.
     .use(remarkRehype, {
       ...remarkRehypeOptions,
       allowDangerousHtml: true,
@@ -153,5 +154,6 @@ export function createProcessor(options) {
 
   pipeline.use(recmaStringify, {SourceMapGenerator}).use(recmaPlugins || [])
 
+  // @ts-expect-error: to do: fix types.
   return pipeline
 }

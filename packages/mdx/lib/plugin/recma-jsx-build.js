@@ -1,6 +1,6 @@
 /**
  * @typedef {import('estree-jsx').Program} Program
- * @typedef {import('estree-util-build-jsx').BuildJsxOptions} BuildJsxOptions
+ * @typedef {import('estree-util-build-jsx').Options} BuildJsxOptions
  */
 
 /**

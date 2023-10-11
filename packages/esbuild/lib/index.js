@@ -5,6 +5,7 @@
  * @typedef {import('esbuild').OnLoadResult} OnLoadResult
  * @typedef {import('esbuild').OnResolveArgs} OnResolveArgs
  * @typedef {import('esbuild').Message} Message
+ * @typedef {import('unist').Position} Position
  * @typedef {import('vfile').VFileValue} VFileValue
  * @typedef {import('vfile-message').VFileMessage} VFileMessage
  * @typedef {import('@mdx-js/mdx/lib/core.js').ProcessorOptions} ProcessorOptions
@@ -156,37 +157,25 @@ export function esbuild(options) {
       }
 
       for (const message of messages) {
-        const location = 'position' in message ? message.position : undefined
-        const start = location ? location.start : undefined
-        const end = location ? location.end : undefined
+        const place = 'place' in message ? message.place : undefined
+        const start = place
+          ? 'start' in place
+            ? place.start
+            : place
+          : undefined
+        const end = place && 'end' in place ? place.end : undefined
         let length = 0
         let lineStart = 0
         let line = 0
         let column = 0
 
-        if (
-          start &&
-          start.line !== null &&
-          start.line !== undefined &&
-          start.column !== undefined &&
-          start.column !== null &&
-          start.offset !== undefined &&
-          start.offset !== null
-        ) {
+        if (start && start.offset !== undefined) {
           line = start.line
           column = start.column - 1
           lineStart = start.offset - column
           length = 1
 
-          if (
-            end &&
-            end.line !== null &&
-            end.line !== undefined &&
-            end.column !== undefined &&
-            end.column !== null &&
-            end.offset !== undefined &&
-            end.offset !== null
-          ) {
+          if (end && end.offset !== undefined) {
             length = end.offset - start.offset
           }
         }
@@ -199,12 +188,13 @@ export function esbuild(options) {
         ;(!('fatal' in message) || message.fatal ? errors : warnings).push({
           pluginName: name,
           id: '',
-          text:
+          text: String(
             'reason' in message
               ? message.reason
               : /* Extra fallback to make sure weird values are definitely strings */
                 /* c8 ignore next */
-                message.stack || String(message),
+                message.stack || message
+          ),
           notes: [],
           location: {
             namespace: 'file',

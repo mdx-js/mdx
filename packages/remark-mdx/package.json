@@ -40,16 +40,16 @@
     "index.js"
   ],
   "dependencies": {
-    "mdast-util-mdx": "^2.0.0",
-    "micromark-extension-mdxjs": "^1.0.0"
+    "mdast-util-mdx": "^3.0.0",
+    "micromark-extension-mdxjs": "^2.0.0"
   },
   "devDependencies": {
-    "remark-parse": "^10.0.0",
-    "remark-stringify": "^10.0.0",
-    "unified": "^10.0.0",
-    "unist-builder": "^3.0.0",
-    "unist-util-remove-position": "^4.0.0",
-    "unist-util-visit": "^4.0.0"
+    "remark-parse": "^11.0.0",
+    "remark-stringify": "^11.0.0",
+    "unified": "^11.0.0",
+    "unist-builder": "^4.0.0",
+    "unist-util-remove-position": "^5.0.0",
+    "unist-util-visit": "^5.0.0"
   },
   "scripts": {
     "prepack": "npm run build",

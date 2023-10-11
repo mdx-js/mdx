@@ -1,5 +1,5 @@
 /**
- * @typedef {import('mdast').Root} Root
+ * @typedef {import('unified').Processor} Processor
  * @typedef {import('micromark-extension-mdxjs').Options} MicromarkOptions
  * @typedef {import('mdast-util-mdx').ToMarkdownOptions} ToMarkdownOptions
  * @typedef {import('mdast-util-mdx')} DoNotTouchAsThisIncludesMdxInTree
@@ -13,31 +13,33 @@
 import {mdxjs} from 'micromark-extension-mdxjs'
 import {mdxFromMarkdown, mdxToMarkdown} from 'mdast-util-mdx'
 
+/** @type {Options} */
+const emptyOptions = {}
+
 /**
  * Plugin to support MDX (import/exports: `export {x} from 'y'`; expressions:
  * `{1 + 1}`; and JSX: `<Video id={123} />`).
  *
- * @this {import('unified').Processor}
- * @type {import('unified').Plugin<[Options | null | undefined] | [], Root>}
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns {undefined}
+ *   Nothing.
  */
 export default function remarkMdx(options) {
-  const data = this.data()
+  // @ts-expect-error: TS is wrong about `this`.
+  // eslint-disable-next-line unicorn/no-this-assignment
+  const self = /** @type {Processor} */ (this)
+  const settings = options || emptyOptions
+  const data = self.data()
 
-  add('micromarkExtensions', mdxjs(options))
-  add('fromMarkdownExtensions', mdxFromMarkdown())
-  add('toMarkdownExtensions', mdxToMarkdown(options))
+  const micromarkExtensions =
+    data.micromarkExtensions || (data.micromarkExtensions = [])
+  const fromMarkdownExtensions =
+    data.fromMarkdownExtensions || (data.fromMarkdownExtensions = [])
+  const toMarkdownExtensions =
+    data.toMarkdownExtensions || (data.toMarkdownExtensions = [])
 
-  /**
-   * @param {string} field
-   * @param {unknown} value
-   */
-  function add(field, value) {
-    const list = /** @type {Array<unknown>} */ (
-      // Other extensions
-      /* c8 ignore next 2 */
-      data[field] ? data[field] : (data[field] = [])
-    )
-
-    list.push(value)
-  }
+  micromarkExtensions.push(mdxjs(settings))
+  fromMarkdownExtensions.push(mdxFromMarkdown())
+  toMarkdownExtensions.push(mdxToMarkdown(settings))
 }
