@@ -1279,6 +1279,10 @@ button.success {
   margin-inline: 0;
 }
 
+.playground-controls fieldset[disabled] {
+  opacity: 0.6;
+}
+
 .playground-controls label {
   font-size: smaller;
   display: block;

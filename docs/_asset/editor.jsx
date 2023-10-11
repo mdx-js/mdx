@@ -17,7 +17,7 @@
  * @property {false} ok
  * @property {Error} value
  *
- * @typedef {EvalOk | EvalNok} EvalResult
+ * @typedef {EvalNok | EvalOk} EvalResult
  */
 
 import {compile, nodeTypes, run} from '@mdx-js/mdx'
@@ -105,18 +105,22 @@ function init(main) {
 }
 
 function Playground() {
-  const [value, setValue] = useState(sample)
   const [directive, setDirective] = useState(false)
-  const [frontmatter, setFrontmatter] = useState(false)
-  const [gfm, setGfm] = useState(false)
-  const [markdown, setMarkdown] = useState(false)
-  const [math, setMath] = useState(false)
-  const [raw, setRaw] = useState(false)
-  const [positions, setPositions] = useState(false)
-  const [output, setOutput] = useState('result')
   const [evalResult, setEvalResult] = useState(
     /** @type {unknown} */ (undefined)
   )
+  const [development, setDevelopment] = useState(false)
+  const [frontmatter, setFrontmatter] = useState(false)
+  const [gfm, setGfm] = useState(false)
+  const [formatMarkdown, setFormatMarkdown] = useState(false)
+  const [jsx, setJsx] = useState(false)
+  const [math, setMath] = useState(false)
+  const [outputFormatFunctionBody, setOutputFormatFunctionBody] =
+    useState(false)
+  const [positions, setPositions] = useState(false)
+  const [raw, setRaw] = useState(false)
+  const [show, setShow] = useState('result')
+  const [value, setValue] = useState(sample)
 
   useEffect(
     function () {
@@ -147,25 +151,30 @@ function Playground() {
         if (raw) rehypePlugins.unshift([rehypeRaw, {passThrough: nodeTypes}])
 
         const file = new VFile({
-          basename: markdown ? 'example.md' : 'example.mdx',
+          basename: formatMarkdown ? 'example.md' : 'example.mdx',
           value
         })
 
-        if (output === 'mdast') remarkPlugins.push([capture, {name: 'mdast'}])
-        if (output === 'hast') rehypePlugins.push([capture, {name: 'hast'}])
-        if (output === 'esast') recmaPlugins.push([capture, {name: 'esast'}])
+        if (show === 'esast') recmaPlugins.push([capture, {name: 'esast'}])
+        if (show === 'hast') rehypePlugins.push([capture, {name: 'hast'}])
+        if (show === 'mdast') remarkPlugins.push([capture, {name: 'mdast'}])
         /** @type {UnistNode | undefined} */
         let tree
 
         await compile(file, {
-          outputFormat: output === 'result' ? 'function-body' : 'program',
+          development: show === 'result' ? false : development,
+          jsx: show === 'code' || show === 'esast' ? jsx : false,
+          outputFormat:
+            show === 'result' || outputFormatFunctionBody
+              ? 'function-body'
+              : 'program',
           recmaPlugins,
           rehypePlugins,
           remarkPlugins,
           useDynamicImport: true
         })
 
-        if (output === 'result') {
+        if (show === 'result') {
           /** @type {MDXModule} */
           const mod = await run(String(file), runtime)
 
@@ -192,7 +201,7 @@ function Playground() {
           )
         }
 
-        // `output === 'code'`
+        // `show === 'code'`
         return (
           <pre>
             <code>
@@ -227,10 +236,23 @@ function Playground() {
         }
       }
     },
-    [directive, frontmatter, gfm, markdown, math, output, positions, raw, value]
+    [
+      development,
+      directive,
+      frontmatter,
+      gfm,
+      jsx,
+      formatMarkdown,
+      math,
+      outputFormatFunctionBody,
+      positions,
+      raw,
+      show,
+      value
+    ]
   )
 
-  const scope = markdown ? 'text.md' : 'source.mdx'
+  const scope = formatMarkdown ? 'text.md' : 'source.mdx'
   const compiledResult = /** @type {EvalResult | undefined} */ (evalResult)
   /** @type {JSX.Element | undefined} */
   let display
@@ -273,46 +295,20 @@ function Playground() {
         </div>
         <div className="playground-controls">
           <fieldset>
-            <legend>Output</legend>
+            <legend>Show</legend>
             <label>
               <select
-                name="output"
+                name="show"
                 onChange={function (event) {
-                  setOutput(event.target.value)
+                  setShow(event.target.value)
                 }}
               >
-                <option value="result">rendered result</option>
+                <option value="result">evaluated result</option>
                 <option value="code">compiled code</option>
                 <option value="mdast">mdast (markdown)</option>
                 <option value="hast">hast (html)</option>
                 <option value="esast">esast (javascript)</option>
               </select>{' '}
-              result
-            </label>
-          </fieldset>
-          <fieldset>
-            <legend>Input</legend>
-            <label>
-              <input
-                type="radio"
-                name="language"
-                checked={!markdown}
-                onChange={function () {
-                  setMarkdown(false)
-                }}
-              />{' '}
-              MDX
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="language"
-                checked={markdown}
-                onChange={function () {
-                  setMarkdown(true)
-                }}
-              />{' '}
-              markdown
             </label>
           </fieldset>
           <fieldset>
@@ -389,6 +385,111 @@ function Playground() {
             </label>
           </fieldset>
           <fieldset>
+            <legend>Input format</legend>
+            <label>
+              <input
+                type="radio"
+                name="language"
+                checked={!formatMarkdown}
+                onChange={function () {
+                  setFormatMarkdown(false)
+                }}
+              />{' '}
+              MDX (<code>format: &apos;mdx&apos;</code>)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="language"
+                checked={formatMarkdown}
+                onChange={function () {
+                  setFormatMarkdown(true)
+                }}
+              />{' '}
+              markdown (<code>format: &apos;markdown&apos;</code>)
+            </label>
+          </fieldset>
+
+          <fieldset disabled={show === 'result'}>
+            <legend>Output format</legend>
+            <label>
+              <input
+                type="radio"
+                name="output-format"
+                checked={outputFormatFunctionBody}
+                onChange={function () {
+                  setOutputFormatFunctionBody(true)
+                }}
+              />{' '}
+              function body (
+              <code>outputFormat: &apos;function-body&apos;</code>)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="output-format"
+                checked={!outputFormatFunctionBody}
+                onChange={function () {
+                  setOutputFormatFunctionBody(false)
+                }}
+              />{' '}
+              program (<code>outputFormat: &apos;program&apos;</code>)
+            </label>
+          </fieldset>
+
+          <fieldset disabled={show === 'result'}>
+            <legend>Development</legend>
+            <label>
+              <input
+                type="radio"
+                name="development"
+                checked={!development}
+                onChange={function () {
+                  setDevelopment(false)
+                }}
+              />{' '}
+              generate for production (<code>development: false</code>)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="development"
+                checked={development}
+                onChange={function () {
+                  setJsx(true)
+                }}
+              />{' '}
+              generate for development (<code>development: true</code>)
+            </label>
+          </fieldset>
+
+          <fieldset disabled={show === 'result'}>
+            <legend>JSX</legend>
+            <label>
+              <input
+                type="radio"
+                name="jsx"
+                checked={jsx}
+                onChange={function () {
+                  setJsx(true)
+                }}
+              />{' '}
+              keep JSX (<code>jsx: true</code>)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="jsx"
+                checked={!jsx}
+                onChange={function () {
+                  setJsx(false)
+                }}
+              />{' '}
+              compile JSX away (<code>jsx: false</code>)
+            </label>
+          </fieldset>
+
+          <fieldset disabled={show === 'result' || show === 'code'}>
             <legend>Tree</legend>
             <label>
               <input
