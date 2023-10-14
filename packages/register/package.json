@@ -4,19 +4,19 @@
   "description": "Node hook to require MDX",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
     "jsx",
+    "markdown",
+    "mdx",
     "node",
-    "require",
+    "react",
     "remark",
-    "react"
+    "require"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/register"
+    "directory": "packages/register/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -27,6 +27,8 @@
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
+  "type": "module",
+  "sideEffects": true,
   "main": "index.cjs",
   "types": "index.d.ts",
   "files": [
@@ -41,16 +43,17 @@
   "optionalDependencies": {
     "deasync": "^0.1.0"
   },
-  "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "test-api": "node -r ./index.cjs test/index.cjs",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development --require ./index.cjs test/index.cjs",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "ignoreCatch": true,
+    "strict": true
   },
   "xo": {
     "prettier": true,
@@ -58,11 +61,5 @@
       "n/file-extension-in-import": "off",
       "unicorn/prefer-node-protocol": "off"
     }
-  },
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
   }
 }

@@ -4,17 +4,16 @@
   "description": "MDX compiler",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
     "jsx",
-    "remark",
-    "mdxast"
+    "markdown",
+    "mdx",
+    "remark"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/mdx"
+    "directory": "packages/mdx/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -67,26 +66,17 @@
     "unist-util-visit": "^5.0.0",
     "vfile": "^6.0.0"
   },
-  "devDependencies": {
-    "@emotion/react": "^11.0.0",
-    "@mdx-js/react": "^2.0.0",
-    "nanoid": "^4.0.0",
-    "preact": "^10.0.0",
-    "preact-render-to-string": "^6.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "rehype-katex": "^7.0.0",
-    "rehype-raw": "^7.0.0",
-    "remark-frontmatter": "^5.0.0",
-    "remark-gfm": "^4.0.0",
-    "remark-math": "^6.0.0",
-    "source-map-support": "^0.5.0",
-    "unist-util-remove-position": "^5.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "test-api": "node test/index.js",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "ignoreCatch": true,
+    "strict": true
   },
   "xo": {
     "prettier": true,
@@ -99,15 +89,5 @@
       "unicorn/prefer-code-point": "off",
       "unicorn/prefer-node-protocol": "off"
     }
-  },
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true,
-    "ignoreFiles": [
-      "lib/util/resolve-evaluate-options.{d.ts,js}"
-    ]
-  },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  }
 }

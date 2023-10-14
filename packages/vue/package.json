@@ -4,18 +4,17 @@
   "description": "Vue provider for MDX",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
-    "vue",
     "jsx",
+    "markdown",
+    "mdx",
     "remark",
-    "mdxast"
+    "vue"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/vue"
+    "directory": "packages/vue/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -37,22 +36,17 @@
     "index.d.ts",
     "index.js"
   ],
+  "dependencies": {
+    "@types/mdx": "^2.0.0"
+  },
   "peerDependencies": {
     "vue": ">=3.0.0"
   },
-  "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@mdx-js/mdx": "^2.0.0",
-    "@types/babel__core": "^7.0.0",
-    "@types/mdx": "^2.0.0",
-    "@vue/babel-plugin-jsx": "^1.0.0",
-    "@vue/server-renderer": "^3.0.0",
-    "vue": "^3.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "test-api": "node test/index.js",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
   "typeCoverage": {
     "atLeast": 100,

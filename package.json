@@ -11,25 +11,33 @@
   },
   "type": "module",
   "workspaces": [
-    "packages/remark-mdx",
-    "packages/mdx",
-    "packages/react",
-    "packages/preact",
-    "packages/vue",
-    "packages/esbuild",
-    "packages/loader",
-    "packages/node-loader",
-    "packages/register",
-    "packages/rollup"
+    "packages/remark-mdx/",
+    "packages/mdx/",
+    "packages/react/",
+    "packages/preact/",
+    "packages/vue/",
+    "packages/esbuild/",
+    "packages/loader/",
+    "packages/node-loader/",
+    "packages/register/",
+    "packages/rollup/"
   ],
   "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@emotion/react": "^11.0.0",
     "@node-loader/core": "^2.0.0",
-    "@types/dlv": "^1.1.2",
+    "@types/babel__core": "^7.0.0",
+    "@types/dlv": "^1.0.0",
+    "@types/mdx": "^2.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vue/babel-plugin-jsx": "^1.0.0",
+    "@vue/server-renderer": "^3.0.0",
     "@wooorm/starry-night": "^3.0.0",
     "acorn": "^8.0.0",
-    "ajv": "^8.12.0",
     "ap-style-title-case": "^2.0.0",
     "autoprefixer": "^10.0.0",
+    "babel-loader": "^9.0.0",
     "c8": "^8.0.0",
     "capture-website": "^3.0.0",
     "chrome-aws-lambda": "^10.0.0",
@@ -49,10 +57,13 @@
     "hast-util-to-jsx-runtime": "^2.0.0",
     "hast-util-to-text": "^4.0.0",
     "hastscript": "^8.0.0",
+    "nanoid": "^4.0.0",
     "p-all": "^5.0.0",
     "periscopic": "^3.0.0",
     "postcss": "^8.0.0",
     "postcss-cli": "^10.0.0",
+    "preact": "^10.0.0",
+    "preact-render-to-string": "^6.0.0",
     "prettier": "^3.0.0",
     "puppeteer-core": "^20.0.0",
     "react": "^18.0.0",
@@ -63,6 +74,7 @@
     "rehype-infer-description-meta": "^2.0.0",
     "rehype-infer-reading-time-meta": "^2.0.0",
     "rehype-infer-title-meta": "^2.0.0",
+    "rehype-katex": "^7.0.0",
     "rehype-meta": "^4.0.0",
     "rehype-minify-url": "^5.0.0",
     "rehype-parse": "^9.0.0",
@@ -79,49 +91,86 @@
     "remark-gemoji": "^8.0.0",
     "remark-gfm": "^4.0.0",
     "remark-github": "^12.0.0",
+    "remark-math": "^6.0.0",
     "remark-mdx-frontmatter": "^3.0.0",
+    "remark-parse": "^11.0.0",
     "remark-preset-wooorm": "^9.0.0",
     "remark-squeeze-paragraphs": "^6.0.0",
+    "remark-stringify": "^11.0.0",
     "remark-strip-badges": "^7.0.0",
     "remark-toc": "^9.0.0",
+    "rollup": "^4.0.0",
+    "source-map-support": "^0.5.0",
     "type-coverage": "^2.0.0",
     "typescript": "^5.0.0",
-    "unified": "^11.0.0",
+    "unified": "^11.0.3",
     "unist-builder": "^4.0.0",
     "unist-util-remove-position": "^5.0.0",
     "unist-util-visit": "^5.0.0",
     "vfile": "^6.0.0",
+    "vfile-message": "^4.0.0",
+    "vue": "^3.0.0",
+    "webpack": "^5.0.0",
     "xast-util-feed": "^2.0.0",
     "xast-util-sitemap": "^2.0.0",
     "xast-util-to-xml": "^4.0.0",
     "xo": "^0.56.0"
   },
   "scripts": {
-    "docs-js": "esbuild docs/_asset/index.js --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/index.js --target=es2020 && esbuild docs/_asset/editor.jsx --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/editor.js --target=es2020",
-    "docs-css": "postcss docs/_asset/index.css -o public/index.css",
-    "docs-prep": "node website/prep.js && npm run docs-js && npm run docs-css",
-    "docs-generate": "cross-env NODE_LOADER_CONFIG=website/loader.js node --no-warnings --experimental-loader @node-loader/core website/generate.js",
-    "docs-post": "node website/post.js",
-    "docs": "npm run docs-prep && npm run docs-generate && npm run docs-post",
-    "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
-    "#": "remark . -qfo && remark . -e mdx -u mdx -qfo && ",
-    "##": "remark . -qf && remark . -e mdx -u mdx -qf && ",
-    "format": "prettier . -w --log-level warn && xo --fix",
-    "lint": "prettier . -c --log-level warn && xo",
     "build": "tsc --build --clean && tsc --build && type-coverage",
+    "docs": "npm run docs-prep && npm run docs-generate && npm run docs-post",
+    "docs-css": "postcss --output public/index.css docs/_asset/index.css",
+    "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
+    "docs-generate": "cross-env NODE_LOADER_CONFIG=website/loader.js node --no-warnings --loader @node-loader/core website/generate.js",
+    "docs-js": "npm run docs-js-default && npm run docs-js-editor",
+    "docs-js-default": "esbuild --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/index.js --target=es2020 docs/_asset/index.js",
+    "docs-js-editor": "esbuild --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/editor.js --target=es2020 docs/_asset/editor.jsx",
+    "docs-post": "node website/post.js",
+    "docs-prep": "node website/prep.js && npm run docs-js && npm run docs-css",
+    "#": "remark . --frail --output --quiet && remark . --ext mdx --frail --output --plugin remark-mdx --quiet",
+    "format": "prettier . --log-level warn --write && xo --fix",
+    "test": "npm run build && npm run format && npm run test-coverage",
     "test-api": "npm run test-api --workspaces --if-present",
-    "test-coverage": "npm run test-coverage --workspaces --if-present",
-    "test": "npm run build && npm run format && npm run test-coverage"
+    "test-coverage": "npm run test-coverage --workspaces --if-present"
   },
   "browserslist": [
     "last 2 versions",
     "not dead"
   ],
+  "postcss": {
+    "plugins": {
+      "autoprefixer": true,
+      "cssnano": {
+        "preset": "default"
+      }
+    }
+  },
   "prettier": {
-    "singleQuote": true,
     "bracketSpacing": false,
+    "singleQuote": true,
     "semi": false,
-    "trailingComma": "none"
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "useTabs": false
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-wooorm",
+      [
+        "remark-lint-no-html",
+        false
+      ],
+      [
+        "remark-lint-file-extension",
+        false
+      ]
+    ]
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "ignoreCatch": true,
+    "strict": true
   },
   "xo": {
     "envs": [
@@ -160,27 +209,6 @@
           "react/react-in-jsx-scope": "off"
         }
       }
-    ]
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": true,
-      "cssnano": {
-        "preset": "default"
-      }
-    }
-  },
-  "remarkConfig": {
-    "plugins": [
-      "remark-preset-wooorm",
-      [
-        "remark-lint-no-html",
-        false
-      ],
-      [
-        "remark-lint-file-extension",
-        false
-      ]
     ]
   }
 }
