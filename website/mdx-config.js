@@ -144,6 +144,7 @@ function unifiedInferRemoteMeta() {
 
     const fileUrl = pathToFileURL(file.path)
     const parts = fileUrl.href.slice(config.git.href.length - 1).split('/')
+    /** @type {string} */
     let fp
 
     if (parts[1] === 'docs') {
@@ -269,11 +270,13 @@ function rehypePrettyCodeBlocks() {
 
       /** @type {Record<string, string>} */
       const metaProps = {}
-      /** @type {string | undefined} */
+      // To do: type?
       // @ts-expect-error: added by `mdast-util-to-hast` on `code` elements.
-      const meta = code.data?.meta
+      // type-coverage:ignore-next-line
+      const meta = /** @type {string | undefined} */ (code.data?.meta)
 
       if (meta) {
+        /** @type {RegExpMatchArray | null} */
         let match
         re.lastIndex = 0 // Reset regex.
 

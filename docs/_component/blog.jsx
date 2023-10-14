@@ -45,6 +45,7 @@ export function BlogEntry(props) {
         : [meta.readingTime, meta.readingTime]
       : []
   ).map((d) => Math.ceil(d))
+  /** @type {string | undefined} */
   let timeLabel
 
   if (time.length > 1 && time[0] !== time[1]) {

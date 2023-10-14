@@ -49,7 +49,11 @@ function register(options) {
    */
   function mdx(module, path) {
     const file = processSync(fs.readFileSync(path))
+    // To do: type `run`.
+    /** @type {{default: unknown}} */
     const result = runSync(file, runtime)
+    // Something going weird here w/ `type-coverage`.
+    // type-coverage:ignore-next-line
     module.exports = result.default
     module.loaded = true
   }
@@ -82,9 +86,15 @@ function load(filePath, callback) {
     )
   }
 
-  import(filePath).then((module) => {
-    done(null, module)
-  }, done)
+  import(filePath).then(
+    /**
+     * @param {unknown} module
+     */
+    function (module) {
+      done(null, module)
+    },
+    done
+  )
 
   /**
    *

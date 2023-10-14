@@ -3,6 +3,7 @@
 
 /**
  * @typedef {import('hast').ElementContent} ElementContent
+ * @typedef {import('react').ReactNode} ReactNode
  * @typedef {import('./sort.js').Item} Item
  */
 
@@ -59,7 +60,9 @@ export function NavItem(props) {
   const defaultTitle = apStyleTitleCase(
     name.replace(/\/$/, '').split('/').pop()
   )
+  /** @type {ReactNode} */
   let description
+  /** @type {string | undefined} */
   let published
 
   if (includeDescription) {

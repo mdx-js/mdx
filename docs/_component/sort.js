@@ -35,20 +35,24 @@ export function sortItems(items, sortString = 'navSortSelf,meta.title') {
 
     while (++index < fields.length) {
       const [field, order] = fields[index]
+      /** @type {unknown} */
       let a = dlv(left.data, field)
+      /** @type {unknown} */
       let b = dlv(right.data, field)
 
       if (a && typeof a === 'object' && 'valueOf' in a) a = a.valueOf()
       if (b && typeof b === 'object' && 'valueOf' in b) b = b.valueOf()
 
       const score =
-        typeof a === 'number' || typeof b === 'number'
-          ? a === null || a === undefined
-            ? 1
-            : b === null || b === undefined
-            ? -1
-            : a - b
-          : collator(a, b)
+        typeof a === 'string' && typeof b === 'string'
+          ? collator(a, b)
+          : typeof a === 'number' && typeof b === 'number'
+          ? a - b
+          : a === null || a === undefined
+          ? 1
+          : b === null || b === undefined
+          ? -1
+          : 0
       const result = order === 'asc' ? score : -score
       if (result) return result
     }

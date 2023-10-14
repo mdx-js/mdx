@@ -536,11 +536,13 @@ function Playground() {
  * @returns {JSX.Element}
  */
 function ErrorFallback(props) {
-  console.log('fb:', arguments)
+  /** @type {Error} */
+  // type-coverage:ignore-next-line
+  const error = props.error
   return (
     <div role="alert">
       <p>Something went wrong:</p>
-      <DisplayError error={props.error} />
+      <DisplayError error={error} />
       <button type="button" onClick={props.resetErrorBoundary}>
         Try again
       </button>

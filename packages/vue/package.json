@@ -48,12 +48,6 @@
     "test-api": "node --conditions development test/index.js",
     "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
-  },
   "xo": {
     "prettier": true,
     "rules": {
@@ -61,6 +55,5 @@
       "unicorn/prefer-node-protocol": "off",
       "unicorn/prefer-string-replace-all": "off"
     }
-  },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  }
 }
