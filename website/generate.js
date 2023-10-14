@@ -2,6 +2,24 @@
 /**
  * @typedef {import('hast').Properties} Properties
  * @typedef {import('hast').Root} Root
+ * @typedef {import('mdx/types.js').MDXContent} MDXContent
+ * @typedef {Exclude<import('vfile').Data['meta'], undefined>} Meta
+ * @typedef {Exclude<import('vfile').Data['matter'], undefined>} Matter
+ * @typedef {import('../docs/_component/sort.js').Item} Item
+ */
+
+/**
+ * @typedef Author
+ * @property {string | undefined} [github]
+ * @property {string} name
+ * @property {string | undefined} [twitter]
+ * @property {string | undefined} [url]
+ *
+ * @typedef Info
+ * @property {Array<Author> | Author | undefined} [author]
+ * @property {string | undefined} [authorTwitter]
+ * @property {Date | undefined} [published]
+ * @property {Date | undefined} [modified]
  */
 
 import assert from 'assert'
@@ -30,7 +48,6 @@ import {Layout} from '../docs/_component/layout.jsx'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
-/** @type {{format(items: Array<string>): string}} */
 const listFormat = new Intl.ListFormat('en')
 
 main().catch((error) => {
@@ -56,7 +73,9 @@ async function main() {
         config.ghBlob
       )
 
-      const {default: Content, info, ...data} = await import(url.href)
+      /** @type {{default: MDXContent, info?: Info, matter: Matter, meta: Meta, navSortSelf?: number | undefined, navExclude?: boolean | undefined}} */
+      const mod = await import(url.href)
+      const {default: Content, info, ...data} = mod
       // Handle `author` differently.
       const {author, ...restInfo} = info || {}
       const authors = Array.isArray(author) ? author : author ? [author] : []
@@ -71,16 +90,22 @@ async function main() {
           ? [...authorNames.slice(0, 2), 'others']
           : authorNames
 
-      if (abbreviatedAuthors.length > 0) {
-        restInfo.author = listFormat.format(abbreviatedAuthors)
+      data.meta = {
+        ...restInfo,
+        // @ts-expect-error: to do: type authors.
+        authors,
+        author:
+          abbreviatedAuthors.length > 0
+            ? listFormat.format(abbreviatedAuthors)
+            : undefined,
+        ...data.meta
       }
 
-      data.meta = {authors, ...restInfo, ...data.meta}
-
       // Sanitize the hast description:
-      if (data.meta.descriptionHast) {
+      if (data.meta && data.meta.descriptionHast) {
         data.meta.descriptionHast = unified()
           .use(rehypeSanitize, schema)
+          // @ts-expect-error: element is fine.
           .runSync(data.meta.descriptionHast)
       }
 
@@ -89,7 +114,8 @@ async function main() {
     {concurrency: 6}
   )
 
-  const navTree = {name: '/', data: undefined, children: []}
+  /** @type {Item} */
+  const navTree = {name: '/', data: {}, children: []}
   let index = -1
 
   while (++index < allInfo.length) {
@@ -105,7 +131,7 @@ async function main() {
       let contextItem = context.children.find((d) => d.name === name)
 
       if (!contextItem) {
-        contextItem = {name, data: undefined, children: []}
+        contextItem = {name, data: {}, children: []}
         context.children.push(contextItem)
       }
 
@@ -132,6 +158,7 @@ async function main() {
 
   index = -1
 
+  // To do: remove swallowing?
   const {error} = console
 
   // Swallow some errors that react warns about for client components,

@@ -1,3 +1,18 @@
+/**
+ * @typedef {import('vfile').Data['meta']} DataMeta
+ * @typedef {import('./sort.js').Item} Item
+ * @typedef {import('../../website/generate.js').Author} Author
+ */
+
+/**
+ * @typedef Props
+ * @property {string} name
+ * @property {URL} ghUrl
+ * @property {DataMeta | undefined} [meta]
+ * @property {Item} navTree
+ * @property {JSX.Element} children
+ */
+
 import React from 'react'
 import {NavSite, NavSiteSkip} from './nav-site.jsx'
 import {FootSite} from './foot-site.jsx'
@@ -5,16 +20,27 @@ import {sortItems} from './sort.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
+/**
+ *
+ * @param {Props} props
+ * @returns {JSX.Element}
+ */
 export function Layout(props) {
   const {name, navTree, ghUrl} = props
   const [self, parent] = findSelfAndParent(navTree) || []
+  const navSortItems = parent ? parent.data.navSortItems : undefined
   const siblings = parent
-    ? sortItems(parent.children, parent.data.navSortItems)
+    ? sortItems(
+        parent.children,
+        typeof navSortItems === 'string' ? navSortItems : undefined
+      )
     : []
   const meta = (self ? self.data.meta : props.meta) || {}
-  const index = siblings.indexOf(self)
+  const index = self ? siblings.indexOf(self) : -1
   const previous = index === -1 ? undefined : siblings[index - 1]
   const next = index === -1 ? undefined : siblings[index + 1]
+  /** @type {Array<Author>} */
+  // @ts-expect-error: to do: augment types.
   const metaAuthors = meta.authors || []
   const metaTime = (
     self
@@ -31,24 +57,6 @@ export function Layout(props) {
     timeLabel = metaTime[0] + '-' + metaTime[1] + ' minutes'
   } else if (metaTime[0]) {
     timeLabel = metaTime[0] + ' minute' + (metaTime[0] > 1 ? 's' : '')
-  }
-
-  function accumulateReadingTime(d) {
-    const time = (d.data.meta || {}).readingTime
-    const total = time ? (Array.isArray(time) ? time : [time, time]) : []
-
-    let index = -1
-    while (++index < d.children.length) {
-      const childTime = accumulateReadingTime(d.children[index])
-      if (childTime[0]) total[0] = (total[0] || 0) + childTime[0]
-      if (childTime[1]) total[1] = (total[1] || 0) + childTime[1]
-    }
-
-    return total
-  }
-
-  function entryToTitle(d) {
-    return (d.data.matter || {}).title || (d.data.meta || {}).title
   }
 
   const up =
@@ -90,23 +98,25 @@ export function Layout(props) {
     </div>
   )
 
-  const published = meta.published ? (
-    <>
-      Published on{' '}
-      <time dateTime={meta.published.toISOString()}>
-        {dateTimeFormat.format(meta.published)}
-      </time>
-    </>
-  ) : undefined
+  const published =
+    meta.published && typeof meta.published === 'object' ? (
+      <>
+        Published on{' '}
+        <time dateTime={meta.published.toISOString()}>
+          {dateTimeFormat.format(meta.published)}
+        </time>
+      </>
+    ) : undefined
 
-  const modified = meta.modified ? (
-    <>
-      Modified on{' '}
-      <time dateTime={meta.published.toISOString()}>
-        {dateTimeFormat.format(meta.modified)}
-      </time>
-    </>
-  ) : undefined
+  const modified =
+    meta.modified && typeof meta.modified === 'object' ? (
+      <>
+        Modified on{' '}
+        <time dateTime={meta.modified.toISOString()}>
+          {dateTimeFormat.format(meta.modified)}
+        </time>
+      </>
+    ) : undefined
 
   const date =
     published || modified ? (
@@ -196,6 +206,11 @@ export function Layout(props) {
     </div>
   )
 
+  /**
+   * @param {Item} item
+   * @param {Item | undefined} [parent]
+   * @returns {[self: Item, parent: Item | undefined] | undefined}
+   */
   function findSelfAndParent(item, parent) {
     if (item.name === name) return [item, parent]
 
@@ -207,4 +222,31 @@ export function Layout(props) {
       if (result) return result
     }
   }
+}
+
+/**
+ * @param {Item} d
+ * @returns {string | undefined}
+ */
+function entryToTitle(d) {
+  return d.data.matter?.title || d.data.meta?.title || undefined
+}
+
+/**
+ * @param {Item} d
+ * @returns {[number, number] | [number] | []}
+ */
+function accumulateReadingTime(d) {
+  const time = (d.data.meta || {}).readingTime
+  /** @type {[number, number] | [number] | []} */
+  const total = time ? (Array.isArray(time) ? time : [time, time]) : []
+
+  let index = -1
+  while (++index < d.children.length) {
+    const childTime = accumulateReadingTime(d.children[index])
+    if (childTime[0]) total[0] = (total[0] || 0) + childTime[0]
+    if (childTime[1]) total[1] = (total[1] || 0) + childTime[1]
+  }
+
+  return total
 }

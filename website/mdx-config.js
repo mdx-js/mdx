@@ -1,7 +1,16 @@
 /**
  * @typedef {import('@wooorm/starry-night').Grammar} Grammar
+ * @typedef {import('estree').Program} Program
  * @typedef {import('hast').ElementContent} ElementContent
  * @typedef {import('hast').Root} Root
+ * @typedef {import('vfile').VFile} VFile
+ * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
+ */
+
+/**
+ * @typedef MetaOptions
+ * @property {Array<string> | null | undefined} [include]
+ * @property {Array<string> | null | undefined} [exclude]
  */
 
 import path from 'path'
@@ -42,6 +51,7 @@ const reactUrl = pathToFileURL(
   path.resolve(process.cwd(), 'node_modules', 'react')
 )
 
+/** @type {CompileOptions} */
 const options = {
   remarkPlugins: [
     remarkGfm,
@@ -50,6 +60,7 @@ const options = {
     remarkFrontmatter,
     remarkStripBadges,
     remarkSqueezeParagraphs,
+    // @ts-expect-error: to do: fix types.
     [remarkMdxFrontmatter, {name: 'matter'}],
     [
       remarkToc,
@@ -117,11 +128,19 @@ function link() {
   )
 }
 
+/**
+ * @returns
+ *   Transform.
+ */
 function unifiedInferRemoteMeta() {
+  /**
+   * @param {Root} _
+   * @param {VFile} file
+   * @returns {undefined}
+   *   Nothing.
+   */
   return (_, file) => {
-    const meta = /** @type {Record<string, unknown>} */ (
-      file.data.meta || (file.data.meta = {})
-    )
+    const meta = file.data.meta || (file.data.meta = {})
 
     const fileUrl = pathToFileURL(file.path)
     const parts = fileUrl.href.slice(config.git.href.length - 1).split('/')
@@ -149,8 +168,25 @@ function unifiedInferRemoteMeta() {
   }
 }
 
-function recmaInjectMeta(options = {}) {
-  const {include, exclude} = options
+/**
+ * @returns
+ *   Transform.
+ */
+
+/**
+ * @param {MetaOptions | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
+ */
+function recmaInjectMeta(options) {
+  const {include, exclude} = options || {}
+  /**
+   * @param {Program} tree
+   * @param {VFile} file
+   * @returns {undefined}
+   *   Nothing.
+   */
   return (tree, file) => {
     // Find everything that’s defined in the top-level scope.
     const topScope = analyze(tree).scope.declarations
@@ -196,6 +232,7 @@ function recmaInjectMeta(options = {}) {
 function rehypePrettyCodeBlocks() {
   const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
+  /** @type {Record<string, string>} */
   const languageNames = {
     diff: 'Diff',
     html: 'HTML',
@@ -209,10 +246,13 @@ function rehypePrettyCodeBlocks() {
     tsx: 'TypeScript'
   }
 
-  /** @param {import('hast').Root} tree */
+  /**
+   * @param {Root} tree
+   * @returns {undefined}
+   */
   return (tree) => {
     visit(tree, 'element', (node, index, parent) => {
-      if (node.tagName !== 'pre') {
+      if (node.tagName !== 'pre' || !parent || index === undefined) {
         return
       }
 
@@ -229,12 +269,15 @@ function rehypePrettyCodeBlocks() {
 
       /** @type {Record<string, string>} */
       const metaProps = {}
+      /** @type {string | undefined} */
+      // @ts-expect-error: added by `mdast-util-to-hast` on `code` elements.
+      const meta = code.data?.meta
 
-      if (code.data && code.data.meta) {
+      if (meta) {
         let match
         re.lastIndex = 0 // Reset regex.
 
-        while ((match = re.exec(code.data.meta))) {
+        while ((match = re.exec(meta))) {
           metaProps[match[1]] = match[2] || match[3] || match[4] || ''
         }
       }
@@ -244,12 +287,20 @@ function rehypePrettyCodeBlocks() {
       }
 
       const textContent = toText(node)
+      /** @type {Array<ElementContent>} */
       const children = [node]
-      const className = (code.properties && code.properties.className) || []
-      const lang = className.find((value) => value.slice(0, 9) === 'language-')
+      const className = Array.isArray(code.properties.className)
+        ? code.properties.className
+        : []
+      const lang = className.find(
+        (value) => String(value).slice(0, 9) === 'language-'
+      )
+      /** @type {Array<ElementContent>} */
       const footer = []
+      /** @type {Array<ElementContent>} */
       const header = []
-      const language = metaProps.language || (lang ? lang.slice(9) : undefined)
+      const language =
+        metaProps.language || (lang ? String(lang).slice(9) : undefined)
 
       // Not giant.
       if (textContent.length < 8192 && metaProps.copy !== 'no') {
@@ -284,11 +335,11 @@ function rehypePrettyCodeBlocks() {
         )
       }
 
-      if (header) {
+      if (header && header.length > 0) {
         children.unshift(h('.frame-tab-bar.frame-tab-bar-scroll', header))
       }
 
-      if (footer) {
+      if (footer && footer.length > 0) {
         children.push(...footer)
       }
 
@@ -332,7 +383,7 @@ function rehypeStarryNight(options) {
     const starryNight = await starryNightPromise
 
     visit(tree, 'element', function (node, index, parent) {
-      if (!parent || index === null || node.tagName !== 'pre') {
+      if (!parent || typeof index !== 'number' || node.tagName !== 'pre') {
         return
       }
 

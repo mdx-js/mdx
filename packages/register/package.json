@@ -35,7 +35,8 @@
     "index.cjs"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0"
+    "@mdx-js/mdx": "^2.0.0",
+    "@types/deasync": "^0.1.0"
   },
   "optionalDependencies": {
     "deasync": "^0.1.0"
@@ -47,9 +48,6 @@
     "react-dom": "^18.0.0"
   },
   "scripts": {
-    "#prepack": "npm run build",
-    "#1": "to do when TS supports CJS: `build: rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" \"*.d.ts\" && tsc && type-coverage`",
-    "#2": "to do: re-enable when `deasync` is built on Node 17",
     "test-api": "node -r ./index.cjs test/index.cjs",
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
     "test": "npm run test-coverage"

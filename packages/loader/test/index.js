@@ -1,7 +1,6 @@
 /**
  * @typedef {import('mdx/types.js').MDXContent} MDXContent
  * @typedef {import('preact').FunctionComponent<unknown>} PreactComponent
- * @typedef {import('vue').Component} VueComponent
  */
 
 import assert from 'node:assert/strict'
@@ -14,8 +13,6 @@ import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 import {h} from 'preact'
 import {render} from 'preact-render-to-string'
-import * as vue from 'vue'
-import serverRenderer from '@vue/server-renderer'
 
 test('@mdx-js/loader', async () => {
   // Setup.
@@ -139,6 +136,7 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
   )
 
   assert.equal(
+    // To do: fix?
     // @ts-expect-error: preact + react conflict.
     render(h(modPreact.default.default, {})),
     '<h1>Hello, World!</h1>',
@@ -159,61 +157,6 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
   )
 
   await fs.unlink(new URL('preact.cjs', base))
-
-  // Vue.
-  const vueBuild = await promisify(webpack)({
-    // @ts-expect-error To do: webpack types miss support for `context`.
-    context: fileURLToPath(base),
-    entry: './webpack.mdx',
-    mode: 'none',
-    externals: ['vue'],
-    module: {
-      rules: [
-        {
-          test: /\.mdx$/,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {configFile: false, plugins: ['@vue/babel-plugin-jsx']}
-            },
-            {
-              loader: fileURLToPath(new URL('../index.cjs', import.meta.url)),
-              options: {jsx: true}
-            }
-          ]
-        }
-      ]
-    },
-    output: {
-      path: fileURLToPath(base),
-      filename: 'vue.cjs',
-      libraryTarget: 'commonjs'
-    }
-  })
-
-  assert.ok(!vueBuild?.hasErrors())
-
-  // One for ESM loading CJS, one for webpack.
-  const modVue = /** @type {{default: {default: VueComponent}}} */ (
-    // @ts-ignore file is dynamically generated
-    await import('./vue.cjs')
-  )
-
-  const vueResult = await serverRenderer.renderToString(
-    vue.createSSRApp({
-      components: {Content: modVue.default.default},
-      template: '<Content />'
-    })
-  )
-
-  assert.equal(
-    // Remove SSR comments used to hydrate (I guess).
-    vueResult.replace(/<!--[[\]]-->/g, ''),
-    '<h1>Hello, World!</h1>',
-    'should compile (vue)'
-  )
-
-  await fs.unlink(new URL('vue.cjs', base))
 
   // Clean.
   await fs.unlink(new URL('webpack.mdx', base))

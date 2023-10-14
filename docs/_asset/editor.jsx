@@ -5,6 +5,15 @@
  * @typedef {import('mdx/types.js').MDXModule} MDXModule
  * @typedef {import('react-error-boundary').FallbackProps} FallbackProps
  * @typedef {import('unified').PluggableList} PluggableList
+ * @typedef {import('estree').Program} Program
+ * @typedef {import('estree').Node} EstreeNode
+ * @typedef {import('hast').Root} HastRoot
+ * @typedef {import('hast').Nodes} HastNodes
+ * @typedef {import('mdast').Root} MdastRoot
+ * @typedef {import('mdast').Nodes} MdastNodes
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttribute} MdxJsxAttribute
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
  * @typedef {import('unist').Node} UnistNode
  */
 
@@ -155,9 +164,9 @@ function Playground() {
           value
         })
 
-        if (show === 'esast') recmaPlugins.push([capture, {name: 'esast'}])
-        if (show === 'hast') rehypePlugins.push([capture, {name: 'hast'}])
-        if (show === 'mdast') remarkPlugins.push([capture, {name: 'mdast'}])
+        if (show === 'esast') recmaPlugins.push([captureEsast])
+        if (show === 'hast') rehypePlugins.push([captureHast])
+        if (show === 'mdast') remarkPlugins.push([captureMdast])
         /** @type {UnistNode | undefined} */
         let tree
 
@@ -213,24 +222,35 @@ function Playground() {
           </pre>
         )
 
-        /**
-         * @param {{name: string}} options
-         */
-        function capture(options) {
+        function captureMdast() {
           /**
-           * @param {UnistNode} node
+           * @param {MdastRoot} tree
            */
-          return function (node) {
-            const clone = structuredClone(node)
+          return function (tree) {
+            const clone = structuredClone(tree)
+            if (!positions) cleanUnistTree(clone)
+            tree = clone
+          }
+        }
 
-            if (!positions) {
-              if (options.name === 'esast') {
-                cleanEstree(clone)
-              } else {
-                cleanUnistTree(clone)
-              }
-            }
+        function captureHast() {
+          /**
+           * @param {HastRoot} tree
+           */
+          return function (tree) {
+            const clone = structuredClone(tree)
+            if (!positions) cleanUnistTree(clone)
+            tree = clone
+          }
+        }
 
+        function captureEsast() {
+          /**
+           * @param {Program} tree
+           */
+          return function (tree) {
+            const clone = structuredClone(tree)
+            if (!positions) visitEstree(clone, removeFromEstree)
             tree = clone
           }
         }
@@ -542,57 +562,49 @@ function DisplayError(props) {
 }
 
 /**
- * @param {UnistNode} node
+ * @param {HastRoot | MdastRoot} node
  */
 function cleanUnistTree(node) {
   removePosition(node, {force: true})
-
-  visit(node, function (node) {
-    if (
-      node.type === 'mdxJsxAttribute' &&
-      'value' in node &&
-      node.value &&
-      typeof node.value === 'object'
-    ) {
-      // @ts-expect-error: unist.
-      cleanUnistTree(node.value)
-    }
-
-    if (
-      'attributes' in node &&
-      node.attributes &&
-      Array.isArray(node.attributes)
-    ) {
-      for (const attr of node.attributes) {
-        cleanUnistTree(attr)
-      }
-    }
-
-    if (node.data && node.data.estree) {
-      // @ts-expect-error: estree.
-      visitEstree(node.data.estree, removeFromEstree)
-    }
-  })
+  visit(node, cleanUnistNode)
 }
 
 /**
- * @param {UnistNode} node
+ * @param {HastNodes | MdastNodes | MdxJsxAttribute | MdxJsxExpressionAttribute | MdxJsxAttributeValueExpression} node
  */
-function cleanEstree(node) {
-  // @ts-expect-error: fine.
-  visitEstree(node, removeFromEstree)
+function cleanUnistNode(node) {
+  if (
+    node.type === 'mdxJsxAttribute' &&
+    'value' in node &&
+    node.value &&
+    typeof node.value === 'object'
+  ) {
+    cleanUnistNode(node.value)
+  }
+
+  if (
+    'attributes' in node &&
+    node.attributes &&
+    Array.isArray(node.attributes)
+  ) {
+    for (const attr of node.attributes) {
+      cleanUnistNode(attr)
+    }
+  }
+
+  if (node.data && 'estree' in node.data && node.data.estree) {
+    visitEstree(node.data.estree, removeFromEstree)
+  }
 }
 
 /**
- * @param {UnistNode} node
+ * @param {EstreeNode} node
  */
 function removeFromEstree(node) {
-  // @ts-expect-error: untyped.
   delete node.loc
-  // @ts-expect-error: untyped.
+  // @ts-expect-error: acorn.
   delete node.start
-  // @ts-expect-error: untyped.
+  // @ts-expect-error: acorn.
   delete node.end
-  // @ts-expect-error: untyped.
   delete node.range
 }

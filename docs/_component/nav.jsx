@@ -1,3 +1,25 @@
+// Augment vfile data:
+/// <reference types="rehype-infer-description-meta" />
+
+/**
+ * @typedef {import('hast').ElementContent} ElementContent
+ * @typedef {import('./sort.js').Item} Item
+ */
+
+/**
+ * @typedef ItemProps
+ * @property {boolean | undefined} [includeDescription]
+ * @property {boolean | undefined} [includePublished]
+ * @property {Item} item
+ * @property {string | undefined} [name]
+ *
+ * @typedef GroupProps
+ * @property {string | undefined} [className]
+ * @property {Array<Item>} items
+ * @property {string | undefined} [sort]
+ * @property {string | undefined} [name]
+ */
+
 import React from 'react'
 // @ts-expect-error: untyped.
 import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
@@ -9,6 +31,10 @@ const runtime = {Fragment, jsx, jsxs}
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
+/**
+ * @param {GroupProps} props
+ * @returns {JSX.Element}
+ */
 export function NavGroup(props) {
   const {items, className, sort = 'navSortSelf,meta.title', ...rest} = props
 
@@ -21,6 +47,10 @@ export function NavGroup(props) {
   )
 }
 
+/**
+ * @param {ItemProps} props
+ * @returns {JSX.Element}
+ */
 export function NavItem(props) {
   const {item, name: activeName, includeDescription, includePublished} = props
   const {name, children, data = {}} = item
@@ -34,12 +64,16 @@ export function NavItem(props) {
 
   if (includeDescription) {
     if (meta.descriptionHast) {
+      const children = /** @type {Array<ElementContent>} */ (
+        meta.descriptionHast.children
+      )
+
       description = toJsxRuntime(
         {
           type: 'element',
           tagName: 'div',
           properties: {className: ['nav-description']},
-          children: meta.descriptionHast.children
+          children
         },
         runtime
       )
@@ -56,8 +90,12 @@ export function NavItem(props) {
     }
   }
 
-  if (includePublished && (matter.published || meta.published)) {
-    published = dateTimeFormat.format(matter.published || meta.published)
+  const pub = matter.published || meta.published
+
+  if (includePublished && pub) {
+    published = dateTimeFormat.format(
+      typeof pub === 'string' ? new Date(pub) : pub || undefined
+    )
   }
 
   return (
@@ -72,7 +110,11 @@ export function NavItem(props) {
       {published ? ' — ' + published : null}
       {description || null}
       {!navExcludeGroup && children.length > 0 ? (
-        <NavGroup items={children} sort={navSortItems} name={activeName} />
+        <NavGroup
+          items={children}
+          sort={typeof navSortItems === 'string' ? navSortItems : undefined}
+          name={activeName}
+        />
       ) : null}
     </li>
   )

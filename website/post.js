@@ -82,12 +82,14 @@ async function main() {
           const buf = await fs.readFile(new URL('index.html', url))
           const file = await unified()
             .use(rehypeParse)
-            .use(() => (tree) => {
-              const node = select('.body', tree)
-              assert(node)
-              return {
-                type: 'root',
-                children: node.children
+            .use(() => {
+              /**
+               * @param {import('hast').Root} tree
+               */
+              return (tree) => {
+                const node = select('.body', tree)
+                assert(node)
+                return {type: 'root', children: node.children}
               }
             })
             .use(rehypeSanitize, {
@@ -159,7 +161,8 @@ async function main() {
       try {
         stats = await fs.stat(output)
       } catch (error) {
-        if (error.code !== 'ENOENT') throw error
+        const cause = /** @type {NodeJS.ErrnoException} */ (error)
+        if (cause.code !== 'ENOENT') throw cause
       }
 
       // Don’t regenerate to improve performance.
@@ -167,7 +170,9 @@ async function main() {
 
       const processor = unified().use(rehypeStringify)
       const file = new VFile({path: url})
-      const tree = await processor.run(
+
+      // To do: use hast instead of unified?
+      file.value = processor.stringify(
         u('root', [
           // To do: remove `name`.
           u('doctype', {name: 'html'}),
@@ -321,11 +326,8 @@ async function main() {
               ])
             ])
           ])
-        ]),
-        file
+        ])
       )
-
-      file.value = processor.stringify(tree)
 
       try {
         await fs.unlink(output)

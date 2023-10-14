@@ -19,9 +19,10 @@ test('@mdx-js/register', async () => {
     'export const Message = () => <>World!</>\n\n# Hello, <Message />'
   )
 
-  // OMG, it works!
   const Content = /** @type {MDXContent} */ (
-    require('./register.mdx') // type-coverage:ignore-line
+    /** @type {unknown} */ (
+      require('./register.mdx') // type-coverage:ignore-line
+    )
   )
 
   assert.equal(

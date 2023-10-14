@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/**
+ * @typedef {import('hast').Root} Root
+ */
+
 import {promises as fs} from 'fs'
 import {fileURLToPath} from 'url'
 import pAll from 'p-all'
@@ -55,7 +59,9 @@ async function main() {
         .use(rehypeMinifyUrl, {from: canonical})
         .use(rehypeStringify)
       const file = new VFile({path: new URL('.' + from, config.output)})
-      const tree = await processor.run(buildRedirect(to), file)
+      const tree = /** @type {Root} */ (
+        await processor.run(buildRedirect(to), file)
+      )
       file.value = processor.stringify(tree)
       if (file.dirname) await fs.mkdir(file.dirname, {recursive: true})
       await fs.writeFile(file.path, String(file))

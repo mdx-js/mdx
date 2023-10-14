@@ -1,18 +1,37 @@
+/**
+ * @typedef {import('node:module').Module} Module
+ */
+
+// @ts-expect-error: type imports do work.
+/** @typedef {import('@mdx-js/mdx').EvaluateOptions} EvaluateOptions */
+// @ts-expect-error: type imports do work.
+/** @typedef {import('@mdx-js/mdx/lib/run.js')} RunMod */
+// @ts-expect-error: type imports do work.
+/** @typedef {import('@mdx-js/mdx/lib/util/create-format-aware-processors.js')} CreateProcessorMod */
+// @ts-expect-error: type imports do work.
+/** @typedef {import('@mdx-js/mdx/lib/util/resolve-evaluate-options.js')} ResolveEvaluateMod */
+
 'use strict'
 
 const fs = require('fs')
 const deasync = require('deasync')
 
+/** @type {RunMod} */
 const {runSync} = deasync(load)('@mdx-js/mdx/lib/run.js')
+/** @type {CreateProcessorMod} */
 const {createFormatAwareProcessors} = deasync(load)(
   '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
 )
+/** @type {ResolveEvaluateMod} */
 const {resolveEvaluateOptions} = deasync(load)(
   '@mdx-js/mdx/lib/util/resolve-evaluate-options.js'
 )
 
 module.exports = register
 
+/**
+ * @param {EvaluateOptions} options
+ */
 function register(options) {
   const {compiletime, runtime} = resolveEvaluateOptions(options)
   const {extnames, processSync} = createFormatAwareProcessors(compiletime)
@@ -23,6 +42,11 @@ function register(options) {
     require.extensions[extnames[index]] = mdx
   }
 
+  /**
+   * @param {Module} module
+   * @param {string} path
+   * @returns {undefined}
+   */
   function mdx(module, path) {
     const file = processSync(fs.readFileSync(path))
     const result = runSync(file, runtime)
@@ -31,7 +55,15 @@ function register(options) {
   }
 }
 
+/**
+ *
+ * @param {string} filePath
+ * @param {(error: Error | null, result?: any) => void} callback
+ *   Note: `void` needed, `deasync` types don’t accept `undefined`.
+ * @returns {undefined}
+ */
 function load(filePath, callback) {
+  /** @type {boolean} */
   let called
 
   // Sometimes, the import hangs (see error message for reasons).
@@ -54,6 +86,12 @@ function load(filePath, callback) {
     done(null, module)
   }, done)
 
+  /**
+   *
+   * @param {Error | null} error
+   * @param {unknown} [result]
+   * @returns {undefined}
+   */
   function done(error, result) {
     /* Something is going wrong in Node/V8 if this happens. */
     /* c8 ignore next */

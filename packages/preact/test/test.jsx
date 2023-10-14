@@ -2,7 +2,8 @@
 
 // * @jsx h
 // * @jsxFrag Fragment
-// Note: this is unused by otherwise `xo` or so seems to fail?
+// Note: this is unused but otherwise `xo` or so seems to fail?
+// To do: can this be removed?
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
 import {h} from 'preact'
@@ -21,9 +22,7 @@ test('should support `components` with `MDXProvider`', async () => {
     render(
       <MDXProvider
         components={{
-          // @ts-expect-error: preact + react conflict.
           h1(props) {
-            // @ts-expect-error: Something wrong with Preact + React maybe?
             return <h1 style={{color: 'tomato'}} {...props} />
           }
         }}
@@ -45,7 +44,6 @@ test('should support `wrapper` in `components`', async () => {
     render(
       <MDXProvider
         components={{
-          // @ts-expect-error: preact + react conflict.
           wrapper(/** @type {Record<string, unknown>} */ props) {
             return <div id="layout" {...props} />
           }
@@ -68,23 +66,17 @@ test('should combine components in nested `MDXProvider`s', async () => {
     render(
       <MDXProvider
         components={{
-          // @ts-expect-error: preact + react conflict.
           h1(props) {
-            // @ts-expect-error: Something wrong with Preact + React maybe?
             return <h1 style={{color: 'tomato'}} {...props} />
           },
-          // @ts-expect-error: preact + react conflict.
           h2(props) {
-            // @ts-expect-error: Something wrong with Preact + React maybe?
             return <h2 style={{color: 'rebeccapurple'}} {...props} />
           }
         }}
       >
         <MDXProvider
           components={{
-            // @ts-expect-error: preact + react conflict.
             h2(props) {
-              // @ts-expect-error: Something wrong with Preact + React maybe?
               return <h2 style={{color: 'papayawhip'}} {...props} />
             }
           }}
@@ -107,23 +99,17 @@ test('should support components as a function', async () => {
     render(
       <MDXProvider
         components={{
-          // @ts-expect-error: preact + react conflict.
           h1(props) {
-            // @ts-expect-error: Something wrong with Preact + React maybe?
             return <h1 style={{color: 'tomato'}} {...props} />
           },
-          // @ts-expect-error: preact + react conflict.
           h2(props) {
-            // @ts-expect-error: Something wrong with Preact + React maybe?
             return <h2 style={{color: 'rebeccapurple'}} {...props} />
           }
         }}
       >
         <MDXProvider
-          // @ts-expect-error: preact + react conflict.
           components={() => ({
             h2(props) {
-              // @ts-expect-error: Something wrong with Preact + React maybe?
               return <h2 style={{color: 'papayawhip'}} {...props} />
             }
           })}
@@ -146,9 +132,7 @@ test('should support a `disableParentContext` prop (sandbox)', async () => {
     render(
       <MDXProvider
         components={{
-          // @ts-expect-error: preact + react conflict.
           h1(props) {
-            // @ts-expect-error: Something wrong with Preact + React maybe?
             return <h1 style={{color: 'tomato'}} {...props} />
           }
         }}
@@ -172,19 +156,15 @@ test('should support a `disableParentContext` *and* `components as a function', 
     render(
       <MDXProvider
         components={{
-          // @ts-expect-error: preact + react conflict.
           h1(props) {
-            // @ts-expect-error: Something wrong with Preact + React maybe?
             return <h1 style={{color: 'tomato'}} {...props} />
           }
         }}
       >
         <MDXProvider
           disableParentContext
-          // @ts-expect-error: preact + react conflict.
           components={() => ({
             h2(props) {
-              // @ts-expect-error: Something wrong with Preact + React maybe?
               return <h2 style={{color: 'papayawhip'}} {...props} />
             }
           })}
@@ -213,18 +193,14 @@ test('should support `withComponents`', async () => {
     render(
       <MDXProvider
         components={{
-          // @ts-expect-error: preact + react conflict.
           h1(props) {
-            // @ts-expect-error: Something wrong with Preact + React maybe?
             return <h1 style={{color: 'tomato'}} {...props} />
           }
         }}
       >
         <With
           components={{
-            // @ts-expect-error: preact + react conflict.
             h2(props) {
-              // @ts-expect-error: Something wrong with Preact + React maybe?
               return <h2 style={{color: 'papayawhip'}} {...props} />
             }
           }}

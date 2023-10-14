@@ -1,3 +1,13 @@
+/**
+ * @typedef {import('./sort.js').Item} Item
+ */
+
+/**
+ * @typedef Props
+ * @property {string} name
+ * @property {Item} navTree
+ */
+
 import React from 'react'
 import {config} from '../_config.js'
 import {NavGroup} from './nav.jsx'
@@ -18,6 +28,10 @@ export function NavSiteSkip() {
   )
 }
 
+/**
+ * @param {Props} props
+ * @returns {JSX.Element}
+ */
 export function NavSite(props) {
   const {name, navTree} = props
 

@@ -1,3 +1,17 @@
+/**
+ * @typedef {import('./sort.js').Item} Item
+ */
+
+/**
+ * @typedef EntryProps
+ * @property {Item} item
+ *
+ * @typedef GroupProps
+ * @property {string | undefined} [className]
+ * @property {Array<Item>} items
+ * @property {string | undefined} [sort]
+ */
+
 import React from 'react'
 // @ts-expect-error: untyped.
 import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
@@ -9,6 +23,12 @@ const runtime = {Fragment, jsx, jsxs}
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
+/**
+ * @param {EntryProps} props
+ *   Props.
+ * @returns {JSX.Element}
+ *   Element.
+ */
 export function BlogEntry(props) {
   const {item} = props
   const {name, data = {}} = item
@@ -61,7 +81,7 @@ export function BlogEntry(props) {
           ) : undefined}
           <small>Reading time: {timeLabel}</small>
         </div>
-        {meta.published ? (
+        {meta.published && typeof meta.published === 'object' ? (
           <div style={{marginLeft: 'auto', textAlign: 'right'}}>
             <small>
               Published on{' '}
@@ -76,6 +96,12 @@ export function BlogEntry(props) {
   )
 }
 
+/**
+ * @param {GroupProps} props
+ *   Props.
+ * @returns {JSX.Element}
+ *   Element.
+ */
 export function BlogGroup(props) {
   const {items, className, sort = 'navSortSelf,meta.title', ...rest} = props
   const sorted = sortItems(items, sort)

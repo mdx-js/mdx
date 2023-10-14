@@ -1,5 +1,4 @@
 /**
- * @typedef {import('mdx/types.js').MDXContent} MDXContent
  * @typedef {import('mdx/types.js').MDXModule} MDXModule
  * @typedef {import('vue').Component} AnyComponent
  */
@@ -10,8 +9,12 @@ import * as babel from '@babel/core'
 import {compile} from '@mdx-js/mdx'
 import {run} from '@mdx-js/mdx/lib/run.js'
 import * as vue from 'vue'
-import serverRenderer from '@vue/server-renderer'
 import {useMDXComponents, MDXProvider} from '../index.js'
+
+// Note: a regular import would be nice but that completely messes up the JSX types.
+const name = '@vue/server-renderer'
+/** @type {{default: {renderToString: (node: unknown) => string}}} */
+const {default: serverRenderer} = await import(name)
 
 /**
  * @param {string} value

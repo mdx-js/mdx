@@ -55,11 +55,9 @@
     "react-dom": "^18.0.0"
   },
   "scripts": {
-    "prepack": "npm run build",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
     "test-api": "node --no-warnings --experimental-loader=../../script/jsx-loader.js test/test.jsx",
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run test-coverage"
+    "test": "npm run test-coverage"
   },
   "xo": {
     "overrides": [

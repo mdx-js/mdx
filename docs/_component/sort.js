@@ -1,8 +1,25 @@
+/**
+ * @typedef {import('vfile').Data} Data
+ */
+
+/**
+ * @typedef Item
+ * @property {string} name
+ * @property {Data} data
+ * @property {Array<Item>} children
+ */
+
 import dlv from 'dlv'
 
 const collator = new Intl.Collator('en').compare
 
+/**
+ * @param {Array<Item>} items
+ * @param {string | undefined} [sortString]
+ * @returns {Array<Item>}
+ */
 export function sortItems(items, sortString = 'navSortSelf,meta.title') {
+  /** @type {Array<[string, 'asc' | 'desc']>} */
   const fields = sortString.split(',').map((d) => {
     const [field, order = 'asc'] = d.split(':')
 
