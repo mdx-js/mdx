@@ -32,7 +32,6 @@
   "types": "index.d.ts",
   "files": [
     "lib/",
-    "complex-types.d.ts",
     "index.d.ts",
     "index.js"
   ],
