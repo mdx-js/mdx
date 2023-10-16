@@ -49,7 +49,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "npm run test-coverage",
-    "test-api": "node --conditions development --loader=../../script/jsx-loader.js test/test.jsx",
+    "test-api": "node --conditions development --loader=../../script/jsx-loader.js test/index.jsx",
     "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
   "xo": {
