@@ -169,11 +169,6 @@
     "atLeast": 100,
     "detail": true,
     "ignoreCatch": true,
-    "#": "needed `any`s; to do: can they be typed, liked `hast-util-to-jsx-runtime`?",
-    "ignoreFiles": [
-      "packages/mdx/lib/util/resolve-evaluate-options.d.ts",
-      "packages/mdx/lib/util/resolve-evaluate-options.js"
-    ],
     "strict": true
   },
   "xo": {

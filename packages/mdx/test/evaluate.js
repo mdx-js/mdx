@@ -1,3 +1,8 @@
+/**
+ * @typedef {import('../lib/util/resolve-evaluate-options.js').RuntimeDevelopment} RuntimeDevelopment
+ * @typedef {import('../lib/util/resolve-evaluate-options.js').RuntimeProduction} RuntimeProduction
+ */
+
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
 import {renderToStaticMarkup} from 'react-dom/server'
@@ -7,10 +12,10 @@ import React from 'react'
 import * as provider from '../../react/index.js'
 import {evaluate, evaluateSync, compile} from '../index.js'
 
-/** @type {{Fragment: unknown, jsx: unknown, jsxs: unknown}} */
+/** @type {RuntimeProduction} */
 // @ts-expect-error: types are wrong.
 const runtime = runtime_
-/** @type {{Fragment: unknown, jsxDEV: unknown}} */
+/** @type {RuntimeDevelopment} */
 // @ts-expect-error: types are wrong.
 const devRuntime = devRuntime_
 

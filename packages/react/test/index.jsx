@@ -1,18 +1,18 @@
 /**
- * @typedef {import('react').ReactNode} ReactNode
+ * @typedef {import('@mdx-js/mdx/lib/util/resolve-evaluate-options.js').RuntimeProduction} RuntimeProduction
  */
 
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
 import {evaluate} from '@mdx-js/mdx'
 import React from 'react'
-import * as runtimeRaw from 'react/jsx-runtime'
+import * as runtime_ from 'react/jsx-runtime'
 import {renderToString} from 'react-dom/server'
 import {MDXProvider, useMDXComponents, withMDXComponents} from '../index.js'
 
-/** @type {{Fragment: unknown, jsx: unknown, jsxs: unknown}} */
-// @ts-expect-error: React types are wrong.
-const runtime = runtimeRaw
+const runtime = /** @type {RuntimeProduction} */ (
+  /** @type {unknown} */ (runtime_)
+)
 
 test('should support `components` with `MDXProvider`', async () => {
   const {default: Content} = await evaluate('# hi', {

@@ -1,11 +1,17 @@
 /* @jsxRuntime automatic @jsxImportSource preact */
 
+/**
+ * @typedef {import('@mdx-js/mdx/lib/util/resolve-evaluate-options.js').RuntimeProduction} RuntimeProduction
+ */
+
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
-import * as runtime from 'preact/jsx-runtime'
+import * as runtime_ from 'preact/jsx-runtime'
 import {render} from 'preact-render-to-string'
 import {evaluate} from '@mdx-js/mdx'
 import {MDXProvider, useMDXComponents, withMDXComponents} from '../index.js'
+
+const runtime = /** @type {RuntimeProduction} */ (runtime_)
 
 test('should support `components` with `MDXProvider`', async () => {
   const {default: Content} = await evaluate('# hi', {
