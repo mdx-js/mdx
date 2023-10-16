@@ -24,7 +24,6 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@emotion/react": "^11.0.0",
     "@node-loader/core": "^2.0.0",
     "@types/babel__core": "^7.0.0",
     "@types/dlv": "^1.0.0",

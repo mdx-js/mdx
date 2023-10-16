@@ -235,26 +235,13 @@ test('compile', async (t) => {
     }
   )
 
-  await t.test('should support `jsxImportSource` for `emotion`', async () => {
-    assert.equal(
-      renderToStaticMarkup(
-        React.createElement(
-          await run(
-            String(compileSync('<>+</>', {jsxImportSource: '@emotion/react'}))
-          )
-        )
-      ),
-      '+'
-    )
-  })
-
   await t.test(
     'should *not* support `jsxClassicImportSource` w/o `pragma`',
     async () => {
       assert.throws(() => {
         compileSync('import React from "react"\n\n.', {
           jsxRuntime: 'classic',
-          pragmaImportSource: '@emotion/react',
+          pragmaImportSource: 'react',
           pragma: ''
         })
       }, /Missing `pragma` in classic runtime with `pragmaImportSource`/)
