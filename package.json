@@ -59,7 +59,7 @@
     "hastscript": "^8.0.0",
     "nanoid": "^4.0.0",
     "p-all": "^5.0.0",
-    "periscopic": "^3.0.0",
+    "periscopic": "^4.0.0",
     "postcss": "^8.0.0",
     "postcss-cli": "^10.0.0",
     "preact": "^10.0.0",

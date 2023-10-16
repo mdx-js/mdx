@@ -55,7 +55,7 @@
     "estree-walker": "^3.0.0",
     "hast-util-to-estree": "^3.0.0",
     "markdown-extensions": "^2.0.0",
-    "periscopic": "^3.0.0",
+    "periscopic": "^4.0.0",
     "remark-mdx": "^2.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.0.0",
