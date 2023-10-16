@@ -4,8 +4,22 @@
   packageRules: [
     {
       matchPackageNames: [
-        // `node-loader@2` depends on Node 16+. Our website is on Vercel/AWS which don’t support Node 16.
-        '@node-loader/core'
+        // `nanoid@5` does not work on Node 16.
+        'nanoid'
+      ],
+      enabled: false
+    },
+    {
+      matchPackageNames: [
+        // `periscopic@4` does not work at all.
+        'periscopic'
+      ],
+      enabled: false
+    },
+    {
+      matchPackageNames: [
+        // `puppeteer-core@21` does not work with `chrome-aws-lambda` types.
+        'puppeteer-core'
       ],
       enabled: false
     }
