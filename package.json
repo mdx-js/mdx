@@ -57,7 +57,7 @@
     "hast-util-to-jsx-runtime": "^2.0.0",
     "hast-util-to-text": "^4.0.0",
     "hastscript": "^8.0.0",
-    "nanoid": "^4.0.0",
+    "nanoid": "^5.0.0",
     "p-all": "^5.0.0",
     "periscopic": "^3.0.0",
     "postcss": "^8.0.0",
