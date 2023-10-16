@@ -170,7 +170,7 @@
     "atLeast": 100,
     "detail": true,
     "ignoreCatch": true,
-    "#": "needed `any`s",
+    "#": "needed `any`s; to do: can they be typed, liked `hast-util-to-jsx-runtime`?",
     "ignoreFiles": [
       "packages/mdx/lib/util/resolve-evaluate-options.d.ts",
       "packages/mdx/lib/util/resolve-evaluate-options.js"
@@ -181,19 +181,6 @@
     "envs": [
       "shared-node-browser"
     ],
-    "prettier": true,
-    "rules": {
-      "n/file-extension-in-import": "off",
-      "react/jsx-no-bind": "off",
-      "react/prop-types": "off",
-      "unicorn/no-await-expression-member": "off",
-      "unicorn/prefer-at": "off",
-      "unicorn/prefer-logical-operator-over-ternary": "off",
-      "unicorn/prefer-node-protocol": "off",
-      "unicorn/prefer-string-replace-all": "off",
-      "unicorn/prefer-top-level-await": "off",
-      "complexity": "off"
-    },
     "overrides": [
       {
         "files": [
@@ -214,6 +201,13 @@
           "react/react-in-jsx-scope": "off"
         }
       }
-    ]
+    ],
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off",
+      "react/jsx-no-bind": "off",
+      "react/prop-types": "off",
+      "complexity": "off"
+    }
   }
 }

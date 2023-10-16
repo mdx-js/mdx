@@ -55,10 +55,7 @@
   "xo": {
     "prettier": true,
     "rules": {
-      "complexity": "off",
-      "n/file-extension-in-import": "off",
-      "unicorn/no-await-expression-member": "off",
-      "unicorn/prefer-node-protocol": "off"
+      "n/file-extension-in-import": "off"
     }
   }
 }

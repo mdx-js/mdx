@@ -23,11 +23,11 @@
  * @property {Date | undefined} [modified]
  */
 
-import assert from 'assert'
-import {promises as fs} from 'fs'
-import path from 'path'
-import process from 'process'
-import {fileURLToPath} from 'url'
+import assert from 'node:assert'
+import {promises as fs} from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
+import {fileURLToPath} from 'node:url'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import pAll from 'p-all'
@@ -55,11 +55,10 @@ process.on('exit', () => {
   console.log('✔ Generate')
 })
 
-const files = (
-  await globby(['**/*.{md,mdx}', '!_component/*'], {
-    cwd: fileURLToPath(config.input)
-  })
-).map((d) => new URL(d, config.input))
+const filePaths = await globby(['**/*.{md,mdx}', '!_component/*'], {
+  cwd: fileURLToPath(config.input)
+})
+const files = filePaths.map((d) => new URL(d, config.input))
 
 const allInfo = await pAll(
   files.map((url) => async () => {

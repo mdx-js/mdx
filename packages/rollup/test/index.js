@@ -1,11 +1,12 @@
 /**
+ * @typedef {import('mdx/types.js').MDXModule} MDXModule
  * @typedef {import('mdx/types.js').MDXContent} MDXContent
  */
 
 import assert from 'node:assert/strict'
-import {promises as fs} from 'fs'
+import {promises as fs} from 'node:fs'
 import {test} from 'node:test'
-import {fileURLToPath} from 'url'
+import {fileURLToPath} from 'node:url'
 import {rollup} from 'rollup'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
@@ -27,10 +28,10 @@ test('@mdx-js/rollup', async () => {
 
   await fs.writeFile(new URL('rollup.js', import.meta.url), output[0].code)
 
-  const Content = /** @type {MDXContent} */ (
-    /* @ts-expect-error file is dynamically generated */
-    (await import('./rollup.js')).default // type-coverage:ignore-line
-  )
+  /** @type {MDXModule} */
+  // @ts-expect-error: dynamically generated file.
+  const mod = await import('./rollup.js')
+  const Content = mod.default
 
   assert.equal(
     output[0].map ? output[0].map.mappings : undefined,

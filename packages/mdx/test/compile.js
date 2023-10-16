@@ -6,9 +6,9 @@
  */
 
 import assert from 'node:assert/strict'
-import {Buffer} from 'buffer'
-import {promises as fs} from 'fs'
-import path from 'path'
+import {Buffer} from 'node:buffer'
+import {promises as fs} from 'node:fs'
+import path from 'node:path'
 import {test} from 'node:test'
 import {nanoid} from 'nanoid'
 import {h} from 'preact'
@@ -1770,10 +1770,9 @@ test('MDX (ESM)', async (t) => {
   })
 
   await t.test('should support exporting w/ ESM', async () => {
-    assert.equal(
-      (await runWhole(compileSync('export const number = Math.PI'))).number,
-      Math.PI
-    )
+    const mod = await runWhole(compileSync('export const number = Math.PI'))
+
+    assert.equal(mod.number, Math.PI)
   })
 
   await t.test(
@@ -1784,98 +1783,75 @@ test('MDX (ESM)', async (t) => {
   )
 
   await t.test('should support exporting an object pattern', async () => {
-    assert.equal(
-      (
-        await runWhole(
-          compileSync(
-            'import {object} from "./data.js"\nexport var {a} = object'
-          )
-        )
-      ).a,
-      1
+    const mod = await runWhole(
+      compileSync('import {object} from "./data.js"\nexport var {a} = object')
     )
+
+    assert.equal(mod.a, 1)
   })
 
   await t.test(
     'should support exporting a rest element in an object pattern',
     async () => {
-      assert.deepEqual(
-        (
-          await runWhole(
-            compileSync(
-              'import {object} from "./data.js"\nexport var {a, ...rest} = object'
-            )
-          )
-        ).rest,
-        {b: 2}
+      const mod = await runWhole(
+        compileSync(
+          'import {object} from "./data.js"\nexport var {a, ...rest} = object'
+        )
       )
+
+      assert.deepEqual(mod.rest, {b: 2})
     }
   )
 
   await t.test(
     'should support exporting an assignment pattern in an object pattern',
     async () => {
-      assert.equal(
-        (
-          await runWhole(
-            compileSync(
-              'import {object} from "./data.js"\nexport var {c = 3} = object'
-            )
-          )
-        ).c,
-        3
+      const mod = await runWhole(
+        compileSync(
+          'import {object} from "./data.js"\nexport var {c = 3} = object'
+        )
       )
+
+      assert.equal(mod.c, 3)
     }
   )
 
   await t.test('should support exporting an array pattern', async () => {
-    assert.equal(
-      (
-        await runWhole(
-          compileSync('import {array} from "./data.js"\nexport var [a] = array')
-        )
-      ).a,
-      1
+    const mod = await runWhole(
+      compileSync('import {array} from "./data.js"\nexport var [a] = array')
     )
+
+    assert.equal(mod.a, 1)
   })
 
   await t.test('should support `export as` w/ ESM', async () => {
-    assert.equal(
-      (
-        await runWhole(
-          compileSync('export const number = Math.PI\nexport {number as pi}')
-        )
-      ).pi,
-      Math.PI
+    const mod = await runWhole(
+      compileSync('export const number = Math.PI\nexport {number as pi}')
     )
+
+    assert.equal(mod.pi, Math.PI)
   })
 
   await t.test('should support default export to define a layout', async () => {
+    const Content = await run(
+      compileSync(
+        'export default function Layout(props) { return <div {...props} /> }\n\na'
+      )
+    )
+
     assert.equal(
-      renderToStaticMarkup(
-        React.createElement(
-          await run(
-            compileSync(
-              'export default function Layout(props) { return <div {...props} /> }\n\na'
-            )
-          )
-        )
-      ),
+      renderToStaticMarkup(React.createElement(Content)),
       '<div><p>a</p></div>'
     )
   })
 
   await t.test('should support default export from a source', async () => {
+    const Content = await run(
+      compileSync('export {Layout as default} from "./components.js"\n\na')
+    )
+
     assert.equal(
-      renderToStaticMarkup(
-        React.createElement(
-          await run(
-            compileSync(
-              'export {Layout as default} from "./components.js"\n\na'
-            )
-          )
-        )
-      ),
+      renderToStaticMarkup(React.createElement(Content)),
       '<div style="color:red"><p>a</p></div>'
     )
   })
@@ -1999,10 +1975,10 @@ test('source maps', async () => {
 
   await fs.writeFile(path.join(base, 'sourcemap.js'), String(file))
 
-  const Content = /** @type {MDXContent} */ (
-    /* @ts-ignore file is dynamically generated */
-    (await import('./context/sourcemap.js')).default // type-coverage:ignore-line
-  )
+  /** @type {MDXModule} */
+  // @ts-expect-error: dynamically generated file.
+  const mod = await import('./context/sourcemap.js')
+  const Content = mod.default
 
   assert.throws(
     () => {
@@ -2030,7 +2006,8 @@ test('source maps', async () => {
  * @return {Promise<MDXContent>}
  */
 async function run(input) {
-  return (await runWhole(input)).default
+  const mod = await runWhole(input)
+  return mod.default
 }
 
 /**

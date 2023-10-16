@@ -13,9 +13,9 @@
  * @property {number | undefined} [navSortSelf]
  */
 
-import assert from 'assert'
-import {promises as fs} from 'fs'
-import {fileURLToPath} from 'url'
+import assert from 'node:assert'
+import {promises as fs} from 'node:fs'
+import {fileURLToPath} from 'node:url'
 import pAll from 'p-all'
 import {globby} from 'globby'
 import {u} from 'unist-builder'
@@ -46,9 +46,10 @@ const css = await fs.readFile(
   'utf8'
 )
 
-const files = (
-  await globby('**/index.json', {cwd: fileURLToPath(config.output)})
-).map((d) => {
+const filePaths = await globby('**/index.json', {
+  cwd: fileURLToPath(config.output)
+})
+const files = filePaths.map((d) => {
   return new URL(d, config.output)
 })
 

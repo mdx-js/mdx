@@ -3,7 +3,7 @@
  */
 
 import assert from 'node:assert/strict'
-import {promises as fs} from 'fs'
+import {promises as fs} from 'node:fs'
 import {test} from 'node:test'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
@@ -18,7 +18,8 @@ test('@mdx-js/node-loader', async () => {
   let Content
 
   try {
-    Content = (await import('./esm-loader.mdx')).default // type-coverage:ignore-line
+    const mod = await import('./esm-loader.mdx')
+    Content = mod.default
   } catch (error) {
     const exception = /** @type {NodeJS.ErrnoException} */ (error)
     if (exception.code === 'ERR_UNKNOWN_FILE_EXTENSION') {

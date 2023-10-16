@@ -78,10 +78,8 @@
       "complexity": "off",
       "max-depth": "off",
       "n/file-extension-in-import": "off",
-      "unicorn/no-await-expression-member": "off",
       "unicorn/prefer-at": "off",
-      "unicorn/prefer-code-point": "off",
-      "unicorn/prefer-node-protocol": "off"
+      "unicorn/prefer-code-point": "off"
     }
   }
 }

@@ -52,8 +52,7 @@
   "xo": {
     "prettier": true,
     "rules": {
-      "n/file-extension-in-import": "off",
-      "unicorn/prefer-node-protocol": "off"
+      "n/file-extension-in-import": "off"
     }
   }
 }

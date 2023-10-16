@@ -49,11 +49,6 @@
     "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
   "xo": {
-    "prettier": true,
-    "rules": {
-      "n/file-extension-in-import": "off",
-      "unicorn/prefer-node-protocol": "off",
-      "unicorn/prefer-string-replace-all": "off"
-    }
+    "prettier": true
   }
 }

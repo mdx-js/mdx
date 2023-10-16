@@ -1,12 +1,7 @@
 /* @jsxRuntime automatic @jsxImportSource preact */
 
-// * @jsx h
-// * @jsxFrag Fragment
-// Note: this is unused but otherwise `xo` or so seems to fail?
-// To do: can this be removed?
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
-import {h} from 'preact'
 import * as runtime from 'preact/jsx-runtime'
 import {render} from 'preact-render-to-string'
 import {evaluate} from '@mdx-js/mdx'

@@ -5,8 +5,8 @@
 'use strict'
 
 const assert = require('node:assert/strict')
-const path = require('path')
-const fs = require('fs').promises
+const path = require('node:path')
+const fs = require('node:fs').promises
 const {test} = require('node:test')
 const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')

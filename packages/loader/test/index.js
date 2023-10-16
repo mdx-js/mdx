@@ -4,10 +4,10 @@
  */
 
 import assert from 'node:assert/strict'
-import {promises as fs} from 'fs'
+import {promises as fs} from 'node:fs'
 import {test} from 'node:test'
-import {promisify} from 'util'
-import {fileURLToPath} from 'url'
+import {promisify} from 'node:util'
+import {fileURLToPath} from 'node:url'
 import webpack from 'webpack'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'

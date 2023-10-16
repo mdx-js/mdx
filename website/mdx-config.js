@@ -13,9 +13,9 @@
  * @property {Array<string> | null | undefined} [exclude]
  */
 
-import path from 'path'
-import process from 'process'
-import {pathToFileURL} from 'url'
+import path from 'node:path'
+import process from 'node:process'
+import {pathToFileURL} from 'node:url'
 import {common, createStarryNight} from '@wooorm/starry-night'
 import sourceMdx from '@wooorm/starry-night/source.mdx'
 import sourceTsx from '@wooorm/starry-night/source.tsx'
@@ -153,7 +153,7 @@ function unifiedInferRemoteMeta() {
         .replace(/\/index\/$/, '/')
     } else {
       // Symlinks, which we have to hack around.
-      if (parts[1] !== 'packages' || parts[parts.length - 1] !== 'readme.md') {
+      if (parts[1] !== 'packages' || parts.at(-1) !== 'readme.md') {
         throw new Error(
           'Expected symlinked file to match `/packages/*/readme.md`'
         )
@@ -434,7 +434,8 @@ function rehypeStarryNight(options) {
             tagName: 'code',
             properties: {
               className: [
-                'language-' + scope.replace(/^source\./, '').replace(/\./g, '-')
+                'language-' +
+                  scope.replace(/^source\./, '').replaceAll('.', '-')
               ]
             },
             children

@@ -55,16 +55,18 @@
   "xo": {
     "overrides": [
       {
+        "extends": "xo-react",
         "files": [
           "**/*.jsx"
         ],
-        "extends": "xo-react"
+        "rules": {
+          "react/react-in-jsx-scope": "off"
+        }
       }
     ],
     "prettier": true,
     "rules": {
-      "n/file-extension-in-import": "off",
-      "unicorn/prefer-node-protocol": "off"
+      "n/file-extension-in-import": "off"
     }
   }
 }

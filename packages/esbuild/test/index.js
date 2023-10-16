@@ -2,15 +2,17 @@
  * @typedef {import('esbuild').BuildFailure} BuildFailure
  * @typedef {import('hast').Root} Root
  * @typedef {import('vfile').VFile} VFile
+ * @typedef {import('mdx/types.js').MDXModule} MDXModule
  * @typedef {import('mdx/types.js').MDXContent} MDXContent
  *
- * @typedef {import('remark-mdx')} DoNotTouchIncludeMathInTree
+ * Augment node types:
+ * @typedef {import('remark-mdx')}
  */
 
 import assert from 'node:assert/strict'
-import {promises as fs} from 'fs'
+import {promises as fs} from 'node:fs'
 import {test} from 'node:test'
-import {fileURLToPath} from 'url'
+import {fileURLToPath} from 'node:url'
 import esbuild from 'esbuild'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
@@ -32,10 +34,10 @@ test('@mdx-js/esbuild', async (t) => {
       plugins: [esbuildMdx()]
     })
 
-    /** @type {MDXContent} */
-    const Content =
-      /* @ts-expect-error file is dynamically generated */
-      (await import('./esbuild.js')).default // type-coverage:ignore-line
+    /** @type {MDXModule} */
+    // @ts-expect-error: dynamically generated file.
+    const mod = await import('./esbuild.js')
+    const Content = mod.default
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),
@@ -71,10 +73,10 @@ test('@mdx-js/esbuild', async (t) => {
       format: 'esm',
       plugins: [esbuildMdx()]
     })
-    /** @type {MDXContent} */
-    const Content =
-      /* @ts-expect-error file is dynamically generated */
-      (await import('./esbuild-resolve.js')).default // type-coverage:ignore-line
+    /** @type {MDXModule} */
+    // @ts-expect-error: dynamically generated file.
+    const mod = await import('./esbuild-resolve.js')
+    const Content = mod.default
 
     assert.equal(renderToStaticMarkup(React.createElement(Content)), '0.1')
   })
@@ -98,10 +100,10 @@ test('@mdx-js/esbuild', async (t) => {
       plugins: [esbuildMdx()]
     })
 
-    /** @type {MDXContent} */
-    const Content =
-      /* @ts-expect-error file is dynamically generated */
-      (await import('./esbuild-md.js')).default // type-coverage:ignore-line
+    /** @type {MDXModule} */
+    // @ts-expect-error: dynamically generated file.
+    const mod = await import('./esbuild-md.js')
+    const Content = mod.default
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),
@@ -124,10 +126,10 @@ test('@mdx-js/esbuild', async (t) => {
       plugins: [esbuildMdx({mdExtensions: [], mdxExtensions: ['.md']})]
     })
 
-    /** @type {MDXContent} */
-    const Content =
-      /* @ts-expect-error file is dynamically generated */
-      (await import('./esbuild-md-as-mdx.js')).default // type-coverage:ignore-line
+    /** @type {MDXModule} */
+    // @ts-expect-error: dynamically generated file.
+    const mod = await import('./esbuild-md-as-mdx.js')
+    const Content = mod.default
 
     assert.equal(renderToStaticMarkup(React.createElement(Content)), '<p>a</p>')
   })
@@ -464,10 +466,10 @@ test('@mdx-js/esbuild', async (t) => {
       bundle: true
     })
 
-    /** @type {MDXContent} */
-    const Content =
-      /** @ts-expect-error file is dynamically generated */
-      (await import('./esbuild-compile-from-memory.js')).default // type-coverage:ignore-line
+    /** @type {MDXModule} */
+    // @ts-expect-error: dynamically generated file.
+    const mod = await import('./esbuild-compile-from-memory.js')
+    const Content = mod.default
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),
@@ -493,10 +495,10 @@ test('@mdx-js/esbuild', async (t) => {
         bundle: true
       })
 
-      /** @type {MDXContent} */
-      const Content =
-        /** @ts-expect-error file is dynamically generated */
-        (await import('./esbuild-compile-from-memory-empty.js')).default // type-coverage:ignore-line
+      /** @type {MDXModule} */
+      // @ts-expect-error: dynamically generated file.
+      const mod = await import('./esbuild-compile-from-memory-empty.js')
+      const Content = mod.default
 
       assert.equal(renderToStaticMarkup(React.createElement(Content)), '')
     }
@@ -528,10 +530,10 @@ test('@mdx-js/esbuild', async (t) => {
         plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
       })
 
-      /** @type {MDXContent} */
-      const Content =
-        /* @ts-expect-error file is dynamically generated */
-        (await import('./esbuild-with-remote-md.js')).default // type-coverage:ignore-line
+      /** @type {MDXModule} */
+      // @ts-expect-error: dynamically generated file.
+      const mod = await import('./esbuild-with-remote-md.js')
+      const Content = mod.default
 
       assert.equal(
         renderToStaticMarkup(React.createElement(Content)),
@@ -568,10 +570,10 @@ test('@mdx-js/esbuild', async (t) => {
         plugins: [esbuildMdx({allowDangerousRemoteMdx: true})]
       })
 
-      /** @type {MDXContent} */
-      const Content =
-        /* @ts-expect-error file is dynamically generated */
-        (await import('./esbuild-with-remote-mdx.js')).default // type-coverage:ignore-line
+      /** @type {MDXModule} */
+      // @ts-expect-error: dynamically generated file.
+      const mod = await import('./esbuild-with-remote-mdx.js')
+      const Content = mod.default
 
       assert.equal(
         renderToStaticMarkup(React.createElement(Content)),

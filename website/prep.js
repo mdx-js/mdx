@@ -9,8 +9,8 @@
  * @property {string} source
  */
 
-import {promises as fs} from 'fs'
-import {fileURLToPath} from 'url'
+import {promises as fs} from 'node:fs'
+import {fileURLToPath} from 'node:url'
 import pAll from 'p-all'
 import {globby} from 'globby'
 import {u} from 'unist-builder'

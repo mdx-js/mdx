@@ -1,6 +1,5 @@
 /**
- * @typedef {import('mdast').Root} Root
- * @typedef {import('mdast').Content} Content
+ * @typedef {import('mdast').Nodes} Nodes
  * @typedef {import('mdast-util-mdx').MdxJsxAttribute} MdxJsxAttribute
  * @typedef {import('mdast-util-mdx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
  * @typedef {import('mdast-util-mdx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
@@ -317,7 +316,7 @@ test('stringify', async (t) => {
 })
 
 /**
- * @template {Root | Content} Tree
+ * @template {Nodes} Tree
  * @param {Tree} tree
  * @returns {Tree}
  */
@@ -328,13 +327,13 @@ function clean(tree) {
 }
 
 /**
- * @param {Root | Content} tree
+ * @param {Nodes} tree
  */
 function cleanEstree(tree) {
   visit(tree, onvisit)
 
   /**
-   * @param {Root | Content | MdxJsxAttribute | MdxJsxExpressionAttribute | MdxJsxAttributeValueExpression} node
+   * @param {Nodes | MdxJsxAttribute | MdxJsxAttributeValueExpression | MdxJsxExpressionAttribute} node
    */
   function onvisit(node) {
     if (

@@ -34,7 +34,7 @@ async function evaluate(value) {
   const body = result.code.replace(
     /import {(.+)} from "vue"/,
     (_, /** @type {string} */ $1) =>
-      'const {' + $1.replace(/ as /g, ': ') + '} = arguments[0].vue'
+      'const {' + $1.replaceAll(' as ', ': ') + '} = arguments[0].vue'
   )
   return run(body, {vue, useMDXComponents})
 }
@@ -49,7 +49,7 @@ async function vueToString(root, rootProps) {
     vue.createSSRApp(root, rootProps)
   )
   // Remove SSR comments used to hydrate.
-  return result.replace(/<!--[[\]]-->/g, '')
+  return result.replaceAll(/<!--[[\]]-->/g, '')
 }
 
 test('should evaluate MDX code', async () => {

@@ -107,7 +107,8 @@ export function esbuild(options) {
       if (cachedContents) {
         contents = cachedContents
       } else {
-        contents = await (await fetch(href)).text()
+        const response = await fetch(href)
+        contents = await response.text()
         cache.set(href, contents)
       }
 
@@ -136,6 +137,8 @@ export function esbuild(options) {
           : await fs.readFile(data.path)
       )
 
+      /** @type {State} */
+      const state = {doc, name, path: data.path}
       let file = new VFile({value: doc, path: data.path})
       /** @type {VFileValue | undefined} */
       let value
@@ -157,56 +160,8 @@ export function esbuild(options) {
       }
 
       for (const message of messages) {
-        const place = 'place' in message ? message.place : undefined
-        const start = place
-          ? 'start' in place
-            ? place.start
-            : place
-          : undefined
-        const end = place && 'end' in place ? place.end : undefined
-        let length = 0
-        let lineStart = 0
-        let line = 0
-        let column = 0
-
-        if (start && start.offset !== undefined) {
-          line = start.line
-          column = start.column - 1
-          lineStart = start.offset - column
-          length = 1
-
-          if (end && end.offset !== undefined) {
-            length = end.offset - start.offset
-          }
-        }
-
-        eol.lastIndex = lineStart
-
-        const match = eol.exec(doc)
-        const lineEnd = match ? match.index : doc.length
-
-        ;(!('fatal' in message) || message.fatal ? errors : warnings).push({
-          pluginName: name,
-          id: '',
-          text: String(
-            'reason' in message
-              ? message.reason
-              : /* Extra fallback to make sure weird values are definitely strings */
-                /* c8 ignore next */
-                message.stack || message
-          ),
-          notes: [],
-          location: {
-            namespace: 'file',
-            suggestion: '',
-            file: data.path,
-            line,
-            column,
-            length: Math.min(length, lineEnd),
-            lineText: doc.slice(lineStart, lineEnd)
-          },
-          detail: message
-        })
+        const list = !('fatal' in message) || message.fatal ? errors : warnings
+        list.push(vfileMessageToEsbuild(state, message))
       }
 
       // Safety check: the file has a path, so there has to be a `dirname`.
@@ -221,5 +176,66 @@ export function esbuild(options) {
           : path.resolve(file.cwd, file.dirname)
       }
     }
+  }
+}
+
+/**
+ * @typedef State
+ * @property {string} doc
+ * @property {string} name
+ * @property {string} path
+ */
+
+/**
+ * @param {State} state
+ * @param {Error | VFileMessage} message
+ * @returns {Message}
+ */
+function vfileMessageToEsbuild(state, message) {
+  const place = 'place' in message ? message.place : undefined
+  const start = place ? ('start' in place ? place.start : place) : undefined
+  const end = place && 'end' in place ? place.end : undefined
+  let length = 0
+  let lineStart = 0
+  let line = 0
+  let column = 0
+
+  if (start && start.offset !== undefined) {
+    line = start.line
+    column = start.column - 1
+    lineStart = start.offset - column
+    length = 1
+
+    if (end && end.offset !== undefined) {
+      length = end.offset - start.offset
+    }
+  }
+
+  eol.lastIndex = lineStart
+
+  const match = eol.exec(state.doc)
+  const lineEnd = match ? match.index : state.doc.length
+
+  return {
+    pluginName: state.name,
+    id: '',
+    text: String(
+      'reason' in message
+        ? message.reason
+        : /* Extra fallback to make sure weird values are definitely strings */
+          /* c8 ignore next */
+          message.stack || message
+    ),
+    notes: [],
+    location: {
+      namespace: 'file',
+      suggestion: '',
+      file: state.path,
+      line,
+      column,
+      length: Math.min(length, lineEnd),
+      lineText: state.doc.slice(lineStart, lineEnd)
+    },
+    detail: message
   }
 }

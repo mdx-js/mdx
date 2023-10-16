@@ -41,42 +41,33 @@ test('evaluate', async (t) => {
   })
 
   await t.test('should evaluate', async () => {
+    const mod = await evaluate('# hi!', runtime)
     assert.equal(
-      renderToStaticMarkup(
-        React.createElement((await evaluate('# hi!', runtime)).default)
-      ),
+      renderToStaticMarkup(React.createElement(mod.default)),
       '<h1>hi!</h1>'
     )
   })
 
   await t.test('should evaluate (sync)', async () => {
+    const mod = evaluateSync('# hi!', runtime)
     assert.equal(
-      renderToStaticMarkup(
-        React.createElement(evaluateSync('# hi!', runtime).default)
-      ),
+      renderToStaticMarkup(React.createElement(mod.default)),
       '<h1>hi!</h1>'
     )
   })
 
   await t.test('should evaluate (sync)', async () => {
+    const mod = await evaluate('# hi dev!', {development: true, ...devRuntime})
     assert.equal(
-      renderToStaticMarkup(
-        React.createElement(
-          (await evaluate('# hi dev!', {development: true, ...devRuntime}))
-            .default
-        )
-      ),
+      renderToStaticMarkup(React.createElement(mod.default)),
       '<h1>hi dev!</h1>'
     )
   })
 
   await t.test('should evaluate (sync)', async () => {
+    const mod = evaluateSync('# hi dev!', {development: true, ...devRuntime})
     assert.equal(
-      renderToStaticMarkup(
-        React.createElement(
-          evaluateSync('# hi dev!', {development: true, ...devRuntime}).default
-        )
-      ),
+      renderToStaticMarkup(React.createElement(mod.default)),
       '<h1>hi dev!</h1>'
     )
   })
@@ -84,17 +75,13 @@ test('evaluate', async (t) => {
   await t.test(
     'should support an `import` of a relative url w/ `useDynamicImport`',
     async () => {
+      const mod = await evaluate(
+        'import {number} from "./context/data.js"\n\n{number}',
+        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+      )
+
       assert.equal(
-        renderToStaticMarkup(
-          React.createElement(
-            (
-              await evaluate(
-                'import {number} from "./context/data.js"\n\n{number}',
-                {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
-              )
-            ).default
-          )
-        ),
+        renderToStaticMarkup(React.createElement(mod.default)),
         '3.14'
       )
     }
@@ -103,19 +90,15 @@ test('evaluate', async (t) => {
   await t.test(
     'should support an `import` of a full url w/ `useDynamicImport`',
     async () => {
+      const mod = await evaluate(
+        'import {number} from "' +
+          new URL('context/data.js', import.meta.url) +
+          '"\n\n{number}',
+        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+      )
+
       assert.equal(
-        renderToStaticMarkup(
-          React.createElement(
-            (
-              await evaluate(
-                'import {number} from "' +
-                  new URL('context/data.js', import.meta.url) +
-                  '"\n\n{number}',
-                {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
-              )
-            ).default
-          )
-        ),
+        renderToStaticMarkup(React.createElement(mod.default)),
         '3.14'
       )
     }
@@ -154,17 +137,13 @@ test('evaluate', async (t) => {
   await t.test(
     'should support a namespace import w/ `useDynamicImport`',
     async () => {
+      const mod = await evaluate(
+        'import * as x from "./context/components.js"\n\n<x.Pill>Hi!</x.Pill>',
+        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+      )
+
       assert.equal(
-        renderToStaticMarkup(
-          React.createElement(
-            (
-              await evaluate(
-                'import * as x from "./context/components.js"\n\n<x.Pill>Hi!</x.Pill>',
-                {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
-              )
-            ).default
-          )
-        ),
+        renderToStaticMarkup(React.createElement(mod.default)),
         '<span style="color:red">Hi!</span>'
       )
     }
@@ -173,17 +152,13 @@ test('evaluate', async (t) => {
   await t.test(
     'should support a namespace import and a bare specifier w/ `useDynamicImport`',
     async () => {
+      const mod = await evaluate(
+        'import Div, * as x from "./context/components.js"\n\n<x.Pill>a</x.Pill> and <Div>b</Div>',
+        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+      )
+
       assert.equal(
-        renderToStaticMarkup(
-          React.createElement(
-            (
-              await evaluate(
-                'import Div, * as x from "./context/components.js"\n\n<x.Pill>a</x.Pill> and <Div>b</Div>',
-                {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
-              )
-            ).default
-          )
-        ),
+        renderToStaticMarkup(React.createElement(mod.default)),
         '<p><span style="color:red">a</span> and <div style="color:red">b</div></p>'
       )
     }
@@ -236,17 +211,13 @@ test('evaluate', async (t) => {
   })
 
   await t.test('should support an `export default`', async () => {
+    const mod = await evaluate(
+      'export default function Layout({components, ...props}) { return <section {...props} /> }\n\na',
+      runtime
+    )
+
     assert.equal(
-      renderToStaticMarkup(
-        React.createElement(
-          (
-            await evaluate(
-              'export default function Layout({components, ...props}) { return <section {...props} /> }\n\na',
-              runtime
-            )
-          ).default
-        )
-      ),
+      renderToStaticMarkup(React.createElement(mod.default)),
       '<section><p>a</p></section>'
     )
   })
@@ -260,75 +231,68 @@ test('evaluate', async (t) => {
   await t.test(
     'should support an `export from` w/ `useDynamicImport`',
     async () => {
-      assert.equal(
-        (
-          await evaluate('export {number} from "./context/data.js"', {
-            baseUrl: import.meta.url,
-            useDynamicImport: true,
-            ...runtime
-          })
-        ).number,
-        3.14
-      )
+      const mod = await evaluate('export {number} from "./context/data.js"', {
+        baseUrl: import.meta.url,
+        useDynamicImport: true,
+        ...runtime
+      })
+
+      assert.equal(mod.number, 3.14)
     }
   )
 
   await t.test('should support an `export` w/ `useDynamicImport`', async () => {
-    assert.equal(
-      (
-        await evaluate(
-          'import {number} from "./context/data.js"\nexport {number}',
-          {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
-        )
-      ).number,
-      3.14
+    const mod = await evaluate(
+      'import {number} from "./context/data.js"\nexport {number}',
+      {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
     )
+
+    assert.equal(mod.number, 3.14)
   })
 
   await t.test(
     'should support an `export as from` w/ `useDynamicImport`',
     async () => {
-      assert.equal(
-        (
-          await evaluate('export {number as data} from "./context/data.js"', {
-            baseUrl: import.meta.url,
-            useDynamicImport: true,
-            ...runtime
-          })
-        ).data,
-        3.14
+      const mod = await evaluate(
+        'export {number as data} from "./context/data.js"',
+        {
+          baseUrl: import.meta.url,
+          useDynamicImport: true,
+          ...runtime
+        }
       )
+
+      assert.equal(mod.data, 3.14)
     }
   )
 
   await t.test(
     'should support an `export default as from` w/ `useDynamicImport`',
     async () => {
-      assert.equal(
-        (
-          await evaluate('export {default as data} from "./context/data.js"', {
-            baseUrl: import.meta.url,
-            useDynamicImport: true,
-            ...runtime
-          })
-        ).data,
-        6.28
+      const mod = await evaluate(
+        'export {default as data} from "./context/data.js"',
+        {
+          baseUrl: import.meta.url,
+          useDynamicImport: true,
+          ...runtime
+        }
       )
+
+      assert.equal(mod.data, 6.28)
     }
   )
 
   await t.test(
     'should support an `export all from` w/ `useDynamicImport`',
     async () => {
+      const mod = await evaluate('export * from "./context/data.js"', {
+        baseUrl: import.meta.url,
+        useDynamicImport: true,
+        ...runtime
+      })
+
       assert.deepEqual(
-        {
-          ...(await evaluate('export * from "./context/data.js"', {
-            baseUrl: import.meta.url,
-            useDynamicImport: true,
-            ...runtime
-          })),
-          default: undefined
-        },
+        {...mod, default: undefined},
         {array: [1, 2], default: undefined, number: 3.14, object: {a: 1, b: 2}}
       )
     }
@@ -337,13 +301,15 @@ test('evaluate', async (t) => {
   await t.test(
     'should support an `export all from`, but prefer explicit exports, w/ `useDynamicImport`',
     async () => {
+      const mod = await evaluate(
+        'export {default as number} from "./context/data.js"\nexport * from "./context/data.js"',
+        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+      )
+
       // I’m not sure if this makes sense, but it is how Node works.
       assert.deepEqual(
         {
-          ...(await evaluate(
-            'export {default as number} from "./context/data.js"\nexport * from "./context/data.js"',
-            {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
-          )),
+          ...mod,
           default: undefined
         },
         {array: [1, 2], default: undefined, number: 6.28, object: {a: 1, b: 2}}
@@ -354,15 +320,12 @@ test('evaluate', async (t) => {
   await t.test(
     'should support rewriting `import.meta.url` w/ `baseUrl`',
     async () => {
-      assert.equal(
-        (
-          await evaluate(
-            'export const x = new URL("example.png", import.meta.url).href',
-            {baseUrl: 'https://example.com', ...runtime}
-          )
-        ).x,
-        'https://example.com/example.png'
+      const mod = await evaluate(
+        'export const x = new URL("example.png", import.meta.url).href',
+        {baseUrl: 'https://example.com', ...runtime}
       )
+
+      assert.equal(mod.x, 'https://example.com/example.png')
     }
   )
 
@@ -385,9 +348,11 @@ test('evaluate', async (t) => {
   })
 
   await t.test('should support a given components', async () => {
+    const mod = await evaluate('<X/>', runtime)
+
     assert.equal(
       renderToStaticMarkup(
-        React.createElement((await evaluate('<X/>', runtime)).default, {
+        React.createElement(mod.default, {
           components: {
             X() {
               return React.createElement('span', {}, '!')
@@ -400,6 +365,8 @@ test('evaluate', async (t) => {
   })
 
   await t.test('should support a provider w/ `useMDXComponents`', async () => {
+    const mod = await evaluate('<X/>', {...runtime, ...provider})
+
     assert.equal(
       renderToStaticMarkup(
         React.createElement(
@@ -411,9 +378,7 @@ test('evaluate', async (t) => {
               }
             }
           },
-          React.createElement(
-            (await evaluate('<X/>', {...runtime, ...provider})).default
-          )
+          React.createElement(mod.default)
         )
       ),
       '<span>!</span>'
