@@ -15,6 +15,7 @@
 
 import assert from 'node:assert'
 import {promises as fs} from 'node:fs'
+import process from 'node:process'
 import {fileURLToPath} from 'node:url'
 import pAll from 'p-all'
 import {globby} from 'globby'
@@ -28,8 +29,8 @@ import {unified} from 'unified'
 import rehypeParse from 'rehype-parse'
 import rehypeSanitize, {defaultSchema} from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
-import captureWebsite from 'capture-website'
-import chromium from 'chrome-aws-lambda'
+import puppeteer from 'puppeteer'
+import chromium from '@sparticuz/chromium'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
@@ -164,6 +165,18 @@ await fs.writeFile(
 )
 
 console.log('✔ `/rss.xml`')
+
+const browser = await puppeteer.launch(
+  process.env.AWS_EXECUTION_ENV
+    ? {
+        // See: <https://github.com/Sparticuz/chromium/issues/85#issuecomment-1527692751>
+        args: [...chromium.args, '--disable-gpu'],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless
+      }
+    : {headless: 'new'}
+)
 
 await pAll(
   allInfo.map((data) => async () => {
@@ -349,22 +362,22 @@ await pAll(
       await fs.unlink(output)
     } catch {}
 
-    await captureWebsite.file(file.value, fileURLToPath(output), {
-      launchOptions: {
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
-        headless: 'new'
-      },
-      inputType: 'html',
-      // This is doubled in the actual file dimensions.
-      width: 1200,
-      height: 628
-    })
+    const page = await browser.newPage()
+    // This is doubled in the actual file dimensions.
+    await page.setViewport({deviceScaleFactor: 2, height: 628, width: 1200})
+    await page.emulateMediaFeatures([
+      {name: 'prefers-color-scheme', value: 'light'}
+    ])
+    await page.setContent(file.value)
+    const screenshot = await page.screenshot()
+    await page.close()
+
+    await fs.writeFile(output, screenshot)
 
     console.log('OG image `%s`', info.meta.title)
-  }),
-  {concurrency: 6}
+  })
 )
+
+await browser.close()
 
 console.log('✔ OG images')

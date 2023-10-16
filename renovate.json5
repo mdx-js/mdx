@@ -15,13 +15,6 @@
         'periscopic'
       ],
       enabled: false
-    },
-    {
-      matchPackageNames: [
-        // `puppeteer-core@21` does not work with `chrome-aws-lambda` types.
-        'puppeteer-core'
-      ],
-      enabled: false
     }
   ]
 }
