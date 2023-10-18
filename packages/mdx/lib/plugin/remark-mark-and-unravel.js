@@ -3,6 +3,7 @@
  * @typedef {import('mdast').RootContent} RootContent
  */
 
+import {collapseWhiteSpace} from 'collapse-white-space'
 import {visit} from 'unist-util-visit'
 
 /**
@@ -41,8 +42,7 @@ export function remarkMarkAndUnravel() {
             oneOrMore = true
           } else if (
             child.type === 'text' &&
-            // To do: use `collapse-whitespace`?
-            /^[\t\r\n ]+$/.test(String(child.value))
+            collapseWhiteSpace(child.value, {style: 'html', trim: true}) === ''
           ) {
             // Empty.
           } else {
