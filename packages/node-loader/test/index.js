@@ -12,9 +12,7 @@ test('@mdx-js/node-loader', async function (t) {
   await t.test('should expose the public api', async function () {
     assert.deepEqual(Object.keys(await import('@mdx-js/node-loader')).sort(), [
       'createLoader',
-      'getFormat',
-      'load',
-      'transformSource'
+      'load'
     ])
   })
 

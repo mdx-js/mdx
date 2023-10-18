@@ -119,10 +119,9 @@ One extra field is supported:
 ```tsx
 import {createLoader} from '@mdx-js/node-loader'
 
-// Load is for Node 17+, the rest for 12-16.
-const {getFormat, load, transformSource} = createLoader(/* Options… */)
+const {load} = createLoader(/* Options… */)
 
-export {getFormat, load, transformSource}
+export {load}
 ```
 
 This example can then be used with `node --experimental-loader=./my-loader.js`.
