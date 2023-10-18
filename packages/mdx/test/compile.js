@@ -998,11 +998,9 @@ test('@mdx-js/mdx: compile', async function (t) {
       function (error) {
         const exception = /** @type {Error} */ (error)
         const match = /at Component \(([^)]+)\)/.exec(String(exception.stack))
-        // To do: check if this works on windows.
-        const place = base.pathname + 'unknown.mdx:2:3'
-        return place === match?.[1]
-      },
-      'should support source maps'
+        const actual = match?.[1].split(/\\|\//g).join('/') || ''
+        return (base.pathname + 'unknown.mdx:2:3').endsWith(actual)
+      }
     )
 
     await fs.unlink(url)
