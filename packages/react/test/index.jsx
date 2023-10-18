@@ -5,7 +5,7 @@
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
 import {evaluate} from '@mdx-js/mdx'
-import {MDXProvider, useMDXComponents, withMDXComponents} from '@mdx-js/react'
+import {MDXProvider, useMDXComponents} from '@mdx-js/react'
 import React from 'react'
 import * as runtime_ from 'react/jsx-runtime'
 import {renderToString} from 'react-dom/server'
@@ -17,10 +17,8 @@ const runtime = /** @type {RuntimeProduction} */ (
 test('@mdx-js/react', async function (t) {
   await t.test('should expose the public api', async function () {
     assert.deepEqual(Object.keys(await import('@mdx-js/preact')).sort(), [
-      'MDXContext',
       'MDXProvider',
-      'useMDXComponents',
-      'withMDXComponents'
+      'useMDXComponents'
     ])
   })
 
@@ -207,45 +205,4 @@ test('@mdx-js/react', async function (t) {
       )
     }
   )
-
-  await t.test('should support `withComponents`', async function () {
-    const {default: Content} = await evaluate('# hi\n## hello', {
-      ...runtime,
-      useMDXComponents
-    })
-
-    // Unknown props.
-    // type-coverage:ignore-next-line
-    const With = withMDXComponents(function (props) {
-      // Unknown props.
-      // type-coverage:ignore-next-line
-      return props.children
-    })
-
-    // Bug: this should use the `h2` component too, logically?
-    // As `withMDXComponents` is deprecated, and it would probably be a breaking
-    // change, we can just remove it later.
-    assert.equal(
-      renderToString(
-        <MDXProvider
-          components={{
-            h1(props) {
-              return <h1 style={{color: 'tomato'}} {...props} />
-            }
-          }}
-        >
-          <With
-            components={{
-              h2(props) {
-                return <h2 style={{color: 'papayawhip'}} {...props} />
-              }
-            }}
-          >
-            <Content />
-          </With>
-        </MDXProvider>
-      ),
-      '<h1 style="color:tomato">hi</h1>\n<h2>hello</h2>'
-    )
-  })
 })

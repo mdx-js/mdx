@@ -1,6 +1,5 @@
 /**
  * @typedef {import('mdx/types.js').MDXComponents} Components
- * @typedef {import('react').Context<Components>} Context
  * @typedef {import('react').ReactNode} ReactNode
  */
 
@@ -24,42 +23,7 @@
 
 import React from 'react'
 
-/**
- * @type {Context}
- * @deprecated
- *   This export is marked as a legacy feature.
- *   That means it’s no longer recommended for use as it might be removed
- *   in a future major release.
- *
- *   Please use `useMDXComponents` to get context based components and
- *   `MDXProvider` to set context based components instead.
- */
-export const MDXContext = React.createContext({})
-
-/**
- * @param {import('react').ComponentType<any>} Component
- *   Component.
- * @deprecated
- *   This export is marked as a legacy feature.
- *   That means it’s no longer recommended for use as it might be removed
- *   in a future major release.
- *
- *   Please use `useMDXComponents` to get context based components instead.
- */
-export function withMDXComponents(Component) {
-  return boundMDXComponent
-
-  /**
-   * @param {Record<string, unknown> & {components?: Components | null | undefined}} props
-   *   Props.
-   * @returns {JSX.Element}
-   *   Element.
-   */
-  function boundMDXComponent(props) {
-    const allComponents = useMDXComponents(props.components)
-    return React.createElement(Component, {...props, allComponents})
-  }
-}
+const MDXContext = React.createContext({})
 
 /**
  * Get current components from the MDX Context.
