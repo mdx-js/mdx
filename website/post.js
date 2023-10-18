@@ -25,16 +25,13 @@ import process from 'node:process'
 import {fileURLToPath} from 'node:url'
 import chromium from '@sparticuz/chromium'
 import {globby} from 'globby'
+import {fromHtml} from 'hast-util-from-html'
+import {sanitize, defaultSchema} from 'hast-util-sanitize'
 import {select} from 'hast-util-select'
+import {toHtml} from 'hast-util-to-html'
 import {h, s} from 'hastscript'
 import pAll from 'p-all'
 import puppeteer from 'puppeteer'
-import rehypeParse from 'rehype-parse'
-import rehypeSanitize, {defaultSchema} from 'rehype-sanitize'
-import rehypeStringify from 'rehype-stringify'
-import {unified} from 'unified'
-import {u} from 'unist-builder'
-import {VFile} from 'vfile'
 import {rss} from 'xast-util-feed'
 import {toXml} from 'xast-util-to-xml'
 import {config} from '../docs/_config.js'
@@ -102,46 +99,34 @@ const entries = await pAll(
        */
       return async function () {
         const buf = await fs.readFile(new URL('index.html', url))
-        const file = await unified()
-          .use(rehypeParse)
-          .use(function () {
-            /**
-             * @param {Root} tree
-             *   Tree
-             */
-            return function (tree) {
-              const node = select('.body', tree)
-              assert(node)
-              return {type: 'root', children: node.children}
-            }
-          })
-          .use(rehypeSanitize, {
-            ...defaultSchema,
-            attributes: {
-              ...defaultSchema.attributes,
-              code: [
-                [
-                  'className',
-                  'language-diff',
-                  'language-html',
-                  'language-js',
-                  'language-jsx',
-                  'language-md',
-                  'language-mdx',
-                  'language-sh',
-                  'language-ts'
-                ]
+        const tree = fromHtml(buf)
+        const body = select('.body', tree)
+        assert(body)
+        const clean = sanitize(body, {
+          ...defaultSchema,
+          attributes: {
+            ...defaultSchema.attributes,
+            code: [
+              [
+                'className',
+                'language-diff',
+                'language-html',
+                'language-js',
+                'language-jsx',
+                'language-md',
+                'language-mdx',
+                'language-sh',
+                'language-ts'
               ]
-            },
-            clobber: []
-          })
-          .use(rehypeStringify)
-          .process(buf)
+            ]
+          },
+          clobber: []
+        })
 
         return {
           author: info.meta.author,
           description: info.meta.description,
-          descriptionHtml: String(file),
+          descriptionHtml: toHtml(clean),
           modified: info.meta.modified,
           published: info.meta.published,
           title: info.meta.title,
@@ -205,14 +190,10 @@ await pAll(
       // Don’t regenerate to improve performance.
       if (stats) return
 
-      const processor = unified().use(rehypeStringify)
-      const file = new VFile({path: url})
-
-      // To do: use hast instead of unified?
-      file.value = processor.stringify(
-        u('root', [
-          // To do: remove `name`.
-          u('doctype', {name: 'html'}),
+      const value = toHtml({
+        type: 'root',
+        children: [
+          {type: 'doctype'},
           h('html', {lang: 'en'}, [
             h('head', [
               h('meta', {charSet: 'utf8'}),
@@ -337,10 +318,7 @@ await pAll(
                 h('.og-description', [
                   h('.og-description-inside', [
                     info.meta.descriptionHast
-                      ? unified()
-                          .use(rehypeSanitize, schema)
-                          // @ts-expect-error: to do: use hast utilities; element is fine.
-                          .runSync(info.meta.descriptionHast)
+                      ? sanitize(info.meta.descriptionHast, schema)
                       : info.meta.description || info.matter.description
                   ])
                 ]),
@@ -364,8 +342,8 @@ await pAll(
               ])
             ])
           ])
-        ])
-      )
+        ]
+      })
 
       try {
         await fs.unlink(output)
@@ -377,7 +355,7 @@ await pAll(
       await page.emulateMediaFeatures([
         {name: 'prefers-color-scheme', value: 'light'}
       ])
-      await page.setContent(file.value)
+      await page.setContent(value)
       const screenshot = await page.screenshot()
       await page.close()
 

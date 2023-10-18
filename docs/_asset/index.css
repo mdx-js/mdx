@@ -1205,15 +1205,6 @@ button.success {
   }
 }
 
-/* To do: clean from here */
-.playground {
-  display: grid;
-  grid-template-columns: 49% 49%;
-  min-height: 40rem;
-  gap: calc(1em + 1ex);
-  margin-inline: calc(1em + 1ex);
-}
-
 .playground-area,
 .playground-controls,
 .playground-result {

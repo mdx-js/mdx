@@ -37,8 +37,10 @@
 import assert from 'node:assert'
 import fs from 'node:fs/promises'
 import {fileURLToPath} from 'node:url'
+import structuredClone from '@ungap/structured-clone'
 import {globby} from 'globby'
 import {h} from 'hastscript'
+import {sanitize} from 'hast-util-sanitize'
 import {select} from 'hast-util-select'
 import pAll from 'p-all'
 import React from 'react'
@@ -48,7 +50,6 @@ import rehypeMeta from 'rehype-meta'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import rehypeParse from 'rehype-parse'
 import rehypePresetMinify from 'rehype-preset-minify'
-import rehypeSanitize from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
 import {unified} from 'unified'
 import {VFile} from 'vfile'
@@ -111,10 +112,10 @@ const allInfo = await pAll(
 
       // Sanitize the hast description:
       if (data.meta && data.meta.descriptionHast) {
-        data.meta.descriptionHast = unified()
-          .use(rehypeSanitize, schema)
-          // @ts-expect-error: to do: use hast utils; element is fine.
-          .runSync(data.meta.descriptionHast)
+        // Cast because we get a root back.
+        data.meta.descriptionHast = /** @type {Root} */ (
+          sanitize(data.meta.descriptionHast, schema)
+        )
       }
 
       return {Content, data, ghUrl, jsonUrl, name, url}
@@ -197,8 +198,7 @@ await pAll(
         .use(rehypeParse, {fragment: true})
         .use(rehypeDocument, {
           css: ['/index.css'],
-          // To do: only include editor on playground?
-          // Or use more editors.
+          // Idea: only include editor on playground? Use more editors.
           js: ['/index.js', '/editor.js'],
           language: 'en',
           link: [
@@ -254,7 +254,7 @@ await pAll(
         ])
         .use(rehypePresetMinify)
         .use(rehypeMinifyUrl, {from: canonical.href})
-        .use(rehypeStringify, {bogusComments: false})
+        .use(rehypeStringify)
         .process(
           new VFile({
             data,
@@ -296,17 +296,16 @@ function rehypeLazyCss(styles) {
 
     let index = -1
     while (++index < styles.length) {
-      // To do: structured clone.
       const props = styles[index]
       enabled.push(
         h('link', {
-          ...props,
+          ...structuredClone(props),
           as: 'style',
           onLoad: "this.onload=undefined;this.rel='stylesheet'",
           rel: 'preload'
         })
       )
-      disabled.push(h('link', {...props, rel: 'stylesheet'}))
+      disabled.push(h('link', {...structuredClone(props), rel: 'stylesheet'}))
     }
 
     head.children.push(...enabled)

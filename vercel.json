@@ -3,176 +3,176 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/about/",
-      "destination": "/community/about/"
+      "destination": "/community/about/",
+      "source": "/about/"
     },
     {
-      "source": "/advanced/",
-      "destination": "/guides/"
+      "destination": "/guides/",
+      "source": "/advanced/"
     },
     {
-      "source": "/advanced/api/",
-      "destination": "/packages/mdx/#api"
+      "destination": "/packages/mdx/#api",
+      "source": "/advanced/api/"
     },
     {
-      "source": "/advanced/ast/",
-      "destination": "/packages/remark-mdx/#syntax-tree"
+      "destination": "/packages/remark-mdx/#syntax-tree",
+      "source": "/advanced/ast/"
     },
     {
-      "source": "/advanced/components/",
-      "destination": "/docs/using-mdx/"
+      "destination": "/docs/using-mdx/",
+      "source": "/advanced/components/"
     },
     {
-      "source": "/advanced/contributing/",
-      "destination": "/community/contribute/"
+      "destination": "/community/contribute/",
+      "source": "/advanced/contributing/"
     },
     {
-      "source": "/advanced/custom-loader/",
-      "destination": "/guides/frontmatter/"
+      "destination": "/guides/frontmatter/",
+      "source": "/advanced/custom-loader/"
     },
     {
-      "source": "/advanced/retext-plugins/",
-      "destination": "/docs/extending-mdx/#using-plugins"
+      "destination": "/docs/extending-mdx/#using-plugins",
+      "source": "/advanced/retext-plugins/"
     },
     {
-      "source": "/advanced/plugins/",
-      "destination": "/docs/extending-mdx/"
+      "destination": "/docs/extending-mdx/",
+      "source": "/advanced/plugins/"
     },
     {
-      "source": "/advanced/runtime/",
-      "destination": "/packages/mdx/#evaluatefile-options"
+      "destination": "/packages/mdx/#evaluatefile-options",
+      "source": "/advanced/runtime/"
     },
     {
-      "source": "/advanced/specification/",
-      "destination": "/packages/remark-mdx/#syntax-tree"
+      "destination": "/packages/remark-mdx/#syntax-tree",
+      "source": "/advanced/specification/"
     },
     {
-      "source": "/advanced/sync-api/",
-      "destination": "/packages/mdx/#api"
+      "destination": "/packages/mdx/#api",
+      "source": "/advanced/sync-api/"
     },
     {
-      "source": "/advanced/transform-content/",
-      "destination": "/packages/remark-mdx/"
+      "destination": "/packages/remark-mdx/",
+      "source": "/advanced/transform-content/"
     },
     {
-      "source": "/advanced/typescript/",
-      "destination": "/docs/getting-started/#types"
+      "destination": "/docs/getting-started/#types",
+      "source": "/advanced/typescript/"
     },
     {
-      "source": "/advanced/writing-a-plugin/",
-      "destination": "/guides/frontmatter/"
+      "destination": "/guides/frontmatter/",
+      "source": "/advanced/writing-a-plugin/"
     },
     {
-      "source": "/contributing/",
-      "destination": "/community/contribute/"
+      "destination": "/community/contribute/",
+      "source": "/contributing/"
     },
     {
-      "source": "/editor-plugins/",
-      "destination": "/docs/getting-started/#editor"
+      "destination": "/docs/getting-started/#editor",
+      "source": "/editor-plugins/"
     },
     {
-      "source": "/editors/",
-      "destination": "/docs/getting-started/#editor"
+      "destination": "/docs/getting-started/#editor",
+      "source": "/editors/"
     },
     {
-      "source": "/getting-started/create-react-app/",
-      "destination": "/docs/getting-started/#create-react-app-cra"
+      "destination": "/docs/getting-started/#create-react-app-cra",
+      "source": "/getting-started/create-react-app/"
     },
     {
-      "source": "/getting-started/gatsby/",
-      "destination": "/docs/getting-started/#gatsby"
+      "destination": "/docs/getting-started/#gatsby",
+      "source": "/getting-started/gatsby/"
     },
     {
-      "source": "/getting-started/next/",
-      "destination": "/docs/getting-started/#nextjs"
+      "destination": "/docs/getting-started/#nextjs",
+      "source": "/getting-started/next/"
     },
     {
-      "source": "/getting-started/parcel/",
-      "destination": "/docs/getting-started/#parcel"
+      "destination": "/docs/getting-started/#parcel",
+      "source": "/getting-started/parcel/"
     },
     {
-      "source": "/getting-started/react-static/",
-      "destination": "/docs/getting-started/#react-static"
+      "destination": "/docs/getting-started/#react-static",
+      "source": "/getting-started/react-static/"
     },
     {
-      "source": "/getting-started/table-of-components/",
-      "destination": "/table-of-components/"
+      "destination": "/table-of-components/",
+      "source": "/getting-started/table-of-components/"
     },
     {
-      "source": "/getting-started/typescript/",
-      "destination": "/docs/getting-started/#types"
+      "destination": "/docs/getting-started/#types",
+      "source": "/getting-started/typescript/"
     },
     {
-      "source": "/getting-started/webpack/",
-      "destination": "/docs/getting-started/#webpack"
+      "destination": "/docs/getting-started/#webpack",
+      "source": "/getting-started/webpack/"
     },
     {
-      "source": "/getting-started/",
-      "destination": "/docs/getting-started/"
+      "destination": "/docs/getting-started/",
+      "source": "/getting-started/"
     },
     {
-      "source": "/guides/custom-loader/",
-      "destination": "/guides/frontmatter/"
+      "destination": "/guides/frontmatter/",
+      "source": "/guides/custom-loader/"
     },
     {
-      "source": "/guides/live-code/",
-      "destination": "/guides/syntax-highlighting/#syntax-highlighting-with-the-meta-field"
+      "destination": "/guides/syntax-highlighting/#syntax-highlighting-with-the-meta-field",
+      "source": "/guides/live-code/"
     },
     {
-      "source": "/guides/markdown-in-components/",
-      "destination": "/docs/what-is-mdx/"
+      "destination": "/docs/what-is-mdx/",
+      "source": "/guides/markdown-in-components/"
     },
     {
-      "source": "/guides/math-blocks/",
-      "destination": "/guides/math/"
+      "destination": "/guides/math/",
+      "source": "/guides/math-blocks/"
     },
     {
-      "source": "/guides/mdx-embed/",
-      "destination": "/guides/embed/#embeds-at-run-time"
+      "destination": "/guides/embed/#embeds-at-run-time",
+      "source": "/guides/mdx-embed/"
     },
     {
-      "source": "/guides/table-of-contents/",
-      "destination": "/docs/extending-mdx/"
+      "destination": "/docs/extending-mdx/",
+      "source": "/guides/table-of-contents/"
     },
     {
-      "source": "/guides/terminal/",
-      "destination": "/docs/getting-started/#ink"
+      "destination": "/docs/getting-started/#ink",
+      "source": "/guides/terminal/"
     },
     {
-      "source": "/guides/vue/",
-      "destination": "/docs/getting-started/#vue"
+      "destination": "/docs/getting-started/#vue",
+      "source": "/guides/vue/"
     },
     {
-      "source": "/guides/wrapper-customization/",
-      "destination": "/docs/using-mdx/#layout"
+      "destination": "/docs/using-mdx/#layout",
+      "source": "/guides/wrapper-customization/"
     },
     {
-      "source": "/guides/writing-a-plugin/",
-      "destination": "/docs/extending-mdx/#creating-plugins"
+      "destination": "/docs/extending-mdx/#creating-plugins",
+      "source": "/guides/writing-a-plugin/"
     },
     {
-      "source": "/mdx/",
-      "destination": "/docs/what-is-mdx/"
+      "destination": "/docs/what-is-mdx/",
+      "source": "/mdx/"
     },
     {
-      "source": "/plugins/",
-      "destination": "/docs/extending-mdx/#using-plugins"
+      "destination": "/docs/extending-mdx/#using-plugins",
+      "source": "/plugins/"
     },
     {
-      "source": "/projects/",
-      "destination": "/community/projects/"
+      "destination": "/community/projects/",
+      "source": "/projects/"
     },
     {
-      "source": "/support/",
-      "destination": "/community/support/"
+      "destination": "/community/support/",
+      "source": "/support/"
     },
     {
-      "source": "/syntax/",
-      "destination": "/docs/getting-started/#syntax"
+      "destination": "/docs/getting-started/#syntax",
+      "source": "/syntax/"
     },
     {
-      "source": "/vue/",
-      "destination": "/docs/getting-started/#vue"
+      "destination": "/docs/getting-started/#vue",
+      "source": "/vue/"
     }
   ]
 }

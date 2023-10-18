@@ -1,9 +1,9 @@
 /**
- * @typedef {import('rehype-sanitize').Options} Options
+ * @typedef {import('hast-util-sanitize').Schema} Schema
  */
 
 /**
- * @type {Readonly<Options>}
+ * @type {Readonly<Schema>}
  */
 export const schema = {
   ancestors: {},

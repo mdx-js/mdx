@@ -322,7 +322,7 @@ function Playground() {
 
   return (
     <>
-      <form className="playground-editor">
+      <form>
         <div className="playground-area">
           <div className="playground-inner">
             <div className="playground-draw">

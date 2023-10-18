@@ -70,10 +70,8 @@ const options = {
       }
     ],
     [rehypeStarryNight, {grammars: [...common, sourceMdx, sourceTsx]}],
-    // Minify things — mostly needed so `prerender` can also minify.
-    // To do: can be removed?
     rehypePresetMinify,
-    [rehypeMinifyUrl, {ignoreMissingSource: true}]
+    rehypeMinifyUrl
   ],
   remarkPlugins: [
     remarkFrontmatter,
@@ -84,15 +82,7 @@ const options = {
     [remarkMdxFrontmatter, {name: 'matter'}],
     remarkStripBadges,
     remarkSqueezeParagraphs,
-    [
-      remarkToc,
-      {
-        // To do: remove, this is the default now.
-        heading: 'contents|toc|table[ -]of[ -]contents?',
-        maxDepth: 3,
-        tight: true
-      }
-    ]
+    [remarkToc, {maxDepth: 3}]
   ]
 }
 

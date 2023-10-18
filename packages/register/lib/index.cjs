@@ -1,5 +1,6 @@
 /**
  * @typedef {import('node:module').Module} Module
+ * @typedef {import('mdx/types.js').MDXModule} MDXModule
  */
 
 /**
@@ -67,8 +68,7 @@ function register(options) {
    */
   function mdx(module, path) {
     const file = processSync(fs.readFileSync(path))
-    // To do: type `run`.
-    /** @type {{default: unknown}} */
+    /** @type {MDXModule} */
     const result = runSync(file, runtime)
     // Something going weird here w/ `type-coverage`.
     // type-coverage:ignore-next-line

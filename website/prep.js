@@ -21,7 +21,6 @@ import rehypeMinifyUrl from 'rehype-minify-url'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeStringify from 'rehype-stringify'
 import {unified} from 'unified'
-import {u} from 'unist-builder'
 import {VFile} from 'vfile'
 import {config, redirect} from '../docs/_config.js'
 
@@ -105,29 +104,31 @@ console.log('✔ `vercel.json` redirects')
  *
  * @param {string} to
  *   Redirect to.
- * @returns  {Root}
+ * @returns {Root}
  *   Tree.
  */
 function buildRedirect(to) {
   const abs = new URL(to, config.site)
-  return u('root', [
-    // To do: remove `name`.
-    u('doctype', {name: 'html'}),
-    h('html', {lang: 'en'}, [
-      h('head', [
-        h('meta', {charSet: 'utf8'}),
-        h('title', 'Redirecting…'),
-        h('link', {href: String(abs), rel: 'canonical'}),
-        h('script', 'location = ' + JSON.stringify(abs)),
-        h('meta', {content: '0;url=' + abs, httpEquiv: 'refresh'}),
-        h('meta', {content: 'noindex', name: 'robots'})
-      ]),
-      h('body', [
-        h('h1', 'Redirecting…'),
-        h('p', [
-          h('a', {href: String(abs)}, 'Click here if you are not redirected.')
+  return {
+    type: 'root',
+    children: [
+      {type: 'doctype'},
+      h('html', {lang: 'en'}, [
+        h('head', [
+          h('meta', {charSet: 'utf8'}),
+          h('title', 'Redirecting…'),
+          h('link', {href: String(abs), rel: 'canonical'}),
+          h('script', 'location = ' + JSON.stringify(abs)),
+          h('meta', {content: '0;url=' + abs, httpEquiv: 'refresh'}),
+          h('meta', {content: 'noindex', name: 'robots'})
+        ]),
+        h('body', [
+          h('h1', 'Redirecting…'),
+          h('p', [
+            h('a', {href: String(abs)}, 'Click here if you are not redirected.')
+          ])
         ])
       ])
-    ])
-  ])
+    ]
+  }
 }
