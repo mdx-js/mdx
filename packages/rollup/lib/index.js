@@ -19,7 +19,7 @@
  *   Configuration.
  */
 
-import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
+import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
 import {createFilter} from '@rollup/pluginutils'
 import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'

@@ -19,11 +19,11 @@
 // @ts-expect-error: type imports from CJS do work.
 /** @typedef {import('@mdx-js/mdx').EvaluateOptions} EvaluateOptions */
 // @ts-expect-error: type imports from CJS do work.
-/** @typedef {import('@mdx-js/mdx/lib/run.js')} RunMod */
+/** @typedef {import('@mdx-js/mdx')} MdxMod */
 // @ts-expect-error: type imports from CJS do work.
-/** @typedef {import('@mdx-js/mdx/lib/util/create-format-aware-processors.js')} CreateProcessorMod */
+/** @typedef {import('@mdx-js/mdx/internal-create-format-aware-processors')} CreateProcessorMod */
 // @ts-expect-error: type imports from CJS do work.
-/** @typedef {import('@mdx-js/mdx/lib/util/resolve-evaluate-options.js')} ResolveEvaluateMod */
+/** @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options')} ResolveEvaluateMod */
 
 'use strict'
 
@@ -31,14 +31,12 @@ const fs = require('node:fs')
 const deasync = require('deasync')
 
 const {createFormatAwareProcessors} = /** @type {CreateProcessorMod} */ (
-  deasync(load)('@mdx-js/mdx/lib/util/create-format-aware-processors.js')
+  deasync(load)('@mdx-js/mdx/internal-create-format-aware-processors')
 )
 const {resolveEvaluateOptions} = /** @type {ResolveEvaluateMod} */ (
-  deasync(load)('@mdx-js/mdx/lib/util/resolve-evaluate-options.js')
+  deasync(load)('@mdx-js/mdx/internal-resolve-evaluate-options')
 )
-const {runSync} = /** @type {RunMod} */ (
-  deasync(load)('@mdx-js/mdx/lib/run.js')
-)
+const {runSync} = /** @type {MdxMod} */ (deasync(load)('@mdx-js/mdx'))
 
 module.exports = register
 

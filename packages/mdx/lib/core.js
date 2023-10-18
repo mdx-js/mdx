@@ -51,8 +51,8 @@ import {recmaStringify} from './plugin/recma-stringify.js'
 import {rehypeRecma} from './plugin/rehype-recma.js'
 import {rehypeRemoveRaw} from './plugin/rehype-remove-raw.js'
 import {remarkMarkAndUnravel} from './plugin/remark-mark-and-unravel.js'
-import {development as defaultDevelopment} from './condition.js'
 import {nodeTypes} from './node-types.js'
+import {development as defaultDevelopment} from '#condition'
 
 const removedOptions = [
   'compilers',

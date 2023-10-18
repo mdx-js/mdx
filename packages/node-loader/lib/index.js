@@ -1,10 +1,10 @@
 /**
- * @typedef {import('@mdx-js/mdx/lib/compile.js').CompileOptions} Options
+ * @typedef {import('@mdx-js/mdx').CompileOptions} Options
  */
 
 import fs from 'node:fs/promises'
-import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
-import {extnamesToRegex} from '@mdx-js/mdx/lib/util/extnames-to-regex.js'
+import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
+import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
 import {VFile} from 'vfile'
 
 /**

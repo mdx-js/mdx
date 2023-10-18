@@ -24,7 +24,7 @@
 import {Buffer} from 'node:buffer'
 import {createHash} from 'node:crypto'
 import path from 'node:path'
-import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
+import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
 import {SourceMapGenerator} from 'source-map'
 
 // Note: the cache is heavily inspired by:

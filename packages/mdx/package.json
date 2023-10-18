@@ -31,13 +31,17 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
-  "types": "index.d.ts",
-  "browser": {
-    "./lib/condition.js": "./lib/condition.browser.js"
+  "exports": {
+    ".": "./index.js",
+    "./internal-create-format-aware-processors": "./lib/util/create-format-aware-processors.js",
+    "./internal-extnames-to-regex": "./lib/util/extnames-to-regex.js",
+    "./internal-resolve-evaluate-options": "./lib/util/resolve-evaluate-options.js"
   },
-  "react-native": {
-    "./lib/condition.js": "./lib/condition.browser.js"
+  "imports": {
+    "#condition": {
+      "node": "./lib/condition.node.js",
+      "default": "./lib/condition.default.js"
+    }
   },
   "files": [
     "lib/",

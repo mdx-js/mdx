@@ -29,8 +29,7 @@
   ],
   "type": "module",
   "sideEffects": true,
-  "main": "index.cjs",
-  "types": "index.d.ts",
+  "exports": "./index.cjs",
   "files": [
     "lib/",
     "index.d.ts",

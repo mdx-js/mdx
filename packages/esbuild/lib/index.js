@@ -1,5 +1,5 @@
 /**
- * @typedef {import('@mdx-js/mdx/lib/core.js').ProcessorOptions} ProcessorOptions
+ * @typedef {import('@mdx-js/mdx').ProcessorOptions} ProcessorOptions
  * @typedef {import('esbuild').Message} Message
  * @typedef {import('esbuild').OnLoadArgs} OnLoadArgs
  * @typedef {import('esbuild').OnLoadResult} OnLoadResult
@@ -46,8 +46,8 @@ import assert from 'node:assert'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
-import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
-import {extnamesToRegex} from '@mdx-js/mdx/lib/util/extnames-to-regex.js'
+import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
+import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
 import {fetch} from 'undici'
 import {VFile} from 'vfile'
 

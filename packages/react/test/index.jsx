@@ -1,5 +1,5 @@
 /**
- * @typedef {import('@mdx-js/mdx/lib/util/resolve-evaluate-options.js').RuntimeProduction} RuntimeProduction
+ * @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options').RuntimeProduction} RuntimeProduction
  */
 
 import assert from 'node:assert/strict'
