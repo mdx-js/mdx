@@ -12,15 +12,18 @@
 import {create} from './estree-util-create.js'
 
 /**
- * @param {Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier | ExportSpecifier>} specifiers
- * @param {Expression} init
+ * @param {ReadonlyArray<Readonly<ExportSpecifier> | Readonly<ImportDefaultSpecifier> | Readonly<ImportNamespaceSpecifier> | Readonly<ImportSpecifier>>} specifiers
+ *   Specifiers.
+ * @param {Readonly<Expression>} init
+ *   Initializer.
  * @returns {Array<VariableDeclarator>}
+ *   Declarations.
  */
 export function specifiersToDeclarations(specifiers, init) {
   let index = -1
   /** @type {Array<VariableDeclarator>} */
   const declarations = []
-  /** @type {Array<ImportSpecifier | ImportDefaultSpecifier | ExportSpecifier>} */
+  /** @type {Array<ExportSpecifier | ImportDefaultSpecifier | ImportSpecifier>} */
   const otherSpecifiers = []
   // Can only be one according to JS syntax.
   /** @type {ImportNamespaceSpecifier | undefined} */
@@ -51,7 +54,7 @@ export function specifiersToDeclarations(specifiers, init) {
     type: 'VariableDeclarator',
     id: {
       type: 'ObjectPattern',
-      properties: otherSpecifiers.map((specifier) => {
+      properties: otherSpecifiers.map(function (specifier) {
         /** @type {Identifier} */
         let key =
           specifier.type === 'ImportSpecifier'

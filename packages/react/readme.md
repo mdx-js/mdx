@@ -107,7 +107,7 @@ Configuration (`Object`, optional).
 ###### `props.components`
 
 Mapping of names for JSX components to React components
-(`Record<string, string|Component|Components>`, optional).
+(`Record<string, string | Component | Components>`, optional).
 
 ###### `props.disableParentContext`
 

@@ -7,20 +7,32 @@
 
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
-import {u} from 'unist-builder'
-import {unified} from 'unified'
+import remarkMdx from 'remark-mdx'
 import remarkParse from 'remark-parse'
 import remarkStringify from 'remark-stringify'
+import {unified} from 'unified'
+import {u} from 'unist-builder'
 import {removePosition} from 'unist-util-remove-position'
 import {visit} from 'unist-util-visit'
-import remarkMdx from '../index.js'
 
 const basic = unified().use(remarkParse).use(remarkMdx)
 
-test('parse: basics', async (t) => {
-  await t.test('should parse a self-closing tag', () => {
+test('remark-mdx: core', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('remark-mdx')).sort(), [
+      'default'
+    ])
+  })
+})
+
+test('remark-mdx: parse', async function (t) {
+  await t.test('should parse a self-closing tag', function () {
+    const tree = basic.parse('Alpha <b/> charlie.')
+
+    clean(tree)
+
     assert.deepEqual(
-      clean(basic.parse('Alpha <b/> charlie.')),
+      tree,
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
@@ -31,9 +43,13 @@ test('parse: basics', async (t) => {
     )
   })
 
-  await t.test('should parse an opening and a closing tag', () => {
+  await t.test('should parse an opening and a closing tag', function () {
+    const tree = basic.parse('Alpha <b></b> charlie.')
+
+    clean(tree)
+
     assert.deepEqual(
-      clean(basic.parse('Alpha <b></b> charlie.')),
+      tree,
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
@@ -44,9 +60,13 @@ test('parse: basics', async (t) => {
     )
   })
 
-  await t.test('should parse fragments', () => {
+  await t.test('should parse fragments', function () {
+    const tree = basic.parse('Alpha <></> charlie.')
+
+    clean(tree)
+
     assert.deepEqual(
-      clean(basic.parse('Alpha <></> charlie.')),
+      tree,
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
@@ -57,9 +77,13 @@ test('parse: basics', async (t) => {
     )
   })
 
-  await t.test('should parse markdown inside tags', () => {
+  await t.test('should parse markdown inside tags', function () {
+    const tree = basic.parse('Alpha <b>*bravo*</b> charlie.')
+
+    clean(tree)
+
     assert.deepEqual(
-      clean(basic.parse('Alpha <b>*bravo*</b> charlie.')),
+      tree,
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
@@ -72,13 +96,17 @@ test('parse: basics', async (t) => {
     )
   })
 
-  await t.test('should parse expressions', () => {
+  await t.test('should parse expressions', function () {
+    const tree = basic.parse('Alpha {1 + 1} charlie.')
+
+    clean(tree)
+
     assert.deepEqual(
-      clean(basic.parse('Alpha {1 + 1} charlie.')),
+      tree,
       u('root', [
         u('paragraph', [
           u('text', 'Alpha '),
-          u('mdxTextExpression', {data: {estree: null}}, '1 + 1'),
+          u('mdxTextExpression', {data: {estree: undefined}}, '1 + 1'),
           u('text', ' charlie.')
         ])
       ])
@@ -86,10 +114,10 @@ test('parse: basics', async (t) => {
   })
 })
 
-test('stringify', async (t) => {
+test('remark-mdx: stringify', async function (t) {
   const basic = unified().use(remarkStringify).use(remarkMdx)
 
-  await t.test('should serialize an empty nameless fragment', () => {
+  await t.test('should serialize an empty nameless fragment', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -104,7 +132,7 @@ test('stringify', async (t) => {
     )
   })
 
-  await t.test('should serialize a tag with a name', () => {
+  await t.test('should serialize a tag with a name', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -119,7 +147,7 @@ test('stringify', async (t) => {
     )
   })
 
-  await t.test('should serialize a boolean attribute (element)', () => {
+  await t.test('should serialize a boolean attribute (element)', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -138,7 +166,7 @@ test('stringify', async (t) => {
     )
   })
 
-  await t.test('should serialize an attribute (element)', () => {
+  await t.test('should serialize an attribute (element)', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -160,7 +188,7 @@ test('stringify', async (t) => {
     )
   })
 
-  await t.test('should serialize a prefixed attribute (element)', () => {
+  await t.test('should serialize a prefixed attribute (element)', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -182,60 +210,66 @@ test('stringify', async (t) => {
     )
   })
 
-  await t.test('should serialize a attribute expression (element)', () => {
-    assert.equal(
-      basic.stringify(
-        u('root', [
-          u('paragraph', [
-            u('text', 'Alpha '),
-            u(
-              'mdxJsxTextElement',
-              {
-                name: 'b',
-                attributes: [u('mdxJsxExpressionAttribute', '...props')]
-              },
-              []
-            ),
-            u('text', ' charlie.')
+  await t.test(
+    'should serialize a attribute expression (element)',
+    function () {
+      assert.equal(
+        basic.stringify(
+          u('root', [
+            u('paragraph', [
+              u('text', 'Alpha '),
+              u(
+                'mdxJsxTextElement',
+                {
+                  name: 'b',
+                  attributes: [u('mdxJsxExpressionAttribute', '...props')]
+                },
+                []
+              ),
+              u('text', ' charlie.')
+            ])
           ])
-        ])
-      ),
-      'Alpha <b {...props} /> charlie.\n'
-    )
-  })
+        ),
+        'Alpha <b {...props} /> charlie.\n'
+      )
+    }
+  )
 
-  await t.test('should serialize an expression attribute (element)', () => {
-    assert.equal(
-      basic.stringify(
-        u('root', [
-          u('paragraph', [
-            u('text', 'Alpha '),
-            u(
-              'mdxJsxTextElement',
-              {
-                name: 'b',
-                attributes: [
-                  u('mdxJsxAttribute', {
-                    name: 'b',
-                    value: u(
-                      'mdxJsxAttributeValueExpression',
-                      {data: {estree: undefined}},
-                      '1 + 1'
-                    )
-                  })
-                ]
-              },
-              []
-            ),
-            u('text', ' charlie.')
+  await t.test(
+    'should serialize an expression attribute (element)',
+    function () {
+      assert.equal(
+        basic.stringify(
+          u('root', [
+            u('paragraph', [
+              u('text', 'Alpha '),
+              u(
+                'mdxJsxTextElement',
+                {
+                  name: 'b',
+                  attributes: [
+                    u('mdxJsxAttribute', {
+                      name: 'b',
+                      value: u(
+                        'mdxJsxAttributeValueExpression',
+                        {data: {estree: undefined}},
+                        '1 + 1'
+                      )
+                    })
+                  ]
+                },
+                []
+              ),
+              u('text', ' charlie.')
+            ])
           ])
-        ])
-      ),
-      'Alpha <b b={1 + 1} /> charlie.\n'
-    )
-  })
+        ),
+        'Alpha <b b={1 + 1} /> charlie.\n'
+      )
+    }
+  )
 
-  await t.test('should write out a url as the raw value', () => {
+  await t.test('should write out a url as the raw value', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -250,7 +284,7 @@ test('stringify', async (t) => {
     )
   })
 
-  await t.test('should encode `<` in text', () => {
+  await t.test('should encode `<` in text', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -267,7 +301,7 @@ test('stringify', async (t) => {
     )
   })
 
-  await t.test('should encode `{` in text', () => {
+  await t.test('should encode `{` in text', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -284,7 +318,7 @@ test('stringify', async (t) => {
     )
   })
 
-  await t.test('should serialize empty expressions', () => {
+  await t.test('should serialize empty expressions', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -299,7 +333,7 @@ test('stringify', async (t) => {
     )
   })
 
-  await t.test('should serialize expressions', () => {
+  await t.test('should serialize expressions', function () {
     assert.equal(
       basic.stringify(
         u('root', [
@@ -316,54 +350,47 @@ test('stringify', async (t) => {
 })
 
 /**
- * @template {Nodes} Tree
- * @param {Tree} tree
- * @returns {Tree}
+ * @param {Nodes} tree
+ *   Tree.
+ * @returns {undefined}
+ *   Nothing.
  */
 function clean(tree) {
   removePosition(tree, {force: true})
-  cleanEstree(tree)
-  return tree
+  visit(tree, onvisit)
 }
 
 /**
- * @param {Nodes} tree
+ * @param {MdxJsxAttribute | MdxJsxAttributeValueExpression | MdxJsxExpressionAttribute | Nodes} node
+ *   Node.
+ * @returns {undefined}
+ *   Nothing.
  */
-function cleanEstree(tree) {
-  visit(tree, onvisit)
+function onvisit(node) {
+  if (
+    (node.type === 'mdxjsEsm' ||
+      node.type === 'mdxTextExpression' ||
+      node.type === 'mdxFlowExpression' ||
+      node.type === 'mdxJsxAttribute' ||
+      node.type === 'mdxJsxAttributeValueExpression' ||
+      node.type === 'mdxJsxExpressionAttribute') &&
+    node.data &&
+    'estree' in node.data &&
+    node.data.estree
+  ) {
+    node.data.estree = undefined
+  }
 
-  /**
-   * @param {Nodes | MdxJsxAttribute | MdxJsxAttributeValueExpression | MdxJsxExpressionAttribute} node
-   */
-  function onvisit(node) {
-    if (
-      (node.type === 'mdxjsEsm' ||
-        node.type === 'mdxTextExpression' ||
-        node.type === 'mdxFlowExpression' ||
-        node.type === 'mdxJsxAttribute' ||
-        node.type === 'mdxJsxAttributeValueExpression' ||
-        node.type === 'mdxJsxExpressionAttribute') &&
-      node.data &&
-      'estree' in node.data &&
-      node.data.estree
-    ) {
-      node.data.estree = null
-    }
+  if (node.type === 'mdxJsxTextElement' || node.type === 'mdxJsxFlowElement') {
+    let index = -1
 
-    if (
-      node.type === 'mdxJsxTextElement' ||
-      node.type === 'mdxJsxFlowElement'
-    ) {
-      let index = -1
+    while (++index < node.attributes.length) {
+      const child = node.attributes[index]
 
-      while (++index < node.attributes.length) {
-        const child = node.attributes[index]
+      onvisit(child)
 
-        onvisit(child)
-
-        if (child.value && typeof child.value === 'object') {
-          onvisit(child.value)
-        }
+      if (child.value && typeof child.value === 'object') {
+        onvisit(child.value)
       }
     }
   }

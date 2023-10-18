@@ -4,3 +4,5 @@ node_modules/
 *.d.cts
 *.d.ts
 /public/
+!/packages/mdx/lib/types.d.ts
+!/website/types.d.ts

@@ -5,31 +5,39 @@
 'use strict'
 
 const assert = require('node:assert/strict')
-const path = require('node:path')
-const fs = require('node:fs').promises
+const fs = require('node:fs/promises')
 const {test} = require('node:test')
+const {pathToFileURL} = require('node:url')
 const React = require('react')
 const {renderToStaticMarkup} = require('react-dom/server')
 
-test('@mdx-js/register', async () => {
-  const base = path.resolve(path.join('test'))
+test('@mdx-js/register', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('@mdx-js/register')).sort(), [
+      'default'
+    ])
+  })
 
-  await fs.writeFile(
-    path.join(base, 'register.mdx'),
-    'export const Message = () => <>World!</>\n\n# Hello, <Message />'
-  )
+  await t.test('should work', async function () {
+    const folder = pathToFileURL(__filename)
+    const mdxUrl = new URL('register.mdx', folder)
 
-  const Content = /** @type {MDXContent} */ (
-    /** @type {unknown} */ (
-      require('./register.mdx') // type-coverage:ignore-line
+    await fs.writeFile(
+      mdxUrl,
+      'export function Message() { return <>World!</> }\n\n# Hello, <Message />'
     )
-  )
 
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '<h1>Hello, World!</h1>',
-    'should compile'
-  )
+    const Content = /** @type {MDXContent} */ (
+      /** @type {unknown} */ (
+        require('./register.mdx') // type-coverage:ignore-line
+      )
+    )
 
-  await fs.unlink(path.join(base, 'register.mdx'))
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<h1>Hello, World!</h1>'
+    )
+
+    await fs.rm(mdxUrl)
+  })
 })

@@ -1,10 +1,11 @@
 import {Note} from '../_component/note.jsx'
+
 export const info = {
   author: [
-    {name: 'John Otander', github: 'johno', twitter: '4lpine'}
+    {github: 'johno', name: 'John Otander', twitter: '4lpine'}
   ],
-  published: new Date('2019-05-14'),
-  modified: new Date('2021-11-01')
+  modified: new Date('2021-11-01'),
+  published: new Date('2019-05-14')
 }
 
 <Note type="legacy">
@@ -30,9 +31,9 @@ you can add in components with the `MDXProvider`:
 ```tsx path="src/App.js"
 import React from 'react'
 import {MDXProvider} from '@mdx-js/react'
-import {YouTube, Twitter, TomatoBox} from './ui'
+import {TomatoBox, Twitter, YouTube} from './ui'
 
-const shortcodes = {YouTube, Twitter, TomatoBox}
+const shortcodes = {TomatoBox, Twitter, YouTube}
 
 export default ({children}) => (
   <MDXProvider components={shortcodes}>{children}</MDXProvider>

@@ -55,7 +55,6 @@
     "hast-util-to-jsx-runtime": "^2.0.0",
     "hast-util-to-text": "^4.0.0",
     "hastscript": "^8.0.0",
-    "nanoid": "^4.0.0",
     "p-all": "^5.0.0",
     "periscopic": "^3.0.0",
     "postcss": "^8.0.0",
@@ -98,7 +97,6 @@
     "remark-strip-badges": "^7.0.0",
     "remark-toc": "^9.0.0",
     "rollup": "^4.0.0",
-    "source-map-support": "^0.5.0",
     "type-coverage": "^2.0.0",
     "typescript": "^5.0.0",
     "unified": "^11.0.3",
@@ -193,14 +191,24 @@
         "rules": {
           "react/react-in-jsx-scope": "off"
         }
+      },
+      {
+        "files": [
+          "**/*.ts"
+        ],
+        "rules": {
+          "@typescript-eslint/array-type": "off",
+          "@typescript-eslint/ban-types": "off",
+          "@typescript-eslint/consistent-type-definitions": "off"
+        }
       }
     ],
     "prettier": true,
     "rules": {
+      "complexity": "off",
       "n/file-extension-in-import": "off",
       "react/jsx-no-bind": "off",
-      "react/prop-types": "off",
-      "complexity": "off"
+      "react/prop-types": "off"
     }
   }
 }

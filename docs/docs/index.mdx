@@ -1,10 +1,12 @@
+import assert from 'node:assert/strict'
 import {NavGroup} from '../_component/nav.jsx'
-export const navSortSelf = 1
+
 export const info = {
   author: [{name: 'MDX Contributors'}],
-  published: new Date('2021-11-01'),
-  modified: new Date('2021-11-01')
+  modified: new Date('2021-11-01'),
+  published: new Date('2021-11-01')
 }
+export const navSortSelf = 1
 
 # Docs
 
@@ -14,10 +16,17 @@ to extend them.
 Reading through these should give you a good understanding of MDX.
 
 {
-  (() => {
-    const category = props.navTree.children.find(
-      item => item.name === '/docs/'
-    )
+  (function () {
+    /**
+     * @typedef {import('../_component/sort.js').Item} Item
+     */
+
+    /** @type {Item} */
+    const navTree = props.navTree
+    const category = navTree.children.find(function (item) {
+      return item.name === '/docs/'
+    })
+    assert(category)
 
     return (
       <nav>

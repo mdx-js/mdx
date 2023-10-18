@@ -49,6 +49,7 @@
     "@types/estree-jsx": "^1.0.0",
     "@types/hast": "^3.0.0",
     "@types/mdx": "^2.0.0",
+    "devlop": "^1.0.0",
     "estree-util-build-jsx": "^3.0.0",
     "estree-util-is-identifier-name": "^3.0.0",
     "estree-util-to-js": "^2.0.0",
@@ -69,10 +70,22 @@
   "devDependencies": {},
   "scripts": {
     "test": "npm run test-coverage",
-    "test-api": "node --conditions development test/index.js",
+    "test-api": "node --conditions development --enable-source-maps test/index.js",
     "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
   "xo": {
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts"
+        ],
+        "rules": {
+          "@typescript-eslint/array-type": "off",
+          "@typescript-eslint/ban-types": "off",
+          "@typescript-eslint/consistent-type-definitions": "off"
+        }
+      }
+    ],
     "prettier": true,
     "rules": {
       "complexity": "off",

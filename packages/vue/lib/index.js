@@ -1,29 +1,47 @@
 /**
  * @typedef {import('mdx/types.js').MDXComponents} Components
+ * @typedef {import('vue').Component<{components?: Components | null | undefined}>} Provider
+ * @typedef {import('vue').ComponentPublicInstance} ComponentPublicInstance
  */
 
-import {provide, inject, createVNode, Fragment} from 'vue'
+import {Fragment, createVNode, inject, provide} from 'vue'
 
-/** @type {import('vue').Component<{components?: Components | null | undefined}>} */
+/**
+ * @type {Provider}
+ *   Provider.
+ */
 export const MDXProvider = {
   name: 'MDXProvider',
-  props: {components: {type: Object, default: () => ({})}},
+  props: {
+    components: {
+      default() {
+        return {}
+      },
+      type: Object
+    }
+  },
   setup(props) {
     provide('$mdxComponents', props.components)
   },
   /**
-   * @this {import('vue').ComponentPublicInstance}
+   * @this {ComponentPublicInstance}
+   *   Context.
+   * @returns
+   *   Element.
    */
   render() {
     return createVNode(
       Fragment,
-      null,
+      undefined,
       this.$slots.default ? this.$slots.default() : []
     )
   }
 }
 
-/** @returns {Components} */
+/**
+ * @returns {Components}
+ *   Current components.
+ */
 export function useMDXComponents() {
   return inject('$mdxComponents', {})
 }

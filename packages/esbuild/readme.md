@@ -66,8 +66,8 @@ import mdx from '@mdx-js/esbuild'
 
 await esbuild.build({
   entryPoints: ['index.mdx'],
-  outfile: 'output.js',
   format: 'esm',
+  outfile: 'output.js',
   plugins: [mdx({/* Options… */})]
 })
 ```
@@ -126,8 +126,8 @@ import mdx from '@mdx-js/esbuild'
 
 await esbuild.build({
   entryPoints: ['index.mdx'],
-  outfile: 'output.js',
   format: 'esm',
+  outfile: 'output.js',
   plugins: [mdx({allowDangerousRemoteMdx: true, /* Other options… */})]
 })
 ```

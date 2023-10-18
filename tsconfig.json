@@ -6,11 +6,17 @@
     "emitDeclarationOnly": true,
     "exactOptionalPropertyTypes": true,
     "jsx": "preserve",
-    "lib": ["es2021"],
+    "lib": ["es2022"],
     "module": "node16",
     "strict": true,
     "target": "es2020"
   },
   "exclude": ["**/coverage/", "**/node_modules/", "**/public/"],
-  "include": ["**/*.cjs", "**/*.js", "**/*.jsx"]
+  "include": [
+    "**/*.cjs",
+    "**/*.js",
+    "**/*.jsx",
+    "packages/mdx/lib/types.d.ts",
+    "website/types.d.ts"
+  ]
 }

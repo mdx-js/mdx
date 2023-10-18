@@ -67,7 +67,9 @@ yarn add @mdx-js/mdx
 Say we have an MDX document, `example.mdx`:
 
 ```mdx
-export const Thing = () => <>World!</>
+export function Thing() {
+  return <>World!</>
+}
 
 # Hello, <Thing />
 ```
@@ -89,7 +91,9 @@ Yields roughly:
 /* @jsxRuntime automatic @jsxImportSource react */
 import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
-export const Thing = () => _jsx(_Fragment, {children: 'World'})
+export function Thing() {
+  return _jsx(_Fragment, {children: 'World'})
+}
 
 function _createMdxContent(props) {
   const _components = {
@@ -177,12 +181,12 @@ List of [rehype plugins][rehype-plugins], presets, and pairs.
 import rehypeKatex from 'rehype-katex' // Render math with KaTeX.
 import remarkMath from 'remark-math' // Support math like `$so$`.
 
-await compile(file, {remarkPlugins: [remarkMath], rehypePlugins: [rehypeKatex]})
+await compile(file, {rehypePlugins: [rehypeKatex], remarkPlugins: [remarkMath]})
 
 await compile(file, {
-  remarkPlugins: [remarkMath],
   // A plugin with options:
-  rehypePlugins: [[rehypeKatex, {throwOnError: true, strict: true}]]
+  rehypePlugins: [[rehypeKatex, {strict: true, throwOnError: true}]],
+  remarkPlugins: [remarkMath]
 })
 ```
 
@@ -241,11 +245,11 @@ So pass a full vfile (with `path`) or an object with a path.
 ```tsx
 compile({value: '…'}) // Seen as MDX
 compile({value: '…'}, {format: 'md'}) // Seen as markdown
-compile({value: '…', path: 'readme.md'}) // Seen as markdown
+compile({path: 'readme.md', value: '…'}) // Seen as markdown
 
 // Please do not use `.md` for MDX as other tools won’t know how to handle it.
-compile({value: '…', path: 'readme.md'}, {format: 'mdx'}) // Seen as MDX
-compile({value: '…', path: 'readme.md'}, {mdExtensions: []}) // Seen as MDX
+compile({path: 'readme.md', value: '…'}, {format: 'mdx'}) // Seen as MDX
+compile({path: 'readme.md', value: '…'}, {mdExtensions: []}) // Seen as MDX
 ```
 
 </details>
@@ -500,11 +504,11 @@ console.log(file.map)
 
 ```tsx
 {
-  version: 3,
-  sources: ['example.mdx'],
-  names: ['Thing'],
+  file: 'example.mdx',
   mappings: ';;aAAaA,QAAQ;YAAQ;;;;;;;;iBAE3B',
-  file: 'example.mdx'
+  names: ['Thing'],
+  sources: ['example.mdx'],
+  version: 3
 }
 ```
 
@@ -533,7 +537,9 @@ compile(file, {providerImportSource: '@mdx-js/react'})
  import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 +import {useMDXComponents as _provideComponents} from '@mdx-js/react'
 
- export const Thing = () => _jsx(_Fragment, {children: 'World!'})
+ export function Thing() {
+   return _jsx(_Fragment, {children: 'World'})
+ }
 
  function _createMdxContent(props) {
    const _components = {
@@ -579,8 +585,10 @@ compile(file, {jsx: true})
  /* @jsxRuntime automatic @jsxImportSource react */
 -import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
--export const Thing = () => _jsx(_Fragment, {children: 'World!'})
-+export const Thing = () => <>World!</>
+ export function Thing() {
+-  return _jsx(_Fragment, {children: 'World'})
++  return <>World!</>
+ }
 
  function _createMdxContent(props) {
    const _components = {
@@ -626,8 +634,10 @@ compile(file, {jsxRuntime: 'classic'})
 +/* @jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment */
 +import React from 'react'
 
--export const Thing = () => _jsx(_Fragment, {children: 'World!'})
-+export const Thing = () => React.createElement(React.Fragment, null, 'World!')
+ export function Thing() {
+-  return _jsx(_Fragment, {children: 'World'})
++  return React.createElement(React.Fragment, null, 'World!')
+ }
 …
 ```
 
@@ -690,8 +700,10 @@ compile(file, {
 +/* @jsxRuntime classic @jsx preact.createElement @jsxFrag preact.Fragment */
 +import preact from 'preact/compat'
 
--export const Thing = () => React.createElement(React.Fragment, null, 'World!')
-+export const Thing = () => preact.createElement(preact.Fragment, null, 'World!')
+ export function Thing() {
+-  return React.createElement(React.Fragment, null, 'World!')
++  return preact.createElement(preact.Fragment, null, 'World!')
+ }
 …
 ```
 
@@ -812,9 +824,9 @@ They come from an automatic JSX runtime that you must import yourself.
 import * as runtime from 'react/jsx-runtime'
 
 const {default: Content} = await evaluate('# hi', {
-  ...runtime,
+  development: false,
   ...otherOptions,
-  development: false
+  ...runtime
 })
 ```
 
@@ -832,10 +844,10 @@ import * as provider from '@mdx-js/react'
 import * as runtime from 'react/jsx-runtime'
 
 const {default: Content} = await evaluate('# hi', {
-  ...provider,
-  ...runtime,
+  development: false,
   ...otherOptions,
-  development: false
+  ...provider,
+  ...runtime
 })
 ```
 
@@ -919,8 +931,8 @@ On the server:
 import {compile} from '@mdx-js/mdx'
 
 const code = String(await compile('# hi', {
-  outputFormat: 'function-body',
-  development: false
+  development: false,
+  outputFormat: 'function-body'
 }))
 // To do: send `code` to the client somehow.
 ```

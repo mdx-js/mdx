@@ -1,12 +1,13 @@
 import {Note} from '../_component/note.jsx'
-export const navSortSelf = 3
+
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  published: new Date('2021-10-06'),
-  modified: new Date('2023-10-09')
+  modified: new Date('2023-10-09'),
+  published: new Date('2021-10-06')
 }
+export const navSortSelf = 3
 
 # Math
 
@@ -39,8 +40,8 @@ import remarkMath from 'remark-math'
 console.log(
   String(
     await compile(await fs.readFile('example.mdx'), {
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex]
+      rehypePlugins: [rehypeKatex],
+      remarkPlugins: [remarkMath]
     })
   )
 )

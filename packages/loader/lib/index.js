@@ -1,31 +1,31 @@
 /**
  * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
- * @typedef {import('vfile').VFileCompatible} VFileCompatible
+ * @typedef {import('vfile').Compatible} Compatible
  * @typedef {import('vfile').VFile} VFile
  * @typedef {import('vfile-message').VFileMessage} VFileMessage
- * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
  * @typedef {import('webpack').Compiler} WebpackCompiler
+ * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
  */
 
 /**
  * @typedef {Pick<CompileOptions, 'SourceMapGenerator'>} Defaults
+ *   Defaults.
  * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} Options
  *   Configuration.
  *
  * @callback Process
  *   Process.
- * @param {VFileCompatible} vfileCompatible
+ * @param {Compatible} vfileCompatible
  *   Input.
  * @returns {Promise<VFile>}
  *   File.
  */
 
+import {Buffer} from 'node:buffer'
 import {createHash} from 'node:crypto'
 import path from 'node:path'
-import {SourceMapGenerator} from 'source-map'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
-
-const own = {}.hasOwnProperty
+import {SourceMapGenerator} from 'source-map'
 
 // Note: the cache is heavily inspired by:
 // <https://github.com/TypeStrong/ts-loader/blob/5c030bf/src/instance-cache.ts>
@@ -39,8 +39,13 @@ const cache = new WeakMap()
  * be CommonJS.
  *
  * @this {LoaderContext}
+ *   Context.
  * @param {string} value
+ *   Value.
  * @param {LoaderContext['callback']} callback
+ *   Callback.
+ * @returns {undefined}
+ *   Nothing.
  */
 export function loader(value, callback) {
   /** @type {Defaults} */
@@ -51,16 +56,16 @@ export function loader(value, callback) {
   }
   const config = {...defaults, ...options}
   const hash = getOptionsHash(options)
-  // Some loaders set `undefined` (see `TypeStrong/ts-loader`).
-  /* c8 ignore next */
+  /* c8 ignore next -- some loaders set `undefined` (see `TypeStrong/ts-loader`). */
   const compiler = this._compiler || marker
 
-  /* Removed option. */
-  /* c8 ignore next 5 */
   if ('renderer' in config) {
-    throw new Error(
-      '`options.renderer` is no longer supported. Please see <https://mdxjs.com/migrating/v2/> for more information'
+    callback(
+      new Error(
+        '`options.renderer` is no longer supported. Please see <https://mdxjs.com/migrating/v2/> for more information'
+      )
     )
+    return
   }
 
   let map = cache.get(compiler)
@@ -77,14 +82,27 @@ export function loader(value, callback) {
     map.set(hash, process)
   }
 
-  process({value, path: this.resourcePath}).then(
-    (file) => {
-      // @ts-expect-error: `webpack` is not compiled with `exactOptionalPropertyTypes`,
-      // so it does not allow `file.map` to be `undefined` here.
-      callback(null, file.value, file.map)
+  const context = this.context
+  const filePath = this.resourcePath
+
+  process({value, path: filePath}).then(
+    function (file) {
+      callback(
+        undefined,
+        Buffer.from(file.value),
+        // @ts-expect-error: `webpack` is not compiled with `exactOptionalPropertyTypes`,
+        // so it does not allow `sourceRoot` in `file.map` to be `undefined` here.
+        file.map || undefined
+      )
     },
-    (/** @type VFileMessage */ error) => {
-      const fpath = path.relative(this.context, this.resourcePath)
+    /**
+     * @param {VFileMessage} error
+     *   Error.
+     * @returns {undefined}
+     *   Nothing.
+     */
+    function (error) {
+      const fpath = path.relative(context, filePath)
       error.message = `${fpath}:${error.name}: ${error.message}`
       callback(error)
     }
@@ -92,7 +110,10 @@ export function loader(value, callback) {
 }
 
 /**
- * @param {Options} options
+ * @param {Readonly<Options>} options
+ *   Configuration.
+ * @returns {string}
+ *   Hash.
  */
 function getOptionsHash(options) {
   const hash = createHash('sha256')
@@ -100,7 +121,7 @@ function getOptionsHash(options) {
   let key
 
   for (key in options) {
-    if (own.call(options, key)) {
+    if (Object.hasOwn(options, key)) {
       const value = options[key]
 
       if (value !== undefined) {

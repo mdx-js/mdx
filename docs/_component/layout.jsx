@@ -1,32 +1,38 @@
 /**
  * @typedef {import('vfile').Data['meta']} DataMeta
  * @typedef {import('./sort.js').Item} Item
- * @typedef {import('../../website/generate.js').Author} Author
  */
 
 /**
  * @typedef Props
+ *   Props.
  * @property {string} name
- * @property {URL} ghUrl
- * @property {DataMeta | undefined} [meta]
- * @property {Item} navTree
+ *   Name.
+ * @property {Readonly<URL>} ghUrl
+ *   GitHub URL.
+ * @property {Readonly<DataMeta> | undefined} [meta]
+ *   Meta.
+ * @property {Readonly<Item>} navTree
+ *   Navigation tree.
  * @property {JSX.Element} children
+ *   Children.
  */
 
 import React from 'react'
-import {NavSite, NavSiteSkip} from './nav-site.jsx'
 import {FootSite} from './foot-site.jsx'
+import {NavSite, NavSiteSkip} from './nav-site.jsx'
 import {sortItems} from './sort.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 /**
- *
- * @param {Props} props
+ * @param {Readonly<Props>} props
+ *   Props.
  * @returns {JSX.Element}
+ *   Element.
  */
 export function Layout(props) {
-  const {name, navTree, ghUrl} = props
+  const {ghUrl, name, navTree} = props
   const [self, parent] = findSelfAndParent(navTree) || []
   const navSortItems = parent ? parent.data.navSortItems : undefined
   const siblings = parent
@@ -39,8 +45,6 @@ export function Layout(props) {
   const index = self ? siblings.indexOf(self) : -1
   const previous = index === -1 ? undefined : siblings[index - 1]
   const next = index === -1 ? undefined : siblings[index + 1]
-  /** @type {Array<Author>} */
-  // @ts-expect-error: to do: augment types.
   const metaAuthors = meta.authors || []
   const metaTime = (
     self
@@ -50,7 +54,9 @@ export function Layout(props) {
         ? meta.readingTime
         : [meta.readingTime, meta.readingTime]
       : []
-  ).map((d) => (d > 15 ? Math.round(d / 5) * 5 : Math.ceil(d)))
+  ).map(function (d) {
+    return d > 15 ? Math.round(d / 5) * 5 : Math.ceil(d)
+  })
   /** @type {string | undefined} */
   let timeLabel
 
@@ -130,7 +136,7 @@ export function Layout(props) {
 
   const readingTime = timeLabel ? <>{timeLabel} read</> : undefined
 
-  const creditsList = metaAuthors.map((d, i) => {
+  const creditsList = metaAuthors.map(function (d, i) {
     const href = d.github
       ? 'https://github.com/' + d.github
       : d.twitter
@@ -207,8 +213,11 @@ export function Layout(props) {
 
   /**
    * @param {Item} item
+   *   Item.
    * @param {Item | undefined} [parent]
+   *   Parent.
    * @returns {[self: Item, parent: Item | undefined] | undefined}
+   *   Self and parent.
    */
   function findSelfAndParent(item, parent) {
     if (item.name === name) return [item, parent]
@@ -225,7 +234,9 @@ export function Layout(props) {
 
 /**
  * @param {Item} d
+ *   Item.
  * @returns {string | undefined}
+ *   Title.
  */
 function entryToTitle(d) {
   return d.data.matter?.title || d.data.meta?.title || undefined
@@ -233,7 +244,9 @@ function entryToTitle(d) {
 
 /**
  * @param {Item} d
+ *   Item.
  * @returns {[number, number] | [number] | []}
+ *   Reading time.
  */
 function accumulateReadingTime(d) {
   const time = (d.data.meta || {}).readingTime

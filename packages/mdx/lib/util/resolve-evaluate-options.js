@@ -10,7 +10,7 @@
  * @typedef {EvaluateProcessorOptions & RunnerOptions} EvaluateOptions
  *   Configuration for evaluation.
  *
- * @typedef {Omit<ProcessorOptions, 'jsx' | 'jsxImportSource' | 'jsxRuntime' | 'pragma' | 'pragmaFrag' | 'pragmaImportSource' | 'providerImportSource' | 'outputFormat'> } EvaluateProcessorOptions
+ * @typedef {Omit<ProcessorOptions, 'jsx' | 'jsxImportSource' | 'jsxRuntime' | 'outputFormat' | 'pragma' | 'pragmaFrag' | 'pragmaImportSource' | 'providerImportSource'> } EvaluateProcessorOptions
  *   Compile configuration without JSX options for evaluation.
  *
  * @typedef {unknown} Fragment
@@ -114,14 +114,19 @@
  *   Primitive property value and `Style` map.
  */
 
+// Fix to show references to above types in VS Code.
+''
+
 /**
  * Split compiletime options from runtime options.
  *
- * @param {EvaluateOptions | null | undefined} options
+ * @param {Readonly<EvaluateOptions> | null | undefined} options
+ *   Configuration.
  * @returns {{compiletime: ProcessorOptions, runtime: RunnerOptions}}
+ *   Split options.
  */
 export function resolveEvaluateOptions(options) {
-  const {development, Fragment, jsx, jsxs, jsxDEV, useMDXComponents, ...rest} =
+  const {Fragment, development, jsx, jsxDEV, jsxs, useMDXComponents, ...rest} =
     options || {}
 
   if (!Fragment) throw new Error('Expected `Fragment` given to `evaluate`')
@@ -139,6 +144,6 @@ export function resolveEvaluateOptions(options) {
       outputFormat: 'function-body',
       providerImportSource: useMDXComponents ? '#' : undefined
     },
-    runtime: {Fragment, jsx, jsxs, jsxDEV, useMDXComponents}
+    runtime: {Fragment, jsx, jsxDEV, jsxs, useMDXComponents}
   }
 }

@@ -2,31 +2,43 @@
 
 /**
  * @typedef {import('@wooorm/starry-night').Grammar} Grammar
+ * @typedef {import('estree').Node} EstreeNode
+ * @typedef {import('estree').Program} Program
+ * @typedef {import('hast').Nodes} HastNodes
+ * @typedef {import('hast').Root} HastRoot
+ * @typedef {import('mdast').Nodes} MdastNodes
+ * @typedef {import('mdast').Root} MdastRoot
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttribute} MdxJsxAttribute
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
+ * @typedef {import('mdast-util-mdx-jsx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
  * @typedef {import('mdx/types.js').MDXModule} MDXModule
  * @typedef {import('react-error-boundary').FallbackProps} FallbackProps
  * @typedef {import('unified').PluggableList} PluggableList
- * @typedef {import('estree').Program} Program
- * @typedef {import('estree').Node} EstreeNode
- * @typedef {import('hast').Root} HastRoot
- * @typedef {import('hast').Nodes} HastNodes
- * @typedef {import('mdast').Root} MdastRoot
- * @typedef {import('mdast').Nodes} MdastNodes
- * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttribute} MdxJsxAttribute
- * @typedef {import('mdast-util-mdx-jsx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
- * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
  * @typedef {import('unist').Node} UnistNode
  */
 
 /**
- * @typedef EvalOk
- * @property {true} ok
- * @property {JSX.Element} value
+ * @typedef DisplayProps
+ *   Props.
+ * @property {Error} error
+ *   Error.
  *
  * @typedef EvalNok
+ *   Not OK.
  * @property {false} ok
+ *   Whether OK.
  * @property {Error} value
+ *   Error.
+ *
+ * @typedef EvalOk
+ *   OK.
+ * @property {true} ok
+ *   Whether OK.
+ * @property {JSX.Element} value
+ *   Result.
  *
  * @typedef {EvalNok | EvalOk} EvalResult
+ *   Result.
  */
 
 import {compile, nodeTypes, run} from '@mdx-js/mdx'
@@ -42,7 +54,7 @@ import textMd from '@wooorm/starry-night/text.md'
 import {visit as visitEstree} from 'estree-util-visit'
 import {toJsxRuntime} from 'hast-util-to-jsx-runtime'
 import {useEffect, useState} from 'react'
-// @ts-expect-error: untyped.
+// @ts-expect-error: the automatic react runtime is untyped.
 import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
 import ReactDom from 'react-dom/client'
 import {ErrorBoundary} from 'react-error-boundary'
@@ -61,7 +73,7 @@ const sample = `# Hello, world!
 
 Below is an example of markdown in JSX.
 
-<div style={{padding: '1rem', backgroundColor: 'violet'}}>
+<div style={{backgroundColor: 'violet', padding: '1rem'}}>
   Try and change the background color to \`tomato\`.
 </div>`
 
@@ -92,6 +104,9 @@ if (body && window.location.pathname === '/playground/') {
 
 /**
  * @param {Element} main
+ *   DOM element.
+ * @returns {undefined}
+ *   Nothing.
  */
 function init(main) {
   const root = ReactDom.createRoot(main)
@@ -99,6 +114,7 @@ function init(main) {
   createStarryNight(grammars).then(
     /**
      * @returns {undefined}
+     *   Nothing.
      */
     function (x) {
       starryNight = x
@@ -116,6 +132,7 @@ function init(main) {
 function Playground() {
   const [directive, setDirective] = useState(false)
   const [evalResult, setEvalResult] = useState(
+    // Cast to more easily use actual value.
     /** @type {unknown} */ (undefined)
   )
   const [development, setDevelopment] = useState(false)
@@ -139,6 +156,9 @@ function Playground() {
         },
         /**
          * @param {Error} error
+         *   Error.
+         * @returns {undefined}
+         *   Nothing.
          */
         function (error) {
           setEvalResult({ok: false, value: error})
@@ -225,6 +245,9 @@ function Playground() {
         function captureMdast() {
           /**
            * @param {MdastRoot} tree
+           *   Tree.
+           * @returns {undefined}
+           *   Nothing.
            */
           return function (tree) {
             const clone = structuredClone(tree)
@@ -236,6 +259,9 @@ function Playground() {
         function captureHast() {
           /**
            * @param {HastRoot} tree
+           *   Tree.
+           * @returns {undefined}
+           *   Nothing.
            */
           return function (tree) {
             const clone = structuredClone(tree)
@@ -247,6 +273,9 @@ function Playground() {
         function captureEsast() {
           /**
            * @param {Program} tree
+           *   Tree.
+           * @returns {undefined}
+           *   Nothing.
            */
           return function (tree) {
             const clone = structuredClone(tree)
@@ -273,6 +302,7 @@ function Playground() {
   )
 
   const scope = formatMarkdown ? 'text.md' : 'source.mdx'
+  // Cast to actual value.
   const compiledResult = /** @type {EvalResult | undefined} */ (evalResult)
   /** @type {JSX.Element | undefined} */
   let display
@@ -532,13 +562,14 @@ function Playground() {
 
 /**
  *
- * @param {FallbackProps} props
+ * @param {Readonly<FallbackProps>} props
+ *   Props.
  * @returns {JSX.Element}
+ *   Element.
  */
 function ErrorFallback(props) {
-  /** @type {Error} */
   // type-coverage:ignore-next-line
-  const error = props.error
+  const error = /** @type {Error} */ (props.error)
   return (
     <div role="alert">
       <p>Something went wrong:</p>
@@ -551,9 +582,10 @@ function ErrorFallback(props) {
 }
 
 /**
- *
- * @param {{error: Error}} props
+ * @param {DisplayProps} props
+ *   Props.
  * @returns {JSX.Element}
+ *   Element.
  */
 function DisplayError(props) {
   return (
@@ -565,6 +597,9 @@ function DisplayError(props) {
 
 /**
  * @param {HastRoot | MdastRoot} node
+ *   mdast or hast root.
+ * @returns {undefined}
+ *   Nothing.
  */
 function cleanUnistTree(node) {
   removePosition(node, {force: true})
@@ -572,7 +607,10 @@ function cleanUnistTree(node) {
 }
 
 /**
- * @param {HastNodes | MdastNodes | MdxJsxAttribute | MdxJsxExpressionAttribute | MdxJsxAttributeValueExpression} node
+ * @param {HastNodes | MdastNodes | MdxJsxAttribute | MdxJsxAttributeValueExpression | MdxJsxExpressionAttribute} node
+ *   Node.
+ * @returns {undefined}
+ *   Nothing.
  */
 function cleanUnistNode(node) {
   if (
@@ -601,12 +639,15 @@ function cleanUnistNode(node) {
 
 /**
  * @param {EstreeNode} node
+ *   estree node.
+ * @returns {undefined}
+ *   Nothing.
  */
 function removeFromEstree(node) {
   delete node.loc
-  // @ts-expect-error: acorn.
+  // @ts-expect-error: this field is added by acorn.
   delete node.start
-  // @ts-expect-error: acorn.
+  // @ts-expect-error: this field is added by acorn.
   delete node.end
   delete node.range
 }

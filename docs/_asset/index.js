@@ -62,6 +62,9 @@ for (const copy of copies) {
 
 /**
  * @this {HTMLButtonElement}
+ *   Button element.
+ * @returns {undefined}
+ *   Nothing.
  */
 function onclick() {
   assert(copyIcon)

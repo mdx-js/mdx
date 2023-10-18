@@ -4,17 +4,20 @@
 
 /**
  * @typedef Props
+ *   Props.
  * @property {string} name
- * @property {Item} navTree
+ *   Name.
+ * @property {Readonly<Item>} navTree
+ *   Navigation tree.
  */
 
 import React from 'react'
 import {config} from '../_config.js'
-import {NavGroup} from './nav.jsx'
-import {Mdx} from './icon/mdx.jsx'
 import {GitHub} from './icon/github.jsx'
-import {Twitter} from './icon/twitter.jsx'
+import {Mdx} from './icon/mdx.jsx'
 import {OpenCollective} from './icon/open-collective.jsx'
+import {Twitter} from './icon/twitter.jsx'
+import {NavGroup} from './nav.jsx'
 
 export function NavSiteSkip() {
   return (
@@ -29,8 +32,10 @@ export function NavSiteSkip() {
 }
 
 /**
- * @param {Props} props
+ * @param {Readonly<Props>} props
+ *   Props.
  * @returns {JSX.Element}
+ *   Element.
  */
 export function NavSite(props) {
   const {name, navTree} = props

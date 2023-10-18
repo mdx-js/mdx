@@ -1,28 +1,31 @@
 /**
- * @typedef {import('react').ReactNode} ReactNode
  * @typedef {import('mdx/types.js').MDXComponents} Components
- *
- * @typedef Props
- *   Configuration.
- * @property {Components | MergeComponents | null | undefined} [components]
- *   Mapping of names for JSX components to React components.
- * @property {boolean | null | undefined} [disableParentContext=false]
- *   Turn off outer component context.
- * @property {ReactNode | null | undefined} [children]
- *   Children.
- *
+ * @typedef {import('react').Context<Components>} Context
+ * @typedef {import('react').ReactNode} ReactNode
+ */
+
+/**
  * @callback MergeComponents
  *   Custom merge function.
- * @param {Components} currentComponents
+ * @param {Readonly<Components>} currentComponents
  *   Current components from the context.
  * @returns {Components}
  *   Merged components.
+ *
+ * @typedef Props
+ *   Configuration.
+ * @property {Readonly<Components> | MergeComponents | null | undefined} [components]
+ *   Mapping of names for JSX components to React components (optional).
+ * @property {boolean | null | undefined} [disableParentContext=false]
+ *   Turn off outer component context (default: `false`).
+ * @property {ReactNode | null | undefined} [children]
+ *   Children (optional).
  */
 
 import React from 'react'
 
 /**
- * @type {import('react').Context<Components>}
+ * @type {Context}
  * @deprecated
  *   This export is marked as a legacy feature.
  *   That means it’s no longer recommended for use as it might be removed
@@ -35,6 +38,7 @@ export const MDXContext = React.createContext({})
 
 /**
  * @param {import('react').ComponentType<any>} Component
+ *   Component.
  * @deprecated
  *   This export is marked as a legacy feature.
  *   That means it’s no longer recommended for use as it might be removed
@@ -47,7 +51,9 @@ export function withMDXComponents(Component) {
 
   /**
    * @param {Record<string, unknown> & {components?: Components | null | undefined}} props
+   *   Props.
    * @returns {JSX.Element}
+   *   Element.
    */
   function boundMDXComponent(props) {
     const allComponents = useMDXComponents(props.components)
@@ -58,9 +64,9 @@ export function withMDXComponents(Component) {
 /**
  * Get current components from the MDX Context.
  *
- * @param {Components | MergeComponents | null | undefined} [components]
+ * @param {Readonly<Components> | MergeComponents | null | undefined} [components]
  *   Additional components to use or a function that takes the current
- *   components and filters/merges/changes them.
+ *   components and filters/merges/changes them (optional).
  * @returns {Components}
  *   Current components.
  */
@@ -68,27 +74,32 @@ export function useMDXComponents(components) {
   const contextComponents = React.useContext(MDXContext)
 
   // Memoize to avoid unnecessary top-level context changes
-  return React.useMemo(() => {
-    // Custom merge via a function prop
-    if (typeof components === 'function') {
-      return components(contextComponents)
-    }
+  return React.useMemo(
+    function () {
+      // Custom merge via a function prop
+      if (typeof components === 'function') {
+        return components(contextComponents)
+      }
 
-    return {...contextComponents, ...components}
-  }, [contextComponents, components])
+      return {...contextComponents, ...components}
+    },
+    [contextComponents, components]
+  )
 }
 
-/** @type {Components} */
+/** @type {Readonly<Components>} */
 const emptyObject = {}
 
 /**
  * Provider for MDX context
  *
- * @param {Props} props
+ * @param {Readonly<Props>} props
+ *   Props.
  * @returns {JSX.Element}
+ *   Element.
  */
-export function MDXProvider({components, children, disableParentContext}) {
-  /** @type {Components} */
+export function MDXProvider({children, components, disableParentContext}) {
+  /** @type {Readonly<Components>} */
   let allComponents
 
   if (disableParentContext) {

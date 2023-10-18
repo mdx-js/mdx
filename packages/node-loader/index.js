@@ -4,7 +4,7 @@
 
 import {createLoader} from './lib/index.js'
 
-const {load, getFormat, transformSource} = createLoader()
+const {getFormat, load, transformSource} = createLoader()
 
-export {load, getFormat, transformSource}
+export {getFormat, load, transformSource}
 export {createLoader} from './lib/index.js'

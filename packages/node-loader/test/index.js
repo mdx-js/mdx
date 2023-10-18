@@ -1,42 +1,57 @@
 /**
- * @typedef {import('mdx/types.js').MDXContent} MDXContent
+ * @typedef {import('mdx/types.js').MDXModule} MDXModule
  */
 
 import assert from 'node:assert/strict'
-import {promises as fs} from 'node:fs'
+import fs from 'node:fs/promises'
 import {test} from 'node:test'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 
-test('@mdx-js/node-loader', async () => {
-  await fs.writeFile(
-    new URL('esm-loader.mdx', import.meta.url),
-    'export const Message = () => <>World!</>\n\n# Hello, <Message />'
-  )
+test('@mdx-js/node-loader', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('@mdx-js/node-loader')).sort(), [
+      'createLoader',
+      'getFormat',
+      'load',
+      'transformSource'
+    ])
+  })
 
-  /** @type {MDXContent} */
-  let Content
+  await t.test('should work', async function () {
+    const mdxUrl = new URL('node-loader.mdx', import.meta.url)
 
-  try {
-    const mod = await import('./esm-loader.mdx')
-    Content = mod.default
-  } catch (error) {
-    const exception = /** @type {NodeJS.ErrnoException} */ (error)
-    if (exception.code === 'ERR_UNKNOWN_FILE_EXTENSION') {
-      await fs.unlink(new URL('esm-loader.mdx', import.meta.url))
-      throw new Error(
-        'Please run Node with `--experimental-loader=./esm-loader.js` to test the ESM loader'
-      )
+    await fs.writeFile(
+      mdxUrl,
+      'export function Message() { return <>World!</> }\n\n# Hello, <Message />'
+    )
+
+    /** @type {MDXModule} */
+    let mod
+
+    try {
+      mod = await import(mdxUrl.href)
+    } catch (error) {
+      const exception = /** @type {NodeJS.ErrnoException} */ (error)
+
+      if (exception.code === 'ERR_UNKNOWN_FILE_EXTENSION') {
+        await fs.rm(mdxUrl)
+
+        throw new Error(
+          'Please run Node with `--loader=./test/react-18-node-loader.js` to test the ESM loader'
+        )
+      }
+
+      throw error
     }
 
-    throw error
-  }
+    const Content = mod.default
 
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '<h1>Hello, World!</h1>',
-    'should compile'
-  )
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<h1>Hello, World!</h1>'
+    )
 
-  await fs.unlink(new URL('esm-loader.mdx', import.meta.url))
+    await fs.rm(mdxUrl)
+  })
 })

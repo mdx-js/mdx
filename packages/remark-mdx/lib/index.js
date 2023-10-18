@@ -1,7 +1,7 @@
 /**
- * @typedef {import('unified').Processor} Processor
- * @typedef {import('micromark-extension-mdxjs').Options} MicromarkOptions
  * @typedef {import('mdast-util-mdx').ToMarkdownOptions} ToMarkdownOptions
+ * @typedef {import('micromark-extension-mdxjs').Options} MicromarkOptions
+ * @typedef {import('unified').Processor} Processor
  */
 
 /**
@@ -9,17 +9,17 @@
  *   Configuration.
  */
 
-import {mdxjs} from 'micromark-extension-mdxjs'
 import {mdxFromMarkdown, mdxToMarkdown} from 'mdast-util-mdx'
+import {mdxjs} from 'micromark-extension-mdxjs'
 
-/** @type {Options} */
+/** @type {Readonly<Options>} */
 const emptyOptions = {}
 
 /**
  * Plugin to support MDX (import/exports: `export {x} from 'y'`; expressions:
  * `{1 + 1}`; and JSX: `<Video id={123} />`).
  *
- * @param {Options | null | undefined} [options]
+ * @param {Readonly<Options> | null | undefined} [options]
  *   Configuration (optional).
  * @returns {undefined}
  *   Nothing.

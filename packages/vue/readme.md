@@ -109,7 +109,7 @@ Configuration (`Object`, optional).
 ###### `props.components`
 
 Mapping of names for JSX components to Vue components
-(`Record<string, string|Component|Components>`, optional).
+(`Record<string, string | Component | Components>`, optional).
 
 ##### Returns
 

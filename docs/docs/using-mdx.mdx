@@ -1,12 +1,11 @@
-import {Note} from '../_component/note.jsx'
-export const navSortSelf = 3
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  published: new Date('2021-09-30'),
-  modified: new Date('2022-06-17')
+  modified: new Date('2022-06-17'),
+  published: new Date('2021-09-30')
 }
+export const navSortSelf = 3
 
 # Using MDX
 
@@ -31,7 +30,9 @@ An integration compiles MDX syntax to JavaScript.
 Say we have an MDX document, `example.mdx`:
 
 ```mdx path="input.mdx"
-export const Thing = () => <>World</>
+export function Thing() {
+  return <>World</>
+}
 
 # Hello <Thing />
 ```
@@ -42,7 +43,9 @@ The below might help to form a mental model:
 ```tsx path="output-outline.jsx"
 /* @jsxRuntime automatic @jsxImportSource react */
 
-export const Thing = () => <>World</>
+export function Thing() {
+  return <>World</>
+}
 
 export default function MDXContent() {
   return <h1>Hello <Thing /></h1>
@@ -62,7 +65,9 @@ The *actual* output is:
 /* @jsxRuntime automatic @jsxImportSource react */
 import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
-export const Thing = () => _jsx(_Fragment, {children: 'World'})
+export function Thing() {
+  return _jsx(_Fragment, {children: 'World'})
+}
 
 function _createMdxContent(props) {
   const _components = {
@@ -124,7 +129,9 @@ All other values are also exported.
 Take this example:
 
 ```mdx path="example.mdx"
-export const Thing = () => <>World</>
+export function Thing() {
+  return <>World</>
+}
 
 # Hello <Thing />
 ```
@@ -198,7 +205,13 @@ It can be imported from JavaScript and passed components like so:
 ```tsx path="example.jsx"
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-<Example components={{Planet: () => <span style={{color: 'tomato'}}>Pluto</span>}} />
+<Example
+  components={{
+    Planet() {
+      return <span style={{color: 'tomato'}}>Pluto</span>
+    }
+  }}
+/>
 ```
 
 You don’t have to pass components.
@@ -237,13 +250,23 @@ Here are some other examples of passing components:
     // Map `h1` (`# heading`) to use `h2`s.
     h1: 'h2',
     // Rewrite `em`s (`*like so*`) to `i` with a goldenrod foreground color.
-    em: (props) => <i style={{color: 'goldenrod'}} {...props} />,
+    em(props) {
+      return <i style={{color: 'goldenrod'}} {...props} />
+    },
     // Pass a layout (using the special `'wrapper'` key).
-    wrapper: ({components, ...rest}) => <main {...rest} />,
+    wrapper({components, ...rest}) {
+      return <main {...rest} />
+    },
     // Pass a component.
-    Planet: () => 'Neptune',
+    Planet() {
+      return 'Neptune'
+    },
     // This nested component can be used as `<theme.text>hi</theme.text>`
-    theme: {text: (props) => <span style={{color: 'grey'}} {...props} />}
+    theme: {
+      text(props) {
+        return <span style={{color: 'grey'}} {...props} />
+      }
+    }
   }}
 />
 ```
@@ -421,7 +444,13 @@ In this example the current context components are discarded:
 ```tsx
 <>
   <MDXProvider components={{h1: Component1, h2: Component2}}>
-    <MDXProvider components={() => ({h2: Component3, h3: Component4})}>
+    <MDXProvider
+      components={
+        function () {
+          return {h2: Component3, h3: Component4}
+        }
+      }
+    >
       <Content />
     </MDXProvider>
   </MDXProvider>

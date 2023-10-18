@@ -4,19 +4,25 @@
 
 /**
  * @typedef EntryProps
- * @property {Item} item
+ *   Props for `BlogEntry`.
+ * @property {Readonly<Item>} item
+ *   Item.
  *
  * @typedef GroupProps
+ *   Props for `BlogGroup`.
  * @property {string | undefined} [className]
- * @property {Array<Item>} items
+ *   Class name.
+ * @property {ReadonlyArray<Item>} items
+ *   Items.
  * @property {string | undefined} [sort]
+ *   Fields to sort on.
  */
 
-import React from 'react'
-// @ts-expect-error: untyped.
-import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
 import {apStyleTitleCase} from 'ap-style-title-case'
 import {toJsxRuntime} from 'hast-util-to-jsx-runtime'
+import React from 'react'
+// @ts-expect-error: the automatic react runtime is untyped.
+import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
 import {sortItems} from './sort.js'
 
 const runtime = {Fragment, jsx, jsxs}
@@ -24,14 +30,14 @@ const runtime = {Fragment, jsx, jsxs}
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 /**
- * @param {EntryProps} props
+ * @param {Readonly<EntryProps>} props
  *   Props.
  * @returns {JSX.Element}
  *   Element.
  */
 export function BlogEntry(props) {
   const {item} = props
-  const {name, data = {}} = item
+  const {data, name} = item
   const {matter = {}, meta = {}} = data
   const title = matter.title || meta.title
   const defaultTitle = apStyleTitleCase(
@@ -44,7 +50,9 @@ export function BlogEntry(props) {
         ? meta.readingTime
         : [meta.readingTime, meta.readingTime]
       : []
-  ).map((d) => Math.ceil(d))
+  ).map(function (d) {
+    return Math.ceil(d)
+  })
   /** @type {string | undefined} */
   let timeLabel
 
@@ -64,7 +72,7 @@ export function BlogEntry(props) {
           toJsxRuntime(meta.descriptionHast, runtime)
         ) : description ? (
           <p>{description}</p>
-        ) : null}
+        ) : undefined}
         <span>
           <a href={name}>Continue reading »</a>
         </span>
@@ -98,20 +106,20 @@ export function BlogEntry(props) {
 }
 
 /**
- * @param {GroupProps} props
+ * @param {Readonly<GroupProps>} props
  *   Props.
  * @returns {JSX.Element}
  *   Element.
  */
 export function BlogGroup(props) {
-  const {items, className, sort = 'navSortSelf,meta.title', ...rest} = props
+  const {className, items, sort = 'navSortSelf,meta.title', ...rest} = props
   const sorted = sortItems(items, sort)
 
   return (
     <>
-      {sorted.map((d) => (
-        <BlogEntry key={d.name} {...rest} item={d} />
-      ))}
+      {sorted.map(function (d) {
+        return <BlogEntry key={d.name} {...rest} item={d} />
+      })}
     </>
   )
 }

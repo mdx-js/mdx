@@ -40,13 +40,12 @@
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0",
     "@types/unist": "^3.0.0",
-    "node-fetch": "^3.0.0",
+    "undici": "^5.0.0",
     "vfile": "^6.0.0"
   },
   "peerDependencies": {
     "esbuild": ">=0.11.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "npm run test-coverage",
     "test-api": "node --conditions development test/index.js",

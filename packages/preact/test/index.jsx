@@ -6,210 +6,247 @@
 
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
+import {evaluate} from '@mdx-js/mdx'
+import {MDXProvider, useMDXComponents, withMDXComponents} from '@mdx-js/preact'
 import * as runtime_ from 'preact/jsx-runtime'
 import {render} from 'preact-render-to-string'
-import {evaluate} from '@mdx-js/mdx'
-import {MDXProvider, useMDXComponents, withMDXComponents} from '../index.js'
 
 const runtime = /** @type {RuntimeProduction} */ (runtime_)
 
-test('should support `components` with `MDXProvider`', async () => {
-  const {default: Content} = await evaluate('# hi', {
-    ...runtime,
-    useMDXComponents
+test('@mdx-js/preact', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('@mdx-js/preact')).sort(), [
+      'MDXContext',
+      'MDXProvider',
+      'useMDXComponents',
+      'withMDXComponents'
+    ])
   })
 
-  assert.equal(
-    render(
-      <MDXProvider
-        components={{
-          h1(props) {
-            return <h1 style={{color: 'tomato'}} {...props} />
-          }
-        }}
-      >
-        <Content />
-      </MDXProvider>
-    ),
-    '<h1 style="color:tomato;">hi</h1>'
+  await t.test(
+    'should support `components` with `MDXProvider`',
+    async function () {
+      const {default: Content} = await evaluate('# hi', {
+        ...runtime,
+        useMDXComponents
+      })
+
+      assert.equal(
+        render(
+          <MDXProvider
+            components={{
+              h1(props) {
+                return <h1 style={{color: 'tomato'}} {...props} />
+              }
+            }}
+          >
+            <Content />
+          </MDXProvider>
+        ),
+        '<h1 style="color:tomato;">hi</h1>'
+      )
+    }
   )
-})
 
-test('should support `wrapper` in `components`', async () => {
-  const {default: Content} = await evaluate('# hi', {
-    ...runtime,
-    useMDXComponents
-  })
+  await t.test('should support `wrapper` in `components`', async function () {
+    const {default: Content} = await evaluate('# hi', {
+      ...runtime,
+      useMDXComponents
+    })
 
-  assert.equal(
-    render(
-      <MDXProvider
-        components={{
-          wrapper(/** @type {Record<string, unknown>} */ props) {
-            return <div id="layout" {...props} />
-          }
-        }}
-      >
-        <Content />
-      </MDXProvider>
-    ),
-    '<div id="layout"><h1>hi</h1></div>'
-  )
-})
-
-test('should combine components in nested `MDXProvider`s', async () => {
-  const {default: Content} = await evaluate('# hi\n## hello', {
-    ...runtime,
-    useMDXComponents
-  })
-
-  assert.equal(
-    render(
-      <MDXProvider
-        components={{
-          h1(props) {
-            return <h1 style={{color: 'tomato'}} {...props} />
-          },
-          h2(props) {
-            return <h2 style={{color: 'rebeccapurple'}} {...props} />
-          }
-        }}
-      >
+    assert.equal(
+      render(
         <MDXProvider
           components={{
-            h2(props) {
-              return <h2 style={{color: 'papayawhip'}} {...props} />
+            /**
+             * @param {JSX.IntrinsicElements['div']} props
+             *   Props.
+             * @returns
+             *   Element.
+             */
+            wrapper(props) {
+              return <div id="layout" {...props} />
             }
           }}
         >
           <Content />
         </MDXProvider>
-      </MDXProvider>
-    ),
-    '<h1 style="color:tomato;">hi</h1>\n<h2 style="color:papayawhip;">hello</h2>'
-  )
-})
-
-test('should support components as a function', async () => {
-  const {default: Content} = await evaluate('# hi\n## hello', {
-    ...runtime,
-    useMDXComponents
+      ),
+      '<div id="layout"><h1>hi</h1></div>'
+    )
   })
 
-  assert.equal(
-    render(
-      <MDXProvider
-        components={{
-          h1(props) {
-            return <h1 style={{color: 'tomato'}} {...props} />
-          },
-          h2(props) {
-            return <h2 style={{color: 'rebeccapurple'}} {...props} />
-          }
-        }}
-      >
+  await t.test(
+    'should combine components in nested `MDXProvider`s',
+    async function () {
+      const {default: Content} = await evaluate('# hi\n## hello', {
+        ...runtime,
+        useMDXComponents
+      })
+
+      assert.equal(
+        render(
+          <MDXProvider
+            components={{
+              h1(props) {
+                return <h1 style={{color: 'tomato'}} {...props} />
+              },
+              h2(props) {
+                return <h2 style={{color: 'rebeccapurple'}} {...props} />
+              }
+            }}
+          >
+            <MDXProvider
+              components={{
+                h2(props) {
+                  return <h2 style={{color: 'papayawhip'}} {...props} />
+                }
+              }}
+            >
+              <Content />
+            </MDXProvider>
+          </MDXProvider>
+        ),
+        '<h1 style="color:tomato;">hi</h1>\n<h2 style="color:papayawhip;">hello</h2>'
+      )
+    }
+  )
+
+  await t.test('should support components as a function', async function () {
+    const {default: Content} = await evaluate('# hi\n## hello', {
+      ...runtime,
+      useMDXComponents
+    })
+
+    assert.equal(
+      render(
         <MDXProvider
-          components={() => ({
-            h2(props) {
-              return <h2 style={{color: 'papayawhip'}} {...props} />
-            }
-          })}
-        >
-          <Content />
-        </MDXProvider>
-      </MDXProvider>
-    ),
-    '<h1>hi</h1>\n<h2 style="color:papayawhip;">hello</h2>'
-  )
-})
-
-test('should support a `disableParentContext` prop (sandbox)', async () => {
-  const {default: Content} = await evaluate('# hi', {
-    ...runtime,
-    useMDXComponents
-  })
-
-  assert.equal(
-    render(
-      <MDXProvider
-        components={{
-          h1(props) {
-            return <h1 style={{color: 'tomato'}} {...props} />
-          }
-        }}
-      >
-        <MDXProvider disableParentContext>
-          <Content />
-        </MDXProvider>
-      </MDXProvider>
-    ),
-    '<h1>hi</h1>'
-  )
-})
-
-test('should support a `disableParentContext` *and* `components as a function', async () => {
-  const {default: Content} = await evaluate('# hi\n## hello', {
-    ...runtime,
-    useMDXComponents
-  })
-
-  assert.equal(
-    render(
-      <MDXProvider
-        components={{
-          h1(props) {
-            return <h1 style={{color: 'tomato'}} {...props} />
-          }
-        }}
-      >
-        <MDXProvider
-          disableParentContext
-          components={() => ({
-            h2(props) {
-              return <h2 style={{color: 'papayawhip'}} {...props} />
-            }
-          })}
-        >
-          <Content />
-        </MDXProvider>
-      </MDXProvider>
-    ),
-    '<h1>hi</h1>\n<h2 style="color:papayawhip;">hello</h2>'
-  )
-})
-
-test('should support `withComponents`', async () => {
-  const {default: Content} = await evaluate('# hi\n## hello', {
-    ...runtime,
-    useMDXComponents
-  })
-  // Unknown props.
-  // type-coverage:ignore-next-line
-  const With = withMDXComponents((props) => props.children)
-
-  // Bug: this should use the `h2` component too, logically?
-  // As `withMDXComponents` is deprecated, and it would probably be a breaking
-  // change, we can just remove it later.
-  assert.equal(
-    render(
-      <MDXProvider
-        components={{
-          h1(props) {
-            return <h1 style={{color: 'tomato'}} {...props} />
-          }
-        }}
-      >
-        <With
           components={{
+            h1(props) {
+              return <h1 style={{color: 'tomato'}} {...props} />
+            },
             h2(props) {
-              return <h2 style={{color: 'papayawhip'}} {...props} />
+              return <h2 style={{color: 'rebeccapurple'}} {...props} />
             }
           }}
         >
-          <Content />
-        </With>
-      </MDXProvider>
-    ),
-    '<h1 style="color:tomato;">hi</h1>\n<h2>hello</h2>'
+          <MDXProvider
+            components={function () {
+              return {
+                h2(props) {
+                  return <h2 style={{color: 'papayawhip'}} {...props} />
+                }
+              }
+            }}
+          >
+            <Content />
+          </MDXProvider>
+        </MDXProvider>
+      ),
+      '<h1>hi</h1>\n<h2 style="color:papayawhip;">hello</h2>'
+    )
+  })
+
+  await t.test(
+    'should support a `disableParentContext` prop (sandbox)',
+    async function () {
+      const {default: Content} = await evaluate('# hi', {
+        ...runtime,
+        useMDXComponents
+      })
+
+      assert.equal(
+        render(
+          <MDXProvider
+            components={{
+              h1(props) {
+                return <h1 style={{color: 'tomato'}} {...props} />
+              }
+            }}
+          >
+            <MDXProvider disableParentContext>
+              <Content />
+            </MDXProvider>
+          </MDXProvider>
+        ),
+        '<h1>hi</h1>'
+      )
+    }
   )
+
+  await t.test(
+    'should support a `disableParentContext` *and* `components` as a function',
+    async function () {
+      const {default: Content} = await evaluate('# hi\n## hello', {
+        ...runtime,
+        useMDXComponents
+      })
+
+      assert.equal(
+        render(
+          <MDXProvider
+            components={{
+              h1(props) {
+                return <h1 style={{color: 'tomato'}} {...props} />
+              }
+            }}
+          >
+            <MDXProvider
+              disableParentContext
+              components={function () {
+                return {
+                  h2(props) {
+                    return <h2 style={{color: 'papayawhip'}} {...props} />
+                  }
+                }
+              }}
+            >
+              <Content />
+            </MDXProvider>
+          </MDXProvider>
+        ),
+        '<h1>hi</h1>\n<h2 style="color:papayawhip;">hello</h2>'
+      )
+    }
+  )
+
+  await t.test('should support `withComponents`', async function () {
+    const {default: Content} = await evaluate('# hi\n## hello', {
+      ...runtime,
+      useMDXComponents
+    })
+    // Unknown props.
+    // type-coverage:ignore-next-line
+    const With = withMDXComponents(function (props) {
+      // Unknown props.
+      // type-coverage:ignore-next-line
+      return props.children
+    })
+
+    // Bug: this should use the `h2` component too, logically?
+    // As `withMDXComponents` is deprecated, and it would probably be a breaking
+    // change, we can just remove it later.
+    assert.equal(
+      render(
+        <MDXProvider
+          components={{
+            h1(props) {
+              return <h1 style={{color: 'tomato'}} {...props} />
+            }
+          }}
+        >
+          <With
+            components={{
+              h2(props) {
+                return <h2 style={{color: 'papayawhip'}} {...props} />
+              }
+            }}
+          >
+            <Content />
+          </With>
+        </MDXProvider>
+      ),
+      '<h1 style="color:tomato;">hi</h1>\n<h2>hello</h2>'
+    )
+  })
 })

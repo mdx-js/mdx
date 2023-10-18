@@ -6,8 +6,8 @@ export function FootSite() {
     <footer className="foot-site">
       <div className="content">
         <div
-          style={{display: 'flex', justifyContent: 'space-between'}}
           className="block"
+          style={{display: 'flex', justifyContent: 'space-between'}}
         >
           <div>
             <small>

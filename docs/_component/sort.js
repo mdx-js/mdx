@@ -4,9 +4,13 @@
 
 /**
  * @typedef Item
+ *   Item.
  * @property {string} name
- * @property {Data} data
+ *   Name.
+ * @property {Readonly<Data>} data
+ *   Data.
  * @property {Array<Item>} children
+ *   Children.
  */
 
 import dlv from 'dlv'
@@ -14,13 +18,16 @@ import dlv from 'dlv'
 const collator = new Intl.Collator('en').compare
 
 /**
- * @param {Array<Item>} items
+ * @param {ReadonlyArray<Item>} items
+ *   Items.
  * @param {string | undefined} [sortString]
- * @returns {Array<Item>}
+ *   Fields to sort on (default: `'navSortSelf,meta.title'`).
+ * @returns {ReadonlyArray<Item>}
+ *   Items.
  */
 export function sortItems(items, sortString = 'navSortSelf,meta.title') {
-  /** @type {Array<[string, 'asc' | 'desc']>} */
-  const fields = sortString.split(',').map((d) => {
+  /** @type {ReadonlyArray<[string, 'asc' | 'desc']>} */
+  const fields = sortString.split(',').map(function (d) {
     const [field, order = 'asc'] = d.split(':')
 
     if (order !== 'asc' && order !== 'desc') {
@@ -30,7 +37,7 @@ export function sortItems(items, sortString = 'navSortSelf,meta.title') {
     return [field, order]
   })
 
-  return [...items].sort((left, right) => {
+  return [...items].sort(function (left, right) {
     let index = -1
 
     while (++index < fields.length) {
@@ -40,6 +47,7 @@ export function sortItems(items, sortString = 'navSortSelf,meta.title') {
       /** @type {unknown} */
       let b = dlv(right.data, field)
 
+      // Dates.
       if (a && typeof a === 'object' && 'valueOf' in a) a = a.valueOf()
       if (b && typeof b === 'object' && 'valueOf' in b) b = b.valueOf()
 

@@ -1,12 +1,13 @@
 import {Note} from '../_component/note.jsx'
-export const navSortSelf = 4
+
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  published: new Date('2021-10-06'),
-  modified: new Date('2023-01-19')
+  modified: new Date('2023-01-19'),
+  published: new Date('2021-10-06')
 }
+export const navSortSelf = 4
 
 # Extending MDX
 
@@ -129,13 +130,13 @@ await compile(file, {remarkPlugins: [remarkGfm, remarkFrontmatter]})
 await compile(file, {remarkPlugins: [[remarkGfm, {singleTilde: false}], remarkFrontmatter]})
 
 // remark and rehype plugins:
-await compile(file, {remarkPlugins: [remarkMath], rehypePlugins: [rehypeKatex]})
+await compile(file, {rehypePlugins: [rehypeKatex], remarkPlugins: [remarkMath]})
 
 // remark and rehype plugins, last w/ options:
 await compile(file, {
-  remarkPlugins: [remarkMath],
   // A plugin with options:
-  rehypePlugins: [[rehypeKatex, {throwOnError: true, strict: true}]]
+  rehypePlugins: [[rehypeKatex, {strict: true, throwOnError: true}]],
+  remarkPlugins: [remarkMath]
 })
 ```
 

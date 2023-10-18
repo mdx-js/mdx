@@ -1,36 +1,42 @@
 /**
  * @typedef {import('node:fs').Stats} Stats
- * @typedef {import('xast-util-feed').Entry} Entry
+ * @typedef {import('hast').Root} Root
  * @typedef {Exclude<import('vfile').Data['meta'], undefined>} Meta
  * @typedef {Exclude<import('vfile').Data['matter'], undefined>} Matter
+ * @typedef {import('xast-util-feed').Entry} Entry
  */
 
 /**
  * @typedef Info
- * @property {Meta} meta
- * @property {Matter} matter
- * @property {boolean | undefined} [navExclude]
- * @property {number | undefined} [navSortSelf]
+ *   Info.
+ * @property {Readonly<Meta>} meta
+ *   Meta.
+ * @property {Readonly<Matter>} matter
+ *   Matter.
+ * @property {boolean | undefined} [navExclude=false]
+ *   Whether to exclude from the navigation (default: `false`).
+ * @property {number | undefined} [navSortSelf=0]
+ *   Self sort order (default: `0`).
  */
 
 import assert from 'node:assert'
-import {promises as fs} from 'node:fs'
+import fs from 'node:fs/promises'
 import process from 'node:process'
 import {fileURLToPath} from 'node:url'
-import pAll from 'p-all'
+import chromium from '@sparticuz/chromium'
 import {globby} from 'globby'
-import {u} from 'unist-builder'
 import {select} from 'hast-util-select'
 import {h, s} from 'hastscript'
-import {rss} from 'xast-util-feed'
-import {toXml} from 'xast-util-to-xml'
-import {VFile} from 'vfile'
-import {unified} from 'unified'
+import pAll from 'p-all'
+import puppeteer from 'puppeteer'
 import rehypeParse from 'rehype-parse'
 import rehypeSanitize, {defaultSchema} from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
-import puppeteer from 'puppeteer'
-import chromium from '@sparticuz/chromium'
+import {unified} from 'unified'
+import {u} from 'unist-builder'
+import {VFile} from 'vfile'
+import {rss} from 'xast-util-feed'
+import {toXml} from 'xast-util-to-xml'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
@@ -50,15 +56,15 @@ const css = await fs.readFile(
 const filePaths = await globby('**/index.json', {
   cwd: fileURLToPath(config.output)
 })
-const files = filePaths.map((d) => {
+const files = filePaths.map(function (d) {
   return new URL(d, config.output)
 })
 
 const allInfo = await Promise.all(
-  files.map(async (url) => {
+  files.map(async function (url) {
     /** @type {Info} */
     const info = JSON.parse(String(await fs.readFile(url)))
-    return {url, info}
+    return {info, url}
   })
 )
 
@@ -68,17 +74,18 @@ const now = new Date()
 const entries = await pAll(
   [...allInfo]
     // All blog entries that are published in the past.
-    .filter(
-      (d) =>
+    .filter(function (d) {
+      return (
         d.info.meta.pathname &&
         d.info.meta.pathname.startsWith('/blog/') &&
         d.info.meta.pathname !== '/blog/' &&
         d.info.meta.published !== null &&
         d.info.meta.published !== undefined &&
         new Date(d.info.meta.published) < now
-    )
+      )
+    })
     // Sort.
-    .sort((a, b) => {
+    .sort(function (a, b) {
       assert(a.info.meta.published)
       assert(b.info.meta.published)
       return (
@@ -88,19 +95,21 @@ const entries = await pAll(
     })
     // Ten most recently published articles.
     .slice(0, 10)
-    .map(({info, url}) =>
+    .map(function ({info, url}) {
       /**
        * @returns {Promise<Entry>}
+       *   Entry.
        */
-      async () => {
+      return async function () {
         const buf = await fs.readFile(new URL('index.html', url))
         const file = await unified()
           .use(rehypeParse)
-          .use(() => {
+          .use(function () {
             /**
-             * @param {import('hast').Root} tree
+             * @param {Root} tree
+             *   Tree
              */
-            return (tree) => {
+            return function (tree) {
               const node = select('.body', tree)
               assert(node)
               return {type: 'root', children: node.children}
@@ -130,19 +139,19 @@ const entries = await pAll(
           .process(buf)
 
         return {
-          title: info.meta.title,
+          author: info.meta.author,
           description: info.meta.description,
           descriptionHtml: String(file),
-          author: info.meta.author,
+          modified: info.meta.modified,
+          published: info.meta.published,
+          title: info.meta.title,
           url: new URL(
             url.href.slice(config.output.href.length - 1) + '/../',
             config.site
-          ).href,
-          modified: info.meta.modified,
-          published: info.meta.published
+          ).href
         }
       }
-    ),
+    }),
   {concurrency: 6}
 )
 
@@ -151,13 +160,13 @@ await fs.writeFile(
   toXml(
     rss(
       {
-        title: config.title,
-        description: 'MDX updates',
-        tags: config.tags,
         author: config.author,
-        url: config.site.href,
+        description: 'MDX updates',
+        feedUrl: new URL('rss.xml', config.site).href,
         lang: 'en',
-        feedUrl: new URL('rss.xml', config.site).href
+        tags: config.tags,
+        title: config.title,
+        url: config.site.href
       },
       entries
     )
@@ -179,38 +188,39 @@ const browser = await puppeteer.launch(
 )
 
 await pAll(
-  allInfo.map((data) => async () => {
-    const {url, info} = data
-    const output = new URL('index.png', url)
-    /** @type {Stats | undefined} */
-    let stats
+  allInfo.map(function (data) {
+    return async function () {
+      const {url, info} = data
+      const output = new URL('index.png', url)
+      /** @type {Stats | undefined} */
+      let stats
 
-    try {
-      stats = await fs.stat(output)
-    } catch (error) {
-      const cause = /** @type {NodeJS.ErrnoException} */ (error)
-      if (cause.code !== 'ENOENT') throw cause
-    }
+      try {
+        stats = await fs.stat(output)
+      } catch (error) {
+        const cause = /** @type {NodeJS.ErrnoException} */ (error)
+        if (cause.code !== 'ENOENT') throw cause
+      }
 
-    // Don’t regenerate to improve performance.
-    if (stats) return
+      // Don’t regenerate to improve performance.
+      if (stats) return
 
-    const processor = unified().use(rehypeStringify)
-    const file = new VFile({path: url})
+      const processor = unified().use(rehypeStringify)
+      const file = new VFile({path: url})
 
-    // To do: use hast instead of unified?
-    file.value = processor.stringify(
-      u('root', [
-        // To do: remove `name`.
-        u('doctype', {name: 'html'}),
-        h('html', {lang: 'en'}, [
-          h('head', [
-            h('meta', {charSet: 'utf8'}),
-            h('title', 'Generated image'),
-            h('style', css),
-            h(
-              'style',
-              `
+      // To do: use hast instead of unified?
+      file.value = processor.stringify(
+        u('root', [
+          // To do: remove `name`.
+          u('doctype', {name: 'html'}),
+          h('html', {lang: 'en'}, [
+            h('head', [
+              h('meta', {charSet: 'utf8'}),
+              h('title', 'Generated image'),
+              h('style', css),
+              h(
+                'style',
+                `
                 html {
                   font-size: 24px;
                 }
@@ -289,92 +299,92 @@ await pAll(
                   text-align: right;
                 }
             `
-            )
-          ]),
-          h('body', [
-            h('.og-root', [
-              h('.og-head', [
-                s(
-                  'svg.og-icon.og-icon-mdx',
-                  {height: 28.5, width: 69, viewBox: '0 0 138 57'},
-                  [
-                    s('rect', {
-                      fill: 'var(--fg)',
-                      height: 55.5,
-                      rx: 4.5,
-                      width: 136.5,
-                      x: 0.75,
-                      y: 0.75
-                    }),
-                    s(
-                      'g',
-                      {fill: 'none', stroke: 'var(--bg)', strokeWidth: 6},
-                      [
-                        s('path', {
-                          d: 'M16.5 44V19L30.25 32.75l14-14v25'
-                        }),
-                        s('path', {d: 'M70.5 40V10.75'}),
-                        s('path', {d: 'M57 27.25L70.5 40.75l13.5-13.5'}),
-                        s('path', {
-                          d: 'M122.5 41.24L93.25 12M93.5 41.25L122.75 12'
-                        })
-                      ]
-                    )
-                  ]
-                )
-              ]),
-              h('h2.og-title', info.meta.title),
-              h('.og-description', [
-                h('.og-description-inside', [
-                  info.meta.descriptionHast
-                    ? unified()
-                        .use(rehypeSanitize, schema)
-                        // To do: use hast utilities.
-                        // @ts-expect-error: element is fine.
-                        .runSync(info.meta.descriptionHast)
-                    : info.meta.description || info.matter.description
-                ])
-              ]),
-              h('.og-meta', [
-                h('.og-left', [
-                  h('small', 'By'),
-                  h('br'),
-                  h('b', info.meta.author || 'MDX contributors')
-                ]),
-                info.meta.modified
-                  ? h('.og-right', [
-                      h('small', 'Last modified on'),
-                      h('br'),
-                      h(
-                        'b',
-                        dateTimeFormat.format(new Date(info.meta.modified))
+              )
+            ]),
+            h('body', [
+              h('.og-root', [
+                h('.og-head', [
+                  s(
+                    'svg.og-icon.og-icon-mdx',
+                    {height: 28.5, width: 69, viewBox: '0 0 138 57'},
+                    [
+                      s('rect', {
+                        fill: 'var(--fg)',
+                        height: 55.5,
+                        rx: 4.5,
+                        width: 136.5,
+                        x: 0.75,
+                        y: 0.75
+                      }),
+                      s(
+                        'g',
+                        {fill: 'none', stroke: 'var(--bg)', strokeWidth: 6},
+                        [
+                          s('path', {
+                            d: 'M16.5 44V19L30.25 32.75l14-14v25'
+                          }),
+                          s('path', {d: 'M70.5 40V10.75'}),
+                          s('path', {d: 'M57 27.25L70.5 40.75l13.5-13.5'}),
+                          s('path', {
+                            d: 'M122.5 41.24L93.25 12M93.5 41.25L122.75 12'
+                          })
+                        ]
                       )
-                    ])
-                  : undefined
+                    ]
+                  )
+                ]),
+                h('h2.og-title', info.meta.title),
+                h('.og-description', [
+                  h('.og-description-inside', [
+                    info.meta.descriptionHast
+                      ? unified()
+                          .use(rehypeSanitize, schema)
+                          // @ts-expect-error: to do: use hast utilities; element is fine.
+                          .runSync(info.meta.descriptionHast)
+                      : info.meta.description || info.matter.description
+                  ])
+                ]),
+                h('.og-meta', [
+                  h('.og-left', [
+                    h('small', 'By'),
+                    h('br'),
+                    h('b', info.meta.author || 'MDX contributors')
+                  ]),
+                  info.meta.modified
+                    ? h('.og-right', [
+                        h('small', 'Last modified on'),
+                        h('br'),
+                        h(
+                          'b',
+                          dateTimeFormat.format(new Date(info.meta.modified))
+                        )
+                      ])
+                    : undefined
+                ])
               ])
             ])
           ])
         ])
+      )
+
+      try {
+        await fs.unlink(output)
+      } catch {}
+
+      const page = await browser.newPage()
+      // This is doubled in the actual file dimensions.
+      await page.setViewport({deviceScaleFactor: 2, height: 628, width: 1200})
+      await page.emulateMediaFeatures([
+        {name: 'prefers-color-scheme', value: 'light'}
       ])
-    )
+      await page.setContent(file.value)
+      const screenshot = await page.screenshot()
+      await page.close()
 
-    try {
-      await fs.unlink(output)
-    } catch {}
+      await fs.writeFile(output, screenshot)
 
-    const page = await browser.newPage()
-    // This is doubled in the actual file dimensions.
-    await page.setViewport({deviceScaleFactor: 2, height: 628, width: 1200})
-    await page.emulateMediaFeatures([
-      {name: 'prefers-color-scheme', value: 'light'}
-    ])
-    await page.setContent(file.value)
-    const screenshot = await page.screenshot()
-    await page.close()
-
-    await fs.writeFile(output, screenshot)
-
-    console.log('OG image `%s`', info.meta.title)
+      console.log('OG image `%s`', info.meta.title)
+    }
   })
 )
 

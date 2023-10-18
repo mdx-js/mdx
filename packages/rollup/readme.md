@@ -92,7 +92,7 @@ additions of:
 ###### `options.exclude`
 
 List of [`picomatch`][pico] patterns to include and/or exclude
-(`string`, `RegExp`, `Array<string|RegExp>`, default: `[]`).
+(`string`, `RegExp`, `Array<RegExp | string>`, default: `[]`).
 
 ###### Note: Babel
 

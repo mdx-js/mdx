@@ -1,7 +1,7 @@
 /**
- * @typedef {import('vfile').VFileCompatible} VFileCompatible
- * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
+ * @typedef {import('vfile').Compatible} Compatible
  * @typedef {import('../compile.js').CompileOptions} CompileOptions
+ * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
  */
 
 import {VFile} from 'vfile'
@@ -11,9 +11,12 @@ import {md} from './extnames.js'
  * Create a file and options from a given `vfileCompatible` and options that
  * might contain `format: 'detect'`.
  *
- * @param {VFileCompatible} vfileCompatible
- * @param {CompileOptions | null | undefined} [options]
+ * @param {Readonly<Compatible>} vfileCompatible
+ *   File.
+ * @param {Readonly<CompileOptions> | null | undefined} [options]
+ *   Configuration (optional).
  * @returns {{file: VFile, options: ProcessorOptions}}
+ *   File and options.
  */
 export function resolveFileAndOptions(vfileCompatible, options) {
   const file = looksLikeAVFile(vfileCompatible)
@@ -35,8 +38,10 @@ export function resolveFileAndOptions(vfileCompatible, options) {
 }
 
 /**
- * @param {VFileCompatible | null | undefined} [value]
+ * @param {Readonly<Compatible> | null | undefined} [value]
+ *   Thing.
  * @returns {value is VFile}
+ *   Check.
  */
 function looksLikeAVFile(value) {
   return Boolean(

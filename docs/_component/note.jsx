@@ -3,11 +3,15 @@
  */
 
 /**
- * @typedef {'info' | 'legacy' | 'important'} NoteType
+ * @typedef {'important' | 'info' | 'legacy'} NoteType
+ *   Type.
  *
  * @typedef Props
+ *   Props for `Note`.
  * @property {NoteType} type
- * @property {ReactNode} children
+ *   Kind.
+ * @property {Readonly<ReactNode>} children
+ *   Children.
  */
 
 import React from 'react'
@@ -16,7 +20,7 @@ import React from 'react'
 const known = new Set(['info', 'legacy', 'important'])
 
 /**
- * @param {Props} props
+ * @param {Readonly<Props>} props
  *   Props.
  * @returns {JSX.Element}
  *   Element.

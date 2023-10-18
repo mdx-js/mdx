@@ -1,50 +1,59 @@
 /**
  * @typedef {import('mdx/types.js').MDXModule} MDXModule
- * @typedef {import('mdx/types.js').MDXContent} MDXContent
  */
 
 import assert from 'node:assert/strict'
-import {promises as fs} from 'node:fs'
+import fs from 'node:fs/promises'
 import {test} from 'node:test'
 import {fileURLToPath} from 'node:url'
-import {rollup} from 'rollup'
+import rollupMdx from '@mdx-js/rollup'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
-import rollupMdx from '../index.js'
+import {rollup} from 'rollup'
 
-test('@mdx-js/rollup', async () => {
-  await fs.writeFile(
-    new URL('rollup.mdx', import.meta.url),
-    'export const Message = () => <>World!</>\n\n# Hello, <Message />'
-  )
-
-  const bundle = await rollup({
-    input: fileURLToPath(new URL('rollup.mdx', import.meta.url)),
-    external: ['react/jsx-runtime'],
-    plugins: [rollupMdx()]
+test('@mdx-js/rollup', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('@mdx-js/rollup')).sort(), [
+      'default'
+    ])
   })
 
-  const {output} = await bundle.generate({format: 'es', sourcemap: true})
+  await t.test('should work', async function () {
+    const mdxUrl = new URL('rollup.mdx', import.meta.url)
+    const jsUrl = new URL('rollup.js', import.meta.url)
 
-  await fs.writeFile(new URL('rollup.js', import.meta.url), output[0].code)
+    await fs.writeFile(
+      mdxUrl,
+      'export function Message() { return <>World!</> }\n\n# Hello, <Message />'
+    )
 
-  /** @type {MDXModule} */
-  // @ts-expect-error: dynamically generated file.
-  const mod = await import('./rollup.js')
-  const Content = mod.default
+    const build = await rollup({
+      external: ['react/jsx-runtime'],
+      input: fileURLToPath(mdxUrl),
+      plugins: [rollupMdx()]
+    })
 
-  assert.equal(
-    output[0].map ? output[0].map.mappings : undefined,
-    ';;;MAAaA,OAAU,GAAA,MAAAC,GAAA,CAAAC,QAAA,EAAA;AAAQ,EAAA,QAAA,EAAA,QAAA;;;;;;;;AAE7B,IAAA,QAAA,EAAA,CAAA,SAAA,EAAAD,GAAA,CAAA,OAAA,EAAA,EAAA,CAAA,CAAA;;;;;;;;;;;;;;;',
-    'should add a source map'
-  )
+    const {output} = await build.generate({format: 'es', sourcemap: true})
+    const chunk = output[0]
 
-  assert.equal(
-    renderToStaticMarkup(React.createElement(Content)),
-    '<h1>Hello, World!</h1>',
-    'should compile'
-  )
+    // Source map.
+    assert.equal(
+      chunk.map?.mappings,
+      ';;;AAAO,SAAA,OAAA,GAAA;;AAA8B,IAAA,QAAA,EAAA,QAAA;;;;;;;;;AAEnC,IAAA,QAAA,EAAA,CAAA,SAAA,EAAAA,GAAA,CAAA,OAAA,EAAA,EAAA,CAAA,CAAA;;;;;;;;;;;;;;;'
+    )
 
-  await fs.unlink(new URL('rollup.mdx', import.meta.url))
-  await fs.unlink(new URL('rollup.js', import.meta.url))
+    await fs.writeFile(jsUrl, chunk.code)
+
+    /** @type {MDXModule} */
+    const mod = await import(jsUrl.href)
+    const Content = mod.default
+
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<h1>Hello, World!</h1>'
+    )
+
+    await fs.rm(mdxUrl)
+    await fs.rm(jsUrl)
+  })
 })

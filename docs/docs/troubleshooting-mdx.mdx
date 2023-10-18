@@ -1,12 +1,13 @@
 import {Note} from '../_component/note.jsx'
-export const navSortSelf = 5
+
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  published: new Date('2021-10-18'),
-  modified: new Date('2022-02-01')
+  modified: new Date('2022-02-01'),
+  published: new Date('2021-10-18')
 }
+export const navSortSelf = 5
 
 {/* lint disable maximum-heading-length */}
 
@@ -296,14 +297,14 @@ It occurs when there are multiple values spread into a JSX tag.
 An example is:
 
 ```txt chrome=no
-<div {...values, ...other} />
+<div {...a, ...b} />
 ```
 
 The reason for this error is that JSX only allows spreading a single value at a
 time:
 
 ```mdx chrome=no
-<div {...values} {...other} />
+<div {...a} {...b} />
 ```
 
 ### ``Unexpected `$type` in code: only spread elements are supported``
@@ -322,7 +323,7 @@ An example is:
 The reason for this error is that JSX only allows spreading values:
 
 ```mdx chrome=no
-<div {...values} />
+<div {...a} />
 ```
 
 ### `Unexpected end of file $at, expected $expect`

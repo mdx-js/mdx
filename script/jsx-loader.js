@@ -2,6 +2,7 @@ import fs from 'node:fs/promises'
 import {fileURLToPath} from 'node:url'
 import {transform} from 'esbuild'
 
+// To do: remove Node 16 version.
 const {getFormat, load, transformSource} = createLoader()
 
 export {getFormat, load, transformSource}
@@ -10,13 +11,18 @@ export {getFormat, load, transformSource}
  * A tiny JSX loader.
  */
 export function createLoader() {
-  return {load, getFormat, transformSource}
+  return {getFormat, load, transformSource}
 
   // Node version 17.
   /**
    * @param {string} href
+   *   URL.
    * @param {unknown} context
+   *   Context.
    * @param {Function} defaultLoad
+   *   Default `load`.
+   * @returns
+   *   Result.
    */
   async function load(href, context, defaultLoad) {
     const url = new URL(href)
@@ -46,8 +52,13 @@ export function createLoader() {
   // Pre version 17.
   /**
    * @param {string} href
+   *   URL.
    * @param {unknown} context
+   *   Context.
    * @param {Function} defaultGetFormat
+   *   Default `getFormat`.
+   * @returns
+   *   Result.
    */
   function getFormat(href, context, defaultGetFormat) {
     const url = new URL(href)
@@ -59,8 +70,13 @@ export function createLoader() {
 
   /**
    * @param {Buffer} value
+   *   Code.
    * @param {{url: string, [x: string]: unknown}} context
+   *   Context.
    * @param {Function} defaultTransformSource
+   *   Default `transformSource`.
+   * @returns
+   *   Result.
    */
   async function transformSource(value, context, defaultTransformSource) {
     const url = new URL(context.url)

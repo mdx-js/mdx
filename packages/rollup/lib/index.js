@@ -10,30 +10,30 @@
  *
  * @typedef RollupPluginOptions
  *   Extra configuration.
- * @property {FilterPattern} [include]
- *   List of picomatch patterns to include
- * @property {FilterPattern} [exclude]
- *   List of picomatch patterns to exclude
+ * @property {FilterPattern | null | undefined} [include]
+ *   List of picomatch patterns to include (optional).
+ * @property {FilterPattern | null | undefined} [exclude]
+ *   List of picomatch patterns to exclude (optional).
  *
  * @typedef {CompileOptions & RollupPluginOptions} Options
  *   Configuration.
  */
 
+import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
+import {createFilter} from '@rollup/pluginutils'
 import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
-import {createFilter} from '@rollup/pluginutils'
-import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
 
 /**
  * Compile MDX w/ rollup.
  *
- * @param {Options | null | undefined} [options]
- *   Configuration.
+ * @param {Readonly<Options> | null | undefined} [options]
+ *   Configuration (optional).
  * @return {Plugin}
  *   Rollup plugin.
  */
 export function rollup(options) {
-  const {include, exclude, ...rest} = options || {}
+  const {exclude, include, ...rest} = options || {}
   const {extnames, process} = createFormatAwareProcessors({
     SourceMapGenerator,
     ...rest
@@ -43,7 +43,7 @@ export function rollup(options) {
   return {
     name: '@mdx-js/rollup',
     async transform(value, path) {
-      const file = new VFile({value, path})
+      const file = new VFile({path, value})
 
       if (
         file.extname &&
@@ -53,8 +53,12 @@ export function rollup(options) {
         const compiled = await process(file)
         const code = String(compiled.value)
         /** @type {SourceDescription} */
-        // @ts-expect-error: a) `undefined` is fine, b) `sourceRoot: undefined` is fine too.
-        const result = {code, map: compiled.map}
+        const result = {
+          code,
+          // @ts-expect-error: `rollup` is not compiled with `exactOptionalPropertyTypes`,
+          // so it does not allow `sourceRoot` in `file.map` to be `undefined` here.
+          map: compiled.map
+        }
         return result
       }
     }

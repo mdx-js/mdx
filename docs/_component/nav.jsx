@@ -9,23 +9,37 @@
 
 /**
  * @typedef ItemProps
- * @property {boolean | undefined} [includeDescription]
- * @property {boolean | undefined} [includePublished]
- * @property {Item} item
+ *   Props for `NavItem`.
+ * @property {boolean | undefined} [includeDescription=false]
+ *   Whether to include the description (default: `false`).
+ * @property {boolean | undefined} [includePublished=false]
+ *   Whether to include the published date (default: `false`).
+ * @property {Readonly<Item>} item
+ *   Item.
  * @property {string | undefined} [name]
+ *   Name.
  *
- * @typedef GroupProps
+ * @typedef GroupOnlyProps
+ *   Props for `NavGroup`;
+ *   Other fields are passed to `NavItem`.
  * @property {string | undefined} [className]
- * @property {Array<Item>} items
+ *   Class name.
+ * @property {ReadonlyArray<Item>} items
+ *   Items.
  * @property {string | undefined} [sort]
+ *   Fields to sort on.
  * @property {string | undefined} [name]
+ *   Name.
+ *
+ * @typedef {Omit<ItemProps, 'item'> & GroupOnlyProps} GroupProps
+ *   Props for `NavGroup`.
  */
 
-import React from 'react'
-// @ts-expect-error: untyped.
-import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
 import {apStyleTitleCase} from 'ap-style-title-case'
 import {toJsxRuntime} from 'hast-util-to-jsx-runtime'
+import React from 'react'
+// @ts-expect-error: the automatic react runtime is untyped.
+import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
 import {sortItems} from './sort.js'
 
 const runtime = {Fragment, jsx, jsxs}
@@ -33,28 +47,32 @@ const runtime = {Fragment, jsx, jsxs}
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 /**
- * @param {GroupProps} props
+ * @param {Readonly<GroupProps>} props
+ *   Props.
  * @returns {JSX.Element}
+ *   Element.
  */
 export function NavGroup(props) {
-  const {items, className, sort = 'navSortSelf,meta.title', ...rest} = props
+  const {className, items, sort = 'navSortSelf,meta.title', ...rest} = props
 
   return (
     <ol {...{className}}>
-      {sortItems(items, sort).map((d) => (
-        <NavItem key={d.name} {...rest} item={d} />
-      ))}
+      {sortItems(items, sort).map(function (d) {
+        return <NavItem key={d.name} {...rest} item={d} />
+      })}
     </ol>
   )
 }
 
 /**
- * @param {ItemProps} props
+ * @param {Readonly<ItemProps>} props
+ *   Props.
  * @returns {JSX.Element}
+ *   Element.
  */
 export function NavItem(props) {
-  const {item, name: activeName, includeDescription, includePublished} = props
-  const {name, children, data = {}} = item
+  const {includeDescription, includePublished, item, name: activeName} = props
+  const {children, data = {}, name} = item
   const {matter = {}, meta = {}, navExcludeGroup, navSortItems} = data
   const title = matter.title || meta.title
   const defaultTitle = apStyleTitleCase(
@@ -67,6 +85,7 @@ export function NavItem(props) {
 
   if (includeDescription) {
     if (meta.descriptionHast) {
+      // Cast because we don’t expect doctypes.
       const children = /** @type {Array<ElementContent>} */ (
         meta.descriptionHast.children
       )
@@ -81,7 +100,7 @@ export function NavItem(props) {
         runtime
       )
     } else {
-      description = matter.description || meta.description || null
+      description = matter.description || meta.description || undefined
 
       if (description) {
         description = (
@@ -110,15 +129,15 @@ export function NavItem(props) {
       ) : (
         defaultTitle
       )}
-      {published ? ' — ' + published : null}
-      {description || null}
+      {published ? ' — ' + published : undefined}
+      {description || undefined}
       {!navExcludeGroup && children.length > 0 ? (
         <NavGroup
           items={children}
           sort={typeof navSortItems === 'string' ? navSortItems : undefined}
           name={activeName}
         />
-      ) : null}
+      ) : undefined}
     </li>
   )
 }

@@ -140,16 +140,24 @@ If you’re working with the syntax tree, make sure to import this plugin
 somewhere in your types, as that registers the new node types in the tree.
 
 ```tsx
+// Augment node types:
+/// <reference types="remark-mdx" />
+
 /**
- * @typedef {import('remark-mdx')}
+ * @typedef {import('mdast').Root} Root
  */
 
 import {visit} from 'unist-util-visit'
 
-export default function myRemarkPlugin() => {
-  /** @param {import('@types/mdast').Root} tree */
-  return (tree) => {
-    visit(tree, (node) => {
+export default function myRemarkPlugin() {
+  /**
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  return function (tree) {
+    visit(tree, function (node) {
       // `node` can now be one of the nodes for JSX, expressions, or ESM.
     })
   }
@@ -159,14 +167,15 @@ export default function myRemarkPlugin() => {
 Alternatively, in TypeScript, do:
 
 ```ts
+// Augment node types:
 /// <reference types="remark-mdx" />
 
-import type {Root} from '@types/mdast'
+import type {Root} from 'mdast'
 import {visit} from 'unist-util-visit'
 
-export default function myRemarkPlugin() => {
-  return (tree: Root) => {
-    visit(tree, (node) => {
+export default function myRemarkPlugin() {
+  return function (tree: Root) {
+    visit(tree, function (node) {
       // `node` can now be one of the nodes for JSX, expressions, or ESM.
     })
   }

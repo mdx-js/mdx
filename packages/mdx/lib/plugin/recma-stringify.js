@@ -1,37 +1,48 @@
 /**
  * @typedef {import('estree-jsx').Program} Program
  * @typedef {typeof import('source-map').SourceMapGenerator} SourceMapGenerator
- *
- * @typedef RecmaStringifyOptions
+ * @typedef {import('unified').Processor<undefined, undefined, undefined, Program, string>} Processor
+ * @typedef {import('vfile').VFile} VFile
+ */
+
+/**
+ * @typedef Options
  *   Configuration for internal plugin `recma-stringify`.
  * @property {SourceMapGenerator | null | undefined} [SourceMapGenerator]
  *   Generate a source map by passing a `SourceMapGenerator` from `source-map`
- *   in.
+ *   in (optional).
  */
 
-import {toJs, jsx} from 'estree-util-to-js'
+import {jsx, toJs} from 'estree-util-to-js'
 
 /**
- * A plugin that adds an esast compiler: a small wrapper around `astring` to add
- * support for serializing JSX.
+ * Serialize an esast (estree) program to JavaScript.
  *
- * @this {import('unified').Processor}
- * @type {import('unified').Plugin<[RecmaStringifyOptions | null | undefined] | [], Program, string>}
+ * @type {import('unified').Plugin<[Options | null | undefined] | [], Program, string>}
+ *   Plugin.
  */
 export function recmaStringify(options) {
-  // Always given inside `@mdx-js/mdx`
-  /* c8 ignore next */
+  // @ts-expect-error: TS is wrong about `this`.
+  // eslint-disable-next-line unicorn/no-this-assignment
+  const self = /** @type {Processor} */ (this)
+  /* c8 ignore next -- always given in `@mdx-js/mdx` */
   const {SourceMapGenerator} = options || {}
 
-  // @ts-expect-error: to do: improve types.
-  this.compiler = compiler
+  self.compiler = compiler
 
-  /** @type {import('unified').Compiler<Program, string>} */
+  /**
+   * @param {Program} tree
+   *   Tree.
+   * @param {VFile} file
+   *   File.
+   * @returns {string}
+   *   JavaScript.
+   */
   function compiler(tree, file) {
     const result = SourceMapGenerator
       ? toJs(tree, {
-          filePath: file.path || 'unknown.mdx',
           SourceMapGenerator,
+          filePath: file.path || 'unknown.mdx',
           handlers: jsx
         })
       : toJs(tree, {handlers: jsx})

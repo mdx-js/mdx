@@ -1,20 +1,13 @@
 {
   extends: ['config:base', ':preserveSemverRanges'],
-  schedule: 'before 3am on Monday',
   packageRules: [
     {
-      matchPackageNames: [
-        // `nanoid@5` does not work on Node 16.
-        'nanoid'
-      ],
-      enabled: false
-    },
-    {
+      enabled: false,
       matchPackageNames: [
         // `periscopic@4` does not work at all.
         'periscopic'
-      ],
-      enabled: false
+      ]
     }
-  ]
+  ],
+  schedule: 'before 3am on Monday'
 }

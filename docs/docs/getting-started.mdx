@@ -1,12 +1,13 @@
 import {Note} from '../_component/note.jsx'
-export const navSortSelf = 2
+
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  published: new Date('2021-10-05'),
-  modified: new Date('2022-12-14')
+  modified: new Date('2022-12-14'),
+  published: new Date('2021-10-05')
 }
+export const navSortSelf = 2
 
 # Getting started
 
@@ -224,8 +225,8 @@ long.
 
   await esbuild.build({
     entryPoints: ['index.mdx'],
-    outfile: 'output.js',
     format: 'esm',
+    outfile: 'output.js',
     plugins: [mdx({/* jsxImportSource: …, otherOptions… */})]
   })
   ```
@@ -464,10 +465,7 @@ if you’re using that, for more info.
   // A Babel parser that parses MDX files with `@mdx-js/mdx` and passes any
   // other things through to the normal Babel parser.
   function babelParserWithMdx(value, options) {
-    if (
-      options.sourceFileName &&
-      /\.mdx?$/.test(path.extname(options.sourceFileName))
-    ) {
+    if (options.sourceFileName && /\.mdx?$/.test(options.sourceFileName)) {
       // Babel does not support async parsers, unfortunately.
       return compileSync(
         {value, path: options.sourceFileName},
@@ -484,7 +482,7 @@ if you’re using that, for more info.
   // This plugin defines `'estree-to-babel'` as the compiler, which means that
   // the resulting Babel tree is given back by `compileSync`.
   function recmaBabel() {
-    Object.assign(this, {Compiler: estreeToBabel})
+    this.compiler = estreeToBabel
   }
   ```
 
@@ -579,8 +577,8 @@ integration docs](https://docs.astro.build/guides/integrations-guide/mdx/).
     webpack: {
       configure(webpackConfig) {
         addAfterLoader(webpackConfig, loaderByName('babel-loader'), {
-          test: /\.mdx?$/,
-          loader: require.resolve('@mdx-js/loader')
+          loader: require.resolve('@mdx-js/loader'),
+          test: /\.mdx?$/
         })
         return webpackConfig
       }
@@ -673,9 +671,7 @@ well.
   import {MDXProvider} from '@mdx-js/react'
   import {Header} from '../components/Header.js'
 
-  const components = {
-    h1: Header
-  }
+  const components = {h1: Header}
 
   export default function App({Component, pageProps}) {
     return (
@@ -743,7 +739,7 @@ info.
 
   ```tsx path="example.js"
   import React from 'react'
-  import {render, Text} from 'ink'
+  import {Text, render} from 'ink'
   import Content from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
   const components = {
@@ -818,7 +814,7 @@ which you might be using, for more info.
 
   ```tsx path="example.js"
   import {base} from '@theme-ui/preset-base'
-  import {components, ThemeProvider} from 'theme-ui'
+  import {ThemeProvider, components} from 'theme-ui'
   import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
 
   <ThemeProvider theme={base}>

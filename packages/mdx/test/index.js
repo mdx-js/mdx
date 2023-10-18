@@ -1,4 +1,5 @@
-// eslint-disable-next-line import/no-unassigned-import
+/* eslint-disable import/no-unassigned-import */
 import './compile.js'
-// eslint-disable-next-line import/no-unassigned-import
+import './core.js'
 import './evaluate.js'
+import './syntax.js'

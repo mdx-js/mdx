@@ -1,22 +1,31 @@
+import assert from 'node:assert/strict'
 import {BlogGroup} from '../_component/blog.jsx'
-export const navExcludeGroup = true
-export const navSortSelf = 7
-export const navSortItems = 'navSortSelf,meta.published:desc'
+
 export const info = {
   author: [{name: 'MDX Contributors'}],
-  published: new Date('2021-11-01'),
-  modified: new Date('2021-11-01')
+  modified: new Date('2021-11-01'),
+  published: new Date('2021-11-01')
 }
+export const navExcludeGroup = true
+export const navSortItems = 'navSortSelf,meta.published:desc'
+export const navSortSelf = 7
 
 # Blog
 
 The latest news about MDX.
 
 {
-  (() => {
-    const category = props.navTree.children.find(
-      item => item.name === '/blog/'
-    )
+  (function () {
+    /**
+     * @typedef {import('../_component/sort.js').Item} Item
+     */
+
+    /** @type {Item} */
+    const navTree = props.navTree
+    const category = navTree.children.find(function (item) {
+      return item.name === '/blog/'
+    })
+    assert(category)
 
     return (
       <nav>

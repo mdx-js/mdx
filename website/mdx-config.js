@@ -1,76 +1,56 @@
 /**
+ * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
  * @typedef {import('@wooorm/starry-night').Grammar} Grammar
  * @typedef {import('estree').Program} Program
  * @typedef {import('hast').ElementContent} ElementContent
  * @typedef {import('hast').Root} Root
  * @typedef {import('vfile').VFile} VFile
- * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
  */
 
 /**
  * @typedef MetaOptions
- * @property {Array<string> | null | undefined} [include]
- * @property {Array<string> | null | undefined} [exclude]
+ *   Configuration.
+ * @property {ReadonlyArray<string> | null | undefined} [include]
+ *   List of keys to include (optional).
+ * @property {ReadonlyArray<string> | null | undefined} [exclude]
+ *   List of keys to exclude (optional).
  */
 
-import path from 'node:path'
-import process from 'node:process'
 import {pathToFileURL} from 'node:url'
+import {nodeTypes} from '@mdx-js/mdx'
 import {common, createStarryNight} from '@wooorm/starry-night'
 import sourceMdx from '@wooorm/starry-night/source.mdx'
 import sourceTsx from '@wooorm/starry-night/source.tsx'
-import remarkFrontmatter from 'remark-frontmatter'
-import remarkGfm from 'remark-gfm'
-import remarkGithub from 'remark-github'
-import remarkGemoji from 'remark-gemoji'
-import remarkStripBadges from 'remark-strip-badges'
-import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs'
-import remarkToc from 'remark-toc'
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import {valueToEstree} from 'estree-util-value-to-estree'
+import {h, s} from 'hastscript'
+import {toString} from 'hast-util-to-string'
+import {toText} from 'hast-util-to-text'
+import {analyze} from 'periscopic'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeInferDescriptionMeta from 'rehype-infer-description-meta'
 import rehypeInferReadingTimeMeta from 'rehype-infer-reading-time-meta'
 import rehypeInferTitleMeta from 'rehype-infer-title-meta'
-import rehypeSlug from 'rehype-slug'
+import rehypeMinifyUrl from 'rehype-minify-url'
 import rehypeShiftHeading from 'rehype-shift-heading'
+import rehypeSlug from 'rehype-slug'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeRaw from 'rehype-raw'
-import rehypeMinifyUrl from 'rehype-minify-url'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkGemoji from 'remark-gemoji'
+import remarkGfm from 'remark-gfm'
+import remarkGithub from 'remark-github'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs'
+import remarkStripBadges from 'remark-strip-badges'
+import remarkToc from 'remark-toc'
 import {visit} from 'unist-util-visit'
-import {toText} from 'hast-util-to-text'
-import {toString} from 'hast-util-to-string'
-import {h, s} from 'hastscript'
-import {analyze} from 'periscopic'
-import {valueToEstree} from 'estree-util-value-to-estree'
-import {nodeTypes} from '@mdx-js/mdx'
 import {config} from '../docs/_config.js'
 
-const own = {}.hasOwnProperty
-
-const reactUrl = pathToFileURL(
-  path.resolve(process.cwd(), 'node_modules', 'react')
-)
-
-/** @type {CompileOptions} */
+/** @type {Readonly<CompileOptions>} */
 const options = {
-  remarkPlugins: [
-    remarkGfm,
-    remarkGithub,
-    remarkGemoji,
-    remarkFrontmatter,
-    remarkStripBadges,
-    remarkSqueezeParagraphs,
-    // @ts-expect-error: to do: fix types.
-    [remarkMdxFrontmatter, {name: 'matter'}],
-    [
-      remarkToc,
-      {
-        maxDepth: 3,
-        tight: true,
-        heading: 'contents|toc|table[ -]of[ -]contents?'
-      }
-    ]
-  ],
+  // To do: remove.
+  fixRuntimeWithoutExportMap: false,
+  recmaPlugins: [recmaInjectMeta],
   rehypePlugins: [
     rehypePrettyCodeBlocks,
     [rehypeRaw, {passThrough: nodeTypes}],
@@ -87,26 +67,35 @@ const options = {
       rehypeAutolinkHeadings,
       {
         behavior: 'prepend',
-        properties: {ariaLabel: 'Link to this section', className: ['anchor']},
-        content: link()
+        content: link(),
+        properties: {ariaLabel: 'Link to this section', className: ['anchor']}
       }
     ],
     [rehypeStarryNight, {grammars: [...common, sourceMdx, sourceTsx]}],
-    // To do: use starry-night.
-    // [
-    //   rehypeHighlight,
-    //   {
-    //     subset: false,
-    //     aliases: {markdown: 'mdx'}
-    //   }
-    // ],
     // Minify things — mostly needed so `prerender` can also minify.
     // To do: can be removed?
     rehypePresetMinify,
     [rehypeMinifyUrl, {ignoreMissingSource: true}]
   ],
-  recmaPlugins: [recmaInjectMeta],
-  jsxImportSource: reactUrl.href
+  remarkPlugins: [
+    remarkFrontmatter,
+    remarkGemoji,
+    remarkGfm,
+    remarkGithub,
+    // @ts-expect-error: to do: fix types in `remark-mdx-frontmatter`.
+    [remarkMdxFrontmatter, {name: 'matter'}],
+    remarkStripBadges,
+    remarkSqueezeParagraphs,
+    [
+      remarkToc,
+      {
+        // To do: remove, this is the default now.
+        heading: 'contents|toc|table[ -]of[ -]contents?',
+        maxDepth: 3,
+        tight: true
+      }
+    ]
+  ]
 }
 
 export default options
@@ -135,11 +124,13 @@ function link() {
 function unifiedInferRemoteMeta() {
   /**
    * @param {Root} _
+   *   Tree.
    * @param {VFile} file
+   *   File.
    * @returns {undefined}
    *   Nothing.
    */
-  return (_, file) => {
+  return function (_, file) {
     const meta = file.data.meta || (file.data.meta = {})
 
     const fileUrl = pathToFileURL(file.path)
@@ -170,31 +161,29 @@ function unifiedInferRemoteMeta() {
 }
 
 /**
- * @returns
- *   Transform.
- */
-
-/**
- * @param {MetaOptions | null | undefined} [options]
+ * @param {Readonly<MetaOptions> | null | undefined} [options]
  *   Configuration (optional).
  * @returns
  *   Transform.
  */
 function recmaInjectMeta(options) {
-  const {include, exclude} = options || {}
+  const {exclude, include} = options || {}
   /**
    * @param {Program} tree
+   *   Tree.
    * @param {VFile} file
+   *   File.
    * @returns {undefined}
    *   Nothing.
    */
-  return (tree, file) => {
+  return function (tree, file) {
     // Find everything that’s defined in the top-level scope.
     const topScope = analyze(tree).scope.declarations
 
     // Exit if `meta` is already defined.
     if (topScope.has('meta')) return
 
+    // Treat as arbitrary object.
     const meta = /** @type {Record<string, unknown>} */ (file.data.meta || {})
     /** @type {Record<string, unknown>} */
     const value = {}
@@ -203,7 +192,7 @@ function recmaInjectMeta(options) {
 
     for (key in meta) {
       if (
-        own.call(meta, key) &&
+        Object.hasOwn(meta, key) &&
         (!exclude || !exclude.includes(key)) &&
         (!include || include.includes(key))
       ) {
@@ -224,7 +213,7 @@ function recmaInjectMeta(options) {
           }
         ]
       },
-      source: null,
+      source: undefined,
       specifiers: []
     })
   }
@@ -233,7 +222,7 @@ function recmaInjectMeta(options) {
 function rehypePrettyCodeBlocks() {
   const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
-  /** @type {Record<string, string>} */
+  /** @type {Readonly<Record<string, string>>} */
   const languageNames = {
     diff: 'Diff',
     html: 'HTML',
@@ -249,10 +238,12 @@ function rehypePrettyCodeBlocks() {
 
   /**
    * @param {Root} tree
+   *   Tree.
    * @returns {undefined}
+   *   Nothing.
    */
-  return (tree) => {
-    visit(tree, 'element', (node, index, parent) => {
+  return function (tree) {
+    visit(tree, 'element', function (node, index, parent) {
       if (node.tagName !== 'pre' || !parent || index === undefined) {
         return
       }
@@ -270,10 +261,7 @@ function rehypePrettyCodeBlocks() {
 
       /** @type {Record<string, string>} */
       const metaProps = {}
-      // To do: type?
-      // @ts-expect-error: added by `mdast-util-to-hast` on `code` elements.
-      // type-coverage:ignore-next-line
-      const meta = /** @type {string | undefined} */ (code.data?.meta)
+      const meta = code.data?.meta
 
       if (meta) {
         /** @type {RegExpMatchArray | null} */
@@ -295,9 +283,9 @@ function rehypePrettyCodeBlocks() {
       const className = Array.isArray(code.properties.className)
         ? code.properties.className
         : []
-      const lang = className.find(
-        (value) => String(value).slice(0, 9) === 'language-'
-      )
+      const lang = className.find(function (value) {
+        return String(value).slice(0, 9) === 'language-'
+      })
       /** @type {Array<ElementContent>} */
       const footer = []
       /** @type {Array<ElementContent>} */
@@ -323,7 +311,7 @@ function rehypePrettyCodeBlocks() {
           h('span.frame-tab-item.frame-tab-item-selected', metaProps.path)
         )
       } else if (language) {
-        if (!own.call(languageNames, language)) {
+        if (!Object.hasOwn(languageNames, language)) {
           console.log(
             '[mdx-config]: warn: please add %s to have a nice language name',
             language
@@ -363,7 +351,7 @@ function rehypePrettyCodeBlocks() {
 /**
  * Highlight code with `starry-night`.
  *
- * @param {Options | null | undefined} options
+ * @param {Readonly<Options> | null | undefined} options
  *   Configuration (optional).
  * @returns
  *   Transform.
@@ -422,6 +410,7 @@ function rehypeStarryNight(options) {
       }
 
       const fragment = starryNight.highlight(toString(head), scope)
+      // Cast because we don’t expect doctypes.
       const children = /** @type {Array<ElementContent>} */ (fragment.children)
 
       parent.children.splice(index, 1, {

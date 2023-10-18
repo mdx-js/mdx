@@ -1,12 +1,13 @@
 import {Note} from '../_component/note.jsx'
-export const navSortSelf = 4
+
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  published: new Date('2021-10-06'),
-  modified: new Date('2022-08-27')
+  modified: new Date('2022-08-27'),
+  published: new Date('2021-10-06')
 }
+export const navSortSelf = 4
 
 # Syntax highlighting
 
@@ -105,11 +106,11 @@ function code({className, ...props}) {
       <div
         className="language-js"
         style={{
+          background: '#F0F0F0',
+          color: '#444',
           display: 'block',
           overflowX: 'auto',
-          padding: '0.5em',
-          background: '#F0F0F0',
-          color: '#444'
+          padding: '0.5em'
         }}
       >
         <code style={{whiteSpace: 'pre'}}>
@@ -155,10 +156,13 @@ For example, it’s possible to pass that string as a prop with a rehype plugin:
 ```tsx path="rehype-meta-as-attributes.js"
 import {visit} from 'unist-util-visit'
 
-/** @type {import('unified').Plugin<[], import('hast').Root>} */
 function rehypeMetaAsAttributes() {
-  return (tree) => {
-    visit(tree, 'element', (node) => {
+  /**
+   * @param {import('hast').Root} tree
+   *   Tree.
+   */
+  return function (tree) {
+    visit(tree, 'element', function (node) {
       if (node.tagName === 'code' && node.data && node.data.meta) {
         node.properties.meta = node.data.meta
       }
@@ -195,7 +199,7 @@ That can be achieved with the same rehype plugin as above with a different
 const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
     // …
-    visit(tree, 'element', (node) => {
+    visit(tree, 'element', function (node) {
       let match
 
       if (node.tagName === 'code' && node.data && node.data.meta) {

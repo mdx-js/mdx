@@ -66,7 +66,9 @@ yarn add @mdx-js/node-loader
 Say we have an MDX document, `example.mdx`:
 
 ```mdx
-export const Thing = () => <>World!</>
+export function Thing() {
+  return <>World!</>
+}
 
 # Hello, <Thing />
 ```
@@ -132,9 +134,9 @@ This option fixes React et al by turning those into `xxx/jsx-runtime.js`.
 import {createLoader} from '@mdx-js/node-loader'
 
 // Load is for Node 17+, the rest for 12-16.
-const {load, getFormat, transformSource} = createLoader(/* Options… */)
+const {getFormat, load, transformSource} = createLoader(/* Options… */)
 
-export {load, getFormat, transformSource}
+export {getFormat, load, transformSource}
 ```
 
 This example can then be used with `node --experimental-loader=./my-loader.js`.

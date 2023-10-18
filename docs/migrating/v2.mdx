@@ -1,12 +1,11 @@
-import {Note} from '../_component/note.jsx'
-export const navExclude = true
 export const info = {
   author: [
-    {name: 'Titus Wormer', github: 'wooorm', twitter: 'wooorm'}
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  published: new Date('2022-02-01'),
-  modified: new Date('2022-02-01')
+  modified: new Date('2022-02-01'),
+  published: new Date('2022-02-01')
 }
+export const navExclude = true
 
 # Migrating from v1 to v2
 
@@ -58,17 +57,13 @@ that works with our previous `@mdx-js/loader` (`1.6.22`):
   <summary>Expand example of a `webpack.config.js` in ESM</summary>
 
   ```tsx path="webpack.config.js"
-  import {URL, fileURLToPath} from 'node:url'
+  import {fileURLToPath} from 'node:url'
   import webpack from 'webpack'
 
   const config = {
-    mode: 'none',
     context: fileURLToPath(new URL('src/', import.meta.url)),
     entry: ['./index.js'],
-    output: {
-      path: fileURLToPath(new URL('dest/', import.meta.url)),
-      filename: 'bundle.js'
-    },
+    mode: 'none',
     module: {
       rules: [
         {
@@ -86,6 +81,10 @@ that works with our previous `@mdx-js/loader` (`1.6.22`):
           ]
         }
       ]
+    },
+    output: {
+      filename: 'bundle.js',
+      path: fileURLToPath(new URL('dest/', import.meta.url))
     }
   };
 
@@ -369,11 +368,11 @@ You can update your code as follows:
     const components = {/* … */}
     const value = '# hi'
 
-    export default () => (
-      <MDX components={components}>
+    export default function () {
+      return <MDX components={components}>
         {value}
       </MDX>
-    )
+    }
     ```
   </div>
 
@@ -389,9 +388,9 @@ You can update your code as follows:
     const value = '# hi'
     const {default: Content} = await evaluate(value, {...provider, ...runtime, development: false})
 
-    export default () => (
-      <Content components={components} />
-    )
+    export default function () {
+      return <Content components={components} />
+    }
     ```
   </div>
 </div>
@@ -589,7 +588,7 @@ You can more easily embed components in MDX because blank lines are allowed:
 {/* Note: `language` because theme in VS Code is broken. */}
 
 ```tsx language="mdx" chrome=no
-export const Button = (props) => {
+export function Button(props) {
   const style = {color: 'red'}
 
   return <button style={style} {...props} />

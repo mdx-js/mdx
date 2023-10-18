@@ -2,8 +2,13 @@
  * @typedef {import('estree-jsx').Expression} Expression
  */
 
+import {ok as assert} from 'devlop'
+
 /**
- * @param {Array<Expression>} expressions
+ * @param {ReadonlyArray<Expression>} expressions
+ *   Expressions.
+ * @returns {Expression}
+ *   Addition.
  */
 export function toBinaryAddition(expressions) {
   let index = -1
@@ -15,9 +20,6 @@ export function toBinaryAddition(expressions) {
     left = left ? {type: 'BinaryExpression', left, operator: '+', right} : right
   }
 
-  // Just for types.
-  /* c8 ignore next */
-  if (!left) throw new Error('Expected non-empty `expressions` to be passed')
-
+  assert(left, 'expected non-empty `expressions` to be passed')
   return left
 }

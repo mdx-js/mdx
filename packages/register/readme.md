@@ -63,7 +63,9 @@ yarn add @mdx-js/register
 Say we have an MDX document, `example.mdx`:
 
 ```mdx
-export const Thing = () => <>World!</>
+export function Thing() {
+  return <>World!</>
+}
 
 # Hello, <Thing />
 ```
