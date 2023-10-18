@@ -1,7 +1,6 @@
 /**
  * @typedef {import('mdx/types.js').MDXComponents} Components
  * @typedef {import('preact').ComponentChildren} ComponentChildren
- * @typedef {import('preact').Context<Components>} Context
  */
 
 /**
@@ -25,45 +24,7 @@
 import {createContext, h} from 'preact'
 import {useContext} from 'preact/hooks'
 
-/**
- * @type {Context}
- *   Context.
- * @deprecated
- *   This export is marked as a legacy feature.
- *   That means it’s no longer recommended for use as it might be removed
- *   in a future major release.
- *
- *   Please use `useMDXComponents` to get context based components and
- *   `MDXProvider` to set context based components instead.
- */
-export const MDXContext = createContext({})
-
-/**
- * @param {import('preact').ComponentType<any>} Component
- *   Component.
- * @deprecated
- *   This export is marked as a legacy feature.
- *   That means it’s no longer recommended for use as it might be removed
- *   in a future major release.
- *
- *   Please use `useMDXComponents` to get context based components instead.
- * @returns
- *   Bound component.
- */
-export function withMDXComponents(Component) {
-  return boundMDXComponent
-
-  /**
-   * @param {Record<string, unknown> & {components?: Components | null | undefined}} props
-   *   Props.
-   * @returns {JSX.Element}
-   *   Element.
-   */
-  function boundMDXComponent(props) {
-    const allComponents = useMDXComponents(props.components)
-    return h(Component, {...props, allComponents})
-  }
-}
+const MDXContext = createContext({})
 
 /**
  * Get current components from the MDX Context.
