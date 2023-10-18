@@ -188,7 +188,7 @@ function Playground() {
         if (show === 'hast') rehypePlugins.push([captureHast])
         if (show === 'mdast') remarkPlugins.push([captureMdast])
         /** @type {UnistNode | undefined} */
-        let tree
+        let ast
 
         await compile(file, {
           development: show === 'result' ? false : development,
@@ -214,13 +214,13 @@ function Playground() {
           )
         }
 
-        if (tree) {
+        if (ast) {
           return (
             <pre>
               <code>
                 {toJsxRuntime(
                   starryNight.highlight(
-                    JSON.stringify(tree, undefined, 2),
+                    JSON.stringify(ast, undefined, 2),
                     'source.json'
                   ),
                   runtime
@@ -252,7 +252,7 @@ function Playground() {
           return function (tree) {
             const clone = structuredClone(tree)
             if (!positions) cleanUnistTree(clone)
-            tree = clone
+            ast = clone
           }
         }
 
@@ -266,7 +266,7 @@ function Playground() {
           return function (tree) {
             const clone = structuredClone(tree)
             if (!positions) cleanUnistTree(clone)
-            tree = clone
+            ast = clone
           }
         }
 
@@ -280,7 +280,7 @@ function Playground() {
           return function (tree) {
             const clone = structuredClone(tree)
             if (!positions) visitEstree(clone, removeFromEstree)
-            tree = clone
+            ast = clone
           }
         }
       }
