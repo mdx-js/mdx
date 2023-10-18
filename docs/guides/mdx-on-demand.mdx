@@ -30,10 +30,6 @@ On the server:
 import {compile} from '@mdx-js/mdx'
 
 const code = String(await compile('# hi', {
-  development: false
-  // ^-- Generate code for production.
-  // `false` if you use `/jsx-runtime` on client, `true` if you use
-  // `/jsx-dev-runtime`.
   outputFormat: 'function-body',
   /* …otherOptions */
 }))
@@ -93,10 +89,6 @@ export default function Page({code}) {
 export async function getStaticProps() {
   const code = String(
     await compile('# hi', {
-      development: false,
-      // ^-- Generate code for production.
-      // `false` if you use `/jsx-runtime` on client, `true` if you use
-      // `/jsx-dev-runtime`.
       outputFormat: 'function-body',
       /* …otherOptions */
     })

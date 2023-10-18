@@ -789,8 +789,6 @@ Typically, `import` (or `export … from`) do not work here.
 They can be compiled to dynamic `import()` by passing
 [`options.useDynamicImport`][usedynamicimport].
 
-> ☢️ **Danger**: you likely must set `development: boolean`.
-
 ###### `file`
 
 See [`compile`][compile].
@@ -814,7 +812,7 @@ exceptions:
 ###### `options.Fragment`
 
 These options are required: `Fragment` always, when `development: true`
-then `jsx` and `jsxs`, when `development: false` then `jsxDEV`.
+then `jsxDEV`, when `development: false` then `jsx` and `jsxs`.
 They come from an automatic JSX runtime that you must import yourself.
 
 <details>
@@ -823,11 +821,7 @@ They come from an automatic JSX runtime that you must import yourself.
 ```tsx
 import * as runtime from 'react/jsx-runtime'
 
-const {default: Content} = await evaluate('# hi', {
-  development: false,
-  ...otherOptions,
-  ...runtime
-})
+const {default: Content} = await evaluate('# hi', {...otherOptions, ...runtime})
 ```
 
 </details>
@@ -844,7 +838,6 @@ import * as provider from '@mdx-js/react'
 import * as runtime from 'react/jsx-runtime'
 
 const {default: Content} = await evaluate('# hi', {
-  development: false,
   ...otherOptions,
   ...provider,
   ...runtime
@@ -868,7 +861,7 @@ Assuming the contents of `example.mdx` from [§ Use][use] was in `file`, then:
 import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
 
-console.log(await evaluate(file, {...runtime, development: false}))
+console.log(await evaluate(file, runtime))
 ```
 
 …yields:
@@ -930,10 +923,7 @@ On the server:
 ```tsx
 import {compile} from '@mdx-js/mdx'
 
-const code = String(await compile('# hi', {
-  development: false,
-  outputFormat: 'function-body'
-}))
+const code = String(await compile('# hi', {outputFormat: 'function-body'}))
 // To do: send `code` to the client somehow.
 ```
 

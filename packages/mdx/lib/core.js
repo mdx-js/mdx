@@ -52,7 +52,6 @@ import {rehypeRecma} from './plugin/rehype-recma.js'
 import {rehypeRemoveRaw} from './plugin/rehype-remove-raw.js'
 import {remarkMarkAndUnravel} from './plugin/remark-mark-and-unravel.js'
 import {nodeTypes} from './node-types.js'
-import {development as defaultDevelopment} from '#condition'
 
 const removedOptions = [
   'compilers',
@@ -91,10 +90,6 @@ export function createProcessor(options) {
     SourceMapGenerator,
     ...rest
   } = options || {}
-  const dev =
-    development === null || development === undefined
-      ? defaultDevelopment
-      : development
   let index = -1
 
   while (++index < removedOptions.length) {
@@ -144,13 +139,13 @@ export function createProcessor(options) {
     .use(rehypeRecma, {elementAttributeNameCase, stylePropertyNameCase})
     .use(recmaDocument, {...rest, outputFormat})
     .use(recmaJsxRewrite, {
-      development: dev,
+      development,
       providerImportSource,
       outputFormat
     })
 
   if (!jsx) {
-    pipeline.use(recmaJsxBuild, {development: dev, outputFormat})
+    pipeline.use(recmaJsxBuild, {development, outputFormat})
   }
 
   pipeline.use(recmaStringify, {SourceMapGenerator}).use(recmaPlugins || [])

@@ -30,6 +30,12 @@
   "type": "module",
   "sideEffects": false,
   "exports": "./index.js",
+  "imports": {
+    "#condition": {
+      "development": "./lib/condition.development.js",
+      "default": "./lib/condition.default.js"
+    }
+  },
   "files": [
     "lib/",
     "index.d.ts",

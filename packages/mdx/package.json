@@ -37,12 +37,6 @@
     "./internal-extnames-to-regex": "./lib/util/extnames-to-regex.js",
     "./internal-resolve-evaluate-options": "./lib/util/resolve-evaluate-options.js"
   },
-  "imports": {
-    "#condition": {
-      "node": "./lib/condition.node.js",
-      "default": "./lib/condition.default.js"
-    }
-  },
   "files": [
     "lib/",
     "index.d.ts",
