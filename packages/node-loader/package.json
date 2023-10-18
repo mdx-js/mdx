@@ -43,7 +43,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "npm run test-coverage",
-    "test-api": "node --conditions development --loader=./test/react-18-node-loader.js test/index.js",
+    "test-api": "node --conditions development --loader=@mdx-js/node-loader test/index.js",
     "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
   "xo": {

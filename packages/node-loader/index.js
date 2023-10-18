@@ -1,5 +1,5 @@
 /**
- * @typedef {import('./lib/index.js').CompileOptions} Options
+ * @typedef {import('./lib/index.js').Options} Options
  */
 
 import {createLoader} from './lib/index.js'

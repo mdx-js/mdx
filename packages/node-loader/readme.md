@@ -112,20 +112,6 @@ Create a Node ESM loader to compile MDX to JS.
 `options` are the same as [`compile` from `@mdx-js/mdx`][options].
 One extra field is supported:
 
-###### `options.fixRuntimeWithoutExportMap`
-
-Fix broken export maps (`boolean`, default: `true`).
-
-Several JSX runtimes, notably React below 18 and Emotion below 11.10.0, don’t
-have a proper export map set up.
-Export maps are needed to map `xxx/jsx-runtime` to an actual file in ESM.
-This option fixes React et al by turning those into `xxx/jsx-runtime.js`.
-
-> 👉 **Note**: If you are using recent React, or other proper packages, you
-> have to turn this field off.
-> See the example below on how to configure your loader.
-> Pass `fixRuntimeWithoutExportMap: false` in options to it.
-
 ###### Example
 
 `my-loader.js`:

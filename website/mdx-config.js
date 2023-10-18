@@ -48,8 +48,6 @@ import {config} from '../docs/_config.js'
 
 /** @type {Readonly<CompileOptions>} */
 const options = {
-  // To do: remove.
-  fixRuntimeWithoutExportMap: false,
   recmaPlugins: [recmaInjectMeta],
   rehypePlugins: [
     rehypePrettyCodeBlocks,

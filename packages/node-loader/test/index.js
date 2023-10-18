@@ -38,7 +38,7 @@ test('@mdx-js/node-loader', async function (t) {
         await fs.rm(mdxUrl)
 
         throw new Error(
-          'Please run Node with `--loader=./test/react-18-node-loader.js` to test the ESM loader'
+          'Please run Node with `--loader=@mdx-js/node-loader` to test the ESM loader'
         )
       }
 
