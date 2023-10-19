@@ -45,11 +45,6 @@
     "react": ">=16",
     "@types/react": ">=16"
   },
-  "peerDependenciesMeta": {
-    "@types/react": {
-      "optional": true
-    }
-  },
   "devDependencies": {},
   "scripts": {
     "test": "npm run test-coverage",
