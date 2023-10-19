@@ -973,6 +973,42 @@ test('@mdx-js/mdx: compile', async function (t) {
     }
   )
 
+  await t.test(
+    'should support an `await` expression in content (GH-2242)',
+    async function () {
+      const element = React.createElement(
+        await run(await compile('{await Promise.resolve(42)}'))
+      )
+
+      try {
+        // Not supported yet by React, so it throws.
+        renderToStaticMarkup(element)
+        assert.fail()
+      } catch (error) {
+        assert.match(
+          String(error),
+          /Objects are not valid as a React child \(found: \[object Promise]\)/
+        )
+      }
+    }
+  )
+
+  await t.test(
+    'should not detect `await` inside functions (GH-2242)',
+    async function () {
+      const value = `{(function () {
+  return 21
+
+  async function unused() {
+    await Promise.resolve(42)
+  }
+})()}`
+      const element = React.createElement(await run(await compile(value)))
+
+      assert.equal(renderToStaticMarkup(element), '21')
+    }
+  )
+
   await t.test('should support source maps', async function () {
     const base = new URL('context/', import.meta.url)
     const url = new URL('sourcemap.js', base)

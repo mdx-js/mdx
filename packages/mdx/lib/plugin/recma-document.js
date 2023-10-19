@@ -602,9 +602,33 @@ export function recmaDocument(options) {
       argument = argument.children[0]
     }
 
+    let awaitExpression = false
+
+    walk(argument, {
+      enter(node) {
+        if (
+          node.type === 'ArrowFunctionExpression' ||
+          node.type === 'FunctionDeclaration' ||
+          node.type === 'FunctionExpression'
+        ) {
+          return this.skip()
+        }
+
+        if (
+          node.type === 'AwaitExpression' ||
+          /* c8 ignore next 2 -- can only occur in a function (which then can
+           * only be async, so skipped it) */
+          (node.type === 'ForOfStatement' && node.await)
+        ) {
+          awaitExpression = true
+        }
+      }
+    })
+
     return [
       {
         type: 'FunctionDeclaration',
+        async: awaitExpression,
         id: {type: 'Identifier', name: '_createMdxContent'},
         params: [{type: 'Identifier', name: 'props'}],
         body: {
