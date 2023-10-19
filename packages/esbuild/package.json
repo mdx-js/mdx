@@ -43,7 +43,7 @@
     "vfile": "^6.0.0"
   },
   "peerDependencies": {
-    "esbuild": ">=0.11.0"
+    "esbuild": ">=0.14.0"
   },
   "scripts": {
     "test": "npm run test-coverage",
