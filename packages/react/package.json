@@ -4,18 +4,17 @@
   "description": "React context for MDX",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
-    "react",
     "jsx",
-    "remark",
-    "mdxast"
+    "markdown",
+    "mdx",
+    "react",
+    "remark"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/react"
+    "directory": "packages/react/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -33,8 +32,7 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
-  "types": "index.d.ts",
+  "exports": "./index.js",
   "files": [
     "lib/",
     "index.d.ts",
@@ -52,26 +50,28 @@
       "optional": true
     }
   },
-  "devDependencies": {
-    "@mdx-js/mdx": "^2.0.0",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "prepack": "npm run build",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "test-api": "node --no-warnings --experimental-loader=../../script/jsx-loader.js ../../node_modules/uvu/bin.js test \"\\.jsx?$\"",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development --loader=../../script/jsx-loader.js test/index.jsx",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
-  "xo": false,
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
-  },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  "xo": {
+    "overrides": [
+      {
+        "extends": "xo-react",
+        "files": [
+          "**/*.jsx"
+        ],
+        "rules": {
+          "react/jsx-no-bind": "off",
+          "react/react-in-jsx-scope": "off"
+        }
+      }
+    ],
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off"
+    }
+  }
 }

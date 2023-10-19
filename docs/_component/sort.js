@@ -1,9 +1,33 @@
+/**
+ * @typedef {import('vfile').Data} Data
+ */
+
+/**
+ * @typedef Item
+ *   Item.
+ * @property {string} name
+ *   Name.
+ * @property {Readonly<Data>} data
+ *   Data.
+ * @property {Array<Item>} children
+ *   Children.
+ */
+
 import dlv from 'dlv'
 
 const collator = new Intl.Collator('en').compare
 
+/**
+ * @param {ReadonlyArray<Item>} items
+ *   Items.
+ * @param {string | undefined} [sortString]
+ *   Fields to sort on (default: `'navSortSelf,meta.title'`).
+ * @returns {ReadonlyArray<Item>}
+ *   Items.
+ */
 export function sortItems(items, sortString = 'navSortSelf,meta.title') {
-  const fields = sortString.split(',').map((d) => {
+  /** @type {ReadonlyArray<[string, 'asc' | 'desc']>} */
+  const fields = sortString.split(',').map(function (d) {
     const [field, order = 'asc'] = d.split(':')
 
     if (order !== 'asc' && order !== 'desc') {
@@ -13,25 +37,30 @@ export function sortItems(items, sortString = 'navSortSelf,meta.title') {
     return [field, order]
   })
 
-  return [...items].sort((left, right) => {
+  return [...items].sort(function (left, right) {
     let index = -1
 
     while (++index < fields.length) {
       const [field, order] = fields[index]
+      /** @type {unknown} */
       let a = dlv(left.data, field)
+      /** @type {unknown} */
       let b = dlv(right.data, field)
 
+      // Dates.
       if (a && typeof a === 'object' && 'valueOf' in a) a = a.valueOf()
       if (b && typeof b === 'object' && 'valueOf' in b) b = b.valueOf()
 
       const score =
-        typeof a === 'number' || typeof b === 'number'
-          ? a === null || a === undefined
-            ? 1
-            : b === null || b === undefined
-            ? -1
-            : a - b
-          : collator(a, b)
+        typeof a === 'string' && typeof b === 'string'
+          ? collator(a, b)
+          : typeof a === 'number' && typeof b === 'number'
+          ? a - b
+          : a === null || a === undefined
+          ? 1
+          : b === null || b === undefined
+          ? -1
+          : 0
       const result = order === 'asc' ? score : -score
       if (result) return result
     }

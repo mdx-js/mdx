@@ -1,22 +1,22 @@
 /**
- * @typedef {import('mdx/types.js').MDXModule} ExportMap
- * @typedef {import('vfile').VFileCompatible} VFileCompatible
+ * @typedef {import('mdx/types.js').MDXModule} MDXModule
+ * @typedef {import('vfile').Compatible} Compatible
  * @typedef {import('./util/resolve-evaluate-options.js').EvaluateOptions} EvaluateOptions
  */
 
+import {resolveEvaluateOptions} from './util/resolve-evaluate-options.js'
 import {compile, compileSync} from './compile.js'
 import {run, runSync} from './run.js'
-import {resolveEvaluateOptions} from './util/resolve-evaluate-options.js'
 
 /**
  * Evaluate MDX.
  *
- * @param {VFileCompatible} vfileCompatible
+ * @param {Readonly<Compatible>} vfileCompatible
  *   MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be
  *   given to `vfile`).
- * @param {EvaluateOptions} evaluateOptions
+ * @param {Readonly<EvaluateOptions>} evaluateOptions
  *   Configuration for evaluation.
- * @return {Promise<ExportMap>}
+ * @return {Promise<MDXModule>}
  *   Export map.
  */
 export async function evaluate(vfileCompatible, evaluateOptions) {
@@ -27,12 +27,12 @@ export async function evaluate(vfileCompatible, evaluateOptions) {
 /**
  * Synchronously evaluate MDX.
  *
- * @param {VFileCompatible} vfileCompatible
+ * @param {Readonly<Compatible>} vfileCompatible
  *   MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be
  *   given to `vfile`).
- * @param {EvaluateOptions} evaluateOptions
+ * @param {Readonly<EvaluateOptions>} evaluateOptions
  *   Configuration for evaluation.
- * @return {ExportMap}
+ * @return {MDXModule}
  *   Export map.
  */
 export function evaluateSync(vfileCompatible, evaluateOptions) {

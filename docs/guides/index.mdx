@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict'
+import {NavGroup} from '../_component/nav.jsx'
+
+export const info = {
+  author: [{name: 'MDX Contributors'}],
+  modified: new Date('2021-11-01'),
+  published: new Date('2021-11-01')
+}
+export const navSortSelf = 2
+
+# Guides
+
+These guides explain how to accomplish several common use cases and patterns
+around MDX.
+{
+  (function () {
+    /**
+     * @typedef {import('../_component/sort.js').Item} Item
+     */
+
+    /** @type {Item} */
+    const navTree = props.navTree
+    const category = navTree.children.find(function (item) {
+      return item.name === '/guides/'
+    })
+    assert(category)
+
+    return (
+      <nav>
+        <NavGroup items={category.children} includeDescription />
+      </nav>
+    )
+  })()
+}

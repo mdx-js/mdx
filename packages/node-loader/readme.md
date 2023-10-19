@@ -66,14 +66,16 @@ yarn add @mdx-js/node-loader
 Say we have an MDX document, `example.mdx`:
 
 ```mdx
-export const Thing = () => <>World!</>
+export function Thing() {
+  return <>World!</>
+}
 
 # Hello, <Thing />
 ```
 
 …and our module `example.js` looks as follows:
 
-```js
+```tsx
 import {renderToStaticMarkup} from 'react-dom/server'
 import React from 'react'
 import Content from './example.mdx'
@@ -110,31 +112,16 @@ Create a Node ESM loader to compile MDX to JS.
 `options` are the same as [`compile` from `@mdx-js/mdx`][options].
 One extra field is supported:
 
-###### `options.fixRuntimeWithoutExportMap`
-
-Fix broken export maps (`boolean`, default: `true`).
-
-Several JSX runtimes, notably React below 18 and Emotion below 11.10.0, don’t
-have a proper export map set up.
-Export maps are needed to map `xxx/jsx-runtime` to an actual file in ESM.
-This option fixes React et al by turning those into `xxx/jsx-runtime.js`.
-
-> 👉 **Note**: If you are using recent React, or other proper packages, you
-> have to turn this field off.
-> See the example below on how to configure your loader.
-> Pass `fixRuntimeWithoutExportMap: false` in options to it.
-
 ###### Example
 
 `my-loader.js`:
 
-```js
+```tsx
 import {createLoader} from '@mdx-js/node-loader'
 
-// Load is for Node 17+, the rest for 12-16.
-const {load, getFormat, transformSource} = createLoader(/* Options… */)
+const {load} = createLoader(/* Options… */)
 
-export {load, getFormat, transformSource}
+export {load}
 ```
 
 This example can then be used with `node --experimental-loader=./my-loader.js`.

@@ -4,20 +4,20 @@
   "description": "Webpack loader for MDX",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
     "jsx",
-    "webpack",
-    "remark",
-    "react",
+    "markdown",
+    "mdx",
     "preact",
-    "vue"
+    "react",
+    "remark",
+    "vue",
+    "webpack"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/loader"
+    "directory": "packages/loader/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -35,8 +35,7 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "index.cjs",
-  "types": "index.d.ts",
+  "exports": "./index.cjs",
   "files": [
     "lib/",
     "index.cjs",
@@ -50,33 +49,16 @@
   "peerDependencies": {
     "webpack": ">=4"
   },
-  "devDependencies": {
-    "@types/loader-utils": "^2.0.0",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@vue/babel-plugin-jsx": "^1.0.0",
-    "@vue/server-renderer": "^3.0.0",
-    "babel-loader": "^9.0.0",
-    "preact": "^10.0.0",
-    "preact-render-to-string": "^5.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "vue": "^3.0.0",
-    "webpack": "^5.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "prepack": "npm run build",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "test-api": "uvu test \"\\.js$\"",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
-  "xo": false,
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
-  },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  "xo": {
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off"
+    }
+  }
 }

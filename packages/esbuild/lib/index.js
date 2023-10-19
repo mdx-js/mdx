@@ -1,56 +1,86 @@
 /**
- * @typedef {import('esbuild').Plugin} Plugin
- * @typedef {import('esbuild').PluginBuild} PluginBuild
+ * @typedef {import('@mdx-js/mdx').ProcessorOptions} ProcessorOptions
+ * @typedef {import('esbuild').Message} Message
  * @typedef {import('esbuild').OnLoadArgs} OnLoadArgs
  * @typedef {import('esbuild').OnLoadResult} OnLoadResult
  * @typedef {import('esbuild').OnResolveArgs} OnResolveArgs
- * @typedef {import('esbuild').Message} Message
- * @typedef {import('vfile').VFileValue} VFileValue
+ * @typedef {import('esbuild').Plugin} Plugin
+ * @typedef {import('esbuild').PluginBuild} PluginBuild
+ * @typedef {import('vfile').Value} Value
  * @typedef {import('vfile-message').VFileMessage} VFileMessage
- * @typedef {import('@mdx-js/mdx/lib/core.js').ProcessorOptions} ProcessorOptions
  */
 
 /**
- * @typedef {ProcessorOptions & {allowDangerousRemoteMdx?: boolean | null | undefined}} Options
+ * @typedef EsbuildOptions
+ *   Extra options.
+ * @property {boolean | null | undefined} [allowDangerousRemoteMdx=false]
+ *   Allow remote MDX (default: `false`).
+ *
+ * @typedef {Omit<OnLoadArgs, 'pluginData'> & LoadDataFields} LoadData
+ *   Data passed to `onload`.
+ *
+ * @typedef LoadDataFields
+ *   Extra fields given in `data` to `onload`.
+ * @property {PluginData | null | undefined} [pluginData]
+ *   Plugin data.
+ *
+ * @typedef {EsbuildOptions & ProcessorOptions} Options
  *   Configuration.
+ *
+ * @typedef PluginData
+ *   Extra data passed.
+ * @property {Buffer | string | null | undefined} [contents]
+ *   File contents.
+ *
+ * @typedef State
+ *   Info passed around.
+ * @property {string} doc
+ *   File value.
+ * @property {string} name
+ *   Plugin name.
+ * @property {string} path
+ *   File path.
  */
 
 import assert from 'node:assert'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
-import fetch from 'node-fetch'
+import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
+import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
+import {fetch} from 'undici'
 import {VFile} from 'vfile'
-import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
-import {extnamesToRegex} from '@mdx-js/mdx/lib/util/extnames-to-regex.js'
 
 const eol = /\r\n|\r|\n|\u2028|\u2029/g
 
-/** @type Map<string, string> */
+/** @type {Map<string, string>} */
 const cache = new Map()
-
+const name = '@mdx-js/esbuild'
 const p = process
+const remoteNamespace = name + '-remote'
 
 /**
  * Compile MDX w/ esbuild.
  *
- * @param {Options | null | undefined} [options]
+ * @param {Readonly<Options> | null | undefined} [options]
+ *   Configuration (optional).
  * @return {Plugin}
+ *   Plugin.
  */
 export function esbuild(options) {
   const {allowDangerousRemoteMdx, ...rest} = options || {}
-  const name = '@mdx-js/esbuild'
-  const remoteNamespace = name + '-remote'
   const {extnames, process} = createFormatAwareProcessors(rest)
 
   return {name, setup}
 
   /**
    * @param {PluginBuild} build
+   *   Build.
+   * @returns {undefined}
+   *   Nothing.
    */
   function setup(build) {
     const filter = extnamesToRegex(extnames)
-    /* eslint-disable-next-line security/detect-non-literal-regexp */
     const filterHttp = new RegExp('^https?:\\/{2}.+' + filter.source)
     const http = /^https?:\/{2}/
     const filterHttpOrRelative = /^(https?:\/{2}|.{1,2}\/).*/
@@ -74,9 +104,9 @@ export function esbuild(options) {
     build.onLoad({filter: /.*/, namespace: remoteNamespace}, onloadremote)
     build.onLoad({filter}, onload)
 
-    /** @param {OnResolveArgs} args  */
+    /** @param {OnResolveArgs} args */
     function resolveRemoteInLocal(args) {
-      return {path: args.path, namespace: remoteNamespace}
+      return {namespace: remoteNamespace, path: args.path}
     }
 
     // Intercept all import paths inside downloaded files and resolve them against
@@ -84,17 +114,19 @@ export function esbuild(options) {
     // files will be in the "http-url" namespace. Make sure to keep
     // the newly resolved URL in the "http-url" namespace so imports
     // inside it will also be resolved as URLs recursively.
-    /** @param {OnResolveArgs} args  */
+    /** @param {OnResolveArgs} args */
     function resolveInRemote(args) {
       return {
-        path: String(new URL(args.path, args.importer)),
-        namespace: remoteNamespace
+        namespace: remoteNamespace,
+        path: String(new URL(args.path, args.importer))
       }
     }
 
     /**
      * @param {OnLoadArgs} data
+     *   Data.
      * @returns {Promise<OnLoadResult>}
+     *   Result.
      */
     async function onloadremote(data) {
       const href = data.path
@@ -107,38 +139,46 @@ export function esbuild(options) {
       if (cachedContents) {
         contents = cachedContents
       } else {
-        contents = await (await fetch(href)).text()
+        const response = await fetch(href)
+        contents = await response.text()
         cache.set(href, contents)
       }
 
-      return filter.test(href)
-        ? onload({
-            suffix: '',
-            // Clean search and hash from URL.
-            path: Object.assign(new URL(href), {search: '', hash: ''}).href,
-            namespace: 'file',
-            pluginData: {contents}
-          })
-        : {contents, loader: 'js', resolveDir: p.cwd()}
+      if (filter.test(href)) {
+        // Clean search and hash from URL.
+        const url = new URL(href)
+        url.hash = ''
+        url.search = ''
+        return onload({
+          namespace: 'file',
+          path: url.href,
+          pluginData: {contents},
+          suffix: ''
+        })
+      }
+
+      return {contents, loader: 'js', resolveDir: p.cwd()}
     }
 
     /**
-     * @param {Omit<OnLoadArgs, 'pluginData'> & {pluginData?: {contents?: Buffer | string | null | undefined}}} data
+     * @param {LoadData} data
+     *   Data.
      * @returns {Promise<OnLoadResult>}
+     *   Result.
      */
     async function onload(data) {
-      /** @type {string} */
       const doc = String(
         data.pluginData &&
           data.pluginData.contents !== null &&
           data.pluginData.contents !== undefined
           ? data.pluginData.contents
-          : /* eslint-disable-next-line security/detect-non-literal-fs-filename */
-            await fs.readFile(data.path)
+          : await fs.readFile(data.path)
       )
 
-      let file = new VFile({value: doc, path: data.path})
-      /** @type {VFileValue | undefined} */
+      /** @type {State} */
+      const state = {doc, name, path: data.path}
+      let file = new VFile({path: data.path, value: doc})
+      /** @type {Value | undefined} */
       let value
       /** @type {Array<Error | VFileMessage>} */
       let messages = []
@@ -158,67 +198,8 @@ export function esbuild(options) {
       }
 
       for (const message of messages) {
-        const location = 'position' in message ? message.position : undefined
-        const start = location ? location.start : undefined
-        const end = location ? location.end : undefined
-        let length = 0
-        let lineStart = 0
-        let line = 0
-        let column = 0
-
-        if (
-          start &&
-          start.line !== null &&
-          start.line !== undefined &&
-          start.column !== undefined &&
-          start.column !== null &&
-          start.offset !== undefined &&
-          start.offset !== null
-        ) {
-          line = start.line
-          column = start.column - 1
-          lineStart = start.offset - column
-          length = 1
-
-          if (
-            end &&
-            end.line !== null &&
-            end.line !== undefined &&
-            end.column !== undefined &&
-            end.column !== null &&
-            end.offset !== undefined &&
-            end.offset !== null
-          ) {
-            length = end.offset - start.offset
-          }
-        }
-
-        eol.lastIndex = lineStart
-
-        const match = eol.exec(doc)
-        const lineEnd = match ? match.index : doc.length
-
-        ;(!('fatal' in message) || message.fatal ? errors : warnings).push({
-          pluginName: name,
-          id: '',
-          text:
-            'reason' in message
-              ? message.reason
-              : /* Extra fallback to make sure weird values are definitely strings */
-                /* c8 ignore next */
-                message.stack || String(message),
-          notes: [],
-          location: {
-            namespace: 'file',
-            suggestion: '',
-            file: data.path,
-            line,
-            column,
-            length: Math.min(length, lineEnd),
-            lineText: doc.slice(lineStart, lineEnd)
-          },
-          detail: message
-        })
+        const list = !('fatal' in message) || message.fatal ? errors : warnings
+        list.push(vfileMessageToEsbuild(state, message))
       }
 
       // Safety check: the file has a path, so there has to be a `dirname`.
@@ -227,11 +208,67 @@ export function esbuild(options) {
       return {
         contents: value || '',
         errors,
-        warnings,
         resolveDir: http.test(file.path)
           ? p.cwd()
-          : path.resolve(file.cwd, file.dirname)
+          : path.resolve(file.cwd, file.dirname),
+        warnings
       }
     }
+  }
+}
+
+/**
+ * @param {Readonly<State>} state
+ *   Info passed around.
+ * @param {Readonly<Error | VFileMessage>} message
+ *   VFile message or error.
+ * @returns {Message}
+ *   ESBuild message.
+ */
+function vfileMessageToEsbuild(state, message) {
+  const place = 'place' in message ? message.place : undefined
+  const start = place ? ('start' in place ? place.start : place) : undefined
+  const end = place && 'end' in place ? place.end : undefined
+  let length = 0
+  let lineStart = 0
+  let line = 0
+  let column = 0
+
+  if (start && start.offset !== undefined) {
+    line = start.line
+    column = start.column - 1
+    lineStart = start.offset - column
+    length = 1
+
+    if (end && end.offset !== undefined) {
+      length = end.offset - start.offset
+    }
+  }
+
+  eol.lastIndex = lineStart
+
+  const match = eol.exec(state.doc)
+  const lineEnd = match ? match.index : state.doc.length
+
+  return {
+    detail: message,
+    id: '',
+    location: {
+      column,
+      file: state.path,
+      length: Math.min(length, lineEnd),
+      line,
+      lineText: state.doc.slice(lineStart, lineEnd),
+      namespace: 'file',
+      suggestion: ''
+    },
+    notes: [],
+    pluginName: state.name,
+    text: String(
+      ('reason' in message ? message.reason : undefined) ||
+        /* c8 ignore next 2 - errors should have stacks */
+        message.stack ||
+        message
+    )
   }
 }

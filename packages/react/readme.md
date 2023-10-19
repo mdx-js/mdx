@@ -21,8 +21,6 @@ React context for MDX.
 *   [API](#api)
     *   [`MDXProvider(props?)`](#mdxproviderprops)
     *   [`useMDXComponents(components?)`](#usemdxcomponentscomponents)
-    *   [`MDXContext`](#mdxcontext)
-    *   [`withMDXComponents(Component)`](#withmdxcomponentscomponent)
 *   [Types](#types)
 *   [Security](#security)
 *   [Contribute](#contribute)
@@ -58,7 +56,7 @@ yarn add @mdx-js/react
 
 ## Use
 
-```js
+```tsx
 import {MDXProvider} from '@mdx-js/react'
 import Post from './post.mdx'
 // ^-- Assumes an integration is used to compile MDX to JS, such as
@@ -92,8 +90,8 @@ provider.
 
 ## API
 
-This package exports the following identifiers: `MDXContext`, `MDXProvider`,
-`useMDXComponents`, and `withMDXComponents`.
+This package exports the following identifiers: `MDXProvider` and
+`useMDXComponents`.
 There is no default export.
 
 ### `MDXProvider(props?)`
@@ -107,7 +105,7 @@ Configuration (`Object`, optional).
 ###### `props.components`
 
 Mapping of names for JSX components to React components
-(`Record<string, string|Component|Components>`, optional).
+(`Record<string, string | Component | Components>`, optional).
 
 ###### `props.disableParentContext`
 
@@ -134,25 +132,6 @@ Components`).
 ###### Returns
 
 `Components`.
-
-### `MDXContext`
-
-> 🪦 **Deprecated**: This export is not recommended for use as it exposes
-> internals which should be hidden.
-> It might be removed in a future major release.
-> Please use `useMDXComponents` to get context based components and
-> `MDXProvider` to set context based components instead.
-
-The React Context for MDX (`React.Context`).
-
-### `withMDXComponents(Component)`
-
-> 🪦 **Deprecated**: This export is not recommended for use.
-> It might be removed in a future major release.
-> Please use `useMDXComponents` to get context based components instead.
-
-Create a HOC of `Components` which is given the current context based MDX
-components.
 
 ## Types
 

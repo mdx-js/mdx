@@ -1,7 +1,9 @@
 /**
- * @typedef {import('unified').Processor} Processor
+ * @typedef {import('estree-jsx').Program} Program
+ * @typedef {import('mdast').Root} Root
+ * @typedef {import('unified').Processor<Root, Program, Program, Program, string>} Processor
+ * @typedef {import('vfile').Compatible} Compatible
  * @typedef {import('vfile').VFile} VFile
- * @typedef {import('vfile').VFileCompatible} VFileCompatible
  * @typedef {import('../compile.js').CompileOptions} CompileOptions
  */
 
@@ -12,9 +14,9 @@ import {resolveFileAndOptions} from './resolve-file-and-options.js'
 /**
  * Create smart processors to handle different formats.
  *
- * @param {CompileOptions | null | undefined} [compileOptions]
- *   configuration.
- * @return {{extnames: Array<string>, process: process, processSync: processSync}}
+ * @param {Readonly<CompileOptions> | null | undefined} [compileOptions]
+ *   Configuration (optional).
+ * @return {{extnames: ReadonlyArray<string>, process: process, processSync: processSync}}
  *   Smart processor.
  */
 export function createFormatAwareProcessors(compileOptions) {
@@ -32,7 +34,7 @@ export function createFormatAwareProcessors(compileOptions) {
         ? mdExtensions
         : compileOptions_.format === 'mdx'
         ? mdxExtensions
-        : mdExtensions.concat(mdxExtensions),
+        : [...mdExtensions, ...mdxExtensions],
     process,
     processSync
   }
@@ -40,7 +42,7 @@ export function createFormatAwareProcessors(compileOptions) {
   /**
    * Smart processor.
    *
-   * @param {VFileCompatible} vfileCompatible
+   * @param {Compatible} vfileCompatible
    *   MDX or markdown document.
    * @return {Promise<VFile>}
    *   File.
@@ -53,14 +55,11 @@ export function createFormatAwareProcessors(compileOptions) {
   /**
    * Sync smart processor.
    *
-   * @param {VFileCompatible} vfileCompatible
+   * @param {Compatible} vfileCompatible
    *   MDX or markdown document.
    * @return {VFile}
    *   File.
    */
-  // C8 does not cover `.cjs` files (this is only used for the require hook,
-  // which has to be CJS).
-  /* c8 ignore next 4 */
   function processSync(vfileCompatible) {
     const {file, processor} = split(vfileCompatible)
     return processor.processSync(file)
@@ -72,7 +71,7 @@ export function createFormatAwareProcessors(compileOptions) {
    * This caches processors (one for markdown and one for MDX) so that they do
    * not have to be reconstructed for each file.
    *
-   * @param {VFileCompatible} vfileCompatible
+   * @param {Compatible} vfileCompatible
    *   MDX or markdown document.
    * @return {{file: VFile, processor: Processor}}
    *   File and corresponding processor.

@@ -1,10 +1,10 @@
 /**
- * @typedef {import('./lib/index.js').CompileOptions} Options
+ * @typedef {import('./lib/index.js').Options} Options
  */
 
 import {createLoader} from './lib/index.js'
 
-const {load, getFormat, transformSource} = createLoader()
+const defaultLoader = createLoader()
 
-export {load, getFormat, transformSource}
 export {createLoader} from './lib/index.js'
+export const load = defaultLoader.load

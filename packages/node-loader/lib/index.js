@@ -1,101 +1,51 @@
 /**
- * @typedef {import('@mdx-js/mdx/lib/compile.js').CompileOptions} CompileOptions
- *
- * @typedef LoaderOptions
- *   Extra configuration.
- * @property {boolean | null | undefined} [fixRuntimeWithoutExportMap=true]
- *   Several JSX runtimes, notably React below 18 and Emotion below 11.10.0,
- *   don’t yet have a proper export map set up.
- *   Export maps are needed to map `xxx/jsx-runtime` to an actual file in ESM.
- *   This option fixes React et al by turning those into `xxx/jsx-runtime.js`.
- *
- * @typedef {CompileOptions & LoaderOptions} Options
- *   Configuration.
+ * @typedef {import('@mdx-js/mdx').CompileOptions} Options
  */
 
 import fs from 'node:fs/promises'
-import path from 'node:path'
-import {URL, fileURLToPath} from 'node:url'
+import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
+import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
 import {VFile} from 'vfile'
-import {createFormatAwareProcessors} from '@mdx-js/mdx/lib/util/create-format-aware-processors.js'
+import {development as defaultDevelopment} from '#condition'
 
 /**
- * Create smart processors to handle different formats.
+ * Create a loader to handle markdown and MDX.
  *
- * @param {Options | null | undefined} [options]
+ * @param {Readonly<Options> | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Loader.
  */
 export function createLoader(options) {
   const options_ = options || {}
-  const {extnames, process} = createFormatAwareProcessors(options_)
-  let fixRuntimeWithoutExportMap = options_.fixRuntimeWithoutExportMap
+  const {extnames, process} = createFormatAwareProcessors({
+    development: defaultDevelopment,
+    ...options_
+  })
+  const regex = extnamesToRegex(extnames)
 
-  if (
-    fixRuntimeWithoutExportMap === null ||
-    fixRuntimeWithoutExportMap === undefined
-  ) {
-    fixRuntimeWithoutExportMap = true
-  }
+  return {load}
 
-  return {load, getFormat, transformSource}
-
-  /* c8 ignore start */
-  // Node version 17.
   /**
-   * @param {string} url
+   * @param {string} href
+   *   URL.
    * @param {unknown} context
+   *   Context.
    * @param {Function} defaultLoad
+   *   Default `load` function.
+   * @returns
+   *   Result.
    */
-  async function load(url, context, defaultLoad) {
-    if (!extnames.includes(path.extname(url))) {
-      return defaultLoad(url, context, defaultLoad)
+  async function load(href, context, defaultLoad) {
+    const url = new URL(href)
+
+    if (url.protocol === 'file:' && regex.test(url.pathname)) {
+      const value = await fs.readFile(url)
+      const file = await process(new VFile({value, path: url}))
+
+      return {format: 'module', shortCircuit: true, source: String(file)}
     }
 
-    /* eslint-disable-next-line security/detect-non-literal-fs-filename */
-    const value = await fs.readFile(fileURLToPath(new URL(url)))
-    const file = await process(new VFile({value, path: new URL(url)}))
-    let source = String(file)
-
-    if (fixRuntimeWithoutExportMap) {
-      source = String(file).replace(/\/jsx-runtime(?=["'])/, '$&.js')
-    }
-
-    return {format: 'module', source, shortCircuit: true}
+    return defaultLoad(href, context, defaultLoad)
   }
-
-  // Pre version 17.
-  /**
-   * @param {string} url
-   * @param {unknown} context
-   * @param {Function} defaultGetFormat
-   * @deprecated
-   *   This is an obsolete legacy function that no longer works in Node 17.
-   */
-  function getFormat(url, context, defaultGetFormat) {
-    return extnames.includes(path.extname(url))
-      ? {format: 'module'}
-      : defaultGetFormat(url, context, defaultGetFormat)
-  }
-
-  /**
-   * @param {string} value
-   * @param {{url: string, [x: string]: unknown}} context
-   * @param {Function} defaultTransformSource
-   * @deprecated
-   *   This is an obsolete legacy function that no longer works in Node 17.
-   */
-  async function transformSource(value, context, defaultTransformSource) {
-    if (!extnames.includes(path.extname(context.url))) {
-      return defaultTransformSource(value, context, defaultTransformSource)
-    }
-
-    const file = await process(new VFile({value, path: new URL(context.url)}))
-    let source = String(file)
-
-    if (fixRuntimeWithoutExportMap) {
-      source = String(file).replace(/\/jsx-runtime(?=["'])/, '$&.js')
-    }
-
-    return {source}
-  }
-  /* c8 ignore end */
 }

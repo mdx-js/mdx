@@ -1,20 +1,13 @@
 {
   extends: ['config:base', ':preserveSemverRanges'],
-  schedule: 'before 3am on Monday',
   packageRules: [
     {
+      enabled: false,
       matchPackageNames: [
-        // `react`/`react-dom`/`react-server-dom-webpack` latest don’t support
-        // RSC.
-        'react',
-        'react-dom',
-        'react-fetch',
-        'react-server-dom-webpack',
-        // `node-loader@2` depends on Node 16+. Our website is on Vercel/AWS which don’t support Node 16.
-        '@node-loader/babel',
-        '@node-loader/core'
-      ],
-      enabled: false
+        // `periscopic@4` does not work at all.
+        'periscopic'
+      ]
     }
-  ]
+  ],
+  schedule: 'before 3am on Monday'
 }

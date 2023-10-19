@@ -4,22 +4,22 @@
   "description": "remark plugin to support MDX syntax",
   "license": "MIT",
   "keywords": [
-    "unified",
+    "javascript",
+    "jsx",
+    "markdown",
+    "mdast",
+    "mdx",
+    "plugin",
     "remark",
     "remark-plugin",
-    "plugin",
-    "mdast",
-    "markdown",
-    "jsx",
-    "javascript",
-    "xml",
-    "mdx"
+    "unified",
+    "xml"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/remark-mdx"
+    "directory": "packages/remark-mdx/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -33,37 +33,26 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
-  "types": "index.d.ts",
+  "exports": "./index.js",
   "files": [
+    "lib/",
     "index.d.ts",
     "index.js"
   ],
   "dependencies": {
-    "mdast-util-mdx": "^2.0.0",
-    "micromark-extension-mdxjs": "^1.0.0"
+    "mdast-util-mdx": "^3.0.0",
+    "micromark-extension-mdxjs": "^3.0.0"
   },
-  "devDependencies": {
-    "remark-parse": "^10.0.0",
-    "remark-stringify": "^10.0.0",
-    "unified": "^10.0.0",
-    "unist-builder": "^3.0.0",
-    "unist-util-remove-position": "^4.0.0",
-    "unist-util-visit": "^4.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "prepack": "npm run build",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "test-api": "uvu test \"\\.jsx?$\"",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
-  "xo": false,
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
-  },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  "xo": {
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off"
+    }
+  }
 }

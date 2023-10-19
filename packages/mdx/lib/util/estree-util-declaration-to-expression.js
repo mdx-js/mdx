@@ -3,6 +3,8 @@
  * @typedef {import('estree-jsx').Expression} Expression
  */
 
+import {ok as assert} from 'devlop'
+
 /**
  * Turn a declaration into an expression.
  *
@@ -10,7 +12,7 @@
  * because currently we’re using this utility for export default declarations,
  * which can’t contain variable declarations.
  *
- * @param {Declaration} declaration
+ * @param {Readonly<Declaration>} declaration
  *   Declaration.
  * @returns {Expression}
  *   Expression.
@@ -20,13 +22,8 @@ export function declarationToExpression(declaration) {
     return {...declaration, type: 'FunctionExpression'}
   }
 
-  if (declaration.type === 'ClassDeclaration') {
-    return {...declaration, type: 'ClassExpression'}
-    /* Internal utility so the next shouldn’t happen or a maintainer is making a
-     * mistake. */
-    /* c8 ignore next 4 */
-  }
-
-  // Probably `VariableDeclaration`.
-  throw new Error('Cannot turn `' + declaration.type + '` into an expression')
+  // This is currently an internal utility so the next shouldn’t happen or a
+  // maintainer is making a mistake.
+  assert(declaration.type === 'ClassDeclaration', 'unexpected node type')
+  return {...declaration, type: 'ClassExpression'}
 }

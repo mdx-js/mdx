@@ -2,12 +2,15 @@
  * @typedef {import('estree-jsx').Node} Node
  */
 
+// Fix to show references to above types in VS Code.
+''
+
 /**
- * @param {Node} from
+ * @param {Readonly<Node>} from
  *   Node to take from.
  * @param {Node} to
  *   Node to add to.
- * @returns {void}
+ * @returns {undefined}
  *   Nothing.
  */
 export function create(from, to) {

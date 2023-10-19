@@ -4,19 +4,19 @@
   "description": "Experimental Node loader for MDX",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
     "jsx",
-    "node",
     "loader",
-    "remark",
-    "react"
+    "markdown",
+    "mdx",
+    "node",
+    "react",
+    "remark"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/node-loader"
+    "directory": "packages/node-loader/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -29,8 +29,13 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
-  "types": "index.d.ts",
+  "exports": "./index.js",
+  "imports": {
+    "#condition": {
+      "development": "./lib/condition.development.js",
+      "default": "./lib/condition.default.js"
+    }
+  },
   "files": [
     "lib/",
     "index.d.ts",
@@ -38,26 +43,18 @@
   ],
   "dependencies": {
     "@mdx-js/mdx": "^2.0.0",
-    "vfile": "^5.0.0"
+    "vfile": "^6.0.0"
   },
-  "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "prepack": "npm run build",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "test-api": "node --no-warnings --experimental-loader=./test/react-18-node-loader.js ../../node_modules/uvu/bin.js test \"\\.js$\"",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development --loader=@mdx-js/node-loader test/index.js",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
-  "xo": false,
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
+  "xo": {
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off"
+    }
   }
 }

@@ -55,7 +55,7 @@ yarn add @mdx-js/vue
 
 ## Use
 
-```js
+```tsx
 import {MDXProvider} from '@mdx-js/vue'
 import {createApp} from 'vue'
 import Post from './post.mdx'
@@ -109,7 +109,7 @@ Configuration (`Object`, optional).
 ###### `props.components`
 
 Mapping of names for JSX components to Vue components
-(`Record<string, string|Component|Components>`, optional).
+(`Record<string, string | Component | Components>`, optional).
 
 ##### Returns
 

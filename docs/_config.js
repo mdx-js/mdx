@@ -3,21 +3,22 @@ const git = new URL('../', import.meta.url)
 const gh = new URL('https://github.com/mdx-js/mdx/')
 
 export const config = {
-  input: new URL('docs/', git),
-  output: new URL('public/', git),
-  git,
+  author: 'MDX contributors',
+  color: '#010409',
   gh,
   ghBlob: new URL('blob/main/', gh),
   ghTree: new URL('tree/main/', gh),
-  site,
-  twitter: new URL('https://twitter.com/mdx_js'),
+  git,
+  input: new URL('docs/', git),
   oc: new URL('https://opencollective.com/unified'),
-  color: '#010409',
-  title: 'MDX',
+  output: new URL('public/', git),
+  site,
   tags: ['mdx', 'markdown', 'jsx', 'oss', 'react'],
-  author: 'MDX contributors'
+  title: 'MDX',
+  twitter: new URL('https://twitter.com/mdx_js')
 }
 
+/** @type {Record<string, string>} */
 export const redirect = {
   '/about/index.html': '/community/about/',
   '/advanced/index.html': '/guides/',

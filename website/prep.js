@@ -1,53 +1,60 @@
 #!/usr/bin/env node
-import {promises as fs} from 'fs'
-import {fileURLToPath} from 'url'
-import pAll from 'p-all'
+/**
+ * @typedef {import('hast').Root} Root
+ */
+
+/**
+ * @typedef Redirect
+ *   Redirect.
+ * @property {string} destination
+ *   To.
+ * @property {string} source
+ *   From.
+ */
+
+import fs from 'node:fs/promises'
+import {fileURLToPath} from 'node:url'
 import {globby} from 'globby'
-import {u} from 'unist-builder'
 import {h} from 'hastscript'
-import {VFile} from 'vfile'
-import {unified} from 'unified'
-import rehypePresetMinify from 'rehype-preset-minify'
+import pAll from 'p-all'
 import rehypeMinifyUrl from 'rehype-minify-url'
+import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeStringify from 'rehype-stringify'
+import {unified} from 'unified'
+import {VFile} from 'vfile'
 import {config, redirect} from '../docs/_config.js'
 
-const own = {}.hasOwnProperty
+await fs.mkdir(config.output, {recursive: true})
 
-main().catch((error) => {
-  throw error
-})
+const from = new URL('_static/', config.input)
+const files = await globby('**/*', {cwd: fileURLToPath(from)})
 
-async function main() {
-  await fs.mkdir(config.output, {recursive: true})
+await pAll(
+  files.map(function (d) {
+    return async function () {
+      return fs.copyFile(new URL(d, from), new URL(d, config.output))
+    }
+  }),
+  {concurrency: 6}
+)
 
-  const from = new URL('_static/', config.input)
-  const files = await globby('**/*', {cwd: fileURLToPath(from)})
+console.log('✔ `/_static/*`')
 
-  await pAll(
-    files.map(
-      (d) => async () =>
-        fs.copyFile(new URL(d, from), new URL(d, config.output))
-    ),
-    {concurrency: 6}
-  )
+await fs.writeFile(
+  new URL('robots.txt', config.output),
+  [
+    'User-agent: *',
+    'Allow: /',
+    'Sitemap: ' + new URL('sitemap.xml', config.site),
+    ''
+  ].join('\n')
+)
 
-  console.log('✔ `/_static/*`')
+console.log('✔ `/robots.txt`')
 
-  await fs.writeFile(
-    new URL('robots.txt', config.output),
-    [
-      'User-agent: *',
-      'Allow: /',
-      'Sitemap: ' + new URL('sitemap.xml', config.site),
-      ''
-    ].join('\n')
-  )
-
-  console.log('✔ `/robots.txt`')
-
-  await pAll(
-    Object.keys(redirect).map((from) => async () => {
+await pAll(
+  Object.keys(redirect).map(function (from) {
+    return async function () {
       const to = redirect[from]
       const canonical = new URL(from + '/../', config.site).href
       const processor = unified()
@@ -55,53 +62,73 @@ async function main() {
         .use(rehypeMinifyUrl, {from: canonical})
         .use(rehypeStringify)
       const file = new VFile({path: new URL('.' + from, config.output)})
-      const tree = await processor.run(buildRedirect(to), file)
+      const tree = /** @type {Root} */ (
+        await processor.run(buildRedirect(to), file)
+      )
       file.value = processor.stringify(tree)
-      await fs.mkdir(file.dirname, {recursive: true})
+      if (file.dirname) await fs.mkdir(file.dirname, {recursive: true})
       await fs.writeFile(file.path, String(file))
-    }),
-    {concurrency: 6}
-  )
-
-  console.log('✔ %d redirects', Object.keys(redirect).length)
-
-  const vercelRedirects = []
-  let redirectFrom
-
-  for (redirectFrom in redirect) {
-    if (own.call(redirect, redirectFrom)) {
-      const source = redirectFrom.replace(/\/index.html$/, '/')
-      const destination = redirect[redirectFrom]
-      vercelRedirects.push({source, destination})
     }
+  }),
+  {concurrency: 6}
+)
+
+console.log('✔ %d redirects', Object.keys(redirect).length)
+
+// To do: drop Vercel.
+/** @type {Array<Readonly<Redirect>>} */
+const vercelRedirects = []
+/** @type {string} */
+let redirectFrom
+
+for (redirectFrom in redirect) {
+  if (Object.hasOwn(redirect, redirectFrom)) {
+    const source = redirectFrom.replace(/\/index.html$/, '/')
+    const destination = redirect[redirectFrom]
+    vercelRedirects.push({destination, source})
   }
-
-  const vercelInfo = JSON.parse(await fs.readFile('vercel.json'))
-  await fs.writeFile(
-    'vercel.json',
-    JSON.stringify({...vercelInfo, redirects: vercelRedirects}, null, 2) + '\n'
-  )
-
-  console.log('✔ `vercel.json` redirects')
 }
 
+// To do: drop Vercel.
+/** @type {Record<string, unknown> & {redirects: ReadonlyArray<Readonly<Redirect>>}} */
+const vercelInfo = JSON.parse(String(await fs.readFile('vercel.json')))
+await fs.writeFile(
+  'vercel.json',
+  JSON.stringify({...vercelInfo, redirects: vercelRedirects}, undefined, 2) +
+    '\n'
+)
+
+console.log('✔ `vercel.json` redirects')
+
+/**
+ *
+ * @param {string} to
+ *   Redirect to.
+ * @returns {Root}
+ *   Tree.
+ */
 function buildRedirect(to) {
   const abs = new URL(to, config.site)
-  return u('root', [
-    u('doctype'),
-    h('html', {lang: 'en'}, [
-      h('head', [
-        h('meta', {charSet: 'utf8'}),
-        h('title', 'Redirecting…'),
-        h('link', {rel: 'canonical', href: abs}),
-        h('script', 'location = ' + JSON.stringify(abs)),
-        h('meta', {httpEquiv: 'refresh', content: '0;url=' + abs}),
-        h('meta', {name: 'robots', content: 'noindex'})
-      ]),
-      h('body', [
-        h('h1', 'Redirecting…'),
-        h('p', [h('a', {href: abs}, 'Click here if you are not redirected.')])
+  return {
+    type: 'root',
+    children: [
+      {type: 'doctype'},
+      h('html', {lang: 'en'}, [
+        h('head', [
+          h('meta', {charSet: 'utf8'}),
+          h('title', 'Redirecting…'),
+          h('link', {href: String(abs), rel: 'canonical'}),
+          h('script', 'location = ' + JSON.stringify(abs)),
+          h('meta', {content: '0;url=' + abs, httpEquiv: 'refresh'}),
+          h('meta', {content: 'noindex', name: 'robots'})
+        ]),
+        h('body', [
+          h('h1', 'Redirecting…'),
+          h('p', [
+            h('a', {href: String(abs)}, 'Click here if you are not redirected.')
+          ])
+        ])
       ])
-    ])
-  ])
+    ]
+  }
 }

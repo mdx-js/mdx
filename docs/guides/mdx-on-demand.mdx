@@ -1,0 +1,110 @@
+import {Note} from '../_component/note.jsx'
+
+export const info = {
+  author: [
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
+  ],
+  modified: new Date('2021-11-14'),
+  published: new Date('2021-11-13')
+}
+export const navSortSelf = 6
+
+# MDX on demand
+
+This guide shows how to use `@mdx-js/mdx` to compile MDX on the server and run
+the result on clients. {/* more */}
+Some frameworks, such as Next.js and Remix, make it easy to split work between
+servers and clients.
+Using that it’s possible to for example do most of the work on demand on the
+server instead of at build time, then pass the resulting data to clients, where
+they finally use it.
+
+This is similar to what [`mdx-bundler`][mdx-bundler] and
+[`next-mdx-remote`][next-mdx-remote] also do, but they add more features.
+
+## Quick example
+
+On the server:
+
+```tsx path="server.js"
+import {compile} from '@mdx-js/mdx'
+
+const code = String(await compile('# hi', {
+  outputFormat: 'function-body',
+  /* …otherOptions */
+}))
+// To do: send `code` to the client somehow.
+```
+
+On the client:
+
+```tsx path="client.js"
+import {run} from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime' // Production.
+// import * as runtime from 'react/jsx-dev-runtime' // Development.
+
+const code = '' // To do: get `code` from server somehow.
+
+const {default: Content} = await run(code, runtime)
+```
+
+`Content` is now an `MDXContent` component that you can use like normal in your
+framework (see [§ Using MDX][use]).
+
+More information is available in the API docs of `@mdx-js/mdx` for
+[`compile`][compile] and [`run`][run].
+For other use cases, you can also use [`evaluate`][eval], which both compiles
+and runs in one.
+
+<Note type="info">
+  **Note**: MDX is not a bundler (esbuild, webpack, and Rollup are bundlers):
+  you can’t import other code from the server within the string of MDX and get a
+  nicely minified bundle out or so.
+</Note>
+
+## Next.js example
+
+Some frameworks let you write the server and client code in one file, such as
+Next.
+
+```tsx path="pages/hello.js"
+import {Fragment, useEffect, useState} from 'react'
+import * as runtime from 'react/jsx-runtime' // Production.
+// import * as runtime from 'react/jsx-dev-runtime' // Development.
+import {compile, run} from '@mdx-js/mdx'
+
+export default function Page({code}) {
+  const [mdxModule, setMdxModule] = useState()
+  const Content = mdxModule ? mdxModule.default : Fragment
+
+  useEffect(function () {
+    ;(async function () {
+      setMdxModule(await run(code, runtime))
+    })()
+  }, [code])
+
+  return <Content />
+}
+
+export async function getStaticProps() {
+  const code = String(
+    await compile('# hi', {
+      outputFormat: 'function-body',
+      /* …otherOptions */
+    })
+  )
+  return {props: {code}}
+}
+```
+
+[mdx-bundler]: https://github.com/kentcdodds/mdx-bundler
+
+[next-mdx-remote]: https://github.com/hashicorp/next-mdx-remote
+
+[use]: /docs/using-mdx/
+
+[compile]: /packages/mdx/#compilefile-options
+
+[run]: /packages/mdx/#runfunctionbody-options
+
+[eval]: /packages/mdx/#evaluatefile-options

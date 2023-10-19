@@ -9,14 +9,17 @@
  * @typedef {import('estree-jsx').ObjectPattern} ObjectPattern
  * @typedef {import('estree-jsx').Program} Program
  * @typedef {import('estree-jsx').Property} Property
+ * @typedef {import('estree-jsx').SpreadElement} SpreadElement
  * @typedef {import('estree-jsx').Statement} Statement
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
  *
- * @typedef {import('periscopic').Scope & {node: Node}} Scope
+ * @typedef {import('periscopic').Scope} PeriscopicScope
+ *
+ * @typedef {import('vfile').VFile} VFile
  */
 
 /**
- * @typedef RecmaJsxRewriteOptions
+ * @typedef Options
  *   Configuration for internal plugin `recma-jsx-rewrite`.
  * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
  *   Whether to use an import statement or `arguments[0]` to get the provider.
@@ -31,28 +34,36 @@
  *   The default can be set to `true` in Node.js through environment variables:
  *   set `NODE_ENV=development`.
  *
+ * @typedef {PeriscopicScope & {node: Node}} Scope
+ *   Scope (with a `node`).
+ *
  * @typedef StackEntry
- * @property {Array<string>} objects
+ *   Entry.
  * @property {Array<string>} components
+ *   Used components.
+ * @property {Map<string, string>} idToInvalidComponentName
+ *   Map of JSX identifiers which cannot be used as JS identifiers, to valid JS identifiers.
+ * @property {Readonly<EstreeFunction>} node
+ *   Function.
+ * @property {Array<string>} objects
+ *   Identifiers of used objects (such as `x` in `x.y`).
+ * @property {Record<string, {node: Readonly<JSXElement>, component: boolean}>} references
+ *   Map of JSX identifiers for components and objects, to where they were first used.
  * @property {Array<string>} tags
- * @property {Record<string, {node: JSXElement, component: boolean}>} references
- * @property {Map<string|number, string>} idToInvalidComponentName
- * @property {EstreeFunction} node
+ *   Tag names.
  */
 
-import {stringifyPosition} from 'unist-util-stringify-position'
-import {positionFromEstree} from 'unist-util-position-from-estree'
 import {name as isIdentifierName} from 'estree-util-is-identifier-name'
 import {walk} from 'estree-walker'
 import {analyze} from 'periscopic'
+import {stringifyPosition} from 'unist-util-stringify-position'
+import {positionFromEstree} from 'unist-util-position-from-estree'
 import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
+import {toBinaryAddition} from '../util/estree-util-to-binary-addition.js'
 import {
   toIdOrMemberExpression,
   toJsxIdOrMemberExpression
 } from '../util/estree-util-to-id-or-member-expression.js'
-import {toBinaryAddition} from '../util/estree-util-to-binary-addition.js'
-
-const own = {}.hasOwnProperty
 
 /**
  * A plugin that rewrites JSX in functions to accept components as
@@ -61,14 +72,24 @@ const own = {}.hasOwnProperty
  * It also makes sure that any undefined components are defined: either from
  * received components or as a function that throws an error.
  *
- * @type {import('unified').Plugin<[RecmaJsxRewriteOptions | null | undefined] | [], Program>}
+ * @param {Readonly<Options> | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
 export function recmaJsxRewrite(options) {
-  // Always given inside `@mdx-js/mdx`
-  /* c8 ignore next */
-  const {development, providerImportSource, outputFormat} = options || {}
+  /* c8 ignore next -- always given in `@mdx-js/mdx` */
+  const {development, outputFormat, providerImportSource} = options || {}
 
-  return (tree, file) => {
+  /**
+   * @param {Program} tree
+   *   Tree.
+   * @param {VFile} file
+   *   File.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  return function (tree, file) {
     // Find everything that’s defined in the top-level scope.
     const scopeInfo = analyze(tree)
     /** @type {Array<StackEntry>} */
@@ -80,6 +101,7 @@ export function recmaJsxRewrite(options) {
 
     walk(tree, {
       enter(node) {
+        // Cast because we match `node`.
         const newScope = /** @type {Scope | undefined} */ (
           scopeInfo.map.get(node)
         )
@@ -90,12 +112,12 @@ export function recmaJsxRewrite(options) {
           node.type === 'ArrowFunctionExpression'
         ) {
           fnStack.push({
-            objects: [],
             components: [],
-            tags: [],
-            references: {},
             idToInvalidComponentName: new Map(),
-            node
+            node,
+            objects: [],
+            references: {},
+            tags: []
           })
 
           // MDXContent only ever contains MDXLayout
@@ -142,7 +164,8 @@ export function recmaJsxRewrite(options) {
 
             const isInScope = inScope(currentScope, id)
 
-            if (!own.call(fnScope.references, fullId)) {
+            if (!Object.hasOwn(fnScope.references, fullId)) {
+              // Cast because we match `node`.
               const parentScope = /** @type {Scope | undefined} */ (
                 currentScope.parent
               )
@@ -154,7 +177,7 @@ export function recmaJsxRewrite(options) {
                   parentScope.node.type === 'FunctionDeclaration' &&
                   isNamedFunction(parentScope.node, '_createMdxContent'))
               ) {
-                fnScope.references[fullId] = {node, component: true}
+                fnScope.references[fullId] = {component: true, node}
               }
             }
 
@@ -176,18 +199,18 @@ export function recmaJsxRewrite(options) {
             if (!inScope(currentScope, id)) {
               // No need to add an error for an undefined layout — we use an
               // `if` later.
-              if (id !== 'MDXLayout' && !own.call(fnScope.references, id)) {
-                fnScope.references[id] = {node, component: true}
+              if (
+                id !== 'MDXLayout' &&
+                !Object.hasOwn(fnScope.references, id)
+              ) {
+                fnScope.references[id] = {component: true, node}
               }
 
               if (!fnScope.components.includes(id)) {
                 fnScope.components.push(id)
               }
             }
-          }
-          // @ts-expect-error Allow fields passed through from mdast through hast to
-          // esast.
-          else if (node.data && node.data._mdxExplicitJsx) {
+          } else if (node.data && node.data._mdxExplicitJsx) {
             // Do not turn explicit JSX into components from `_components`.
             // As in, a given `h1` component is used for `# heading` (next case),
             // but not for `<h1>heading</h1>`.
@@ -198,7 +221,7 @@ export function recmaJsxRewrite(options) {
               fnScope.tags.push(id)
             }
 
-            /** @type {Array<string | number>} */
+            /** @type {Array<number | string>} */
             let jsxIdExpression = ['_components', id]
             if (isIdentifierName(id) === false) {
               let invalidComponentName =
@@ -222,7 +245,7 @@ export function recmaJsxRewrite(options) {
         }
       },
       leave(node) {
-        /** @type {Array<Property>} */
+        /** @type {Array<Property | SpreadElement>} */
         const defaults = []
         /** @type {Array<string>} */
         const actual = []
@@ -232,8 +255,8 @@ export function recmaJsxRewrite(options) {
         const declarations = []
 
         if (currentScope && currentScope.node === node) {
-          // @ts-expect-error: `node`s were patched when entering.
-          currentScope = currentScope.parent
+          // Cast to patch our `node`.
+          currentScope = /** @type {Scope} */ (currentScope.parent)
         }
 
         if (
@@ -246,7 +269,7 @@ export function recmaJsxRewrite(options) {
           /** @type {string} */
           let name
 
-          for (name of scope.tags) {
+          for (name of scope.tags.sort()) {
             defaults.push({
               type: 'Property',
               kind: 'init',
@@ -269,6 +292,8 @@ export function recmaJsxRewrite(options) {
               actual.push(name)
             }
           }
+
+          actual.sort()
 
           /** @type {Array<Statement>} */
           const statements = []
@@ -298,24 +323,17 @@ export function recmaJsxRewrite(options) {
             }
 
             if (defaults.length > 0 || parameters.length > 1) {
-              parameters.unshift({
-                type: 'ObjectExpression',
-                properties: defaults
-              })
+              for (const parameter of parameters) {
+                defaults.push({type: 'SpreadElement', argument: parameter})
+              }
             }
 
             // If we’re getting components from several sources, merge them.
             /** @type {Expression} */
             let componentsInit =
-              parameters.length > 1
-                ? {
-                    type: 'CallExpression',
-                    callee: toIdOrMemberExpression(['Object', 'assign']),
-                    arguments: parameters,
-                    optional: false
-                  }
-                : parameters[0].type === 'MemberExpression'
-                ? // If we’re only getting components from `props.components`,
+              defaults.length > 0
+                ? {type: 'ObjectExpression', properties: defaults}
+                : // If we’re only getting components from `props.components`,
                   // make sure it’s defined.
                   {
                     type: 'LogicalExpression',
@@ -323,14 +341,13 @@ export function recmaJsxRewrite(options) {
                     left: parameters[0],
                     right: {type: 'ObjectExpression', properties: []}
                   }
-                : parameters[0]
 
             /** @type {ObjectPattern | undefined} */
             let componentsPattern
 
             // Add components to scope.
             // For `['MyComponent', 'MDXLayout']` this generates:
-            // ```js
+            // ```tsx
             // const {MyComponent, wrapper: MDXLayout} = _components
             // ```
             // Note that MDXLayout is special as it’s taken from
@@ -338,18 +355,20 @@ export function recmaJsxRewrite(options) {
             if (actual.length > 0) {
               componentsPattern = {
                 type: 'ObjectPattern',
-                properties: actual.map((name) => ({
-                  type: 'Property',
-                  kind: 'init',
-                  key: {
-                    type: 'Identifier',
-                    name: name === 'MDXLayout' ? 'wrapper' : name
-                  },
-                  value: {type: 'Identifier', name},
-                  method: false,
-                  shorthand: name !== 'MDXLayout',
-                  computed: false
-                }))
+                properties: actual.map(function (name) {
+                  return {
+                    type: 'Property',
+                    kind: 'init',
+                    key: {
+                      type: 'Identifier',
+                      name: name === 'MDXLayout' ? 'wrapper' : name
+                    },
+                    value: {type: 'Identifier', name},
+                    method: false,
+                    shorthand: name !== 'MDXLayout',
+                    computed: false
+                  }
+                })
               }
             }
 
@@ -363,10 +382,11 @@ export function recmaJsxRewrite(options) {
             }
 
             if (isNamedFunction(scope.node, '_createMdxContent')) {
-              for (const [
-                id,
-                componentName
-              ] of scope.idToInvalidComponentName) {
+              for (const [id, componentName] of [
+                ...scope.idToInvalidComponentName
+              ].sort(function ([a], [b]) {
+                return a.localeCompare(b)
+              })) {
                 // For JSX IDs that can’t be represented as JavaScript IDs (as in,
                 // those with dashes, such as `custom-element`), generate a
                 // separate variable that is a valid JS ID (such as `_component0`),
@@ -374,7 +394,10 @@ export function recmaJsxRewrite(options) {
                 // `const _component0 = _components['custom-element']`
                 declarations.push({
                   type: 'VariableDeclarator',
-                  id: {type: 'Identifier', name: componentName},
+                  id: {
+                    type: 'Identifier',
+                    name: componentName
+                  },
                   init: {
                     type: 'MemberExpression',
                     object: {type: 'Identifier', name: '_components'},
@@ -408,15 +431,15 @@ export function recmaJsxRewrite(options) {
 
           // Add partials (so for `x.y.z` it’d generate `x` and `x.y` too).
           for (key in scope.references) {
-            if (own.call(scope.references, key)) {
+            if (Object.hasOwn(scope.references, key)) {
               const parts = key.split('.')
               let index = 0
               while (++index < parts.length) {
                 const partial = parts.slice(0, index).join('.')
-                if (!own.call(scope.references, partial)) {
+                if (!Object.hasOwn(scope.references, partial)) {
                   scope.references[partial] = {
-                    node: scope.references[key].node,
-                    component: false
+                    component: false,
+                    node: scope.references[key].node
                   }
                 }
               }
@@ -458,7 +481,7 @@ export function recmaJsxRewrite(options) {
                   optional: false
                 }
               },
-              alternate: null
+              alternate: undefined
             })
           }
 
@@ -556,8 +579,11 @@ export function recmaJsxRewrite(options) {
 
 /**
  * @param {string} providerImportSource
- * @param {RecmaJsxRewriteOptions['outputFormat']} outputFormat
- * @returns {Statement | ModuleDeclaration}
+ *   Provider source.
+ * @param {Options['outputFormat']} outputFormat
+ *   Format.
+ * @returns {ModuleDeclaration | Statement}
+ *   Node.
  */
 function createImportProvider(providerImportSource, outputFormat) {
   /** @type {Array<ImportSpecifier>} */
@@ -586,18 +612,24 @@ function createImportProvider(providerImportSource, outputFormat) {
 }
 
 /**
- * @param {EstreeFunction} node
+ * @param {Readonly<EstreeFunction>} node
+ *   Node.
  * @param {string} name
+ *   Name.
  * @returns {boolean}
+ *   Whether `node` is a named function with `name`.
  */
 function isNamedFunction(node, name) {
   return Boolean(node && 'id' in node && node.id && node.id.name === name)
 }
 
 /**
- * @param {Scope} scope
+ * @param {Readonly<Scope>} scope
+ *   Scope.
  * @param {string} id
+ *   Identifier.
  * @returns {boolean}
+ *   Whether `id` is in `scope`.
  */
 function inScope(scope, id) {
   /** @type {Scope | undefined} */
@@ -608,8 +640,10 @@ function inScope(scope, id) {
       return true
     }
 
-    // @ts-expect-error: `node`s have been added when entering.
-    currentScope = currentScope.parent
+    // Cast to patch our `node`.
+    currentScope = /** @type {Scope | undefined} */ (
+      currentScope.parent || undefined
+    )
   }
 
   return false

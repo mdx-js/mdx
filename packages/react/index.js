@@ -1,6 +1,1 @@
-export {
-  MDXContext,
-  MDXProvider,
-  useMDXComponents,
-  withMDXComponents
-} from './lib/index.js'
+export {MDXProvider, useMDXComponents} from './lib/index.js'

@@ -10,8 +10,9 @@
  * @typedef {import('estree-jsx').ImportDefaultSpecifier} ImportDefaultSpecifier
  * @typedef {import('estree-jsx').ImportExpression} ImportExpression
  * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
- * @typedef {import('estree-jsx').Literal} Literal
  * @typedef {import('estree-jsx').JSXElement} JSXElement
+ * @typedef {import('estree-jsx').JSXFragment} JSXFragment
+ * @typedef {import('estree-jsx').Literal} Literal
  * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
  * @typedef {import('estree-jsx').Node} Node
  * @typedef {import('estree-jsx').Program} Program
@@ -20,50 +21,58 @@
  * @typedef {import('estree-jsx').SpreadElement} SpreadElement
  * @typedef {import('estree-jsx').Statement} Statement
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
+ * @typedef {import('vfile').VFile} VFile
  */
 
 /**
- * @typedef RecmaDocumentOptions
+ * @typedef Options
  *   Configuration for internal plugin `recma-document`.
  * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
  *   Whether to use either `import` and `export` statements to get the runtime
  *   (and optionally provider) and export the content, or get values from
- *   `arguments` and return things.
+ *   `arguments` and return things (default: `'program'`).
  * @property {boolean | null | undefined} [useDynamicImport=false]
  *   Whether to keep `import` (and `export … from`) statements or compile them
- *   to dynamic `import()` instead.
+ *   to dynamic `import()` instead (default: `false`).
  * @property {string | null | undefined} [baseUrl]
  *   Resolve `import`s (and `export … from`, and `import.meta.url`) relative to
- *   this URL.
+ *   this URL (optional).
  * @property {string | null | undefined} [pragma='React.createElement']
- *   Pragma for JSX (used in classic runtime).
+ *   Pragma for JSX (used in classic runtime) (default:
+ *   `'React.createElement'`).
  * @property {string | null | undefined} [pragmaFrag='React.Fragment']
- *   Pragma for JSX fragments (used in classic runtime).
+ *   Pragma for JSX fragments (used in classic runtime) (default:
+ *   `'React.Fragment'`).
  * @property {string | null | undefined} [pragmaImportSource='react']
- *   Where to import the identifier of `pragma` from (used in classic runtime).
+ *   Where to import the identifier of `pragma` from (used in classic runtime)
+ *   (default: `'react'`).
  * @property {string | null | undefined} [jsxImportSource='react']
- *   Place to import automatic JSX runtimes from (used in automatic runtime).
+ *   Place to import automatic JSX runtimes from (used in automatic runtime)
+ *   (default: `'react'`).
  * @property {'automatic' | 'classic' | null | undefined} [jsxRuntime='automatic']
- *   JSX runtime to use.
+ *   JSX runtime to use (default: `'automatic'`).
  */
 
-import {analyze} from 'periscopic'
-import {stringifyPosition} from 'unist-util-stringify-position'
-import {positionFromEstree} from 'unist-util-position-from-estree'
+import {ok as assert} from 'devlop'
 import {walk} from 'estree-walker'
+import {analyze} from 'periscopic'
+import {positionFromEstree} from 'unist-util-position-from-estree'
+import {stringifyPosition} from 'unist-util-stringify-position'
 import {create} from '../util/estree-util-create.js'
-import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
 import {declarationToExpression} from '../util/estree-util-declaration-to-expression.js'
 import {isDeclaration} from '../util/estree-util-is-declaration.js'
+import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
 
 /**
- * A plugin to wrap the estree in `MDXContent`.
+ * Wrap the estree in `MDXContent`.
  *
- * @type {import('unified').Plugin<[RecmaDocumentOptions | null | undefined] | [], Program>}
+ * @param {Readonly<Options> | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
 export function recmaDocument(options) {
-  // Always given inside `@mdx-js/mdx`
-  /* c8 ignore next */
+  /* c8 ignore next -- always given in `@mdx-js/mdx` */
   const options_ = options || {}
   const baseUrl = options_.baseUrl || undefined
   const useDynamicImport = options_.useDynamicImport || undefined
@@ -76,7 +85,15 @@ export function recmaDocument(options) {
   const jsxImportSource = options_.jsxImportSource || 'react'
   const jsxRuntime = options_.jsxRuntime || 'automatic'
 
-  return (tree, file) => {
+  /**
+   * @param {Program} tree
+   *   Tree.
+   * @param {VFile} file
+   *   File.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  return function (tree, file) {
     /** @type {Array<[string, string] | string>} */
     const exportedIdentifiers = []
     /** @type {Array<Directive | ModuleDeclaration | Statement>} */
@@ -90,10 +107,6 @@ export function recmaDocument(options) {
     let content
     /** @type {Node} */
     let child
-
-    // Patch missing comments, which types say could occur.
-    /* c8 ignore next */
-    if (!tree.comments) tree.comments = []
 
     if (jsxRuntime) {
       pragmas.push('@jsxRuntime ' + jsxRuntime)
@@ -110,6 +123,9 @@ export function recmaDocument(options) {
     if (jsxRuntime === 'classic' && pragmaFrag) {
       pragmas.push('@jsxFrag ' + pragmaFrag)
     }
+
+    /* c8 ignore next -- comments can be missing in the types, we always have it. */
+    if (!tree.comments) tree.comments = []
 
     if (pragmas.length > 0) {
       tree.comments.unshift({type: 'Block', value: pragmas.join(' ')})
@@ -137,7 +153,7 @@ export function recmaDocument(options) {
     // Find the `export default`, the JSX expression, and leave the rest
     // (import/exports) as they are.
     for (child of tree.body) {
-      // ```js
+      // ```tsx
       // export default props => <>{props.children}</>
       // ```
       //
@@ -168,14 +184,15 @@ export function recmaDocument(options) {
           ]
         })
       }
-      // ```js
+      // ```tsx
       // export {a, b as c} from 'd'
       // ```
       else if (child.type === 'ExportNamedDeclaration' && child.source) {
+        // Cast because always simple.
         const source = /** @type {SimpleLiteral} */ (child.source)
 
         // Remove `default` or `as default`, but not `default as`, specifier.
-        child.specifiers = child.specifiers.filter((specifier) => {
+        child.specifiers = child.specifiers.filter(function (specifier) {
           if (specifier.exported.name === 'default') {
             if (layout) {
               file.fail(
@@ -234,7 +251,7 @@ export function recmaDocument(options) {
           handleExport(child)
         }
       }
-      // ```js
+      // ```tsx
       // export {a, b as c}
       // export * from 'a'
       // ```
@@ -247,18 +264,16 @@ export function recmaDocument(options) {
         handleEsm(child)
       } else if (
         child.type === 'ExpressionStatement' &&
-        // @ts-expect-error types are wrong: `JSXFragment` is an `Expression`.
-        (child.expression.type === 'JSXFragment' ||
-          child.expression.type === 'JSXElement')
+        (child.expression.type === 'JSXElement' ||
+          // @ts-expect-error: `estree-jsx` does not register `JSXFragment` as an expression.
+          child.expression.type === 'JSXFragment')
       ) {
         content = true
         replacement.push(...createMdxContent(child.expression, Boolean(layout)))
-        // The following catch-all branch is because plugins might’ve added
-        // other things.
+      } else {
+        // This catch-all branch is because plugins might add other things.
         // Normally, we only have import/export/jsx, but just add whatever’s
         // there.
-        /* c8 ignore next 3 */
-      } else {
         replacement.push(child)
       }
     }
@@ -279,15 +294,23 @@ export function recmaDocument(options) {
             ...Array.from({length: exportAllCount}).map(
               /**
                * @param {undefined} _
+               *   Nothing.
                * @param {number} index
+               *   Index.
                * @returns {SpreadElement}
+               *   Node.
                */
-              (_, index) => ({
-                type: 'SpreadElement',
-                argument: {type: 'Identifier', name: '_exportAll' + (index + 1)}
-              })
+              function (_, index) {
+                return {
+                  type: 'SpreadElement',
+                  argument: {
+                    type: 'Identifier',
+                    name: '_exportAll' + (index + 1)
+                  }
+                }
+              }
             ),
-            ...exportedIdentifiers.map((d) => {
+            ...exportedIdentifiers.map(function (d) {
               /** @type {Property} */
               const prop = {
                 type: 'Property',
@@ -341,11 +364,13 @@ export function recmaDocument(options) {
 
     /**
      * @param {ExportAllDeclaration | ExportNamedDeclaration} node
-     * @returns {void}
+     *   Export node.
+     * @returns {undefined}
+     *   Nothing.
      */
     function handleExport(node) {
       if (node.type === 'ExportNamedDeclaration') {
-        // ```js
+        // ```tsx
         // export function a() {}
         // export class A {}
         // export var a = 1
@@ -356,7 +381,7 @@ export function recmaDocument(options) {
           )
         }
 
-        // ```js
+        // ```tsx
         // export {a, b as c}
         // export {a, b as c} from 'd'
         // ```
@@ -370,7 +395,9 @@ export function recmaDocument(options) {
 
     /**
      * @param {ExportAllDeclaration | ExportNamedDeclaration | ImportDeclaration} node
-     * @returns {void}
+     *   Export or import node.
+     * @returns {undefined}
+     *   Nothing.
      */
     function handleEsm(node) {
       // Rewrite the source of the `import` / `export … from`.
@@ -420,11 +447,8 @@ export function recmaDocument(options) {
             )
           }
 
-          // Just for types.
-          /* c8 ignore next 3 */
-          if (!node.source) {
-            throw new Error('Expected `node.source` to be defined')
-          }
+          // We always have a source, but types say they can be missing.
+          assert(node.source, 'expected `node.source` to be defined')
 
           // ```
           // import 'a'
@@ -471,14 +495,16 @@ export function recmaDocument(options) {
         } else {
           /** @type {Array<VariableDeclarator>} */
           const declarators = node.specifiers
-            .filter(
-              (specifier) => specifier.local.name !== specifier.exported.name
-            )
-            .map((specifier) => ({
-              type: 'VariableDeclarator',
-              id: specifier.exported,
-              init: specifier.local
-            }))
+            .filter(function (specifier) {
+              return specifier.local.name !== specifier.exported.name
+            })
+            .map(function (specifier) {
+              return {
+                type: 'VariableDeclarator',
+                id: specifier.exported,
+                init: specifier.local
+              }
+            })
 
           if (declarators.length > 0) {
             replace = {
@@ -499,9 +525,12 @@ export function recmaDocument(options) {
   }
 
   /**
-   * @param {Expression | undefined} [content]
-   * @param {boolean | undefined} [hasInternalLayout]
+   * @param {Readonly<Expression> | undefined} [content]
+   *   Content.
+   * @param {boolean | undefined} [hasInternalLayout=false]
+   *   Whether there’s an internal layout (default: `false`).
    * @returns {Array<FunctionDeclaration>}
+   *   Functions.
    */
   function createMdxContent(content, hasInternalLayout) {
     /** @type {JSXElement} */
@@ -558,19 +587,18 @@ export function recmaDocument(options) {
       }
     }
 
-    let argument = content || {type: 'Literal', value: null}
+    let argument =
+      // Cast because TS otherwise does not think `JSXFragment`s are expressions.
+      /** @type {Readonly<Expression> | Readonly<JSXFragment>} */ (
+        content || {type: 'Identifier', name: 'undefined'}
+      )
 
     // Unwrap a fragment of a single element.
     if (
-      argument &&
-      // @ts-expect-error: fine.
       argument.type === 'JSXFragment' &&
-      // @ts-expect-error: fine.
       argument.children.length === 1 &&
-      // @ts-expect-error: fine.
       argument.children[0].type === 'JSXElement'
     ) {
-      // @ts-expect-error: fine.
       argument = argument.children[0]
     }
 
@@ -581,7 +609,14 @@ export function recmaDocument(options) {
         params: [{type: 'Identifier', name: 'props'}],
         body: {
           type: 'BlockStatement',
-          body: [{type: 'ReturnStatement', argument}]
+          body: [
+            {
+              type: 'ReturnStatement',
+              // Cast because TS doesn’t think `JSXFragment` is an expression.
+              // eslint-disable-next-line object-shorthand
+              argument: /** @type {Expression} */ (argument)
+            }
+          ]
         }
       },
       {

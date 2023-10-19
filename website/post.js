@@ -1,154 +1,199 @@
-import {promises as fs} from 'fs'
-import {fileURLToPath} from 'url'
-import pAll from 'p-all'
+/**
+ * @typedef {import('node:fs').Stats} Stats
+ * @typedef {import('hast').Root} Root
+ * @typedef {Exclude<import('vfile').Data['meta'], undefined>} Meta
+ * @typedef {Exclude<import('vfile').Data['matter'], undefined>} Matter
+ * @typedef {import('xast-util-feed').Entry} Entry
+ */
+
+/**
+ * @typedef Info
+ *   Info.
+ * @property {Readonly<Meta>} meta
+ *   Meta.
+ * @property {Readonly<Matter>} matter
+ *   Matter.
+ * @property {boolean | undefined} [navExclude=false]
+ *   Whether to exclude from the navigation (default: `false`).
+ * @property {number | undefined} [navSortSelf=0]
+ *   Self sort order (default: `0`).
+ */
+
+import assert from 'node:assert'
+import fs from 'node:fs/promises'
+import process from 'node:process'
+import {fileURLToPath} from 'node:url'
+import chromium from '@sparticuz/chromium'
 import {globby} from 'globby'
-import {u} from 'unist-builder'
+import {fromHtml} from 'hast-util-from-html'
+import {sanitize, defaultSchema} from 'hast-util-sanitize'
 import {select} from 'hast-util-select'
+import {toHtml} from 'hast-util-to-html'
 import {h, s} from 'hastscript'
+import pAll from 'p-all'
+import puppeteer from 'puppeteer'
 import {rss} from 'xast-util-feed'
 import {toXml} from 'xast-util-to-xml'
-import {VFile} from 'vfile'
-import {unified} from 'unified'
-import rehypeParse from 'rehype-parse'
-import rehypeSanitize, {defaultSchema} from 'rehype-sanitize'
-import rehypeStringify from 'rehype-stringify'
-import captureWebsite from 'capture-website'
-import chromium from 'chrome-aws-lambda'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
-main().catch((error) => {
-  throw error
+fs.copyFile(
+  new URL('404/index.html', config.output),
+  new URL('404.html', config.output)
+)
+console.log('✔ `/404/index.html` -> `/404.html`')
+
+const css = await fs.readFile(
+  new URL('../docs/_asset/index.css', import.meta.url),
+  'utf8'
+)
+
+const filePaths = await globby('**/index.json', {
+  cwd: fileURLToPath(config.output)
+})
+const files = filePaths.map(function (d) {
+  return new URL(d, config.output)
 })
 
-async function main() {
-  fs.copyFile(
-    new URL('404/index.html', config.output),
-    new URL('404.html', config.output)
-  )
-  console.log('✔ `/404/index.html` -> `/404.html`')
+const allInfo = await Promise.all(
+  files.map(async function (url) {
+    /** @type {Info} */
+    const info = JSON.parse(String(await fs.readFile(url)))
+    return {info, url}
+  })
+)
 
-  const css = await fs.readFile(
-    new URL('../docs/_asset/index.css', import.meta.url),
-    'utf8'
-  )
+// RSS feed.
+const now = new Date()
 
-  const files = (
-    await globby('**/index.nljson', {cwd: fileURLToPath(config.output)})
-  ).map((d) => new URL(d + '/../index.json', config.output))
-
-  const allInfo = await Promise.all(
-    files.map(async (url) => ({url, info: JSON.parse(await fs.readFile(url))}))
-  )
-
-  const now = new Date()
-
-  const entries = await pAll(
-    [...allInfo]
-      // All blog entries that are published in the past.
-      .filter(
-        (d) =>
-          d.info.meta.pathname.startsWith('/blog/') &&
-          d.info.meta.pathname !== '/blog/' &&
-          d.info.meta.published !== undefined &&
-          new Date(d.info.meta.published) < now
+const entries = await pAll(
+  [...allInfo]
+    // All blog entries that are published in the past.
+    .filter(function (d) {
+      return (
+        d.info.meta.pathname &&
+        d.info.meta.pathname.startsWith('/blog/') &&
+        d.info.meta.pathname !== '/blog/' &&
+        d.info.meta.published !== null &&
+        d.info.meta.published !== undefined &&
+        new Date(d.info.meta.published) < now
       )
-      // Sort.
-      .sort(
-        (a, b) =>
-          new Date(b.info.meta.published) - new Date(a.info.meta.published)
+    })
+    // Sort.
+    .sort(function (a, b) {
+      assert(a.info.meta.published)
+      assert(b.info.meta.published)
+      return (
+        new Date(b.info.meta.published).valueOf() -
+        new Date(a.info.meta.published).valueOf()
       )
-      // Ten most recently published articles.
-      .slice(0, 10)
-      .map(({info, url}) => async () => {
+    })
+    // Ten most recently published articles.
+    .slice(0, 10)
+    .map(function ({info, url}) {
+      /**
+       * @returns {Promise<Entry>}
+       *   Entry.
+       */
+      return async function () {
         const buf = await fs.readFile(new URL('index.html', url))
-        const file = await unified()
-          .use(rehypeParse)
-          .use(() => (tree) => ({
-            type: 'root',
-            children: select('.body', tree).children
-          }))
-          .use(rehypeSanitize, {
-            ...defaultSchema,
-            attributes: {
-              ...defaultSchema.attributes,
-              code: [
-                [
-                  'className',
-                  'language-diff',
-                  'language-html',
-                  'language-js',
-                  'language-jsx',
-                  'language-md',
-                  'language-mdx',
-                  'language-sh',
-                  'language-ts'
-                ]
+        const tree = fromHtml(buf)
+        const body = select('.body', tree)
+        assert(body)
+        const clean = sanitize(body, {
+          ...defaultSchema,
+          attributes: {
+            ...defaultSchema.attributes,
+            code: [
+              [
+                'className',
+                'language-diff',
+                'language-html',
+                'language-js',
+                'language-jsx',
+                'language-md',
+                'language-mdx',
+                'language-sh',
+                'language-ts'
               ]
-            },
-            clobber: []
-          })
-          .use(rehypeStringify)
-          .process(buf)
+            ]
+          },
+          clobber: []
+        })
 
         return {
-          title: info.meta.title,
-          description: info.meta.description,
-          descriptionHtml: file.value,
           author: info.meta.author,
+          description: info.meta.description,
+          descriptionHtml: toHtml(clean),
+          modified: info.meta.modified,
+          published: info.meta.published,
+          title: info.meta.title,
           url: new URL(
             url.href.slice(config.output.href.length - 1) + '/../',
             config.site
-          ).href,
-          modified: info.meta.modified,
-          published: info.meta.published
+          ).href
         }
-      }),
-    {concurrency: 6}
-  )
+      }
+    }),
+  {concurrency: 6}
+)
 
-  await fs.writeFile(
-    new URL('rss.xml', config.output),
-    toXml(
-      rss(
-        {
-          title: config.title,
-          description: 'MDX updates',
-          tags: config.tags,
-          author: config.author,
-          url: config.site.href,
-          lang: 'en',
-          feedUrl: new URL('rss.xml', config.site).href
-        },
-        entries
-      )
-    ) + '\n'
-  )
+await fs.writeFile(
+  new URL('rss.xml', config.output),
+  toXml(
+    rss(
+      {
+        author: config.author,
+        description: 'MDX updates',
+        feedUrl: new URL('rss.xml', config.site).href,
+        lang: 'en',
+        tags: config.tags,
+        title: config.title,
+        url: config.site.href
+      },
+      entries
+    )
+  ) + '\n'
+)
 
-  console.log('✔ `/rss.xml`')
+console.log('✔ `/rss.xml`')
 
-  await pAll(
-    allInfo.map((data) => async () => {
+const browser = await puppeteer.launch(
+  process.env.AWS_EXECUTION_ENV
+    ? {
+        // See: <https://github.com/Sparticuz/chromium/issues/85#issuecomment-1527692751>
+        args: [...chromium.args, '--disable-gpu'],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless
+      }
+    : {headless: 'new'}
+)
+
+await pAll(
+  allInfo.map(function (data) {
+    return async function () {
       const {url, info} = data
       const output = new URL('index.png', url)
+      /** @type {Stats | undefined} */
       let stats
 
       try {
         stats = await fs.stat(output)
       } catch (error) {
-        if (error.code !== 'ENOENT') throw error
+        const cause = /** @type {NodeJS.ErrnoException} */ (error)
+        if (cause.code !== 'ENOENT') throw cause
       }
 
       // Don’t regenerate to improve performance.
       if (stats) return
 
-      const processor = unified().use(rehypeStringify)
-      const file = new VFile({path: url})
-      const tree = await processor.run(
-        u('root', [
-          u('doctype'),
+      const value = toHtml({
+        type: 'root',
+        children: [
+          {type: 'doctype'},
           h('html', {lang: 'en'}, [
             h('head', [
               h('meta', {charSet: 'utf8'}),
@@ -157,84 +202,84 @@ async function main() {
               h(
                 'style',
                 `
-                  html {
-                    font-size: 24px;
-                  }
+                html {
+                  font-size: 24px;
+                }
 
-                  body {
-                    /* yellow */
-                    background-image: radial-gradient(
-                        ellipse at 0% 0%,
-                        rgb(252 180 45 / 15%) 20%,
-                        rgb(252 180 45 / 0%) 80%
-                      ),
-                      /* purple */
-                        radial-gradient(
-                          ellipse at 0% 100%,
-                          rgb(130 80 223 / 15%) 20%,
-                          rgb(130 80 223 / 0%) 80%
-                        );
-                  }
+                body {
+                  /* yellow */
+                  background-image: radial-gradient(
+                      ellipse at 0% 0%,
+                      rgb(252 180 45 / 15%) 20%,
+                      rgb(252 180 45 / 0%) 80%
+                    ),
+                    /* purple */
+                      radial-gradient(
+                        ellipse at 0% 100%,
+                        rgb(130 80 223 / 15%) 20%,
+                        rgb(130 80 223 / 0%) 80%
+                      );
+                }
 
-                  .og-root {
-                    /* Twitter seems to cut 1em off the size in the height,
-                     * compared to facebook. So this’ll look a bit big on FB
-                     * but the assumption is that most folks will share on
-                     * twitter */
-                    height: calc(100vh - calc(2 * (1em + 1ex)));
-                    display: flex;
-                    flex-flow: column;
-                    margin-block: calc(1 * (1em + 1ex));
-                    padding-block: calc(1 * (1em + 1ex));
-                    padding-inline: calc(1 * (1em + 1ex));
-                    background-color: var(--bg);
-                  }
+                .og-root {
+                  /* Twitter seems to cut 1em off the size in the height,
+                    * compared to facebook. So this’ll look a bit big on FB
+                    * but the assumption is that most folks will share on
+                    * twitter */
+                  height: calc(100vh - calc(2 * (1em + 1ex)));
+                  display: flex;
+                  flex-flow: column;
+                  margin-block: calc(1 * (1em + 1ex));
+                  padding-block: calc(1 * (1em + 1ex));
+                  padding-inline: calc(1 * (1em + 1ex));
+                  background-color: var(--bg);
+                }
 
-                  .og-head {
-                    margin-block-end: calc(2 * (1em + 1ex));
-                  }
+                .og-head {
+                  margin-block-end: calc(2 * (1em + 1ex));
+                }
 
-                  .og-icon {
-                    display: block;
-                    height: calc(1em + 1ex);
-                    width: auto;
-                    vertical-align: middle;
-                  }
+                .og-icon {
+                  display: block;
+                  height: calc(1em + 1ex);
+                  width: auto;
+                  vertical-align: middle;
+                }
 
-                  .og-title {
-                    font-size: 3rem;
-                    line-height: calc(1em + (1 / 3 * 1ex));
-                    margin-block: 0;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    flex-shrink: 0;
-                  }
+                .og-title {
+                  font-size: 3rem;
+                  line-height: calc(1em + (1 / 3 * 1ex));
+                  margin-block: 0;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  flex-shrink: 0;
+                }
 
-                  .og-description {
-                    flex-grow: 1;
-                    overflow: hidden;
-                  }
+                .og-description {
+                  flex-grow: 1;
+                  overflow: hidden;
+                }
 
-                  .og-description-inside {
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    display: -webkit-box;
-                    overflow: hidden;
-                  }
+                .og-description-inside {
+                  -webkit-line-clamp: 2;
+                  -webkit-box-orient: vertical;
+                  display: -webkit-box;
+                  overflow: hidden;
+                }
 
-                  .og-meta {
-                    flex-shrink: 0;
-                    margin-top: calc(1em + 1ex);
-                    display: flex;
-                    justify-content: space-between;
-                  }
+                .og-meta {
+                  flex-shrink: 0;
+                  margin-top: calc(1em + 1ex);
+                  display: flex;
+                  justify-content: space-between;
+                }
 
-                  .og-right {
-                    margin-left: auto;
-                    text-align: right;
-                  }
-              `
+                .og-right {
+                  margin-left: auto;
+                  text-align: right;
+                }
+            `
               )
             ]),
             h('body', [
@@ -273,9 +318,7 @@ async function main() {
                 h('.og-description', [
                   h('.og-description-inside', [
                     info.meta.descriptionHast
-                      ? unified()
-                          .use(rehypeSanitize, schema)
-                          .runSync(info.meta.descriptionHast)
+                      ? sanitize(info.meta.descriptionHast, schema)
                       : info.meta.description || info.matter.description
                   ])
                 ]),
@@ -299,32 +342,30 @@ async function main() {
               ])
             ])
           ])
-        ]),
-        file
-      )
-
-      file.value = processor.stringify(tree)
+        ]
+      })
 
       try {
         await fs.unlink(output)
       } catch {}
 
-      await captureWebsite.file(file.value, fileURLToPath(output), {
-        launchOptions: {
-          args: chromium.args,
-          defaultViewport: chromium.defaultViewport,
-          executablePath: await chromium.executablePath
-        },
-        inputType: 'html',
-        // This is doubled in the actual file dimensions.
-        width: 1200,
-        height: 628
-      })
+      const page = await browser.newPage()
+      // This is doubled in the actual file dimensions.
+      await page.setViewport({deviceScaleFactor: 2, height: 628, width: 1200})
+      await page.emulateMediaFeatures([
+        {name: 'prefers-color-scheme', value: 'light'}
+      ])
+      await page.setContent(value)
+      const screenshot = await page.screenshot()
+      await page.close()
+
+      await fs.writeFile(output, screenshot)
 
       console.log('OG image `%s`', info.meta.title)
-    }),
-    {concurrency: 6}
-  )
+    }
+  })
+)
 
-  console.log('✔ OG images')
-}
+await browser.close()
+
+console.log('✔ OG images')

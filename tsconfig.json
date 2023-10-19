@@ -1,15 +1,22 @@
 {
   "compilerOptions": {
     "checkJs": true,
+    "customConditions": ["development"],
     "declaration": true,
     "emitDeclarationOnly": true,
     "exactOptionalPropertyTypes": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["es2021"],
+    "jsx": "preserve",
+    "lib": ["es2022"],
     "module": "node16",
-    "newLine": "lf",
-    "skipLibCheck": true,
     "strict": true,
-    "target": "es2021"
-  }
+    "target": "es2020"
+  },
+  "exclude": ["**/coverage/", "**/node_modules/", "**/public/"],
+  "include": [
+    "**/*.cjs",
+    "**/*.js",
+    "**/*.jsx",
+    "packages/mdx/lib/types.d.ts",
+    "website/types.d.ts"
+  ]
 }

@@ -69,7 +69,9 @@ input {
 
 kbd,
 pre,
-code {
+code,
+.playground-write,
+.playground-draw {
   font-family: var(--mono);
   font-feature-settings: normal;
   font-size: smaller;
@@ -276,11 +278,11 @@ code {
 
 pre code {
   display: block;
-  overflow-x: auto;
   padding: calc(1em + 1ex) !important;
   white-space: pre;
   word-break: normal;
-  overflow: visible;
+  overflow-x: auto;
+  /* overflow: visible; */
   word-wrap: normal;
 
   mask-image: paint(squircle);
@@ -299,11 +301,6 @@ pre code,
 .frame-body,
 .frame-tab-item-selected {
   background-color: #fafafa !important; /* Color from one-light */
-}
-
-.frame-body-box-fixed-height {
-  height: 20rem;
-  overflow-y: auto;
 }
 
 .frame-body-box {
@@ -721,7 +718,8 @@ button.success {
   margin-block: calc(2 * (1em + 1ex));
   overflow: hidden;
   /* yellow */
-  background-image: radial-gradient(
+  background-image:
+    radial-gradient(
       ellipse at 0% 0%,
       rgb(252 180 45 / 5%) 20%,
       rgb(252 180 45 / 0%) 80%
@@ -764,8 +762,21 @@ button.success {
   border-radius: 10px;
 }
 
-.frame-tab-bar {
+.frame-resizeable {
   display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  min-height: 10rem;
+  height: 24rem;
+  resize: vertical;
+}
+
+.frame-tab-bar {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
   margin-block-start: calc(1em + 1ex);
   list-style-type: none;
   margin: 0;
@@ -776,10 +787,6 @@ button.success {
 .frame-tab-bar-scroll {
   overflow-x: auto;
   overflow-y: hidden;
-  flex: 1;
-  flex-direction: row;
-  align-items: stretch;
-  flex-grow: 1;
   mask-image: linear-gradient(
     to right,
     hsl(0deg 0% 100% / 30%),
@@ -792,6 +799,18 @@ button.success {
 .frame-body {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+
+.frame-body > pre {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.frame-body > pre > code {
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .frame-tab-bar + pre {
@@ -893,52 +912,6 @@ button.success {
   background-color: var(--fg);
 }
 
-.playground-result-badge::after {
-  content: attr(data-count);
-  display: inline-block;
-  margin-inline-start: 1ex;
-  border-radius: 999em;
-  padding: 0.75ex 1.5ex;
-  font-size: small;
-  line-height: 1;
-  vertical-align: text-top;
-  color: var(--white);
-}
-
-.playground-result-badge[data-label='success']::after {
-  background-color: var(--green-5);
-}
-
-.playground-result-badge[data-label='warn']::after {
-  background-color: #9e6a03;
-}
-
-.playground-result-badge[data-label='danger']::after {
-  background-color: var(--red-5);
-}
-
-.cm-scroller {
-  font-family: var(--mono);
-  font-feature-settings: normal;
-  font-size: 1rem;
-}
-
-.ͼ1 .cm-scroller,
-.ͼ1 .cm-content {
-  min-height: 20rem;
-}
-
-.ͼo {
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
-
-.ͼo .cm-gutters {
-  color: var(--gray-2);
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --white: #f0f6fc;
@@ -999,7 +972,8 @@ button.success {
 
   .card {
     /* yellow */
-    background-image: radial-gradient(
+    background-image:
+      radial-gradient(
         ellipse at 0% 0%,
         rgb(252 180 45 / 10%) 20%,
         rgb(252 180 45 / 0%) 80%
@@ -1055,8 +1029,6 @@ button.success {
 
   pre code,
   .hljs,
-  .ͼo,
-  .ͼo .cm-gutters,
   .frame-body,
   .frame-tab-item-selected,
   .frame-tab-item-dark.frame-tab-item-selected {
@@ -1222,17 +1194,7 @@ button.success {
   color: hsl(24deg 92% 40%) !important;
 }
 
-.ͼo .cm-activeLineGutter,
-.ͼo .cm-activeLine {
-  background-color: var(--gray-8);
-}
-
 @media (prefers-color-scheme: dark) {
-  .ͼo .cm-activeLineGutter,
-  .ͼo .cm-activeLine {
-    background-color: var(--gray-7);
-  }
-
   .hljs-section {
     color: #488bef !important;
   }
@@ -1241,4 +1203,98 @@ button.success {
   .hljs-symbol {
     color: #ffa657 !important;
   }
+}
+
+.playground {
+  display: grid;
+  grid-template-columns: 49% 49%;
+  min-height: 40rem;
+  gap: calc(1em + 1ex);
+  margin-inline: calc(1em + 1ex);
+}
+
+.playground-area,
+.playground-controls,
+.playground-result {
+  overflow: auto;
+  border-radius: 1ex;
+  padding: 1em;
+  margin-block: calc(1em + 1ex);
+}
+
+.playground-area {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.playground-controls,
+.playground-result {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.playground-inner {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  min-height: calc(10 * (1em + 1ex));
+}
+
+.playground-write,
+.playground-draw {
+  font-size: 14px;
+  tab-size: 4;
+  letter-spacing: normal;
+  line-height: calc(1 * (1em + 1ex));
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: transparent;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  resize: none;
+}
+
+.playground-write::selection {
+  color: var(--fg);
+  background-color: hsl(42.22deg 74.31% 57.25% / 66%);
+}
+
+.playground-write {
+  position: absolute;
+  top: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  color: transparent;
+  caret-color: var(--hl);
+}
+
+.playground-controls fieldset {
+  border: 0;
+  padding: 0;
+  margin-inline: 0;
+}
+
+.playground-controls fieldset[disabled] {
+  opacity: 0.6;
+}
+
+.playground-controls label {
+  font-size: smaller;
+  display: block;
+  margin-block: calc(0.5 * (1em + 1ex));
+}
+
+.playground-controls select {
+  padding: 0.5ex;
+}
+
+/* Can’t have bold things; they mess with the textarea */
+.playground .pl-mh,
+.playground .pl-mh .pl-en,
+.playground .pl-ms {
+  font-weight: normal !important;
 }

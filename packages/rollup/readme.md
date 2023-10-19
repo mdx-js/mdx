@@ -60,7 +60,7 @@ yarn add @mdx-js/rollup
 
 Add something along these lines to your `rollup.config.js`:
 
-```js
+```tsx
 import mdx from '@mdx-js/rollup'
 
 export default {
@@ -92,14 +92,14 @@ additions of:
 ###### `options.exclude`
 
 List of [`picomatch`][pico] patterns to include and/or exclude
-(`string`, `RegExp`, `Array<string|RegExp>`, default: `[]`).
+(`string`, `RegExp`, `Array<RegExp | string>`, default: `[]`).
 
 ###### Note: Babel
 
 If you use modern JavaScript features you might want to use Babel through
 [`@rollup/plugin-babel`][rollup-plugin-babel] to compile to code that works:
 
-```js
+```tsx
 // …
 import {babel} from '@rollup/plugin-babel'
 

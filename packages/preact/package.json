@@ -4,18 +4,17 @@
   "description": "Preact context for MDX",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
-    "preact",
     "jsx",
-    "remark",
-    "mdxast"
+    "markdown",
+    "mdx",
+    "preact",
+    "remark"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/preact"
+    "directory": "packages/preact/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -34,8 +33,7 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
-  "types": "index.d.ts",
+  "exports": "./index.js",
   "files": [
     "lib/",
     "index.d.ts",
@@ -47,24 +45,28 @@
   "peerDependencies": {
     "preact": ">=10.0.0"
   },
-  "devDependencies": {
-    "@mdx-js/mdx": "^2.0.0",
-    "preact": "^10.0.0",
-    "preact-render-to-string": "^5.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "prepack": "npm run build",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "test-api": "node --no-warnings --experimental-loader=../../script/jsx-loader.js ../../node_modules/uvu/bin.js test \"\\.jsx?$\"",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development --loader=../../script/jsx-loader.js test/index.jsx",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
-  "xo": false,
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
-  },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  "xo": {
+    "overrides": [
+      {
+        "extends": "xo-react",
+        "files": [
+          "**/*.jsx"
+        ],
+        "rules": {
+          "react/jsx-no-bind": "off",
+          "react/react-in-jsx-scope": "off"
+        }
+      }
+    ],
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off"
+    }
+  }
 }

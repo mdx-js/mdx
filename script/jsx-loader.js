@@ -1,90 +1,49 @@
 import fs from 'node:fs/promises'
-import path from 'node:path'
-import {URL, fileURLToPath} from 'node:url'
-import {transform, transformSync} from 'esbuild'
+import {fileURLToPath} from 'node:url'
+import {transform} from 'esbuild'
 
-const {load, getFormat, transformSource} = createLoader()
+const {load} = createLoader()
 
-export {load, getFormat, transformSource}
+export {load}
 
 /**
  * A tiny JSX loader.
  */
 export function createLoader() {
-  return {load, getFormat, transformSource}
+  return {load}
 
-  // Node version 17.
   /**
-   * @param {string} url
+   * @param {string} href
+   *   URL.
    * @param {unknown} context
+   *   Context.
    * @param {Function} defaultLoad
+   *   Default `load`.
+   * @returns
+   *   Result.
    */
-  async function load(url, context, defaultLoad) {
-    if (path.extname(url) !== '.jsx') {
-      return defaultLoad(url, context, defaultLoad)
+  async function load(href, context, defaultLoad) {
+    const url = new URL(href)
+
+    if (!url.pathname.endsWith('.jsx')) {
+      return defaultLoad(href, context, defaultLoad)
     }
 
-    const fp = fileURLToPath(new URL(url))
-    const value = await fs.readFile(fp)
-
-    const {code, warnings} = await transform(String(value), {
-      sourcefile: fp,
-      sourcemap: 'both',
+    const {code, warnings} = await transform(String(await fs.readFile(url)), {
+      format: 'esm',
       loader: 'jsx',
-      target: 'esnext',
-      format: 'esm'
+      sourcefile: fileURLToPath(url),
+      sourcemap: 'both',
+      target: 'esnext'
     })
 
-    if (warnings && warnings.length > 0) {
-      for (const warning of warnings) {
-        console.log(
-          'script/jsx-loader.js: warning: %j: %s',
-          warning.location,
-          warning.text
-        )
-      }
-    }
-
-    return {format: 'module', source: code, shortCircuit: true}
-  }
-
-  // Pre version 17.
-  /**
-   * @param {string} url
-   * @param {unknown} context
-   * @param {Function} defaultGetFormat
-   */
-  function getFormat(url, context, defaultGetFormat) {
-    return path.extname(url) === '.jsx'
-      ? {format: 'module'}
-      : defaultGetFormat(url, context, defaultGetFormat)
-  }
-
-  /**
-   * @param {Buffer} value
-   * @param {{url: string, [x: string]: unknown}} context
-   * @param {Function} defaultTransformSource
-   */
-  async function transformSource(value, context, defaultTransformSource) {
-    if (path.extname(context.url) !== '.jsx') {
-      return defaultTransformSource(value, context, defaultTransformSource)
-    }
-
-    const {code, warnings} = transformSync(String(value), {
-      sourcefile: fileURLToPath(context.url),
-      sourcemap: 'both',
-      loader: 'jsx',
-      target: 'esnext',
-      format: context.format === 'module' ? 'esm' : 'cjs'
-    })
-
-    if (warnings && warnings.length > 0) {
+    if (warnings) {
       for (const warning of warnings) {
         console.log(warning.location)
         console.log(warning.text)
       }
     }
 
-    return {source: code}
+    return {format: 'module', shortCircuit: true, source: code}
   }
 }

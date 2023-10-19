@@ -60,7 +60,7 @@ yarn add @mdx-js/loader
 
 Add something along these lines to your `webpack.config.js`:
 
-```js
+```tsx
 module.exports = {
   module: {
     // …
@@ -100,7 +100,7 @@ You do not need to pass `options.SourceMapGenerator`.
 If you use modern JavaScript features you might want to use Babel through
 [`babel-loader`][babel-loader] to compile to code that works:
 
-```js
+```tsx
 // …
 use: [
   // Note that Webpack runs right-to-left: `@mdx-js/loader` is used first, then

@@ -4,18 +4,17 @@
   "description": "Vue provider for MDX",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
-    "vue",
     "jsx",
+    "markdown",
+    "mdx",
     "remark",
-    "mdxast"
+    "vue"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/vue"
+    "directory": "packages/vue/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -29,38 +28,25 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
-  "types": "index.d.ts",
+  "exports": "./index.js",
   "files": [
     "lib/",
-    "complex-types.d.ts",
     "index.d.ts",
     "index.js"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "@types/mdx": "^2.0.0"
+  },
   "peerDependencies": {
     "vue": ">=3.0.0"
   },
-  "devDependencies": {
-    "@mdx-js/mdx": "^2.0.0",
-    "@types/babel__core": "^7.0.0",
-    "@types/mdx": "^2.0.0",
-    "@vue/babel-plugin-jsx": "^1.0.0",
-    "@vue/server-renderer": "^3.0.0",
-    "vue": "^3.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "prepack": "npm run build",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "test-api": "uvu test \"\\.js$\"",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
-  },
-  "gitHead": "bf7deab69996449cb99c2217dff75e65855eb2c1"
+  "xo": {
+    "prettier": true
+  }
 }

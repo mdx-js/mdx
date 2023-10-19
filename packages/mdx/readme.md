@@ -67,14 +67,16 @@ yarn add @mdx-js/mdx
 Say we have an MDX document, `example.mdx`:
 
 ```mdx
-export const Thing = () => <>World!</>
+export function Thing() {
+  return <>World!</>
+}
 
 # Hello, <Thing />
 ```
 
 Add some code in `example.js` to compile `example.mdx` to JavaScript:
 
-```js
+```tsx
 import fs from 'node:fs/promises'
 import {compile} from '@mdx-js/mdx'
 
@@ -85,14 +87,19 @@ console.log(String(compiled))
 
 Yields roughly:
 
-```js
+```tsx
 /* @jsxRuntime automatic @jsxImportSource react */
 import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
-export const Thing = () => _jsx(_Fragment, {children: 'World'})
+export function Thing() {
+  return _jsx(_Fragment, {children: 'World'})
+}
 
 function _createMdxContent(props) {
-  const _components = Object.assign({h1: 'h1'}, props.components)
+  const _components = {
+    h1: 'h1',
+    ...props.components
+  }
   return _jsxs(_components.h1, {
     children: ['Hello ', _jsx(Thing, {})]
   })
@@ -101,7 +108,10 @@ function _createMdxContent(props) {
 export default function MDXContent(props = {}) {
   const {wrapper: MDXLayout} = props.components || {}
   return MDXLayout
-    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, props)}))
+    ? _jsx(MDXLayout, {
+        ...props,
+        children: _jsx(_createMdxContent, props)
+      })
     : _createMdxContent(props)
 }
 ```
@@ -132,7 +142,7 @@ or anything that can be given to `vfile`).
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import {VFile} from 'vfile'
 import {compile} from '@mdx-js/mdx'
 
@@ -151,7 +161,7 @@ List of [remark plugins][remark-plugins], presets, and pairs.
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import remarkFrontmatter from 'remark-frontmatter' // YAML and such.
 import remarkGfm from 'remark-gfm' // Tables, footnotes, strikethrough, task lists, literal URLs.
 
@@ -170,16 +180,16 @@ List of [rehype plugins][rehype-plugins], presets, and pairs.
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import rehypeKatex from 'rehype-katex' // Render math with KaTeX.
 import remarkMath from 'remark-math' // Support math like `$so$`.
 
-await compile(file, {remarkPlugins: [remarkMath], rehypePlugins: [rehypeKatex]})
+await compile(file, {rehypePlugins: [rehypeKatex], remarkPlugins: [remarkMath]})
 
 await compile(file, {
-  remarkPlugins: [remarkMath],
   // A plugin with options:
-  rehypePlugins: [[rehypeKatex, {throwOnError: true, strict: true}]]
+  rehypePlugins: [[rehypeKatex, {strict: true, throwOnError: true}]],
+  remarkPlugins: [remarkMath]
 })
 ```
 
@@ -202,7 +212,7 @@ In particular, you might want to pass `clobberPrefix`, `footnoteLabel`, and
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 compile({value: '…'}, {remarkRehypeOptions: {clobberPrefix: 'comment-1'}})
 ```
 
@@ -235,14 +245,14 @@ So pass a full vfile (with `path`) or an object with a path.
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 compile({value: '…'}) // Seen as MDX
 compile({value: '…'}, {format: 'md'}) // Seen as markdown
-compile({value: '…', path: 'readme.md'}) // Seen as markdown
+compile({path: 'readme.md', value: '…'}) // Seen as markdown
 
 // Please do not use `.md` for MDX as other tools won’t know how to handle it.
-compile({value: '…', path: 'readme.md'}, {format: 'mdx'}) // Seen as MDX
-compile({value: '…', path: 'readme.md'}, {mdExtensions: []}) // Seen as MDX
+compile({path: 'readme.md', value: '…'}, {format: 'mdx'}) // Seen as MDX
+compile({path: 'readme.md', value: '…'}, {mdExtensions: []}) // Seen as MDX
 ```
 
 </details>
@@ -279,7 +289,7 @@ statements, but you can support them by setting
 
 A module `example.js`:
 
-```js
+```tsx
 import {compile} from '@mdx-js/mdx'
 
 const code = 'export const no = 3.14\n\n# hi {no}'
@@ -290,7 +300,7 @@ console.log(String(await compile(code, {outputFormat: 'function-body'})))
 
 …yields:
 
-```js
+```tsx
 /* @jsxRuntime automatic @jsxImportSource react */
 import {jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 export const no = 3.14
@@ -298,7 +308,7 @@ function _createMdxContent(props) { /* … */ }
 export default function MDXContent(props = {}) { /* … */ }
 ```
 
-```js
+```tsx
 const {Fragment: _Fragment, jsx: _jsx} = arguments[0]
 const no = 3.14
 function _createMdxContent(props) { /* … */ }
@@ -326,7 +336,7 @@ When you turn `useDynamicImport` on, you should probably set [`options.baseUrl`]
 
 Say we have a couple modules:
 
-```js
+```tsx
 // meta.js:
 export const title = 'World'
 
@@ -346,7 +356,7 @@ console.log(String(compileSync(code, {outputFormat: 'function-body', useDynamicI
 
 …now running `node example.js` yields:
 
-```js
+```tsx
 const {Fragment: _Fragment, jsx: _jsx, jsxs: _jsxs} = arguments[0]
 const {name} = await import('./meta.js')
 const {no} = await import('./numbers.js')
@@ -375,7 +385,7 @@ Another example is when evaluating code, whether in Node or a browser.
 
 Say we have a module `example.js`:
 
-```js
+```tsx
 import {compile} from '@mdx-js/mdx'
 
 const code = 'export {number} from "./data.js"\n\n# hi'
@@ -386,7 +396,7 @@ console.log(String(await compile(code, {baseUrl})))
 
 …now running `node example.js` yields:
 
-```js
+```tsx
 import {Fragment as _Fragment, jsx as _jsx} from 'react/jsx-runtime'
 export {number} from 'https://a.full/data.js'
 function _createMdxContent(props) { /* … */ }
@@ -417,7 +427,7 @@ at runtime:
 
 And a module to evaluate that:
 
-```js
+```tsx
 import fs from 'node:fs/promises'
 import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
@@ -480,7 +490,7 @@ object form).
 
 Assuming `example.mdx` from [§ Use][use] exists, then:
 
-```js
+```tsx
 import fs from 'node:fs/promises'
 import {SourceMapGenerator} from 'source-map'
 import {compile} from '@mdx-js/mdx'
@@ -495,13 +505,13 @@ console.log(file.map)
 
 …yields:
 
-```js
+```tsx
 {
-  version: 3,
-  sources: ['example.mdx'],
-  names: ['Thing'],
+  file: 'example.mdx',
   mappings: ';;aAAaA,QAAQ;YAAQ;;;;;;;;iBAE3B',
-  file: 'example.mdx'
+  names: ['Thing'],
+  sources: ['example.mdx'],
+  version: 3
 }
 ```
 
@@ -519,7 +529,7 @@ object of components.
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {providerImportSource: '@mdx-js/react'})
 ```
 
@@ -530,20 +540,31 @@ compile(file, {providerImportSource: '@mdx-js/react'})
  import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 +import {useMDXComponents as _provideComponents} from '@mdx-js/react'
 
- export const Thing = () => _jsx(_Fragment, {children: 'World!'})
+ export function Thing() {
+   return _jsx(_Fragment, {children: 'World'})
+ }
 
  function _createMdxContent(props) {
--  const _components = Object.assign({h1: 'h1'}, props.components)
-+  const _components = Object.assign({h1: 'h1'}, _provideComponents(), props.components)
+   const _components = {
+     h1: 'h1',
++    ..._provideComponents(),
+     ...props.components
+   }
    return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
  }
 
  export default function MDXContent(props = {}) {
 -  const {wrapper: MDXLayout} = props.components || {}
-+  const {wrapper: MDXLayout} = Object.assign({}, _provideComponents(), props.components)
++  const {wrapper: MDXLayout} = {
++    ..._provideComponents(),
++    ...props.components
++  }
 
    return MDXLayout
-     ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, {})}))
+     ? _jsx(MDXLayout, {
+         ...props,
+         children: _jsx(_createMdxContent, {})
+       })
      : _createMdxContent()
 ```
 
@@ -560,7 +581,7 @@ runnable.
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {jsx: true})
 ```
 
@@ -570,11 +591,16 @@ compile(file, {jsx: true})
  /* @jsxRuntime automatic @jsxImportSource react */
 -import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
--export const Thing = () => _jsx(_Fragment, {children: 'World!'})
-+export const Thing = () => <>World!</>
+ export function Thing() {
+-  return _jsx(_Fragment, {children: 'World'})
++  return <>World!</>
+ }
 
  function _createMdxContent(props) {
-   const _components = Object.assign({h1: 'h1'}, props.components)
+   const _components = {
+     h1: 'h1',
+     ...props.components
+   }
 -  return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
 +  return <_components.h1>{"Hello "}<Thing /></_components.h1>
  }
@@ -582,7 +608,10 @@ compile(file, {jsx: true})
  export default function MDXContent(props = {}) {
    const {wrapper: MDXLayout} = props.components || {}
    return MDXLayout
--    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, props)}))
+-    ? _jsx(MDXLayout, {
+-        ...props,
+-        children: _jsx(_createMdxContent, props)
+-      })
 +    ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout>
      : _createMdxContent(props)
  }
@@ -602,7 +631,7 @@ compiles to `import _jsx from '$importSource/jsx-runtime'\n_jsx('p')`.
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {jsxRuntime: 'classic'})
 ```
 
@@ -614,8 +643,10 @@ compile(file, {jsxRuntime: 'classic'})
 +/* @jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment */
 +import React from 'react'
 
--export const Thing = () => _jsx(_Fragment, {children: 'World!'})
-+export const Thing = () => React.createElement(React.Fragment, null, 'World!')
+ export function Thing() {
+-  return _jsx(_Fragment, {children: 'World'})
++  return React.createElement(React.Fragment, null, 'World!')
+ }
 …
 ```
 
@@ -632,7 +663,7 @@ When in the `automatic` runtime, this is used to define an import for
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {jsxImportSource: 'preact'})
 ```
 
@@ -661,7 +692,7 @@ changing this.
 
 If `file` is the contents of `example.mdx` from [§ Use][use], then:
 
-```js
+```tsx
 compile(file, {
   jsxRuntime: 'classic',
   pragma: 'preact.createElement',
@@ -678,8 +709,10 @@ compile(file, {
 +/* @jsxRuntime classic @jsx preact.createElement @jsxFrag preact.Fragment */
 +import preact from 'preact/compat'
 
--export const Thing = () => React.createElement(React.Fragment, null, 'World!')
-+export const Thing = () => preact.createElement(preact.Fragment, null, 'World!')
+ export function Thing() {
+-  return React.createElement(React.Fragment, null, 'World!')
++  return preact.createElement(preact.Fragment, null, 'World!')
+ }
 …
 ```
 
@@ -725,7 +758,7 @@ This casing is used for hast elements, not for embedded MDX JSX nodes
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import remarkPresetLintConsistent from 'remark-preset-lint-consistent' // Lint rules to check for consistent markdown.
 import {reporter} from 'vfile-reporter'
 import {compile} from '@mdx-js/mdx'
@@ -765,8 +798,6 @@ Typically, `import` (or `export … from`) do not work here.
 They can be compiled to dynamic `import()` by passing
 [`options.useDynamicImport`][usedynamicimport].
 
-> ☢️ **Danger**: you likely must set `development: boolean`.
-
 ###### `file`
 
 See [`compile`][compile].
@@ -790,20 +821,16 @@ exceptions:
 ###### `options.Fragment`
 
 These options are required: `Fragment` always, when `development: true`
-then `jsx` and `jsxs`, when `development: false` then `jsxDEV`.
+then `jsxDEV`, when `development: false` then `jsx` and `jsxs`.
 They come from an automatic JSX runtime that you must import yourself.
 
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import * as runtime from 'react/jsx-runtime'
 
-const {default: Content} = await evaluate('# hi', {
-  ...runtime,
-  ...otherOptions,
-  development: false
-})
+const {default: Content} = await evaluate('# hi', {...otherOptions, ...runtime})
 ```
 
 </details>
@@ -815,15 +842,14 @@ Needed if you want to support a provider.
 <details>
 <summary>Expand example</summary>
 
-```js
+```tsx
 import * as provider from '@mdx-js/react'
 import * as runtime from 'react/jsx-runtime'
 
 const {default: Content} = await evaluate('# hi', {
-  ...provider,
-  ...runtime,
   ...otherOptions,
-  development: false
+  ...provider,
+  ...runtime
 })
 ```
 
@@ -840,16 +866,16 @@ else that was exported from the MDX file available too.
 
 Assuming the contents of `example.mdx` from [§ Use][use] was in `file`, then:
 
-```js
+```tsx
 import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
 
-console.log(await evaluate(file, {...runtime, development: false}))
+console.log(await evaluate(file, runtime))
 ```
 
 …yields:
 
-```js
+```tsx
 {Thing: [Function: Thing], default: [Function: MDXContent]}
 ```
 
@@ -903,19 +929,16 @@ All other options have to be passed to `compile` instead.
 
 On the server:
 
-```js
+```tsx
 import {compile} from '@mdx-js/mdx'
 
-const code = String(await compile('# hi', {
-  outputFormat: 'function-body',
-  development: false
-}))
+const code = String(await compile('# hi', {outputFormat: 'function-body'}))
 // To do: send `code` to the client somehow.
 ```
 
 On the client:
 
-```js
+```tsx
 import * as runtime from 'react/jsx-runtime'
 import {run} from '@mdx-js/mdx'
 
@@ -926,7 +949,7 @@ const {default: Content} = await run(code, runtime)
 
 …yields:
 
-```js
+```tsx
 [Function: MDXContent]
 ```
 

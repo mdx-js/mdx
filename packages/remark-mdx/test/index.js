@@ -1,355 +1,503 @@
 /**
- * @typedef {import('mdast').Root} Root
- * @typedef {import('mdast').Content} Content
+ * @typedef {import('mdast').Nodes} Nodes
  * @typedef {import('mdast-util-mdx').MdxJsxAttribute} MdxJsxAttribute
  * @typedef {import('mdast-util-mdx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
  * @typedef {import('mdast-util-mdx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
  */
 
-import {test} from 'uvu'
-import * as assert from 'uvu/assert'
-import {u} from 'unist-builder'
-import {unified} from 'unified'
+import assert from 'node:assert/strict'
+import {test} from 'node:test'
+import remarkMdx from 'remark-mdx'
 import remarkParse from 'remark-parse'
 import remarkStringify from 'remark-stringify'
+import {unified} from 'unified'
 import {removePosition} from 'unist-util-remove-position'
 import {visit} from 'unist-util-visit'
-import remarkMdx from '../index.js'
 
 const basic = unified().use(remarkParse).use(remarkMdx)
 
-test('parse: basics', () => {
-  assert.equal(
-    clean(basic.parse('Alpha <b/> charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse a self-closing tag'
-  )
-
-  assert.equal(
-    clean(basic.parse('Alpha <b></b> charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse an opening and a closing tag'
-  )
-
-  assert.equal(
-    clean(basic.parse('Alpha <></> charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: null, attributes: []}, []),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse fragments'
-  )
-
-  assert.equal(
-    clean(basic.parse('Alpha <b>*bravo*</b> charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxJsxTextElement', {name: 'b', attributes: []}, [
-          u('emphasis', [u('text', 'bravo')])
-        ]),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse markdown inside tags'
-  )
-
-  assert.equal(
-    clean(basic.parse('Alpha {1 + 1} charlie.')),
-    u('root', [
-      u('paragraph', [
-        u('text', 'Alpha '),
-        u('mdxTextExpression', {data: {estree: null}}, '1 + 1'),
-        u('text', ' charlie.')
-      ])
-    ]),
-    'should parse expressions'
-  )
+test('remark-mdx: core', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('remark-mdx')).sort(), [
+      'default'
+    ])
+  })
 })
 
-test('stringify', () => {
-  const basic = unified().use(remarkStringify).use(remarkMdx)
+test('remark-mdx: parse', async function (t) {
+  await t.test('should parse a self-closing tag', function () {
+    const tree = basic.parse('Alpha <b/> charlie.')
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, []),
-          u('text', ' charlie.')
-        ])
-      ])
-    ),
-    'Alpha <></> charlie.\n',
-    'should serialize an empty nameless fragment'
-  )
+    clean(tree)
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: 'b', attributes: []}, []),
-          u('text', ' charlie.')
-        ])
-      ])
-    ),
-    'Alpha <b /> charlie.\n',
-    'should serialize a tag with a name'
-  )
-
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
-            {name: 'b', attributes: [u('mdxJsxAttribute', {name: 'bravo'})]},
-            []
-          ),
-          u('text', ' charlie.')
-        ])
-      ])
-    ),
-    'Alpha <b bravo /> charlie.\n',
-    'should serialize a boolean attribute (element)'
-  )
-
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
+    assert.deepEqual(tree, {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {type: 'text', value: 'Alpha '},
             {
+              type: 'mdxJsxTextElement',
               name: 'b',
-              attributes: [u('mdxJsxAttribute', {name: 'bravo'}, 'bravo')]
+              attributes: [],
+              children: []
             },
-            []
-          ),
-          u('text', ' charlie.')
-        ])
-      ])
-    ),
-    'Alpha <b bravo="bravo" /> charlie.\n',
-    'should serialize an attribute (element)'
-  )
+            {type: 'text', value: ' charlie.'}
+          ]
+        }
+      ]
+    })
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
+  await t.test('should parse an opening and a closing tag', function () {
+    const tree = basic.parse('Alpha <b></b> charlie.')
+
+    clean(tree)
+
+    assert.deepEqual(tree, {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {type: 'text', value: 'Alpha '},
             {
+              type: 'mdxJsxTextElement',
               name: 'b',
-              attributes: [u('mdxJsxAttribute', {name: 'br:avo'}, 'bravo')]
+              attributes: [],
+              children: []
             },
-            []
-          ),
-          u('text', ' charlie.')
-        ])
-      ])
-    ),
-    'Alpha <b br:avo="bravo" /> charlie.\n',
-    'should serialize a prefixed attribute (element)'
-  )
+            {type: 'text', value: ' charlie.'}
+          ]
+        }
+      ]
+    })
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
+  await t.test('should parse fragments', function () {
+    const tree = basic.parse('Alpha <></> charlie.')
+
+    clean(tree)
+
+    assert.deepEqual(tree, {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {type: 'text', value: 'Alpha '},
             {
-              name: 'b',
-              attributes: [u('mdxJsxExpressionAttribute', '...props')]
+              type: 'mdxJsxTextElement',
+              name: null,
+              attributes: [],
+              children: []
             },
-            []
-          ),
-          u('text', ' charlie.')
-        ])
-      ])
-    ),
-    'Alpha <b {...props} /> charlie.\n',
-    'should serialize a attribute expression (element)'
-  )
+            {type: 'text', value: ' charlie.'}
+          ]
+        }
+      ]
+    })
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u(
-            'mdxJsxTextElement',
+  await t.test('should parse markdown inside tags', function () {
+    const tree = basic.parse('Alpha <b>*bravo*</b> charlie.')
+
+    clean(tree)
+
+    assert.deepEqual(tree, {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {type: 'text', value: 'Alpha '},
             {
+              type: 'mdxJsxTextElement',
               name: 'b',
-              attributes: [
-                u('mdxJsxAttribute', {
-                  name: 'b',
-                  value: u(
-                    'mdxJsxAttributeValueExpression',
-                    {data: {estree: undefined}},
-                    '1 + 1'
-                  )
-                })
+              attributes: [],
+              children: [
+                {type: 'emphasis', children: [{type: 'text', value: 'bravo'}]}
               ]
             },
-            []
-          ),
-          u('text', ' charlie.')
-        ])
-      ])
-    ),
-    'Alpha <b b={1 + 1} /> charlie.\n',
-    'should serialize an expression attribute (element)'
+            {type: 'text', value: ' charlie.'}
+          ]
+        }
+      ]
+    })
+  })
+
+  await t.test('should parse expressions', function () {
+    const tree = basic.parse('Alpha {1 + 1} charlie.')
+
+    clean(tree)
+
+    assert.deepEqual(tree, {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {type: 'text', value: 'Alpha '},
+            {
+              type: 'mdxTextExpression',
+              data: {estree: undefined},
+              value: '1 + 1'
+            },
+            {type: 'text', value: ' charlie.'}
+          ]
+        }
+      ]
+    })
+  })
+})
+
+test('remark-mdx: stringify', async function (t) {
+  const basic = unified().use(remarkStringify).use(remarkMdx)
+
+  await t.test('should serialize an empty nameless fragment', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'Alpha '},
+              {
+                type: 'mdxJsxTextElement',
+                name: null,
+                attributes: [],
+                children: []
+              },
+              {type: 'text', value: ' charlie.'}
+            ]
+          }
+        ]
+      }),
+      'Alpha <></> charlie.\n'
+    )
+  })
+
+  await t.test('should serialize a tag with a name', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'Alpha '},
+              {
+                type: 'mdxJsxTextElement',
+                name: 'b',
+                attributes: [],
+                children: []
+              },
+              {type: 'text', value: ' charlie.'}
+            ]
+          }
+        ]
+      }),
+      'Alpha <b /> charlie.\n'
+    )
+  })
+
+  await t.test('should serialize a boolean attribute (element)', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'Alpha '},
+              {
+                type: 'mdxJsxTextElement',
+                name: 'b',
+                attributes: [{type: 'mdxJsxAttribute', name: 'bravo'}],
+                children: []
+              },
+              {type: 'text', value: ' charlie.'}
+            ]
+          }
+        ]
+      }),
+      'Alpha <b bravo /> charlie.\n'
+    )
+  })
+
+  await t.test('should serialize an attribute (element)', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'Alpha '},
+              {
+                type: 'mdxJsxTextElement',
+                name: 'b',
+                attributes: [
+                  {type: 'mdxJsxAttribute', name: 'bravo', value: 'bravo'}
+                ],
+                children: []
+              },
+              {type: 'text', value: ' charlie.'}
+            ]
+          }
+        ]
+      }),
+      'Alpha <b bravo="bravo" /> charlie.\n'
+    )
+  })
+
+  await t.test('should serialize a prefixed attribute (element)', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'Alpha '},
+              {
+                type: 'mdxJsxTextElement',
+                name: 'b',
+                attributes: [
+                  {type: 'mdxJsxAttribute', name: 'br:avo', value: 'bravo'}
+                ],
+                children: []
+              },
+              {type: 'text', value: ' charlie.'}
+            ]
+          }
+        ]
+      }),
+      'Alpha <b br:avo="bravo" /> charlie.\n'
+    )
+  })
+
+  await t.test(
+    'should serialize a attribute expression (element)',
+    function () {
+      assert.equal(
+        basic.stringify({
+          type: 'root',
+          children: [
+            {
+              type: 'paragraph',
+              children: [
+                {type: 'text', value: 'Alpha '},
+                {
+                  type: 'mdxJsxTextElement',
+
+                  name: 'b',
+                  attributes: [
+                    {type: 'mdxJsxExpressionAttribute', value: '...props'}
+                  ],
+                  children: []
+                },
+                {type: 'text', value: ' charlie.'}
+              ]
+            }
+          ]
+        }),
+        'Alpha <b {...props} /> charlie.\n'
+      )
+    }
   )
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('link', {url: 'https://mdxjs.com'}, [
-            u('text', 'https://mdxjs.com')
-          ])
-        ])
-      ])
-    ),
-    '[https://mdxjs.com](https://mdxjs.com)\n',
-    'should write out a url as the raw value'
+  await t.test(
+    'should serialize an expression attribute (element)',
+    function () {
+      assert.equal(
+        basic.stringify({
+          type: 'root',
+          children: [
+            {
+              type: 'paragraph',
+              children: [
+                {type: 'text', value: 'Alpha '},
+                {
+                  type: 'mdxJsxTextElement',
+
+                  name: 'b',
+                  attributes: [
+                    {
+                      type: 'mdxJsxAttribute',
+                      name: 'b',
+                      value: {
+                        type: 'mdxJsxAttributeValueExpression',
+                        data: {estree: undefined},
+                        value: '1 + 1'
+                      }
+                    }
+                  ],
+                  children: []
+                },
+                {type: 'text', value: ' charlie.'}
+              ]
+            }
+          ]
+        }),
+        'Alpha <b b={1 + 1} /> charlie.\n'
+      )
+    }
   )
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, [
-            u('text', '1 < 3')
-          ]),
-          u('text', ' bravo.')
-        ])
-      ])
-    ),
-    'Alpha <>1 \\< 3</> bravo.\n',
-    'should encode `<` in text'
-  )
+  await t.test('should write out a url as the raw value', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'link',
+                url: 'https://mdxjs.com',
+                children: [{type: 'text', value: 'https://mdxjs.com'}]
+              }
+            ]
+          }
+        ]
+      }),
+      '[https://mdxjs.com](https://mdxjs.com)\n'
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxJsxTextElement', {name: null, attributes: []}, [
-            u('text', '1 { 3')
-          ]),
-          u('text', ' bravo.')
-        ])
-      ])
-    ),
-    'Alpha <>1 \\{ 3</> bravo.\n',
-    'should encode `{` in text'
-  )
+  await t.test('should encode `<` in text', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'Alpha '},
+              {
+                type: 'mdxJsxTextElement',
+                name: null,
+                attributes: [],
+                children: [{type: 'text', value: '1 < 3'}]
+              },
+              {type: 'text', value: ' bravo.'}
+            ]
+          }
+        ]
+      }),
+      'Alpha <>1 \\< 3</> bravo.\n'
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxTextExpression', ''),
-          u('text', ' bravo.')
-        ])
-      ])
-    ),
-    'Alpha {} bravo.\n',
-    'should serialize empty expressions'
-  )
+  await t.test('should encode `{` in text', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'Alpha '},
+              {
+                type: 'mdxJsxTextElement',
+                name: null,
+                attributes: [],
+                children: [{type: 'text', value: '1 { 3'}]
+              },
+              {type: 'text', value: ' bravo.'}
+            ]
+          }
+        ]
+      }),
+      'Alpha <>1 \\{ 3</> bravo.\n'
+    )
+  })
 
-  assert.equal(
-    basic.stringify(
-      u('root', [
-        u('paragraph', [
-          u('text', 'Alpha '),
-          u('mdxTextExpression', '1 + 1'),
-          u('text', ' bravo.')
-        ])
-      ])
-    ),
-    'Alpha {1 + 1} bravo.\n',
-    'should serialize expressions'
-  )
+  await t.test('should serialize empty expressions', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'Alpha '},
+              {type: 'mdxTextExpression', value: ''},
+              {type: 'text', value: ' bravo.'}
+            ]
+          }
+        ]
+      }),
+      'Alpha {} bravo.\n'
+    )
+  })
+
+  await t.test('should serialize expressions', function () {
+    assert.equal(
+      basic.stringify({
+        type: 'root',
+        children: [
+          {
+            type: 'paragraph',
+            children: [
+              {type: 'text', value: 'Alpha '},
+              {type: 'mdxTextExpression', value: '1 + 1'},
+              {type: 'text', value: ' bravo.'}
+            ]
+          }
+        ]
+      }),
+      'Alpha {1 + 1} bravo.\n'
+    )
+  })
 })
 
 /**
- * @template {Root | Content} Tree
- * @param {Tree} tree
- * @returns {Tree}
+ * @param {Nodes} tree
+ *   Tree.
+ * @returns {undefined}
+ *   Nothing.
  */
 function clean(tree) {
-  removePosition(tree, true)
-  cleanEstree(tree)
-  return tree
+  removePosition(tree, {force: true})
+  visit(tree, onvisit)
 }
 
 /**
- * @param {Root | Content} tree
+ * @param {MdxJsxAttribute | MdxJsxAttributeValueExpression | MdxJsxExpressionAttribute | Nodes} node
+ *   Node.
+ * @returns {undefined}
+ *   Nothing.
  */
-function cleanEstree(tree) {
-  visit(tree, onvisit)
+function onvisit(node) {
+  if (
+    (node.type === 'mdxjsEsm' ||
+      node.type === 'mdxTextExpression' ||
+      node.type === 'mdxFlowExpression' ||
+      node.type === 'mdxJsxAttribute' ||
+      node.type === 'mdxJsxAttributeValueExpression' ||
+      node.type === 'mdxJsxExpressionAttribute') &&
+    node.data &&
+    'estree' in node.data &&
+    node.data.estree
+  ) {
+    node.data.estree = undefined
+  }
 
-  /**
-   * @param {Root | Content | MdxJsxAttribute | MdxJsxExpressionAttribute | MdxJsxAttributeValueExpression} node
-   */
-  function onvisit(node) {
-    if (
-      (node.type === 'mdxjsEsm' ||
-        node.type === 'mdxTextExpression' ||
-        node.type === 'mdxFlowExpression' ||
-        node.type === 'mdxJsxAttribute' ||
-        node.type === 'mdxJsxAttributeValueExpression' ||
-        node.type === 'mdxJsxExpressionAttribute') &&
-      node.data &&
-      node.data.estree
-    ) {
-      node.data.estree = null
-    }
+  if (node.type === 'mdxJsxTextElement' || node.type === 'mdxJsxFlowElement') {
+    let index = -1
 
-    if (
-      node.type === 'mdxJsxTextElement' ||
-      node.type === 'mdxJsxFlowElement'
-    ) {
-      let index = -1
+    while (++index < node.attributes.length) {
+      const child = node.attributes[index]
 
-      while (++index < node.attributes.length) {
-        const child = node.attributes[index]
+      onvisit(child)
 
-        onvisit(child)
-
-        if (child.value && typeof child.value === 'object') {
-          onvisit(child.value)
-        }
+      if (child.value && typeof child.value === 'object') {
+        onvisit(child.value)
       }
     }
   }
 }
-
-test.run()

@@ -1,10 +1,9 @@
 /**
- * @typedef {import('mdast').Content} Content
  * @typedef {import('mdast').Root} Root
- *
- * @typedef {import('remark-mdx')} DoNotTouchAsThisImportItIncludesMdxInTree
+ * @typedef {import('mdast').RootContent} RootContent
  */
 
+import {collapseWhiteSpace} from 'collapse-white-space'
 import {visit} from 'unist-util-visit'
 
 /**
@@ -14,11 +13,18 @@ import {visit} from 'unist-util-visit'
  * It also marks JSX as being explicitly JSX, so when a user passes a `h1`
  * component, it is used for `# heading` but not for `<h1>heading</h1>`.
  *
- * @type {import('unified').Plugin<[], Root>}
+ * @returns
+ *   Transform.
  */
 export function remarkMarkAndUnravel() {
-  return (tree) => {
-    visit(tree, (node, index, parent) => {
+  /**
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  return function (tree) {
+    visit(tree, function (node, index, parent) {
       let offset = -1
       let all = true
       let oneOrMore = false
@@ -36,7 +42,7 @@ export function remarkMarkAndUnravel() {
             oneOrMore = true
           } else if (
             child.type === 'text' &&
-            /^[\t\r\n ]+$/.test(String(child.value))
+            collapseWhiteSpace(child.value, {style: 'html', trim: true}) === ''
           ) {
             // Empty.
           } else {
@@ -48,19 +54,19 @@ export function remarkMarkAndUnravel() {
         if (all && oneOrMore) {
           offset = -1
 
-          /** @type {Array<Content>} */
+          /** @type {Array<RootContent>} */
           const newChildren = []
 
           while (++offset < children.length) {
             const child = children[offset]
 
             if (child.type === 'mdxJsxTextElement') {
-              // @ts-expect-error: content model is fine.
+              // @ts-expect-error: mutate because it is faster; content model is fine.
               child.type = 'mdxJsxFlowElement'
             }
 
             if (child.type === 'mdxTextExpression') {
-              // @ts-expect-error: content model is fine.
+              // @ts-expect-error: mutate because it is faster; content model is fine.
               child.type = 'mdxFlowExpression'
             }
 

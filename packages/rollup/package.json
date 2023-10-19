@@ -4,20 +4,20 @@
   "description": "Rollup plugin for MDX",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
     "jsx",
-    "rollup",
-    "remark",
-    "react",
+    "markdown",
+    "mdx",
     "preact",
+    "react",
+    "remark",
+    "rollup",
     "vue"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/rollup"
+    "directory": "packages/rollup/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -30,8 +30,7 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
-  "types": "index.d.ts",
+  "exports": "./index.js",
   "files": [
     "lib/",
     "index.d.ts",
@@ -41,30 +40,21 @@
     "@mdx-js/mdx": "^2.0.0",
     "@rollup/pluginutils": "^5.0.0",
     "source-map": "^0.7.0",
-    "vfile": "^5.0.0"
+    "vfile": "^6.0.0"
   },
   "peerDependencies": {
     "rollup": ">=2"
   },
-  "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "rollup": "^3.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "prepack": "npm run build",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "test-api": "uvu test \"\\.js$\"",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
-  "xo": false,
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
+  "xo": {
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off"
+    }
   }
 }

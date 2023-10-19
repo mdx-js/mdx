@@ -4,19 +4,19 @@
   "description": "Node hook to require MDX",
   "license": "MIT",
   "keywords": [
-    "mdx",
-    "markdown",
     "jsx",
+    "markdown",
+    "mdx",
     "node",
-    "require",
+    "react",
     "remark",
-    "react"
+    "require"
   ],
   "homepage": "https://mdxjs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdx-js/mdx",
-    "directory": "packages/register"
+    "directory": "packages/register/"
   },
   "bugs": "https://github.com/mdx-js/mdx/issues",
   "funding": {
@@ -27,38 +27,31 @@
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "main": "index.cjs",
-  "types": "index.d.ts",
+  "type": "module",
+  "sideEffects": true,
+  "exports": "./index.cjs",
   "files": [
     "lib/",
     "index.d.ts",
     "index.cjs"
   ],
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0"
+    "@mdx-js/mdx": "^2.0.0",
+    "@types/deasync": "^0.1.0"
   },
   "optionalDependencies": {
     "deasync": "^0.1.0"
   },
-  "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "#prepack": "npm run build",
-    "#1": "to do when TS supports CJS: `build: rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" \"*.d.ts\" && tsc && type-coverage`",
-    "#2": "to do: re-enable when `deasync` is built on Node 17",
-    "#test-api": "uvu -r index.cjs test \"\\.c?js$\"",
-    "#test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run test-coverage"
+    "test": "npm run test-coverage",
+    "test-api": "node --conditions development --require ./index.cjs test/index.cjs",
+    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
-  "xo": false,
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
+  "xo": {
+    "prettier": true,
+    "rules": {
+      "n/file-extension-in-import": "off"
+    }
   }
 }

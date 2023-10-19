@@ -1,0 +1,175 @@
+import {Note} from '../_component/note.jsx'
+
+export const info = {
+  author: [
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
+  ],
+  modified: new Date('2021-11-01'),
+  published: new Date('2021-10-06')
+}
+export const navSortSelf = 4
+
+# About
+
+This article explains in short how MDX came to be and why it exists.
+It also gives thanks to the people who’ve helped make it and inspired it.
+
+{/* more */}
+
+## What is MDX?
+
+MDX is the combination of markdown with JSX.
+See [§ What is MDX?][what] for more info.
+
+## Why MDX?
+
+Markdown does not have a syntax for custom components.
+MDX solves this.
+
+There are many languages objectively better than markdown, however, markdown is
+great because:
+
+*   It looks like what it means and is relatively easy to read
+*   Although images are [confusing][], most stuff is relatively simple to write
+*   It’s loose and ambiguous: it may not work but you won’t get an error (great
+    for someone posting a comment to a forum if they forgot an asterisk)
+
+Markdown *does* have a way to extend it, HTML, but that has drawbacks:
+
+*   HTML in markdown is naïve, how it’s parsed sometimes doesn’t make sense
+*   HTML is unsafe by default, so it’s sometimes (partially) unsupported
+*   HTML and markdown don’t mix well, resulting in confusing rules such as
+    blank lines or `markdown="1"` attributes
+*   HTML is coupled with browsers, markdown is useful for other things too
+
+The frontend world has an alternative to HTML: JSX.
+JSX is great, amongst other things, because:
+
+*   It has a relatively familiar syntax (like XML)
+*   It’s agnostic to semantics and intended for compilers (can have any
+    domain-specific meaning)
+*   It’s strict and unambiguous (great if an author forgot a slash somewhere, as
+    they’ll get an error early, instead of a book going to print with broken
+    stuff in it)
+
+## Who governs MDX?
+
+The project is governed by the
+[unified collective][governance].
+
+## Who created MDX?
+
+The idea of combining [markdown][commonmark], [JavaScript][], and [JSX][] was a
+collaborative effort by
+[Guillermo Rauch][mdx-rauchg] (**[@rauchg][rauchg]**),
+[James K. Nelson][mdx-jamesknelson] (**[@jamesknelson][jamesknelson]**),
+[John Otander][mdx-johno] (**[@johno][johno]**),
+Tim Neutkens (**[@timneutkens][timneutkens]**),
+Brent Jackson (**[@jxnblk][jxnblk]**),
+Jessica Stokes (**[@ticky][ticky]**), and more.
+
+While everyone above was key to MDX, we want to stress the involvement of
+[John Otander][mdx-johno] (**[@johno][johno]**).
+John wrote most of the code for the first alpha and later stable version 1 of
+this project!
+
+## Who designed the logo?
+
+[Logo designs][design] were created by [Evil Rabbit][] of [Vercel][].
+
+## What projects inspired MDX?
+
+The following projects, languages, and articles helped shape MDX either in
+implementation or inspiration.
+
+<Note type="info">
+  **Note**: Is your work missing?
+  Please open a PR if we failed to attribute your work.
+</Note>
+
+The [markdown][] and [JSX][] languages inspired MDX.
+Markdown was [created by John Gruber][markdown] (**[@gruber][gruber]**).
+[CommonMark][], the most popular markdown variant, by John McFarlane
+(**[@jgm][jgm]**) et al.
+JSX was created by Sebastian Markbåge (**[@sebmarkbage][sebmarkbage]**) et
+al. at Facebook, Inc.
+
+The `@mdx-js/*` projects currently make heavy use of [unified][] (specifically
+[micromark][], [remark][] and [rehype][]) and [Acorn][].
+unified, remark, rehype, and related tools were created by Titus Wormer
+(**[@wooorm][wooorm]**) et al.
+Acorn by Marijn Haverbeke (**[@marijnh][marijnh]**) et al.
+
+The following projects inspired `@mdx-js/*` originally:
+
+{/* Note: please keep the original project names intact: */}
+
+*   [`jamesknelson/mdxc`](https://github.com/frontarm/mdx-util)
+*   [`ticky/markdown-component-loader`](https://github.com/ticky/markdown-component-loader)
+*   [`threepointone/markdown-in-js`](https://github.com/threepointone/markdown-in-js)
+*   [`fazouane-marouane/remark-jsx`](https://github.com/remarkjs/remark-jsx)
+*   [`mapbox/remark-react`](https://github.com/remarkjs/remark-react)
+*   [`rx-ts/eslint-mdx`](https://github.com/mdx-js/eslint-mdx)
+
+The following articles inspired `@mdx-js/*` originally:
+
+*   [IA Markdown Content Blocks](https://github.com/iainc/Markdown-Content-Blocks)
+*   [Idyll: Markup language for interactive documents](https://idyll-lang.org)
+
+[what]: /docs/what-is-mdx/
+
+[jsx]: https://facebook.github.io/jsx/
+
+[governance]: https://github.com/unifiedjs/collective
+
+[commonmark]: https://spec.commonmark.org/current/
+
+[confusing]: https://twitter.com/gruber/status/1246489863932821512
+
+[design]: https://github.com/mdx-js/design
+
+[evil rabbit]: https://twitter.com/evilrabbit_
+
+[vercel]: https://vercel.com
+
+[javascript]: https://tc39.es/ecma262/
+
+[mdx-rauchg]: https://spectrum.chat/frontend/general/mdx-proposal~1021be59-2738-4511-aceb-c66921050b9a
+
+[mdx-jamesknelson]: https://github.com/frontarm/mdx-util/tree/0f5f6d62bac4b83edc4bc3890dde3011079fa318
+
+[mdx-johno]: https://github.com/mdx-js/mdx/tree/a96ede2c104084ae21efa8bd95319011e558ec9d
+
+[markdown]: https://daringfireball.net/2004/03/introducing_markdown
+
+[rauchg]: https://github.com/rauchg
+
+[jamesknelson]: https://github.com/jamesknelson
+
+[johno]: https://github.com/johno
+
+[timneutkens]: https://github.com/timneutkens
+
+[jxnblk]: https://github.com/jxnblk
+
+[ticky]: https://github.com/ticky
+
+[gruber]: https://github.com/gruber
+
+[jgm]: https://github.com/jgm
+
+[sebmarkbage]: https://github.com/sebmarkbage
+
+[unified]: https://unifiedjs.com
+
+[micromark]: https://github.com/micromark/micromark
+
+[remark]: https://github.com/remarkjs/remark
+
+[rehype]: https://github.com/rehypejs/rehype
+
+[acorn]: https://github.com/acornjs/acorn
+
+[wooorm]: https://github.com/wooorm
+
+[marijnh]: https://github.com/marijnh

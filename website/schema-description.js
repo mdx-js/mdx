@@ -1,25 +1,32 @@
+/**
+ * @typedef {import('hast-util-sanitize').Schema} Schema
+ */
+
+/**
+ * @type {Readonly<Schema>}
+ */
 export const schema = {
-  strip: ['script', 'style'],
   ancestors: {},
-  protocols: {href: ['http', 'https']},
-  tagNames: [
-    'ul',
-    'ol',
-    'li',
-    'pre',
-    'code',
-    'strong',
-    'p',
-    'b',
-    'em',
-    'i',
-    'strike',
-    's',
-    'del',
-    'a'
-  ],
   attributes: {
     a: ['href'],
     '*': []
-  }
+  },
+  protocols: {href: ['http', 'https']},
+  strip: ['script', 'style'],
+  tagNames: [
+    'a',
+    'b',
+    'code',
+    'del',
+    'em',
+    'i',
+    'li',
+    'ol',
+    'p',
+    'pre',
+    's',
+    'strike',
+    'strong',
+    'ul'
+  ]
 }
