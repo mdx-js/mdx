@@ -15,6 +15,7 @@ import {MDXProvider} from '@mdx-js/react'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 import rehypeRaw from 'rehype-raw'
+import remarkGfm from 'remark-gfm'
 import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
 import {run} from './context/run.js'
@@ -1302,6 +1303,30 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
       }
     }
   )
+
+  await t.test('should support `tableCellAlignToStyle`', async function () {
+    assert.match(
+      String(
+        await compile('| a |\n| :- |', {
+          remarkPlugins: [remarkGfm],
+          tableCellAlignToStyle: true,
+          jsx: true
+        })
+      ),
+      /textAlign: "left"/
+    )
+
+    assert.match(
+      String(
+        await compile('| a |\n| :- |', {
+          remarkPlugins: [remarkGfm],
+          tableCellAlignToStyle: false,
+          jsx: true
+        })
+      ),
+      /align="left"/
+    )
+  })
 })
 
 test('@mdx-js/mdx: createProcessor', async function (t) {

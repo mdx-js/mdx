@@ -76,7 +76,9 @@ const removedOptions = [
  */
 export function createProcessor(options) {
   const {
+    SourceMapGenerator,
     development,
+    elementAttributeNameCase,
     jsx,
     format,
     outputFormat,
@@ -85,9 +87,8 @@ export function createProcessor(options) {
     rehypePlugins,
     remarkPlugins,
     remarkRehypeOptions,
-    elementAttributeNameCase,
     stylePropertyNameCase,
-    SourceMapGenerator,
+    tableCellAlignToStyle,
     ...rest
   } = options || {}
   let index = -1
@@ -136,7 +137,11 @@ export function createProcessor(options) {
   }
 
   pipeline
-    .use(rehypeRecma, {elementAttributeNameCase, stylePropertyNameCase})
+    .use(rehypeRecma, {
+      elementAttributeNameCase,
+      stylePropertyNameCase,
+      tableCellAlignToStyle
+    })
     .use(recmaDocument, {...rest, outputFormat})
     .use(recmaJsxRewrite, {
       development,

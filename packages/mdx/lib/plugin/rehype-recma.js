@@ -22,6 +22,9 @@
  *
  *   This casing is used for hast elements, not for embedded MDX JSX nodes
  *   (components that someone authored manually).
+ * @property {boolean | null | undefined} [tableCellAlignToStyle=true]
+ *   Turn obsolete `align` props on `td` and `th` into CSS `style` props
+ *   (default: `true`).
  *
  * @typedef {'css' | 'dom'} StylePropertyNameCase
  *   Casing to use for property names in `style` objects.

@@ -751,6 +751,11 @@ default: `'dom'`).
 This casing is used for hast elements, not for embedded MDX JSX nodes
 (components that someone authored manually).
 
+###### `options.tableCellAlignToStyle`
+
+Turn obsolete `align` props on `td` and `th` into CSS `style` props (default:
+`true`).
+
 ###### Returns
 
 `Promise<VFile>` — Promise that resolves to the compiled JS as a [vfile][].
