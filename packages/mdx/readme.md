@@ -108,7 +108,10 @@ function _createMdxContent(props) {
 export default function MDXContent(props = {}) {
   const {wrapper: MDXLayout} = props.components || {}
   return MDXLayout
-    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, props)}))
+    ? _jsx(MDXLayout, {
+        ...props,
+        children: _jsx(_createMdxContent, props)
+      })
     : _createMdxContent(props)
 }
 ```
@@ -558,7 +561,10 @@ compile(file, {providerImportSource: '@mdx-js/react'})
 +  }
 
    return MDXLayout
-     ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, {})}))
+     ? _jsx(MDXLayout, {
+         ...props,
+         children: _jsx(_createMdxContent, {})
+       })
      : _createMdxContent()
 ```
 
@@ -602,7 +608,10 @@ compile(file, {jsx: true})
  export default function MDXContent(props = {}) {
    const {wrapper: MDXLayout} = props.components || {}
    return MDXLayout
--    ? _jsx(MDXLayout, Object.assign({}, props, {children: _jsx(_createMdxContent, props)}))
+-    ? _jsx(MDXLayout, {
+-        ...props,
+-        children: _jsx(_createMdxContent, props)
+-      })
 +    ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout>
      : _createMdxContent(props)
  }
