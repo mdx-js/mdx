@@ -590,7 +590,13 @@ function ErrorFallback(props) {
 function DisplayError(props) {
   return (
     <pre>
-      <code>{String(props.error.stack || props.error)}</code>
+      <code>
+        {String(
+          props.error.stack
+            ? props.error.message + '\n' + props.error.stack
+            : props.error
+        )}
+      </code>
     </pre>
   )
 }
