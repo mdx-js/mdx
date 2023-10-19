@@ -41,7 +41,7 @@
   ],
   "dependencies": {
     "mdast-util-mdx": "^3.0.0",
-    "micromark-extension-mdxjs": "^2.0.0"
+    "micromark-extension-mdxjs": "^3.0.0"
   },
   "devDependencies": {},
   "scripts": {
