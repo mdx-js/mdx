@@ -20,13 +20,36 @@
 
 /**
  * @typedef Plugin
- *   A plugin that is compatible with both Rollup and Vite.
+ *   Plugin that is compatible with both Rollup and Vite.
  * @property {string} name
  *   The name of the plugin
- * @property {(config: unknown, env: { mode: string }) => undefined} config
+ * @property {ViteConfig} config
  *   A function used by Vite to set additional configuration options.
- * @property {(value: string, path: string) => Promise<SourceDescription | undefined>} transform
+ * @property {Transform} transform
  *   A function to transform the source content.
+ *
+ * @callback Transform
+ *   Callback called by Rollup and Vite to transform.
+ * @param {string} value
+ *   File contents.
+ * @param {string} path
+ *   File path.
+ * @returns {Promise<SourceDescription | undefined>}
+ *   Result.
+ *
+ * @callback ViteConfig
+ *   Callback called by Vite to set additional configuration options.
+ * @param {unknown} config
+ *   Configuration object (unused).
+ * @param {ViteEnv} env
+ *   Environment variables.
+ * @returns {undefiend}
+ *   Nothing.
+ *
+ * @typedef ViteEnv
+ *   Environment variables used by Vite.
+ * @property {string} mode
+ *   Mode.
  */
 
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
