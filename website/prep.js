@@ -75,6 +75,31 @@ await pAll(
 
 console.log('✔ %d redirects', Object.keys(redirect).length)
 
+// To do: drop Vercel.
+/** @type {Array<Readonly<Redirect>>} */
+const vercelRedirects = []
+/** @type {string} */
+let redirectFrom
+
+for (redirectFrom in redirect) {
+  if (Object.hasOwn(redirect, redirectFrom)) {
+    const source = redirectFrom.replace(/\/index.html$/, '/')
+    const destination = redirect[redirectFrom]
+    vercelRedirects.push({destination, source})
+  }
+}
+
+// To do: drop Vercel.
+/** @type {Record<string, unknown> & {redirects: ReadonlyArray<Readonly<Redirect>>}} */
+const vercelInfo = JSON.parse(String(await fs.readFile('vercel.json')))
+await fs.writeFile(
+  'vercel.json',
+  JSON.stringify({...vercelInfo, redirects: vercelRedirects}, undefined, 2) +
+    '\n'
+)
+
+console.log('✔ `vercel.json` redirects')
+
 /**
  *
  * @param {string} to

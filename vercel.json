@@ -1,0 +1,178 @@
+{
+  "public": true,
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "destination": "/community/about/",
+      "source": "/about/"
+    },
+    {
+      "destination": "/guides/",
+      "source": "/advanced/"
+    },
+    {
+      "destination": "/packages/mdx/#api",
+      "source": "/advanced/api/"
+    },
+    {
+      "destination": "/packages/remark-mdx/#syntax-tree",
+      "source": "/advanced/ast/"
+    },
+    {
+      "destination": "/docs/using-mdx/",
+      "source": "/advanced/components/"
+    },
+    {
+      "destination": "/community/contribute/",
+      "source": "/advanced/contributing/"
+    },
+    {
+      "destination": "/guides/frontmatter/",
+      "source": "/advanced/custom-loader/"
+    },
+    {
+      "destination": "/docs/extending-mdx/#using-plugins",
+      "source": "/advanced/retext-plugins/"
+    },
+    {
+      "destination": "/docs/extending-mdx/",
+      "source": "/advanced/plugins/"
+    },
+    {
+      "destination": "/packages/mdx/#evaluatefile-options",
+      "source": "/advanced/runtime/"
+    },
+    {
+      "destination": "/packages/remark-mdx/#syntax-tree",
+      "source": "/advanced/specification/"
+    },
+    {
+      "destination": "/packages/mdx/#api",
+      "source": "/advanced/sync-api/"
+    },
+    {
+      "destination": "/packages/remark-mdx/",
+      "source": "/advanced/transform-content/"
+    },
+    {
+      "destination": "/docs/getting-started/#types",
+      "source": "/advanced/typescript/"
+    },
+    {
+      "destination": "/guides/frontmatter/",
+      "source": "/advanced/writing-a-plugin/"
+    },
+    {
+      "destination": "/community/contribute/",
+      "source": "/contributing/"
+    },
+    {
+      "destination": "/docs/getting-started/#editor",
+      "source": "/editor-plugins/"
+    },
+    {
+      "destination": "/docs/getting-started/#editor",
+      "source": "/editors/"
+    },
+    {
+      "destination": "/docs/getting-started/#create-react-app-cra",
+      "source": "/getting-started/create-react-app/"
+    },
+    {
+      "destination": "/docs/getting-started/#gatsby",
+      "source": "/getting-started/gatsby/"
+    },
+    {
+      "destination": "/docs/getting-started/#nextjs",
+      "source": "/getting-started/next/"
+    },
+    {
+      "destination": "/docs/getting-started/#parcel",
+      "source": "/getting-started/parcel/"
+    },
+    {
+      "destination": "/docs/getting-started/#react-static",
+      "source": "/getting-started/react-static/"
+    },
+    {
+      "destination": "/table-of-components/",
+      "source": "/getting-started/table-of-components/"
+    },
+    {
+      "destination": "/docs/getting-started/#types",
+      "source": "/getting-started/typescript/"
+    },
+    {
+      "destination": "/docs/getting-started/#webpack",
+      "source": "/getting-started/webpack/"
+    },
+    {
+      "destination": "/docs/getting-started/",
+      "source": "/getting-started/"
+    },
+    {
+      "destination": "/guides/frontmatter/",
+      "source": "/guides/custom-loader/"
+    },
+    {
+      "destination": "/guides/syntax-highlighting/#syntax-highlighting-with-the-meta-field",
+      "source": "/guides/live-code/"
+    },
+    {
+      "destination": "/docs/what-is-mdx/",
+      "source": "/guides/markdown-in-components/"
+    },
+    {
+      "destination": "/guides/math/",
+      "source": "/guides/math-blocks/"
+    },
+    {
+      "destination": "/guides/embed/#embeds-at-run-time",
+      "source": "/guides/mdx-embed/"
+    },
+    {
+      "destination": "/docs/extending-mdx/",
+      "source": "/guides/table-of-contents/"
+    },
+    {
+      "destination": "/docs/getting-started/#ink",
+      "source": "/guides/terminal/"
+    },
+    {
+      "destination": "/docs/getting-started/#vue",
+      "source": "/guides/vue/"
+    },
+    {
+      "destination": "/docs/using-mdx/#layout",
+      "source": "/guides/wrapper-customization/"
+    },
+    {
+      "destination": "/docs/extending-mdx/#creating-plugins",
+      "source": "/guides/writing-a-plugin/"
+    },
+    {
+      "destination": "/docs/what-is-mdx/",
+      "source": "/mdx/"
+    },
+    {
+      "destination": "/docs/extending-mdx/#using-plugins",
+      "source": "/plugins/"
+    },
+    {
+      "destination": "/community/projects/",
+      "source": "/projects/"
+    },
+    {
+      "destination": "/community/support/",
+      "source": "/support/"
+    },
+    {
+      "destination": "/docs/getting-started/#syntax",
+      "source": "/syntax/"
+    },
+    {
+      "destination": "/docs/getting-started/#vue",
+      "source": "/vue/"
+    }
+  ]
+}
