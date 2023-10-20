@@ -120,7 +120,6 @@
     "build": "tsc --build --clean && tsc --build && type-coverage",
     "docs": "npm run docs-prep && npm run docs-generate && npm run docs-post",
     "docs-css": "postcss --output public/index.css docs/_asset/index.css",
-    "docs-deploy": "vercel && vercel alias $(pbpaste) mdxjs.com && vercel alias $(pbpaste) www.mdxjs.com",
     "docs-generate": "cross-env NODE_LOADER_CONFIG=website/loader.js node --no-warnings --loader @node-loader/core website/generate.js",
     "docs-js": "npm run docs-js-default && npm run docs-js-editor",
     "docs-js-default": "esbuild --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/index.js --target=es2020 docs/_asset/index.js",
