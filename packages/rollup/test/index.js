@@ -60,7 +60,7 @@ test('@mdx-js/rollup', async function (t) {
   })
 
   await t.test('vite production', async () => {
-    const result = /** @type {RollupOutput[]} */ (
+    const result = /** @type {Array<RollupOutput>} */ (
       await build({
         plugins: [rollupMdx()],
         build: {
@@ -78,7 +78,7 @@ test('@mdx-js/rollup', async function (t) {
   })
 
   await t.test('vite development', async () => {
-    const result = /** @type {RollupOutput[]} */ (
+    const result = /** @type {Array<RollupOutput>} */ (
       await build({
         mode: 'development',
         plugins: [rollupMdx()],
