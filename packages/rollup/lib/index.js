@@ -43,7 +43,7 @@
  *   Configuration object (unused).
  * @param {ViteEnv} env
  *   Environment variables.
- * @returns {undefiend}
+ * @returns {undefined}
  *   Nothing.
  *
  * @typedef ViteEnv
