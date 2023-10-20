@@ -1,5 +1,6 @@
 /**
  * @typedef {import('mdx/types.js').MDXModule} MDXModule
+ * @typedef {import('rollup').RollupOutput} RollupOutput
  */
 
 import assert from 'node:assert/strict'
@@ -10,6 +11,7 @@ import rollupMdx from '@mdx-js/rollup'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 import {rollup} from 'rollup'
+import {build} from 'vite'
 
 test('@mdx-js/rollup', async function (t) {
   await t.test('should expose the public api', async function () {
@@ -55,5 +57,42 @@ test('@mdx-js/rollup', async function (t) {
 
     await fs.rm(mdxUrl)
     await fs.rm(jsUrl)
+  })
+
+  await t.test('vite production', async () => {
+    const result = /** @type {RollupOutput[]} */ (
+      await build({
+        plugins: [rollupMdx()],
+        build: {
+          write: false,
+          rollupOptions: {external: [/node_modules/]},
+          lib: {
+            entry: fileURLToPath(new URL('vite-entry.mdx', import.meta.url)),
+            name: 'production'
+          }
+        }
+      })
+    )
+
+    assert.match(result[0].output[0].code, /react\/jsx-runtime/)
+  })
+
+  await t.test('vite development', async () => {
+    const result = /** @type {RollupOutput[]} */ (
+      await build({
+        mode: 'development',
+        plugins: [rollupMdx()],
+        build: {
+          write: false,
+          rollupOptions: {external: [/node_modules/]},
+          lib: {
+            entry: fileURLToPath(new URL('vite-entry.mdx', import.meta.url)),
+            name: 'production'
+          }
+        }
+      })
+    )
+
+    assert.match(result[0].output[0].code, /react\/jsx-dev-runtime/)
   })
 })

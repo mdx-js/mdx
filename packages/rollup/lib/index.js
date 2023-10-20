@@ -1,6 +1,5 @@
 /**
  * @typedef {import('@rollup/pluginutils').FilterPattern} FilterPattern
- * @typedef {import('rollup').Plugin<unknown>} Plugin
  * @typedef {import('rollup').SourceDescription} SourceDescription
  */
 
@@ -19,6 +18,17 @@
  *   Configuration.
  */
 
+/**
+ * @typedef Plugin
+ *   A plugin that is compatible with both Rollup and Vite.
+ * @property {string} name
+ *   The name of the plugin
+ * @property {(config: unknown, env: { mode: string }) => undefined} config
+ *   A function used by Vite to set additional configuration options.
+ * @property {(value: string, path: string) => Promise<SourceDescription | undefined>} transform
+ *   A function to transform the source content.
+ */
+
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
 import {createFilter} from '@rollup/pluginutils'
 import {SourceMapGenerator} from 'source-map'
@@ -34,23 +44,35 @@ import {VFile} from 'vfile'
  */
 export function rollup(options) {
   const {exclude, include, ...rest} = options || {}
-  const {extnames, process} = createFormatAwareProcessors({
-    SourceMapGenerator,
-    ...rest
-  })
+  /** @type {ReturnType<typeof createFormatAwareProcessors>} */
+  let formatAwareProcessors
   const filter = createFilter(include, exclude)
 
   return {
     name: '@mdx-js/rollup',
+    config(config, env) {
+      formatAwareProcessors = createFormatAwareProcessors({
+        SourceMapGenerator,
+        development: env.mode === 'development',
+        ...rest
+      })
+    },
     async transform(value, path) {
+      if (!formatAwareProcessors) {
+        formatAwareProcessors = createFormatAwareProcessors({
+          SourceMapGenerator,
+          ...rest
+        })
+      }
+
       const file = new VFile({path, value})
 
       if (
         file.extname &&
         filter(file.path) &&
-        extnames.includes(file.extname)
+        formatAwareProcessors.extnames.includes(file.extname)
       ) {
-        const compiled = await process(file)
+        const compiled = await formatAwareProcessors.process(file)
         const code = String(compiled.value)
         /** @type {SourceDescription} */
         const result = {
