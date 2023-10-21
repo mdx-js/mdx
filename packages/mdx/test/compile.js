@@ -25,7 +25,7 @@ test('@mdx-js/mdx: compile', async function (t) {
     assert.throws(function () {
       // @ts-expect-error: check how the runtime handles a removed option.
       compile('# hi!', {filepath: 'example.mdx'})
-    }, /`options.filepath` is no longer supported/)
+    }, /Unexpected removed option `filepath`/)
   })
 
   await t.test('should compile', async function () {
@@ -1396,6 +1396,6 @@ test('@mdx-js/mdx: createProcessor', async function (t) {
     assert.throws(function () {
       // @ts-expect-error: check how runtime handles an incorrect `format: 'detect'`.
       createProcessor({format: 'detect'})
-    }, new Error("Incorrect `format: 'detect'`: `createProcessor` can support either `md` or `mdx`; it does not support detecting the format"))
+    }, /Unexpected `format: 'detect'`/)
   })
 })

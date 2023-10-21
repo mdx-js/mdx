@@ -125,6 +125,7 @@
  *   you should probably set `baseUrl` too.
  */
 
+import {unreachable} from 'devlop'
 import remarkMdx from 'remark-mdx'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
@@ -158,85 +159,60 @@ const removedOptions = [
  *   Processor.
  */
 export function createProcessor(options) {
-  const {
-    SourceMapGenerator,
-    development,
-    elementAttributeNameCase,
-    jsx,
-    format,
-    outputFormat,
-    providerImportSource,
-    recmaPlugins,
-    rehypePlugins,
-    remarkPlugins,
-    remarkRehypeOptions,
-    stylePropertyNameCase,
-    tableCellAlignToStyle,
-    ...rest
-  } = options || {}
+  const settings = options || {}
   let index = -1
 
   while (++index < removedOptions.length) {
     const key = removedOptions[index]
-    if (options && key in options) {
-      throw new Error(
-        '`options.' +
+    if (key in settings) {
+      unreachable(
+        'Unexpected removed option `' +
           key +
-          '` is no longer supported. Please see <https://mdxjs.com/migrating/v2/> for more information'
+          '`; see <https://mdxjs.com/migrating/v2/> on how to migrate'
       )
     }
   }
 
   // @ts-expect-error: throw an error for a runtime value which is not allowed
   // by the types.
-  if (format === 'detect') {
-    throw new Error(
-      "Incorrect `format: 'detect'`: `createProcessor` can support either `md` or `mdx`; it does not support detecting the format"
+  if (settings.format === 'detect') {
+    unreachable(
+      "Unexpected `format: 'detect'`, which is not supported by `createProcessor`, expected `'mdx'` or `'md'`"
     )
   }
 
   const pipeline = unified().use(remarkParse)
 
-  if (format !== 'md') {
+  if (settings.format !== 'md') {
     pipeline.use(remarkMdx)
   }
 
-  const extraNodeTypes = remarkRehypeOptions
-    ? remarkRehypeOptions.passThrough || []
-    : []
+  const remarkRehypeOptions = settings.remarkRehypeOptions || {}
 
   pipeline
     .use(remarkMarkAndUnravel)
-    .use(remarkPlugins || [])
+    .use(settings.remarkPlugins || [])
     .use(remarkRehype, {
       ...remarkRehypeOptions,
       allowDangerousHtml: true,
-      passThrough: [...extraNodeTypes, ...nodeTypes]
+      passThrough: [...(remarkRehypeOptions.passThrough || []), ...nodeTypes]
     })
-    .use(rehypePlugins || [])
+    .use(settings.rehypePlugins || [])
 
-  if (format === 'md') {
+  if (settings.format === 'md') {
     pipeline.use(rehypeRemoveRaw)
   }
 
   pipeline
-    .use(rehypeRecma, {
-      elementAttributeNameCase,
-      stylePropertyNameCase,
-      tableCellAlignToStyle
-    })
-    .use(recmaDocument, {...rest, outputFormat})
-    .use(recmaJsxRewrite, {
-      development,
-      providerImportSource,
-      outputFormat
-    })
+    .use(rehypeRecma, settings)
+    .use(recmaDocument, settings)
+    .use(recmaJsxRewrite, settings)
 
-  if (!jsx) {
-    pipeline.use(recmaJsxBuild, {development, outputFormat})
+  if (!settings.jsx) {
+    pipeline.use(recmaJsxBuild, settings)
   }
 
-  pipeline.use(recmaStringify, {SourceMapGenerator}).use(recmaPlugins || [])
+  pipeline.use(recmaStringify, settings).use(settings.recmaPlugins || [])
 
   // @ts-expect-error: we added plugins with if-checks, which TS doesn’t get.
   return pipeline
