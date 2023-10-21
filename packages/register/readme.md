@@ -124,6 +124,16 @@ That means `import` (and `export … from`) are not supported when requiring
 This package is not typed as [TypeScript][] seems to not support `.cjs` files
 yet.
 
+## Compatibility
+
+Projects maintained by the unified collective are compatible with maintained
+versions of Node.js.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `@mdx-js/register@^2`,
+compatible with Node.js 12.
+
 ## Security
 
 See [§ Security][security] on our website for information.

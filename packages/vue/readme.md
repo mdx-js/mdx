@@ -141,6 +141,16 @@ For types to work, make sure the TypeScript `JSX` namespace is typed.
 This is done by installing and using the types of your framework, as in
 [`vue`](https://github.com/vuejs/core).
 
+## Compatibility
+
+Projects maintained by the unified collective are compatible with maintained
+versions of Node.js.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `@mdx-js/vue@^2`,
+compatible with Node.js 12.
+
 ## Security
 
 See [§ Security][security] on our website for information.

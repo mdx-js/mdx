@@ -1142,6 +1142,16 @@ Finally, The output is serialized JavaScript.
 That final step is done by [astring][], a
 small and fast JS generator.
 
+## Compatibility
+
+Projects maintained by the unified collective are compatible with maintained
+versions of Node.js.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `@mdx-js/mdx@^2`,
+compatible with Node.js 12.
+
 ## Security
 
 See [§ Security][security] on our website for information.
