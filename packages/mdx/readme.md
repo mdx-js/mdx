@@ -520,8 +520,7 @@ Configuration for `createProcessor` (TypeScript type).
     import {Fragment as _Fragment, jsx as _jsx} from 'react/jsx-runtime'
     export {number} from 'https://a.full/data.js'
     function _createMdxContent(props) { /* … */ }
-    function MDXContent(props = {}) { /* … */ }
-    export default MDXContent
+    export default function MDXContent(props = {}) { /* … */ }
     ```
 
     </details>

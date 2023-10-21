@@ -656,7 +656,7 @@ test('@mdx-js/mdx: syntax: MDX (JSX)', async function (t) {
         '    })',
         '  });',
         '}',
-        'function MDXContent(props = {}) {',
+        'export default function MDXContent(props = {}) {',
         '  const {wrapper: MDXLayout} = props.components || ({});',
         '  return MDXLayout ? _jsx(MDXLayout, {',
         '    ...props,',
@@ -665,7 +665,6 @@ test('@mdx-js/mdx: syntax: MDX (JSX)', async function (t) {
         '    })',
         '  }) : _createMdxContent(props);',
         '}',
-        'export default MDXContent;',
         ''
       ].join('\n')
     )
@@ -880,7 +879,7 @@ test('@mdx-js/mdx: syntax: MDX (ESM)', async function (t) {
         '    columnNumber: 1',
         '  }, this);',
         '}',
-        'function MDXContent(props = {}) {',
+        'export default function MDXContent(props = {}) {',
         '  const {wrapper: MDXLayout} = props.components || ({});',
         '  return MDXLayout ? _jsxDEV(MDXLayout, {',
         '    ...props,',
@@ -893,7 +892,6 @@ test('@mdx-js/mdx: syntax: MDX (ESM)', async function (t) {
         '    fileName: "path/to/file.js"',
         '  }, this) : _createMdxContent(props);',
         '}',
-        'export default MDXContent;',
         'function _missingMdxReference(id, component, place) {',
         '  throw new Error("Expected " + (component ? "component" : "object") + " `" + id + "` to be defined: you likely forgot to import, pass, or provide it." + (place ? "\\nIt’s referenced in your code at `" + place + "` in `path/to/file.js`" : ""));',
         '}',

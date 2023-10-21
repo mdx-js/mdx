@@ -1058,11 +1058,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
         '  };',
         '  return <_components.p><_components.em>{"a"}</_components.em></_components.p>;',
         '}',
-        'function MDXContent(props = {}) {',
+        'export default function MDXContent(props = {}) {',
         '  const {wrapper: MDXLayout} = props.components || ({});',
         '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
         '}',
-        'export default MDXContent;',
         ''
       ].join('\n')
     )
@@ -1076,11 +1075,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
         'function _createMdxContent(props) {',
         '  return <a {...b} c d="1" e={1} />;',
         '}',
-        'function MDXContent(props = {}) {',
+        'export default function MDXContent(props = {}) {',
         '  const {wrapper: MDXLayout} = props.components || ({});',
         '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
         '}',
-        'export default MDXContent;',
         ''
       ].join('\n')
     )
@@ -1099,11 +1097,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
           '  if (!c.d) _missingMdxReference("c.d", true);',
           '  return <><><a:b /><c.d /></></>;',
           '}',
-          'function MDXContent(props = {}) {',
+          'export default function MDXContent(props = {}) {',
           '  const {wrapper: MDXLayout} = props.components || ({});',
           '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
           '}',
-          'export default MDXContent;',
           'function _missingMdxReference(id, component) {',
           '  throw new Error("Expected " + (component ? "component" : "object") + " `" + id + "` to be defined: you likely forgot to import, pass, or provide it.");',
           '}',
@@ -1122,11 +1119,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
         'function _createMdxContent(props) {',
         '  return <><>{"a "}{}{" b"}</></>;',
         '}',
-        'function MDXContent(props = {}) {',
+        'export default function MDXContent(props = {}) {',
         '  const {wrapper: MDXLayout} = props.components || ({});',
         '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
         '}',
-        'export default MDXContent;',
         ''
       ].join('\n')
     )
@@ -1146,11 +1142,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
           '  }, _component0 = _components["a-b"];',
           '  return <>{<_component0></_component0>}</>;',
           '}',
-          'function MDXContent(props = {}) {',
+          'export default function MDXContent(props = {}) {',
           '  const {wrapper: MDXLayout} = props.components || ({});',
           '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
           '}',
-          'export default MDXContent;',
           ''
         ].join('\n')
       )
@@ -1169,11 +1164,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
         '  };',
         '  return <_components.p>{"Hello "}{props.name}</_components.p>;',
         '}',
-        'function MDXContent(props = {}) {',
+        'export default function MDXContent(props = {}) {',
         '  const {wrapper: MDXLayout} = props.components || ({});',
         '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
         '}',
-        'export default MDXContent;',
         ''
       ].join('\n')
     )
@@ -1201,10 +1195,9 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
           '  };',
           '  return <_components.p>{"a"}</_components.p>;',
           '}',
-          'function MDXContent(props = {}) {',
+          'export default function MDXContent(props = {}) {',
           '  return <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout>;',
           '}',
-          'export default MDXContent;',
           ''
         ].join('\n')
       )
@@ -1232,15 +1225,13 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
           '  };',
           '  return <_components.p>{"a"}</_components.p>;',
           '}',
-          'function MDXContent(props = {}) {',
+          'export default function MDXContent(props = {}) {',
           '  const {wrapper: MDXLayout} = {',
           '    ..._provideComponents(),',
           '    ...props.components',
           '  };',
           '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
-
           '}',
-          'export default MDXContent;',
           ''
         ].join('\n')
       )

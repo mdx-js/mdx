@@ -241,7 +241,9 @@ export function recmaDocument(options) {
           child.expression.type === 'JSXFragment')
       ) {
         content = true
-        replacement.push(...createMdxContent(child.expression, Boolean(layout)))
+        replacement.push(
+          ...createMdxContent(child.expression, outputFormat, Boolean(layout))
+        )
       } else {
         // This catch-all branch is because plugins might add other things.
         // Normally, we only have import/export/jsx, but just add whatever’s
@@ -252,7 +254,9 @@ export function recmaDocument(options) {
 
     // If there was no JSX content at all, add an empty function.
     if (!content) {
-      replacement.push(...createMdxContent(undefined, Boolean(layout)))
+      replacement.push(
+        ...createMdxContent(undefined, outputFormat, Boolean(layout))
+      )
     }
 
     exportedIdentifiers.push(['MDXContent', 'default'])
@@ -304,11 +308,6 @@ export function recmaDocument(options) {
             })
           ]
         }
-      })
-    } else {
-      replacement.push({
-        type: 'ExportDefaultDeclaration',
-        declaration: {type: 'Identifier', name: 'MDXContent'}
       })
     }
 
@@ -497,14 +496,16 @@ export function recmaDocument(options) {
   }
 
   /**
-   * @param {Readonly<Expression> | undefined} [content]
+   * @param {Readonly<Expression> | undefined} content
    *   Content.
+   * @param {'function-body' | 'program'} outputFormat
+   *   Output format.
    * @param {boolean | undefined} [hasInternalLayout=false]
    *   Whether there’s an internal layout (default: `false`).
-   * @returns {Array<FunctionDeclaration>}
+   * @returns {Array<ExportDefaultDeclaration | FunctionDeclaration>}
    *   Functions.
    */
-  function createMdxContent(content, hasInternalLayout) {
+  function createMdxContent(content, outputFormat, hasInternalLayout) {
     /** @type {JSXElement} */
     const element = {
       type: 'JSXElement',
@@ -597,6 +598,23 @@ export function recmaDocument(options) {
       }
     })
 
+    /** @type {FunctionDeclaration} */
+    const declaration = {
+      type: 'FunctionDeclaration',
+      id: {type: 'Identifier', name: 'MDXContent'},
+      params: [
+        {
+          type: 'AssignmentPattern',
+          left: {type: 'Identifier', name: 'props'},
+          right: {type: 'ObjectExpression', properties: []}
+        }
+      ],
+      body: {
+        type: 'BlockStatement',
+        body: [{type: 'ReturnStatement', argument: result}]
+      }
+    }
+
     return [
       {
         type: 'FunctionDeclaration',
@@ -615,21 +633,9 @@ export function recmaDocument(options) {
           ]
         }
       },
-      {
-        type: 'FunctionDeclaration',
-        id: {type: 'Identifier', name: 'MDXContent'},
-        params: [
-          {
-            type: 'AssignmentPattern',
-            left: {type: 'Identifier', name: 'props'},
-            right: {type: 'ObjectExpression', properties: []}
-          }
-        ],
-        body: {
-          type: 'BlockStatement',
-          body: [{type: 'ReturnStatement', argument: result}]
-        }
-      }
+      outputFormat === 'program'
+        ? {type: 'ExportDefaultDeclaration', declaration}
+        : declaration
     ]
   }
 }
