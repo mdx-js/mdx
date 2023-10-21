@@ -62,37 +62,43 @@ test('@mdx-js/rollup', async function (t) {
   await t.test('vite production', async () => {
     const result = /** @type {Array<RollupOutput>} */ (
       await build({
-        plugins: [rollupMdx()],
         build: {
-          write: false,
-          rollupOptions: {external: [/node_modules/]},
           lib: {
             entry: fileURLToPath(new URL('vite-entry.mdx', import.meta.url)),
             name: 'production'
-          }
-        }
+          },
+          write: false
+        },
+        logLevel: 'silent',
+        plugins: [rollupMdx()]
       })
     )
 
-    assert.match(result[0].output[0].code, /react\/jsx-runtime/)
+    const code = result[0].output[0].code
+
+    assert.match(code, /jsxs?\(/)
+    assert.doesNotMatch(code, /jsxDEV\(/)
   })
 
   await t.test('vite development', async () => {
     const result = /** @type {Array<RollupOutput>} */ (
       await build({
-        mode: 'development',
-        plugins: [rollupMdx()],
         build: {
-          write: false,
-          rollupOptions: {external: [/node_modules/]},
           lib: {
             entry: fileURLToPath(new URL('vite-entry.mdx', import.meta.url)),
             name: 'production'
-          }
-        }
+          },
+          write: false
+        },
+        logLevel: 'silent',
+        mode: 'development',
+        plugins: [rollupMdx()]
       })
     )
 
-    assert.match(result[0].output[0].code, /react\/jsx-dev-runtime/)
+    const code = result[0].output[0].code
+
+    assert.doesNotMatch(code, /jsxs?\(/)
+    assert.match(code, /jsxDEV\(/)
   })
 })
