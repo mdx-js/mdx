@@ -360,6 +360,18 @@ test('@mdx-js/mdx: evaluate', async function (t) {
     }
   )
 
+  await t.test(
+    'should support rewriting `import.meta.url` w/ `baseUrl` as an URL',
+    async function () {
+      const mod = await evaluate(
+        'export const x = new URL("example.png", import.meta.url).href',
+        {baseUrl: new URL('https://example.com'), ...runtime}
+      )
+
+      assert.equal(mod.x, 'https://example.com/example.png')
+    }
+  )
+
   await t.test('should throw on an export all from', async function () {
     try {
       await evaluate('export * from "a"', runtime)

@@ -46,7 +46,8 @@ import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declar
  *   Transform.
  */
 export function recmaDocument(options) {
-  const baseUrl = options.baseUrl || undefined
+  const baseUrl_ = options.baseUrl || undefined
+  const baseUrl = typeof baseUrl_ === 'object' ? baseUrl_.href : baseUrl_
   const useDynamicImport = options.useDynamicImport || undefined
   const outputFormat = options.outputFormat || 'program'
   const pragma =

@@ -493,7 +493,7 @@ Configuration for `createProcessor` (TypeScript type).
     ```
 
     </details>
-*   `baseUrl` (`string`, optional, example: `import.meta.url`)
+*   `baseUrl` (`URL` or `string`, optional, example: `import.meta.url`)
     — resolve `import`s (and `export … from`, and `import.meta.url`) from this
     URL;
     this option is useful when code will run in a different place, such as when

@@ -15,7 +15,7 @@
  * @property {SourceMapGenerator | null | undefined} [SourceMapGenerator]
  *   Add a source map (object form) as the `map` field on the resulting file
  *   (optional).
- * @property {string | null | undefined} [baseUrl]
+ * @property {URL | string | null | undefined} [baseUrl]
  *   Resolve `import`s (and `export … from`, and `import.meta.url`) from this
  *   URL (optional, example: `import.meta.url`);
  *   this option is useful when code will run in a different place, such as
