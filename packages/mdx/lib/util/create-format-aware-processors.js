@@ -14,21 +14,12 @@
  *   Extensions to use.
  * @property {Process} process
  *   Smart processor, async.
- * @property {ProcessSync} processSync
- *   Smart processor, sync.
  *
  * @callback Process
- *   Smart processor, async.
+ *   Smart processor.
  * @param {Compatible} vfileCompatible
  *   MDX or markdown document.
  * @return {Promise<VFile>}
- *   File.
- *
- * @callback ProcessSync
- *   Smart processor, sync.
- * @param {Compatible} vfileCompatible
- *   MDX or markdown document.
- * @return {VFile}
  *   File.
  */
 
@@ -60,8 +51,7 @@ export function createFormatAwareProcessors(compileOptions) {
         : compileOptions_.format === 'mdx'
         ? mdxExtensions
         : [...mdExtensions, ...mdxExtensions],
-    process,
-    processSync
+    process
   }
 
   /**
@@ -72,16 +62,6 @@ export function createFormatAwareProcessors(compileOptions) {
   function process(vfileCompatible) {
     const {file, processor} = split(vfileCompatible)
     return processor.process(file)
-  }
-
-  /**
-   * Sync smart processor.
-   *
-   * @type {ProcessSync}
-   */
-  function processSync(vfileCompatible) {
-    const {file, processor} = split(vfileCompatible)
-    return processor.processSync(file)
   }
 
   /**
