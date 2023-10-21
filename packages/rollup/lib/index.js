@@ -1,32 +1,32 @@
 /**
+ * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
+ * @typedef {import('@mdx-js/mdx/internal-create-format-aware-processors').FormatAwareProcessors} FormatAwareProcessors
  * @typedef {import('@rollup/pluginutils').FilterPattern} FilterPattern
  * @typedef {import('rollup').SourceDescription} SourceDescription
  */
 
 /**
- * @typedef {Omit<import('@mdx-js/mdx').CompileOptions, 'SourceMapGenerator'>} CompileOptions
- *   Default configuration.
+ * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} ApplicableOptions
+ *   Applicable compile configuration.
  *
- * @typedef RollupPluginOptions
+ * @typedef ExtraOptions
  *   Extra configuration.
- * @property {FilterPattern | null | undefined} [include]
- *   List of picomatch patterns to include (optional).
  * @property {FilterPattern | null | undefined} [exclude]
- *   List of picomatch patterns to exclude (optional).
+ *   Picomatch patterns to exclude (optional).
+ * @property {FilterPattern | null | undefined} [include]
+ *   Picomatch patterns to include (optional).
  *
- * @typedef {CompileOptions & RollupPluginOptions} Options
+ * @typedef {ApplicableOptions & ExtraOptions} Options
  *   Configuration.
- */
-
-/**
+ *
  * @typedef Plugin
  *   Plugin that is compatible with both Rollup and Vite.
  * @property {string} name
  *   The name of the plugin
  * @property {ViteConfig} config
- *   A function used by Vite to set additional configuration options.
+ *   Function used by Vite to set additional configuration options.
  * @property {Transform} transform
- *   A function to transform the source content.
+ *   Function to transform the source content.
  *
  * @callback Transform
  *   Callback called by Rollup and Vite to transform.
@@ -58,7 +58,7 @@ import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
 
 /**
- * Compile MDX w/ rollup.
+ * Plugin to compile MDX w/ rollup.
  *
  * @param {Readonly<Options> | null | undefined} [options]
  *   Configuration (optional).
@@ -67,7 +67,7 @@ import {VFile} from 'vfile'
  */
 export function rollup(options) {
   const {exclude, include, ...rest} = options || {}
-  /** @type {ReturnType<typeof createFormatAwareProcessors>} */
+  /** @type {FormatAwareProcessors} */
   let formatAwareProcessors
   const filter = createFilter(include, exclude)
 

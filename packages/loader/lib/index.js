@@ -8,10 +8,13 @@
  */
 
 /**
- * @typedef {Pick<CompileOptions, 'SourceMapGenerator'>} Defaults
- *   Defaults.
- * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} Options
- *   Configuration.
+ * @typedef {Omit<CompileOptions, 'SourceMapGenerator' | 'development'>} Options
+ *   Configuration (TypeScript type).
+ *
+ *   Options are the same as `compile` from `@mdx-js/mdx` with the exception
+ *   that the `SourceMapGenerator` and `development` options are supported
+ *   based on how you configure webpack.
+ *   You cannot pass them manually.
  *
  * @callback Process
  *   Process.
@@ -48,14 +51,13 @@ const cache = new WeakMap()
  *   Nothing.
  */
 export function loader(value, callback) {
-  /** @type {Defaults} */
-  const defaults = this.sourceMap ? {SourceMapGenerator} : {}
-  const options = {
-    development: this.mode === 'development',
-    .../** @type {CompileOptions} */ (this.getOptions())
-  }
-  const config = {...defaults, ...options}
+  const options = /** @type {CompileOptions} */ (this.getOptions())
   const hash = getOptionsHash(options)
+  const config = {
+    SourceMapGenerator: this.sourceMap ? SourceMapGenerator : undefined,
+    development: this.mode === 'development',
+    ...options
+  }
   /* c8 ignore next -- some loaders set `undefined` (see `TypeStrong/ts-loader`). */
   const compiler = this._compiler || marker
 

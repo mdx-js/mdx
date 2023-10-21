@@ -2,6 +2,9 @@
  * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
  */
 
+// @ts-expect-error: TS complains about CJS importing ESM but it works.
+/** @typedef {import('./lib/index.js').Options} Options */
+
 'use strict'
 
 /**

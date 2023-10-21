@@ -28,29 +28,36 @@ Vue context for MDX.
 
 ## What is this?
 
-This package is a context based components provider for combining Vue with MDX.
+This package is a *context* based components provider for combining Vue with
+MDX.
 
 ## When should I use this?
 
-This package is not needed for MDX to work with Vue.
+This package is **not needed** for MDX to work with Vue.
 See [¶ MDX provider in § Using MDX][use-provider] for when and how to use an MDX
 provider.
 
 ## Install
 
-This package is [ESM only][esm]:
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install @mdx-js/vue
 ```
 
-[yarn][]:
+In Deno with [`esm.sh`][esmsh]:
 
-```sh
-yarn add @mdx-js/vue
+```tsx
+import {MDXProvider} from 'https://esm.sh/@mdx-js/vue@2'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import {MDXProvider} from 'https://esm.sh/@mdx-js/vue@2?bundle'
+</script>
 ```
 
 ## Use
@@ -73,19 +80,19 @@ createApp({
 })
 ```
 
-Note that you don’t have to use `MDXProvider` and can pass components
-directly:
-
-```diff
--createApp({
--  data() {
--    return {components: {h1: 'h2'}}
--  },
--  template: '<MDXProvider v-bind:components="components"><Post /></MDXProvider>',
--  components: {MDXProvider, Post}
--})
-+createApp(Post, {components})
-```
+> 👉 **Note**: you don’t have to use `MDXProvider` and can pass components
+> directly:
+>
+> ```diff
+> -createApp({
+> -  data() {
+> -    return {components: {h1: 'h2'}}
+> -  },
+> -  template: '<MDXProvider v-bind:components="components"><Post /></MDXProvider>',
+> -  components: {MDXProvider, Post}
+> -})
+> +createApp(Post, {components: {h1: 'h2'}})
+> ```
 
 See [¶ Vue in § Getting started][start-vue] for how to get started with MDX and
 Vue.
@@ -94,38 +101,45 @@ provider.
 
 ## API
 
-This package exports the following identifiers: `MDXProvider` and
-`useMDXComponents`.
+This package exports the identifiers [`MDXProvider`][api-mdx-provider] and
+[`useMDXComponents`][api-use-mdx-components].
 There is no default export.
 
 ### `MDXProvider(props?)`
 
-Provider for MDX context.
+Provider for MDX context (`Component` from `vue`).
 
-##### `props`
-
-Configuration (`Object`, optional).
-
-###### `props.components`
-
-Mapping of names for JSX components to Vue components
-(`Record<string, string | Component | Components>`, optional).
-
-##### Returns
-
-Fragment (with the default slot if given).
-
-### `useMDXComponents()`
+### `useMDXComponents(components?)`
 
 Get current components from the MDX Context.
 
+###### Parameters
+
+There are no parameters.
+
 ###### Returns
 
-`Components`.
+Current components ([`MDXComponents` from
+`mdx/types.js`][mdx-types-components]).
+
+### `Props`
+
+Configuration for `MDXProvider` (TypeScript type).
+
+###### Fields
+
+*   `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components],
+    optional)
+    — additional components to use
 
 ## Types
 
 This package is fully typed with [TypeScript][].
+It exports the additional type [`Props`][api-props].
+
+For types to work, make sure the TypeScript `JSX` namespace is typed.
+This is done by installing and using the types of your framework, as in
+[`vue`](https://github.com/vuejs/core).
 
 ## Security
 
@@ -156,9 +170,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/@mdx-js/vue
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/@mdx-js/vue.svg
+[size-badge]: https://img.shields.io/bundlejs/size/@mdx-js/vue
 
-[size]: https://bundlephobia.com/result?p=@mdx-js/vue
+[size]: https://bundlejs.com/?q=@mdx-js/vue
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -184,12 +198,22 @@ abide by its terms.
 
 [vercel]: https://vercel.com
 
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-
 [start-vue]: https://mdxjs.com/getting-started/#vue
 
 [use-provider]: https://mdxjs.com/docs/using-mdx/#mdx-provider
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
 [security]: https://mdxjs.com/getting-started/#security
 
 [typescript]: https://www.typescriptlang.org
+
+[mdx-types-components]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L65
+
+[api-mdx-provider]: #mdxproviderprops
+
+[api-props]: #props
+
+[api-use-mdx-components]: #usemdxcomponentscomponents

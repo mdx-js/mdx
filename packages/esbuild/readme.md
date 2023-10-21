@@ -41,19 +41,11 @@ used, or our webpack loader (`@mdx-js/loader`) or Rollup plugin
 
 ## Install
 
-This package is [ESM only][esm]:
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
-npm install @mdx-js/esbuild
-```
-
-[yarn][]:
-
-```sh
-yarn add @mdx-js/esbuild
+npm install @mdx-js/esbuild-mdx
 ```
 
 ## Use
@@ -61,21 +53,26 @@ yarn add @mdx-js/esbuild
 Do something like this with the esbuild API:
 
 ```tsx
-import esbuild from 'esbuild'
 import mdx from '@mdx-js/esbuild'
+import esbuild from 'esbuild'
 
 await esbuild.build({
-  entryPoints: ['index.mdx'],
+  // Replace `index.js` with your entry point that imports MDX files:
+  entryPoints: ['index.js'],
   format: 'esm',
   outfile: 'output.js',
-  plugins: [mdx({/* Options… */})]
+  plugins: [
+    mdx({
+      /* Options… */
+    })
+  ]
 })
 ```
 
 ## API
 
-This package exports a function as the default export that returns an
-[esbuild][] plugin.
+This package exports no identifiers.
+The default export is [`mdx`][api-mdx].
 
 ### `mdx(options?)`
 
@@ -87,30 +84,47 @@ With other integrations you might need to use Babel for this, but with
 esbuild that’s not needed.
 See esbuild’s docs for more info.
 
-###### `options`
+###### Parameters
 
-`options` are the same as
-[`compile` from `@mdx-js/mdx`][options]
-with the addition of:
+*   `options` ([`Options`][api-options], optional)
+    — configuration
 
-###### `options.allowDangerousRemoteMdx`
+###### Returns
 
-> ⚠️ **Security**: this includes remote code in your bundle.
-> Make sure you trust it!
+ESBuild plugin ([`Plugin`][esbuild-plugin] from `esbuild`).
+
+### `Options`
+
+Configuration (TypeScript type).
+
+Options are the same as [`CompileOptions` from `@mdx-js/mdx`][compile-options]
+with the addition of `allowDangerousRemoteMdx`:
+
+###### Fields
+
+*   `allowDangerousRemoteMdx` (`boolean`, default: `false`)
+    — whether to allow importing from `http:` and `https:` URLs;
+    when passing `allowDangerousRemoteMdx`, MD(X) *and* JS files can be imported
+    from `http:` and `https:` urls;
+
+###### Notes
+
+> ⚠️ **Security**: `allowDangerousRemoteMdx` (intentionally) enabled remote
+> code execution.
+> Make sure you trust your code!
 > See [§ Security][security] for more
 > info.
 
-> 💡 **Experiment**: this is an experimental feature that might not work
-> well and might change in minor releases.
+> 💡 **Experiment**: `allowDangerousRemoteMdx` is an experimental feature that
+> might not work well and might change in minor releases.
 
-Whether to allow importing from `http:` and `https:` URLs (`boolean`, default:
-`false`).
+## Examples
 
-When passing `allowDangerousRemoteMdx`, MD(X) and JS files can be imported from
-`http:` and `https:` urls.
+### Use `allowDangerousRemoteMdx`
+
 Take this `index.mdx` file:
 
-```tsx
+```mdx
 import Readme from 'https://raw.githubusercontent.com/mdx-js/mdx/main/readme.md'
 
 Here’s the readme:
@@ -118,11 +132,11 @@ Here’s the readme:
 <Readme />
 ```
 
-And a module `build.js`:
+…and a module `build.js`:
 
 ```tsx
-import esbuild from 'esbuild'
 import mdx from '@mdx-js/esbuild'
+import esbuild from 'esbuild'
 
 await esbuild.build({
   entryPoints: ['index.mdx'],
@@ -132,8 +146,8 @@ await esbuild.build({
 })
 ```
 
-Running that (`node build.js`) and evaluating `output.js` (depends on how you
-evaluate React stuff) would give:
+…then running that (`node build.js`) and evaluating `output.js` (depends on how
+you evaluate React or another framework) would give:
 
 ```tsx
 <p>Here’s the readme:</p>
@@ -145,9 +159,8 @@ evaluate React stuff) would give:
 ## Types
 
 This package is fully typed with [TypeScript][].
+It exports the additional type [`Options`][api-options].
 See [§ Types][types] on our website for information.
-
-An `Options` type is exported, which represents acceptable configuration.
 
 ## Security
 
@@ -190,8 +203,6 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[yarn]: https://classic.yarnpkg.com/docs/cli/add/
-
 [contribute]: https://mdxjs.com/community/contribute/
 
 [support]: https://mdxjs.com/community/support/
@@ -210,6 +221,12 @@ abide by its terms.
 
 [security]: https://mdxjs.com/getting-started/#security
 
-[options]: https://mdxjs.com/packages/mdx/#compilefile-options
-
 [typescript]: https://www.typescriptlang.org
+
+[compile-options]: https://mdxjs.com/packages/mdx/#compileoptions
+
+[esbuild-plugin]: https://esbuild.github.io/plugins/
+
+[api-mdx]: #mdxoptions
+
+[api-options]: #options

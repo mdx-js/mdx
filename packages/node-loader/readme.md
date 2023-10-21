@@ -7,12 +7,9 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-Node loader for MDX.
+Node.js hooks (also knows as loaders) for MDX.
 
 <!-- more -->
-
-> 💡 **Experiment**: this is an experimental package that might not work
-> well and might change in minor releases.
 
 ## Contents
 
@@ -29,36 +26,25 @@ Node loader for MDX.
 
 ## What is this?
 
-This package is a Node ESM loader to support MDX.
-[ESM loaders][loader] are an experimental feature in Node, slated to change.
-They let projects “hijack” imports to do all sorts of fancy things, in this
-case it let’s you `import` MD(X) files.
+This package contains Node.js hooks to add support for importing MDX files.
+Node *Customization Hooks* are currently a release candidate.
 
 ## When should I use this?
 
 This integration is useful if you’re using Node and want to import MDX files
 from the file system.
 
-If you’re using a bundler (webpack, Rollup, esbuild), or a site builder (Gatsby,
-Next.js) or build system (Vite, WMR) which comes with a bundler, you’re better
-off using another integration: see
-[§ Integrations][integrations].
+If you’re using a bundler (webpack, Rollup, esbuild), or a site builder
+(Next.js) or build system (Vite) which comes with a bundler, you can instead
+another integration: see [§ Integrations][integrations].
 
 ## Install
 
-This package is [ESM only][esm]:
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install @mdx-js/node-loader
-```
-
-[yarn][]:
-
-```sh
-yarn add @mdx-js/node-loader
 ```
 
 ## Use
@@ -83,10 +69,10 @@ import Content from './example.mdx'
 console.log(renderToStaticMarkup(React.createElement(Content)))
 ```
 
-…then running that with:
+…then running with:
 
 ```sh
-node --experimental-loader=@mdx-js/node-loader example.js
+node --loader=@mdx-js/node-loader example.js
 ```
 
 …yields:
@@ -95,46 +81,70 @@ node --experimental-loader=@mdx-js/node-loader example.js
 <h1>Hello, World!</h1>
 ```
 
+> **Note**: if you use Node 18 and lower, then you can ignore the following
+> warning:
+>
+> ```txt
+> (node:20718) ExperimentalWarning: Custom ESM Loaders is an experimental feature and might change at any > time
+> (Use `node --trace-warnings ...` to show where the warning was created)
+> ```
+
+> **Note**: if you use Node 20 and higher, then you get the following warning:
+>
+> ```txt
+> (node:20908) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use > `register()`:
+> --import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from > "node:url"; register("%40mdx-js/node-loader", pathToFileURL("./"));'
+> ```
+>
+> You can solve that by adding a `register.js` file:
+>
+> ```tsx
+> import {register} from 'node:module'
+>
+> register('@mdx-js/node-loader', import.meta.url)
+> ```
+>
+> …and running `node --import ./register.js example.js` instead.
+
 ## API
 
-> 💡 **Experiment**: this is an experimental package that might not work
-> well and might change in minor releases.
-
-This package exports a Node [ESM loader][loader].
-It also exports the following identifier: `createLoader`.
+This package export the identifiers [`createLoader`][api-create-loader] and
+[`load`][api-load].
+There is no default export.
 
 ### `createLoader(options?)`
 
-Create a Node ESM loader to compile MDX to JS.
+Create Node.js hooks to handle markdown and MDX.
 
-##### `options`
+###### Parameters
 
-`options` are the same as [`compile` from `@mdx-js/mdx`][options].
-One extra field is supported:
+*   `options` ([`Options`][api-options], optional)
+    — configuration
 
-###### Example
+###### Returns
 
-`my-loader.js`:
+Node.js hooks ([`{load}`][api-load]).
 
-```tsx
-import {createLoader} from '@mdx-js/node-loader'
+### `load`
 
-const {load} = createLoader(/* Options… */)
+Load `file:` URLs to MD(X) files.
 
-export {load}
-```
+See [`load` in Node.js docs][node-load] for more info.
 
-This example can then be used with `node --experimental-loader=./my-loader.js`.
+### `Options`
 
-Node itself does not yet support multiple loaders but it is possible to combine
-multiple loaders with [`@node-loader/core`][node-loader-core].
+Configuration (TypeScript type).
+
+Options are the same as [`CompileOptions` from `@mdx-js/mdx`][compile-options]
+with the exception that the `development` option is supported based on how you
+configure webpack.
+You cannot pass it manually.
 
 ## Types
 
 This package is fully typed with [TypeScript][].
+It exports the additional type [`Options`][api-options].
 See [§ Types][types] on our website for information.
-
-An `Options` type is exported, which represents acceptable configuration.
 
 ## Security
 
@@ -199,8 +209,16 @@ abide by its terms.
 
 [security]: https://mdxjs.com/getting-started/#security
 
-[options]: https://mdxjs.com/packages/mdx/#compilefile-options
-
 [typescript]: https://www.typescriptlang.org
 
 [node-loader-core]: https://github.com/node-loader/node-loader-core
+
+[compile-options]: https://mdxjs.com/packages/mdx/#compileoptions
+
+[node-load]: https://nodejs.org/api/module.html#loadurl-context-nextload
+
+[api-create-loader]: #createloaderoptions
+
+[api-load]: #load
+
+[api-options]: #options

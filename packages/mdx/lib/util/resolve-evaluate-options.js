@@ -1,117 +1,43 @@
 /**
+ * @typedef {import('hast-util-to-jsx-runtime').Fragment} Fragment
+ * @typedef {import('hast-util-to-jsx-runtime').Jsx} Jsx
+ * @typedef {import('hast-util-to-jsx-runtime').JsxDev} JsxDev
  * @typedef {import('mdx/types.js').MDXComponents} Components
- * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
+ * @typedef {import('../compile.js').CompileOptions} CompileOptions
  */
 
 /**
- * @typedef {JSX.Element | string | null | undefined} Child
- *   Child.
+ * @typedef {EvaluateProcessorOptions & RunOptions} EvaluateOptions
+ *   Configuration for `evaluate`.
  *
- * @typedef {EvaluateProcessorOptions & RunnerOptions} EvaluateOptions
- *   Configuration for evaluation.
- *
- * @typedef {Omit<ProcessorOptions, 'jsx' | 'jsxImportSource' | 'jsxRuntime' | 'outputFormat' | 'pragma' | 'pragmaFrag' | 'pragmaImportSource' | 'providerImportSource'> } EvaluateProcessorOptions
+ * @typedef {Omit<CompileOptions, 'jsx' | 'jsxImportSource' | 'jsxRuntime' | 'outputFormat' | 'pragma' | 'pragmaFrag' | 'pragmaImportSource' | 'providerImportSource'> } EvaluateProcessorOptions
  *   Compile configuration without JSX options for evaluation.
  *
- * @typedef {unknown} Fragment
- *   Represent the children, typically a symbol.
+ * @typedef RunOptions
+ *   Configuration to run compiled code.
  *
- * @callback Jsx
- *   Create a production element.
- * @param {unknown} type
- *   Element type: `Fragment` symbol, tag name (`string`), component.
- * @param {Props} props
- *   Element props, `children`, and maybe `node`.
- * @param {string | undefined} [key]
- *   Dynamicly generated key to use.
- * @returns {JSX.Element}
- *   An element from your framework.
- *
- * @callback JsxDev
- *   Create a development element.
- * @param {unknown} type
- *   Element type: `Fragment` symbol, tag name (`string`), component.
- * @param {Props} props
- *   Element props, `children`, and maybe `node`.
- * @param {string | undefined} key
- *   Dynamicly generated key to use.
- * @param {boolean} isStaticChildren
- *   Whether two or more children are passed (in an array), which is whether
- *   `jsxs` or `jsx` would be used.
- * @param {Source} source
- *   Info about source.
- * @param {undefined} self
- *   Nothing (this is used by frameworks that have components, we don’t).
- * @returns {JSX.Element}
- *   An element from your framework.
- *
- * @callback MergeComponents
- *   Custom merge function.
- * @param {Components} currentComponents
- *   Current components from the context.
- * @returns {Components}
- *   Merged components.
- *
- * @typedef {{children?: Array<Child> | Child, node?: Element | undefined, [prop: string]: Array<Child> | Child | Element | Value | undefined}} Props
- *   Properties and children.
- *
- * @typedef RunnerOptions
- *   Configuration with JSX runtime.
+ *   `Fragment`, `jsx`, and `jsxs` are used when the code is compiled in
+ *   production mode (`development: false`).
+ *   `Fragment` and `jsxDEV` are used when compiled in development mode
+ *   (`development: true`).
+ *   `useMDXComponents` is used when the code is compiled with
+ *   `providerImportSource: '#'` (the exact value of this compile option
+ *   doesn’t matter).
  * @property {Fragment} Fragment
- *   Symbol to use for fragments.
+ *   Symbol to use for fragments (**required**).
  * @property {Jsx | null | undefined} [jsx]
  *   Function to generate an element with static children in production mode.
- * @property {Jsx | null | undefined} [jsxs]
- *   Function to generate an element with dynamic children in production mode.
  * @property {JsxDev | null | undefined} [jsxDEV]
  *   Function to generate an element in development mode.
- * @property {UseMdxComponents | null | undefined} [useMDXComponents]
- *   Function to get `MDXComponents` from context.
- *
- * @typedef RuntimeDevelopment
- *   Runtime fields when development is on.
- * @property {Fragment} Fragment
- *   Fragment.
- * @property {Jsx | null | undefined} [jsx]
- *   Dynamic JSX (optional).
- * @property {JsxDev} jsxDEV
- *   Development JSX.
  * @property {Jsx | null | undefined} [jsxs]
- *   Static JSX (optional).
- *
- * @typedef RuntimeProduction
- *   Runtime fields when development is off.
- * @property {Fragment} Fragment
- *   Fragment.
- * @property {Jsx} jsx
- *   Dynamic JSX.
- * @property {JsxDev | null | undefined} [jsxDEV]
- *   Development JSX (optional).
- * @property {Jsx} jsxs
- *   Static JSX.
- *
- * @typedef Source
- *   Info about source.
- * @property {number | undefined} columnNumber
- *   Column where thing starts (0-indexed).
- * @property {string | undefined} fileName
- *   Name of source file.
- * @property {number | undefined} lineNumber
- *   Line where thing starts (1-indexed).
- *
- * @typedef {Record<string, string>} Style
- *   Style map.
+ *   Function to generate an element with dynamic children in production mode.
+ * @property {UseMdxComponents | null | undefined} [useMDXComponents]
+ *   Function to get components from context.
  *
  * @callback UseMdxComponents
- *   Get current components from the MDX Context.
- * @param {Components | MergeComponents | null | undefined} [components]
- *   Additional components to use or a function that takes the current
- *   components and filters/merges/changes them.
+ *   Get components from context.
  * @returns {Components}
  *   Current components.
- *
- * @typedef {Style | boolean | number | string} Value
- *   Primitive property value and `Style` map.
  */
 
 // Fix to show references to above types in VS Code.
@@ -122,7 +48,7 @@
  *
  * @param {Readonly<EvaluateOptions> | null | undefined} options
  *   Configuration.
- * @returns {{compiletime: ProcessorOptions, runtime: RunnerOptions}}
+ * @returns {{compiletime: CompileOptions, runtime: RunOptions}}
  *   Split options.
  */
 export function resolveEvaluateOptions(options) {

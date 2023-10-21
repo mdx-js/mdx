@@ -1,38 +1,41 @@
 /**
- * @typedef {import('mdx/types.js').MDXComponents} Components
+ * @typedef {import('mdx/types.js').MDXComponents} MDXComponents
+ * @typedef {import('preact').Component} Component
  * @typedef {import('preact').ComponentChildren} ComponentChildren
  */
 
 /**
  * @callback MergeComponents
  *   Custom merge function.
- * @param {Readonly<Components>} currentComponents
+ * @param {Readonly<MDXComponents>} currentComponents
  *   Current components from the context.
- * @returns {Components}
- *   Merged components.
+ * @returns {MDXComponents}
+ *   Additional components.
  *
  * @typedef Props
- *   Configuration.
- * @property {Readonly<Components> | MergeComponents | null | undefined} [components]
- *   Mapping of names for JSX components to Preact components (optional).
- * @property {boolean | null | undefined} [disableParentContext=false]
- *   Turn off outer component context (default: `false`).
+ *   Configuration for `MDXProvider`.
  * @property {ComponentChildren | null | undefined} [children]
  *   Children (optional).
+ * @property {Readonly<MDXComponents> | MergeComponents | null | undefined} [components]
+ *   Additional components to use or a function that creates them (optional).
+ * @property {boolean | null | undefined} [disableParentContext=false]
+ *   Turn off outer component context (default: `false`).
  */
 
 import {createContext, h} from 'preact'
 import {useContext} from 'preact/hooks'
 
-const MDXContext = createContext({})
+/** @type {Readonly<MDXComponents>} */
+const emptyComponents = {}
+
+const MDXContext = createContext(emptyComponents)
 
 /**
  * Get current components from the MDX Context.
  *
- * @param {Readonly<Components> | MergeComponents | null | undefined} [components]
- *   Additional components to use or a function that takes the current
- *   components and filters/merges/changes them (optional).
- * @returns {Components}
+ * @param {Readonly<MDXComponents> | MergeComponents | null | undefined} [components]
+ *   Additional components to use or a function that creates them (optional).
+ * @returns {MDXComponents}
  *   Current components.
  */
 export function useMDXComponents(components) {
@@ -46,33 +49,31 @@ export function useMDXComponents(components) {
   return {...contextComponents, ...components}
 }
 
-/** @type {Readonly<Components>} */
-const emptyObject = {}
-
 /**
- * Provider for MDX context
+ * Provider for MDX context.
  *
  * @param {Readonly<Props>} props
  *   Props.
  * @returns {JSX.Element}
  *   Element.
+ * @satisfies {Component}
  */
-export function MDXProvider({children, components, disableParentContext}) {
-  /** @type {Readonly<Components>} */
+export function MDXProvider(props) {
+  /** @type {Readonly<MDXComponents>} */
   let allComponents
 
-  if (disableParentContext) {
+  if (props.disableParentContext) {
     allComponents =
-      typeof components === 'function'
-        ? components({})
-        : components || emptyObject
+      typeof props.components === 'function'
+        ? props.components(emptyComponents)
+        : props.components || emptyComponents
   } else {
-    allComponents = useMDXComponents(components)
+    allComponents = useMDXComponents(props.components)
   }
 
   return h(
     MDXContext.Provider,
     {children: undefined, value: allComponents},
-    children
+    props.children
   )
 }

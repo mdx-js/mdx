@@ -1,5 +1,21 @@
 /**
- * @typedef {import('@mdx-js/mdx').CompileOptions} Options
+ * @typedef {import('node:module').LoadHookContext} LoadHookContext
+ * @typedef {import('node:module').LoadFnOutput} LoadFnOutput
+ * @typedef {import('node:module').LoadHook} LoadHookType
+ * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
+ */
+
+/**
+ * @typedef {Parameters<LoadHookType>[2]} NextLoad
+ *   Next.
+ *
+ * @typedef {Omit<CompileOptions, 'development'>} Options
+ *   Configuration.
+ *
+ *   Options are the same as [`compile` from `@mdx-js/mdx`][mdx-options]
+ *   with the exception that the `development` option is supported based on how you
+ *   configure webpack.
+ *   You cannot pass it manually.
  */
 
 import fs from 'node:fs/promises'
@@ -9,12 +25,12 @@ import {VFile} from 'vfile'
 import {development as defaultDevelopment} from '#condition'
 
 /**
- * Create a loader to handle markdown and MDX.
+ * Create Node.js hooks to handle markdown and MDX.
  *
  * @param {Readonly<Options> | null | undefined} [options]
  *   Configuration (optional).
  * @returns
- *   Loader.
+ *   Node.js hooks.
  */
 export function createLoader(options) {
   const options_ = options || {}
@@ -27,16 +43,19 @@ export function createLoader(options) {
   return {load}
 
   /**
+   * Load `file:` URLs to MD(X) files.
+   *
    * @param {string} href
    *   URL.
-   * @param {unknown} context
+   * @param {LoadHookContext} context
    *   Context.
-   * @param {Function} defaultLoad
-   *   Default `load` function.
-   * @returns
+   * @param {NextLoad} nextLoad
+   *   Next or default `load` function.
+   * @returns {Promise<LoadFnOutput>}
    *   Result.
+   * @satisfies {LoadHookType}
    */
-  async function load(href, context, defaultLoad) {
+  async function load(href, context, nextLoad) {
     const url = new URL(href)
 
     if (url.protocol === 'file:' && regex.test(url.pathname)) {
@@ -46,6 +65,6 @@ export function createLoader(options) {
       return {format: 'module', shortCircuit: true, source: String(file)}
     }
 
-    return defaultLoad(href, context, defaultLoad)
+    return nextLoad(href, context)
   }
 }

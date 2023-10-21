@@ -32,28 +32,19 @@ This package is a webpack loader to support MDX.
 This integration is useful if you’re using webpack (or another tool that uses
 webpack, such as Next.js).
 
-This integration can be combined with the Babel loader to support nonstandard
-JSX runtimes (such as Vue) or compile modern JavaScript features to ones your
-users support.
+This integration can be combined with the Babel loader to compile modern
+JavaScript features to ones your users support.
 
 If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
 can be used manually.
 
 ## Install
 
-This package is [ESM only][esm]:
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install @mdx-js/loader
-```
-
-[yarn][]:
-
-```sh
-yarn add @mdx-js/loader
 ```
 
 ## Use
@@ -61,7 +52,8 @@ yarn add @mdx-js/loader
 Add something along these lines to your `webpack.config.js`:
 
 ```tsx
-module.exports = {
+/** @type {import('webpack').Configuration} */
+const webpackConfig = {
   module: {
     // …
     rules: [
@@ -79,48 +71,72 @@ module.exports = {
     ]
   }
 }
+
+export default webpackConfig
 ```
 
-See also [¶ Create React App (CRA)][cra], [¶ Next.js][next], and
-[¶ Vue CLI][vue-cli], if you’re using webpack through them, for more info.
+See also [¶ Next.js][next] and [¶ Vue CLI][vue-cli], if you’re using webpack
+through them, for more info.
 
 ## API
 
+This package exports no identifiers.
+The default export is [`mdx`][api-mdx].
+
+### `mdx`
+
 This package exports a [webpack][] plugin as the default export.
+Configuration (see [`Options`][api-options]) are passed separately through
+webpack.
 
-Source maps are supported based on how you configure webpack.
-You do not need to pass `options.SourceMapGenerator`.
+### `Options`
 
-###### `options`
+Configuration (TypeScript type).
 
-`options` are the same as [`compile` from `@mdx-js/mdx`][options].
+Options are the same as [`CompileOptions` from `@mdx-js/mdx`][compile-options]
+with the exception that the `SourceMapGenerator` and `development` options are
+supported based on how you configure webpack.
+You cannot pass them manually.
 
-###### Note: Babel
+## Examples
+
+### Combine with Babel
 
 If you use modern JavaScript features you might want to use Babel through
-[`babel-loader`][babel-loader] to compile to code that works:
+[`babel-loader`][babel-loader] to compile to code that works in older browsers:
 
 ```tsx
-// …
-use: [
-  // Note that Webpack runs right-to-left: `@mdx-js/loader` is used first, then
-  // `babel-loader`.
-  {loader: 'babel-loader', options: {}},
-  {
-    loader: '@mdx-js/loader',
-    /** @type {import('@mdx-js/loader').Options} */
-    options: {},
-  },
-];
-// …
+/** @type {import('webpack').Configuration} */
+const webpackConfig = {
+  module: {
+    // …
+    rules: [
+      // …
+      {
+        test: /\.mdx?$/,
+        use: [
+          // Note that Webpack runs right-to-left: `@mdx-js/loader` is used first, then
+          // `babel-loader`.
+          {loader: 'babel-loader', options: {}},
+          {
+            loader: '@mdx-js/loader',
+            /** @type {import('@mdx-js/loader').Options} */
+            options: {}
+          }
+        ]
+      }
+    ]
+  }
+}
+
+export default webpackConfig
 ```
 
 ## Types
 
 This package is fully typed with [TypeScript][].
+It exports the additional type [`Options`][api-options].
 See [§ Types][types] on our website for information.
-
-An `Options` type is exported, which represents acceptable configuration.
 
 ## Security
 
@@ -163,8 +179,6 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[yarn]: https://classic.yarnpkg.com/docs/cli/add/
-
 [contribute]: https://mdxjs.com/community/contribute/
 
 [support]: https://mdxjs.com/community/support/
@@ -175,22 +189,24 @@ abide by its terms.
 
 [vercel]: https://vercel.com
 
-[webpack]: https://webpack.js.org
-
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-
-[types]: https://mdxjs.com/getting-started/#types
 
 [security]: https://mdxjs.com/getting-started/#security
 
-[options]: https://mdxjs.com/packages/mdx/#compilefile-options
+[types]: https://mdxjs.com/getting-started/#types
+
+[webpack]: https://webpack.js.org
+
+[compile-options]: https://mdxjs.com/packages/mdx/#compileoptions
 
 [typescript]: https://www.typescriptlang.org
 
 [babel-loader]: https://webpack.js.org/loaders/babel-loader/
 
-[cra]: https://mdxjs.com/getting-started/#create-react-app-cra
-
 [next]: https://mdxjs.com/getting-started/#nextjs
 
 [vue-cli]: https://mdxjs.com/getting-started/#vue-cli
+
+[api-mdx]: #mdx
+
+[api-options]: #options

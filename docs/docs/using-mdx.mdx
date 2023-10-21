@@ -377,7 +377,7 @@ Set it up like so:
     or [`@mdx-js/vue`][mdx-vue],
     depending on what framework you’re using
 2.  Configure your MDX integration with
-    [`options.providerImportSource`][options-provider-import-source]
+    [`providerImportSource` in `ProcessorOptions`][processor-options]
     set to that package, so either `'@mdx-js/react'`, `'@mdx-js/preact'`, or
     `'@mdx-js/vue'`
 3.  Import `MDXProvider` from that package.
@@ -478,7 +478,7 @@ providers: pass components explicitly.
 
 [mdx-vue]: /packages/vue/
 
-[options-provider-import-source]: /packages/mdx/#optionsproviderimportsource
+[processor-options]: /packages/mdx/#processoroptions
 
 [emotion]: /docs/getting-started/#emotion
 

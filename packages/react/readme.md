@@ -28,30 +28,36 @@ React context for MDX.
 
 ## What is this?
 
-This package is a context based components provider for combining React with
+This package is a *context* based components provider for combining React with
 MDX.
 
 ## When should I use this?
 
-This package is not needed for MDX to work with React.
+This package is **not needed** for MDX to work with React.
 See [¶ MDX provider in § Using MDX][use-provider] for when and how to use an MDX
 provider.
 
 ## Install
 
-This package is [ESM only][esm]:
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install @mdx-js/react
 ```
 
-[yarn][]:
+In Deno with [`esm.sh`][esmsh]:
 
-```sh
-yarn add @mdx-js/react
+```tsx
+import {MDXProvider} from 'https://esm.sh/@mdx-js/react@2'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import {MDXProvider} from 'https://esm.sh/@mdx-js/react@2?bundle'
+</script>
 ```
 
 ## Use
@@ -64,24 +70,29 @@ import Post from './post.mdx'
 // `@mdx-js/rollup`, and that it is configured with
 // `options.providerImportSource: '@mdx-js/react'`.
 
+/** @type {import('mdx/types.js').MDXComponents} */
 const components = {
-  em: props => <i {...props} />
+  em(props) {
+    return <i {...props} />
+  }
 }
 
-<MDXProvider components={components}>
-  <Post />
-</MDXProvider>
+console.log(
+  <MDXProvider components={components}>
+    <Post />
+  </MDXProvider>
+)
 ```
 
-Note that you don’t have to use `MDXProvider` and can pass components
-directly:
-
-```diff
--<MDXProvider components={components}>
--  <Post />
--</MDXProvider>
-+<Post components={components} />
-```
+> 👉 **Note**: you don’t have to use `MDXProvider` and can pass components
+> directly:
+>
+> ```diff
+> -<MDXProvider components={components}>
+> -  <Post />
+> -</MDXProvider>
+> +<Post components={components} />
+> ```
 
 See [¶ React in § Getting started][start-react] for how to get started with MDX
 and React.
@@ -90,60 +101,76 @@ provider.
 
 ## API
 
-This package exports the following identifiers: `MDXProvider` and
-`useMDXComponents`.
+This package exports the identifiers [`MDXProvider`][api-mdx-provider] and
+[`useMDXComponents`][api-use-mdx-components].
 There is no default export.
 
 ### `MDXProvider(props?)`
 
 Provider for MDX context.
 
-##### `props`
+###### Parameters
 
-Configuration (`Object`, optional).
-
-###### `props.components`
-
-Mapping of names for JSX components to React components
-(`Record<string, string | Component | Components>`, optional).
-
-###### `props.disableParentContext`
-
-Turn off outer component context (`boolean`, default: `false`).
-
-###### `props.children`
-
-Children (JSX elements, optional).
+*   `props` ([`Props`][api-props])
+    — configuration
 
 ##### Returns
 
-JSX element.
+Element (`JSX.Element`).
 
 ### `useMDXComponents(components?)`
 
 Get current components from the MDX Context.
 
-###### `components`
+###### Parameters
 
-Additional components (`Components`) to use or a function that takes the current
-components and filters/merges/changes them (`(currentComponents: Components) =>
-Components`).
+*   `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components]
+    or [`MergeComponents`][api-merge-components], optional)
+    — additional components to use or a function that creates them
 
 ###### Returns
 
-`Components`.
+Current components ([`MDXComponents` from
+`mdx/types.js`][mdx-types-components]).
+
+### `MergeComponents`
+
+Custom merge function (TypeScript type).
+
+###### Parameters
+
+*   `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components])
+    — current components from the context
+
+###### Returns
+
+Additional components ([`MDXComponents` from
+`mdx/types.js`][mdx-types-components]).
+
+### `Props`
+
+Configuration for `MDXProvider` (TypeScript type).
+
+###### Fields
+
+*   `children` ([`ReactNode` from `react`][react-node],
+    optional)
+    — children
+*   `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components]
+    or [`MergeComponents`][api-merge-components], optional)
+    — additional components to use or a function that creates them
+*   `disableParentContext` (`boolean`, default: `false`)
+    — turn off outer component context
 
 ## Types
 
 This package is fully typed with [TypeScript][].
+It exports the additional types [`MergeComponents`][api-merge-components] and
+[`Props`][api-props].
 
-To enable types for imported `.mdx`, `.md`, etcetera files, you should make sure
-the TypeScript `JSX` namespace is typed.
-This is done by installing and using the types of your framework, such as
+For types to work, make sure the TypeScript `JSX` namespace is typed.
+This is done by installing and using the types of your framework, as in
 [`@types/react`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/react).
-Then you can install and use
-[`@types/mdx`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx),
-which adds types to import statements of supported files.
 
 ## Security
 
@@ -174,9 +201,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/@mdx-js/react
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/@mdx-js/react.svg
+[size-badge]: https://img.shields.io/bundlejs/size/@mdx-js/react
 
-[size]: https://bundlephobia.com/result?p=@mdx-js/react
+[size]: https://bundlejs.com/?q=@mdx-js/react
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -190,8 +217,6 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[yarn]: https://classic.yarnpkg.com/docs/cli/add/
-
 [contribute]: https://mdxjs.com/community/contribute/
 
 [support]: https://mdxjs.com/community/support/
@@ -202,12 +227,26 @@ abide by its terms.
 
 [vercel]: https://vercel.com
 
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-
 [start-react]: https://mdxjs.com/getting-started/#react
 
 [use-provider]: https://mdxjs.com/docs/using-mdx/#mdx-provider
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
 [security]: https://mdxjs.com/getting-started/#security
 
 [typescript]: https://www.typescriptlang.org
+
+[mdx-types-components]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L65
+
+[react-node]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/react/index.d.ts#L244
+
+[api-mdx-provider]: #mdxproviderprops
+
+[api-merge-components]: #mergecomponents
+
+[api-props]: #props
+
+[api-use-mdx-components]: #usemdxcomponentscomponents

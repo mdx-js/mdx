@@ -9,33 +9,61 @@ import {compile, compileSync} from './compile.js'
 import {run, runSync} from './run.js'
 
 /**
- * Evaluate MDX.
+ * Compile and run MDX.
  *
- * @param {Readonly<Compatible>} vfileCompatible
- *   MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be
- *   given to `vfile`).
- * @param {Readonly<EvaluateOptions>} evaluateOptions
- *   Configuration for evaluation.
+ * When you trust your content, `evaluate` can work.
+ * When possible, use `compile`, write to a file, and then run with Node or use
+ * one of the integrations.
+ *
+ * > ☢️ **Danger**: it’s called **evaluate** because it `eval`s JavaScript.
+ *
+ * ###### Notes
+ *
+ * Compiling (and running) MDX takes time.
+ *
+ * If you are live-rendering a string of MDX that often changes using a virtual
+ * DOM based framework (such as React), one performance improvement is to call
+ * the `MDXContent` component yourself.
+ * The reason is that the `evaluate` creates a new function each time, which
+ * cannot be diffed:
+ *
+ * ```diff
+ *  const {default: MDXContent} = await evaluate('…')
+ *
+ * -<MDXContent {...props} />
+ * +MDXContent(props)
+ * ```
+ *
+ * @param {Readonly<Compatible>} file
+ *   MDX document to parse.
+ * @param {Readonly<EvaluateOptions>} options
+ *   Configuration (**required**).
  * @return {Promise<MDXModule>}
- *   Export map.
+ *   Promise to a module;
+ *   the result is an object with a `default` field set to the component;
+ *   anything else that was exported is available too.
+
  */
-export async function evaluate(vfileCompatible, evaluateOptions) {
-  const {compiletime, runtime} = resolveEvaluateOptions(evaluateOptions)
-  return run(await compile(vfileCompatible, compiletime), runtime)
+export async function evaluate(file, options) {
+  const {compiletime, runtime} = resolveEvaluateOptions(options)
+  return run(await compile(file, compiletime), runtime)
 }
 
 /**
- * Synchronously evaluate MDX.
+ * Compile and run MDX, synchronously.
  *
- * @param {Readonly<Compatible>} vfileCompatible
- *   MDX document to parse (`string`, `Buffer`, `vfile`, anything that can be
- *   given to `vfile`).
- * @param {Readonly<EvaluateOptions>} evaluateOptions
- *   Configuration for evaluation.
+ * When possible please use the async `evaluate`.
+ *
+ * > ☢️ **Danger**: it’s called **evaluate** because it `eval`s JavaScript.
+ *
+ * @param {Readonly<Compatible>} file
+ *   MDX document to parse.
+ * @param {Readonly<EvaluateOptions>} options
+ *   Configuration (**required**).
  * @return {MDXModule}
- *   Export map.
+ *   Module.
  */
-export function evaluateSync(vfileCompatible, evaluateOptions) {
-  const {compiletime, runtime} = resolveEvaluateOptions(evaluateOptions)
-  return runSync(compileSync(vfileCompatible, compiletime), runtime)
+export function evaluateSync(file, options) {
+  const {compiletime, runtime} = resolveEvaluateOptions(options)
+  return runSync(compileSync(file, compiletime), runtime)
 }

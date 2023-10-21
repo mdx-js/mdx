@@ -1,7 +1,8 @@
 /* @jsxRuntime automatic @jsxImportSource preact */
 
 /**
- * @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options').RuntimeProduction} RuntimeProduction
+ * @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options').Fragment} Fragment
+ * @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options').Jsx} Jsx
  */
 
 import assert from 'node:assert/strict'
@@ -11,7 +12,9 @@ import {MDXProvider, useMDXComponents} from '@mdx-js/preact'
 import * as runtime_ from 'preact/jsx-runtime'
 import {render} from 'preact-render-to-string'
 
-const runtime = /** @type {RuntimeProduction} */ (runtime_)
+const runtime = /** @type {{Fragment: Fragment, jsx: Jsx, jsxs: Jsx}} */ (
+  runtime_
+)
 
 test('@mdx-js/preact', async function (t) {
   await t.test('should expose the public api', async function () {

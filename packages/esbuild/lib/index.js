@@ -14,7 +14,11 @@
  * @typedef EsbuildOptions
  *   Extra options.
  * @property {boolean | null | undefined} [allowDangerousRemoteMdx=false]
- *   Allow remote MDX (default: `false`).
+ *   Whether to allow importing from `http:` and `https:` URLs (`boolean`,
+ *   default: `false`).
+ *
+ *   When passing `allowDangerousRemoteMdx`, MD(X) *and* JS files can be
+ *   imported from `http:` and `https:` urls.
  *
  * @typedef {Omit<OnLoadArgs, 'pluginData'> & LoadDataFields} LoadData
  *   Data passed to `onload`.
@@ -26,6 +30,20 @@
  *
  * @typedef {EsbuildOptions & ProcessorOptions} Options
  *   Configuration.
+ *
+ *   Options are the same as `compile` from `@mdx-js/mdx` with the addition
+ *   of `allowDangerousRemoteMdx`.
+ *
+ *   ###### Notes
+ *
+ *   > ⚠️ **Security**: `allowDangerousRemoteMdx` (intentionally) enabled remote
+ *   > code execution.
+ *   > Make sure you trust your code!
+ *   > See [§ Security][security] for more
+ *   > info.
+ *
+ *   > 💡 **Experiment**: `allowDangerousRemoteMdx` is an experimental feature
+ *   > that might not work well and might change in minor releases.
  *
  * @typedef PluginData
  *   Extra data passed.
@@ -60,7 +78,13 @@ const p = process
 const remoteNamespace = name + '-remote'
 
 /**
- * Compile MDX w/ esbuild.
+ * Create an esbuild plugin to compile MDX to JS.
+ *
+ * esbuild takes care of turning modern JavaScript features into syntax that
+ * works wherever you want it to.
+ * With other integrations you might need to use Babel for this, but with
+ * esbuild that’s not needed.
+ * See esbuild’s docs for more info.
  *
  * @param {Readonly<Options> | null | undefined} [options]
  *   Configuration (optional).

@@ -204,10 +204,8 @@ For more information, please see [§ API in `@mdx-js/loader`][loader-api].
 
 The options accepted by the loader changed:
 
-*   `renderer` is replaced by
-    [`options.jsxImportSource`][mdx-options-jsximportsource],
-    [`options.providerImportSource`][mdx-options-providerimportsource],
-    and others options.
+*   `renderer` is replaced by `jsxImportSource`, `providerImportSource`, and
+    others options.
     More info in [§ API in `@mdx-js/mdx`][mdx-api]
 *   Other options were undocumented but passed to `@mdx-js/mdx`.
     See `@mdx-js/mdx` below if needed
@@ -326,13 +324,10 @@ Options in version 1 were undocumented.
 If you used them:
 
 *   `filepath` is replaced by accepting a VFile or compatible object as the
-    first argument [`file`][mdx-file]
-*   `compilers` is replaced by
-    [`options.recmaPlugins`][mdx-options-recmaplugins]
-*   `hastPlugins` is replaced by
-    [`options.rehypePlugins`][mdx-options-rehypeplugins]
-*   `mdPlugins` is replaced by
-    [`options.remarkPlugins`][mdx-options-remarkplugins]
+    first argument `file`
+*   `compilers` is replaced by `recmaPlugins`
+*   `hastPlugins` is replaced by `rehypePlugins`
+*   `mdPlugins` is replaced by `options.remarkPlugins`
 *   `skipExport` is removed, [`evaluate`][mdx-evaluate] can do this
     automatically
 *   `wrapExport` is removed, use a custom recma plugin instead
@@ -666,15 +661,15 @@ With our new AST, we’re able to create codemods from now on.
 
 [remark-mdx-use]: /packages/remark-mdx/#use
 
-[mdx-compile]: /packages/mdx/#compile
+[mdx-compile]: /packages/mdx/#compilefile-options
 
-[mdx-compilesync]: /packages/mdx/#compilesync
+[mdx-compilesync]: /packages/mdx/#compilesyncfile-options
 
-[mdx-createprocessor]: /packages/mdx/#createprocessor
+[mdx-createprocessor]: /packages/mdx/#createprocessoroptions
 
-[mdx-evaluate]: /packages/mdx/#evaluate
+[mdx-evaluate]: /packages/mdx/#evaluatefile-options
 
-[mdx-evaluatesync]: /packages/mdx/#evaluatesync
+[mdx-evaluatesync]: /packages/mdx/#evaluatesyncfile-options
 
 [mdx-react]: /packages/react/
 
@@ -685,18 +680,6 @@ With our new AST, we’re able to create codemods from now on.
 [remark-gfm]: https://github.com/remarkjs/remark-gfm
 
 [vfile]: https://github.com/vfile/vfile
-
-[mdx-file]: /packages/mdx/#file
-
-[mdx-options-recmaplugins]: /packages/mdx/#optionsrecmaplugins
-
-[mdx-options-remarkplugins]: /packages/mdx/#optionsremarkplugins
-
-[mdx-options-rehypeplugins]: /packages/mdx/#optionsrehypeplugins
-
-[mdx-options-jsximportsource]: /packages/mdx/#optionsjsximportsource
-
-[mdx-options-providerimportsource]: /packages/mdx/#optionsproviderimportsource
 
 [babel-loader]: https://webpack.js.org/loaders/babel-loader/
 

@@ -1,12 +1,21 @@
 /**
- * @typedef {import('mdx/types.js').MDXComponents} Components
- * @typedef {import('vue').Component<{components?: Components | null | undefined}>} Provider
+ * @typedef {import('mdx/types.js').MDXComponents} MDXComponents
+ * @typedef {import('vue').Component<Props>} Provider
  * @typedef {import('vue').ComponentPublicInstance} ComponentPublicInstance
+ */
+
+/**
+ * @typedef Props
+ *   Configuration for `MDXProvider`.
+ * @property {MDXComponents | null | undefined} [components]
+ *   Additional components to use (optional).
  */
 
 import {Fragment, createVNode, inject, provide} from 'vue'
 
 /**
+ * Provider for MDX context.
+ *
  * @type {Provider}
  *   Provider.
  */
@@ -39,7 +48,9 @@ export const MDXProvider = {
 }
 
 /**
- * @returns {Components}
+ * Get current components from the MDX Context.
+ *
+ * @returns {MDXComponents}
  *   Current components.
  */
 export function useMDXComponents() {

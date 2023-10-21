@@ -16,8 +16,8 @@ import {mdxjs} from 'micromark-extension-mdxjs'
 const emptyOptions = {}
 
 /**
- * Plugin to support MDX (import/exports: `export {x} from 'y'`; expressions:
- * `{1 + 1}`; and JSX: `<Video id={123} />`).
+ * Add support for MDX (JSX: `<Video id={123} />`, export/imports: `export {x}
+ * from 'y'`; and expressions: `{1 + 1}`).
  *
  * @param {Readonly<Options> | null | undefined} [options]
  *   Configuration (optional).

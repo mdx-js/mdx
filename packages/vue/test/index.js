@@ -125,6 +125,7 @@ test('@mdx-js/vue', async function (t) {
  */
 async function evaluate(value) {
   const file = await compile(value, {
+    // To do: drop funky JSX, use automatic runtime.
     jsx: true,
     outputFormat: 'function-body',
     providerImportSource: '#'
@@ -141,7 +142,11 @@ async function evaluate(value) {
       return 'const {' + $1.replaceAll(' as ', ': ') + '} = arguments[0].vue'
     }
   )
-  return run(body, {vue, useMDXComponents})
+  return run(
+    body,
+    // @ts-expect-error: to do: fix.
+    {vue, useMDXComponents}
+  )
 }
 
 /**

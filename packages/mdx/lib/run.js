@@ -1,31 +1,45 @@
+/**
+ * @typedef {import('mdx/types.js').MDXModule} MDXModule
+ *
+ * @typedef {import('./util/resolve-evaluate-options.js').RunOptions} RunOptions
+ */
+
 /** @type {new (code: string, ...args: Array<unknown>) => Function} **/
 const AsyncFunction = Object.getPrototypeOf(run).constructor
 
 /**
- * Asynchronously run code.
+ * Run code compiled with `outputFormat: 'function-body'`.
  *
- * @param {{toString(): string}} file
- *   JS document to run.
- * @param {unknown} options
- *   Parameter.
- * @return {Promise<any>}
- *   Anything.
+ * > ☢️ **Danger**: this `eval`s JavaScript.
+ *
+ * @param {{toString(): string}} code
+ *   JavaScript function body to run.
+ * @param {RunOptions} options
+ *   Configuration (**required**).
+ * @return {Promise<MDXModule>}
+ *   Promise to a module;
+ *   the result is an object with a `default` field set to the component;
+ *   anything else that was exported is available too.
  */
-export async function run(file, options) {
-  return new AsyncFunction(String(file))(options)
+export async function run(code, options) {
+  return new AsyncFunction(String(code))(options)
 }
 
 /**
- * Synchronously run code.
+ * Run code, synchronously.
  *
- * @param {{toString(): string}} file
- *   JS document to run.
- * @param {unknown} options
- *   Parameter.
- * @return {any}
- *   Anything.
+ * When possible please use the async `run`.
+ *
+ * > ☢️ **Danger**: this `eval`s JavaScript.
+ *
+ * @param {{toString(): string}} code
+ *   JavaScript function body to run.
+ * @param {RunOptions} options
+ *   Configuration (**required**).
+ * @return {MDXModule}
+ *   Module.
  */
-export function runSync(file, options) {
+export function runSync(code, options) {
   // eslint-disable-next-line no-new-func
-  return new Function(String(file))(options)
+  return new Function(String(code))(options)
 }

@@ -7,6 +7,31 @@
  * @typedef {import('../compile.js').CompileOptions} CompileOptions
  */
 
+/**
+ * @typedef FormatAwareProcessors
+ *   Result.
+ * @property {ReadonlyArray<string>} extnames
+ *   Extensions to use.
+ * @property {Process} process
+ *   Smart processor, async.
+ * @property {ProcessSync} processSync
+ *   Smart processor, sync.
+ *
+ * @callback Process
+ *   Smart processor, async.
+ * @param {Compatible} vfileCompatible
+ *   MDX or markdown document.
+ * @return {Promise<VFile>}
+ *   File.
+ *
+ * @callback ProcessSync
+ *   Smart processor, sync.
+ * @param {Compatible} vfileCompatible
+ *   MDX or markdown document.
+ * @return {VFile}
+ *   File.
+ */
+
 import {createProcessor} from '../core.js'
 import {md, mdx} from './extnames.js'
 import {resolveFileAndOptions} from './resolve-file-and-options.js'
@@ -16,7 +41,7 @@ import {resolveFileAndOptions} from './resolve-file-and-options.js'
  *
  * @param {Readonly<CompileOptions> | null | undefined} [compileOptions]
  *   Configuration (optional).
- * @return {{extnames: ReadonlyArray<string>, process: process, processSync: processSync}}
+ * @return {FormatAwareProcessors}
  *   Smart processor.
  */
 export function createFormatAwareProcessors(compileOptions) {
@@ -42,10 +67,7 @@ export function createFormatAwareProcessors(compileOptions) {
   /**
    * Smart processor.
    *
-   * @param {Compatible} vfileCompatible
-   *   MDX or markdown document.
-   * @return {Promise<VFile>}
-   *   File.
+   * @type {Process}
    */
   function process(vfileCompatible) {
     const {file, processor} = split(vfileCompatible)
@@ -55,10 +77,7 @@ export function createFormatAwareProcessors(compileOptions) {
   /**
    * Sync smart processor.
    *
-   * @param {Compatible} vfileCompatible
-   *   MDX or markdown document.
-   * @return {VFile}
-   *   File.
+   * @type {ProcessSync}
    */
   function processSync(vfileCompatible) {
     const {file, processor} = split(vfileCompatible)

@@ -912,6 +912,16 @@ button.success {
   background-color: var(--fg);
 }
 
+details {
+  border: 1px solid var(--gray-2);
+  padding: 1ex;
+  border-radius: 3px;
+}
+
+details[open] {
+  padding: calc(1em + 1ex);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --white: #f0f6fc;
@@ -1094,6 +1104,10 @@ button.success {
     background-color: var(--green-5);
     border-color: var(--green-5);
     color: var(--white);
+  }
+
+  details {
+    border-color: var(--gray-6);
   }
 }
 

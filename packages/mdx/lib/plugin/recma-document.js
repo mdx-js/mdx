@@ -21,36 +21,10 @@
  * @typedef {import('estree-jsx').SpreadElement} SpreadElement
  * @typedef {import('estree-jsx').Statement} Statement
  * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
+ *
  * @typedef {import('vfile').VFile} VFile
- */
-
-/**
- * @typedef Options
- *   Configuration for internal plugin `recma-document`.
- * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
- *   Whether to use either `import` and `export` statements to get the runtime
- *   (and optionally provider) and export the content, or get values from
- *   `arguments` and return things (default: `'program'`).
- * @property {boolean | null | undefined} [useDynamicImport=false]
- *   Whether to keep `import` (and `export … from`) statements or compile them
- *   to dynamic `import()` instead (default: `false`).
- * @property {string | null | undefined} [baseUrl]
- *   Resolve `import`s (and `export … from`, and `import.meta.url`) relative to
- *   this URL (optional).
- * @property {string | null | undefined} [pragma='React.createElement']
- *   Pragma for JSX (used in classic runtime) (default:
- *   `'React.createElement'`).
- * @property {string | null | undefined} [pragmaFrag='React.Fragment']
- *   Pragma for JSX fragments (used in classic runtime) (default:
- *   `'React.Fragment'`).
- * @property {string | null | undefined} [pragmaImportSource='react']
- *   Where to import the identifier of `pragma` from (used in classic runtime)
- *   (default: `'react'`).
- * @property {string | null | undefined} [jsxImportSource='react']
- *   Place to import automatic JSX runtimes from (used in automatic runtime)
- *   (default: `'react'`).
- * @property {'automatic' | 'classic' | null | undefined} [jsxRuntime='automatic']
- *   JSX runtime to use (default: `'automatic'`).
+ *
+ * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
  */
 
 import {ok as assert} from 'devlop'
@@ -66,24 +40,22 @@ import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declar
 /**
  * Wrap the estree in `MDXContent`.
  *
- * @param {Readonly<Options> | null | undefined} [options]
- *   Configuration (optional).
+ * @param {Readonly<ProcessorOptions>} options
+ *   Configuration.
  * @returns
  *   Transform.
  */
 export function recmaDocument(options) {
-  /* c8 ignore next -- always given in `@mdx-js/mdx` */
-  const options_ = options || {}
-  const baseUrl = options_.baseUrl || undefined
-  const useDynamicImport = options_.useDynamicImport || undefined
-  const outputFormat = options_.outputFormat || 'program'
+  const baseUrl = options.baseUrl || undefined
+  const useDynamicImport = options.useDynamicImport || undefined
+  const outputFormat = options.outputFormat || 'program'
   const pragma =
-    options_.pragma === undefined ? 'React.createElement' : options_.pragma
+    options.pragma === undefined ? 'React.createElement' : options.pragma
   const pragmaFrag =
-    options_.pragmaFrag === undefined ? 'React.Fragment' : options_.pragmaFrag
-  const pragmaImportSource = options_.pragmaImportSource || 'react'
-  const jsxImportSource = options_.jsxImportSource || 'react'
-  const jsxRuntime = options_.jsxRuntime || 'automatic'
+    options.pragmaFrag === undefined ? 'React.Fragment' : options.pragmaFrag
+  const pragmaImportSource = options.pragmaImportSource || 'react'
+  const jsxImportSource = options.jsxImportSource || 'react'
+  const jsxRuntime = options.jsxRuntime || 'automatic'
 
   /**
    * @param {Program} tree

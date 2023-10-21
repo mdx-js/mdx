@@ -16,24 +16,11 @@
  * @typedef {import('periscopic').Scope} PeriscopicScope
  *
  * @typedef {import('vfile').VFile} VFile
+ *
+ * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
  */
 
 /**
- * @typedef Options
- *   Configuration for internal plugin `recma-jsx-rewrite`.
- * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
- *   Whether to use an import statement or `arguments[0]` to get the provider.
- * @property {string | null | undefined} [providerImportSource]
- *   Place to import a provider from.
- * @property {boolean | null | undefined} [development=false]
- *   Whether to add extra info to error messages in generated code.
- *
- *   This also results in the development automatic JSX runtime
- *   (`/jsx-dev-runtime`, `jsxDEV`) being used, which passes positional info to
- *   nodes.
- *   The default can be set to `true` in Node.js through environment variables:
- *   set `NODE_ENV=development`.
- *
  * @typedef {PeriscopicScope & {node: Node}} Scope
  *   Scope (with a `node`).
  *
@@ -72,14 +59,13 @@ import {
  * It also makes sure that any undefined components are defined: either from
  * received components or as a function that throws an error.
  *
- * @param {Readonly<Options> | null | undefined} [options]
+ * @param {Readonly<ProcessorOptions>} options
  *   Configuration (optional).
  * @returns
  *   Transform.
  */
 export function recmaJsxRewrite(options) {
-  /* c8 ignore next -- always given in `@mdx-js/mdx` */
-  const {development, outputFormat, providerImportSource} = options || {}
+  const {development, outputFormat, providerImportSource} = options
 
   /**
    * @param {Program} tree
@@ -580,7 +566,7 @@ export function recmaJsxRewrite(options) {
 /**
  * @param {string} providerImportSource
  *   Provider source.
- * @param {Options['outputFormat']} outputFormat
+ * @param {'function-body' | 'program' | null | undefined} outputFormat
  *   Format.
  * @returns {ModuleDeclaration | Statement}
  *   Node.

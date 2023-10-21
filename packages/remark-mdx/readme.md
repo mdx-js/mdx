@@ -8,7 +8,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-remark plugin to support the MDX syntax (JSX, expressions, import/exports).
+remark plugin to support the MDX syntax (JSX, export/import, expressions).
 
 <!-- more -->
 
@@ -29,7 +29,14 @@ remark plugin to support the MDX syntax (JSX, expressions, import/exports).
 
 ## What is this?
 
-This package is a remark plugin to support the MDX syntax.
+This package is a [unified][] ([remark][]) plugin to enable the extensions to
+markdown that MDX adds: JSX (`<x/>`), export/import (`export x from 'y'`), and
+expression {`{1 + 1}`}.
+You can use this plugin to add support for parsing and serializing them.
+
+This plugin does not handle how MDX is compiled to JavaScript or evaluated and
+rendered to HTML.
+That’s done by [`@mdx-js/mdx`][mdx].
 
 ## When should I use this?
 
@@ -38,39 +45,38 @@ with remark, rehype, and the rest of unified.
 Some example use cases are when you want to lint the syntax or compile it to
 something other that JavaScript.
 
-**remark** is an AST (abstract syntax tree) based transform project.
-The layer under remark is called mdast, which is just the syntax tree without
-the convention on how to transform.
-mdast is useful when transforming to other formats.
-Another layer underneath is micromark, which is just the parser and has support
-for concrete tokens.
-micromark is useful for linting and formatting.
-`remark-mdx` is a small wrapper to integrate all of these.
-Its parts can be used separately.
+If you don’t use plugins and want to access the syntax tree, you can use
+[`mdast-util-from-markdown`][mdast-util-from-markdown] with
+[`mdast-util-mdx`][mdast-util-mdx].
 
 Typically though, you’d want to move a layer up: `@mdx-js/mdx`.
 That package is the core compiler for turning MDX into JavaScript which
 gives you the most control.
-Or even higher: if you’re using a bundler (webpack, Rollup, esbuild), or a site
-builder (Gatsby, Next.js) or build system (Vite, WMR) which comes with a
-bundler, you’re better off using an integration: see
-[§ Integrations][integrations].
+Or even higher: if you’re using a bundler (Rollup, esbuild, webpack), or a site
+builder (Next.js) or build system (Vite) which comes with a bundler, you’re
+better off using an integration: see [§ Integrations][integrations].
 
 ## Install
 
-This package is [ESM only][esm]:
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install remark-mdx
 ```
 
-[yarn][]:
+In Deno with [`esm.sh`][esmsh]:
 
-```sh
-yarn add remark-mdx
+```tsx
+import remarkMdx from 'https://esm.sh/remark-mdx@2'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import remarkMdx from 'https://esm.sh/remark-mdx@2?bundle'
+</script>
 ```
 
 ## Use
@@ -79,9 +85,9 @@ yarn add remark-mdx
 import {remark} from 'remark'
 import remarkMdx from 'remark-mdx'
 
-const file = remark()
+const file = await remark()
   .use(remarkMdx)
-  .processSync('import a from "b"\n\na <b /> c {1 + 1} d')
+  .process('import a from "b"\n\na <b /> c {1 + 1} d')
 
 console.log(String(file))
 ```
@@ -97,86 +103,115 @@ a <b/> c {1 + 1} d
 ## API
 
 This package exports no identifiers.
-The default export is `remarkMdx`.
+The default export is [`remarkMdx`][api-remark-mdx].
 
-### `unified().use(remarkMdx)`
+### `unified().use(remarkMdx[, options])`
 
-Configures remark so that it can parse and serialize MDX (JSX, expressions,
-import/exports).
-It doesn’t do anything with the syntax: you can
-[create your own plugin][create-plugin] to transform them.
+Add support for MDX (JSX: `<Video id={123} />`, export/imports: `export {x}
+from 'y'`; and expressions: `{1 + 1}`).
+
+###### Parameters
+
+*   `options` ([`Options`][api-options], optional)
+    — configuration
+
+###### Returns
+
+Nothing (`undefined`).
+
+### `Options`
+
+Configuration (TypeScript type).
+
+###### Fields
+
+*   `acornOptions` ([`AcornOptions`][acorn-options], default:
+    `{ecmaVersion: 2024, locations: true, sourceType: 'module'}`)
+    — configuration for acorn; all fields except `locations` can be set
+*   `printWidth` (`number`, default: `Infinity`)
+    — try and wrap syntax at this width;
+    when set to a finite number (say, `80`), the formatter will print
+    attributes on separate lines when a tag doesn’t fit on one line;
+    the normal behavior is to print attributes with spaces between them instead
+    of line endings
+*   `quote` (`'"'` or `"'"`, default: `'"'`)
+    — preferred quote to use around attribute values
+*   `quoteSmart` (`boolean`, default: `false`)
+    — use the other quote if that results in less bytes
+*   `tightSelfClosing` (`boolean`, default: `false`)
+    — do not use an extra space when closing self-closing elements: `<img/>`
+    instead of `<img />`
+
+<!-- Note: `acorn`, `addResult`, `allowEmpty`, and `spread` are intentionally not documented. -->
+
+## Authoring
+
+For recommendations on how to author MDX, see each corresponding readme:
+
+*   [ESM](https://github.com/micromark/micromark-extension-mdxjs-esm#authoring)
+*   [JSX](https://github.com/micromark/micromark-extension-mdx-jsx#authoring)
+*   [expressions](https://github.com/micromark/micromark-extension-mdx-expression/tree/main/packages/micromark-extension-mdx-expression#authoring)
+*   [CommonMark features not in MDX](https://github.com/micromark/micromark-extension-mdx-md#authoring)
+
+## HTML
+
+MDX has no representation in HTML.
+Though, when you are dealing with MDX, you will likely go *through* hast.
+You can enable passing MDX through to hast by configuring
+[`remark-rehype`][remark-rehype] with `passThrough: ['mdxjsEsm',
+'mdxFlowExpression', 'mdxJsxFlowElement', 'mdxJsxTextElement', 'mdxTextExpression']`.
 
 ## Syntax
 
-This plugin applies several micromark extensions to parse the syntax.
-See their readmes for parse details:
+For info on the syntax of these features, see each corresponding readme:
 
-*   [`micromark-extension-mdx-expression`](https://github.com/micromark/micromark-extension-mdx-expression#syntax)
-    — expressions (`{1 + 1}`)
-*   [`micromark-extension-mdx-jsx`](https://github.com/micromark/micromark-extension-mdx-jsx#syntax)
-    — JSX (`<div />`)
-*   [`micromark-extension-mdxjs-esm`](https://github.com/micromark/micromark-extension-mdxjs-esm#syntax)
-    — ESM (`export x from 'y'`)
-*   [`micromark-extension-mdx-md`](https://github.com/micromark/micromark-extension-mdx-md#mdxmd)
-    — Turn off HTML, autolinks, and indented code
+*   [ESM](https://github.com/micromark/micromark-extension-mdxjs-esm#syntax)
+*   [JSX](https://github.com/micromark/micromark-extension-mdx-jsx#syntax)
+*   [expressions](https://github.com/micromark/micromark-extension-mdx-expression/tree/main/packages/micromark-extension-mdx-expression#syntax)
+*   CommonMark features not in MDX: n/a
 
 ## Syntax tree
 
-This plugin applies several mdast utilities to build and serialize the AST.
-See their readmes for the node types supported in the tree:
+For info on the syntax tree of these features, see each corresponding readme:
 
-*   [`mdast-util-mdx-expression`](https://github.com/syntax-tree/mdast-util-mdx-expression#syntax-tree)
-    — expressions (`{1 + 1}`)
-*   [`mdast-util-mdx-jsx`](https://github.com/syntax-tree/mdast-util-mdx-jsx#syntax-tree)
-    — JSX (`<div />`)
-*   [`mdast-util-mdxjs-esm`](https://github.com/syntax-tree/mdast-util-mdxjs-esm#syntax-tree)
-    — ESM (`export x from 'y'`)
+*   [ESM](https://github.com/syntax-tree/mdast-util-mdxjs-esm#syntax-tree)
+*   [JSX](https://github.com/syntax-tree/mdast-util-mdx-jsx#syntax-tree)
+*   [expressions](https://github.com/syntax-tree/mdast-util-mdx-expression#syntax-tree)
+*   CommonMark features not in MDX: n/a
+
+## Errors
+
+For info on what errors are thrown, see each corresponding readme:
+
+*   [ESM](https://github.com/micromark/micromark-extension-mdxjs-esm#errors)
+*   [JSX](https://github.com/micromark/micromark-extension-mdx-jsx#errors)
+*   [expressions](https://github.com/micromark/micromark-extension-mdx-expression/tree/main/packages/micromark-extension-mdx-expression#errors)
+*   CommonMark features not in MDX: n/a
 
 ## Types
 
 This package is fully typed with [TypeScript][].
+It exports the additional type [`Options`][api-options].
 
-If you’re working with the syntax tree, make sure to import this plugin
-somewhere in your types, as that registers the new node types in the tree.
+If you’re working with the syntax tree, you can register the new node types
+with `@types/mdast` by adding a reference:
 
 ```tsx
-// Augment node types:
+// Register MDX nodes in mdast:
 /// <reference types="remark-mdx" />
-
-/**
- * @typedef {import('mdast').Root} Root
- */
 
 import {visit} from 'unist-util-visit'
 
-export default function myRemarkPlugin() {
+function myRemarkPlugin() {
   /**
-   * @param {Root} tree
+   * @param {import('mdast').Root} tree
    *   Tree.
    * @returns {undefined}
    *   Nothing.
    */
   return function (tree) {
     visit(tree, function (node) {
-      // `node` can now be one of the nodes for JSX, expressions, or ESM.
-    })
-  }
-}
-```
-
-Alternatively, in TypeScript, do:
-
-```ts
-// Augment node types:
-/// <reference types="remark-mdx" />
-
-import type {Root} from 'mdast'
-import {visit} from 'unist-util-visit'
-
-export default function myRemarkPlugin() {
-  return function (tree: Root) {
-    visit(tree, function (node) {
-      // `node` can now be one of the nodes for JSX, expressions, or ESM.
+      console.log(node) // `node` can now be one of the MDX nodes.
     })
   }
 }
@@ -245,6 +280,26 @@ abide by its terms.
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
+[esmsh]: https://esm.sh
+
 [security]: https://mdxjs.com/getting-started/#security
 
 [typescript]: https://www.typescriptlang.org
+
+[unified]: https://github.com/unifiedjs/unified
+
+[remark]: https://github.com/remarkjs/remark
+
+[remark-rehype]: https://github.com/remarkjs/remark-rehype
+
+[mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
+
+[mdast-util-mdx]: https://github.com/syntax-tree/mdast-util-mdx
+
+[mdx]: https://mdxjs.com/packages/mdx/
+
+[acorn-options]: https://github.com/acornjs/acorn/blob/520547b/acorn/src/acorn.d.ts#L578
+
+[api-options]: #options
+
+[api-remark-mdx]: #unifieduseremarkmdx-options

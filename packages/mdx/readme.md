@@ -19,13 +19,6 @@ MDX compiler.
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
-    *   [`compile(file, options?)`](#compilefile-options)
-    *   [`compileSync(file, options?)`](#compilesyncfile-options)
-    *   [`evaluate(file, options)`](#evaluatefile-options)
-    *   [`evaluateSync(file, options)`](#evaluatesyncfile-options)
-    *   [`run(functionBody, options)`](#runfunctionbody-options)
-    *   [`runSync(functionBody, options)`](#runsyncfunctionbody-options)
-    *   [`createProcessor(options)`](#createprocessoroptions)
 *   [Types](#types)
 *   [Architecture](#architecture)
 *   [Security](#security)
@@ -39,27 +32,33 @@ It can also evaluate MDX code.
 
 ## When should I use this?
 
-This is the core compiler for turning MDX into JavaScript and which gives you
-the most control.
-If you’re using a bundler (webpack, Rollup, esbuild), or a site builder (Gatsby,
-Next.js) or build system (Vite, WMR) which comes with a bundler, you’re better
-off using an integration: see [§ Integrations][integrations].
+This is the core compiler for turning MDX into JavaScript which gives you the
+most control.
+If you’re using a bundler (Rollup, esbuild, webpack), a site builder (Next.js),
+or build system (Vite) which comes with a bundler, you’re better off using an
+integration: see [§ Integrations][integrations].
 
 ## Install
 
-This package is [ESM only][esm]:
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install @mdx-js/mdx
 ```
 
-[yarn][]:
+In Deno with [`esm.sh`][esmsh]:
 
-```sh
-yarn add @mdx-js/mdx
+```tsx
+import {compile} from 'https://esm.sh/@mdx-js/mdx@2'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import {compile} from 'https://esm.sh/@mdx-js/mdx@2?bundle'
+</script>
 ```
 
 ## Use
@@ -74,7 +73,7 @@ export function Thing() {
 # Hello, <Thing />
 ```
 
-Add some code in `example.js` to compile `example.mdx` to JavaScript:
+…and some code in `example.js` to compile `example.mdx` to JavaScript:
 
 ```tsx
 import fs from 'node:fs/promises'
@@ -92,26 +91,18 @@ Yields roughly:
 import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
 export function Thing() {
-  return _jsx(_Fragment, {children: 'World'})
+  return _jsx(_Fragment, {children: 'World!'})
 }
 
 function _createMdxContent(props) {
-  const _components = {
-    h1: 'h1',
-    ...props.components
-  }
-  return _jsxs(_components.h1, {
-    children: ['Hello ', _jsx(Thing, {})]
-  })
+  const _components = {h1: 'h1', ...props.components}
+  return _jsxs(_components.h1, {children: ['Hello, ', _jsx(Thing, {})]})
 }
 
 export default function MDXContent(props = {}) {
   const {wrapper: MDXLayout} = props.components || {}
   return MDXLayout
-    ? _jsx(MDXLayout, {
-        ...props,
-        children: _jsx(_createMdxContent, props)
-      })
+    ? _jsx(MDXLayout, {...props, children: _jsx(_createMdxContent, {...props})})
     : _createMdxContent(props)
 }
 ```
@@ -121,30 +112,40 @@ See [§ Using MDX][using-mdx] for more on how MDX work and how to use the result
 ## API
 
 This package exports the following identifiers:
-[`compile`][compile],
-[`compileSync`][compile-sync],
-[`evaluate`][eval],
-[`evaluateSync`](#evaluatesyncfile-options),
-[`run`][run],
-[`runSync`](#runsyncfunctionbody-options), and
-[`createProcessor`][create-processor].
+[`compile`][api-compile],
+[`compileSync`][api-compile-sync],
+[`createProcessor`][api-create-processor],
+[`evaluate`][api-evaluate],
+[`evaluateSync`][api-evaluate-sync],
+[`nodeTypes`][api-node-types],
+[`run`][api-run], and
+[`runSync`][api-run-sync].
 There is no default export.
 
 ### `compile(file, options?)`
 
 Compile MDX to JS.
 
-###### `file`
+###### Parameters
 
-MDX document to parse (`string`, [`Buffer`][buffer] in UTF-8, [`vfile`][vfile],
-or anything that can be given to `vfile`).
+*   `file` ([`Compatible` from `vfile`][vfile-compatible])
+    — MDX document to parse
+*   `options` ([`CompileOptions`][api-compile-options], optional)
+    — compile configuration
 
-<details>
-<summary>Expand example</summary>
+###### Returns
+
+Promise to compiled file ([`Promise<VFile>`][vfile]).
+
+###### Examples
+
+The input value for `file` can be many different things.
+You can pass a `string`, `Uint8Array` in UTF-8, [`VFile`][vfile], or anything
+that can be given to `new VFile`.
 
 ```tsx
-import {VFile} from 'vfile'
 import {compile} from '@mdx-js/mdx'
+import {VFile} from 'vfile'
 
 await compile(':)')
 await compile(Buffer.from(':-)'))
@@ -152,621 +153,12 @@ await compile({path: 'path/to/file.mdx', value: '🥳'})
 await compile(new VFile({path: 'path/to/file.mdx', value: '🤭'}))
 ```
 
-</details>
-
-###### `options.remarkPlugins`
-
-List of [remark plugins][remark-plugins], presets, and pairs.
-
-<details>
-<summary>Expand example</summary>
-
-```tsx
-import remarkFrontmatter from 'remark-frontmatter' // YAML and such.
-import remarkGfm from 'remark-gfm' // Tables, footnotes, strikethrough, task lists, literal URLs.
-
-await compile(file, {remarkPlugins: [remarkGfm]}) // One plugin.
-await compile(file, {remarkPlugins: [[remarkFrontmatter, 'toml']]}) // A plugin with options.
-await compile(file, {remarkPlugins: [remarkGfm, remarkFrontmatter]}) // Two plugins.
-await compile(file, {remarkPlugins: [[remarkGfm, {singleTilde: false}], remarkFrontmatter]}) // Two plugins, first w/ options.
-```
-
-</details>
-
-###### `options.rehypePlugins`
-
-List of [rehype plugins][rehype-plugins], presets, and pairs.
-
-<details>
-<summary>Expand example</summary>
-
-```tsx
-import rehypeKatex from 'rehype-katex' // Render math with KaTeX.
-import remarkMath from 'remark-math' // Support math like `$so$`.
-
-await compile(file, {rehypePlugins: [rehypeKatex], remarkPlugins: [remarkMath]})
-
-await compile(file, {
-  // A plugin with options:
-  rehypePlugins: [[rehypeKatex, {strict: true, throwOnError: true}]],
-  remarkPlugins: [remarkMath]
-})
-```
-
-</details>
-
-###### `options.recmaPlugins`
-
-List of recma plugins.
-This is a new ecosystem, currently in beta, to transform [esast][] trees
-(JavaScript).
-
-###### `options.remarkRehypeOptions`
-
-Options to pass through to [`remark-rehype`][remark-rehype].
-The option `allowDangerousHtml` will always be set to `true` and the MDX nodes
-are passed through.
-In particular, you might want to pass `clobberPrefix`, `footnoteLabel`, and
-`footnoteBackLabel`.
-
-<details>
-<summary>Expand example</summary>
-
-```tsx
-compile({value: '…'}, {remarkRehypeOptions: {clobberPrefix: 'comment-1'}})
-```
-
-</details>
-
-###### `options.mdExtensions`
-
-List of markdown extensions, with dot (`Array<string>`, default: `['.md',
-'.markdown', '.mdown', '.mkdn', '.mkd', '.mdwn', '.mkdown', '.ron']`).
-
-###### `options.mdxExtensions`
-
-List of MDX extensions, with dot (`Array<string>`, default: `['.mdx']`).
-Has no effect in `compile` or `evaluate` but does affect
-[§ Integrations][integrations].
-
-###### `options.format`
-
-Format the file is in (`'detect' | 'mdx' | 'md'`, default: `'detect'`).
-
-*   `'detect'` — use `'markdown'` for files with an extension in `mdExtensions`
-    and `'mdx'` otherwise
-*   `'mdx'` — treat file as [MDX][mdx-syntax]
-*   `'md'` — treat file as plain vanilla markdown
-
-The format cannot be detected if a file is passed without a path or extension:
-`mdx` will be assumed.
-So pass a full vfile (with `path`) or an object with a path.
-
-<details>
-<summary>Expand example</summary>
-
-```tsx
-compile({value: '…'}) // Seen as MDX
-compile({value: '…'}, {format: 'md'}) // Seen as markdown
-compile({path: 'readme.md', value: '…'}) // Seen as markdown
-
-// Please do not use `.md` for MDX as other tools won’t know how to handle it.
-compile({path: 'readme.md', value: '…'}, {format: 'mdx'}) // Seen as MDX
-compile({path: 'readme.md', value: '…'}, {mdExtensions: []}) // Seen as MDX
-```
-
-</details>
-
-This option mostly affects [§ Integrations][integrations]
-because in those it affects *which* files are “registered”:
-
-*   `format: 'mdx'` registers the extensions in `options.mdxExtensions`
-*   `format: 'md'` registers the extensions in `options.mdExtensions`
-*   `format: 'detect'` registers both lists of extensions
-
-###### `options.outputFormat`
-
-Output format to generate (`'function-body' | 'program'`, default: `'program'`).
-In most cases `'program'` should be used, as it results in a whole program.
-Internally, [`evaluate`][eval] uses `outputFormat: 'function-body'` to compile
-to code that can be `eval`ed with [`run`][run].
-In some cases, you might want to do what `evaluate` does in separate steps
-yourself, such as when compiling on the server and running on the client.
-
-The `'program'` format will use import statements to import the runtime (and
-optionally provider) and use an export statement to yield the `MDXContent`
-component.
-
-The `'function-body'` format will get the runtime (and optionally provider) from
-`arguments[0]`, rewrite export statements, and use a return statement to yield
-what was exported.
-Normally, this output format will throw on `import` (and `export … from`)
-statements, but you can support them by setting
-[`options.useDynamicImport`][usedynamicimport].
-
-<details>
-<summary>Expand example</summary>
-
-A module `example.js`:
+The output `VFile` can be used to access more than the generated code:
 
 ```tsx
 import {compile} from '@mdx-js/mdx'
-
-const code = 'export const no = 3.14\n\n# hi {no}'
-
-console.log(String(await compile(code, {outputFormat: 'program'}))) // Default
-console.log(String(await compile(code, {outputFormat: 'function-body'})))
-```
-
-…yields:
-
-```tsx
-/* @jsxRuntime automatic @jsxImportSource react */
-import {jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
-export const no = 3.14
-function _createMdxContent(props) { /* … */ }
-export default function MDXContent(props = {}) { /* … */ }
-```
-
-```tsx
-const {Fragment: _Fragment, jsx: _jsx} = arguments[0]
-const no = 3.14
-function _createMdxContent(props) { /* … */ }
-function MDXContent(props = {}) { /* … */ }
-return {no, default: MDXContent}
-```
-
-</details>
-
-###### `options.useDynamicImport`
-
-Whether to compile to dynamic import expressions (`boolean`, default: `false`).
-This option applies when [`options.outputFormat`][outputformat] is
-`'function-body'`.
-
-`@mdx-js/mdx` can turn import statements (`import x from 'y'`) into dynamic
-imports (`const {x} = await import('y')`).
-This is useful because import statements only work at the top level of
-JavaScript modules, whereas `import()` is available inside function bodies.
-
-When you turn `useDynamicImport` on, you should probably set [`options.baseUrl`][baseurl] too.
-
-<details>
-<summary>Expand example</summary>
-
-Say we have a couple modules:
-
-```tsx
-// meta.js:
-export const title = 'World'
-
-// numbers.js:
-export const no = 3.14
-
-// example.js:
-import {compileSync} from '@mdx-js/mdx'
-
-const code = `import {name} from './meta.js'
-export {no} from './numbers.js'
-
-# hi {name}!`
-
-console.log(String(compileSync(code, {outputFormat: 'function-body', useDynamicImport: true})))
-```
-
-…now running `node example.js` yields:
-
-```tsx
-const {Fragment: _Fragment, jsx: _jsx, jsxs: _jsxs} = arguments[0]
-const {name} = await import('./meta.js')
-const {no} = await import('./numbers.js')
-function _createMdxContent(props) { /* … */ }
-function MDXContent(props = {}) { /* … */ }
-return {no, default: MDXContent}
-```
-
-</details>
-
-###### `options.baseUrl`
-
-Resolve `import`s (and `export … from`, and `import.meta.url`) from this URL
-(`string?`, example: `import.meta.url`).
-
-Relative specifiers are non-absolute URLs that start with `/`, `./`, or `../`.
-For example: `/index.js`, `./folder/file.js`, or `../main.js`.
-
-This option is useful when code will run in a different place.
-One example is when `.mdx` files are in path *a* but compiled to path *b* and
-imports should run relative the path *b*.
-Another example is when evaluating code, whether in Node or a browser.
-
-<details>
-<summary>Expand example</summary>
-
-Say we have a module `example.js`:
-
-```tsx
-import {compile} from '@mdx-js/mdx'
-
-const code = 'export {number} from "./data.js"\n\n# hi'
-const baseUrl = 'https://a.full/url' // Typically `import.meta.url`
-
-console.log(String(await compile(code, {baseUrl})))
-```
-
-…now running `node example.js` yields:
-
-```tsx
-import {Fragment as _Fragment, jsx as _jsx} from 'react/jsx-runtime'
-export {number} from 'https://a.full/data.js'
-function _createMdxContent(props) { /* … */ }
-function MDXContent(props = {}) { /* … */ }
-export default MDXContent
-```
-
-</details>
-
-###### `options.development`
-
-Whether to add extra info to error messages in generated code
-(`boolean?`, default: `false`).
-This also results in the development automatic JSX runtime (`/jsx-dev-runtime`,
-`jsxDEV`) being used, which passes positional info to nodes.
-The default can be set to `true` in Node.js through environment variables: set
-`NODE_ENV=development`.
-
-<details>
-<summary>Expand example</summary>
-
-Say we had some MDX that references a component that can be passed or provided
-at runtime:
-
-```mdx
-**Note**<NoteIcon />: some stuff.
-```
-
-And a module to evaluate that:
-
-```tsx
-import fs from 'node:fs/promises'
-import * as runtime from 'react/jsx-runtime'
-import {evaluate} from '@mdx-js/mdx'
-
-const path = 'example.mdx'
-const value = await fs.readFile(path)
-const MDXContent = (await evaluate({path, value}, runtime)).default
-
-console.log(MDXContent())
-```
-
-Running that would normally (production) yield:
-
-```txt
-Error: Expected component `NoteIcon` to be defined: you likely forgot to import, pass, or provide it.
-    at _missingMdxReference (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:27:9)
-    at _createMdxContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:15:20)
-    at MDXContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:9:9)
-    at main (…/example.js:11:15)
-```
-
-But if we change add `development: true` to our example:
-
-```diff
-@@ -7,6 +7,6 @@
- import fs from 'node:fs/promises'
--import * as runtime from 'react/jsx-runtime'
-+import * as runtime from 'react/jsx-dev-runtime'
- import {evaluate} from '@mdx-js/mdx'
-
- const path = 'example.mdx'
- const value = await fs.readFile(path)
--const MDXContent = (await evaluate({path, value}, runtime)).default
-+const MDXContent = (await evaluate({path, value}, {development: true, ...runtime})).default
- console.log(MDXContent({}))
-```
-
-And we’d run it again, we’d get:
-
-```txt
-Error: Expected component `NoteIcon` to be defined: you likely forgot to import, pass, or provide it.
-It’s referenced in your code at `1:9-1:21` in `example.mdx`
-provide it.
-    at _missingMdxReference (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:27:9)
-    at _createMdxContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:15:20)
-    at MDXContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:9:9)
-    at main (…/example.js:11:15)
-```
-
-</details>
-
-###### `options.SourceMapGenerator`
-
-The `SourceMapGenerator` class from [`source-map`][source-map] (optional).
-When given, the resulting file will have a `map` field set to a source map (in
-object form).
-
-<details>
-<summary>Expand example</summary>
-
-Assuming `example.mdx` from [§ Use][use] exists, then:
-
-```tsx
-import fs from 'node:fs/promises'
-import {SourceMapGenerator} from 'source-map'
-import {compile} from '@mdx-js/mdx'
-
-const file = await compile(
-  {path: 'example.mdx', value: await fs.readFile('example.mdx')},
-  {SourceMapGenerator}
-)
-
-console.log(file.map)
-```
-
-…yields:
-
-```tsx
-{
-  file: 'example.mdx',
-  mappings: ';;aAAaA,QAAQ;YAAQ;;;;;;;;iBAE3B',
-  names: ['Thing'],
-  sources: ['example.mdx'],
-  version: 3
-}
-```
-
-</details>
-
-###### `options.providerImportSource`
-
-Place to import a provider from (`string?`, example: `'@mdx-js/react'`).
-Useful for runtimes that support context (React, Preact).
-The provider must export a `useMDXComponents`, which is called to access an
-object of components.
-
-<details>
-<summary>Expand example</summary>
-
-If `file` is the contents of `example.mdx` from [§ Use][use], then:
-
-```tsx
-compile(file, {providerImportSource: '@mdx-js/react'})
-```
-
-…yields this difference:
-
-```diff
- /* @jsxRuntime automatic @jsxImportSource react */
- import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
-+import {useMDXComponents as _provideComponents} from '@mdx-js/react'
-
- export function Thing() {
-   return _jsx(_Fragment, {children: 'World'})
- }
-
- function _createMdxContent(props) {
-   const _components = {
-     h1: 'h1',
-+    ..._provideComponents(),
-     ...props.components
-   }
-   return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
- }
-
- export default function MDXContent(props = {}) {
--  const {wrapper: MDXLayout} = props.components || {}
-+  const {wrapper: MDXLayout} = {
-+    ..._provideComponents(),
-+    ...props.components
-+  }
-
-   return MDXLayout
-     ? _jsx(MDXLayout, {
-         ...props,
-         children: _jsx(_createMdxContent, {})
-       })
-     : _createMdxContent()
-```
-
-</details>
-
-###### `options.jsx`
-
-Whether to keep JSX (`boolean?`, default: `false`).
-The default is to compile JSX away so that the resulting file is immediately
-runnable.
-
-<details>
-<summary>Expand example</summary>
-
-If `file` is the contents of `example.mdx` from [§ Use][use], then:
-
-```tsx
-compile(file, {jsx: true})
-```
-
-…yields this difference:
-
-```diff
- /* @jsxRuntime automatic @jsxImportSource react */
--import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
-
- export function Thing() {
--  return _jsx(_Fragment, {children: 'World'})
-+  return <>World!</>
- }
-
- function _createMdxContent(props) {
-   const _components = {
-     h1: 'h1',
-     ...props.components
-   }
--  return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
-+  return <_components.h1>{"Hello "}<Thing /></_components.h1>
- }
-
- export default function MDXContent(props = {}) {
-   const {wrapper: MDXLayout} = props.components || {}
-   return MDXLayout
--    ? _jsx(MDXLayout, {
--        ...props,
--        children: _jsx(_createMdxContent, props)
--      })
-+    ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout>
-     : _createMdxContent(props)
- }
- }
-```
-
-</details>
-
-###### `options.jsxRuntime`
-
-JSX runtime to use (`'automatic' | 'classic'`, default: `'automatic'`).
-The classic runtime compiles to calls such as `h('p')`, the automatic runtime
-compiles to `import _jsx from '$importSource/jsx-runtime'\n_jsx('p')`.
-
-<details>
-<summary>Expand example</summary>
-
-If `file` is the contents of `example.mdx` from [§ Use][use], then:
-
-```tsx
-compile(file, {jsxRuntime: 'classic'})
-```
-
-…yields this difference:
-
-```diff
--/* @jsxRuntime automatic @jsxImportSource react */
--import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
-+/* @jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment */
-+import React from 'react'
-
- export function Thing() {
--  return _jsx(_Fragment, {children: 'World'})
-+  return React.createElement(React.Fragment, null, 'World!')
- }
-…
-```
-
-</details>
-
-###### `options.jsxImportSource`
-
-Place to import automatic JSX runtimes from (`string?`, default: `'react'`).
-When in the `automatic` runtime, this is used to define an import for
-`Fragment`, `jsx`, `jsxs`, and `jsxDEV`.
-
-<details>
-<summary>Expand example</summary>
-
-If `file` is the contents of `example.mdx` from [§ Use][use], then:
-
-```tsx
-compile(file, {jsxImportSource: 'preact'})
-```
-
-…yields this difference:
-
-```diff
--/* @jsxRuntime automatic @jsxImportSource react */
--import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
-+/* @jsxRuntime automatic @jsxImportSource preact */
-+import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from 'preact/jsx-runtime'
-```
-
-</details>
-
-###### `options.pragma`
-
-Pragma for JSX (`string?`, default: `'React.createElement'`).
-When in the `classic` runtime, this is used as an identifier for function calls:
-`<x />` to `React.createElement('x')`.
-
-You should most probably define `pragmaFrag` and `pragmaImportSource` too when
-changing this.
-
-<details>
-<summary>Expand example</summary>
-
-If `file` is the contents of `example.mdx` from [§ Use][use], then:
-
-```tsx
-compile(file, {
-  jsxRuntime: 'classic',
-  pragma: 'preact.createElement',
-  pragmaFrag: 'preact.Fragment',
-  pragmaImportSource: 'preact/compat'
-})
-```
-
-…yields this difference:
-
-```diff
--/* @jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment */
--import React from 'react'
-+/* @jsxRuntime classic @jsx preact.createElement @jsxFrag preact.Fragment */
-+import preact from 'preact/compat'
-
- export function Thing() {
--  return React.createElement(React.Fragment, null, 'World!')
-+  return preact.createElement(preact.Fragment, null, 'World!')
- }
-…
-```
-
-</details>
-
-###### `options.pragmaFrag`
-
-Pragma for JSX fragments (`string?`, default: `'React.Fragment'`).
-When in the `classic` runtime, this is used as an identifier for fragments: `<>`
-to `React.createElement(React.Fragment)`.
-
-See `options.pragma` for an example.
-
-###### `options.pragmaImportSource`
-
-Where to import the identifier of `pragma` from (`string?`, default: `'react'`).
-When in the `classic` runtime, this is used to import the `pragma` function.
-To illustrate with an example: when `pragma` is `'a.b'` and `pragmaImportSource`
-is `'c'` this following will be generated: `import a from 'c'`.
-
-See `options.pragma` for an example.
-
-###### `options.elementAttributeNameCase`
-
-Specify casing to use for attribute names (`'html' | 'react`, default:
-`'react'`).
-
-This casing is used for hast elements, not for embedded MDX JSX nodes
-(components that someone authored manually).
-
-###### `options.stylePropertyNameCase`
-
-Specify casing to use for property names in `style` objects (`'css' | 'dom`,
-default: `'dom'`).
-
-This casing is used for hast elements, not for embedded MDX JSX nodes
-(components that someone authored manually).
-
-###### `options.tableCellAlignToStyle`
-
-Turn obsolete `align` props on `td` and `th` into CSS `style` props (default:
-`true`).
-
-###### Returns
-
-`Promise<VFile>` — Promise that resolves to the compiled JS as a [vfile][].
-
-<details>
-<summary>Expand example</summary>
-
-```tsx
 import remarkPresetLintConsistent from 'remark-preset-lint-consistent' // Lint rules to check for consistent markdown.
 import {reporter} from 'vfile-reporter'
-import {compile} from '@mdx-js/mdx'
 
 const file = await compile('*like this* or _like this_?', {remarkPlugins: [remarkPresetLintConsistent]})
 
@@ -781,99 +173,67 @@ Yields:
 ⚠ 1 warning
 ```
 
-</details>
-
 ### `compileSync(file, options?)`
 
-Compile MDX to JS.
-Synchronous version of `compile`.
-When possible please use the async `compile`.
+Synchronously compile MDX to JS.
 
-### `evaluate(file, options)`
+When possible please use the async [`compile`][api-compile].
 
-> ☢️ **Danger**: It’s called **evaluate** because it `eval`s JavaScript.
+###### Parameters
 
-[Compile][] and [run][] MDX.
-When possible, please use `compile`, write to a file, and then run with Node,
-or use one of the
-[§ Integrations][integrations].
-But if you trust your content, `evaluate` can work.
-
-Typically, `import` (or `export … from`) do not work here.
-They can be compiled to dynamic `import()` by passing
-[`options.useDynamicImport`][usedynamicimport].
-
-###### `file`
-
-See [`compile`][compile].
-
-###### `options`
-
-Most options are the same as [`compile`][compile], with the following
-exceptions:
-
-*   `providerImportSource` is replaced by `useMDXComponents`
-*   `jsx*` and `pragma*` options are replaced by `Fragment`, `jsx`, `jsxs`, and
-    `jsxDEV`
-*   `outputFormat` is set to `function-body`
-
-###### `options.jsx`
-
-###### `options.jsxs`
-
-###### `options.jsxDEV`
-
-###### `options.Fragment`
-
-These options are required: `Fragment` always, when `development: true`
-then `jsxDEV`, when `development: false` then `jsx` and `jsxs`.
-They come from an automatic JSX runtime that you must import yourself.
-
-<details>
-<summary>Expand example</summary>
-
-```tsx
-import * as runtime from 'react/jsx-runtime'
-
-const {default: Content} = await evaluate('# hi', {...otherOptions, ...runtime})
-```
-
-</details>
-
-###### `options.useMDXComponents`
-
-Needed if you want to support a provider.
-
-<details>
-<summary>Expand example</summary>
-
-```tsx
-import * as provider from '@mdx-js/react'
-import * as runtime from 'react/jsx-runtime'
-
-const {default: Content} = await evaluate('# hi', {
-  ...otherOptions,
-  ...provider,
-  ...runtime
-})
-```
-
-</details>
+*   `file` ([`Compatible` from `vfile`][vfile-compatible])
+    — MDX document to parse
+*   `options` ([`CompileOptions`][api-compile-options], optional)
+    — compile configuration
 
 ###### Returns
 
-`Promise<MDXModule>` — Promise that resolves to something that looks a bit like
-a module: an object with a `default` field set to the component and anything
-else that was exported from the MDX file available too.
+Compiled file ([`VFile`][vfile]).
 
-<details>
-<summary>Expand example</summary>
+### `createProcessor(options?)`
 
-Assuming the contents of `example.mdx` from [§ Use][use] was in `file`, then:
+Create a processor to compile markdown or MDX to JavaScript.
+
+> **Note**: `format: 'detect'` is not allowed in `ProcessorOptions`.
+
+###### Parameters
+
+*   `options` ([`ProcessorOptions`][api-processor-options], optional)
+    — process configuration
+
+###### Returns
+
+Processor ([`Processor` from `unified`][unified-processor]).
+
+### `evaluate(file, options)`
+
+[Compile][] and [run][] MDX.
+
+When you trust your content, `evaluate` can work.
+When possible, use [`compile`][api-compile], write to a file, and then run with
+Node or use one of the [§ Integrations][integrations].
+
+> ☢️ **Danger**: it’s called **evaluate** because it `eval`s JavaScript.
+
+###### Parameters
+
+*   `file` ([`Compatible` from `vfile`][vfile-compatible])
+    — MDX document to parse
+*   `options` ([`EvaluateOptions`][api-evaluate-options], **required**)
+    — configuration
+
+###### Returns
+
+Promise to a module ([`Promise<MDXModule>` from `mdx/types.js`][mdx-types-module]).
+
+The result is an object with a `default` field set to the component;
+anything else that was exported is available too.
+For example, assuming the contents of `example.mdx` from [§ Use][use] was in
+`file`, then:
 
 ```tsx
-import * as runtime from 'react/jsx-runtime'
 import {evaluate} from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
 
 console.log(await evaluate(file, runtime))
 ```
@@ -884,12 +244,11 @@ console.log(await evaluate(file, runtime))
 {Thing: [Function: Thing], default: [Function: MDXContent]}
 ```
 
-</details>
-
-###### Note: Performance
+###### Notes
 
 Compiling (and running) MDX takes time.
-If you’re live-rendering a string of MDX that often changes using a virtual DOM
+
+If you are live-rendering a string of MDX that often changes using a virtual DOM
 based framework (such as React), one performance improvement is to call the
 `MDXContent` component yourself.
 The reason is that the `evaluate` creates a new function each time, which cannot
@@ -904,33 +263,48 @@ be diffed:
 
 ### `evaluateSync(file, options)`
 
-> ☢️ **Danger**: It’s called **evaluate** because it `eval`s JavaScript.
+Compile and run MDX, synchronously.
 
-Compile and run MDX.
-Synchronous version of [`evaluate`][eval].
-When possible please use the async `evaluate`.
+When possible please use the async [`evaluate`][api-evaluate].
 
-### `run(functionBody, options)`
+> ☢️ **Danger**: it’s called **evaluate** because it `eval`s JavaScript.
 
-> ☢️ **Danger**: This `eval`s JavaScript.
+###### Parameters
 
-Run MDX compiled as [`options.outputFormat: 'function-body'`][outputformat].
-
-###### `options`
-
-You can pass `Fragment`, `jsx`, `jsxs`, and `jsxDEV`, from an automatic JSX
-runtime as `options`.
-You can also pass `useMDXComponents` from a provider in options if the MDX is
-compiled with `options.providerImportSource: '#'` (the exact value of this
-compile option doesn’t matter).
-All other options have to be passed to `compile` instead.
+*   `file` ([`Compatible` from `vfile`][vfile-compatible])
+    — MDX document to parse
+*   `options` ([`EvaluateOptions`][api-evaluate-options], **required**)
+    — configuration
 
 ###### Returns
 
-`Promise<MDXModule>` — See `evaluate`
+Module ([`MDXModule` from `mdx/types.js`][mdx-types-module]).
 
-<details>
-<summary>Expand example</summary>
+### `nodeTypes`
+
+List of node types made by `mdast-util-mdx`, which have to be passed
+through untouched from the mdast tree to the hast tree (`Array<string>`).
+
+### `run(code, options)`
+
+Run code compiled with `outputFormat: 'function-body'`.
+
+> ☢️ **Danger**: this `eval`s JavaScript.
+
+###### Parameters
+
+*   `code` ([`VFile`][vfile] or `string`)
+    — JavaScript function body to run
+*   `options` ([`RunOptions`][api-run-options], **required**)
+    — configuration
+
+###### Returns
+
+Promise to a module ([`Promise<MDXModule>` from `mdx/types.js`][mdx-types-module]);
+the result is an object with a `default` field set to the component;
+anything else that was exported is available too.
+
+###### Example
 
 On the server:
 
@@ -944,12 +318,14 @@ const code = String(await compile('# hi', {outputFormat: 'function-body'}))
 On the client:
 
 ```tsx
-import * as runtime from 'react/jsx-runtime'
 import {run} from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
 
 const code = '' // To do: get `code` from server somehow.
 
 const {default: Content} = await run(code, runtime)
+
+console.log(Content)
 ```
 
 …yields:
@@ -958,33 +334,745 @@ const {default: Content} = await run(code, runtime)
 [Function: MDXContent]
 ```
 
-</details>
+### `runSync(code, options)`
 
-### `runSync(functionBody, options)`
+Run code, synchronously.
 
-> ☢️ **Danger**: This `eval`s JavaScript.
+When possible please use the async [`run`][api-run].
 
-Run MDX.
-Synchronous version of [`run`][run].
-When possible please use the async `run`.
+> ☢️ **Danger**: this `eval`s JavaScript.
 
-### `createProcessor(options)`
+###### Parameters
 
-Create a unified processor to compile MDX to JS.
-Has the same options as [`compile`][compile], but returns a configured
-[`processor`][processor].
+*   `code` ([`VFile`][vfile] or `string`)
+    — JavaScript function body to run
+*   `options` ([`RunOptions`][api-run-options], **required**)
+    — configuration
 
-Note that `format: 'detect'` does not work here: only `'md'` or `'mdx'` are
-allowed (and `'mdx'` is the default).
+###### Returns
+
+Module ([`MDXModule` from `mdx/types.js`][mdx-types-module]).
+
+### `CompileOptions`
+
+Configuration for `compile` (TypeScript type).
+
+`CompileOptions` is the same as [`ProcessorOptions`][api-processor-options]
+with the exception that the `format` option supports a `'detect'` value,
+which is the default.
+The `'detect'` format means to use `'md'` for files with an extension in
+`mdExtensions` and `'mdx'` otherwise.
+
+###### Type
+
+```tsx
+/**
+ * Configuration for `compile`
+ */
+type CompileOptions = Omit<ProcessorOptions, 'format'> & {
+  /**
+   * Format of `file` (default: `'detect'`).
+   */
+  format?: 'detect' | 'md' | 'mdx' | null | undefined
+}
+```
+
+### `EvaluateOptions`
+
+Configuration for `evaluate` (TypeScript type).
+
+`EvaluateOptions` is the same as [`CompileOptions`][api-compile-options],
+except that the options `jsx`, `jsxImportSource`, `jsxRuntime`, `outputFormat`,
+`pragma`, `pragmaFrag`, `pragmaImportSource`, and `providerImportSource` are
+not allowed, and that [`RunOptions`][api-run-options] are also used.
+
+###### Type
+
+```tsx
+/**
+ * Configuration for `evalutate`.
+ */
+type EvaluateOptions = Omit<
+  CompileOptions,
+  | 'jsx'
+  | 'jsxImportSource'
+  | 'jsxRuntime'
+  | 'outputFormat'
+  | 'pragma'
+  | 'pragmaFrag'
+  | 'pragmaImportSource'
+  | 'providerImportSource'
+> &
+  RunOptions
+```
+
+### `Fragment`
+
+Represent the children, typically a symbol (TypeScript type).
+
+###### Type
+
+```ts
+type Fragment = unknown
+```
+
+### `Jsx`
+
+Create a production element (TypeScript type).
+
+###### Parameters
+
+*   `type` (`unknown`)
+    — element type: `Fragment` symbol, tag name (`string`), component
+*   `props` (`Props`)
+    — element props and `children`
+*   `key` (`string` or `undefined`)
+    — key to use
+
+###### Returns
+
+Element from your framework (`JSX.Element`).
+
+### `JsxDev`
+
+Create a development element (TypeScript type).
+
+###### Parameters
+
+*   `type` (`unknown`)
+    — element type: `Fragment` symbol, tag name (`string`), component
+*   `props` (`Props`)
+    — element props and `children`
+*   `key` (`string` or `undefined`)
+    — key to use
+*   `isStaticChildren` (`boolean`)
+    — whether two or more children are passed (in an array), which is whether
+    `jsxs` or `jsx` would be used
+*   `source` (`Source`)
+    — info about source
+*   `self` (`unknown`)
+    — context object (`this`)
+
+### `ProcessorOptions`
+
+Configuration for `createProcessor` (TypeScript type).
+
+###### Fields
+
+*   `SourceMapGenerator` (`SourceMapGenerator` from [`source-map`][source-map],
+    optional)
+    — add a source map (object form) as the `map` field on the resulting file
+
+    <details><summary>Expand example</summary>
+
+    Assuming `example.mdx` from [§ Use][use] exists, then:
+
+    ```tsx
+    import fs from 'node:fs/promises'
+    import {compile} from '@mdx-js/mdx'
+    import {SourceMapGenerator} from 'source-map'
+
+    const file = await compile(
+      {path: 'example.mdx', value: await fs.readFile('example.mdx')},
+      {SourceMapGenerator}
+    )
+
+    console.log(file.map)
+    ```
+
+    …yields:
+
+    ```tsx
+    {
+      file: 'example.mdx',
+      mappings: ';;aAAaA,QAAQ;YAAQ;;;;;;;;iBAE3B',
+      names: ['Thing'],
+      sources: ['example.mdx'],
+      version: 3
+    }
+    ```
+
+    </details>
+*   `baseUrl` (`string`, optional, example: `import.meta.url`)
+    — resolve `import`s (and `export … from`, and `import.meta.url`) from this
+    URL;
+    this option is useful when code will run in a different place, such as when
+    `.mdx` files are in path *a* but compiled to path *b* and imports should
+    run relative the path *b*, or when evaluating code, whether in Node or a
+    browser
+
+    <details><summary>Expand example</summary>
+
+    Say we have a module `example.js`:
+
+    ```tsx
+    import {compile} from '@mdx-js/mdx'
+
+    const code = 'export {number} from "./data.js"\n\n# hi'
+    const baseUrl = 'https://a.full/url' // Typically `import.meta.url`
+
+    console.log(String(await compile(code, {baseUrl})))
+    ```
+
+    …now running `node example.js` yields:
+
+    ```tsx
+    import {Fragment as _Fragment, jsx as _jsx} from 'react/jsx-runtime'
+    export {number} from 'https://a.full/data.js'
+    function _createMdxContent(props) { /* … */ }
+    function MDXContent(props = {}) { /* … */ }
+    export default MDXContent
+    ```
+
+    </details>
+*   `development` (`boolean`, default: `false`)
+    — whether to add extra info to error messages in generated code and use the
+    development automatic JSX runtime (`Fragment` and `jsxDEV` from
+    `/jsx-dev-runtime`);
+    when using the webpack loader (`@mdx-js/loader`) or the Rollup integration
+    (`@mdx-js/rollup`) through Vite, this is automatically inferred from how
+    you configure those tools
+
+    <details><summary>Expand example</summary>
+
+    Say we had some MDX that references a component that can be passed or
+    provided at runtime:
+
+    ```mdx
+    **Note**<NoteIcon />: some stuff.
+    ```
+
+    And a module to evaluate that:
+
+    ```tsx
+    import fs from 'node:fs/promises'
+    import {evaluate} from '@mdx-js/mdx'
+    import * as runtime from 'react/jsx-runtime'
+
+    const path = 'example.mdx'
+    const value = await fs.readFile(path)
+    const MDXContent = (await evaluate({path, value}, runtime)).default
+
+    console.log(MDXContent({}))
+    ```
+
+    …running that would normally (production) yield:
+
+    ```txt
+    Error: Expected component `NoteIcon` to be defined: you likely forgot to import, pass, or provide it.
+        at _missingMdxReference (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:27:9)
+        at _createMdxContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:15:20)
+        at MDXContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:9:9)
+        at main (…/example.js:11:15)
+    ```
+
+    …but if we add `development: true` to our example:
+
+    ```diff
+    @@ -7,6 +7,6 @@
+    import fs from 'node:fs/promises'
+    -import * as runtime from 'react/jsx-runtime'
+    +import * as runtime from 'react/jsx-dev-runtime'
+    import {evaluate} from '@mdx-js/mdx'
+
+    const path = 'example.mdx'
+    const value = await fs.readFile(path)
+    -const MDXContent = (await evaluate({path, value}, runtime)).default
+    +const MDXContent = (await evaluate({path, value}, {development: true, ...runtime})).default
+
+    console.log(MDXContent({}))
+    ```
+
+    …and we’d run it again, we’d get:
+
+    ```txt
+    Error: Expected component `NoteIcon` to be defined: you likely forgot to import, pass, or provide it.
+    It’s referenced in your code at `1:9-1:21` in `example.mdx`
+    provide it.
+        at _missingMdxReference (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:27:9)
+        at _createMdxContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:15:20)
+        at MDXContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:9:9)
+        at main (…/example.js:11:15)
+    ```
+
+    </details>
+*   `elementAttributeNameCase` (`'html'` or `'react`, default: `'react'`)
+    — casing to use for attribute names;
+    HTML casing is for example `class`, `stroke-linecap`, `xml:lang`;
+    React casing is for example `className`, `strokeLinecap`, `xmlLang`;
+    for JSX components written in MDX, the author has to be aware of which
+    framework they use and write code accordingly;
+    for AST nodes generated by this project, this option configures it
+*   `format` (`'md'` or `'mdx'`, default: `'mdx'`)
+    — format of the file;
+    `'md'` means treat as markdown and `'mdx'` means treat as [MDX][mdx-syntax]
+
+    <details><summary>Expand example</summary>
+
+    ```tsx
+    compile('…') // Seen as MDX.
+    compile('…', {format: 'mdx'}) // Seen as MDX.
+    compile('…', {format: 'md'}) // Seen as markdown.
+    ```
+
+    </details>
+*   `jsx` (`boolean`, default: `false`)
+    — whether to keep JSX;
+    the default is to compile JSX away so that the resulting file is
+    immediately runnable.
+
+    <details><summary>Expand example</summary>
+
+    If `file` is the contents of `example.mdx` from [§ Use][use], then:
+
+    ```tsx
+    compile(file, {jsx: true})
+    ```
+
+    …yields this difference:
+
+    ```diff
+    /* @jsxRuntime automatic @jsxImportSource react */
+    -import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
+
+    export function Thing() {
+    -  return _jsx(_Fragment, {children: 'World'})
+    +  return <>World!</>
+    }
+
+    function _createMdxContent(props) {
+      const _components = {
+        h1: 'h1',
+        ...props.components
+      }
+    -  return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
+    +  return <_components.h1>{"Hello "}<Thing /></_components.h1>
+    }
+
+    export default function MDXContent(props = {}) {
+      const {wrapper: MDXLayout} = props.components || {}
+      return MDXLayout
+    -    ? _jsx(MDXLayout, {
+    -        ...props,
+    -        children: _jsx(_createMdxContent, props)
+    -      })
+    +    ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout>
+        : _createMdxContent(props)
+    }
+    }
+    ```
+
+    </details>
+*   `jsxImportSource` (`string`, default: `'react'`)
+    — place to import automatic JSX runtimes from;
+    when in the `automatic` runtime, this is used to define an import for
+    `Fragment`, `jsx`, `jsxDEV`, and `jsxs`
+
+    <details><summary>Expand example</summary>
+
+    If `file` is the contents of `example.mdx` from [§ Use][use], then:
+
+    ```tsx
+    compile(file, {jsxImportSource: 'preact'})
+    ```
+
+    …yields this difference:
+
+    ```diff
+    -/* @jsxRuntime automatic @jsxImportSource react */
+    -import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
+    +/* @jsxRuntime automatic @jsxImportSource preact */
+    +import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from 'preact/jsx-runtime'
+    ```
+
+    </details>
+*   `jsxRuntime` (`'automatic'` or `'classic'`, default: `'automatic'`)
+    — JSX runtime to use;
+    the automatic runtime compiles to `import _jsx from
+    '$importSource/jsx-runtime'\n_jsx('p')`;
+    the classic runtime compiles to calls such as `h('p')`
+
+    <details><summary>Expand example</summary>
+
+    If `file` is the contents of `example.mdx` from [§ Use][use], then:
+
+    ```tsx
+    compile(file, {jsxRuntime: 'classic'})
+    ```
+
+    …yields this difference:
+
+    ```diff
+    -/* @jsxRuntime automatic @jsxImportSource react */
+    -import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
+    +/* @jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment */
+    +import React from 'react'
+
+    export function Thing() {
+    -  return _jsx(_Fragment, {children: 'World'})
+    +  return React.createElement(React.Fragment, null, 'World!')
+    }
+    …
+    ```
+
+    </details>
+*   `outputFormat` (`'function-body'` or `'program'`, default: `'program'`)
+    — output format to generate;
+    in most cases `'program'` should be used, it results in a whole program;
+    internally [`evaluate`][api-evaluate] uses `'function-body'` to compile to
+    code that can be passed to [`run`][api-run];
+    in some cases, you might want to do what `evaluate` does in separate steps
+    yourself, such as when compiling on the server and running on the client.
+
+    <details><summary>Expand example</summary>
+
+    With a module `example.js`:
+
+    ```tsx
+    import {compile} from '@mdx-js/mdx'
+
+    const code = 'export const no = 3.14\n\n# hi {no}'
+
+    console.log(String(await compile(code, {outputFormat: 'program'}))) // Default.
+    console.log(String(await compile(code, {outputFormat: 'function-body'})))
+    ```
+
+    …yields:
+
+    ```tsx
+    /* @jsxRuntime automatic @jsxImportSource react */
+    import {jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
+    export const no = 3.14
+    function _createMdxContent(props) { /* … */ }
+    export default function MDXContent(props = {}) { /* … */ }
+    ```
+
+    ```tsx
+    const {Fragment: _Fragment, jsx: _jsx} = arguments[0]
+    const no = 3.14
+    function _createMdxContent(props) { /* … */ }
+    function MDXContent(props = {}) { /* … */ }
+    return {no, default: MDXContent}
+    ```
+
+    The `'program'` format will use import statements to import the runtime (and
+    optionally provider) and use an export statement to yield the `MDXContent`
+    component.
+
+    The `'function-body'` format will get the runtime (and optionally provider) from
+    `arguments[0]`, rewrite export statements, and use a return statement to yield
+    what was exported.
+    Normally, this output format will throw on `import` (and `export … from`)
+    statements, but you can support them by setting `useDynamicImport`.
+
+    </details>
+*   `mdExtensions` (`Array<string>`, default: `['.md', '.markdown', '.mdown',
+    '.mkdn', '.mkd', '.mdwn', '.mkdown', '.ron']`)
+    — list of markdown extensions, with dot
+    affects [§ Integrations][integrations]
+*   `mdxExtensions` (`Array<string>`, default: `['.mdx']`)
+    — list of MDX extensions, with dot;
+    affects [§ Integrations][integrations]
+*   `pragma` (`string`, default: `'React.createElement'`)
+    — pragma for JSX, used in the classic runtime as an identifier for function
+    calls: `<x />` to `React.createElement('x')`;
+    when changing this, you should also define `pragmaFrag` and
+    `pragmaImportSource` too
+
+    <details><summary>Expand example</summary>
+
+    If `file` is the contents of `example.mdx` from [§ Use][use], then:
+
+    ```tsx
+    compile(file, {
+      jsxRuntime: 'classic',
+      pragma: 'preact.createElement',
+      pragmaFrag: 'preact.Fragment',
+      pragmaImportSource: 'preact/compat'
+    })
+    ```
+
+    …yields this difference:
+
+    ```diff
+    -/* @jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment */
+    -import React from 'react'
+    +/* @jsxRuntime classic @jsx preact.createElement @jsxFrag preact.Fragment */
+    +import preact from 'preact/compat'
+
+    export function Thing() {
+    -  return React.createElement(React.Fragment, null, 'World!')
+    +  return preact.createElement(preact.Fragment, null, 'World!')
+    }
+    …
+    ```
+
+    </details>
+*   `pragmaFrag` (`string`, default: `'React.Fragment'`)
+    — pragma for fragment symbol, used in the classic runtime as an identifier
+    for unnamed calls: `<>` to `React.createElement(React.Fragment)`;
+    when changing this, you should also define `pragma` and `pragmaImportSource`
+    too
+*    `pragmaImportSource` (`string`, default: `'react'`)
+    — where to import the identifier of `pragma` from, used in the classic
+    runtime;
+    to illustrate, when `pragma` is `'a.b'` and `pragmaImportSource` is `'c'`
+    the following will be generated: `import a from 'c'` and things such as
+    `a.b('h1', {})`;
+    when changing this, you should also define `pragma` and `pragmaFrag` too
+*   `providerImportSource` (`string`, optional, example: `'@mdx-js/react'`)
+    — place to import a provider from;
+    normally it’s used for runtimes that support context (React, Preact), but
+    it can be used to inject components into the compiled code;
+    the module must export and identifier `useMDXComponents` which is called
+    without arguments to get an object of components (see
+    [`UseMdxComponents`][api-use-mdx-components])
+
+    <details><summary>Expand example</summary>
+
+    If `file` is the contents of `example.mdx` from [§ Use][use], then:
+
+    ```tsx
+    compile(file, {providerImportSource: '@mdx-js/react'})
+    ```
+
+    …yields this difference:
+
+    ```diff
+    /* @jsxRuntime automatic @jsxImportSource react */
+    import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
+    +import {useMDXComponents as _provideComponents} from '@mdx-js/react'
+
+    export function Thing() {
+      return _jsx(_Fragment, {children: 'World'})
+    }
+
+    function _createMdxContent(props) {
+      const _components = {
+        h1: 'h1',
+    +    ..._provideComponents(),
+        ...props.components
+      }
+      return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
+    }
+
+    export default function MDXContent(props = {}) {
+    -  const {wrapper: MDXLayout} = props.components || {}
+    +  const {wrapper: MDXLayout} = {
+    +    ..._provideComponents(),
+    +    ...props.components
+    +  }
+
+      return MDXLayout
+        ? _jsx(MDXLayout, {...props, children: _jsx(_createMdxContent, {})})
+        : _createMdxContent()
+    ```
+
+    </details>
+*   `recmaPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
+    optional)
+    — list of recma plugins;
+    this is a new ecosystem, currently in beta, to transform [esast][] trees
+    (JavaScript)
+
+    <details><summary>Expand example</summary>
+
+    ```tsx
+    import recmaMdxIsMdxComponent from 'recma-mdx-is-mdx-component'
+
+    await compile(file, {recmaPlugins: [recmaMdxIsMdxComponent]})
+    ```
+
+    </details>
+*   `rehypePlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
+    optional)
+    — list of [rehype plugins][rehype-plugins]
+
+    <details><summary>Expand example</summary>
+
+    ```tsx
+    import rehypeKatex from 'rehype-katex' // Render math with KaTeX.
+    import remarkMath from 'remark-math' // Support math like `$so$`.
+
+    await compile(file, {rehypePlugins: [rehypeKatex], remarkPlugins: [remarkMath]})
+
+    await compile(file, {
+      // A plugin with options:
+      rehypePlugins: [[rehypeKatex, {strict: true, throwOnError: true}]],
+      remarkPlugins: [remarkMath]
+    })
+    ```
+
+    </details>
+*   `remarkPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
+    optional)
+    — list of [remark plugins][remark-plugins]
+
+    <details><summary>Expand example</summary>
+
+    ```tsx
+    import remarkFrontmatter from 'remark-frontmatter' // YAML and such.
+    import remarkGfm from 'remark-gfm' // Tables, footnotes, strikethrough, task lists, literal URLs.
+
+    await compile(file, {remarkPlugins: [remarkGfm]}) // One plugin.
+    await compile(file, {remarkPlugins: [[remarkFrontmatter, 'toml']]}) // A plugin with options.
+    await compile(file, {remarkPlugins: [remarkGfm, remarkFrontmatter]}) // Two plugins.
+    await compile(file, {remarkPlugins: [[remarkGfm, {singleTilde: false}], remarkFrontmatter]}) // Two plugins, first w/ options.
+    ```
+
+    </details>
+*   `remarkRehypeOptions` ([`Options` from
+    `remark-rehype`][remark-rehype-options], optional)
+    — options to pass through to `remark-rehype`;
+    the option `allowDangerousHtml` will always be set to `true` and the MDX
+    nodes (see [`nodeTypes`][api-node-types]) are passed through;
+    In particular, you might want to pass configuration for footnotes if your
+    content is not in English
+
+    <details><summary>Expand example</summary>
+
+    ```tsx
+    compile({value: '…'}, {remarkRehypeOptions: {clobberPrefix: 'comment-1'}})
+    ```
+
+    </details>
+
+*   `stylePropertyNameCase` (`'css'` or `'dom`, default: `'dom'`)
+    — casing to use for property names in `style` objects;
+    CSS casing is for example `background-color` and `-webkit-line-clamp`;
+    DOM casing is for example `backgroundColor` and `WebkitLineClamp`;
+    for JSX components written in MDX, the author has to be aware of which
+    framework they use and write code accordingly;
+    for AST nodes generated by this project, this option configures it
+*   `tableCellAlignToStyle` (`boolean`, default: `true`)
+    — turn obsolete `align` props on `td` and `th` into CSS `style` props
+*   `useDynamicImport` (`boolean`, default: `false`)
+    — whether to compile to dynamic import expressions when `outputFormat` is
+    `'function-body'`;
+    so, it will turn import statements (`import {x} from 'y'`) into dynamic
+    import expressions (`const {x} = await import('y')`);
+    import statements only work at the top level of modules but import
+    expressions are available inside function bodies;
+    you should probably set `baseUrl` too.
+
+    <details><summary>Expand example</summary>
+
+    Say we have a couple modules:
+
+    ```tsx
+    // meta.js:
+    export const title = 'World'
+
+    // numbers.js:
+    export const no = 3.14
+
+    // example.js:
+    import {compile} from '@mdx-js/mdx'
+
+    const code = `import {name} from './meta.js'
+    export {no} from './numbers.js'
+
+    # hi {name}!`
+
+    console.log(String(await compile(code, {outputFormat: 'function-body', useDynamicImport: true})))
+    ```
+
+    …now running `node example.js` yields:
+
+    ```tsx
+    const {Fragment: _Fragment, jsx: _jsx, jsxs: _jsxs} = arguments[0]
+    const {name} = await import('./meta.js')
+    const {no} = await import('./numbers.js')
+    function _createMdxContent(props) { /* … */ }
+    function MDXContent(props = {}) { /* … */ }
+    return {no, default: MDXContent}
+    ```
+
+    </details>
+
+### `RunOptions`
+
+Configuration to run compiled code (TypeScript type).
+
+`Fragment`, `jsx`, and `jsxs` are used when the code is compiled in production
+mode (`development: false`).
+`Fragment` and `jsxDEV` are used when compiled in development mode
+(`development: true`).
+`useMDXComponents` is used when the code is compiled with
+`providerImportSource: '#'` (the exact value of this compile option doesn’t
+matter).
+
+###### Fields
+
+*   `Fragment` ([`Fragment`][api-fragment], **required**)
+    — symbol to use for fragments
+*   `jsx` ([`Jsx`][api-jsx], optional)
+    — function to generate an element with static children in production mode
+*   `jsxDEV` ([`JsxDEV`][api-jsx-dev], optional)
+    — function to generate an element in development mode
+*   `jsxs` ([`Jsx`][api-jsx], optional)
+    — function to generate an element with dynamic children in production mode
+*   `useMDXComponents` ([`UseMdxComponents`][api-use-mdx-components], optional)
+    — function to get components from context
+
+###### Examples
+
+A `/jsx-runtime` module will expose `Fragment`, `jsx`, and `jsxs`:
+
+```tsx
+import * as runtime from 'react/jsx-runtime'
+
+const {default: Content} = await evaluate('# hi', {...runtime, ...otherOptions})
+
+```
+
+A `/jsx-dev-runtime` module will expose `Fragment` and `jsxDEV`:
+
+```tsx
+import * as runtime from 'react/jsx-dev-runtime'
+
+const {default: Content} = await evaluate('# hi', {development: true, ...runtime, ...otherOptions})
+```
+
+Our providers will expose `useMDXComponents`:
+
+```tsx
+import * as provider from '@mdx-js/react'
+import * as runtime from 'react/jsx-runtime'
+
+const {default: Content} = await evaluate('# hi', {...provider, ...runtime, ...otherOptions})
+```
+
+### `UseMdxComponents`
+
+Get components from context (TypeScript type).
+
+###### Parameters
+
+There are no parameters.
+
+###### Returns
+
+Components ([`MDXComponents` from `mdx/types.js`][mdx-types-components]).
 
 ## Types
 
 This package is fully typed with [TypeScript][].
-See [§ Types][types] on our website for information.
+It exports the additional types
+[`CompileOptions`][api-compile-options],
+[`EvaluateOptions`][api-evaluate-options],
+[`Fragment`][api-fragment],
+[`Jsx`][api-jsx],
+[`JsxDev`][api-jsx-dev],
+[`ProcessorOptions`][api-processor-options],
+[`RunOptions`][api-run-options], and
+[`UseMdxComponents`][api-use-mdx-components].
 
-Additional `CompileOptions`, `EvaluateOptions`, and `ProcessorOptions` types
-are exported, which represents acceptable configuration for their respective
-methods.
+For types of evaluated MDX to work, make sure the TypeScript `JSX` namespace is
+typed.
+This is done by installing and using the types of your framework, such as
+[`@types/react`](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/react).
+See [§ Types][types] on our website for information.
 
 ## Architecture
 
@@ -1083,9 +1171,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/@mdx-js/mdx
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/@mdx-js/mdx.svg
+[size-badge]: https://img.shields.io/bundlejs/size/@mdx-js/mdx
 
-[size]: https://bundlephobia.com/result?p=@mdx-js/mdx
+[size]: https://bundlejs.com/?q=@mdx-js/mdx
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -1120,8 +1208,6 @@ abide by its terms.
 [run]: #runfunctionbody-options
 
 [create-processor]: #createprocessoroptions
-
-[buffer]: https://nodejs.org/api/buffer.html
 
 [source-map]: https://github.com/mozilla/source-map
 
@@ -1181,8 +1267,54 @@ abide by its terms.
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
+[esmsh]: https://esm.sh
+
 [types]: https://mdxjs.com/getting-started/#types
 
 [security]: https://mdxjs.com/getting-started/#security
 
 [typescript]: https://www.typescriptlang.org
+
+[mdx-types-components]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L65
+
+[mdx-types-module]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L101
+
+[remark-rehype-options]: https://github.com/remarkjs/remark-rehype#options
+
+[unified-pluggable-list]: https://github.com/unifiedjs/unified#pluggablelist
+
+[unified-processor]: https://github.com/unifiedjs/unified#processor
+
+[vfile-compatible]: https://github.com/vfile/vfile#compatible
+
+[api-compile]: #compilefile-options
+
+[api-compile-options]: #compileoptions
+
+[api-compile-sync]: #compilesyncfile-options
+
+[api-create-processor]: #createprocessoroptions
+
+[api-evaluate]: #evaluatefile-options
+
+[api-evaluate-options]: #evaluateoptions
+
+[api-evaluate-sync]: #evaluatesyncfile-options
+
+[api-fragment]: #fragment
+
+[api-jsx]: #jsx
+
+[api-jsx-dev]: #jsxdev
+
+[api-node-types]: #nodetypes
+
+[api-processor-options]: #processoroptions
+
+[api-run]: #runcode-options
+
+[api-run-options]: #runoptions
+
+[api-run-sync]: #runsynccode-options
+
+[api-use-mdx-components]: #usemdxcomponents

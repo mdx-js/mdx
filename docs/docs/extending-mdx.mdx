@@ -104,8 +104,8 @@ You can use this template:
 ## Using plugins
 
 Where to pass plugins is encoded in their name: remark plugins go in
-[`options.remarkPlugins`][options-remark-plugins], rehype plugins
-in [`options.rehypePlugins`][options-rehype-plugins].
+`remarkPlugins` and rehype plugins go in `rehypePlugins` of
+[`ProcessorOptions`][processor-options].
 Those fields expect lists of plugins and/or of `[plugin, options]`:
 
 ```tsx
@@ -169,9 +169,7 @@ For info on the node types that represent MDX specific features, see
 
 [start]: /docs/getting-started/
 
-[options-remark-plugins]: /packages/mdx/#optionsremarkplugins
-
-[options-rehype-plugins]: /packages/mdx/#optionsrehypeplugins
+[processor-options]: /packages/mdx/#processoroptions
 
 [architecture]: /packages/mdx/#architecture
 

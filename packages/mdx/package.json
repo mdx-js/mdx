@@ -54,6 +54,7 @@
     "estree-util-to-js": "^2.0.0",
     "estree-walker": "^3.0.0",
     "hast-util-to-estree": "^3.0.0",
+    "hast-util-to-jsx-runtime": "^2.0.0",
     "markdown-extensions": "^2.0.0",
     "periscopic": "^3.0.0",
     "remark-mdx": "^2.0.0",

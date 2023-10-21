@@ -1,5 +1,6 @@
 /**
- * @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options').RuntimeProduction} RuntimeProduction
+ * @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options').Fragment} Fragment
+ * @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options').Jsx} Jsx
  */
 
 import assert from 'node:assert/strict'
@@ -10,7 +11,7 @@ import React from 'react'
 import * as runtime_ from 'react/jsx-runtime'
 import {renderToString} from 'react-dom/server'
 
-const runtime = /** @type {RuntimeProduction} */ (
+const runtime = /** @type {{Fragment: Fragment, jsx: Jsx, jsxs: Jsx}} */ (
   /** @type {unknown} */ (runtime_)
 )
 

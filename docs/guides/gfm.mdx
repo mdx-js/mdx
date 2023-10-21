@@ -15,7 +15,8 @@ MDX supports standard markdown syntax ([CommonMark][]).
 That means [GitHub flavored markdown (GFM)][gfm] extensions are not supported by
 default.
 They can be enabled by using a remark plugin: [`remark-gfm`][remark-gfm].
-Such plugins can be passed in [`options.remarkPlugins`][options-remark-plugins].
+Such plugins can be passed in [`remarkPlugins` in
+`ProcessorOptions`][processor-options].
 More info on plugins is available in [§ Extending MDX][extend]
 
 Say we have an MDX file like this:
@@ -121,6 +122,6 @@ console.log(
 
 [remark-gfm]: https://github.com/remarkjs/remark-gfm
 
-[options-remark-plugins]: /packages/mdx/#optionsremarkplugins
+[processor-options]: /packages/mdx/#processoroptions
 
 [extend]: /docs/extending-mdx/

@@ -1,6 +1,7 @@
 /**
- * @typedef {import('../lib/util/resolve-evaluate-options.js').RuntimeDevelopment} RuntimeDevelopment
- * @typedef {import('../lib/util/resolve-evaluate-options.js').RuntimeProduction} RuntimeProduction
+ * @typedef {import('../lib/util/resolve-evaluate-options.js').Fragment} Fragment
+ * @typedef {import('../lib/util/resolve-evaluate-options.js').Jsx} Jsx
+ * @typedef {import('../lib/util/resolve-evaluate-options.js').JsxDev} JsxDev
  */
 
 import assert from 'node:assert/strict'
@@ -12,10 +13,10 @@ import * as runtime_ from 'react/jsx-runtime'
 import * as devRuntime_ from 'react/jsx-dev-runtime'
 import React from 'react'
 
-/** @type {RuntimeProduction} */
+/** @type {{Fragment: Fragment, jsx: Jsx, jsxs: Jsx}} */
 // @ts-expect-error: the automatic react runtime is untyped.
 const runtime = runtime_
-/** @type {RuntimeDevelopment} */
+/** @type {{Fragment: Fragment, jsxDEV: JsxDev}} */
 // @ts-expect-error: the automatic dev react runtime is untyped.
 const devRuntime = devRuntime_
 
