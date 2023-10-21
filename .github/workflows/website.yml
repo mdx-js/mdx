@@ -1,0 +1,27 @@
+name: website
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: Website
+      url: ${{steps.deployment.outputs.page_url}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run docs
+      - uses: actions/upload-pages-artifact@v2
+        with:
+          path: public
+      - uses: actions/deploy-pages@v2
+        id: deployment
