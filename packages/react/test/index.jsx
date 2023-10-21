@@ -1,6 +1,6 @@
 /**
- * @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options').Fragment} Fragment
- * @typedef {import('@mdx-js/mdx/internal-resolve-evaluate-options').Jsx} Jsx
+ * @typedef {import('@mdx-js/mdx').Fragment} Fragment
+ * @typedef {import('@mdx-js/mdx').Jsx} Jsx
  */
 
 import assert from 'node:assert/strict'
