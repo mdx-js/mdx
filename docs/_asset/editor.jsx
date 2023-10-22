@@ -199,8 +199,7 @@ function Playground() {
               : 'program',
           recmaPlugins,
           rehypePlugins,
-          remarkPlugins,
-          useDynamicImport: true
+          remarkPlugins
         })
 
         if (show === 'result') {

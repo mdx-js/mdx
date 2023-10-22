@@ -98,11 +98,11 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   })
 
   await t.test(
-    'should support an `import` of a relative url w/ `useDynamicImport`',
+    'should support an `import` of a relative url w/ `baseUrl`',
     async function () {
       const mod = await evaluate(
         'import {number} from "./context/data.js"\n\n{number}',
-        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+        {baseUrl: import.meta.url, ...runtime}
       )
 
       assert.equal(
@@ -113,13 +113,13 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   )
 
   await t.test(
-    'should support an `import` of a full url w/ `useDynamicImport`',
+    'should support an `import` of a full url w/ `baseUrl`',
     async function () {
       const mod = await evaluate(
         'import {number} from "' +
           new URL('context/data.js', import.meta.url) +
           '"\n\n{number}',
-        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+        {baseUrl: import.meta.url, ...runtime}
       )
 
       assert.equal(
@@ -130,14 +130,21 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   )
 
   await t.test(
-    'should support an `import` w/o specifiers w/ `useDynamicImport`',
+    'should support an `import` w/o specifiers w/o `baseUrl`',
+    async function () {
+      assert.match(
+        String(await compile('import "a"', {outputFormat: 'function-body'})),
+        /\nawait import\("a"\);?\n/
+      )
+    }
+  )
+
+  await t.test(
+    'should support an `import` w/ 0 specifiers w/o `baseUrl`',
     async function () {
       assert.match(
         String(
-          await compile('import "a"', {
-            outputFormat: 'function-body',
-            useDynamicImport: true
-          })
+          await compile('import {} from "a"', {outputFormat: 'function-body'})
         ),
         /\nawait import\("a"\);?\n/
       )
@@ -145,26 +152,11 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   )
 
   await t.test(
-    'should support an `import` w/ 0 specifiers w/ `useDynamicImport`',
-    async function () {
-      assert.match(
-        String(
-          await compile('import {} from "a"', {
-            outputFormat: 'function-body',
-            useDynamicImport: true
-          })
-        ),
-        /\nawait import\("a"\);?\n/
-      )
-    }
-  )
-
-  await t.test(
-    'should support a namespace import w/ `useDynamicImport`',
+    'should support a namespace import w/ `baseUrl`',
     async function () {
       const mod = await evaluate(
         'import * as x from "./context/components.js"\n\n<x.Pill>Hi!</x.Pill>',
-        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+        {baseUrl: import.meta.url, ...runtime}
       )
 
       assert.equal(
@@ -175,11 +167,11 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   )
 
   await t.test(
-    'should support a namespace import and a bare specifier w/ `useDynamicImport`',
+    'should support a namespace import and a bare specifier w/ `baseUrl`',
     async function () {
       const mod = await evaluate(
         'import Div, * as x from "./context/components.js"\n\n<x.Pill>a</x.Pill> and <Div>b</Div>',
-        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+        {baseUrl: import.meta.url, ...runtime}
       )
 
       assert.equal(
@@ -247,24 +239,11 @@ test('@mdx-js/mdx: evaluate', async function (t) {
     )
   })
 
-  await t.test('should throw on an `export * from`', async function () {
-    try {
-      await evaluate('export {a} from "b"', runtime)
-      assert.fail()
-    } catch (error) {
-      assert.match(
-        String(error),
-        /Unexpected `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
-      )
-    }
-  })
-
   await t.test(
-    'should support an `export from` w/ `useDynamicImport`',
+    'should support an `export from` w/ `baseUrl`',
     async function () {
       const mod = await evaluate('export {number} from "./context/data.js"', {
         baseUrl: import.meta.url,
-        useDynamicImport: true,
         ...runtime
       })
 
@@ -272,28 +251,21 @@ test('@mdx-js/mdx: evaluate', async function (t) {
     }
   )
 
-  await t.test(
-    'should support an `export` w/ `useDynamicImport`',
-    async function () {
-      const mod = await evaluate(
-        'import {number} from "./context/data.js"\nexport {number}',
-        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
-      )
+  await t.test('should support an `export` w/ `baseUrl`', async function () {
+    const mod = await evaluate(
+      'import {number} from "./context/data.js"\nexport {number}',
+      {baseUrl: import.meta.url, ...runtime}
+    )
 
-      assert.equal(mod.number, 3.14)
-    }
-  )
+    assert.equal(mod.number, 3.14)
+  })
 
   await t.test(
-    'should support an `export as from` w/ `useDynamicImport`',
+    'should support an `export as from` w/ `baseUrl`',
     async function () {
       const mod = await evaluate(
         'export {number as data} from "./context/data.js"',
-        {
-          baseUrl: import.meta.url,
-          useDynamicImport: true,
-          ...runtime
-        }
+        {baseUrl: import.meta.url, ...runtime}
       )
 
       assert.equal(mod.data, 3.14)
@@ -301,15 +273,11 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   )
 
   await t.test(
-    'should support an `export default as from` w/ `useDynamicImport`',
+    'should support an `export default as from` w/ `baseUrl`',
     async function () {
       const mod = await evaluate(
         'export {default as data} from "./context/data.js"',
-        {
-          baseUrl: import.meta.url,
-          useDynamicImport: true,
-          ...runtime
-        }
+        {baseUrl: import.meta.url, ...runtime}
       )
 
       assert.equal(mod.data, 6.28)
@@ -317,11 +285,10 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   )
 
   await t.test(
-    'should support an `export all from` w/ `useDynamicImport`',
+    'should support an `export all from` w/ `baseUrl`',
     async function () {
       const mod = await evaluate('export * from "./context/data.js"', {
         baseUrl: import.meta.url,
-        useDynamicImport: true,
         ...runtime
       })
 
@@ -333,11 +300,11 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   )
 
   await t.test(
-    'should support an `export all from`, but prefer explicit exports, w/ `useDynamicImport`',
+    'should support an `export * from`, but prefer explicit exports, w/ `baseUrl`',
     async function () {
       const mod = await evaluate(
         'export {default as number} from "./context/data.js"\nexport * from "./context/data.js"',
-        {baseUrl: import.meta.url, useDynamicImport: true, ...runtime}
+        {baseUrl: import.meta.url, ...runtime}
       )
 
       // I’m not sure if this makes sense, but it is how Node works.
@@ -371,42 +338,6 @@ test('@mdx-js/mdx: evaluate', async function (t) {
       assert.equal(mod.x, 'https://example.com/example.png')
     }
   )
-
-  await t.test('should throw on an export all from', async function () {
-    try {
-      await evaluate('export * from "a"', runtime)
-      assert.fail()
-    } catch (error) {
-      assert.match(
-        String(error),
-        /Unexpected `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
-      )
-    }
-  })
-
-  await t.test('should throw on an import', async function () {
-    try {
-      await evaluate('import {a} from "b"', runtime)
-      assert.fail()
-    } catch (error) {
-      assert.match(
-        String(error),
-        /Unexpected `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
-      )
-    }
-  })
-
-  await t.test('should throw on an import default', async function () {
-    try {
-      await evaluate('import a from "b"', runtime)
-      assert.fail()
-    } catch (error) {
-      assert.match(
-        String(error),
-        /Unexpected `import` or `export … from` in `evaluate` \(outputting a function body\) by default:/
-      )
-    }
-  })
 
   await t.test('should support a given components', async function () {
     const mod = await evaluate('<X/>', runtime)

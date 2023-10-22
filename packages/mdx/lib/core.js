@@ -127,14 +127,6 @@
  * @property {boolean | null | undefined} [tableCellAlignToStyle=true]
  *   Turn obsolete `align` props on `td` and `th` into CSS `style` props
  *   (default: `true`).
- * @property {boolean | null | undefined} [useDynamicImport=false]
- *   whether to compile to dynamic import expressions when `outputFormat` is
- *   `'function-body'` (default: `false`);
- *   so, it will turn import statements (`import {x} from 'y'`) into dynamic
- *   import expressions (`const {x} = await import('y')`);
- *   import statements only work at the top level of modules but import
- *   expressions are available inside function bodies;
- *   you should probably set `baseUrl` too.
  */
 
 import {unreachable} from 'devlop'
@@ -196,11 +188,11 @@ export function createProcessor(options) {
   }
 
   if (
-    !warned &&
     (settings.jsxRuntime === 'classic' ||
       settings.pragma ||
       settings.pragmaFrag ||
-      settings.pragmaImportSource)
+      settings.pragmaImportSource) &&
+    !warned
   ) {
     warned = true
     console.warn(

@@ -48,7 +48,6 @@ import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declar
 export function recmaDocument(options) {
   const baseUrl_ = options.baseUrl || undefined
   const baseUrl = typeof baseUrl_ === 'object' ? baseUrl_.href : baseUrl_
-  const useDynamicImport = options.useDynamicImport || undefined
   const outputFormat = options.outputFormat || 'program'
   const pragma =
     options.pragma === undefined ? 'React.createElement' : options.pragma
@@ -419,19 +418,6 @@ export function recmaDocument(options) {
           // Source optional:
           (node.type === 'ExportNamedDeclaration' && node.source)
         ) {
-          if (!useDynamicImport) {
-            file.fail(
-              'Unexpected `import` or `export … from` in `evaluate` (outputting a function body) by default: please set `useDynamicImport: true` (and probably specify a `baseUrl`)',
-              {
-                // Results of this function end up in `tree` again.
-                ancestors: [tree, node],
-                place: positionFromEstree(node),
-                ruleId: 'invalid-esm-statement',
-                source: 'recma-document'
-              }
-            )
-          }
-
           // We always have a source, but types say they can be missing.
           assert(node.source, 'expected `node.source` to be defined')
 
