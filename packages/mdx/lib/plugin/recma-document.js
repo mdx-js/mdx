@@ -134,11 +134,15 @@ export function recmaDocument(options) {
       if (child.type === 'ExportDefaultDeclaration') {
         if (layout) {
           file.fail(
-            'Cannot specify multiple layouts (previous: ' +
+            'Unexpected duplicate layout, expected a single layout (previous: ' +
               stringifyPosition(positionFromEstree(layout)) +
               ')',
-            positionFromEstree(child),
-            'recma-document:duplicate-layout'
+            {
+              ancestors: [tree, child],
+              place: positionFromEstree(child),
+              ruleId: 'duplicate-layout',
+              source: 'recma-document'
+            }
           )
         }
 
@@ -169,11 +173,15 @@ export function recmaDocument(options) {
           if (specifier.exported.name === 'default') {
             if (layout) {
               file.fail(
-                'Cannot specify multiple layouts (previous: ' +
+                'Unexpected duplicate layout, expected a single layout (previous: ' +
                   stringifyPosition(positionFromEstree(layout)) +
                   ')',
-                positionFromEstree(child),
-                'recma-document:duplicate-layout'
+                {
+                  ancestors: [tree, child, specifier],
+                  place: positionFromEstree(child),
+                  ruleId: 'duplicate-layout',
+                  source: 'recma-document'
+                }
               )
             }
 
@@ -413,9 +421,14 @@ export function recmaDocument(options) {
         ) {
           if (!useDynamicImport) {
             file.fail(
-              'Cannot use `import` or `export … from` in `evaluate` (outputting a function body) by default: please set `useDynamicImport: true` (and probably specify a `baseUrl`)',
-              positionFromEstree(node),
-              'recma-document:invalid-esm-statement'
+              'Unexpected `import` or `export … from` in `evaluate` (outputting a function body) by default: please set `useDynamicImport: true` (and probably specify a `baseUrl`)',
+              {
+                // Results of this function end up in `tree` again.
+                ancestors: [tree, node],
+                place: positionFromEstree(node),
+                ruleId: 'invalid-esm-statement',
+                source: 'recma-document'
+              }
             )
           }
 

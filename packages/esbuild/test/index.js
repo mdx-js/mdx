@@ -427,7 +427,7 @@ test('@mdx-js/esbuild', async function (t) {
     }
   })
 
-  await t.test('should pass errors (2)', async function () {
+  await t.test('should pass errors', async function () {
     const mdxUrl = new URL('esbuild.mdx', import.meta.url)
     const jsUrl = new URL('esbuild.js', import.meta.url)
 
@@ -439,11 +439,7 @@ test('@mdx-js/esbuild', async function (t) {
         entryPoints: [fileURLToPath(mdxUrl)],
         outfile: fileURLToPath(jsUrl),
         format: 'esm',
-        plugins: [
-          esbuildMdx({
-            rehypePlugins: [crash]
-          })
-        ]
+        plugins: [esbuildMdx({rehypePlugins: [crash]})]
       })
       assert.fail()
     } catch (error) {
@@ -457,7 +453,16 @@ test('@mdx-js/esbuild', async function (t) {
       assert.deepEqual(result, {
         errors: [
           {
-            detail: {},
+            detail: {
+              cause: {},
+              fatal: true,
+              message: 'Cannot process MDX file with esbuild',
+              name: '1:1',
+              reason: 'Cannot process MDX file with esbuild',
+              ruleId: 'process-error',
+              source: '@mdx-js/esbuild'
+            },
+            id: '',
             location: {
               column: 0,
               file: 'test/esbuild.mdx',
@@ -469,8 +474,7 @@ test('@mdx-js/esbuild', async function (t) {
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: 'Error: Something went wrong',
-            id: ''
+            text: 'Cannot process MDX file with esbuild'
           }
         ],
         warnings: []

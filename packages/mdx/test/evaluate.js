@@ -247,14 +247,14 @@ test('@mdx-js/mdx: evaluate', async function (t) {
     )
   })
 
-  await t.test('should throw on an export from', async function () {
+  await t.test('should throw on an `export * from`', async function () {
     try {
       await evaluate('export {a} from "b"', runtime)
       assert.fail()
     } catch (error) {
       assert.match(
         String(error),
-        /Cannot use `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
+        /Unexpected `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
       )
     }
   })
@@ -379,7 +379,7 @@ test('@mdx-js/mdx: evaluate', async function (t) {
     } catch (error) {
       assert.match(
         String(error),
-        /Cannot use `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
+        /Unexpected `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
       )
     }
   })
@@ -391,7 +391,7 @@ test('@mdx-js/mdx: evaluate', async function (t) {
     } catch (error) {
       assert.match(
         String(error),
-        /Cannot use `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
+        /Unexpected `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
       )
     }
   })
@@ -403,7 +403,7 @@ test('@mdx-js/mdx: evaluate', async function (t) {
     } catch (error) {
       assert.match(
         String(error),
-        /Cannot use `import` or `export … from` in `evaluate` \(outputting a function body\) by default/
+        /Unexpected `import` or `export … from` in `evaluate` \(outputting a function body\) by default:/
       )
     }
   })

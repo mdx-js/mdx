@@ -604,7 +604,7 @@ test('@mdx-js/mdx: compile', async function (t) {
     } catch (error) {
       assert.match(
         String(error),
-        /Cannot specify multiple layouts \(previous: 1:1-1:31\)/
+        /Unexpected duplicate layout, expected a single layout \(previous: 1:1-1:31\)/
       )
     }
   })
@@ -618,7 +618,7 @@ test('@mdx-js/mdx: compile', async function (t) {
     } catch (error) {
       assert.match(
         String(error),
-        /Cannot specify multiple layouts \(previous: 1:1-1:31\)/
+        /Unexpected duplicate layout, expected a single layout \(previous: 1:1-1:31\)/
       )
     }
   })

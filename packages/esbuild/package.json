@@ -40,7 +40,8 @@
     "@mdx-js/mdx": "^2.0.0",
     "@types/unist": "^3.0.0",
     "undici": "^5.0.0",
-    "vfile": "^6.0.0"
+    "vfile": "^6.0.0",
+    "vfile-message": "^4.0.0"
   },
   "peerDependencies": {
     "esbuild": ">=0.14.0"

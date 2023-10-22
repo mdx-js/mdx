@@ -7,7 +7,6 @@
  * @typedef {import('esbuild').Plugin} Plugin
  * @typedef {import('esbuild').PluginBuild} PluginBuild
  * @typedef {import('vfile').Value} Value
- * @typedef {import('vfile-message').VFileMessage} VFileMessage
  */
 
 /**
@@ -68,6 +67,7 @@ import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aw
 import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
 import {fetch} from 'undici'
 import {VFile} from 'vfile'
+import {VFileMessage} from 'vfile-message'
 
 const eol = /\r\n|\r|\n|\u2028|\u2029/g
 
@@ -204,7 +204,7 @@ export function esbuild(options) {
       let file = new VFile({path: data.path, value: doc})
       /** @type {Value | undefined} */
       let value
-      /** @type {Array<Error | VFileMessage>} */
+      /** @type {Array<VFileMessage>} */
       let messages = []
       /** @type {Array<Message>} */
       const errors = []
@@ -216,13 +216,21 @@ export function esbuild(options) {
         value = file.value
         messages = file.messages
       } catch (error_) {
-        const error = /** @type {Error | VFileMessage} */ (error_)
-        if ('fatal' in error) error.fatal = true
-        messages.push(error)
+        const cause = /** @type {VFileMessage | Error} */ (error_)
+        const message =
+          'reason' in cause
+            ? cause
+            : new VFileMessage('Cannot process MDX file with esbuild', {
+                cause,
+                ruleId: 'process-error',
+                source: '@mdx-js/esbuild'
+              })
+        message.fatal = true
+        messages.push(message)
       }
 
       for (const message of messages) {
-        const list = !('fatal' in message) || message.fatal ? errors : warnings
+        const list = message.fatal ? errors : warnings
         list.push(vfileMessageToEsbuild(state, message))
       }
 
@@ -244,13 +252,13 @@ export function esbuild(options) {
 /**
  * @param {Readonly<State>} state
  *   Info passed around.
- * @param {Readonly<Error | VFileMessage>} message
+ * @param {Readonly<VFileMessage>} message
  *   VFile message or error.
  * @returns {Message}
  *   ESBuild message.
  */
 function vfileMessageToEsbuild(state, message) {
-  const place = 'place' in message ? message.place : undefined
+  const place = message.place
   const start = place ? ('start' in place ? place.start : place) : undefined
   const end = place && 'end' in place ? place.end : undefined
   let length = 0
@@ -288,11 +296,6 @@ function vfileMessageToEsbuild(state, message) {
     },
     notes: [],
     pluginName: state.name,
-    text: String(
-      ('reason' in message ? message.reason : undefined) ||
-        /* c8 ignore next 2 - errors should have stacks */
-        message.stack ||
-        message
-    )
+    text: message.reason
   }
 }
