@@ -899,4 +899,40 @@ test('@mdx-js/mdx: syntax: MDX (ESM)', async function (t) {
       ].join('\n')
     )
   })
+
+  await t.test(
+    "should add a 'use strict' when generating a `function-body`",
+    async function () {
+      assert.equal(
+        String(await compile('# hi', {outputFormat: 'function-body'})),
+        [
+          '/*@jsxRuntime automatic @jsxImportSource react*/',
+          '"use strict";',
+          'const {jsx: _jsx} = arguments[0];',
+          'function _createMdxContent(props) {',
+          '  const _components = {',
+          '    h1: "h1",',
+          '    ...props.components',
+          '  };',
+          '  return _jsx(_components.h1, {',
+          '    children: "hi"',
+          '  });',
+          '}',
+          'function MDXContent(props = {}) {',
+          '  const {wrapper: MDXLayout} = props.components || ({});',
+          '  return MDXLayout ? _jsx(MDXLayout, {',
+          '    ...props,',
+          '    children: _jsx(_createMdxContent, {',
+          '      ...props',
+          '    })',
+          '  }) : _createMdxContent(props);',
+          '}',
+          'return {',
+          '  default: MDXContent',
+          '};',
+          ''
+        ].join('\n')
+      )
+    }
+  )
 })

@@ -46,20 +46,37 @@ export function recmaJsxBuild(options) {
     // When compiling to a function body, replace the import that was just
     // generated, and get `jsx`, `jsxs`, and `Fragment` from `arguments[0]`
     // instead.
-    if (
-      outputFormat === 'function-body' &&
-      tree.body[0] &&
-      tree.body[0].type === 'ImportDeclaration' &&
-      typeof tree.body[0].source.value === 'string' &&
-      /\/jsx-(dev-)?runtime$/.test(tree.body[0].source.value)
-    ) {
-      tree.body[0] = {
-        type: 'VariableDeclaration',
-        kind: 'const',
-        declarations: specifiersToDeclarations(
-          tree.body[0].specifiers,
-          toIdOrMemberExpression(['arguments', 0])
-        )
+    if (outputFormat === 'function-body') {
+      let index = 0
+
+      // Skip directives: JS currently only has `use strict`, but Acorn allows
+      // arbitrary ones.
+      // Practically things like `use client` could be used?
+      while (index < tree.body.length) {
+        const child = tree.body[index]
+        if ('directive' in child && child.directive) {
+          index++
+        } else {
+          break
+        }
+      }
+
+      const declaration = tree.body[index]
+
+      if (
+        declaration &&
+        declaration.type === 'ImportDeclaration' &&
+        typeof declaration.source.value === 'string' &&
+        /\/jsx-(dev-)?runtime$/.test(declaration.source.value)
+      ) {
+        tree.body[index] = {
+          type: 'VariableDeclaration',
+          kind: 'const',
+          declarations: specifiersToDeclarations(
+            declaration.specifiers,
+            toIdOrMemberExpression(['arguments', 0])
+          )
+        }
       }
     }
   }

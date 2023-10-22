@@ -560,6 +560,14 @@ export function recmaJsxRewrite(options) {
         }
       })
     }
+
+    if (outputFormat === 'function-body') {
+      tree.body.unshift({
+        type: 'ExpressionStatement',
+        expression: {type: 'Literal', value: 'use strict'},
+        directive: 'use strict'
+      })
+    }
   }
 }
 
