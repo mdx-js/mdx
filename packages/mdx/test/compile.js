@@ -28,6 +28,39 @@ test('@mdx-js/mdx: compile', async function (t) {
     }, /Unexpected removed option `filepath`/)
   })
 
+  await t.test(
+    'should warn about the deprecated classic runtime',
+    async function () {
+      const warn = console.warn
+      /** @type {Array<unknown> | undefined} */
+      let messages
+
+      console.warn = capture
+
+      assert.equal(
+        renderToStaticMarkup(
+          React.createElement(
+            await run(await compile('# hi!', {jsxRuntime: 'classic'}))
+          )
+        ),
+        '<h1>hi!</h1>'
+      )
+
+      assert.deepEqual(messages, [
+        "Unexpected deprecated option `jsxRuntime: 'classic'`, `pragma`, `pragmaFrag`, or `pragmaImportSource`; see <https://mdxjs.com/migrating/v3/> on how to migrate"
+      ])
+
+      console.warn = warn
+
+      /**
+       * @param  {...unknown} args
+       */
+      function capture(...args) {
+        messages = args
+      }
+    }
+  )
+
   await t.test('should compile', async function () {
     assert.equal(
       renderToStaticMarkup(

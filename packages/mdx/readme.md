@@ -691,6 +691,9 @@ Configuration for `createProcessor` (TypeScript type).
     '$importSource/jsx-runtime'\n_jsx('p')`;
     the classic runtime compiles to calls such as `h('p')`
 
+    > 👉 **Note**: support for the classic runtime is deprecated and will
+    > likely be removed in the next major version.
+
     <details><summary>Expand example</summary>
 
     If `file` is the contents of `example.mdx` from [§ Use][use], then:
@@ -778,6 +781,9 @@ Configuration for `createProcessor` (TypeScript type).
     when changing this, you should also define `pragmaFrag` and
     `pragmaImportSource` too
 
+    > 👉 **Note**: support for the classic runtime is deprecated and will
+    > likely be removed in the next major version.
+
     <details><summary>Expand example</summary>
 
     If `file` is the contents of `example.mdx` from [§ Use][use], then:
@@ -812,13 +818,19 @@ Configuration for `createProcessor` (TypeScript type).
     for unnamed calls: `<>` to `React.createElement(React.Fragment)`;
     when changing this, you should also define `pragma` and `pragmaImportSource`
     too
-*    `pragmaImportSource` (`string`, default: `'react'`)
+
+    > 👉 **Note**: support for the classic runtime is deprecated and will
+    > likely be removed in the next major version.
+*   `pragmaImportSource` (`string`, default: `'react'`)
     — where to import the identifier of `pragma` from, used in the classic
     runtime;
     to illustrate, when `pragma` is `'a.b'` and `pragmaImportSource` is `'c'`
     the following will be generated: `import a from 'c'` and things such as
     `a.b('h1', {})`;
     when changing this, you should also define `pragma` and `pragmaFrag` too
+
+    > 👉 **Note**: support for the classic runtime is deprecated and will
+    > likely be removed in the next major version.
 *   `providerImportSource` (`string`, optional, example: `'@mdx-js/react'`)
     — place to import a provider from;
     normally it’s used for runtimes that support context (React, Preact), but

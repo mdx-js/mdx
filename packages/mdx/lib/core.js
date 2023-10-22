@@ -52,6 +52,9 @@
  *   the automatic runtime compiles to `import _jsx from
  *   '$importSource/jsx-runtime'\n_jsx('p')`;
  *   the classic runtime compiles to calls such as `h('p')`.
+ *
+ *   > 👉 **Note**: support for the classic runtime is deprecated and will
+ *   > likely be removed in the next major version.
  * @property {ReadonlyArray<string> | null | undefined} [mdExtensions]
  *   List of markdown extensions, with dot (default: `['.md', '.markdown', …]`);
  *   affects integrations.
@@ -71,12 +74,18 @@
  *   `'React.createElement'`);
  *   when changing this, you should also define `pragmaFrag` and
  *   `pragmaImportSource` too.
+ *
+ *   > 👉 **Note**: support for the classic runtime is deprecated and will
+ *   > likely be removed in the next major version.
  * @property {string | null | undefined} [pragmaFrag='React.Fragment']
  *   Pragma for fragment symbol, used in the classic runtime as an identifier
  *   for unnamed calls: `<>` to `React.createElement(React.Fragment)` (default:
  *   `'React.Fragment'`);
  *   when changing this, you should also define `pragma` and
  *   `pragmaImportSource` too.
+ *
+ *   > 👉 **Note**: support for the classic runtime is deprecated and will
+ *   > likely be removed in the next major version.
  * @property {string | null | undefined} [pragmaImportSource='react']
  *   Where to import the identifier of `pragma` from, used in the classic
  *   runtime (default: `'react'`);
@@ -84,6 +93,9 @@
  *   the following will be generated: `import a from 'c'` and things such as
  *   `a.b('h1', {})`.
  *   when changing this, you should also define `pragma` and `pragmaFrag` too.
+ *
+ *   > 👉 **Note**: support for the classic runtime is deprecated and will
+ *   > likely be removed in the next major version.
  * @property {string | null | undefined} [providerImportSource]
  *   Place to import a provider from (optional, example: `'@mdx-js/react'`);
  *   normally it’s used for runtimes that support context (React, Preact), but
@@ -148,6 +160,8 @@ const removedOptions = [
   'wrapExport'
 ]
 
+let warned = false
+
 /**
  * Create a processor to compile markdown or MDX to JavaScript.
  *
@@ -178,6 +192,19 @@ export function createProcessor(options) {
   if (settings.format === 'detect') {
     unreachable(
       "Unexpected `format: 'detect'`, which is not supported by `createProcessor`, expected `'mdx'` or `'md'`"
+    )
+  }
+
+  if (
+    !warned &&
+    (settings.jsxRuntime === 'classic' ||
+      settings.pragma ||
+      settings.pragmaFrag ||
+      settings.pragmaImportSource)
+  ) {
+    warned = true
+    console.warn(
+      "Unexpected deprecated option `jsxRuntime: 'classic'`, `pragma`, `pragmaFrag`, or `pragmaImportSource`; see <https://mdxjs.com/migrating/v3/> on how to migrate"
     )
   }
 
