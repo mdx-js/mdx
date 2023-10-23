@@ -97,64 +97,7 @@ ESBuild plugin ([`Plugin`][esbuild-plugin] from `esbuild`).
 
 Configuration (TypeScript type).
 
-Options are the same as [`CompileOptions` from `@mdx-js/mdx`][compile-options]
-with the addition of `allowDangerousRemoteMdx`:
-
-###### Fields
-
-*   `allowDangerousRemoteMdx` (`boolean`, default: `false`)
-    — whether to allow importing from `http:` and `https:` URLs;
-    when passing `allowDangerousRemoteMdx`, MD(X) *and* JS files can be imported
-    from `http:` and `https:` urls;
-
-###### Notes
-
-> ⚠️ **Security**: `allowDangerousRemoteMdx` (intentionally) enabled remote
-> code execution.
-> Make sure you trust your code!
-> See [§ Security][security] for more
-> info.
-
-> 💡 **Experiment**: `allowDangerousRemoteMdx` is an experimental feature that
-> might not work well and might change in minor releases.
-
-## Examples
-
-### Use `allowDangerousRemoteMdx`
-
-Take this `index.mdx` file:
-
-```mdx
-import Readme from 'https://raw.githubusercontent.com/mdx-js/mdx/main/readme.md'
-
-Here’s the readme:
-
-<Readme />
-```
-
-…and a module `build.js`:
-
-```tsx
-import mdx from '@mdx-js/esbuild'
-import esbuild from 'esbuild'
-
-await esbuild.build({
-  entryPoints: ['index.mdx'],
-  format: 'esm',
-  outfile: 'output.js',
-  plugins: [mdx({allowDangerousRemoteMdx: true, /* Other options… */})]
-})
-```
-
-…then running that (`node build.js`) and evaluating `output.js` (depends on how
-you evaluate React or another framework) would give:
-
-```tsx
-<p>Here’s the readme:</p>
-<h1>MDX: Markdown for the component era 🚀</h1>
-{/* … */}
-<p><a href="https://github.com/mdx-js/mdx/blob/main/license">MIT</a> © …</p>
-```
+Options are the same as [`CompileOptions` from `@mdx-js/mdx`][compile-options].
 
 ## Types
 

@@ -1,7 +1,7 @@
 {
   "name": "@mdx-js/node-loader",
   "version": "2.3.0",
-  "description": "Experimental Node loader for MDX",
+  "description": "Node.js loader for MDX",
   "license": "MIT",
   "keywords": [
     "jsx",

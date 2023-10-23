@@ -1,5 +1,5 @@
 /**
- * @typedef {import('@mdx-js/mdx').ProcessorOptions} ProcessorOptions
+ * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
  * @typedef {import('esbuild').Message} Message
  * @typedef {import('esbuild').OnLoadArgs} OnLoadArgs
  * @typedef {import('esbuild').OnLoadResult} OnLoadResult
@@ -10,15 +10,6 @@
  */
 
 /**
- * @typedef EsbuildOptions
- *   Extra options.
- * @property {boolean | null | undefined} [allowDangerousRemoteMdx=false]
- *   Whether to allow importing from `http:` and `https:` URLs (`boolean`,
- *   default: `false`).
- *
- *   When passing `allowDangerousRemoteMdx`, MD(X) *and* JS files can be
- *   imported from `http:` and `https:` urls.
- *
  * @typedef {Omit<OnLoadArgs, 'pluginData'> & LoadDataFields} LoadData
  *   Data passed to `onload`.
  *
@@ -27,22 +18,10 @@
  * @property {PluginData | null | undefined} [pluginData]
  *   Plugin data.
  *
- * @typedef {EsbuildOptions & ProcessorOptions} Options
+ * @typedef {CompileOptions} Options
  *   Configuration.
  *
- *   Options are the same as `compile` from `@mdx-js/mdx` with the addition
- *   of `allowDangerousRemoteMdx`.
- *
- *   ###### Notes
- *
- *   > ⚠️ **Security**: `allowDangerousRemoteMdx` (intentionally) enabled remote
- *   > code execution.
- *   > Make sure you trust your code!
- *   > See [§ Security][security] for more
- *   > info.
- *
- *   > 💡 **Experiment**: `allowDangerousRemoteMdx` is an experimental feature
- *   > that might not work well and might change in minor releases.
+ *   Options are the same as `compile` from `@mdx-js/mdx`.
  *
  * @typedef PluginData
  *   Extra data passed.
@@ -62,20 +41,14 @@
 import assert from 'node:assert'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import process from 'node:process'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
 import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
-import {fetch} from 'undici'
 import {VFile} from 'vfile'
 import {VFileMessage} from 'vfile-message'
 
 const eol = /\r\n|\r|\n|\u2028|\u2029/g
 
-/** @type {Map<string, string>} */
-const cache = new Map()
 const name = '@mdx-js/esbuild'
-const p = process
-const remoteNamespace = name + '-remote'
 
 /**
  * Create an esbuild plugin to compile MDX to JS.
@@ -92,8 +65,7 @@ const remoteNamespace = name + '-remote'
  *   Plugin.
  */
 export function esbuild(options) {
-  const {allowDangerousRemoteMdx, ...rest} = options || {}
-  const {extnames, process} = createFormatAwareProcessors(rest)
+  const {extnames, process} = createFormatAwareProcessors(options || {})
 
   return {name, setup}
 
@@ -104,85 +76,7 @@ export function esbuild(options) {
    *   Nothing.
    */
   function setup(build) {
-    const filter = extnamesToRegex(extnames)
-    const filterHttp = new RegExp('^https?:\\/{2}.+' + filter.source)
-    const http = /^https?:\/{2}/
-    const filterHttpOrRelative = /^(https?:\/{2}|.{1,2}\/).*/
-
-    if (allowDangerousRemoteMdx) {
-      // Intercept import paths starting with "http:" and "https:" so
-      // esbuild doesn't attempt to map them to a file system location.
-      // Tag them with the "http-url" namespace to associate them with
-      // this plugin.
-      build.onResolve(
-        {filter: filterHttp, namespace: 'file'},
-        resolveRemoteInLocal
-      )
-
-      build.onResolve(
-        {filter: filterHttpOrRelative, namespace: remoteNamespace},
-        resolveInRemote
-      )
-    }
-
-    build.onLoad({filter: /.*/, namespace: remoteNamespace}, onloadremote)
-    build.onLoad({filter}, onload)
-
-    /** @param {OnResolveArgs} args */
-    function resolveRemoteInLocal(args) {
-      return {namespace: remoteNamespace, path: args.path}
-    }
-
-    // Intercept all import paths inside downloaded files and resolve them against
-    // the original URL. All of these
-    // files will be in the "http-url" namespace. Make sure to keep
-    // the newly resolved URL in the "http-url" namespace so imports
-    // inside it will also be resolved as URLs recursively.
-    /** @param {OnResolveArgs} args */
-    function resolveInRemote(args) {
-      return {
-        namespace: remoteNamespace,
-        path: String(new URL(args.path, args.importer))
-      }
-    }
-
-    /**
-     * @param {OnLoadArgs} data
-     *   Data.
-     * @returns {Promise<OnLoadResult>}
-     *   Result.
-     */
-    async function onloadremote(data) {
-      const href = data.path
-      console.log('%s: downloading `%s`', remoteNamespace, href)
-
-      /** @type {string} */
-      let contents
-
-      const cachedContents = cache.get(href)
-      if (cachedContents) {
-        contents = cachedContents
-      } else {
-        const response = await fetch(href)
-        contents = await response.text()
-        cache.set(href, contents)
-      }
-
-      if (filter.test(href)) {
-        // Clean search and hash from URL.
-        const url = new URL(href)
-        url.hash = ''
-        url.search = ''
-        return onload({
-          namespace: 'file',
-          path: url.href,
-          pluginData: {contents},
-          suffix: ''
-        })
-      }
-
-      return {contents, loader: 'js', resolveDir: p.cwd()}
-    }
+    build.onLoad({filter: extnamesToRegex(extnames)}, onload)
 
     /**
      * @param {LoadData} data
@@ -240,9 +134,7 @@ export function esbuild(options) {
       return {
         contents: value || '',
         errors,
-        resolveDir: http.test(file.path)
-          ? p.cwd()
-          : path.resolve(file.cwd, file.dirname),
+        resolveDir: path.resolve(file.cwd, file.dirname),
         warnings
       }
     }
