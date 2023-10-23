@@ -10,7 +10,7 @@
  * @typedef {EvaluateProcessorOptions & RunOptions} EvaluateOptions
  *   Configuration for `evaluate`.
  *
- * @typedef {Omit<CompileOptions, 'jsx' | 'jsxImportSource' | 'jsxRuntime' | 'outputFormat' | 'pragma' | 'pragmaFrag' | 'pragmaImportSource' | 'providerImportSource'> } EvaluateProcessorOptions
+ * @typedef {Omit<CompileOptions, 'baseUrl' | 'jsx' | 'jsxImportSource' | 'jsxRuntime' | 'outputFormat' | 'pragma' | 'pragmaFrag' | 'pragmaImportSource' | 'providerImportSource'> } EvaluateProcessorOptions
  *   Compile configuration without JSX options for evaluation.
  *
  * @typedef RunOptions
@@ -23,6 +23,12 @@
  *   `useMDXComponents` is used when the code is compiled with
  *   `providerImportSource: '#'` (the exact value of this compile option
  *   doesn’t matter).
+ * @property {URL | string | null | undefined} [baseUrl]
+ *   Use this URL as `import.meta.url` and resolve `import` and `export … from`
+ *   relative to it (optional, example: `import.meta.url`);
+ *   this option can also be given at compile time in `CompileOptions`;
+ *   you should pass this (likely at runtime), as you might get runtime errors
+ *   when using `import.meta.url` / `import` / `export … from ` otherwise.
  * @property {Fragment} Fragment
  *   Symbol to use for fragments (**required**).
  * @property {Jsx | null | undefined} [jsx]
@@ -52,8 +58,16 @@
  *   Split options.
  */
 export function resolveEvaluateOptions(options) {
-  const {Fragment, development, jsx, jsxDEV, jsxs, useMDXComponents, ...rest} =
-    options || {}
+  const {
+    Fragment,
+    baseUrl,
+    development,
+    jsx,
+    jsxDEV,
+    jsxs,
+    useMDXComponents,
+    ...rest
+  } = options || {}
 
   if (!Fragment) throw new Error('Expected `Fragment` given to `evaluate`')
   if (development) {
@@ -70,6 +84,6 @@ export function resolveEvaluateOptions(options) {
       outputFormat: 'function-body',
       providerImportSource: useMDXComponents ? '#' : undefined
     },
-    runtime: {Fragment, jsx, jsxDEV, jsxs, useMDXComponents}
+    runtime: {Fragment, baseUrl, jsx, jsxDEV, jsxs, useMDXComponents}
   }
 }

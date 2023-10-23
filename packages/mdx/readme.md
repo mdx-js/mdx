@@ -382,9 +382,10 @@ type CompileOptions = Omit<ProcessorOptions, 'format'> & {
 Configuration for `evaluate` (TypeScript type).
 
 `EvaluateOptions` is the same as [`CompileOptions`][api-compile-options],
-except that the options `jsx`, `jsxImportSource`, `jsxRuntime`, `outputFormat`,
-`pragma`, `pragmaFrag`, `pragmaImportSource`, and `providerImportSource` are
-not allowed, and that [`RunOptions`][api-run-options] are also used.
+except that the options `baseUrl`, `jsx`, `jsxImportSource`, `jsxRuntime`,
+`outputFormat`, `pragma`, `pragmaFrag`, `pragmaImportSource`, and
+`providerImportSource` are not allowed, and that
+[`RunOptions`][api-run-options] are also used.
 
 ###### Type
 
@@ -394,6 +395,7 @@ not allowed, and that [`RunOptions`][api-run-options] are also used.
  */
 type EvaluateOptions = Omit<
   CompileOptions,
+  | 'baseUrl' // Note that this is also in `RunOptions`.
   | 'jsx'
   | 'jsxImportSource'
   | 'jsxRuntime'
@@ -494,12 +496,8 @@ Configuration for `createProcessor` (TypeScript type).
 
     </details>
 *   `baseUrl` (`URL` or `string`, optional, example: `import.meta.url`)
-    — resolve `import`s (and `export … from`, and `import.meta.url`) from this
-    URL;
-    this option is useful when code will run in a different place, such as when
-    `.mdx` files are in path *a* but compiled to path *b* and imports should
-    run relative the path *b*, or when evaluating code, whether in Node or a
-    browser
+    — use this URL as `import.meta.url` and resolve `import` and
+    `export … from` relative to it
 
     <details><summary>Expand example</summary>
 
@@ -517,7 +515,7 @@ Configuration for `createProcessor` (TypeScript type).
     …now running `node example.js` yields:
 
     ```tsx
-    import {Fragment as _Fragment, jsx as _jsx} from 'react/jsx-runtime'
+    import {jsx as _jsx} from 'react/jsx-runtime'
     export {number} from 'https://a.full/data.js'
     function _createMdxContent(props) { /* … */ }
     export default function MDXContent(props = {}) { /* … */ }
@@ -972,6 +970,12 @@ matter).
 
 *   `Fragment` ([`Fragment`][api-fragment], **required**)
     — symbol to use for fragments
+*   `baseUrl` (`URL` or `string`, optional, example: `import.meta.url`)
+    — use this URL as `import.meta.url` and resolve `import` and
+    `export … from` relative to it;
+    this option can also be given at compile time in `CompileOptions`;
+    you should pass this (likely at runtime), as you might get runtime errors
+    when using `import.meta.url` / `import` / `export … from ` otherwise
 *   `jsx` ([`Jsx`][api-jsx], optional)
     — function to generate an element with static children in production mode
 *   `jsxDEV` ([`JsxDEV`][api-jsx-dev], optional)
@@ -1198,10 +1202,6 @@ abide by its terms.
 [mdx-syntax]: https://mdxjs.com/docs/what-is-mdx/#mdx-syntax
 
 [use]: #use
-
-[outputformat]: #optionsoutputformat
-
-[baseurl]: #optionsbaseurl
 
 [unified]: https://github.com/unifiedjs/unified
 

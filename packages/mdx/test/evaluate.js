@@ -98,6 +98,54 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   })
 
   await t.test(
+    'should throw a runtime error when using `import` w/o `baseUrl`',
+    async function () {
+      try {
+        await evaluate('import "a"', runtime)
+        assert.fail()
+      } catch (error) {
+        const cause = /** @type {Error} */ (error)
+        assert.match(
+          String(cause),
+          /Unexpected missing `options.baseUrl` needed to support/
+        )
+      }
+    }
+  )
+
+  await t.test(
+    'should throw a runtime error when using `export … from` w/o `baseUrl`',
+    async function () {
+      try {
+        await evaluate('export {a} from "b"', runtime)
+        assert.fail()
+      } catch (error) {
+        const cause = /** @type {Error} */ (error)
+        assert.match(
+          String(cause),
+          /Unexpected missing `options.baseUrl` needed to support/
+        )
+      }
+    }
+  )
+
+  await t.test(
+    'should throw a runtime error when using `export … from` w/o `baseUrl`',
+    async function () {
+      try {
+        await evaluate('{import.meta.url}', runtime)
+        assert.fail()
+      } catch (error) {
+        const cause = /** @type {Error} */ (error)
+        assert.match(
+          String(cause),
+          /Unexpected missing `options.baseUrl` needed to support/
+        )
+      }
+    }
+  )
+
+  await t.test(
     'should support an `import` of a relative url w/ `baseUrl`',
     async function () {
       const mod = await evaluate(
@@ -130,24 +178,24 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   )
 
   await t.test(
-    'should support an `import` w/o specifiers w/o `baseUrl`',
+    'should support an `import` w/o specifiers w/o `baseUrl` (expecting it at runtime)',
     async function () {
-      assert.match(
-        String(await compile('import "a"', {outputFormat: 'function-body'})),
-        /\nawait import\("a"\);?\n/
+      const doc = String(
+        await compile('import "a"', {outputFormat: 'function-body'})
       )
+      assert.match(doc, /const _importMetaUrl = arguments\[0]\.baseUrl/)
+      assert.match(doc, /await import\(_resolveDynamicMdxSpecifier\("a"\)\);/)
     }
   )
 
   await t.test(
-    'should support an `import` w/ 0 specifiers w/o `baseUrl`',
+    'should support an `import` w/ 0 specifiers w/o `baseUrl` (expecting it at runtime)',
     async function () {
-      assert.match(
-        String(
-          await compile('import {} from "a"', {outputFormat: 'function-body'})
-        ),
-        /\nawait import\("a"\);?\n/
+      const doc = String(
+        await compile('import {} from "a"', {outputFormat: 'function-body'})
       )
+      assert.match(doc, /const _importMetaUrl = arguments\[0]\.baseUrl/)
+      assert.match(doc, /await import\(_resolveDynamicMdxSpecifier\("a"\)\);/)
     }
   )
 

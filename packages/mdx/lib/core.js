@@ -16,12 +16,8 @@
  *   Add a source map (object form) as the `map` field on the resulting file
  *   (optional).
  * @property {URL | string | null | undefined} [baseUrl]
- *   Resolve `import`s (and `export … from`, and `import.meta.url`) from this
- *   URL (optional, example: `import.meta.url`);
- *   this option is useful when code will run in a different place, such as
- *   when `.mdx` files are in path *a* but compiled to path *b* and imports
- *   should run relative the path *b*, or when evaluating code, whether in Node
- *   or a browser.
+ *   Use this URL as `import.meta.url` and resolve `import` and `export … from`
+ *   relative to it (optional, example: `import.meta.url`).
  * @property {boolean | null | undefined} [development=false]
  *   Whether to add extra info to error messages in generated code and use the
  *   development automatic JSX runtime (`Fragment` and `jsxDEV` from

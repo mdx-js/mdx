@@ -1,4 +1,5 @@
 /**
+ * @typedef {import('estree-jsx').CallExpression} CallExpression
  * @typedef {import('estree-jsx').Directive} Directive
  * @typedef {import('estree-jsx').ExportAllDeclaration} ExportAllDeclaration
  * @typedef {import('estree-jsx').ExportDefaultDeclaration} ExportDefaultDeclaration
@@ -6,6 +7,7 @@
  * @typedef {import('estree-jsx').ExportSpecifier} ExportSpecifier
  * @typedef {import('estree-jsx').Expression} Expression
  * @typedef {import('estree-jsx').FunctionDeclaration} FunctionDeclaration
+ * @typedef {import('estree-jsx').Identifier} Identifier
  * @typedef {import('estree-jsx').ImportDeclaration} ImportDeclaration
  * @typedef {import('estree-jsx').ImportDefaultSpecifier} ImportDefaultSpecifier
  * @typedef {import('estree-jsx').ImportExpression} ImportExpression
@@ -36,6 +38,7 @@ import {create} from '../util/estree-util-create.js'
 import {declarationToExpression} from '../util/estree-util-declaration-to-expression.js'
 import {isDeclaration} from '../util/estree-util-is-declaration.js'
 import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
+import {toIdOrMemberExpression} from '../util/estree-util-to-id-or-member-expression.js'
 
 /**
  * Wrap the estree in `MDXContent`.
@@ -46,8 +49,8 @@ import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declar
  *   Transform.
  */
 export function recmaDocument(options) {
-  const baseUrl_ = options.baseUrl || undefined
-  const baseUrl = typeof baseUrl_ === 'object' ? baseUrl_.href : baseUrl_
+  const baseUrl = options.baseUrl || undefined
+  const baseHref = typeof baseUrl === 'object' ? baseUrl.href : baseUrl
   const outputFormat = options.outputFormat || 'program'
   const pragma =
     options.pragma === undefined ? 'React.createElement' : options.pragma
@@ -321,9 +324,68 @@ export function recmaDocument(options) {
 
     tree.body = replacement
 
-    if (baseUrl) {
+    let usesImportMetaUrlVariable = false
+    let usesResolveDynamicHelper = false
+
+    if (baseHref || outputFormat === 'function-body') {
       walk(tree, {
         enter(node) {
+          if (
+            (node.type === 'ExportAllDeclaration' ||
+              node.type === 'ExportNamedDeclaration' ||
+              node.type === 'ImportDeclaration') &&
+            node.source
+          ) {
+            // We never hit this branch when generating function bodies, as
+            // statements are already compiled away into import expressions.
+            assert(baseHref, 'unexpected missing `baseHref` in branch')
+
+            let value = node.source.value
+            // The literal source for statements can only be string.
+            assert(typeof value === 'string', 'expected string source')
+
+            // Resolve a specifier.
+            // This is the same as `_resolveDynamicMdxSpecifier`, which has to
+            // be injected to work with expressions at runtime, but as we have
+            // `baseHref` at compile time here and statements are static
+            // strings, we can do it now.
+            try {
+              // To do: use `URL.canParse` next major.
+              // eslint-disable-next-line no-new
+              new URL(value)
+              // Fine: a full URL.
+            } catch {
+              if (
+                value.startsWith('/') ||
+                value.startsWith('./') ||
+                value.startsWith('../')
+              ) {
+                value = new URL(value, baseHref).href
+              } else {
+                // Fine: are bare specifier.
+              }
+            }
+
+            /** @type {SimpleLiteral} */
+            const replacement = {type: 'Literal', value}
+            create(node.source, replacement)
+            node.source = replacement
+            return
+          }
+
+          if (node.type === 'ImportExpression') {
+            usesResolveDynamicHelper = true
+            /** @type {CallExpression} */
+            const replacement = {
+              type: 'CallExpression',
+              callee: {type: 'Identifier', name: '_resolveDynamicMdxSpecifier'},
+              arguments: [node.source],
+              optional: false
+            }
+            node.source = replacement
+            return
+          }
+
           if (
             node.type === 'MemberExpression' &&
             'object' in node &&
@@ -333,12 +395,36 @@ export function recmaDocument(options) {
             node.object.property.name === 'meta' &&
             node.property.name === 'url'
           ) {
-            /** @type {SimpleLiteral} */
-            const replacement = {type: 'Literal', value: baseUrl}
+            usesImportMetaUrlVariable = true
+            /** @type {Identifier} */
+            const replacement = {type: 'Identifier', name: '_importMetaUrl'}
+            create(node, replacement)
             this.replace(replacement)
           }
         }
       })
+    }
+
+    if (usesResolveDynamicHelper) {
+      if (!baseHref) {
+        usesImportMetaUrlVariable = true
+      }
+
+      tree.body.push(
+        resolveDynamicMdxSpecifier(
+          baseHref
+            ? {type: 'Literal', value: baseHref}
+            : {type: 'Identifier', name: '_importMetaUrl'}
+        )
+      )
+    }
+
+    if (usesImportMetaUrlVariable) {
+      assert(
+        outputFormat === 'function-body',
+        'expected `function-body` when using dynamic url injection'
+      )
+      tree.body.unshift(...createImportMetaUrlVariable())
     }
 
     /**
@@ -379,32 +465,6 @@ export function recmaDocument(options) {
      *   Nothing.
      */
     function handleEsm(node) {
-      // Rewrite the source of the `import` / `export … from`.
-      // See: <https://html.spec.whatwg.org/multipage/webappapis.html#resolve-a-module-specifier>
-      if (baseUrl && node.source) {
-        let value = String(node.source.value)
-
-        try {
-          // A full valid URL.
-          value = String(new URL(value))
-        } catch {
-          // Relative: `/example.js`, `./example.js`, and `../example.js`.
-          if (/^\.{0,2}\//.test(value)) {
-            value = String(new URL(value, baseUrl))
-          }
-          // Otherwise, it’s a bare specifiers.
-          // For example `some-package`, `@some-package`, and
-          // `some-package/path`.
-          // These are supported in Node and browsers plan to support them
-          // with import maps (<https://github.com/WICG/import-maps>).
-        }
-
-        /** @type {Literal} */
-        const literal = {type: 'Literal', value}
-        create(node.source, literal)
-        node.source = literal
-      }
-
       /** @type {ModuleDeclaration | Statement | undefined} */
       let replace
       /** @type {Expression} */
@@ -638,4 +698,176 @@ export function recmaDocument(options) {
         : declaration
     ]
   }
+}
+
+/**
+ * @param {Expression} importMetaUrl
+ * @returns {FunctionDeclaration}
+ */
+function resolveDynamicMdxSpecifier(importMetaUrl) {
+  return {
+    type: 'FunctionDeclaration',
+    id: {type: 'Identifier', name: '_resolveDynamicMdxSpecifier'},
+    generator: false,
+    async: false,
+    params: [{type: 'Identifier', name: 'd'}],
+    body: {
+      type: 'BlockStatement',
+      body: [
+        {
+          type: 'IfStatement',
+          test: {
+            type: 'BinaryExpression',
+            left: {
+              type: 'UnaryExpression',
+              operator: 'typeof',
+              prefix: true,
+              argument: {type: 'Identifier', name: 'd'}
+            },
+            operator: '!==',
+            right: {type: 'Literal', value: 'string'}
+          },
+          consequent: {
+            type: 'ReturnStatement',
+            argument: {type: 'Identifier', name: 'd'}
+          },
+          alternate: null
+        },
+        // To do: use `URL.canParse` when widely supported (see commented
+        // out code below).
+        {
+          type: 'TryStatement',
+          block: {
+            type: 'BlockStatement',
+            body: [
+              {
+                type: 'ExpressionStatement',
+                expression: {
+                  type: 'NewExpression',
+                  callee: {type: 'Identifier', name: 'URL'},
+                  arguments: [{type: 'Identifier', name: 'd'}]
+                }
+              },
+              {
+                type: 'ReturnStatement',
+                argument: {type: 'Identifier', name: 'd'}
+              }
+            ]
+          },
+          handler: {
+            type: 'CatchClause',
+            param: null,
+            body: {type: 'BlockStatement', body: []}
+          },
+          finalizer: null
+        },
+        // To do: use `URL.canParse` when widely supported.
+        // {
+        //   type: 'IfStatement',
+        //   test: {
+        //     type: 'CallExpression',
+        //     callee: toIdOrMemberExpression(['URL', 'canParse']),
+        //     arguments: [{type: 'Identifier', name: 'd'}],
+        //     optional: false
+        //   },
+        //   consequent: {
+        //     type: 'ReturnStatement',
+        //     argument: {type: 'Identifier', name: 'd'}
+        //   },
+        //   alternate: null
+        // },
+        {
+          type: 'IfStatement',
+          test: {
+            type: 'LogicalExpression',
+            left: {
+              type: 'LogicalExpression',
+              left: {
+                type: 'CallExpression',
+                callee: toIdOrMemberExpression(['d', 'startsWith']),
+                arguments: [{type: 'Literal', value: '/'}],
+                optional: false
+              },
+              operator: '||',
+              right: {
+                type: 'CallExpression',
+                callee: toIdOrMemberExpression(['d', 'startsWith']),
+                arguments: [{type: 'Literal', value: './'}],
+                optional: false
+              }
+            },
+            operator: '||',
+            right: {
+              type: 'CallExpression',
+              callee: toIdOrMemberExpression(['d', 'startsWith']),
+              arguments: [{type: 'Literal', value: '../'}],
+              optional: false
+            }
+          },
+          consequent: {
+            type: 'ReturnStatement',
+            argument: {
+              type: 'MemberExpression',
+              object: {
+                type: 'NewExpression',
+                callee: {type: 'Identifier', name: 'URL'},
+                arguments: [{type: 'Identifier', name: 'd'}, importMetaUrl]
+              },
+              property: {type: 'Identifier', name: 'href'},
+              computed: false,
+              optional: false
+            }
+          },
+          alternate: null
+        },
+        {
+          type: 'ReturnStatement',
+          argument: {type: 'Identifier', name: 'd'}
+        }
+      ]
+    }
+  }
+}
+
+/**
+ * @returns {Array<Statement>}
+ */
+function createImportMetaUrlVariable() {
+  return [
+    {
+      type: 'VariableDeclaration',
+      declarations: [
+        {
+          type: 'VariableDeclarator',
+          id: {type: 'Identifier', name: '_importMetaUrl'},
+          init: toIdOrMemberExpression(['arguments', 0, 'baseUrl'])
+        }
+      ],
+      kind: 'const'
+    },
+    {
+      type: 'IfStatement',
+      test: {
+        type: 'UnaryExpression',
+        operator: '!',
+        prefix: true,
+        argument: {type: 'Identifier', name: '_importMetaUrl'}
+      },
+      consequent: {
+        type: 'ThrowStatement',
+        argument: {
+          type: 'NewExpression',
+          callee: {type: 'Identifier', name: 'Error'},
+          arguments: [
+            {
+              type: 'Literal',
+              value:
+                'Unexpected missing `options.baseUrl` needed to support `export … from`, `import`, or `import.meta.url` when generating `function-body`'
+            }
+          ]
+        }
+      },
+      alternate: null
+    }
+  ]
 }

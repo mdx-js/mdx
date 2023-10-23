@@ -18,7 +18,7 @@ import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
-import {run} from './context/run.js'
+import {run, runWhole} from './context/run.js'
 
 test('@mdx-js/mdx: compile', async function (t) {
   await t.test('should throw when a removed option is passed', function () {
@@ -1075,6 +1075,78 @@ test('@mdx-js/mdx: compile', async function (t) {
 
     await fs.unlink(url)
   })
+
+  await t.test(
+    'should leave bare specifiers untouched w/ `baseUrl`',
+    async function () {
+      const dlv = await import('dlv')
+      const mod = await runWhole(
+        await compile('import dlv from "dlv"\nexport {dlv}', {
+          baseUrl: 'https://example.com'
+        })
+      )
+
+      assert.equal(mod.dlv, dlv.default)
+    }
+  )
+
+  await t.test(
+    'should leave URLs as specifiers untouched w/ `baseUrl`',
+    async function () {
+      const mod = await runWhole(
+        await compile('import fs from "node:fs/promises"\nexport {fs}', {
+          baseUrl: 'https://example.com'
+        })
+      )
+
+      assert.equal(mod.fs, fs)
+    }
+  )
+
+  await t.test(
+    'should resolve relative specifiers w/ `baseUrl`',
+    async function () {
+      // Note: this is run inside `context/`, so it would normally have to be `./data.js`.
+      // But because we rewrite relative to this file `compile.js`, it’s `./context/data.js`.
+      const mod = await runWhole(
+        await compile('import num from "./context/data.js"\nexport {num}', {
+          baseUrl: import.meta.url
+        })
+      )
+
+      assert.equal(mod.num, 6.28)
+    }
+  )
+
+  await t.test('should support `baseUrl` as a URL', async function () {
+    // Same as above but uses a URL.
+    const mod = await runWhole(
+      await compile('import num from "./context/data.js"\nexport {num}', {
+        baseUrl: new URL(import.meta.url)
+      })
+    )
+
+    assert.equal(mod.num, 6.28)
+  })
+
+  await t.test(
+    'should support importing dynamic expressions',
+    async function () {
+      // Same as above but uses a URL.
+      const mod = await runWhole(
+        await compile(
+          'export async function get() {\n  const mod = await import("./context/data.js");\n  return mod.number\n}',
+          {
+            baseUrl: new URL(import.meta.url)
+          }
+        )
+      )
+
+      const get = mod.get
+      assert(typeof get === 'function')
+      assert.equal(await get(), 3.14)
+    }
+  )
 })
 
 test('@mdx-js/mdx: compile (JSX)', async function (t) {

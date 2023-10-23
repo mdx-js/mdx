@@ -446,7 +446,7 @@ export function recmaJsxRewrite(options) {
 
             createErrorHelper = true
 
-            if (development && place !== '1:1-1:1') {
+            if (development && place) {
               parameters.push({type: 'Literal', value: place})
             }
 
