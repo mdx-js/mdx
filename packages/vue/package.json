@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/vue",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "Vue provider for MDX",
   "license": "MIT",
   "keywords": [

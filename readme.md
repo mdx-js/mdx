@@ -21,7 +21,7 @@ This makes writing long-form content with components a blast.
 
 ```mdx
 import {Chart} from './snowfall.js'
-export const year = 2018
+export const year = 2013
 
 # Last year’s snowfall
 

@@ -1,6 +1,6 @@
 {
   "name": "@mdx-js/mdx",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "MDX compiler",
   "license": "MIT",
   "keywords": [
@@ -57,7 +57,7 @@
     "hast-util-to-jsx-runtime": "^2.0.0",
     "markdown-extensions": "^2.0.0",
     "periscopic": "^3.0.0",
-    "remark-mdx": "^2.0.0",
+    "remark-mdx": "^3.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.0.0",
     "source-map": "^0.7.0",
