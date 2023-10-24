@@ -52,8 +52,12 @@ You will get a runtime error if these features are used in MDX without
 If you passed the `useDynamicImport` option before, remove it, the behavior
 is now the default.
 
-Note that you may get a TypeScript error saying `Property 'Fragment' is missing in type`. This is [because `react/jsx-runtime` does not export its types](https://github.com/orgs/mdx-js/discussions/1862#discussioncomment-1824570). To remediate this, do: 
+Note that you may get a TypeScript error saying `Property 'Fragment' is missing in type`.
+This is [because `react/jsx-runtime` does not export its types](https://github.com/orgs/mdx-js/discussions/1862#discussioncomment-1824570).
+To remediate this, do:
+
 ```typescript
+
 // @ts-expect-error: the automatic react runtime is untyped.
 const result = await run(compiled, { ...runtime, baseUrl: import.meta.url });
 ```
