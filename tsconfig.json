@@ -9,7 +9,7 @@
     "lib": ["es2022"],
     "module": "node16",
     "strict": true,
-    "target": "es2020"
+    "target": "es2022"
   },
   "exclude": ["**/coverage/", "**/node_modules/", "**/public/"],
   "include": [
