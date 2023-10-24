@@ -641,7 +641,6 @@ test('@mdx-js/mdx: syntax: MDX (JSX)', async function (t) {
 </table>`)
       ),
       [
-        '/*@jsxRuntime automatic @jsxImportSource react*/',
         'import {jsx as _jsx, jsxs as _jsxs} from "react/jsx-runtime";',
         'function _createMdxContent(props) {',
         '  return _jsx("table", {',
@@ -868,7 +867,6 @@ test('@mdx-js/mdx: syntax: MDX (ESM)', async function (t) {
         )
       ),
       [
-        '/*@jsxRuntime automatic @jsxImportSource react*/',
         'import {jsxDEV as _jsxDEV} from "react/jsx-dev-runtime";',
         'function _createMdxContent(props) {',
         '  const {X} = props.components || ({});',
@@ -906,7 +904,6 @@ test('@mdx-js/mdx: syntax: MDX (ESM)', async function (t) {
       assert.equal(
         String(await compile('# hi', {outputFormat: 'function-body'})),
         [
-          '/*@jsxRuntime automatic @jsxImportSource react*/',
           '"use strict";',
           'const {jsx: _jsx} = arguments[0];',
           'function _createMdxContent(props) {',

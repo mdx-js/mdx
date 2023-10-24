@@ -104,7 +104,6 @@ console.log(String(compiled))
 Yields roughly:
 
 ```tsx
-/* @jsxRuntime automatic @jsxImportSource react */
 import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
 export function Thing() {
@@ -653,8 +652,8 @@ Configuration for `createProcessor` (TypeScript type).
   …yields this difference:
 
   ```diff
-  /* @jsxRuntime automatic @jsxImportSource react */
   -import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
+  +/* @jsxRuntime automatic @jsxImportSource react */
 
   export function Thing() {
   -  return _jsx(_Fragment, {children: 'World'})
@@ -701,9 +700,7 @@ Configuration for `createProcessor` (TypeScript type).
   …yields this difference:
 
   ```diff
-  -/* @jsxRuntime automatic @jsxImportSource react */
   -import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
-  +/* @jsxRuntime automatic @jsxImportSource preact */
   +import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from 'preact/jsx-runtime'
   ```
 
@@ -729,9 +726,7 @@ Configuration for `createProcessor` (TypeScript type).
   …yields this difference:
 
   ```diff
-  -/* @jsxRuntime automatic @jsxImportSource react */
   -import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
-  +/* @jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment */
   +import React from 'react'
 
   export function Thing() {
@@ -767,7 +762,6 @@ Configuration for `createProcessor` (TypeScript type).
   …yields:
 
   ```tsx
-  /* @jsxRuntime automatic @jsxImportSource react */
   import {jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
   export const no = 3.14
   function _createMdxContent(props) { /* … */ }
@@ -775,6 +769,7 @@ Configuration for `createProcessor` (TypeScript type).
   ```
 
   ```tsx
+  'use strict'
   const {Fragment: _Fragment, jsx: _jsx} = arguments[0]
   const no = 3.14
   function _createMdxContent(props) { /* … */ }
@@ -826,9 +821,7 @@ Configuration for `createProcessor` (TypeScript type).
   …yields this difference:
 
   ```diff
-  -/* @jsxRuntime classic @jsx React.createElement @jsxFrag React.Fragment */
   -import React from 'react'
-  +/* @jsxRuntime classic @jsx preact.createElement @jsxFrag preact.Fragment */
   +import preact from 'preact/compat'
 
   export function Thing() {
@@ -879,7 +872,6 @@ Configuration for `createProcessor` (TypeScript type).
   …yields this difference:
 
   ```diff
-  /* @jsxRuntime automatic @jsxImportSource react */
   import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
   +import {useMDXComponents as _provideComponents} from '@mdx-js/react'
 

@@ -103,7 +103,11 @@ export function recmaDocument(options) {
     if (!tree.comments) tree.comments = []
 
     if (pragmas.length > 0) {
-      tree.comments.unshift({type: 'Block', value: pragmas.join(' ')})
+      tree.comments.unshift({
+        type: 'Block',
+        value: pragmas.join(' '),
+        data: {_mdxIsPragmaComment: true}
+      })
     }
 
     if (jsxRuntime === 'classic' && pragmaImportSource) {

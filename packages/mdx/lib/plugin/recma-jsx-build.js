@@ -43,6 +43,17 @@ export function recmaJsxBuild(options) {
   return function (tree, file) {
     buildJsx(tree, {development, filePath: file.history[0]})
 
+    // Remove the pragma comment that we injected ourselves as it is no longer
+    // needed.
+    if (
+      tree.comments &&
+      tree.comments[0].type === 'Block' &&
+      tree.comments[0].data &&
+      tree.comments[0].data._mdxIsPragmaComment
+    ) {
+      tree.comments.shift()
+    }
+
     // When compiling to a function body, replace the import that was just
     // generated, and get `jsx`, `jsxs`, and `Fragment` from `arguments[0]`
     // instead.
