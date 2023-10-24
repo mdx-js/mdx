@@ -1,0 +1,136 @@
+import {Note} from '../_component/note.jsx'
+export const info = {
+  author: [
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
+  ],
+  modified: new Date('2023-10-24'),
+  published: new Date('2023-10-24')
+}
+
+<Note type="info">
+  **Note**: Info on how to migrate is available in our
+  [Version 3 migration guide][migrating].
+</Note>
+
+# MDX 3
+
+Version 3 already!
+This major version contains a couple small changes.
+For most folks, updating Node.js and plugins is all that’s needed!
+
+{/* more */}
+
+## Contents
+
+* [Breaking changes](#breaking-changes)
+* [Improvements to the MDX format](#improvements-to-the-mdx-format)
+  * [Adjacent block JSX and expressions in MDX](#adjacent-block-jsx-and-expressions-in-mdx)
+  * [Await in MDX](#await-in-mdx)
+  * [ES2024 in MDX](#es2024-in-mdx)
+* [Miscellaneous](#miscellaneous)
+* [Thanks](#thanks)
+
+## Breaking changes
+
+The main breaking change is that Node.js 16 is now the minimum supported
+version.
+
+Across the ecosystem there were several small internal breaking changes.
+Everything’s released already.
+You can update all plugins now.
+If you ran into problems before, it should work now.
+
+We also removed some infrequently used deprecated APIs.
+You’re likely fine but gloss over the [v3 migration guide][migrating] if you
+get errors.
+
+Important to note when you use your lesser-known but powerful `evaluate`, `run`,
+or `outputFormat: 'function-body'` APIs, please pass the `baseUrl` option.
+That makes sure `import.meta.url`, `import`, and `export` work.
+You’ll get a runtime error when those features are used otherwise.
+
+## Improvements to the MDX format
+
+There’s also a few small improvements to the MDX format, some of which
+technically breaking.
+
+### Adjacent block JSX and expressions in MDX
+
+We now accept block expressions right next to block JSX tags:
+
+{/* Note: `language` because our theme doesn’t support it yet. */}
+
+```jsx chrome=no language="mdx"
+<style>{`
+
+  h1 {
+    color: blue;
+  }
+
+`}</style>
+```
+
+Previously, there was a syntax error, and you had to add a newline between the
+angle brackets and the braces.
+
+### Await in MDX
+
+We now accept `await` syntax:
+
+```mdx
+{await Promise.resolve(42)}
+```
+
+Most frameworks don’t support promises.
+Whether this works depends on that.
+
+Previously, there was a runtime error that `await` was used in a context where
+it wasn’t allowed.
+
+### ES2024 in MDX
+
+You can now use modern JavaScript syntax in MDX.
+Acorn, used internally, is now instructed to use ES2024.
+
+## Miscellaneous
+
+I refactored all the docs.
+Updating every use example where needed.
+I also wrote a guide on how to inject components from anywhere:
+[§ Injecting components][injecting-components].
+
+The site a bunch faster.
+There’s a nice improved playground too: [try it out! »][playground].
+We also have proper syntax highlighting here, thanks to
+[`wooorm/markdown-tm-language`][markdown-tm-language]
+and [`wooorm/starry-night`][starry-night].
+
+The generated JS code is a little cleaner (the JSX pragma comment is removed
+and objects are sorted where needed), it also uses spreads instead of
+`Object.assign`, there’s a `'use strict'` added when needed, and the
+`MDXContent` is exported immediately.
+
+## Thanks
+
+We’d like to say thanks to all our contributors and our happy users.
+Special thanks to
+北雁云依 ([**@BeiyanYunyi**](https://github.com/BeiyanYunyi)),
+Christian Murphy ([**@ChristianMurphy**](https://github.com/ChristianMurphy)),
+JokcyLou ([**@Jokcy**](https://github.com/Jokcy)),
+Maël Nison ([**@arcanis**](https://github.com/arcanis)),
+Andreas Deininger ([**@deining**](https://github.com/deining)),
+Remco Haszing ([**@remcohaszing**](https://github.com/remcohaszing)),
+Sébastien Lorber ([**@slorber**](https://github.com/slorber)),
+Víctor Fernández ([**@victor23k**](https://github.com/victor23k)),
+Titus Wormer ([**@wooorm**](https://github.com/wooorm)),
+and anyone we may have forgotten.
+
+[migrating]: /migrating/v3/
+
+[playground]: /playground/
+
+[injecting-components]: /guides/injecting-components/
+
+[markdown-tm-language]: https://github.com/wooorm/markdown-tm-language
+
+[starry-night]: https://github.com/wooorm/starry-night
