@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2021-11-14'),
+  modified: new Date('2023-10-23'),
   published: new Date('2021-11-13')
 }
 export const navSortSelf = 6
@@ -19,8 +19,8 @@ Using that it’s possible to for example do most of the work on demand on the
 server instead of at build time, then pass the resulting data to clients, where
 they finally use it.
 
-This is similar to what [`mdx-bundler`][mdx-bundler] and
-[`next-mdx-remote`][next-mdx-remote] also do, but they add more features.
+This is similar to what people sometimes use [`mdx-bundler`][mdx-bundler] or
+[`next-mdx-remote`][next-mdx-remote] for, but MDX also supports it.
 
 ## Quick example
 
@@ -40,12 +40,11 @@ On the client:
 
 ```tsx path="client.js"
 import {run} from '@mdx-js/mdx'
-import * as runtime from 'react/jsx-runtime' // Production.
-// import * as runtime from 'react/jsx-dev-runtime' // Development.
+import * as runtime from 'react/jsx-runtime'
 
 const code = '' // To do: get `code` from server somehow.
 
-const {default: Content} = await run(code, runtime)
+const {default: Content} = await run(code, {...runtime, baseUrl: import.meta.url})
 ```
 
 `Content` is now an `MDXContent` component that you can use like normal in your
@@ -68,10 +67,9 @@ Some frameworks let you write the server and client code in one file, such as
 Next.
 
 ```tsx path="pages/hello.js"
-import {Fragment, useEffect, useState} from 'react'
-import * as runtime from 'react/jsx-runtime' // Production.
-// import * as runtime from 'react/jsx-dev-runtime' // Development.
 import {compile, run} from '@mdx-js/mdx'
+import {Fragment, useEffect, useState} from 'react'
+import * as runtime from 'react/jsx-runtime'
 
 export default function Page({code}) {
   const [mdxModule, setMdxModule] = useState()
@@ -79,7 +77,7 @@ export default function Page({code}) {
 
   useEffect(function () {
     ;(async function () {
-      setMdxModule(await run(code, runtime))
+      setMdxModule(await run(code, {...runtime, baseUrl: import.meta.url}))
     })()
   }, [code])
 

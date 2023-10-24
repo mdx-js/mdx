@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-09'),
+  modified: new Date('2023-10-23'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 3
@@ -18,8 +18,8 @@ Math can be enabled by using a remark plugin: [`remark-math`][remark-math],
 combined with a rehype plugin: either
 [`rehype-katex`][rehype-katex] (KaTeX) or [`rehype-mathjax`][rehype-mathjax]
 (MathJax).
-Plugins can be passed in
-[`rehypePlugins` and `remarkPlugins` in `ProcessorOptions`][processor-options].
+Like other remark and rehype plugins, they can be passed in [`remarkPlugins`
+and `rehypePlugins`, respectively, in `ProcessorOptions`][processor-options].
 More info on plugins is available in [§ Extending MDX][extend]
 
 Say we have an MDX file like this:
@@ -52,12 +52,12 @@ console.log(
   ```tsx path="output.jsx"
   <>
     <h1>
-      <span className="math math-inline">
-        <span className="katex">
-          <span className="katex-mathml">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">…</math>
-          </span>
-          <span className="katex-html" aria-hidden="true">…</span>
+      <span className="katex">
+        <span className="katex-mathml">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">…</math>
+        </span>
+        <span className="katex-html" aria-hidden="true">
+          …
         </span>
       </span>
     </h1>
@@ -75,6 +75,8 @@ console.log(
   ```
 
   To get the latest link to the stylesheet, go to [`katex docs`][katex docs].
+
+  {/* to do: once in a while, get the latest. */}
 </Note>
 
 <Note type="info">

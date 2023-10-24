@@ -13,16 +13,19 @@ Node.js hooks (also knows as loaders) for MDX.
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`createLoader(options?)`](#createloaderoptions)
-*   [Types](#types)
-*   [Security](#security)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`createLoader(options?)`](#createloaderoptions)
+  * [`load`](#load)
+  * [`Options`](#options)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -118,8 +121,8 @@ Create Node.js hooks to handle markdown and MDX.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ###### Returns
 
@@ -197,8 +200,6 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[yarn]: https://classic.yarnpkg.com/docs/cli/add/
-
 [contribute]: https://mdxjs.com/community/contribute/
 
 [support]: https://mdxjs.com/community/support/
@@ -209,8 +210,6 @@ abide by its terms.
 
 [author]: https://wooorm.com
 
-[loader]: https://nodejs.org/api/esm.html#esm_loaders
-
 [integrations]: https://mdxjs.com/getting-started/#integrations
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
@@ -220,8 +219,6 @@ abide by its terms.
 [security]: https://mdxjs.com/getting-started/#security
 
 [typescript]: https://www.typescriptlang.org
-
-[node-loader-core]: https://github.com/node-loader/node-loader-core
 
 [compile-options]: https://mdxjs.com/packages/mdx/#compileoptions
 

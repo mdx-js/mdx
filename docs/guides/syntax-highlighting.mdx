@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2022-08-27'),
+  modified: new Date('2023-10-23'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 4
@@ -33,8 +33,8 @@ Use either [`rehype-highlight`][rehype-highlight]
 (Prism) by doing something like this:
 
 ```tsx path="example.js"
-import rehypeHighlight from 'rehype-highlight'
 import {compile} from '@mdx-js/mdx'
+import rehypeHighlight from 'rehype-highlight'
 
 const code = `~~~js
 console.log(1)
@@ -52,7 +52,8 @@ console.log(
   <>
     <pre>
       <code className="hljs language-js">
-        <span className="hljs-built_in">console</span>.log(
+        <span className="hljs-variable language_">console</span>.
+        <span className="hljs-title function_">log</span>(
         <span className="hljs-number">1</span>)
       </code>
     </pre>
@@ -66,15 +67,19 @@ console.log(
   For example, to get GitHub Dark from cdnjs:
 
   ```html
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github-dark.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
   ```
+
+  {/* to do: once in a while, get the latest: <https://github.com/wooorm/lowlight#css> */}
 
   If you chose `@mapbox/rehype-prism`, include something like this instead to
   get Prism Dark:
 
   ```html
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism-dark.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism-dark.min.css">
   ```
+
+  {/* to do: once in a while, get the latest: <https://github.com/wooorm/refractor#css> */}
 </Note>
 
 ## Syntax highlighting at run time

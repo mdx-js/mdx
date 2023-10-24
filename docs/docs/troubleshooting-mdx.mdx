@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2022-02-01'),
+  modified: new Date('2023-10-24'),
   published: new Date('2021-10-18')
 }
 export const navSortSelf = 5
@@ -28,32 +28,37 @@ To migrate to the latest MDX, see [§ Migrating from v1 to v2][migation-v2].
 
 ## Contents
 
-*   [Problems integrating MDX](#problems-integrating-mdx)
-    *   [ESM](#esm)
-*   [Problems using MDX](#problems-using-mdx)
-    *   [`` `options.renderer` is no longer supported ``](#optionsrenderer-is-no-longer-supported)
-    *   [`` Incorrect `format: 'detect'` ``](#incorrect-format-detect)
-    *   [`` Missing `pragma` in classic runtime with `pragmaImportSource` ``](#missing-pragma-in-classic-runtime-with-pragmaimportsource)
-    *   [`` Expected `Fragment` given to `evaluate` ``](#expected-fragment-given-to-evaluate)
-    *   [`` Expected `jsx` given to `evaluate` ``](#expected-jsx-given-to-evaluate)
-    *   [`` Expected `jsxs` given to `evaluate` ``](#expected-jsxs-given-to-evaluate)
-*   [Problems writing MDX](#problems-writing-mdx)
-    *   [`Could not parse import/exports with acorn: $error`](#could-not-parse-importexports-with-acorn-error)
-    *   [``Unexpected `$type` in code: only import/exports are supported``](#unexpected-type-in-code-only-importexports-are-supported)
-    *   [`` Unexpected end of file in expression, expected a corresponding closing brace for `{` ``](#unexpected-end-of-file-in-expression-expected-a-corresponding-closing-brace-for-)
-    *   [`Could not parse expression with acorn: $error`](#could-not-parse-expression-with-acorn-error)
-    *   [`Could not parse expression with acorn: Unexpected content after expression`](#could-not-parse-expression-with-acorn-unexpected-content-after-expression)
-    *   [`Unexpected extra content in spread: only a single spread is supported`](#unexpected-extra-content-in-spread-only-a-single-spread-is-supported)
-    *   [``Unexpected `$type` in code: only spread elements are supported``](#unexpected-type-in-code-only-spread-elements-are-supported)
-    *   [`Unexpected empty expression`](#unexpected-empty-expression)
-    *   [`Unexpected end of file $at, expected $expect`](#unexpected-end-of-file-at-expected-expect)
-    *   [`Unexpected character $at, expected $expect`](#unexpected-character-at-expected-expect)
-    *   [``Unexpected closing slash `/` in tag, expected an open tag first``](#unexpected-closing-slash--in-tag-expected-an-open-tag-first)
-    *   [`Unexpected attribute in closing tag, expected the end of the tag`](#unexpected-attribute-in-closing-tag-expected-the-end-of-the-tag)
-    *   [``Unexpected self-closing slash `/` in closing tag, expected the end of the tag``](#unexpected-self-closing-slash--in-closing-tag-expected-the-end-of-the-tag)
-    *   [``Unexpected closing tag `</$tag>`, expected corresponding closing tag for `<$tag>` ($at)``](#unexpected-closing-tag-tag-expected-corresponding-closing-tag-for-tag-at)
-    *   [``Cannot close `$type` ($at): a different token (`$type`, $at) is open``](#cannot-close-type-at-a-different-token-type-at-is-open)
-    *   [``Cannot close document, a token (`$type`, $at) is still open``](#cannot-close-document-a-token-type-at-is-still-open)
+* [Problems integrating MDX](#problems-integrating-mdx)
+  * [ESM](#esm)
+* [Problems using MDX](#problems-using-mdx)
+  * [`` `options.renderer` is no longer supported ``](#optionsrenderer-is-no-longer-supported)
+  * [`` Incorrect `format: 'detect'` ``](#incorrect-format-detect)
+  * [`` Unexpected `format: 'detect'` ``](#unexpected-format-detect)
+  * [`` Missing `pragma` in classic runtime with `pragmaImportSource` ``](#missing-pragma-in-classic-runtime-with-pragmaimportsource)
+  * [`` Unexpected deprecated option `jsxRuntime: 'classic'`, `pragma`, `pragmaFrag`, or `pragmaImportSource` ``](#unexpected-deprecated-option-jsxruntime-classic-pragma-pragmafrag-or-pragmaimportsource)
+  * [`` Expected `Fragment` given to `evaluate` ``](#expected-fragment-given-to-evaluate)
+  * [`` Expected `jsx` given to `evaluate` ``](#expected-jsx-given-to-evaluate)
+  * [`` Expected `jsxs` given to `evaluate` ``](#expected-jsxs-given-to-evaluate)
+  * [``Unexpected missing `options.baseUrl` needed…``](#unexpected-missing-optionsbaseurl-needed)
+* [Problems writing MDX](#problems-writing-mdx)
+  * [`Could not parse import/exports with acorn: $error`](#could-not-parse-importexports-with-acorn-error)
+  * [``Unexpected `$type` in code: only import/exports are supported``](#unexpected-type-in-code-only-importexports-are-supported)
+  * [`` Unexpected end of file in expression, expected a corresponding closing brace for `{` ``](#unexpected-end-of-file-in-expression-expected-a-corresponding-closing-brace-for-)
+  * [`Unexpected lazy line in expression in container`](#unexpected-lazy-line-in-expression-in-container)
+  * [`Could not parse expression with acorn: $error`](#could-not-parse-expression-with-acorn-error)
+  * [`Could not parse expression with acorn: Unexpected content after expression`](#could-not-parse-expression-with-acorn-unexpected-content-after-expression)
+  * [`Unexpected extra content in spread: only a single spread is supported`](#unexpected-extra-content-in-spread-only-a-single-spread-is-supported)
+  * [``Unexpected `$type` in code: only spread elements are supported``](#unexpected-type-in-code-only-spread-elements-are-supported)
+  * [`Unexpected empty expression`](#unexpected-empty-expression)
+  * [`Unexpected end of file $at, expected $expect`](#unexpected-end-of-file-at-expected-expect)
+  * [`Unexpected character $at, expected $expect`](#unexpected-character-at-expected-expect)
+  * [``Unexpected closing slash `/` in tag, expected an open tag first``](#unexpected-closing-slash--in-tag-expected-an-open-tag-first)
+  * [`Unexpected lazy line in container, expected line to be…`](#unexpected-lazy-line-in-container-expected-line-to-be)
+  * [`Unexpected attribute in closing tag, expected the end of the tag`](#unexpected-attribute-in-closing-tag-expected-the-end-of-the-tag)
+  * [``Unexpected self-closing slash `/` in closing tag, expected the end of the tag``](#unexpected-self-closing-slash--in-closing-tag-expected-the-end-of-the-tag)
+  * [``Unexpected closing tag `</$tag>`, expected corresponding closing tag for `<$tag>` ($at)``](#unexpected-closing-tag-tag-expected-corresponding-closing-tag-for-tag-at)
+  * [``Cannot close `$type` ($at): a different token (`$type`, $at) is open``](#cannot-close-type-at-a-different-token-type-at-is-open)
+  * [``Cannot close document, a token (`$type`, $at) is still open``](#cannot-close-document-a-token-type-at-is-still-open)
 
 ## Problems integrating MDX
 
@@ -118,10 +123,18 @@ for how to create plugins.
 
 ### `` Incorrect `format: 'detect'` ``
 
-The full error message is as follows:
+### `` Unexpected `format: 'detect'` ``
+
+The full error message in MDX 2 is as follows:
 
 ```txt chrome=no
 Incorrect `format: 'detect'`: `createProcessor` can support either `md` or `mdx`; it does not support detecting the format
+```
+
+The full error message in MDX 3 is:
+
+```txt chrome=no
+Unexpected `format: 'detect'`, which is not supported by `createProcessor`, expected `'mdx'` or `'md'`
 ```
 
 This error is thrown by [`@mdx-js/mdx`](/packages/mdx/), our core compiler.
@@ -131,7 +144,7 @@ The `format` option, when configured with `'detect'`, allows inferring whether a
 file is MDX or plain markdown.
 Based on that information, plugins are configured differently, and with
 different options.
-This is impossible with unified.
+This is impossible with `createProcessor` and `unified`.
 
 To detect the format of passed files, please either use `compile` from
 `@mdx-js/mdx` or one of the integrations.
@@ -148,6 +161,20 @@ default is `'automatic'`), `pragmaImportSource` is defined (the default is
 `React.createElement`).
 
 If you are using the classic runtime, you have to define a `pragma`.
+
+### `` Unexpected deprecated option `jsxRuntime: 'classic'`, `pragma`, `pragmaFrag`, or `pragmaImportSource` ``
+
+This is a warning.
+It is not an error.
+You can keep on using these options, but expect them to be removed in the
+future.
+
+All major frameworks currently support the automatic JSX runtime.
+The classic runtime, from MDX perspective, comes with several potential
+problems.
+
+Because of that, we strongly recommend using an automatic JSX runtime and are
+considering removing support for the classic JSX runtime.
 
 ### `` Expected `Fragment` given to `evaluate` ``
 
@@ -170,6 +197,22 @@ to `evaluate`.
 Please see [`evaluate` in `@mdx-js/mdx`](/packages/mdx/#evaluatefile-options)
 for examples on how to pass these values.
 
+### ``Unexpected missing `options.baseUrl` needed…``
+
+The full error message in MDX is as follows:
+
+```txt chrome=no
+Unexpected missing `options.baseUrl` needed to support `export … from`, `import`, or `import.meta.url` when generating `function-body`
+```
+
+This error is thrown when MDX runs that is specifically compiled with
+`evaluate`, or with the `outputFormat: 'function-body'` option to evluate
+somewhere later, and `import.meta.url`, `import`, or `export … from` is used.
+These JavaScript features depend on a particular URL to run from, which is not
+available or not correct when running a function body.
+To solve this, pass a `baseUrl` option.
+Likely set to `import.meta.url` (or `window.location.href`).
+
 ## Problems writing MDX
 
 Problems that occur when writing MDX typically have to do with how to combine
@@ -181,13 +224,13 @@ typos).
 
 Errors typically fall in these three categories:
 
-*   **Not escaping `<` and `{`**
-    — Escape these (`\<`, `\{`) if you mean them as plain text instead of JS(X)
-*   **Incorrect interleaving**
-    — See the rules in
-    [¶ Interleaving in § What is MDX?](/docs/what-is-mdx/#interleaving)
-*   **Broken JavaScript**
-    — Make sure the JavaScript you write is valid
+* **Not escaping `<` and `{`**
+  — Escape these (`\<`, `\{`) if you mean them as plain text instead of JS(X)
+* **Incorrect interleaving**
+  — See the rules in
+  [¶ Interleaving in § What is MDX?](/docs/what-is-mdx/#interleaving)
+* **Broken JavaScript**
+  — Make sure the JavaScript you write is valid
 
 ### `Could not parse import/exports with acorn: $error`
 
@@ -243,6 +286,32 @@ If you do want an expression, please make sure to close it with a closing brace
 If there is a closing brace somewhere, make sure that the braces are each on
 their own lines with no text before the opening brace and no text after the
 closing brace, or that there are no blank lines between the braces.
+
+### `Unexpected lazy line in expression in container`
+
+This error is thrown by our MDX parser.
+It was introduced in version 3.
+It occurs when containers with lazy lines are combined with expressions
+An example is:
+
+```txt chrome=no
+* {1 +
+2}
+
+> {1 +
+2}
+```
+
+The reason for this error is that the parser it likely points to a bug.
+Be explicit with your list items and block quotes:
+
+```txt chrome=no
+* {1 +
+  2}
+
+> {1 +
+> 2}
+```
 
 ### `Could not parse expression with acorn: $error`
 
@@ -378,6 +447,32 @@ An example is:
 
 The reason for this error is that only open tags can be closed.
 You probably forgot an opening tag somewhere.
+
+### `Unexpected lazy line in container, expected line to be…`
+
+This error is thrown by our MDX parser.
+It was introduced in version 3.
+It occurs when containers with lazy lines are combined with JSX.
+An example is:
+
+```txt chrome=no
+* <x
+y />
+
+> <x
+y />
+```
+
+The reason for this error is that the parser it likely points to a bug.
+Be explicit with your list items and block quotes:
+
+```txt chrome=no
+* <x
+  y />
+
+> <x
+> y />
+```
 
 ### `Unexpected attribute in closing tag, expected the end of the tag`
 

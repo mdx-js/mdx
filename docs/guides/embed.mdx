@@ -2,7 +2,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2022-06-17'),
+  modified: new Date('2023-10-23'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 5
@@ -29,9 +29,10 @@ this:
 
 ```tsx path="example.js"
 import {compile} from '@mdx-js/mdx'
-// Node currently can’t pick up on the default exports by `@remark-embedder`.
+// Note: `@remark-embedder` is currently using faux-esm.
 import fauxRemarkEmbedder from '@remark-embedder/core'
 import fauxOembedTransformer from '@remark-embedder/transformer-oembed'
+
 const remarkEmbedder = fauxRemarkEmbedder.default
 const oembedTransformer = fauxOembedTransformer.default
 
@@ -44,7 +45,13 @@ https://www.youtube.com/watch?v=dQw4w9WgXcQ
 console.log(
   String(
     await compile(code, {
-      remarkPlugins: [[remarkEmbedder, {transformers: [oembedTransformer]}]]
+      remarkPlugins: [
+        [
+          // @ts-expect-error: `remarkEmbedder` types are wrong.
+          remarkEmbedder,
+          {transformers: [oembedTransformer]}
+        ]
+      ]
     })
   )
 )
@@ -56,7 +63,15 @@ console.log(
   ```tsx path="output.jsx"
   <>
     <p>Check out this video:</p>
-    <iframe width="200" height="113" src="https://www.youtube.com/embed/dQw4w9WgXcQ?feature=oembed" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+    <iframe
+      width="200"
+      height="113"
+      src="https://www.youtube.com/embed/dQw4w9WgXcQ?feature=oembed"
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
+    ></iframe>
   </>
   ```
 </details>

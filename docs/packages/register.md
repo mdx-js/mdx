@@ -1,1 +1,0 @@
-../../packages/register/readme.md

@@ -331,7 +331,6 @@ hr {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-  display: block;
   overflow: auto;
   width: 100%;
   font-variant-numeric: lining-nums;
@@ -537,6 +536,16 @@ button.success {
     hsl(39deg 97% 88% / 90%) 0%,
     hsl(39deg 97% 96% / 90%) 100%
   );
+}
+
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-inline: calc(1em + 1ex);
 }
 
 /* Note that the `backdrop-filter` itself is applied in light mode. */
@@ -1224,7 +1233,6 @@ details[open] {
   grid-template-columns: 49% 49%;
   min-height: 40rem;
   gap: calc(1em + 1ex);
-  margin-inline: calc(1em + 1ex);
 }
 
 .playground-area,

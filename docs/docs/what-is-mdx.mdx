@@ -20,15 +20,15 @@ project.
 
 ## Contents
 
-*   [Prerequisites](#prerequisites)
-*   [Markdown for the component era](#markdown-for-the-component-era)
-*   [MDX syntax](#mdx-syntax)
-    *   [Markdown](#markdown)
-    *   [JSX](#jsx)
-    *   [Expressions](#expressions)
-    *   [ESM](#esm)
-    *   [Interleaving](#interleaving)
-*   [Further reading](#further-reading)
+* [Prerequisites](#prerequisites)
+* [Markdown for the component era](#markdown-for-the-component-era)
+* [MDX syntax](#mdx-syntax)
+  * [Markdown](#markdown)
+  * [JSX](#jsx)
+  * [Expressions](#expressions)
+  * [ESM](#esm)
+  * [Interleaving](#interleaving)
+* [Further reading](#further-reading)
 
 ## Prerequisites
 
@@ -145,29 +145,29 @@ highlighting) can be enabled with plugins (see
 
 Some markdown features don’t work in MDX:
 
-*   Indented code does not work in MDX:
-    ```mdx
-        console.log(1) // this is a paragraph in MDX!
-    ```
-    The reason for that is so you can nicely indent your components:
-    ```mdx
-    <main>
-      <article>
-        # Hello!
-      </article>
-    </main>
-    ```
-*   Autolinks do not work in MDX.
-    The reason is that they can be indistinguishable from JSX (for example:
-    `<svg:rect>`) and we prefer being explicit.
-    If you want links, use full links:
-    `[descriptive text](https://and-the-link-here.com)`
-*   HTML syntax doesn’t work in MDX as it’s replaced by JSX (`<img>` to
-    `<img />`).
-    Instead of HTML comments, you can use JavaScript comments in braces:
-    `{/* comment! */}`
-*   Unescaped left angle bracket / less than (`<`) and left curly brace (`{`)
-    have to be escaped: `\<` or `\{` (or use expressions: `{'<'}`, `{'{'}`)
+* Indented code does not work in MDX:
+  ```mdx
+      console.log(1) // this is a paragraph in MDX!
+  ```
+  The reason for that is so you can nicely indent your components:
+  ```mdx
+  <main>
+    <article>
+      # Hello!
+    </article>
+  </main>
+  ```
+* Autolinks do not work in MDX.
+  The reason is that they can be indistinguishable from JSX (for example:
+  `<svg:rect>`) and we prefer being explicit.
+  If you want links, use full links:
+  `[descriptive text](https://and-the-link-here.com)`
+* HTML syntax doesn’t work in MDX as it’s replaced by JSX (`<img>` to
+  `<img />`).
+  Instead of HTML comments, you can use JavaScript comments in braces:
+  `{/* comment! */}`
+* Unescaped left angle bracket / less than (`<`) and left curly brace (`{`)
+  have to be escaped: `\<` or `\{` (or use expressions: `{'<'}`, `{'{'}`)
 
 More on how MDX differs from markdown is
 [documented here](https://github.com/micromark/mdx-state-machine#72-deviations-from-markdown).
@@ -335,9 +335,9 @@ the heading.
 
 ## Further reading
 
-*   If you want to use MDX in your project, see [§ Getting started][start]
-*   If you’re getting errors when working with the format, see
-    [§ Troubleshooting MDX][trouble]
+* If you want to use MDX in your project, see [§ Getting started][start]
+* If you’re getting errors when working with the format, see
+  [§ Troubleshooting MDX][trouble]
 
 [commonmark]: https://commonmark.org
 

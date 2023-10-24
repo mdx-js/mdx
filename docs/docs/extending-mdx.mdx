@@ -18,22 +18,22 @@ See [§ Getting started][start] for how to integrate MDX into your project.
 
 ## Contents
 
-*   [Components & plugins](#components--plugins)
-    *   [List of components](#list-of-components)
-    *   [List of plugins](#list-of-plugins)
-*   [Using plugins](#using-plugins)
-*   [Creating plugins](#creating-plugins)
+* [Components & plugins](#components--plugins)
+  * [List of components](#list-of-components)
+  * [List of plugins](#list-of-plugins)
+* [Using plugins](#using-plugins)
+* [Creating plugins](#creating-plugins)
 
 ## Components & plugins
 
 There are three extension points when using `@mdx-js/mdx` or one of its
 integrations:
 
-*   Options passed to the compiler (see [¶ API in `@mdx-js/mdx`][api])
-*   Plugins that hook into several stages of compilation (see [remark
-    plugins][remark-plugins], [rehype plugins][rehype-plugins], and the new
-    recma plugins)
-*   Components passed, defined, or imported at runtime (see [§ Using MDX][use])
+* Options passed to the compiler (see [¶ API in `@mdx-js/mdx`][api])
+* Plugins that hook into several stages of compilation (see [remark
+  plugins][remark-plugins], [rehype plugins][rehype-plugins], and the new
+  recma plugins)
+* Components passed, defined, or imported at runtime (see [§ Using MDX][use])
 
 Most of the time, these components and plugins are not coupled to MDX.
 For example, if you’re using React, then you can use
@@ -45,11 +45,11 @@ We’re compiling those here on this page.
 
 ### List of components
 
-*   [`PaulieScanlon/mdx-embed`](https://github.com/PaulieScanlon/mdx-embed)
-    — React components for embedding 3rd party content, integrates w/
-    MDX provider
-*   [`system-ui/theme-ui`](https://github.com/system-ui/theme-ui)
-    — React components for building consistent apps, integrates w/ MDX provider
+* [`PaulieScanlon/mdx-embed`](https://github.com/PaulieScanlon/mdx-embed)
+  — React components for embedding 3rd party content, integrates w/
+  MDX provider
+* [`system-ui/theme-ui`](https://github.com/system-ui/theme-ui)
+  — React components for building consistent apps, integrates w/ MDX provider
 
 {/*
 please use alpha sorting on **project** name!
@@ -69,24 +69,24 @@ You can use this template:
 See also the [list of remark plugins][remark-plugins] and
 [list of rehype plugins][rehype-plugins].
 
-*   [`domdomegg/recma-mdx-displayname`](https://github.com/domdomegg/recma-mdx-displayname)
-    — add a `displayName` to `MDXContent` components, to enable switching
-    on them in production
-*   [`remcohaszing/recma-nextjs-static-props`](https://github.com/remcohaszing/recma-nextjs-static-props)
-    — generate [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
-    exposing top level identifiers in Next.js
-*   [`remcohaszing/rehype-mdx-title`](https://github.com/remcohaszing/rehype-mdx-title)
-    — expose the page title as a string
-*   [`remcohaszing/remark-mdx-code-meta`](https://github.com/remcohaszing/remark-mdx-code-meta)
-    — interpret the code `meta` field as JSX props
-*   [`remcohaszing/remark-mdx-images`](https://github.com/remcohaszing/remark-mdx-images)
-    — change image sources to JavaScript imports
-*   [`remcohaszing/remark-mdx-frontmatter`](https://github.com/remcohaszing/remark-mdx-frontmatter)
-    — change frontmatter (YAML) metadata to exports
-*   [`goodproblems/remark-mdx-math-enhanced`](https://github.com/goodproblems/remark-mdx-math-enhanced)
-    — enhance math with JavaScript inside it
-*   [`pangelani/remark-mdx-chartjs`](https://github.com/pangelani/remark-mdx-chartjs)
-    — replace fenced code blocks with charts using [`react-chartjs-2`](https://react-chartjs-2.js.org/).
+* [`domdomegg/recma-mdx-displayname`](https://github.com/domdomegg/recma-mdx-displayname)
+  — add a `displayName` to `MDXContent` components, to enable switching
+  on them in production
+* [`remcohaszing/recma-nextjs-static-props`](https://github.com/remcohaszing/recma-nextjs-static-props)
+  — generate [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
+  exposing top level identifiers in Next.js
+* [`remcohaszing/rehype-mdx-title`](https://github.com/remcohaszing/rehype-mdx-title)
+  — expose the page title as a string
+* [`pangelani/remark-mdx-chartjs`](https://github.com/pangelani/remark-mdx-chartjs)
+  — replace fenced code blocks with charts using [`react-chartjs-2`](https://react-chartjs-2.js.org/).
+* [`remcohaszing/remark-mdx-code-meta`](https://github.com/remcohaszing/remark-mdx-code-meta)
+  — interpret the code `meta` field as JSX props
+* [`remcohaszing/remark-mdx-frontmatter`](https://github.com/remcohaszing/remark-mdx-frontmatter)
+  — change frontmatter (YAML) metadata to exports
+* [`remcohaszing/remark-mdx-images`](https://github.com/remcohaszing/remark-mdx-images)
+  — change image sources to JavaScript imports
+* [`goodproblems/remark-mdx-math-enhanced`](https://github.com/goodproblems/remark-mdx-math-enhanced)
+  — enhance math with JavaScript inside it
 
 {/*
 please use alpha sorting on **project** name!

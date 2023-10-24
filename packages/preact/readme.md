@@ -14,17 +14,20 @@ Preact context for MDX.
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`MDXProvider(props?)`](#mdxproviderprops)
-    *   [`useMDXComponents(components?)`](#usemdxcomponentscomponents)
-*   [Types](#types)
-*   [Security](#security)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`MDXProvider(props?)`](#mdxproviderprops)
+  * [`useMDXComponents(components?)`](#usemdxcomponentscomponents)
+  * [`MergeComponents`](#mergecomponents)
+  * [`Props`](#props)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -111,8 +114,8 @@ Provider for MDX context.
 
 ###### Parameters
 
-*   `props` ([`Props`][api-props])
-    — configuration
+* `props` ([`Props`][api-props])
+  — configuration
 
 ##### Returns
 
@@ -124,9 +127,9 @@ Get current components from the MDX Context.
 
 ###### Parameters
 
-*   `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components]
-    or [`MergeComponents`][api-merge-components], optional)
-    — additional components to use or a function that creates them
+* `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components]
+  or [`MergeComponents`][api-merge-components], optional)
+  — additional components to use or a function that creates them
 
 ###### Returns
 
@@ -139,8 +142,8 @@ Custom merge function (TypeScript type).
 
 ###### Parameters
 
-*   `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components])
-    — current components from the context
+* `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components])
+  — current components from the context
 
 ###### Returns
 
@@ -153,14 +156,14 @@ Configuration for `MDXProvider` (TypeScript type).
 
 ###### Fields
 
-*   `children` ([`ComponentChildren` from `preact`][preact-component-children],
-    optional)
-    — children
-*   `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components]
-    or [`MergeComponents`][api-merge-components], optional)
-    — additional components to use or a function that creates them
-*   `disableParentContext` (`boolean`, default: `false`)
-    — turn off outer component context
+* `children` ([`ComponentChildren` from `preact`][preact-component-children],
+  optional)
+  — children
+* `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components]
+  or [`MergeComponents`][api-merge-components], optional)
+  — additional components to use or a function that creates them
+* `disableParentContext` (`boolean`, default: `false`)
+  — turn off outer component context
 
 ## Types
 

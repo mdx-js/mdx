@@ -14,18 +14,23 @@ remark plugin to support the MDX syntax (JSX, export/import, expressions).
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`unified().use(remarkMdx)`](#unifieduseremarkmdx)
-*   [Syntax](#syntax)
-*   [Syntax tree](#syntax-tree)
-*   [Types](#types)
-*   [Security](#security)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`unified().use(remarkMdx[, options])`](#unifieduseremarkmdx-options)
+  * [`Options`](#options)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [Syntax](#syntax)
+* [Syntax tree](#syntax-tree)
+* [Errors](#errors)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -112,8 +117,8 @@ from 'y'`; and expressions: `{1 + 1}`).
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ###### Returns
 
@@ -125,22 +130,22 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `acornOptions` ([`AcornOptions`][acorn-options], default:
-    `{ecmaVersion: 2024, locations: true, sourceType: 'module'}`)
-    — configuration for acorn; all fields except `locations` can be set
-*   `printWidth` (`number`, default: `Infinity`)
-    — try and wrap syntax at this width;
-    when set to a finite number (say, `80`), the formatter will print
-    attributes on separate lines when a tag doesn’t fit on one line;
-    the normal behavior is to print attributes with spaces between them instead
-    of line endings
-*   `quote` (`'"'` or `"'"`, default: `'"'`)
-    — preferred quote to use around attribute values
-*   `quoteSmart` (`boolean`, default: `false`)
-    — use the other quote if that results in less bytes
-*   `tightSelfClosing` (`boolean`, default: `false`)
-    — do not use an extra space when closing self-closing elements: `<img/>`
-    instead of `<img />`
+* `acornOptions` ([`AcornOptions`][acorn-options], default:
+  `{ecmaVersion: 2024, locations: true, sourceType: 'module'}`)
+  — configuration for acorn; all fields except `locations` can be set
+* `printWidth` (`number`, default: `Infinity`)
+  — try and wrap syntax at this width;
+  when set to a finite number (say, `80`), the formatter will print
+  attributes on separate lines when a tag doesn’t fit on one line;
+  the normal behavior is to print attributes with spaces between them instead
+  of line endings
+* `quote` (`'"'` or `"'"`, default: `'"'`)
+  — preferred quote to use around attribute values
+* `quoteSmart` (`boolean`, default: `false`)
+  — use the other quote if that results in less bytes
+* `tightSelfClosing` (`boolean`, default: `false`)
+  — do not use an extra space when closing self-closing elements: `<img/>`
+  instead of `<img />`
 
 <!-- Note: `acorn`, `addResult`, `allowEmpty`, and `spread` are intentionally not documented. -->
 
@@ -148,10 +153,10 @@ Configuration (TypeScript type).
 
 For recommendations on how to author MDX, see each corresponding readme:
 
-*   [ESM](https://github.com/micromark/micromark-extension-mdxjs-esm#authoring)
-*   [JSX](https://github.com/micromark/micromark-extension-mdx-jsx#authoring)
-*   [expressions](https://github.com/micromark/micromark-extension-mdx-expression/tree/main/packages/micromark-extension-mdx-expression#authoring)
-*   [CommonMark features not in MDX](https://github.com/micromark/micromark-extension-mdx-md#authoring)
+* [ESM](https://github.com/micromark/micromark-extension-mdxjs-esm#authoring)
+* [JSX](https://github.com/micromark/micromark-extension-mdx-jsx#authoring)
+* [expressions](https://github.com/micromark/micromark-extension-mdx-expression/tree/main/packages/micromark-extension-mdx-expression#authoring)
+* [CommonMark features not in MDX](https://github.com/micromark/micromark-extension-mdx-md#authoring)
 
 ## HTML
 
@@ -165,28 +170,28 @@ You can enable passing MDX through to hast by configuring
 
 For info on the syntax of these features, see each corresponding readme:
 
-*   [ESM](https://github.com/micromark/micromark-extension-mdxjs-esm#syntax)
-*   [JSX](https://github.com/micromark/micromark-extension-mdx-jsx#syntax)
-*   [expressions](https://github.com/micromark/micromark-extension-mdx-expression/tree/main/packages/micromark-extension-mdx-expression#syntax)
-*   CommonMark features not in MDX: n/a
+* [ESM](https://github.com/micromark/micromark-extension-mdxjs-esm#syntax)
+* [JSX](https://github.com/micromark/micromark-extension-mdx-jsx#syntax)
+* [expressions](https://github.com/micromark/micromark-extension-mdx-expression/tree/main/packages/micromark-extension-mdx-expression#syntax)
+* CommonMark features not in MDX: n/a
 
 ## Syntax tree
 
 For info on the syntax tree of these features, see each corresponding readme:
 
-*   [ESM](https://github.com/syntax-tree/mdast-util-mdxjs-esm#syntax-tree)
-*   [JSX](https://github.com/syntax-tree/mdast-util-mdx-jsx#syntax-tree)
-*   [expressions](https://github.com/syntax-tree/mdast-util-mdx-expression#syntax-tree)
-*   CommonMark features not in MDX: n/a
+* [ESM](https://github.com/syntax-tree/mdast-util-mdxjs-esm#syntax-tree)
+* [JSX](https://github.com/syntax-tree/mdast-util-mdx-jsx#syntax-tree)
+* [expressions](https://github.com/syntax-tree/mdast-util-mdx-expression#syntax-tree)
+* CommonMark features not in MDX: n/a
 
 ## Errors
 
 For info on what errors are thrown, see each corresponding readme:
 
-*   [ESM](https://github.com/micromark/micromark-extension-mdxjs-esm#errors)
-*   [JSX](https://github.com/micromark/micromark-extension-mdx-jsx#errors)
-*   [expressions](https://github.com/micromark/micromark-extension-mdx-expression/tree/main/packages/micromark-extension-mdx-expression#errors)
-*   CommonMark features not in MDX: n/a
+* [ESM](https://github.com/micromark/micromark-extension-mdxjs-esm#errors)
+* [JSX](https://github.com/micromark/micromark-extension-mdx-jsx#errors)
+* [expressions](https://github.com/micromark/micromark-extension-mdx-expression/tree/main/packages/micromark-extension-mdx-expression#errors)
+* CommonMark features not in MDX: n/a
 
 ## Types
 
@@ -272,8 +277,6 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[yarn]: https://classic.yarnpkg.com/docs/cli/add/
-
 [contribute]: https://mdxjs.com/community/contribute/
 
 [support]: https://mdxjs.com/community/support/
@@ -283,8 +286,6 @@ abide by its terms.
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/remark-mdx/license
 
 [author]: https://wooorm.com
-
-[create-plugin]: https://unifiedjs.com/learn/guide/create-a-plugin/
 
 [integrations]: https://mdxjs.com/getting-started/#integrations
 

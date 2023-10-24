@@ -13,15 +13,20 @@ webpack loader for MDX.
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-*   [Types](#types)
-*   [Security](#security)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`mdx`](#mdx)
+  * [`Options`](#options)
+* [Examples](#examples)
+  * [Combine with Babel](#combine-with-babel)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -64,7 +69,7 @@ const webpackConfig = {
           {
             loader: '@mdx-js/loader',
             /** @type {import('@mdx-js/loader').Options} */
-            options: {}
+            options: {/* jsxImportSource: …, otherOptions… */}
           }
         ]
       }

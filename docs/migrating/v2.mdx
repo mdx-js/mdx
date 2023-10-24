@@ -11,23 +11,23 @@ export const navExclude = true
 
 ## Contents
 
-*   [ESM](#esm)
-*   [Update `@mdx-js/*` packages](#update-mdx-js-packages)
-    *   [`@mdx-js/loader`](#mdx-jsloader)
-    *   [`@mdx-js/react`, `@mdx-js/preact`, `@mdx-js/vue`](#mdx-jsreact-mdx-jspreact-mdx-jsvue)
-    *   [`@mdx-js/mdx`](#mdx-jsmdx)
-    *   [`@mdx-js/runtime`](#mdx-jsruntime)
-    *   [`remark-mdx`](#remark-mdx)
-    *   [`@mdx-js/vue-loader`](#mdx-jsvue-loader)
-    *   [`@mdx-js/parcel-plugin-mdx`](#mdx-jsparcel-plugin-mdx)
-    *   [Other packages](#other-packages)
-*   [Update MDX files](#update-mdx-files)
-    *   [JSX](#jsx)
-    *   [Expressions](#expressions)
-    *   [ESM](#esm-1)
-    *   [Markdown](#markdown)
-    *   [GFM](#gfm)
-*   [Update MDX content](#update-mdx-content)
+* [ESM](#esm)
+* [Update `@mdx-js/*` packages](#update-mdx-js-packages)
+  * [`@mdx-js/loader`](#mdx-jsloader)
+  * [`@mdx-js/react`, `@mdx-js/preact`, `@mdx-js/vue`](#mdx-jsreact-mdx-jspreact-mdx-jsvue)
+  * [`@mdx-js/mdx`](#mdx-jsmdx)
+  * [`@mdx-js/runtime`](#mdx-jsruntime)
+  * [`remark-mdx`](#remark-mdx)
+  * [`@mdx-js/vue-loader`](#mdx-jsvue-loader)
+  * [`@mdx-js/parcel-plugin-mdx`](#mdx-jsparcel-plugin-mdx)
+  * [Other packages](#other-packages)
+* [Update MDX files](#update-mdx-files)
+  * [JSX](#jsx)
+  * [Expressions](#expressions)
+  * [ESM](#esm-1)
+  * [Markdown](#markdown)
+  * [GFM](#gfm)
+* [Update MDX content](#update-mdx-content)
 
 ## ESM
 
@@ -165,20 +165,20 @@ You can update your code as follows:
 The above changes get MDX 2 close to how MDX 1 worked.
 You can make it simpler:
 
-*   [`babel-loader`][babel-loader] is optional.
-    It compiles modern JavaScript to JavaScript your users support.
-    If you don’t need that you can remove it before `@mdx-js/loader`
-*   [`remark-gfm`][remark-gfm] is optional.
-    It adds support for autolink literals, footnotes, strikethrough, tables, and
-    task lists.
-    If you don’t want them, you can uninstall it, remove the import, and remove
-    it from `options.remarkPlugins`.
-    More info in [our guide on GFM][guide-gfm]
-*   [`@mdx-js/react`][mdx-react] is optional.
-    It adds support for context based components passing.
-    If you don’t need that, you can uninstall it and remove
-    `options.providerImportSource`.
-    More info in [¶ MDX provider in § Using MDX][mdx-provider]
+* [`babel-loader`][babel-loader] is optional.
+  It compiles modern JavaScript to JavaScript your users support.
+  If you don’t need that you can remove it before `@mdx-js/loader`
+* [`remark-gfm`][remark-gfm] is optional.
+  It adds support for autolink literals, footnotes, strikethrough, tables, and
+  task lists.
+  If you don’t want them, you can uninstall it, remove the import, and remove
+  it from `options.remarkPlugins`.
+  More info in [our guide on GFM][guide-gfm]
+* [`@mdx-js/react`][mdx-react] is optional.
+  It adds support for context based components passing.
+  If you don’t need that, you can uninstall it and remove
+  `options.providerImportSource`.
+  More info in [¶ MDX provider in § Using MDX][mdx-provider]
 
 `@mdx-js/loader` now supports Preact and other JSX runtimes through
 configuration.
@@ -204,11 +204,11 @@ For more information, please see [§ API in `@mdx-js/loader`][loader-api].
 
 The options accepted by the loader changed:
 
-*   `renderer` is replaced by `jsxImportSource`, `providerImportSource`, and
-    others options.
-    More info in [§ API in `@mdx-js/mdx`][mdx-api]
-*   Other options were undocumented but passed to `@mdx-js/mdx`.
-    See `@mdx-js/mdx` below if needed
+* `renderer` is replaced by `jsxImportSource`, `providerImportSource`, and
+  others options.
+  More info in [§ API in `@mdx-js/mdx`][mdx-api]
+* Other options were undocumented but passed to `@mdx-js/mdx`.
+  See `@mdx-js/mdx` below if needed
 
 For more information, please see [§ API in `@mdx-js/loader`][loader-api].
 
@@ -233,9 +233,9 @@ More info in [¶ MDX provider in § Using MDX][mdx-provider].
 
 The interface of changed slightly:
 
-*   The named export `mdx`, which was a `createElement` function, is removed.
-    You can use your framework’s functions instead: `React.createElement`,
-    `h` from `preact`, etc.
+* The named export `mdx`, which was a `createElement` function, is removed.
+  You can use your framework’s functions instead: `React.createElement`,
+  `h` from `preact`, etc.
 
 ### `@mdx-js/mdx`
 
@@ -282,17 +282,17 @@ You can update your code as follows:
 The above changes get MDX 2 close to how MDX 1 worked.
 You can make it simpler:
 
-*   [`remark-gfm`][remark-gfm] is optional.
-    It adds support for autolink literals, footnotes, strikethrough, tables, and
-    task lists.
-    If you don’t want them, you can uninstall it, remove the import, and remove
-    it from `options.remarkPlugins`.
-    More info in [our guide on GFM][guide-gfm]
-*   [`@mdx-js/react`][mdx-react] is optional.
-    It adds support for context based components passing.
-    If you don’t need that, you can uninstall it and remove
-    `options.providerImportSource`.
-    More info in [¶ MDX provider in § Using MDX][mdx-provider]
+* [`remark-gfm`][remark-gfm] is optional.
+  It adds support for autolink literals, footnotes, strikethrough, tables, and
+  task lists.
+  If you don’t want them, you can uninstall it, remove the import, and remove
+  it from `options.remarkPlugins`.
+  More info in [our guide on GFM][guide-gfm]
+* [`@mdx-js/react`][mdx-react] is optional.
+  It adds support for context based components passing.
+  If you don’t need that, you can uninstall it and remove
+  `options.providerImportSource`.
+  More info in [¶ MDX provider in § Using MDX][mdx-provider]
 
 `@mdx-js/mdx` now supports Preact and other JSX runtimes through configuration.
 Using Preact as an example:
@@ -309,31 +309,31 @@ For more information, please see [§ API in `@mdx-js/mdx`][mdx-api]
 
 The interface of `@mdx-js/mdx` changed:
 
-*   The default export is replaced by the named export [`compile`][mdx-compile]
-*   The named export `sync` is replaced by [`compileSync`][mdx-compilesync]
-*   The named export `createCompiler` is replaced by
-    [`createProcessor`][mdx-createprocessor]
-*   The named export `createMdxAstCompiler` is removed, use `remark` with
-    `remark-mdx` instead
-*   The return value of `compile`, `compileSync` are now [VFile][]s instead of
-    strings
-*   There are new exports [`evaluate`][mdx-evaluate],
-    [`evaluateSync`][mdx-evaluatesync] to eval (compile and run) MDX
+* The default export is replaced by the named export [`compile`][mdx-compile]
+* The named export `sync` is replaced by [`compileSync`][mdx-compilesync]
+* The named export `createCompiler` is replaced by
+  [`createProcessor`][mdx-createprocessor]
+* The named export `createMdxAstCompiler` is removed, use `remark` with
+  `remark-mdx` instead
+* The return value of `compile`, `compileSync` are now [VFile][]s instead of
+  strings
+* There are new exports [`evaluate`][mdx-evaluate],
+  [`evaluateSync`][mdx-evaluatesync] to eval (compile and run) MDX
 
 Options in version 1 were undocumented.
 If you used them:
 
-*   `filepath` is replaced by accepting a VFile or compatible object as the
-    first argument `file`
-*   `compilers` is replaced by `recmaPlugins`
-*   `hastPlugins` is replaced by `rehypePlugins`
-*   `mdPlugins` is replaced by `options.remarkPlugins`
-*   `skipExport` is removed, [`evaluate`][mdx-evaluate] can do this
-    automatically
-*   `wrapExport` is removed, use a custom recma plugin instead
-*   There are many new options to support different JSX runtimes, non-React JSX,
-    compile JSX away, source maps, normal markdown, and otherwise change how MDX
-    is compiled
+* `filepath` is replaced by accepting a VFile or compatible object as the
+  first argument `file`
+* `compilers` is replaced by `recmaPlugins`
+* `hastPlugins` is replaced by `rehypePlugins`
+* `mdPlugins` is replaced by `options.remarkPlugins`
+* `skipExport` is removed, [`evaluate`][mdx-evaluate] can do this
+  automatically
+* `wrapExport` is removed, use a custom recma plugin instead
+* There are many new options to support different JSX runtimes, non-React JSX,
+  compile JSX away, source maps, normal markdown, and otherwise change how MDX
+  is compiled
 
 For more information, please see [§ API in `@mdx-js/mdx`][mdx-api].
 
@@ -393,11 +393,11 @@ You can update your code as follows:
 The above changes get MDX 2 close to how MDX 1 worked.
 You can make it simpler:
 
-*   [`@mdx-js/react`][mdx-react] is optional.
-    It adds support for context based components passing.
-    If you don’t need that, you can uninstall it and remove
-    `options.providerImportSource`.
-    More info in [¶ MDX provider in § Using MDX][mdx-provider]
+* [`@mdx-js/react`][mdx-react] is optional.
+  It adds support for context based components passing.
+  If you don’t need that, you can uninstall it and remove
+  `options.providerImportSource`.
+  More info in [¶ MDX provider in § Using MDX][mdx-provider]
 
 `@mdx-js/mdx` now supports Preact and other JSX runtimes through configuration.
 Using Emotion as an example:
@@ -412,12 +412,12 @@ For more information, please see [`evaluate` in `@mdx-js/mdx`][mdx-evaluate].
 
 ###### Changes
 
-*   The package `@mdx-js/runtime` is replaced by [`evaluate`][mdx-evaluate]
-    from `@mdx-js/mdx`
-*   `evaluate` supports any JSX runtime and providers are optional
-*   `evaluate` yields an `MDXContent` component just like how importing
-    and MDX file works
-*   `evaluate` supports imports and exports inside evaluated MDX
+* The package `@mdx-js/runtime` is replaced by [`evaluate`][mdx-evaluate]
+  from `@mdx-js/mdx`
+* `evaluate` supports any JSX runtime and providers are optional
+* `evaluate` yields an `MDXContent` component just like how importing
+  and MDX file works
+* `evaluate` supports imports and exports inside evaluated MDX
 
 For more information, please see [`evaluate` in `@mdx-js/mdx`][mdx-evaluate].
 
@@ -454,24 +454,24 @@ to use Parcel with MDX.
 We removed several packages doing internal work for us.
 These packages are:
 
-*   `@mdx-js/util`
-    — no longer needed internal helpers
-*   `@mdx-js/test-util`
-    — no longer needed test helpers, `evaluate` can do them
-*   `gatsby-theme-mdx`
-    — no longer needed website template
-*   `remark-mdx-remove-imports`, `babel-plugin-extract-import-names`
-    — no longer needed transforms, our compiler handles imports
-*   `remark-mdx-remove-exports`, `babel-plugin-remove-export-keywords`
-    — no longer needed transforms, our compiler handles exports
-*   `babel-plugin-html-attributes-to-jsx`
-    — no longer needed transform, something similar is done by
-    [`hast-util-to-estree`](https://github.com/syntax-tree/hast-util-to-estree)
-*   `babel-plugin-apply-mdx-type-props`
-    — no longer needed transform due to the new architecture
-*   `create-mdx`
-    — no longer needed, we recommend to start your project with whatever other
-    integrations you prefer and *then* add MDX to it
+* `@mdx-js/util`
+  — no longer needed internal helpers
+* `@mdx-js/test-util`
+  — no longer needed test helpers, `evaluate` can do them
+* `gatsby-theme-mdx`
+  — no longer needed website template
+* `remark-mdx-remove-imports`, `babel-plugin-extract-import-names`
+  — no longer needed transforms, our compiler handles imports
+* `remark-mdx-remove-exports`, `babel-plugin-remove-export-keywords`
+  — no longer needed transforms, our compiler handles exports
+* `babel-plugin-html-attributes-to-jsx`
+  — no longer needed transform, something similar is done by
+  [`hast-util-to-estree`](https://github.com/syntax-tree/hast-util-to-estree)
+* `babel-plugin-apply-mdx-type-props`
+  — no longer needed transform due to the new architecture
+* `create-mdx`
+  — no longer needed, we recommend to start your project with whatever other
+  integrations you prefer and *then* add MDX to it
 
 ## Update MDX files
 
@@ -613,30 +613,30 @@ How to do so is described in [our guide on GFM][guide-gfm].
 
 The interface of the generated JavaScript from MDX changed:
 
-*   Missing components now throw an error rather than render their children
-    and emit a warning to the console, which is closer to how frameworks like
-    React handle missing undefined JSX components
-*   `parent.child` combos such as `ol.li`, to pass components, were removed, we
-    recommend to style your `ol`s, `ul`s, and `li`s separately
-*   The special component name `inlineCode` was removed, we recommend to use
-    `pre` for the block version of code, and `code` for both the block and
-    inline versions
-*   `MDXContent.isMDXContent` was removed, we recommend treating `MDXContent`
-    like any other component
-*   Locally defined or imported components precede over passed components
-*   We now “sandbox” components, for lack of a better name.
-    It means that when you pass a component for `h1`, it does get used for
-    `# hi` but not for `<h1>hi</h1>`
-*   You can now pass and use objects of components: if you pass
-    `components={{theme}}`, where `theme` is an object with a `Box` component,
-    it can be used with: `<theme.Box>stuff</theme.Box>`
-*   the values exports from an MDX file are no longer passed to layouts, you
-    can achieve the same with:
-    ```tsx
-    import * as everything from './example.mdx'
-    const {default: Content, ...exported} = everything
-    <Content {...exported} />
-    ```
+* Missing components now throw an error rather than render their children
+  and emit a warning to the console, which is closer to how frameworks like
+  React handle missing undefined JSX components
+* `parent.child` combos such as `ol.li`, to pass components, were removed, we
+  recommend to style your `ol`s, `ul`s, and `li`s separately
+* The special component name `inlineCode` was removed, we recommend to use
+  `pre` for the block version of code, and `code` for both the block and
+  inline versions
+* `MDXContent.isMDXContent` was removed, we recommend treating `MDXContent`
+  like any other component
+* Locally defined or imported components precede over passed components
+* We now “sandbox” components, for lack of a better name.
+  It means that when you pass a component for `h1`, it does get used for
+  `# hi` but not for `<h1>hi</h1>`
+* You can now pass and use objects of components: if you pass
+  `components={{theme}}`, where `theme` is an object with a `Box` component,
+  it can be used with: `<theme.Box>stuff</theme.Box>`
+* the values exports from an MDX file are no longer passed to layouts, you
+  can achieve the same with:
+  ```tsx
+  import * as everything from './example.mdx'
+  const {default: Content, ...exported} = everything
+  <Content {...exported} />
+  ```
 
 We also fixed several cases where defined, imported, or passed components
 weren’t handled correctly or even crashed.

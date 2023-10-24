@@ -13,15 +13,20 @@ Rollup (and Vite) plugin for MDX.
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-*   [Types](#types)
-*   [Security](#security)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`mdx(options?)`](#mdxoptions)
+  * [`Options`](#options)
+* [Examples](#examples)
+  * [Combine with Babel](#combine-with-babel)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -59,9 +64,7 @@ const config = {
   // …
   plugins: [
     // …
-    mdx({
-      /* Options… */
-    })
+    mdx({/* jsxImportSource: …, otherOptions… */})
   ]
 }
 
@@ -81,8 +84,8 @@ Plugin to compile MDX w/ [rollup][].
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ###### Returns
 
@@ -103,10 +106,10 @@ There are also two additional options:
 
 ###### Fields
 
-*   `exclude` (`Array<RegExp | string>`, `RegExp`, or `string`, optional)
-    — [picomatch][] patterns to exclude
-*   `include` (`Array<RegExp | string>`, `RegExp`, or `string`, optional)
-    — [picomatch][] patterns to include
+* `exclude` (`Array<RegExp | string>`, `RegExp`, or `string`, optional)
+  — [picomatch][] patterns to exclude
+* `include` (`Array<RegExp | string>`, `RegExp`, or `string`, optional)
+  — [picomatch][] patterns to include
 
 ## Examples
 
@@ -124,9 +127,7 @@ const config = {
   // …
   plugins: [
     // …
-    mdx({
-      /* Options… */
-    }),
+    mdx({/* jsxImportSource: …, otherOptions… */}),
     babel({
       // Also run on what used to be `.mdx` (but is now JS):
       extensions: ['.js', '.jsx', '.cjs', '.mjs', '.md', '.mdx']
@@ -223,8 +224,6 @@ abide by its terms.
 
 [vite]: https://mdxjs.com/getting-started/#vite
 
-[wmr]: https://mdxjs.com/getting-started/#wmr
-
-[api-mdx]: #mdx
+[api-mdx]: #mdxoptions
 
 [api-options]: #options

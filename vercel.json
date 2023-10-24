@@ -75,7 +75,7 @@
       "source": "/editors/"
     },
     {
-      "destination": "/docs/getting-started/#create-react-app-cra",
+      "destination": "/docs/getting-started/#vite",
       "source": "/getting-started/create-react-app/"
     },
     {
@@ -91,7 +91,7 @@
       "source": "/getting-started/parcel/"
     },
     {
-      "destination": "/docs/getting-started/#react-static",
+      "destination": "/docs/getting-started/#vite",
       "source": "/getting-started/react-static/"
     },
     {

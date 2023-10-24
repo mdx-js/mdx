@@ -13,16 +13,18 @@ esbuild plugin for MDX.
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`mdx(options?)`](#mdxoptions)
-*   [Types](#types)
-*   [Security](#security)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`mdx(options?)`](#mdxoptions)
+  * [`Options`](#options)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -30,8 +32,8 @@ This package is an esbuild plugin to support MDX.
 
 ## When should I use this?
 
-This integration is useful if you’re using esbuild (or another tool that uses
-esbuild).
+This integration is useful if you’re using [esbuild][] (or another tool that
+uses esbuild).
 
 If you want to evaluate MDX code then the lower-level compiler (`@mdx-js/mdx`)
 can be used.
@@ -61,11 +63,7 @@ await esbuild.build({
   entryPoints: ['index.js'],
   format: 'esm',
   outfile: 'output.js',
-  plugins: [
-    mdx({
-      /* Options… */
-    })
-  ]
+  plugins: [mdx({/* jsxImportSource: …, otherOptions… */})]
 })
 ```
 
@@ -86,8 +84,8 @@ See esbuild’s docs for more info.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ###### Returns
 

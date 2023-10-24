@@ -61,6 +61,7 @@ export function loader(value, callback) {
   /* c8 ignore next -- some loaders set `undefined` (see `TypeStrong/ts-loader`). */
   const compiler = this._compiler || marker
 
+  // To do: next major (MDX 4?): remove.
   if ('renderer' in config) {
     callback(
       new Error(

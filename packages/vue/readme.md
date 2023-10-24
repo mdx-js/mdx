@@ -14,17 +14,19 @@ Vue context for MDX.
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`MDXProvider(props?)`](#mdxproviderprops)
-    *   [`useMDXComponents()`](#usemdxcomponents)
-*   [Types](#types)
-*   [Security](#security)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`MDXProvider(props?)`](#mdxproviderprops)
+  * [`useMDXComponents(components?)`](#usemdxcomponentscomponents)
+  * [`Props`](#props)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -128,9 +130,9 @@ Configuration for `MDXProvider` (TypeScript type).
 
 ###### Fields
 
-*   `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components],
-    optional)
-    — additional components to use
+* `components` ([`MDXComponents` from `mdx/types.js`][mdx-types-components],
+  optional)
+  — additional components to use
 
 ## Types
 
@@ -195,8 +197,6 @@ abide by its terms.
 [chat]: https://github.com/mdx-js/mdx/discussions
 
 [npm]: https://docs.npmjs.com/cli/install
-
-[yarn]: https://classic.yarnpkg.com/docs/cli/add/
 
 [contribute]: https://mdxjs.com/community/contribute/
 

@@ -2,7 +2,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2022-12-14'),
+  modified: new Date('2023-10-23'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 2
@@ -17,7 +17,7 @@ MDX comes with a powerful and dynamic alternative to frontmatter, namely ESM
 (`import`/`export`).
 These exports:
 
-```mdx path="post.mdx"
+```mdx path="example.mdx"
 export const name = 'World'
 export const title = 'Hi, ' + name + '!'
 
@@ -27,7 +27,7 @@ export const title = 'Hi, ' + name + '!'
 Can be used like so:
 
 ```tsx path="example.js"
-import * as Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
+import * as Post from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
 console.log(Post.title) // Prints 'Hi, World!'
 ```
@@ -36,7 +36,7 @@ You might prefer frontmatter though, as it lets you define data that can be
 extracted from the file system *before* compiling.
 Say our MDX with frontmatter looked like this:
 
-```mdx path="post.mdx"
+```mdx path="example.mdx"
 ---
 title: Hi, World!
 ---
@@ -47,11 +47,13 @@ title: Hi, World!
 Then without compiling or evaluating the metadata can be accessed like so:
 
 ```tsx path="example.js"
-import fs from 'node:fs/promises'
-import yaml from 'js-yaml'
+import {read} from 'to-vfile'
+import {matter} from 'vfile-matter'
 
-console.log(yaml.loadAll(await fs.readFile('post.mdx'))[0])
-// Prints `{title: 'Hi, World!'}`
+const file = await read('example.mdx')
+matter(file)
+
+console.log(file.data.matter)
 ```
 
 Our compiler, `@mdx-js/mdx`, doesn’t understand YAML frontmatter by default but
@@ -60,23 +62,23 @@ it can be enabled by using a remark plugin,
 
 ```tsx path="example.js"
 import fs from 'node:fs/promises'
-import remarkFrontmatter from 'remark-frontmatter'
 import {compile} from '@mdx-js/mdx'
+import remarkFrontmatter from 'remark-frontmatter'
 
-console.log(
-  await compile(await fs.readFile('post.mdx'), {
-    remarkPlugins: [remarkFrontmatter]
-  })
-)
+const file = await compile(await fs.readFile('example.mdx'), {
+  remarkPlugins: [remarkFrontmatter]
+})
+
+console.log(file)
 ```
 
 Now it “works”.
-The frontmatter is ignored.
+The frontmatter is not rendered as if it was markdown.
 But the data embedded in the frontmatter isn’t available from *inside* the MDX.
 What if we wanted that too?
 Like so:
 
-```mdx path="post.mdx"
+```mdx path="example.mdx"
 ---
 title: Hi, World!
 ---
@@ -87,7 +89,7 @@ title: Hi, World!
 That’s exactly what the remark plugin
 [`remark-mdx-frontmatter`][remark-mdx-frontmatter] does.
 
-remark plugins can be passed as
+That plugin, like all remark plugins, can be passed as
 [`remarkPlugins` in `ProcessorOptions`][processor-options].
 More info on plugins is available in [§ Extending MDX][extend]
 

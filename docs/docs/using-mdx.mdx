@@ -2,7 +2,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2022-06-17'),
+  modified: new Date('2023-10-23'),
   published: new Date('2021-09-30')
 }
 export const navSortSelf = 3
@@ -17,12 +17,12 @@ To understand how the MDX format works, we recommend that you start with
 
 ## Contents
 
-*   [How MDX works](#how-mdx-works)
-*   [MDX content](#mdx-content)
-    *   [Props](#props)
-    *   [Components](#components)
-    *   [Layout](#layout)
-*   [MDX provider](#mdx-provider)
+* [How MDX works](#how-mdx-works)
+* [MDX content](#mdx-content)
+  * [Props](#props)
+  * [Components](#components)
+  * [Layout](#layout)
+* [MDX provider](#mdx-provider)
 
 ## How MDX works
 
@@ -54,10 +54,10 @@ export default function MDXContent() {
 
 Some observations:
 
-*   The output is serialized JavaScript that still needs to be evaluated
-*   A comment is injected to configure how JSX is handled
-*   It’s a complete file with import/exports
-*   A component (`MDXContent`) is exported
+* The output is serialized JavaScript that still needs to be evaluated
+* A comment is injected to configure how JSX is handled
+* It’s a complete file with import/exports
+* A component (`MDXContent`) is exported
 
 The *actual* output is:
 
@@ -70,33 +70,25 @@ export function Thing() {
 }
 
 function _createMdxContent(props) {
-  const _components = {
-    h1: 'h1',
-    ...props.components
-  }
-  return _jsxs(_components.h1, {
-    children: ['Hello ', _jsx(Thing, {})]
-  })
+  const _components = {h1: 'h1', ...props.components}
+  return _jsxs(_components.h1, {children: ['Hello ', _jsx(Thing, {})]})
 }
 
 export default function MDXContent(props = {}) {
   const {wrapper: MDXLayout} = props.components || {}
   return MDXLayout
-    ? _jsx(MDXLayout, {
-        ...props,
-        children: _jsx(_createMdxContent, props)}
-      )
+    ? _jsx(MDXLayout, {...props, children: _jsx(_createMdxContent, {...props})})
     : _createMdxContent(props)
 }
 ```
 
 Some more observations:
 
-*   JSX is compiled away to function calls and an import of React†
-*   The content component can be given `{components: {wrapper: MyLayout}}` to
-    wrap all content
-*   The content component can be given `{components: {h1: MyComponent}}` to use
-    something else for the heading
+* JSX is compiled away to function calls and an import of React†
+* The content component can be given `{components: {wrapper: MyLayout}}` to
+  wrap all content
+* The content component can be given `{components: {h1: MyComponent}}` to use
+  something else for the heading
 
 † MDX is not coupled to React.
 You can also use it with [Preact][],
@@ -276,24 +268,24 @@ Here are some other examples of passing components:
 
 The following keys can be passed in `components`:
 
-*   HTML equivalents for the things you write with markdown such as `h1` for
-    `# heading` (see [§ Table of components][toc] for examples)
-*   `wrapper`, which defines the layout (but a local layout takes precedence)
-*   `*` anything else that is a valid JavaScript identifier (`foo`,
-    `Quote`, `_`, `$x`, `a1`) for the things you write with JSX (like
-    `<So />` or `<like.so />`, note that locally defined components take
-    precedence)**‡**
+* HTML equivalents for the things you write with markdown such as `h1` for
+  `# heading` (see [§ Table of components][toc] for examples)
+* `wrapper`, which defines the layout (but a local layout takes precedence)
+* `*` anything else that is a valid JavaScript identifier (`foo`,
+  `Quote`, `_`, `$x`, `a1`) for the things you write with JSX (like
+  `<So />` or `<like.so />`, note that locally defined components take
+  precedence)**‡**
 
 If you ever wondered what the rules are for whether a name in JSX (so `x` in
 `<x>`) is a literal tag name (like `h1`) or not (like `Component`), they are as
 follows:
 
-*   If there’s a dot, it’s a member expression (`<a.b>` -> `h(a.b)`),
-    which means that the `b` component is taken from object `a`
-*   Otherwise, if the name is not a valid identifier, it’s a literal (`<a-b>` ->
-    `h('a-b')`)
-*   Otherwise, if it starts with a lowercase, it’s a literal (`<a>` -> `h('a')`)
-*   Otherwise, it’s an identifier (`<A>` -> `h(A)`), which means a component `A`
+* If there’s a dot, it’s a member expression (`<a.b>` -> `h(a.b)`),
+  which means that the `b` component is taken from object `a`
+* Otherwise, if the name is not a valid identifier, it’s a literal (`<a-b>` ->
+  `h('a-b')`)
+* Otherwise, if it starts with a lowercase, it’s a literal (`<a>` -> `h('a')`)
+* Otherwise, it’s an identifier (`<A>` -> `h(A)`), which means a component `A`
 
 ### Layout
 
@@ -336,8 +328,8 @@ Used like so:
 ```tsx path="app.jsx"
 import React from 'react'
 import ReactDom from 'react-dom'
-import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
 import {Heading, /* … */ Table} from './components/index.js'
+import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
 
 const components = {
   h1: Heading.H1,
@@ -373,23 +365,23 @@ Context provides a way to pass data through the component tree without having to
 pass props down manually at every level.
 Set it up like so:
 
-1.  Install either [`@mdx-js/react`][mdx-react], [`@mdx-js/preact`][mdx-preact],
-    or [`@mdx-js/vue`][mdx-vue],
-    depending on what framework you’re using
-2.  Configure your MDX integration with
-    [`providerImportSource` in `ProcessorOptions`][processor-options]
-    set to that package, so either `'@mdx-js/react'`, `'@mdx-js/preact'`, or
-    `'@mdx-js/vue'`
-3.  Import `MDXProvider` from that package.
-    Use it to wrap your top-most MDX content component and pass it your
-    `components` instead:
+1. Install either [`@mdx-js/react`][mdx-react], [`@mdx-js/preact`][mdx-preact],
+   or [`@mdx-js/vue`][mdx-vue],
+   depending on what framework you’re using
+2. Configure your MDX integration with
+   [`providerImportSource` in `ProcessorOptions`][processor-options]
+   set to that package, so either `'@mdx-js/react'`, `'@mdx-js/preact'`, or
+   `'@mdx-js/vue'`
+3. Import `MDXProvider` from that package.
+   Use it to wrap your top-most MDX content component and pass it your
+   `components` instead:
 
 ```diff
++import {MDXProvider} from '@mdx-js/react'
  import React from 'react'
  import ReactDom from 'react-dom'
- import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
  import {Heading, /* … */ Table} from './components/index.js'
-+import {MDXProvider} from '@mdx-js/react'
+ import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
 
  const components = {
    h1: Heading.H1,

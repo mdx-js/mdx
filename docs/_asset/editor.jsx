@@ -93,12 +93,12 @@ const grammars = [
 /** @type {Awaited<ReturnType<typeof createStarryNight>>} */
 let starryNight
 
-const body = document.querySelector('.body')
+const editor = document.querySelector('#js-editor')
 
-if (body && window.location.pathname === '/playground/') {
+if (window.location.pathname === '/playground/' && editor) {
   const root = document.createElement('div')
   root.classList.add('playground')
-  body.after(root)
+  editor.after(root)
   init(root)
 }
 
@@ -204,7 +204,10 @@ function Playground() {
 
         if (show === 'result') {
           /** @type {MDXModule} */
-          const mod = await run(String(file), runtime)
+          const mod = await run(String(file), {
+            ...runtime,
+            baseUrl: window.location.href
+          })
 
           return (
             <ErrorBoundary FallbackComponent={ErrorFallback}>

@@ -123,8 +123,7 @@
     "docs-js-editor": "esbuild --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/editor.js --target=es2020 docs/_asset/editor.jsx",
     "docs-post": "node website/post.js",
     "docs-prep": "node website/prep.js && npm run docs-js && npm run docs-css",
-    "#": "remark . --frail --output --quiet && remark . --ext mdx --frail --output --plugin remark-mdx --quiet",
-    "format": "prettier . --log-level warn --write && xo --fix",
+    "format": "remark . --frail --output --quiet && remark . --ext mdx --frail --output --quiet --use remark-mdx && prettier . --log-level warn --write && xo --fix",
     "test": "npm run build && npm run format && npm run test-coverage",
     "test-api": "npm run test-api --workspaces --if-present",
     "test-coverage": "npm run test-coverage --workspaces --if-present"
@@ -153,12 +152,27 @@
     "plugins": [
       "remark-preset-wooorm",
       [
+        "remark-preset-wooorm/node_modules/remark-gfm/index.js",
+        false
+      ],
+      "remark-gfm",
+      [
         "remark-lint-no-html",
         false
       ],
       [
         "remark-lint-file-extension",
         false
+      ],
+      [
+        "remark-lint-list-item-indent",
+        "space"
+      ],
+      [
+        "remark-stringify",
+        {
+          "listItemIndent": "one"
+        }
       ]
     ]
   },

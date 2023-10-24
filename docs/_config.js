@@ -38,13 +38,11 @@ export const redirect = {
   '/contributing/index.html': '/community/contribute/',
   '/editor-plugins/index.html': '/docs/getting-started/#editor',
   '/editors/index.html': '/docs/getting-started/#editor',
-  '/getting-started/create-react-app/index.html':
-    '/docs/getting-started/#create-react-app-cra',
+  '/getting-started/create-react-app/index.html': '/docs/getting-started/#vite',
   '/getting-started/gatsby/index.html': '/docs/getting-started/#gatsby',
   '/getting-started/next/index.html': '/docs/getting-started/#nextjs',
   '/getting-started/parcel/index.html': '/docs/getting-started/#parcel',
-  '/getting-started/react-static/index.html':
-    '/docs/getting-started/#react-static',
+  '/getting-started/react-static/index.html': '/docs/getting-started/#vite',
   '/getting-started/table-of-components/index.html': '/table-of-components/',
   '/getting-started/typescript/index.html': '/docs/getting-started/#types',
   '/getting-started/webpack/index.html': '/docs/getting-started/#webpack',
