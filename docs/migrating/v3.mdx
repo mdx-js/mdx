@@ -1,0 +1,78 @@
+export const info = {
+  author: [
+    {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
+  ],
+  modified: new Date('2023-10-24'),
+  published: new Date('2023-10-24')
+}
+export const navExclude = true
+
+# Migrating from v2 to v3
+
+A couple small changes this time around.
+For most folks, updating Node.js and plugins is all that’s needed!
+
+## Contents
+
+* [Update Node.js](#update-nodejs)
+* [Update plugins](#update-plugins)
+* [Pass `baseUrl` to `evaluate`, `run`](#pass-baseurl-to-evaluate-run)
+* [Use the automatic JSX runtime](#use-the-automatic-jsx-runtime)
+* [Replace `MDXContext`, `withMDXComponents` with `useMDXComponents`](#replace-mdxcontext-withmdxcomponents-with-usemdxcomponents)
+* [Replace `@mdx-js/register` with `@mdx-js/node-loader`](#replace-mdx-jsregister-with-mdx-jsnode-loader)
+
+## Update Node.js
+
+If you’re still on old Node, it’s time to update.
+Use at least Node 16.
+
+## Update plugins
+
+If you use rehype and remark plugins: update.
+
+Most of them remain working between versions.
+Particularly if you use TypeScript, there was a breaking internal change in the
+types, which is now supported here.
+There were also some small internal changes in how the parser works, which
+affect `remark-gfm` and `remark-math`.
+
+## Pass `baseUrl` to `evaluate`, `run`
+
+If you use `evaluate` or `run` (or `outputFormat: 'function-body'`), you should
+pass the `baseUrl` option.
+Likely set to `import.meta.url`.
+
+If MDX content uses `export` statements, `import` expressions/statements,
+or `import.meta.url`, we compile to code that works, but it needs to know
+where the code runs: you need to pass where you are.
+
+You will get a runtime error if these features are used in MDX without
+`baseUrl`.
+
+If you passed the `useDynamicImport` option before, remove it, the behavior
+is now the default.
+
+## Use the automatic JSX runtime
+
+If you use the classic runtime, switch to the automatic runtime.
+Classic is still supported but you will now see a warning if you use the
+classic JSX runtime.
+
+The classic runtime can still be nice in other places, but it causes potential
+problems in MDX.
+If you specify `jsxRuntime: 'classic'` (and `pragma`, `pragmaFrag`,
+`pragmaImportSource`), consider switching to `automatic`.
+All major frameworks support the automatic runtime.
+Support for the classic runtime will likely be removed next major.
+
+## Replace `MDXContext`, `withMDXComponents` with `useMDXComponents`
+
+If you use the deprecated symbols `MDXContext` and `withMDXComponents`, use
+`useMDXComponents` instead.
+
+Reminder: you probably don’t need the context based `@mdx-js/react` or
+`@mdx-js/preact` packages.
+
+## Replace `@mdx-js/register` with `@mdx-js/node-loader`
+
+If you use the deprecated package `@mdx-js/register`, use `@mdx-js/node-loader` instead.
