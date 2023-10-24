@@ -409,7 +409,7 @@ except that the options `baseUrl`, `jsx`, `jsxImportSource`, `jsxRuntime`,
 
 ```tsx
 /**
- * Configuration for `evalutate`.
+ * Configuration for `evaluate`.
  */
 type EvaluateOptions = Omit<
   CompileOptions,
