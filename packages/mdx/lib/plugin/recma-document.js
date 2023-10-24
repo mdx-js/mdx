@@ -390,6 +390,8 @@ export function recmaDocument(options) {
             return
           }
 
+          // To do: add support for `import.meta.resolve`.
+
           if (
             node.type === 'MemberExpression' &&
             'object' in node &&

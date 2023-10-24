@@ -743,8 +743,8 @@ Configuration for `createProcessor` (TypeScript type).
   in most cases `'program'` should be used, it results in a whole program;
   internally [`evaluate`][api-evaluate] uses `'function-body'` to compile to
   code that can be passed to [`run`][api-run];
-  in some cases, you might want to do what `evaluate` does in separate steps
-  yourself, such as when compiling on the server and running on the client.
+  in some cases, you might want what `evaluate` does in separate steps, such
+  as when compiling on the server and running on the client.
 
   <details><summary>Expand example</summary>
 
@@ -1114,7 +1114,7 @@ respectively.
 After markdown, we go to [hast][] (HTML).
 This transformation is done by
 [`syntax-tree/mdast-util-to-hast`][mdast-util-to-hast].
-Wait, why, what does HTML have to do with it?
+Wait, why, what is HTML needed?
 Part of the reason is that we care about HTML semantics: we want to know that
 something is an `<a>`, not whether it’s a link with a resource (`[text](url)`)
 or a reference to a defined link definition (`[text][id]\n\n[id]: url`).

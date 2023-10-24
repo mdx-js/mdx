@@ -62,8 +62,8 @@
  *   in most cases `'program'` should be used, it results in a whole program;
  *   internally `evaluate` uses `'function-body'` to compile to
  *   code that can be passed to `run`;
- *   in some cases, you might want to do what `evaluate` does in separate steps
- *   yourself, such as when compiling on the server and running on the client.
+ *   in some cases, you might want what `evaluate` does in separate steps, such
+ *   as when compiling on the server and running on the client.
  * @property {string | null | undefined} [pragma='React.createElement']
  *   Pragma for JSX, used in the classic runtime as an identifier for function
  *   calls: `<x />` to `React.createElement('x')` (default:
