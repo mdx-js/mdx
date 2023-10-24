@@ -56,13 +56,15 @@ export function sortItems(items, sortString = 'navSortSelf,meta.title') {
           ? collator(a, b)
           : typeof a === 'number' && typeof b === 'number'
           ? a - b
+          : (a === null || a === undefined) && (b === null || b === undefined)
+          ? 0
           : a === null || a === undefined
           ? 1
           : b === null || b === undefined
           ? -1
           : 0
-      const result = order === 'asc' ? score : -score
-      if (result) return result
+
+      if (score) return order === 'asc' ? score : -score
     }
 
     return 0

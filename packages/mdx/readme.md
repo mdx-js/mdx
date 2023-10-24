@@ -342,7 +342,7 @@ import * as runtime from 'react/jsx-runtime'
 
 const code = '' // To do: get `code` from server somehow.
 
-const {default: Content} = await run(code, runtime)
+const {default: Content} = await run(code, {...runtime, baseUrl: import.meta.url})
 
 console.log(Content)
 ```
@@ -569,7 +569,7 @@ Configuration for `createProcessor` (TypeScript type).
 
   const path = 'example.mdx'
   const value = await fs.readFile(path)
-  const MDXContent = (await evaluate({path, value}, runtime)).default
+  const MDXContent = (await evaluate({path, value}, {...runtime, baseUrl: import.meta.url})).default
 
   console.log(MDXContent({}))
   ```
@@ -595,8 +595,8 @@ Configuration for `createProcessor` (TypeScript type).
 
   const path = 'example.mdx'
   const value = await fs.readFile(path)
-  -const MDXContent = (await evaluate({path, value}, runtime)).default
-  +const MDXContent = (await evaluate({path, value}, {development: true, ...runtime})).default
+  -const MDXContent = (await evaluate({path, value}, {...runtime, baseUrl: import.meta.url})).default
+  +const MDXContent = (await evaluate({path, value}, {development: true, ...runtime, baseUrl: import.meta.url})).default
 
   console.log(MDXContent({}))
   ```
@@ -1021,7 +1021,7 @@ matter).
 * `jsxs` ([`Jsx`][api-jsx], optional)
   — function to generate an element with dynamic children in production mode
 * `useMDXComponents` ([`UseMdxComponents`][api-use-mdx-components], optional)
-  — function to get components from context
+  — function to get components to use
 
 ###### Examples
 
@@ -1030,7 +1030,7 @@ A `/jsx-runtime` module will expose `Fragment`, `jsx`, and `jsxs`:
 ```tsx
 import * as runtime from 'react/jsx-runtime'
 
-const {default: Content} = await evaluate('# hi', {...runtime, ...otherOptions})
+const {default: Content} = await evaluate('# hi', {...runtime, baseUrl: import.meta.url, ...otherOptions})
 
 ```
 
@@ -1039,7 +1039,7 @@ A `/jsx-dev-runtime` module will expose `Fragment` and `jsxDEV`:
 ```tsx
 import * as runtime from 'react/jsx-dev-runtime'
 
-const {default: Content} = await evaluate('# hi', {development: true, ...runtime, ...otherOptions})
+const {default: Content} = await evaluate('# hi', {development: true, baseUrl: import.meta.url, ...runtime, ...otherOptions})
 ```
 
 Our providers will expose `useMDXComponents`:
@@ -1048,12 +1048,12 @@ Our providers will expose `useMDXComponents`:
 import * as provider from '@mdx-js/react'
 import * as runtime from 'react/jsx-runtime'
 
-const {default: Content} = await evaluate('# hi', {...provider, ...runtime, ...otherOptions})
+const {default: Content} = await evaluate('# hi', {...provider, ...runtime, baseUrl: import.meta.url, ...otherOptions})
 ```
 
 ### `UseMdxComponents`
 
-Get components from context (TypeScript type).
+Get components (TypeScript type).
 
 ###### Parameters
 

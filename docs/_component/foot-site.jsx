@@ -11,7 +11,7 @@ export function FootSite() {
         >
           <div>
             <small>
-              MDX is made with ❤️ in Boise, Amsterdam, and around the 🌏
+              MDX is made with ❤️ in Amsterdam, Boise, and around the 🌏
             </small>
             <br />
             <small>This site does not track you.</small>

@@ -495,23 +495,23 @@ function Playground() {
               <input
                 type="radio"
                 name="development"
-                checked={!development}
-                onChange={function () {
-                  setDevelopment(false)
-                }}
-              />{' '}
-              generate for production (<code>development: false</code>)
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="development"
                 checked={development}
                 onChange={function () {
                   setDevelopment(true)
                 }}
               />{' '}
               generate for development (<code>development: true</code>)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="development"
+                checked={!development}
+                onChange={function () {
+                  setDevelopment(false)
+                }}
+              />{' '}
+              generate for production (<code>development: false</code>)
             </label>
           </fieldset>
 

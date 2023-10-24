@@ -59,7 +59,7 @@ test('@mdx-js/rollup', async function (t) {
     await fs.rm(jsUrl)
   })
 
-  await t.test('vite production', async () => {
+  await t.test('should infer production mode in vite', async () => {
     const result = /** @type {Array<RollupOutput>} */ (
       await build({
         build: {
@@ -80,7 +80,7 @@ test('@mdx-js/rollup', async function (t) {
     assert.doesNotMatch(code, /jsxDEV\(/)
   })
 
-  await t.test('vite development', async () => {
+  await t.test('should infer development mode in vite', async () => {
     const result = /** @type {Array<RollupOutput>} */ (
       await build({
         build: {

@@ -1169,6 +1169,11 @@ details[open] {
     margin-block: calc(1 / 5 * (1em + 1ex));
     padding-block: calc(2 * 1 / 5 * (1em + 1ex));
   }
+
+  .playground {
+    display: grid;
+    grid-template-columns: 49% 49%;
+  }
 }
 
 @media (min-width: 64em) {
@@ -1229,8 +1234,6 @@ details[open] {
 }
 
 .playground {
-  display: grid;
-  grid-template-columns: 49% 49%;
   min-height: 40rem;
   gap: calc(1em + 1ex);
 }
