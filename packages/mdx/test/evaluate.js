@@ -1,7 +1,7 @@
 /**
- * @typedef {import('../lib/util/resolve-evaluate-options.js').Fragment} Fragment
- * @typedef {import('../lib/util/resolve-evaluate-options.js').Jsx} Jsx
- * @typedef {import('../lib/util/resolve-evaluate-options.js').JsxDev} JsxDev
+ * @typedef {import('@mdx-js/mdx').Fragment} Fragment
+ * @typedef {import('@mdx-js/mdx').Jsx} Jsx
+ * @typedef {import('@mdx-js/mdx').JsxDev} JsxDev
  */
 
 import assert from 'node:assert/strict'

@@ -73,14 +73,14 @@ npm install remark-mdx
 In Deno with [`esm.sh`][esmsh]:
 
 ```tsx
-import remarkMdx from 'https://esm.sh/remark-mdx@2'
+import remarkMdx from 'https://esm.sh/remark-mdx@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import remarkMdx from 'https://esm.sh/remark-mdx@2?bundle'
+  import remarkMdx from 'https://esm.sh/remark-mdx@3?bundle'
 </script>
 ```
 

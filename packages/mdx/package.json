@@ -34,8 +34,7 @@
   "exports": {
     ".": "./index.js",
     "./internal-create-format-aware-processors": "./lib/util/create-format-aware-processors.js",
-    "./internal-extnames-to-regex": "./lib/util/extnames-to-regex.js",
-    "./internal-resolve-evaluate-options": "./lib/util/resolve-evaluate-options.js"
+    "./internal-extnames-to-regex": "./lib/util/extnames-to-regex.js"
   },
   "files": [
     "lib/",

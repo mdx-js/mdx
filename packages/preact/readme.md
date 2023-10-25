@@ -52,14 +52,14 @@ npm install @mdx-js/preact
 In Deno with [`esm.sh`][esmsh]:
 
 ```tsx
-import {MDXProvider} from 'https://esm.sh/@mdx-js/preact@2'
+import {MDXProvider} from 'https://esm.sh/@mdx-js/preact@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {MDXProvider} from 'https://esm.sh/@mdx-js/preact@2?bundle'
+  import {MDXProvider} from 'https://esm.sh/@mdx-js/preact@3?bundle'
 </script>
 ```
 

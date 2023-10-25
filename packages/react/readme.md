@@ -56,14 +56,14 @@ npm install @mdx-js/react
 In Deno with [`esm.sh`][esmsh]:
 
 ```tsx
-import {MDXProvider} from 'https://esm.sh/@mdx-js/react@2'
+import {MDXProvider} from 'https://esm.sh/@mdx-js/react@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {MDXProvider} from 'https://esm.sh/@mdx-js/react@2?bundle'
+  import {MDXProvider} from 'https://esm.sh/@mdx-js/react@3?bundle'
 </script>
 ```
 

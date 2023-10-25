@@ -67,14 +67,14 @@ npm install @mdx-js/mdx
 In Deno with [`esm.sh`][esmsh]:
 
 ```tsx
-import {compile} from 'https://esm.sh/@mdx-js/mdx@2'
+import {compile} from 'https://esm.sh/@mdx-js/mdx@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {compile} from 'https://esm.sh/@mdx-js/mdx@2?bundle'
+  import {compile} from 'https://esm.sh/@mdx-js/mdx@3?bundle'
 </script>
 ```
 
