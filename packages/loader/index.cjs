@@ -19,10 +19,12 @@
  * @returns {undefined}
  *   Nothing.
  */
-module.exports = function (code) {
+function loader(code) {
   const callback = this.async()
   // Note that `import()` caches, so this should be fast enough.
   import('./lib/index.js').then((module) => {
     return module.loader.call(this, code, callback)
   })
 }
+
+module.exports = loader
