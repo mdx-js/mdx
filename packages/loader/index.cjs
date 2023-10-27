@@ -7,6 +7,10 @@
 
 'use strict'
 
+// Note: we can’t export immediately, as TS generates broken types.
+// See: mdx-js/mdx#2386.
+module.exports = loader
+
 /**
  * Webpack loader
  *
@@ -26,5 +30,3 @@ function loader(code) {
     return module.loader.call(this, code, callback)
   })
 }
-
-module.exports = loader
