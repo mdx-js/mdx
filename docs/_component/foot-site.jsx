@@ -28,7 +28,7 @@ export function FootSite() {
             </small>
             <br />
             <small>
-              Updates on <a href={config.twitter.href}>Twitter</a>
+              Updates on <a href={config.twitter.href}>X (formerly Twitter)</a>
             </small>
             <br />
             <small>
