@@ -47,7 +47,7 @@ This package is [ESM only][esm].
 In Node.js (version 16+), install with [npm][]:
 
 ```sh
-npm install @mdx-js/esbuild-mdx
+npm install @mdx-js/esbuild
 ```
 
 ## Use
