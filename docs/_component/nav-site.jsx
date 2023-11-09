@@ -42,6 +42,7 @@ export function NavSite(props) {
 
   return (
     <nav className="navigation" aria-label="Site navigation">
+      <div id="banner">Ceasefire now! 🕊️</div>
       <a
         href="#start-of-content"
         id="start-of-navigation"

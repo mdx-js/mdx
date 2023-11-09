@@ -101,7 +101,7 @@ sup {
 }
 
 main {
-  margin-block-start: calc(4 * (1em + 1ex));
+  margin-block-start: calc(5.5 * (1em + 1ex));
 }
 
 dd,
@@ -524,6 +524,7 @@ button.success {
   inset-block-start: 0;
   display: flex;
   padding: calc(0.5 * (1em + 1ex));
+  padding-top: calc(2 * (1em + 1ex));
 }
 
 .navigation::before {
@@ -536,6 +537,20 @@ button.success {
     hsl(39deg 97% 88% / 90%) 0%,
     hsl(39deg 97% 96% / 90%) 100%
   );
+}
+
+#banner {
+  padding: calc(0.25 * (1em + 1ex));
+  background-color: var(--mdx-yellow);
+  color: var(--white);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+  font-weight: bolder;
+  letter-spacing: 1px;
 }
 
 .full-bleed {
