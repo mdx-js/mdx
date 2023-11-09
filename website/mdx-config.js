@@ -78,7 +78,6 @@ const options = {
     remarkGemoji,
     remarkGfm,
     remarkGithub,
-    // @ts-expect-error: to do: fix types in `remark-mdx-frontmatter`.
     [remarkMdxFrontmatter, {name: 'matter'}],
     remarkStripBadges,
     remarkSqueezeParagraphs,

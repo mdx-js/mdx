@@ -1,6 +1,8 @@
 /**
  * @typedef {import('estree-jsx').Declaration} Declaration
  * @typedef {import('estree-jsx').Expression} Expression
+ * @typedef {import('estree-jsx').MaybeNamedClassDeclaration} MaybeNamedClassDeclaration
+ * @typedef {import('estree-jsx').MaybeNamedFunctionDeclaration} MaybeNamedFunctionDeclaration
  */
 
 import {ok as assert} from 'devlop'
@@ -12,7 +14,7 @@ import {ok as assert} from 'devlop'
  * because currently we’re using this utility for export default declarations,
  * which can’t contain variable declarations.
  *
- * @param {Readonly<Declaration>} declaration
+ * @param {Readonly<Declaration | MaybeNamedClassDeclaration | MaybeNamedFunctionDeclaration>} declaration
  *   Declaration.
  * @returns {Expression}
  *   Expression.
