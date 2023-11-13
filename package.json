@@ -48,7 +48,7 @@
     "eslint-plugin-react": "^7.0.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "estree-util-value-to-estree": "^3.0.0",
-    "globby": "^13.0.0",
+    "globby": "^14.0.0",
     "hast-util-from-html": "^2.0.0",
     "hast-util-sanitize": "^5.0.0",
     "hast-util-select": "^6.0.0",
