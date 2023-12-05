@@ -28,5 +28,5 @@ function loader(code) {
   // Note that `import()` caches, so this should be fast enough.
   import('./lib/index.js').then((module) => {
     return module.loader.call(this, code, callback)
-  })
+  }, callback)
 }
