@@ -59,7 +59,7 @@
     "p-all": "^5.0.0",
     "periscopic": "^3.0.0",
     "postcss": "^8.0.0",
-    "postcss-cli": "^10.0.0",
+    "postcss-cli": "^11.0.0",
     "preact": "^10.0.0",
     "preact-render-to-string": "^6.0.0",
     "prettier": "^3.0.0",
