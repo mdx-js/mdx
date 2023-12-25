@@ -20,7 +20,7 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run docs
-      - uses: actions/upload-pages-artifact@v2
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: public
       - uses: actions/deploy-pages@v2
