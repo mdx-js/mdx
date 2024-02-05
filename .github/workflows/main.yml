@@ -43,4 +43,4 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4

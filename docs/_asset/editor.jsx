@@ -210,7 +210,10 @@ function Playground() {
           })
 
           return (
-            <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[value]}>
+            <ErrorBoundary
+              FallbackComponent={ErrorFallback}
+              resetKeys={[value]}
+            >
               <div className="playground-result">{mod.default({})}</div>
             </ErrorBoundary>
           )
