@@ -1,5 +1,7 @@
-/* @jsxRuntime automatic
-@jsxImportSource react */
+/**
+ * @jsxRuntime automatic
+ * @jsxImportSource react
+ */
 
 /**
  * @typedef {import('@wooorm/starry-night').Grammar} Grammar

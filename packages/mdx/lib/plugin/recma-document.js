@@ -105,7 +105,7 @@ export function recmaDocument(options) {
     if (pragmas.length > 0) {
       tree.comments.unshift({
         type: 'Block',
-        value: pragmas.join('\n'),
+        value: '\n' + pragmas.join('\n') + '\n',
         data: {_mdxIsPragmaComment: true}
       })
     }

@@ -1154,8 +1154,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
     assert.equal(
       String(await compile('*a*', {jsx: true})),
       [
-        '/*@jsxRuntime automatic',
-        '@jsxImportSource react*/',
+        '/*',
+        '@jsxRuntime automatic',
+        '@jsxImportSource react',
+        '*/',
         'function _createMdxContent(props) {',
         '  const _components = {',
         '    em: "em",',
@@ -1177,8 +1179,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
     assert.equal(
       String(await compile('<a {...b} c d="1" e={1} />', {jsx: true})),
       [
-        '/*@jsxRuntime automatic',
-        '@jsxImportSource react*/',
+        '/*',
+        '@jsxRuntime automatic',
+        '@jsxImportSource react',
+        '*/',
         'function _createMdxContent(props) {',
         '  return <a {...b} c d="1" e={1} />;',
         '}',
@@ -1197,8 +1201,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
       assert.equal(
         String(await compile('<><a:b /><c.d/></>', {jsx: true})),
         [
-          '/*@jsxRuntime automatic',
-          '@jsxImportSource react*/',
+          '/*',
+          '@jsxRuntime automatic',
+          '@jsxImportSource react',
+          '*/',
           'function _createMdxContent(props) {',
           '  const {c} = props.components || ({});',
           '  if (!c) _missingMdxReference("c", false);',
@@ -1222,8 +1228,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
     assert.equal(
       String(await compile('<>a {/* 1 */} b</>', {jsx: true})),
       [
-        '/*@jsxRuntime automatic',
-        '@jsxImportSource react*/',
+        '/*',
+        '@jsxRuntime automatic',
+        '@jsxImportSource react',
+        '*/',
         '/*1*/',
         'function _createMdxContent(props) {',
         '  return <><>{"a "}{}{" b"}</></>;',
@@ -1243,8 +1251,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
       assert.equal(
         String(await compile('{<a-b></a-b>}', {jsx: true})),
         [
-          '/*@jsxRuntime automatic',
-          '@jsxImportSource react*/',
+          '/*',
+          '@jsxRuntime automatic',
+          '@jsxImportSource react',
+          '*/',
           'function _createMdxContent(props) {',
           '  const _components = {',
           '    "a-b": "a-b",',
@@ -1266,8 +1276,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
     assert.equal(
       String(await compile('Hello {props.name}', {jsx: true})),
       [
-        '/*@jsxRuntime automatic',
-        '@jsxImportSource react*/',
+        '/*',
+        '@jsxRuntime automatic',
+        '@jsxImportSource react',
+        '*/',
         'function _createMdxContent(props) {',
         '  const _components = {',
         '    p: "p",',
@@ -1295,8 +1307,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
           )
         ),
         [
-          '/*@jsxRuntime automatic',
-          '@jsxImportSource react*/',
+          '/*',
+          '@jsxRuntime automatic',
+          '@jsxImportSource react',
+          '*/',
           'const MDXLayout = function Layout({components, ...props}) {',
           '  return <section {...props} />;',
           '};',
@@ -1327,8 +1341,10 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
           })
         ),
         [
-          '/*@jsxRuntime automatic',
-          '@jsxImportSource react*/',
+          '/*',
+          '@jsxRuntime automatic',
+          '@jsxImportSource react',
+          '*/',
           'import {useMDXComponents as _provideComponents} from "@mdx-js/react";',
           'function _createMdxContent(props) {',
           '  const _components = {',
