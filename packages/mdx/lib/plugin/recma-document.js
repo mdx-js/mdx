@@ -102,10 +102,10 @@ export function recmaDocument(options) {
     /* c8 ignore next -- comments can be missing in the types, we always have it. */
     if (!tree.comments) tree.comments = []
 
-    if (pragmas.length > 0) {
+    for (let index = pragmas.length; index--; index >= 0) {
       tree.comments.unshift({
         type: 'Block',
-        value: '\n' + pragmas.join('\n') + '\n',
+        value: pragmas[index],
         data: {_mdxIsPragmaComment: true}
       })
     }
