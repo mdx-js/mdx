@@ -46,14 +46,9 @@ export function recmaJsxBuild(options) {
     // Remove the pragma comment that we injected ourselves as it is no longer
     // needed.
     if (tree.comments) {
-      let index = 0
-      while (index < tree.comments.length) {
-        if (tree.comments[index].data?._mdxIsPragmaComment) {
-          tree.comments.splice(index, 1)
-        } else {
-          index++
-        }
-      }
+      tree.comments = tree.comments.filter(function (d) {
+        return !d.data?._mdxIsPragmaComment
+      })
     }
 
     // When compiling to a function body, replace the import that was just
