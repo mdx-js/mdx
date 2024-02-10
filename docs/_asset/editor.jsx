@@ -1,4 +1,4 @@
-/**
+/*
  * @jsxRuntime automatic
  * @jsxImportSource react
  */
