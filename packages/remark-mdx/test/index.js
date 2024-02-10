@@ -295,7 +295,7 @@ test('remark-mdx: stringify', async function (t) {
 
                   name: 'b',
                   attributes: [
-                    {type: 'mdxJsxExpressionAttribute', value: '...props'}
+                    {type: 'mdxJsxExpressionAttribute', value: '...properties'}
                   ],
                   children: []
                 },
@@ -304,7 +304,7 @@ test('remark-mdx: stringify', async function (t) {
             }
           ]
         }),
-        'Alpha <b {...props} /> charlie.\n'
+        'Alpha <b {...properties} /> charlie.\n'
       )
     }
   )

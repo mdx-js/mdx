@@ -53,10 +53,10 @@ test('@mdx-js/mdx: compile', async function (t) {
       console.warn = warn
 
       /**
-       * @param  {...unknown} args
+       * @param  {...unknown} parameters
        */
-      function capture(...args) {
-        messages = args
+      function capture(...parameters) {
+        messages = parameters
       }
     }
   )
@@ -315,11 +315,11 @@ test('@mdx-js/mdx: compile', async function (t) {
           React.createElement(await run(await compile('<X />')), {
             components: {
               /**
-               * @param {JSX.IntrinsicElements['span']} props
-               *   Props.
+               * @param {JSX.IntrinsicElements['span']} properties
+               *   Properties.
                */
-              X(props) {
-                return React.createElement('span', props, '!')
+              X(properties) {
+                return React.createElement('span', properties, '!')
               }
             }
           })
@@ -338,11 +338,11 @@ test('@mdx-js/mdx: compile', async function (t) {
             components: {
               x: {
                 /**
-                 * @param {JSX.IntrinsicElements['span']} props
-                 *   Props.
+                 * @param {JSX.IntrinsicElements['span']} properties
+                 *   Properties.
                  */
-                y(props) {
-                  return React.createElement('span', props, '?')
+                y(properties) {
+                  return React.createElement('span', properties, '?')
                 }
               }
             }
@@ -369,23 +369,23 @@ test('@mdx-js/mdx: compile', async function (t) {
       )
 
       /**
-       * @param {JSX.IntrinsicElements['span']} props
-       *   Props.
+       * @param {JSX.IntrinsicElements['span']} properties
+       *   Properties.
        * @returns {JSX.Element}
        *   Element.
        */
-      function X(props) {
-        return React.createElement('span', props, '!')
+      function X(properties) {
+        return React.createElement('span', properties, '!')
       }
 
       /**
-       * @param {JSX.IntrinsicElements['span']} props
-       *   Props.
+       * @param {JSX.IntrinsicElements['span']} properties
+       *   Properties.
        * @returns {JSX.Element}
        *   Element.
        */
-      function Y(props) {
-        return React.createElement('span', props, '?')
+      function Y(properties) {
+        return React.createElement('span', properties, '?')
       }
     }
   )
@@ -398,8 +398,8 @@ test('@mdx-js/mdx: compile', async function (t) {
         renderToStaticMarkup(
           React.createElement(await run(await compile('*a*')), {
             components: {
-              em(props) {
-                return React.createElement('i', props)
+              em(properties) {
+                return React.createElement('i', properties)
               }
             }
           })
@@ -422,8 +422,8 @@ test('@mdx-js/mdx: compile', async function (t) {
             ),
             {
               components: {
-                em(props) {
-                  return React.createElement('i', props)
+                em(properties) {
+                  return React.createElement('i', properties)
                 }
               }
             }
@@ -565,11 +565,11 @@ test('@mdx-js/mdx: compile', async function (t) {
           React.createElement(await run(await compile('a')), {
             components: {
               /**
-               * @param {JSX.IntrinsicElements['div'] & {components: MDXComponents}} props
-               *   Props.
+               * @param {JSX.IntrinsicElements['div'] & {components: MDXComponents}} properties
+               *   Properties.
                */
-              wrapper(props) {
-                const {components, ...rest} = props
+              wrapper(properties) {
+                const {components, ...rest} = properties
                 return React.createElement('div', rest)
               }
             }
@@ -606,17 +606,17 @@ test('@mdx-js/mdx: compile', async function (t) {
           React.createElement(
             await run(
               await compile(
-                'export default function Layout({components, ...props}) { return <section {...props} /> }\n\na'
+                'export default function Layout({components, ...properties}) { return <section {...properties} /> }\n\na'
               )
             ),
             {
               components: {
                 /**
-                 * @param {JSX.IntrinsicElements['article'] & {components: MDXComponents}} props
-                 *   Props.
+                 * @param {JSX.IntrinsicElements['article'] & {components: MDXComponents}} properties
+                 *   Properties.
                  */
-                wrapper(props) {
-                  const {components, ...rest} = props
+                wrapper(properties) {
+                  const {components, ...rest} = properties
                   return React.createElement('article', rest)
                 }
               }
@@ -791,8 +791,8 @@ test('@mdx-js/mdx: compile', async function (t) {
             MDXProvider,
             {
               components: {
-                em(props) {
-                  return React.createElement('i', props)
+                em(properties) {
+                  return React.createElement('i', properties)
                 }
               }
             },
@@ -1058,8 +1058,8 @@ test('@mdx-js/mdx: compile', async function (t) {
     await fs.writeFile(url, String(file))
 
     /** @type {MDXModule} */
-    const mod = await import(url.href + '#' + Math.random())
-    const Content = mod.default
+    const result = await import(url.href + '#' + Math.random())
+    const Content = result.default
 
     assert.throws(
       function () {
@@ -1080,26 +1080,26 @@ test('@mdx-js/mdx: compile', async function (t) {
     'should leave bare specifiers untouched w/ `baseUrl`',
     async function () {
       const dlv = await import('dlv')
-      const mod = await runWhole(
+      const result = await runWhole(
         await compile('import dlv from "dlv"\nexport {dlv}', {
           baseUrl: 'https://example.com'
         })
       )
 
-      assert.equal(mod.dlv, dlv.default)
+      assert.equal(result.dlv, dlv.default)
     }
   )
 
   await t.test(
     'should leave URLs as specifiers untouched w/ `baseUrl`',
     async function () {
-      const mod = await runWhole(
+      const result = await runWhole(
         await compile('import fs from "node:fs/promises"\nexport {fs}', {
           baseUrl: 'https://example.com'
         })
       )
 
-      assert.equal(mod.fs, fs)
+      assert.equal(result.fs, fs)
     }
   )
 
@@ -1108,32 +1108,32 @@ test('@mdx-js/mdx: compile', async function (t) {
     async function () {
       // Note: this is run inside `context/`, so it would normally have to be `./data.js`.
       // But because we rewrite relative to this file `compile.js`, it’s `./context/data.js`.
-      const mod = await runWhole(
+      const result = await runWhole(
         await compile('import num from "./context/data.js"\nexport {num}', {
           baseUrl: import.meta.url
         })
       )
 
-      assert.equal(mod.num, 6.28)
+      assert.equal(result.num, 6.28)
     }
   )
 
   await t.test('should support `baseUrl` as a URL', async function () {
     // Same as above but uses a URL.
-    const mod = await runWhole(
+    const result = await runWhole(
       await compile('import num from "./context/data.js"\nexport {num}', {
         baseUrl: new URL(import.meta.url)
       })
     )
 
-    assert.equal(mod.num, 6.28)
+    assert.equal(result.num, 6.28)
   })
 
   await t.test(
     'should support importing dynamic expressions',
     async function () {
       // Same as above but uses a URL.
-      const mod = await runWhole(
+      const result = await runWhole(
         await compile(
           'export async function get() {\n  const mod = await import("./context/data.js");\n  return mod.number\n}',
           {
@@ -1142,7 +1142,7 @@ test('@mdx-js/mdx: compile', async function (t) {
         )
       )
 
-      const get = mod.get
+      const get = result.get
       assert(typeof get === 'function')
       assert.equal(await get(), 3.14)
     }

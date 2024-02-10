@@ -140,14 +140,14 @@ async function evaluate(value) {
 /**
  * @param {AnyComponent} root
  *   Component.
- * @param {Record<string, unknown> | null | undefined} [rootProps]
+ * @param {Record<string, unknown> | null | undefined} [rootProperties]
  *   Props.
  * @returns {Promise<string>}
  *   HTML.
  */
-async function vueToString(root, rootProps) {
+async function vueToString(root, rootProperties) {
   const result = await serverRenderer.renderToString(
-    vue.createSSRApp(root, rootProps)
+    vue.createSSRApp(root, rootProperties)
   )
   // Remove SSR comments used to hydrate.
   return result.replaceAll(/<!--[[\]]-->/g, '')

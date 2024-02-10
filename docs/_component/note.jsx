@@ -6,8 +6,8 @@
  * @typedef {'important' | 'info' | 'legacy'} NoteType
  *   Type.
  *
- * @typedef Props
- *   Props for `Note`.
+ * @typedef Properties
+ *   Properties for `Note`.
  * @property {NoteType} type
  *   Kind.
  * @property {Readonly<ReactNode>} children
@@ -20,13 +20,13 @@ import React from 'react'
 const known = new Set(['info', 'legacy', 'important'])
 
 /**
- * @param {Readonly<Props>} props
- *   Props.
+ * @param {Readonly<Properties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-export function Note(props) {
-  const {children, type} = props
+export function Note(properties) {
+  const {children, type} = properties
   const className = ['note']
 
   if (known.has(type)) className.push(type)

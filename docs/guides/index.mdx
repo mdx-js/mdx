@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import {NavGroup} from '../_component/nav.jsx'
+import {NavigationGroup} from '../_component/nav.jsx'
 
 export const info = {
   author: [{name: 'MDX Contributors'}],
@@ -20,15 +20,15 @@ around MDX.
      */
 
     /** @type {Item} */
-    const navTree = props.navTree
-    const category = navTree.children.find(function (item) {
+    const navigationTree = props.navigationTree
+    const category = navigationTree.children.find(function (item) {
       return item.name === '/guides/'
     })
     assert(category)
 
     return (
       <nav>
-        <NavGroup items={category.children} includeDescription />
+        <NavigationGroup items={category.children} includeDescription />
       </nav>
     )
   })()

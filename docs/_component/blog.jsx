@@ -3,13 +3,13 @@
  */
 
 /**
- * @typedef EntryProps
- *   Props for `BlogEntry`.
+ * @typedef EntryProperties
+ *   Properties for `BlogEntry`.
  * @property {Readonly<Item>} item
  *   Item.
  *
- * @typedef GroupProps
- *   Props for `BlogGroup`.
+ * @typedef GroupProperties
+ *   Properties for `BlogGroup`.
  * @property {string | undefined} [className]
  *   Class name.
  * @property {ReadonlyArray<Item>} items
@@ -30,13 +30,13 @@ const runtime = {Fragment, jsx, jsxs}
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 /**
- * @param {Readonly<EntryProps>} props
- *   Props.
+ * @param {Readonly<EntryProperties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-export function BlogEntry(props) {
-  const {item} = props
+export function BlogEntry(properties) {
+  const {item} = properties
   const {data, name} = item
   const {matter = {}, meta = {}} = data
   const title = matter.title || meta.title
@@ -106,13 +106,18 @@ export function BlogEntry(props) {
 }
 
 /**
- * @param {Readonly<GroupProps>} props
- *   Props.
+ * @param {Readonly<GroupProperties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-export function BlogGroup(props) {
-  const {className, items, sort = 'navSortSelf,meta.title', ...rest} = props
+export function BlogGroup(properties) {
+  const {
+    className,
+    items,
+    sort = 'navSortSelf,meta.title',
+    ...rest
+  } = properties
   const sorted = sortItems(items, sort)
 
   return (

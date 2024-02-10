@@ -55,14 +55,14 @@ export function sortItems(items, sortString = 'navSortSelf,meta.title') {
         typeof a === 'string' && typeof b === 'string'
           ? collator(a, b)
           : typeof a === 'number' && typeof b === 'number'
-          ? a - b
-          : (a === null || a === undefined) && (b === null || b === undefined)
-          ? 0
-          : a === null || a === undefined
-          ? 1
-          : b === null || b === undefined
-          ? -1
-          : 0
+            ? a - b
+            : (a === null || a === undefined) && (b === null || b === undefined)
+              ? 0
+              : a === null || a === undefined
+                ? 1
+                : b === null || b === undefined
+                  ? -1
+                  : 0
 
       if (score) return order === 'asc' ? score : -score
     }

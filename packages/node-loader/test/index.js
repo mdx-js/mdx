@@ -25,10 +25,10 @@ test('@mdx-js/node-loader', async function (t) {
     )
 
     /** @type {MDXModule} */
-    let mod
+    let result
 
     try {
-      mod = await import(mdxUrl.href)
+      result = await import(mdxUrl.href)
     } catch (error) {
       const exception = /** @type {NodeJS.ErrnoException} */ (error)
 
@@ -43,7 +43,7 @@ test('@mdx-js/node-loader', async function (t) {
       throw error
     }
 
-    const Content = mod.default
+    const Content = result.default
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),

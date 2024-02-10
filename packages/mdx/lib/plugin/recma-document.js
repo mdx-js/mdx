@@ -133,7 +133,7 @@ export function recmaDocument(options) {
     // (import/exports) as they are.
     for (child of tree.body) {
       // ```tsx
-      // export default props => <>{props.children}</>
+      // export default properties => <>{properties.children}</>
       // ```
       //
       // Treat it as an inline layout declaration.
@@ -303,7 +303,7 @@ export function recmaDocument(options) {
             ),
             ...exportedIdentifiers.map(function (d) {
               /** @type {Property} */
-              const prop = {
+              const property = {
                 type: 'Property',
                 kind: 'init',
                 method: false,
@@ -319,7 +319,7 @@ export function recmaDocument(options) {
                 }
               }
 
-              return prop
+              return property
             })
           ]
         }

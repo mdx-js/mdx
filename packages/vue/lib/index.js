@@ -29,8 +29,8 @@ export const MDXProvider = {
       type: Object
     }
   },
-  setup(props) {
-    provide('$mdxComponents', props.components)
+  setup(properties) {
+    provide('$mdxComponents', properties.components)
   },
   /**
    * @this {ComponentPublicInstance}

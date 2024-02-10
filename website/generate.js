@@ -82,8 +82,8 @@ const allInfo = await pAll(
       )
 
       /** @type {{default: MDXContent, info?: Info, matter: Matter, meta: Meta, navExclude?: boolean | undefined, navSortSelf?: number | undefined}} */
-      const mod = await import(url.href)
-      const {default: Content, info, ...data} = mod
+      const imported = await import(url.href)
+      const {default: Content, info, ...data} = imported
       // Handle `author` differently.
       const {author, ...restInfo} = info || {}
       const authors = Array.isArray(author) ? author : author ? [author] : []
@@ -125,14 +125,14 @@ const allInfo = await pAll(
 )
 
 /** @type {Item} */
-const navTree = {name: '/', data: {}, children: []}
+const navigationTree = {name: '/', data: {}, children: []}
 let index = -1
 
 while (++index < allInfo.length) {
   const {data, name} = allInfo[index]
   const parts = name.split('/').slice(0, -1)
   let partIndex = 0
-  let context = navTree
+  let context = navigationTree
 
   if (data.navExclude) continue
 
@@ -185,7 +185,7 @@ await pAll(
         components: {wrapper: Layout},
         ghUrl,
         name,
-        navTree
+        navigationTree
       })
 
       const result = renderToString(element)
@@ -296,16 +296,18 @@ function rehypeLazyCss(styles) {
 
     let index = -1
     while (++index < styles.length) {
-      const props = styles[index]
+      const properties = styles[index]
       enabled.push(
         h('link', {
-          ...structuredClone(props),
+          ...structuredClone(properties),
           as: 'style',
           onLoad: "this.onload=undefined;this.rel='stylesheet'",
           rel: 'preload'
         })
       )
-      disabled.push(h('link', {...structuredClone(props), rel: 'stylesheet'}))
+      disabled.push(
+        h('link', {...structuredClone(properties), rel: 'stylesheet'})
+      )
     }
 
     head.children.push(...enabled)

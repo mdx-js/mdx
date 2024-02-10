@@ -167,9 +167,9 @@ const browser = await puppeteer.launch(
         args: [...chromium.args, '--disable-gpu'],
         defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath(),
-        headless: chromium.headless
+        headless: true
       }
-    : {headless: 'new'}
+    : {headless: true}
 )
 
 await pAll(

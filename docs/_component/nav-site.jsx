@@ -3,11 +3,11 @@
  */
 
 /**
- * @typedef Props
- *   Props.
+ * @typedef Properties
+ *   Properties.
  * @property {string} name
  *   Name.
- * @property {Readonly<Item>} navTree
+ * @property {Readonly<Item>} navigationTree
  *   Navigation tree.
  */
 
@@ -17,9 +17,9 @@ import {GitHub} from './icon/github.jsx'
 import {Mdx} from './icon/mdx.jsx'
 import {OpenCollective} from './icon/open-collective.jsx'
 import {Twitter} from './icon/twitter.jsx'
-import {NavGroup} from './nav.jsx'
+import {NavigationGroup} from './nav.jsx'
 
-export function NavSiteSkip() {
+export function NavigationSiteSkip() {
   return (
     <a
       href="#start-of-navigation"
@@ -32,13 +32,13 @@ export function NavSiteSkip() {
 }
 
 /**
- * @param {Readonly<Props>} props
- *   Props.
+ * @param {Readonly<Properties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-export function NavSite(props) {
-  const {name, navTree} = props
+export function NavigationSite(properties) {
+  const {name, navigationTree} = properties
 
   return (
     <nav className="navigation" aria-label="Site navigation">
@@ -57,9 +57,9 @@ export function NavSite(props) {
           </h1>
         </a>
       </div>
-      <NavGroup
+      <NavigationGroup
         className="navigation-secondary"
-        items={navTree.children}
+        items={navigationTree.children}
         name={name}
       />
       <ol className="navigation-tertiary">

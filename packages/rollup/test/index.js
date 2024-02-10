@@ -47,8 +47,8 @@ test('@mdx-js/rollup', async function (t) {
     await fs.writeFile(jsUrl, chunk.code)
 
     /** @type {MDXModule} */
-    const mod = await import(jsUrl.href)
-    const Content = mod.default
+    const result = await import(jsUrl.href)
+    const Content = result.default
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),

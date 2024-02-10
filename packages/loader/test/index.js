@@ -47,10 +47,10 @@ test('@mdx-js/loader', async function (t) {
     assert.ok(!result.hasErrors())
 
     // One for ESM loading CJS, one for webpack.
-    const mod = /** @type {{default: {default: MDXContent}}} */ (
+    const moduleResult = /** @type {{default: {default: MDXContent}}} */ (
       await import(jsUrl.href + '#' + Math.random())
     )
-    const Content = mod.default.default
+    const Content = moduleResult.default.default
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),

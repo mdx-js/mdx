@@ -7,7 +7,7 @@ export const info = {
   published: new Date('2021-11-01')
 }
 export const navExcludeGroup = true
-export const navSortItems = 'navSortSelf,meta.published:desc'
+export const navigationSortItems = 'navSortSelf,meta.published:desc'
 export const navSortSelf = 7
 
 # Blog
@@ -21,15 +21,15 @@ The latest news about MDX.
      */
 
     /** @type {Item} */
-    const navTree = props.navTree
-    const category = navTree.children.find(function (item) {
+    const navigationTree = props.navigationTree
+    const category = navigationTree.children.find(function (item) {
       return item.name === '/blog/'
     })
     assert(category)
 
     return (
       <nav>
-        <BlogGroup items={category.children} sort={navSortItems} />
+        <BlogGroup items={category.children} sort={navigationSortItems} />
       </nav>
     )
   })()

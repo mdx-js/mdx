@@ -79,7 +79,7 @@ export function recmaJsxRewrite(options) {
     // Find everything that’s defined in the top-level scope.
     const scopeInfo = analyze(tree)
     /** @type {Array<StackEntry>} */
-    const fnStack = []
+    const functionStack = []
     let importProvider = false
     let createErrorHelper = false
     /** @type {Scope | undefined} */
@@ -97,7 +97,7 @@ export function recmaJsxRewrite(options) {
           node.type === 'FunctionExpression' ||
           node.type === 'ArrowFunctionExpression'
         ) {
-          fnStack.push({
+          functionStack.push({
             components: [],
             idToInvalidComponentName: new Map(),
             node,
@@ -112,14 +112,14 @@ export function recmaJsxRewrite(options) {
             newScope &&
             !inScope(newScope, 'MDXLayout')
           ) {
-            fnStack[0].components.push('MDXLayout')
+            functionStack[0].components.push('MDXLayout')
           }
         }
 
-        const fnScope = fnStack[0]
+        const functionScope = functionStack[0]
         if (
-          !fnScope ||
-          (!isNamedFunction(fnScope.node, '_createMdxContent') &&
+          !functionScope ||
+          (!isNamedFunction(functionScope.node, '_createMdxContent') &&
             !providerImportSource)
         ) {
           return
@@ -150,7 +150,7 @@ export function recmaJsxRewrite(options) {
 
             const isInScope = inScope(currentScope, id)
 
-            if (!Object.hasOwn(fnScope.references, fullId)) {
+            if (!Object.hasOwn(functionScope.references, fullId)) {
               // Cast because we match `node`.
               const parentScope = /** @type {Scope | undefined} */ (
                 currentScope.parent
@@ -163,12 +163,12 @@ export function recmaJsxRewrite(options) {
                   parentScope.node.type === 'FunctionDeclaration' &&
                   isNamedFunction(parentScope.node, '_createMdxContent'))
               ) {
-                fnScope.references[fullId] = {component: true, node}
+                functionScope.references[fullId] = {component: true, node}
               }
             }
 
-            if (!fnScope.objects.includes(id) && !isInScope) {
-              fnScope.objects.push(id)
+            if (!functionScope.objects.includes(id) && !isInScope) {
+              functionScope.objects.push(id)
             }
           }
           // `<xml:thing>`.
@@ -187,13 +187,13 @@ export function recmaJsxRewrite(options) {
               // `if` later.
               if (
                 id !== 'MDXLayout' &&
-                !Object.hasOwn(fnScope.references, id)
+                !Object.hasOwn(functionScope.references, id)
               ) {
-                fnScope.references[id] = {component: true, node}
+                functionScope.references[id] = {component: true, node}
               }
 
-              if (!fnScope.components.includes(id)) {
-                fnScope.components.push(id)
+              if (!functionScope.components.includes(id)) {
+                functionScope.components.push(id)
               }
             }
           } else if (node.data && node.data._mdxExplicitJsx) {
@@ -203,18 +203,21 @@ export function recmaJsxRewrite(options) {
           } else {
             const id = name.name
 
-            if (!fnScope.tags.includes(id)) {
-              fnScope.tags.push(id)
+            if (!functionScope.tags.includes(id)) {
+              functionScope.tags.push(id)
             }
 
             /** @type {Array<number | string>} */
             let jsxIdExpression = ['_components', id]
             if (isIdentifierName(id) === false) {
               let invalidComponentName =
-                fnScope.idToInvalidComponentName.get(id)
+                functionScope.idToInvalidComponentName.get(id)
               if (invalidComponentName === undefined) {
-                invalidComponentName = `_component${fnScope.idToInvalidComponentName.size}`
-                fnScope.idToInvalidComponentName.set(id, invalidComponentName)
+                invalidComponentName = `_component${functionScope.idToInvalidComponentName.size}`
+                functionScope.idToInvalidComponentName.set(
+                  id,
+                  invalidComponentName
+                )
               }
 
               jsxIdExpression = [invalidComponentName]
@@ -250,8 +253,8 @@ export function recmaJsxRewrite(options) {
           node.type === 'FunctionExpression' ||
           node.type === 'ArrowFunctionExpression'
         ) {
-          const fn = node
-          const scope = fnStack[fnStack.length - 1]
+          const scopeNode = node
+          const scope = functionStack[functionStack.length - 1]
           /** @type {string} */
           let name
 
@@ -473,17 +476,17 @@ export function recmaJsxRewrite(options) {
 
           if (statements.length > 0) {
             // Arrow functions with an implied return:
-            if (fn.body.type !== 'BlockStatement') {
-              fn.body = {
+            if (scopeNode.body.type !== 'BlockStatement') {
+              scopeNode.body = {
                 type: 'BlockStatement',
-                body: [{type: 'ReturnStatement', argument: fn.body}]
+                body: [{type: 'ReturnStatement', argument: scopeNode.body}]
               }
             }
 
-            fn.body.body.unshift(...statements)
+            scopeNode.body.body.unshift(...statements)
           }
 
-          fnStack.pop()
+          functionStack.pop()
         }
       }
     })

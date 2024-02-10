@@ -60,8 +60,8 @@ export function specifiersToDeclarations(specifiers, init) {
           specifier.type === 'ImportSpecifier'
             ? specifier.imported
             : specifier.type === 'ExportSpecifier'
-            ? specifier.exported
-            : {type: 'Identifier', name: 'default'}
+              ? specifier.exported
+              : {type: 'Identifier', name: 'default'}
         let value = specifier.local
 
         // Switch them around if we’re exporting.

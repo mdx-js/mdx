@@ -18,7 +18,7 @@ import React from 'react'
 const runtime = runtime_
 /** @type {{Fragment: Fragment, jsxDEV: JsxDev}} */
 // @ts-expect-error: the automatic dev react runtime is untyped.
-const devRuntime = devRuntime_
+const developmentRuntime = devRuntime_
 
 test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test('should throw on missing `Fragment`', async function () {
@@ -62,37 +62,43 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   )
 
   await t.test('should evaluate', async function () {
-    const mod = await evaluate('# hi!', runtime)
+    const result = await evaluate('# hi!', runtime)
 
     assert.equal(
-      renderToStaticMarkup(React.createElement(mod.default)),
+      renderToStaticMarkup(React.createElement(result.default)),
       '<h1>hi!</h1>'
     )
   })
 
   await t.test('should evaluate (sync)', async function () {
-    const mod = evaluateSync('# hi!', runtime)
+    const result = evaluateSync('# hi!', runtime)
 
     assert.equal(
-      renderToStaticMarkup(React.createElement(mod.default)),
+      renderToStaticMarkup(React.createElement(result.default)),
       '<h1>hi!</h1>'
     )
   })
 
   await t.test('should evaluate (dev)', async function () {
-    const mod = await evaluate('# hi dev!', {development: true, ...devRuntime})
+    const result = await evaluate('# hi dev!', {
+      development: true,
+      ...developmentRuntime
+    })
 
     assert.equal(
-      renderToStaticMarkup(React.createElement(mod.default)),
+      renderToStaticMarkup(React.createElement(result.default)),
       '<h1>hi dev!</h1>'
     )
   })
 
   await t.test('should evaluate (async, dev)', async function () {
-    const mod = await evaluate('# hi dev!', {development: true, ...devRuntime})
+    const result = await evaluate('# hi dev!', {
+      development: true,
+      ...developmentRuntime
+    })
 
     assert.equal(
-      renderToStaticMarkup(React.createElement(mod.default)),
+      renderToStaticMarkup(React.createElement(result.default)),
       '<h1>hi dev!</h1>'
     )
   })
@@ -148,13 +154,13 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test(
     'should support an `import` of a relative url w/ `baseUrl`',
     async function () {
-      const mod = await evaluate(
+      const result = await evaluate(
         'import {number} from "./context/data.js"\n\n{number}',
         {baseUrl: import.meta.url, ...runtime}
       )
 
       assert.equal(
-        renderToStaticMarkup(React.createElement(mod.default)),
+        renderToStaticMarkup(React.createElement(result.default)),
         '3.14'
       )
     }
@@ -163,7 +169,7 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test(
     'should support an `import` of a full url w/ `baseUrl`',
     async function () {
-      const mod = await evaluate(
+      const result = await evaluate(
         'import {number} from "' +
           new URL('context/data.js', import.meta.url) +
           '"\n\n{number}',
@@ -171,7 +177,7 @@ test('@mdx-js/mdx: evaluate', async function (t) {
       )
 
       assert.equal(
-        renderToStaticMarkup(React.createElement(mod.default)),
+        renderToStaticMarkup(React.createElement(result.default)),
         '3.14'
       )
     }
@@ -180,35 +186,41 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test(
     'should support an `import` w/o specifiers w/o `baseUrl` (expecting it at runtime)',
     async function () {
-      const doc = String(
+      const document = String(
         await compile('import "a"', {outputFormat: 'function-body'})
       )
-      assert.match(doc, /const _importMetaUrl = arguments\[0]\.baseUrl/)
-      assert.match(doc, /await import\(_resolveDynamicMdxSpecifier\("a"\)\);/)
+      assert.match(document, /const _importMetaUrl = arguments\[0]\.baseUrl/)
+      assert.match(
+        document,
+        /await import\(_resolveDynamicMdxSpecifier\("a"\)\);/
+      )
     }
   )
 
   await t.test(
     'should support an `import` w/ 0 specifiers w/o `baseUrl` (expecting it at runtime)',
     async function () {
-      const doc = String(
+      const document = String(
         await compile('import {} from "a"', {outputFormat: 'function-body'})
       )
-      assert.match(doc, /const _importMetaUrl = arguments\[0]\.baseUrl/)
-      assert.match(doc, /await import\(_resolveDynamicMdxSpecifier\("a"\)\);/)
+      assert.match(document, /const _importMetaUrl = arguments\[0]\.baseUrl/)
+      assert.match(
+        document,
+        /await import\(_resolveDynamicMdxSpecifier\("a"\)\);/
+      )
     }
   )
 
   await t.test(
     'should support a namespace import w/ `baseUrl`',
     async function () {
-      const mod = await evaluate(
+      const result = await evaluate(
         'import * as x from "./context/components.js"\n\n<x.Pill>Hi!</x.Pill>',
         {baseUrl: import.meta.url, ...runtime}
       )
 
       assert.equal(
-        renderToStaticMarkup(React.createElement(mod.default)),
+        renderToStaticMarkup(React.createElement(result.default)),
         '<span style="color:red">Hi!</span>'
       )
     }
@@ -217,72 +229,72 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test(
     'should support a namespace import and a bare specifier w/ `baseUrl`',
     async function () {
-      const mod = await evaluate(
+      const result = await evaluate(
         'import Div, * as x from "./context/components.js"\n\n<x.Pill>a</x.Pill> and <Div>b</Div>',
         {baseUrl: import.meta.url, ...runtime}
       )
 
       assert.equal(
-        renderToStaticMarkup(React.createElement(mod.default)),
+        renderToStaticMarkup(React.createElement(result.default)),
         '<p><span style="color:red">a</span> and <div style="color:red">b</div></p>'
       )
     }
   )
 
   await t.test('should support an `export`', async function () {
-    const mod = await evaluate('export const a = 1\n\n{a}', runtime)
+    const result = await evaluate('export const a = 1\n\n{a}', runtime)
 
-    assert.equal(renderToStaticMarkup(React.createElement(mod.default)), '1')
+    assert.equal(renderToStaticMarkup(React.createElement(result.default)), '1')
 
-    assert.equal(mod.a, 1)
+    assert.equal(result.a, 1)
   })
 
   await t.test('should support an `export function`', async function () {
-    const mod = await evaluate(
+    const result = await evaluate(
       'export function a() { return 1 }\n\n{a()}',
       runtime
     )
 
-    assert.equal(renderToStaticMarkup(React.createElement(mod.default)), '1')
+    assert.equal(renderToStaticMarkup(React.createElement(result.default)), '1')
 
-    assert.ok(typeof mod.a === 'function')
+    assert.ok(typeof result.a === 'function')
 
-    assert.equal(mod.a(), 1)
+    assert.equal(result.a(), 1)
   })
 
   await t.test('should support an `export class`', async function () {
-    const mod = await evaluate(
+    const result = await evaluate(
       'export class A { constructor() { this.b = 1 } }\n\n{new A().b}',
       runtime
     )
 
-    assert.equal(renderToStaticMarkup(React.createElement(mod.default)), '1')
+    assert.equal(renderToStaticMarkup(React.createElement(result.default)), '1')
 
-    const A = /** @type {new () => {b: number}} */ (mod.A)
+    const A = /** @type {new () => {b: number}} */ (result.A)
     const a = new A()
     assert.equal(a.b, 1)
   })
 
   await t.test('should support an `export as`', async function () {
-    const mod = await evaluate(
+    const result = await evaluate(
       'export const a = 1\nexport {a as b}\n\n{a}',
       runtime
     )
 
-    assert.equal(renderToStaticMarkup(React.createElement(mod.default)), '1')
+    assert.equal(renderToStaticMarkup(React.createElement(result.default)), '1')
 
-    assert.equal(mod.a, 1, 'should support an `export as` (2)')
-    assert.equal(mod.b, 1, 'should support an `export as` (3)')
+    assert.equal(result.a, 1, 'should support an `export as` (2)')
+    assert.equal(result.b, 1, 'should support an `export as` (3)')
   })
 
   await t.test('should support an `export default`', async function () {
-    const mod = await evaluate(
-      'export default function Layout({components, ...props}) { return <section {...props} /> }\n\na',
+    const result = await evaluate(
+      'export default function Layout({components, ...properties}) { return <section {...properties} /> }\n\na',
       runtime
     )
 
     assert.equal(
-      renderToStaticMarkup(React.createElement(mod.default)),
+      renderToStaticMarkup(React.createElement(result.default)),
       '<section><p>a</p></section>'
     )
   })
@@ -290,58 +302,58 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test(
     'should support an `export from` w/ `baseUrl`',
     async function () {
-      const mod = await evaluate('export {number} from "./context/data.js"', {
-        baseUrl: import.meta.url,
-        ...runtime
-      })
+      const result = await evaluate(
+        'export {number} from "./context/data.js"',
+        {baseUrl: import.meta.url, ...runtime}
+      )
 
-      assert.equal(mod.number, 3.14)
+      assert.equal(result.number, 3.14)
     }
   )
 
   await t.test('should support an `export` w/ `baseUrl`', async function () {
-    const mod = await evaluate(
+    const result = await evaluate(
       'import {number} from "./context/data.js"\nexport {number}',
       {baseUrl: import.meta.url, ...runtime}
     )
 
-    assert.equal(mod.number, 3.14)
+    assert.equal(result.number, 3.14)
   })
 
   await t.test(
     'should support an `export as from` w/ `baseUrl`',
     async function () {
-      const mod = await evaluate(
+      const result = await evaluate(
         'export {number as data} from "./context/data.js"',
         {baseUrl: import.meta.url, ...runtime}
       )
 
-      assert.equal(mod.data, 3.14)
+      assert.equal(result.data, 3.14)
     }
   )
 
   await t.test(
     'should support an `export default as from` w/ `baseUrl`',
     async function () {
-      const mod = await evaluate(
+      const result = await evaluate(
         'export {default as data} from "./context/data.js"',
         {baseUrl: import.meta.url, ...runtime}
       )
 
-      assert.equal(mod.data, 6.28)
+      assert.equal(result.data, 6.28)
     }
   )
 
   await t.test(
     'should support an `export all from` w/ `baseUrl`',
     async function () {
-      const mod = await evaluate('export * from "./context/data.js"', {
+      const result = await evaluate('export * from "./context/data.js"', {
         baseUrl: import.meta.url,
         ...runtime
       })
 
       assert.deepEqual(
-        {...mod, default: undefined},
+        {...result, default: undefined},
         {array: [1, 2], default: undefined, number: 3.14, object: {a: 1, b: 2}}
       )
     }
@@ -350,14 +362,14 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test(
     'should support an `export * from`, but prefer explicit exports, w/ `baseUrl`',
     async function () {
-      const mod = await evaluate(
+      const result = await evaluate(
         'export {default as number} from "./context/data.js"\nexport * from "./context/data.js"',
         {baseUrl: import.meta.url, ...runtime}
       )
 
       // I’m not sure if this makes sense, but it is how Node works.
       assert.deepEqual(
-        {...mod, default: undefined},
+        {...result, default: undefined},
         {array: [1, 2], default: undefined, number: 6.28, object: {a: 1, b: 2}}
       )
     }
@@ -366,33 +378,33 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test(
     'should support rewriting `import.meta.url` w/ `baseUrl`',
     async function () {
-      const mod = await evaluate(
+      const result = await evaluate(
         'export const x = new URL("example.png", import.meta.url).href',
         {baseUrl: 'https://example.com', ...runtime}
       )
 
-      assert.equal(mod.x, 'https://example.com/example.png')
+      assert.equal(result.x, 'https://example.com/example.png')
     }
   )
 
   await t.test(
     'should support rewriting `import.meta.url` w/ `baseUrl` as an URL',
     async function () {
-      const mod = await evaluate(
+      const result = await evaluate(
         'export const x = new URL("example.png", import.meta.url).href',
         {baseUrl: new URL('https://example.com'), ...runtime}
       )
 
-      assert.equal(mod.x, 'https://example.com/example.png')
+      assert.equal(result.x, 'https://example.com/example.png')
     }
   )
 
   await t.test('should support a given components', async function () {
-    const mod = await evaluate('<X/>', runtime)
+    const result = await evaluate('<X/>', runtime)
 
     assert.equal(
       renderToStaticMarkup(
-        React.createElement(mod.default, {
+        React.createElement(result.default, {
           components: {
             X() {
               return React.createElement('span', {}, '!')
@@ -407,7 +419,7 @@ test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test(
     'should support a provider w/ `useMDXComponents`',
     async function () {
-      const mod = await evaluate('<X/>', {...runtime, ...provider})
+      const result = await evaluate('<X/>', {...runtime, ...provider})
 
       assert.equal(
         renderToStaticMarkup(
@@ -420,7 +432,7 @@ test('@mdx-js/mdx: evaluate', async function (t) {
                 }
               }
             },
-            React.createElement(mod.default)
+            React.createElement(result.default)
           )
         ),
         '<span>!</span>'

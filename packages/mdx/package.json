@@ -75,6 +75,14 @@
     "overrides": [
       {
         "files": [
+          "test/**/*.js"
+        ],
+        "rules": {
+          "no-restricted-globals": "off"
+        }
+      },
+      {
+        "files": [
           "**/*.ts"
         ],
         "rules": {
@@ -87,6 +95,7 @@
     "prettier": true,
     "rules": {
       "complexity": "off",
+      "logical-assignment-operators": "off",
       "max-depth": "off",
       "n/file-extension-in-import": "off",
       "unicorn/prefer-at": "off",

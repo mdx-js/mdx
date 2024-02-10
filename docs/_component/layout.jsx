@@ -4,15 +4,15 @@
  */
 
 /**
- * @typedef Props
- *   Props.
+ * @typedef Properties
+ *   Properties.
  * @property {string} name
  *   Name.
  * @property {Readonly<URL>} ghUrl
  *   GitHub URL.
  * @property {Readonly<DataMeta> | undefined} [meta]
  *   Meta.
- * @property {Readonly<Item>} navTree
+ * @property {Readonly<Item>} navigationTree
  *   Navigation tree.
  * @property {JSX.Element} children
  *   Children.
@@ -20,28 +20,32 @@
 
 import React from 'react'
 import {FootSite} from './foot-site.jsx'
-import {NavSite, NavSiteSkip} from './nav-site.jsx'
+import {NavigationSite, NavigationSiteSkip} from './nav-site.jsx'
 import {sortItems} from './sort.js'
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 /**
- * @param {Readonly<Props>} props
- *   Props.
+ * @param {Readonly<Properties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-export function Layout(props) {
-  const {ghUrl, name, navTree} = props
-  const [self, parent] = findSelfAndParent(navTree) || []
-  const navSortItems = parent ? parent.data.navSortItems : undefined
+export function Layout(properties) {
+  const {ghUrl, name, navigationTree} = properties
+  const [self, parent] = findSelfAndParent(navigationTree) || []
+  const navigationSortItems = parent
+    ? parent.data.navigationSortItems
+    : undefined
   const siblings = parent
     ? sortItems(
         parent.children,
-        typeof navSortItems === 'string' ? navSortItems : undefined
+        typeof navigationSortItems === 'string'
+          ? navigationSortItems
+          : undefined
       )
     : []
-  const meta = (self ? self.data.meta : props.meta) || {}
+  const meta = (self ? self.data.meta : properties.meta) || {}
   const index = self ? siblings.indexOf(self) : -1
   const previous = index === -1 ? undefined : siblings[index - 1]
   const next = index === -1 ? undefined : siblings[index + 1]
@@ -50,10 +54,10 @@ export function Layout(props) {
     self
       ? accumulateReadingTime(self)
       : meta.readingTime
-      ? Array.isArray(meta.readingTime)
-        ? meta.readingTime
-        : [meta.readingTime, meta.readingTime]
-      : []
+        ? Array.isArray(meta.readingTime)
+          ? meta.readingTime
+          : [meta.readingTime, meta.readingTime]
+        : []
   ).map(function (d) {
     return d > 15 ? Math.round(d / 5) * 5 : Math.ceil(d)
   })
@@ -67,7 +71,7 @@ export function Layout(props) {
   }
 
   const up =
-    parent && self && parent !== navTree ? (
+    parent && self && parent !== navigationTree ? (
       <div>
         <a href={parent.name}>{entryToTitle(parent)}</a>
         {' / '}
@@ -140,8 +144,8 @@ export function Layout(props) {
     const href = d.github
       ? 'https://github.com/' + d.github
       : d.twitter
-      ? 'https://twitter.com/' + d.twitter
-      : d.url || undefined
+        ? 'https://twitter.com/' + d.twitter
+        : d.url || undefined
     return (
       <span key={d.name}>
         {i ? ', ' : ''}
@@ -187,7 +191,7 @@ export function Layout(props) {
 
   return (
     <div className="page doc">
-      <NavSiteSkip />
+      <NavigationSiteSkip />
       <main>
         <article>
           {header ? (
@@ -195,7 +199,7 @@ export function Layout(props) {
               <div className="block head-article">{header}</div>
             </header>
           ) : undefined}
-          <div className="content body">{props.children}</div>
+          <div className="content body">{properties.children}</div>
           {footer || tail ? (
             <footer className="content">
               <div className="block foot-article">
@@ -207,7 +211,7 @@ export function Layout(props) {
         </article>
         <FootSite />
       </main>
-      <NavSite name={name} navTree={navTree} />
+      <NavigationSite name={name} navigationTree={navigationTree} />
     </div>
   )
 

@@ -85,7 +85,7 @@ export function esbuild(options) {
      *   Result.
      */
     async function onload(data) {
-      const doc = String(
+      const document = String(
         data.pluginData &&
           data.pluginData.contents !== null &&
           data.pluginData.contents !== undefined
@@ -94,8 +94,8 @@ export function esbuild(options) {
       )
 
       /** @type {State} */
-      const state = {doc, name, path: data.path}
-      let file = new VFile({path: data.path, value: doc})
+      const state = {doc: document, name, path: data.path}
+      let file = new VFile({path: data.path, value: document})
       /** @type {Value | undefined} */
       let value
       /** @type {Array<VFileMessage>} */

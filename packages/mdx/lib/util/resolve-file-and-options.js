@@ -30,8 +30,8 @@ export function resolveFileAndOptions(vfileCompatible, options) {
         format === 'md' || format === 'mdx'
           ? format
           : file.extname && (rest.mdExtensions || md).includes(file.extname)
-          ? 'md'
-          : 'mdx',
+            ? 'md'
+            : 'mdx',
       ...rest
     }
   }

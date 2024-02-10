@@ -63,7 +63,7 @@
     "preact": "^10.0.0",
     "preact-render-to-string": "^6.0.0",
     "prettier": "^3.0.0",
-    "puppeteer": "^21.0.0",
+    "puppeteer": "^22.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-error-boundary": "^4.0.0",
@@ -110,7 +110,7 @@
     "xast-util-feed": "^2.0.0",
     "xast-util-sitemap": "^2.0.0",
     "xast-util-to-xml": "^4.0.0",
-    "xo": "^0.56.0"
+    "xo": "^0.57.0"
   },
   "scripts": {
     "build": "tsc --build --clean && tsc --build && type-coverage",
@@ -220,6 +220,7 @@
     "prettier": true,
     "rules": {
       "complexity": "off",
+      "logical-assignment-operators": "off",
       "n/file-extension-in-import": "off",
       "react/jsx-no-bind": "off",
       "react/prop-types": "off"

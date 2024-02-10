@@ -52,6 +52,7 @@
   "xo": {
     "prettier": true,
     "rules": {
+      "logical-assignment-operators": "off",
       "n/file-extension-in-import": "off"
     }
   }

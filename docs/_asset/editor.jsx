@@ -12,14 +12,14 @@
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
  * @typedef {import('mdast-util-mdx-jsx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
  * @typedef {import('mdx/types.js').MDXModule} MDXModule
- * @typedef {import('react-error-boundary').FallbackProps} FallbackProps
+ * @typedef {import('react-error-boundary').FallbackProps} FallbackProperties
  * @typedef {import('unified').PluggableList} PluggableList
  * @typedef {import('unist').Node} UnistNode
  */
 
 /**
- * @typedef DisplayProps
- *   Props.
+ * @typedef DisplayProperties
+ *   Properties.
  * @property {Error} error
  *   Error.
  *
@@ -204,7 +204,7 @@ function Playground() {
 
         if (show === 'result') {
           /** @type {MDXModule} */
-          const mod = await run(String(file), {
+          const result = await run(String(file), {
             ...runtime,
             baseUrl: window.location.href
           })
@@ -214,7 +214,7 @@ function Playground() {
               FallbackComponent={ErrorFallback}
               resetKeys={[value]}
             >
-              <div className="playground-result">{mod.default({})}</div>
+              <div className="playground-result">{result.default({})}</div>
             </ErrorBoundary>
           )
         }
@@ -567,19 +567,19 @@ function Playground() {
 
 /**
  *
- * @param {Readonly<FallbackProps>} props
- *   Props.
+ * @param {Readonly<FallbackProperties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-function ErrorFallback(props) {
+function ErrorFallback(properties) {
   // type-coverage:ignore-next-line
-  const error = /** @type {Error} */ (props.error)
+  const error = /** @type {Error} */ (properties.error)
   return (
     <div role="alert">
       <p>Something went wrong:</p>
       <DisplayError error={error} />
-      <button type="button" onClick={props.resetErrorBoundary}>
+      <button type="button" onClick={properties.resetErrorBoundary}>
         Try again
       </button>
     </div>
@@ -587,19 +587,19 @@ function ErrorFallback(props) {
 }
 
 /**
- * @param {DisplayProps} props
- *   Props.
+ * @param {DisplayProperties} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-function DisplayError(props) {
+function DisplayError(properties) {
   return (
     <pre>
       <code>
         {String(
-          props.error.stack
-            ? props.error.message + '\n' + props.error.stack
-            : props.error
+          properties.error.stack
+            ? properties.error.message + '\n' + properties.error.stack
+            : properties.error
         )}
       </code>
     </pre>
@@ -638,8 +638,8 @@ function cleanUnistNode(node) {
     node.attributes &&
     Array.isArray(node.attributes)
   ) {
-    for (const attr of node.attributes) {
-      cleanUnistNode(attr)
+    for (const attribute of node.attributes) {
+      cleanUnistNode(attribute)
     }
   }
 

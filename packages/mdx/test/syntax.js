@@ -700,9 +700,11 @@ test('@mdx-js/mdx: syntax: MDX (ESM)', async function (t) {
   })
 
   await t.test('should support exporting w/ ESM', async function () {
-    const mod = await runWhole(await compile('export const number = Math.PI'))
+    const result = await runWhole(
+      await compile('export const number = Math.PI')
+    )
 
-    assert.equal(mod.number, Math.PI)
+    assert.equal(result.number, Math.PI)
   })
 
   await t.test(
@@ -713,53 +715,53 @@ test('@mdx-js/mdx: syntax: MDX (ESM)', async function (t) {
   )
 
   await t.test('should support exporting an object pattern', async function () {
-    const mod = await runWhole(
+    const result = await runWhole(
       await compile('import {object} from "./data.js"\nexport var {a} = object')
     )
 
-    assert.equal(mod.a, 1)
+    assert.equal(result.a, 1)
   })
 
   await t.test(
     'should support exporting a rest element in an object pattern',
     async function () {
-      const mod = await runWhole(
+      const result = await runWhole(
         await compile(
           'import {object} from "./data.js"\nexport var {a, ...rest} = object'
         )
       )
 
-      assert.deepEqual(mod.rest, {b: 2})
+      assert.deepEqual(result.rest, {b: 2})
     }
   )
 
   await t.test(
     'should support exporting an assignment pattern in an object pattern',
     async function () {
-      const mod = await runWhole(
+      const result = await runWhole(
         await compile(
           'import {object} from "./data.js"\nexport var {c = 3} = object'
         )
       )
 
-      assert.equal(mod.c, 3)
+      assert.equal(result.c, 3)
     }
   )
 
   await t.test('should support exporting an array pattern', async function () {
-    const mod = await runWhole(
+    const result = await runWhole(
       await compile('import {array} from "./data.js"\nexport var [a] = array')
     )
 
-    assert.equal(mod.a, 1)
+    assert.equal(result.a, 1)
   })
 
   await t.test('should support `export as` w/ ESM', async function () {
-    const mod = await runWhole(
+    const result = await runWhole(
       await compile('export const number = Math.PI\nexport {number as pi}')
     )
 
-    assert.equal(mod.pi, Math.PI)
+    assert.equal(result.pi, Math.PI)
   })
 
   await t.test(

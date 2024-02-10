@@ -8,8 +8,8 @@
  */
 
 /**
- * @typedef ItemProps
- *   Props for `NavItem`.
+ * @typedef ItemProperties
+ *   Properties for `NavigationItem`.
  * @property {boolean | undefined} [includeDescription=false]
  *   Whether to include the description (default: `false`).
  * @property {boolean | undefined} [includePublished=false]
@@ -19,9 +19,9 @@
  * @property {string | undefined} [name]
  *   Name.
  *
- * @typedef GroupOnlyProps
- *   Props for `NavGroup`;
- *   Other fields are passed to `NavItem`.
+ * @typedef GroupOnlyProperties
+ *   Properties for `NavigationGroup`;
+ *   Other fields are passed to `NavigationItem`.
  * @property {string | undefined} [className]
  *   Class name.
  * @property {ReadonlyArray<Item>} items
@@ -31,8 +31,8 @@
  * @property {string | undefined} [name]
  *   Name.
  *
- * @typedef {Omit<ItemProps, 'item'> & GroupOnlyProps} GroupProps
- *   Props for `NavGroup`.
+ * @typedef {Omit<ItemProperties, 'item'> & GroupOnlyProperties} GroupProperties
+ *   Properties for `NavigationGroup`.
  */
 
 import {apStyleTitleCase} from 'ap-style-title-case'
@@ -47,33 +47,43 @@ const runtime = {Fragment, jsx, jsxs}
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 /**
- * @param {Readonly<GroupProps>} props
- *   Props.
+ * @param {Readonly<GroupProperties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-export function NavGroup(props) {
-  const {className, items, sort = 'navSortSelf,meta.title', ...rest} = props
+export function NavigationGroup(properties) {
+  const {
+    className,
+    items,
+    sort = 'navSortSelf,meta.title',
+    ...rest
+  } = properties
 
   return (
     <ol {...{className}}>
       {sortItems(items, sort).map(function (d) {
-        return <NavItem key={d.name} {...rest} item={d} />
+        return <NavigationItem key={d.name} {...rest} item={d} />
       })}
     </ol>
   )
 }
 
 /**
- * @param {Readonly<ItemProps>} props
- *   Props.
+ * @param {Readonly<ItemProperties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-export function NavItem(props) {
-  const {includeDescription, includePublished, item, name: activeName} = props
+export function NavigationItem(properties) {
+  const {
+    includeDescription,
+    includePublished,
+    item,
+    name: activeName
+  } = properties
   const {children, data = {}, name} = item
-  const {matter = {}, meta = {}, navExcludeGroup, navSortItems} = data
+  const {matter = {}, meta = {}, navExcludeGroup, navigationSortItems} = data
   const title = matter.title || meta.title
   const defaultTitle = apStyleTitleCase(
     name.replace(/\/$/, '').split('/').pop()
@@ -102,13 +112,11 @@ export function NavItem(props) {
     } else {
       description = matter.description || meta.description || undefined
 
-      if (description) {
-        description = (
-          <div className="nav-description">
-            <p>{description}</p>
-          </div>
-        )
-      }
+      description &&= (
+        <div className="nav-description">
+          <p>{description}</p>
+        </div>
+      )
     }
   }
 
@@ -132,9 +140,13 @@ export function NavItem(props) {
       {published ? ' — ' + published : undefined}
       {description || undefined}
       {!navExcludeGroup && children.length > 0 ? (
-        <NavGroup
+        <NavigationGroup
           items={children}
-          sort={typeof navSortItems === 'string' ? navSortItems : undefined}
+          sort={
+            typeof navigationSortItems === 'string'
+              ? navigationSortItems
+              : undefined
+          }
           name={activeName}
         />
       ) : undefined}

@@ -7,13 +7,13 @@
 /**
  * @typedef {Exclude<DataMeta, undefined>} Meta
  *
- * @typedef Props
- *   Props.
+ * @typedef Properties
+ *   Properties.
  * @property {string} name
  *   Name.
  * @property {ReactNode} children
  *   Children.
- * @property {Item} navTree
+ * @property {Item} navigationTree
  *   Navigation tree.
  * @property {Meta} meta
  *   Meta.
@@ -21,20 +21,20 @@
 
 import React from 'react'
 import {FootSite} from './foot-site.jsx'
-import {NavSite, NavSiteSkip} from './nav-site.jsx'
+import {NavigationSite, NavigationSiteSkip} from './nav-site.jsx'
 
 /**
- * @param {Readonly<Props>} props
- *   Props.
+ * @param {Readonly<Properties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-export function Home(props) {
-  const {children, meta, name, navTree} = props
+export function Home(properties) {
+  const {children, meta, name, navigationTree} = properties
 
   return (
     <div className="page home">
-      <NavSiteSkip />
+      <NavigationSiteSkip />
       <main>
         {meta.schemaOrg ? (
           <script type="application/ld+json">
@@ -46,7 +46,7 @@ export function Home(props) {
         </article>
         <FootSite />
       </main>
-      <NavSite name={name} navTree={navTree} />
+      <NavigationSite name={name} navigationTree={navigationTree} />
     </div>
   )
 }

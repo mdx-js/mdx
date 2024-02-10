@@ -13,8 +13,8 @@ import fs from 'node:fs/promises'
  *   MDX content.
  */
 export async function run(input) {
-  const mod = await runWhole(input)
-  return mod.default
+  const result = await runWhole(input)
+  return result.default
 }
 
 /**
@@ -27,9 +27,9 @@ export async function run(input) {
 export async function runWhole(input) {
   const fileName = 'fixture-' + Math.random() + '.js'
   const fileUrl = new URL(fileName, import.meta.url)
-  const doc = String(input)
+  const document = String(input)
 
-  await fs.writeFile(fileUrl, doc)
+  await fs.writeFile(fileUrl, document)
 
   try {
     /** @type {MDXModule} */

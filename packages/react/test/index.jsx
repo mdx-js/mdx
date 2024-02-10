@@ -35,8 +35,8 @@ test('@mdx-js/react', async function (t) {
         renderToString(
           <MDXProvider
             components={{
-              h1(props) {
-                return <h1 style={{color: 'tomato'}} {...props} />
+              h1(properties) {
+                return <h1 style={{color: 'tomato'}} {...properties} />
               }
             }}
           >
@@ -59,10 +59,10 @@ test('@mdx-js/react', async function (t) {
         <MDXProvider
           components={{
             /**
-             * @param {JSX.IntrinsicElements['div']} props
+             * @param {JSX.IntrinsicElements['div']} properties
              */
-            wrapper(props) {
-              return <div id="layout" {...props} />
+            wrapper(properties) {
+              return <div id="layout" {...properties} />
             }
           }}
         >
@@ -85,18 +85,18 @@ test('@mdx-js/react', async function (t) {
         renderToString(
           <MDXProvider
             components={{
-              h1(props) {
-                return <h1 style={{color: 'tomato'}} {...props} />
+              h1(properties) {
+                return <h1 style={{color: 'tomato'}} {...properties} />
               },
-              h2(props) {
-                return <h2 style={{color: 'rebeccapurple'}} {...props} />
+              h2(properties) {
+                return <h2 style={{color: 'rebeccapurple'}} {...properties} />
               }
             }}
           >
             <MDXProvider
               components={{
-                h2(props) {
-                  return <h2 style={{color: 'papayawhip'}} {...props} />
+                h2(properties) {
+                  return <h2 style={{color: 'papayawhip'}} {...properties} />
                 }
               }}
             >
@@ -119,19 +119,19 @@ test('@mdx-js/react', async function (t) {
       renderToString(
         <MDXProvider
           components={{
-            h1(props) {
-              return <h1 style={{color: 'tomato'}} {...props} />
+            h1(properties) {
+              return <h1 style={{color: 'tomato'}} {...properties} />
             },
-            h2(props) {
-              return <h2 style={{color: 'rebeccapurple'}} {...props} />
+            h2(properties) {
+              return <h2 style={{color: 'rebeccapurple'}} {...properties} />
             }
           }}
         >
           <MDXProvider
             components={function () {
               return {
-                h2(props) {
-                  return <h2 style={{color: 'papayawhip'}} {...props} />
+                h2(properties) {
+                  return <h2 style={{color: 'papayawhip'}} {...properties} />
                 }
               }
             }}
@@ -156,8 +156,8 @@ test('@mdx-js/react', async function (t) {
         renderToString(
           <MDXProvider
             components={{
-              h1(props) {
-                return <h1 style={{color: 'tomato'}} {...props} />
+              h1(properties) {
+                return <h1 style={{color: 'tomato'}} {...properties} />
               }
             }}
           >
@@ -183,8 +183,8 @@ test('@mdx-js/react', async function (t) {
         renderToString(
           <MDXProvider
             components={{
-              h1(props) {
-                return <h1 style={{color: 'tomato'}} {...props} />
+              h1(properties) {
+                return <h1 style={{color: 'tomato'}} {...properties} />
               }
             }}
           >
@@ -192,8 +192,8 @@ test('@mdx-js/react', async function (t) {
               disableParentContext
               components={function () {
                 return {
-                  h2(props) {
-                    return <h2 style={{color: 'papayawhip'}} {...props} />
+                  h2(properties) {
+                    return <h2 style={{color: 'papayawhip'}} {...properties} />
                   }
                 }
               }}

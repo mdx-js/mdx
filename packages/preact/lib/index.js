@@ -52,28 +52,28 @@ export function useMDXComponents(components) {
 /**
  * Provider for MDX context.
  *
- * @param {Readonly<Props>} props
- *   Props.
+ * @param {Readonly<Props>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  * @satisfies {Component}
  */
-export function MDXProvider(props) {
+export function MDXProvider(properties) {
   /** @type {Readonly<MDXComponents>} */
   let allComponents
 
-  if (props.disableParentContext) {
+  if (properties.disableParentContext) {
     allComponents =
-      typeof props.components === 'function'
-        ? props.components(emptyComponents)
-        : props.components || emptyComponents
+      typeof properties.components === 'function'
+        ? properties.components(emptyComponents)
+        : properties.components || emptyComponents
   } else {
-    allComponents = useMDXComponents(props.components)
+    allComponents = useMDXComponents(properties.components)
   }
 
   return h(
     MDXContext.Provider,
     {children: undefined, value: allComponents},
-    props.children
+    properties.children
   )
 }

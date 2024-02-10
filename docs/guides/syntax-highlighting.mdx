@@ -94,11 +94,11 @@ import Post from './example.mdx' // Assumes an integration is used to compile MD
 
 <Post components={{code}} />
 
-function code({className, ...props}) {
+function code({className, ...properties}) {
   const match = /language-(\w+)/.exec(className || '')
   return match
-    ? <SyntaxHighlighter language={match[1]} PreTag="div" {...props} />
-    : <code className={className} {...props} />
+    ? <SyntaxHighlighter language={match[1]} PreTag="div" {...properties} />
+    : <code className={className} {...properties} />
 }
 ```
 

@@ -533,8 +533,8 @@ for more info.
   import Content from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
   const components = {
-    h1(props) {
-      return React.createElement(Text, {bold: true, ...props})
+    h1(properties) {
+      return React.createElement(Text, {bold: true, ...properties})
     },
     p: Text
   }

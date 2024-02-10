@@ -49,8 +49,8 @@ export function createFormatAwareProcessors(compileOptions) {
       compileOptions_.format === 'md'
         ? mdExtensions
         : compileOptions_.format === 'mdx'
-        ? mdxExtensions
-        : [...mdExtensions, ...mdxExtensions],
+          ? mdxExtensions
+          : [...mdExtensions, ...mdxExtensions],
     process
   }
 

@@ -1,6 +1,6 @@
 /**
- * @typedef Props
- *   Props.
+ * @typedef Properties
+ *   Properties.
  * @property {string} color
  *   Color.
  * @property {number} year
@@ -12,12 +12,12 @@ import React from 'react'
 const data = [6, 5, 2, 4.5, 1.5, 2.5, 2, 2.5, 1.5, 2.5, 3.5, 7]
 
 /**
- * @param {Readonly<Props>} props
- *   Props.
+ * @param {Readonly<Properties>} properties
+ *   Properties.
  * @returns {JSX.Element}
  *   Element.
  */
-export function Chart(props) {
+export function Chart(properties) {
   return (
     <div className="snowfall">
       {data.map(function (d) {
@@ -26,7 +26,7 @@ export function Chart(props) {
             key={d}
             className="snowfall-bar"
             style={{
-              backgroundColor: props.color,
+              backgroundColor: properties.color,
               height: 'calc(' + d + ' * 0.5 * (1em + 1ex))'
             }}
           />

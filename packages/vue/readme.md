@@ -19,7 +19,7 @@ Vue context for MDX.
 * [Install](#install)
 * [Use](#use)
 * [API](#api)
-  * [`MDXProvider(props?)`](#mdxproviderprops)
+  * [`MDXProvider(properties?)`](#mdxproviderproperties)
   * [`useMDXComponents(components?)`](#usemdxcomponentscomponents)
   * [`Props`](#props)
 * [Types](#types)
@@ -107,7 +107,7 @@ This package exports the identifiers [`MDXProvider`][api-mdx-provider] and
 [`useMDXComponents`][api-use-mdx-components].
 There is no default export.
 
-### `MDXProvider(props?)`
+### `MDXProvider(properties?)`
 
 Provider for MDX context (`Component` from `vue`).
 
@@ -222,7 +222,7 @@ abide by its terms.
 
 [mdx-types-components]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L65
 
-[api-mdx-provider]: #mdxproviderprops
+[api-mdx-provider]: #mdxproviderproperties
 
 [api-props]: #props
 

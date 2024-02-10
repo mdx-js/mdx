@@ -247,7 +247,7 @@ function rehypePrettyCodeBlocks() {
       }
 
       /** @type {Record<string, string>} */
-      const metaProps = {}
+      const metaProperties = {}
       const meta = code.data?.meta
 
       if (meta) {
@@ -256,11 +256,11 @@ function rehypePrettyCodeBlocks() {
         re.lastIndex = 0 // Reset regex.
 
         while ((match = re.exec(meta))) {
-          metaProps[match[1]] = match[2] || match[3] || match[4] || ''
+          metaProperties[match[1]] = match[2] || match[3] || match[4] || ''
         }
       }
 
-      if (metaProps.chrome === 'no') {
+      if (metaProperties.chrome === 'no') {
         return
       }
 
@@ -278,10 +278,10 @@ function rehypePrettyCodeBlocks() {
       /** @type {Array<ElementContent>} */
       const header = []
       const language =
-        metaProps.language || (lang ? String(lang).slice(9) : undefined)
+        metaProperties.language || (lang ? String(lang).slice(9) : undefined)
 
       // Not giant.
-      if (textContent.length < 8192 && metaProps.copy !== 'no') {
+      if (textContent.length < 8192 && metaProperties.copy !== 'no') {
         footer.push({
           type: 'element',
           tagName: 'button',
@@ -293,9 +293,9 @@ function rehypePrettyCodeBlocks() {
         })
       }
 
-      if (metaProps.path) {
+      if (metaProperties.path) {
         header.push(
-          h('span.frame-tab-item.frame-tab-item-selected', metaProps.path)
+          h('span.frame-tab-item.frame-tab-item-selected', metaProperties.path)
         )
       } else if (language) {
         if (!Object.hasOwn(languageNames, language)) {

@@ -46,8 +46,8 @@ test('@mdx-js/esbuild', async function (t) {
     })
 
     /** @type {MDXModule} */
-    const mod = await import(jsUrl.href + '#' + Math.random())
-    const Content = mod.default
+    const result = await import(jsUrl.href + '#' + Math.random())
+    const Content = result.default
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),
@@ -84,8 +84,8 @@ test('@mdx-js/esbuild', async function (t) {
     })
 
     /** @type {MDXModule} */
-    const mod = await import(jsUrl.href + '#' + Math.random())
-    const Content = mod.default
+    const result = await import(jsUrl.href + '#' + Math.random())
+    const Content = result.default
 
     assert.equal(renderToStaticMarkup(React.createElement(Content)), '0.1')
 
@@ -110,8 +110,8 @@ test('@mdx-js/esbuild', async function (t) {
     })
 
     /** @type {MDXModule} */
-    const mod = await import(jsUrl.href + '#' + Math.random())
-    const Content = mod.default
+    const result = await import(jsUrl.href + '#' + Math.random())
+    const Content = result.default
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),
@@ -140,8 +140,8 @@ test('@mdx-js/esbuild', async function (t) {
       })
 
       /** @type {MDXModule} */
-      const mod = await import(jsUrl.href + '#' + Math.random())
-      const Content = mod.default
+      const result = await import(jsUrl.href + '#' + Math.random())
+      const Content = result.default
 
       assert.equal(
         renderToStaticMarkup(React.createElement(Content)),
@@ -504,8 +504,8 @@ test('@mdx-js/esbuild', async function (t) {
     })
 
     /** @type {MDXModule} */
-    const mod = await import(jsUrl.href + '#' + Math.random())
-    const Content = mod.default
+    const result = await import(jsUrl.href + '#' + Math.random())
+    const Content = result.default
 
     assert.equal(
       renderToStaticMarkup(React.createElement(Content)),
@@ -531,8 +531,8 @@ test('@mdx-js/esbuild', async function (t) {
       })
 
       /** @type {MDXModule} */
-      const mod = await import(jsUrl.href + '#' + Math.random())
-      const Content = mod.default
+      const result = await import(jsUrl.href + '#' + Math.random())
+      const Content = result.default
 
       assert.equal(renderToStaticMarkup(React.createElement(Content)), '')
 

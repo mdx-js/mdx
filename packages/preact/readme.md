@@ -19,7 +19,7 @@ Preact context for MDX.
 * [Install](#install)
 * [Use](#use)
 * [API](#api)
-  * [`MDXProvider(props?)`](#mdxproviderprops)
+  * [`MDXProvider(properties?)`](#mdxproviderproperties)
   * [`useMDXComponents(components?)`](#usemdxcomponentscomponents)
   * [`MergeComponents`](#mergecomponents)
   * [`Props`](#props)
@@ -75,8 +75,8 @@ import Post from './post.mdx'
 
 /** @type {import('mdx/types.js').MDXComponents} */
 const components = {
-  em(props) {
-    return <i {...props} />
+  em(properties) {
+    return <i {...properties} />
   }
 }
 
@@ -108,13 +108,13 @@ This package exports the identifiers [`MDXProvider`][api-mdx-provider] and
 [`useMDXComponents`][api-use-mdx-components].
 There is no default export.
 
-### `MDXProvider(props?)`
+### `MDXProvider(properties?)`
 
 Provider for MDX context.
 
 ###### Parameters
 
-* `props` ([`Props`][api-props])
+* `properties` ([`Props`][api-props])
   — configuration
 
 ##### Returns
@@ -256,7 +256,7 @@ abide by its terms.
 
 [preact-component-children]: https://github.com/preactjs/preact/blob/main/src/index.d.ts#L53
 
-[api-mdx-provider]: #mdxproviderprops
+[api-mdx-provider]: #mdxproviderproperties
 
 [api-merge-components]: #mergecomponents
 
