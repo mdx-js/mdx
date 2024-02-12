@@ -3,6 +3,7 @@
     "checkJs": true,
     "customConditions": ["development"],
     "declaration": true,
+    "declarationMap": true,
     "emitDeclarationOnly": true,
     "exactOptionalPropertyTypes": true,
     "jsx": "preserve",
