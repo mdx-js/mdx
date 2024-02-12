@@ -653,7 +653,8 @@ Configuration for `createProcessor` (TypeScript type).
 
   ```diff
   -import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
-  +/* @jsxRuntime automatic @jsxImportSource react */
+  +/*@jsxRuntime automatic*/
+  +/*@jsxImportSource react*/
 
   export function Thing() {
   -  return _jsx(_Fragment, {children: 'World'})

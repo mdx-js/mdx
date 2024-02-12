@@ -73,8 +73,6 @@ export function recmaDocument(options) {
     const exportedIdentifiers = []
     /** @type {Array<Directive | ModuleDeclaration | Statement>} */
     const replacement = []
-    /** @type {Array<string>} */
-    const pragmas = []
     let exportAllCount = 0
     /** @type {ExportDefaultDeclaration | ExportSpecifier | undefined} */
     let layout
@@ -83,31 +81,20 @@ export function recmaDocument(options) {
     /** @type {Node} */
     let child
 
-    if (jsxRuntime) {
-      pragmas.push('@jsxRuntime ' + jsxRuntime)
-    }
-
-    if (jsxRuntime === 'automatic' && jsxImportSource) {
-      pragmas.push('@jsxImportSource ' + jsxImportSource)
+    if (jsxRuntime === 'classic' && pragmaFrag) {
+      injectPragma(tree, '@jsxFrag', pragmaFrag)
     }
 
     if (jsxRuntime === 'classic' && pragma) {
-      pragmas.push('@jsx ' + pragma)
+      injectPragma(tree, '@jsx', pragma)
     }
 
-    if (jsxRuntime === 'classic' && pragmaFrag) {
-      pragmas.push('@jsxFrag ' + pragmaFrag)
+    if (jsxRuntime === 'automatic' && jsxImportSource) {
+      injectPragma(tree, '@jsxImportSource', jsxImportSource)
     }
 
-    /* c8 ignore next -- comments can be missing in the types, we always have it. */
-    if (!tree.comments) tree.comments = []
-
-    if (pragmas.length > 0) {
-      tree.comments.unshift({
-        type: 'Block',
-        value: pragmas.join(' '),
-        data: {_mdxIsPragmaComment: true}
-      })
+    if (jsxRuntime) {
+      injectPragma(tree, '@jsxRuntime', jsxRuntime)
     }
 
     if (jsxRuntime === 'classic' && pragmaImportSource) {
@@ -704,6 +691,20 @@ export function recmaDocument(options) {
         : declaration
     ]
   }
+}
+
+/**
+ * @param {Program} tree
+ * @param {string} name
+ * @param {string} value
+ * @returns {undefined}
+ */
+function injectPragma(tree, name, value) {
+  tree.comments?.unshift({
+    type: 'Block',
+    value: name + ' ' + value,
+    data: {_mdxIsPragmaComment: true}
+  })
 }
 
 /**
