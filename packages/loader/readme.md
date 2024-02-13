@@ -7,7 +7,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-webpack / Rspack loader for MDX.
+webpack loader for MDX.
 
 <!-- more -->
 
@@ -34,7 +34,8 @@ This package is a webpack loader to support MDX.
 
 ## When should I use this?
 
-This integration is useful if you’re using webpack or Rspack (or another tool that uses webpack, such as Next.js).
+This integration is useful if you’re using webpack (or another tool that uses
+webpack, such as Next.js or Rspack).
 
 This integration can be combined with the Babel loader to compile modern
 JavaScript features to ones your users support.

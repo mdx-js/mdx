@@ -47,13 +47,9 @@
     "source-map": "^0.7.0"
   },
   "peerDependencies": {
-    "@rspack/core": "0.x || 1.x",
     "webpack": ">=5"
   },
   "peerDependenciesMeta": {
-    "@rspack/core": {
-      "optional": true
-    },
     "webpack": {
       "optional": true
     }
