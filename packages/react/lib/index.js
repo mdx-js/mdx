@@ -1,3 +1,4 @@
+'use client'
 /**
  * @typedef {import('mdx/types.js').MDXComponents} MDXComponents
  * @typedef {import('react').Component<{}, {}, unknown>} Component
