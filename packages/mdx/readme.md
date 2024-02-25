@@ -119,7 +119,7 @@ export default function MDXContent(props = {}) {
   const {wrapper: MDXLayout} = props.components || {}
   return MDXLayout
     ? _jsx(MDXLayout, {...props, children: _jsx(_createMdxContent, {...props})})
-    : _createMdxContent(props)
+    : _jsx(_createMdxContent, {...props})
 }
 ```
 
@@ -678,7 +678,7 @@ Configuration for `createProcessor` (TypeScript type).
   -        children: _jsx(_createMdxContent, props)
   -      })
   +    ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout>
-      : _createMdxContent(props)
+      : _jsx(_createMdxContent, {...props})
   }
   }
   ```
@@ -897,8 +897,8 @@ Configuration for `createProcessor` (TypeScript type).
   +  }
 
     return MDXLayout
-      ? _jsx(MDXLayout, {...props, children: _jsx(_createMdxContent, {})})
-      : _createMdxContent()
+      ? _jsx(MDXLayout, {...props, children: _jsx(_createMdxContent, {...props})})
+      : _jsx(_createMdxContent, {...props})
   ```
 
   </details>
