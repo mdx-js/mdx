@@ -55,7 +55,6 @@ import textMd from '@wooorm/starry-night/text.md'
 import {visit as visitEstree} from 'estree-util-visit'
 import {toJsxRuntime} from 'hast-util-to-jsx-runtime'
 import {useEffect, useState} from 'react'
-// @ts-expect-error: the automatic react runtime is untyped.
 import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
 import ReactDom from 'react-dom/client'
 import {ErrorBoundary} from 'react-error-boundary'
@@ -67,8 +66,6 @@ import remarkMath from 'remark-math'
 import {removePosition} from 'unist-util-remove-position'
 import {visit} from 'unist-util-visit'
 import {VFile} from 'vfile'
-
-const runtime = {Fragment, jsx, jsxs}
 
 const sample = `# Hello, world!
 
@@ -140,7 +137,7 @@ function Playground() {
   const [frontmatter, setFrontmatter] = useState(false)
   const [gfm, setGfm] = useState(false)
   const [formatMarkdown, setFormatMarkdown] = useState(false)
-  const [jsx, setJsx] = useState(false)
+  const [generateJsx, setGenerateJsx] = useState(false)
   const [math, setMath] = useState(false)
   const [outputFormatFunctionBody, setOutputFormatFunctionBody] =
     useState(false)
@@ -193,7 +190,7 @@ function Playground() {
 
         await compile(file, {
           development: show === 'result' ? false : development,
-          jsx: show === 'code' || show === 'esast' ? jsx : false,
+          jsx: show === 'code' || show === 'esast' ? generateJsx : false,
           outputFormat:
             show === 'result' || outputFormatFunctionBody
               ? 'function-body'
@@ -206,7 +203,11 @@ function Playground() {
         if (show === 'result') {
           /** @type {MDXModule} */
           const result = await run(String(file), {
-            ...runtime,
+            Fragment,
+            // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
+            jsx,
+            // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
+            jsxs,
             baseUrl: window.location.href
           })
 
@@ -229,7 +230,8 @@ function Playground() {
                     JSON.stringify(ast, undefined, 2),
                     'source.json'
                   ),
-                  runtime
+                  // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
+                  {Fragment, jsx, jsxs}
                 )}
               </code>
             </pre>
@@ -240,10 +242,13 @@ function Playground() {
         return (
           <pre>
             <code>
-              {toJsxRuntime(
-                starryNight.highlight(String(file), 'source.js'),
-                runtime
-              )}
+              {toJsxRuntime(starryNight.highlight(String(file), 'source.js'), {
+                Fragment,
+                // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
+                jsx,
+                // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
+                jsxs
+              })}
             </code>
           </pre>
         )
@@ -296,7 +301,7 @@ function Playground() {
       directive,
       frontmatter,
       gfm,
-      jsx,
+      generateJsx,
       formatMarkdown,
       math,
       outputFormatFunctionBody,
@@ -332,7 +337,13 @@ function Playground() {
         <div className="playground-area">
           <div className="playground-inner">
             <div className="playground-draw">
-              {toJsxRuntime(starryNight.highlight(value, scope), runtime)}
+              {toJsxRuntime(starryNight.highlight(value, scope), {
+                Fragment,
+                // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
+                jsx,
+                // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
+                jsxs
+              })}
               {/* Trailing whitespace in a `textarea` is shown, but not in a `div`
           with `white-space: pre-wrap`.
           Add a `br` to make the last newline explicit. */}
@@ -525,9 +536,9 @@ function Playground() {
               <input
                 type="radio"
                 name="jsx"
-                checked={jsx}
+                checked={generateJsx}
                 onChange={function () {
-                  setJsx(true)
+                  setGenerateJsx(true)
                 }}
               />{' '}
               keep JSX (<code>jsx: true</code>)
@@ -536,9 +547,9 @@ function Playground() {
               <input
                 type="radio"
                 name="jsx"
-                checked={!jsx}
+                checked={!generateJsx}
                 onChange={function () {
-                  setJsx(false)
+                  setGenerateJsx(false)
                 }}
               />{' '}
               compile JSX away (<code>jsx: false</code>)

@@ -21,11 +21,8 @@
 import {apStyleTitleCase} from 'ap-style-title-case'
 import {toJsxRuntime} from 'hast-util-to-jsx-runtime'
 import React from 'react'
-// @ts-expect-error: the automatic react runtime is untyped.
 import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
 import {sortItems} from './sort.js'
-
-const runtime = {Fragment, jsx, jsxs}
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
@@ -69,7 +66,8 @@ export function BlogEntry(properties) {
       </h3>
       <div>
         {meta.descriptionHast ? (
-          toJsxRuntime(meta.descriptionHast, runtime)
+          // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
+          toJsxRuntime(meta.descriptionHast, {Fragment, jsx, jsxs})
         ) : description ? (
           <p>{description}</p>
         ) : undefined}

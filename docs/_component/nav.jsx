@@ -38,11 +38,8 @@
 import {apStyleTitleCase} from 'ap-style-title-case'
 import {toJsxRuntime} from 'hast-util-to-jsx-runtime'
 import React from 'react'
-// @ts-expect-error: the automatic react runtime is untyped.
 import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
 import {sortItems} from './sort.js'
-
-const runtime = {Fragment, jsx, jsxs}
 
 const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
@@ -107,7 +104,8 @@ export function NavigationItem(properties) {
           properties: {className: ['nav-description']},
           children
         },
-        runtime
+        // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
+        {Fragment, jsx, jsxs}
       )
     } else {
       description = matter.description || meta.description || undefined

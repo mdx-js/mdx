@@ -239,7 +239,6 @@ export function recmaDocument(options) {
       } else if (
         child.type === 'ExpressionStatement' &&
         (child.expression.type === 'JSXElement' ||
-          // @ts-expect-error: `estree-jsx` does not register `JSXFragment` as an expression.
           child.expression.type === 'JSXFragment')
       ) {
         content = true
