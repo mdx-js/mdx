@@ -41,7 +41,7 @@ test('@mdx-js/rollup', async function (t) {
     // Source map.
     assert.equal(
       chunk.map?.mappings,
-      ';;AAAO,SAAA,OAAA,GAAA;;AAA8B,IAAA,QAAA,EAAA,QAAA;;;;;;;;;AAEnC,IAAA,QAAA,EAAA,CAAA,SAAA,EAAAA,GAAA,CAAA,OAAA,EAAA,EAAA,CAAA,CAAA;;;;;;;;;;;;;;;'
+      ';;AAAO,SAAA,OAAA,GAAA;;AAA8B,IAAA,QAAA,EAAA,QAAA;;;;;;;;;AAEnC,IAAA,QAAA,EAAA,CAAA,SAAA,EAAAA,GAAA,CAAA,OAAA,EAAA,EAAA,CAAA,CAAA;;;;;;;;;;;;;;;;;'
     )
 
     await fs.writeFile(jsUrl, chunk.code)
