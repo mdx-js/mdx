@@ -1246,11 +1246,7 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
           '/*@jsxRuntime automatic*/',
           '/*@jsxImportSource react*/',
           'function _createMdxContent(props) {',
-          '  const _components = {',
-          '    "a-b": "a-b",',
-          '    ...props.components',
-          '  }, _component0 = _components["a-b"];',
-          '  return <>{<_component0></_component0>}</>;',
+          '  return <>{<a-b></a-b>}</>;',
           '}',
           'export default function MDXContent(props = {}) {',
           '  const {wrapper: MDXLayout} = props.components || ({});',
@@ -1344,6 +1340,97 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
           '    ...props.components',
           '  };',
           '  return MDXLayout ? <MDXLayout {...props}><_createMdxContent {...props} /></MDXLayout> : _createMdxContent(props);',
+          '}',
+          ''
+        ].join('\n')
+      )
+    }
+  )
+
+  await t.test(
+    'should not inject a provider for JSX in ESM',
+    async function () {
+      assert.equal(
+        String(
+          await compile(
+            'export function A() { return <span /> }\n\nexport class B { render() { return <div /> } }',
+            {providerImportSource: '@mdx-js/react'}
+          )
+        ),
+        [
+          'import {Fragment as _Fragment, jsx as _jsx} from "react/jsx-runtime";',
+          'import {useMDXComponents as _provideComponents} from "@mdx-js/react";',
+          'export function A() {',
+          '  return _jsx("span", {});',
+          '}',
+          'export class B {',
+          '  render() {',
+          '    return _jsx("div", {});',
+          '  }',
+          '}',
+          'function _createMdxContent(props) {',
+          '  return _jsx(_Fragment, {});',
+          '}',
+          'export default function MDXContent(props = {}) {',
+          '  const {wrapper: MDXLayout} = {',
+          '    ..._provideComponents(),',
+          '    ...props.components',
+          '  };',
+          '  return MDXLayout ? _jsx(MDXLayout, {',
+          '    ...props,',
+          '    children: _jsx(_createMdxContent, {',
+          '      ...props',
+          '    })',
+          '  }) : _createMdxContent(props);',
+          '}',
+          ''
+        ].join('\n')
+      )
+    }
+  )
+
+  await t.test(
+    'should not inject a provider for JSX in expressions',
+    async function () {
+      console.log(
+        String(
+          await compile('{ <span /> }\n\nAnd also { <div /> }.', {
+            providerImportSource: '@mdx-js/react'
+          })
+        )
+      )
+      assert.equal(
+        String(
+          await compile('{ <span /> }\n\nAnd also { <div /> }.', {
+            providerImportSource: '@mdx-js/react'
+          })
+        ),
+        [
+          'import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from "react/jsx-runtime";',
+          'import {useMDXComponents as _provideComponents} from "@mdx-js/react";',
+          'function _createMdxContent(props) {',
+          '  const _components = {',
+          '    p: "p",',
+          '    ..._provideComponents(),',
+          '    ...props.components',
+          '  };',
+          '  return _jsxs(_Fragment, {',
+          '    children: [_jsx("span", {}), "\\n", _jsxs(_components.p, {',
+          '      children: ["And also ", _jsx("div", {}), "."]',
+          '    })]',
+          '  });',
+          '}',
+          'export default function MDXContent(props = {}) {',
+          '  const {wrapper: MDXLayout} = {',
+          '    ..._provideComponents(),',
+          '    ...props.components',
+          '  };',
+          '  return MDXLayout ? _jsx(MDXLayout, {',
+          '    ...props,',
+          '    children: _jsx(_createMdxContent, {',
+          '      ...props',
+          '    })',
+          '  }) : _createMdxContent(props);',
           '}',
           ''
         ].join('\n')

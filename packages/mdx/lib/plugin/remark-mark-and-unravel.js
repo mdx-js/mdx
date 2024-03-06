@@ -4,6 +4,7 @@
  */
 
 import {collapseWhiteSpace} from 'collapse-white-space'
+import {walk} from 'estree-walker'
 import {visit} from 'unist-util-visit'
 
 /**
@@ -91,6 +92,23 @@ export function remarkMarkAndUnravel() {
       ) {
         const data = node.data || (node.data = {})
         data._mdxExplicitJsx = true
+      }
+
+      if (
+        (node.type === 'mdxFlowExpression' ||
+          node.type === 'mdxTextExpression' ||
+          node.type === 'mdxjsEsm') &&
+        node.data &&
+        node.data.estree
+      ) {
+        walk(node.data.estree, {
+          enter(node) {
+            if (node.type === 'JSXElement') {
+              const data = node.data || (node.data = {})
+              data._mdxExplicitJsx = true
+            }
+          }
+        })
       }
     })
   }
