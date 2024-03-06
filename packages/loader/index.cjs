@@ -1,9 +1,7 @@
 /**
  * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
+ * @typedef {import('./lib/index.js', {with: {'resolution-mode': 'import'}}).Options} Options
  */
-
-// @ts-expect-error: TS complains about CJS importing ESM but it works.
-/** @typedef {import('./lib/index.js').Options} Options */
 
 'use strict'
 
