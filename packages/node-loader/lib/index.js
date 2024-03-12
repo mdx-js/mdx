@@ -61,8 +61,17 @@ export function createLoader(options) {
     if (url.protocol === 'file:' && regex.test(url.pathname)) {
       const value = await fs.readFile(url)
       const file = await process(new VFile({value, path: url}))
+      let source = String(file)
+      /* c8 ignore start -- not sure how to test this. */
+      if (file.map) {
+        source +=
+          '\n//# sourceMappingURL=data:application/json;base64,' +
+          Buffer.from(JSON.stringify(file.map)).toString('base64') +
+          '\n'
+      }
+      /* c8 ignore stop */
 
-      return {format: 'module', shortCircuit: true, source: String(file)}
+      return {format: 'module', shortCircuit: true, source}
     }
 
     return nextLoad(href, context)
