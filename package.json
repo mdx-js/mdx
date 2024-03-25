@@ -24,7 +24,7 @@
   "devDependencies": {
     "@babel/types": "^7.0.0",
     "@node-loader/core": "^2.0.0",
-    "@sparticuz/chromium": "^122.0.0",
+    "@sparticuz/chromium": "^123.0.0",
     "@types/dlv": "^1.0.0",
     "@types/mdx": "^2.0.0",
     "@types/react": "^18.0.0",
