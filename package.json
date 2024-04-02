@@ -24,7 +24,7 @@
   "devDependencies": {
     "@babel/types": "^7.0.0",
     "@node-loader/core": "^2.0.0",
-    "@sparticuz/chromium": "^122.0.0",
+    "@sparticuz/chromium": "^123.0.0",
     "@types/dlv": "^1.0.0",
     "@types/mdx": "^2.0.0",
     "@types/react": "^18.0.0",
@@ -110,7 +110,7 @@
     "xast-util-feed": "^2.0.0",
     "xast-util-sitemap": "^2.0.0",
     "xast-util-to-xml": "^4.0.0",
-    "xo": "^0.57.0"
+    "xo": "^0.58.0"
   },
   "scripts": {
     "build": "tsc --build --clean && tsc --build && type-coverage",
