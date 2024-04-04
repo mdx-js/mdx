@@ -21,6 +21,7 @@
 import fs from 'node:fs/promises'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
 import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
+import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
 import {development as defaultDevelopment} from '#condition'
 
@@ -36,7 +37,8 @@ export function createLoader(options) {
   const options_ = options || {}
   const {extnames, process} = createFormatAwareProcessors({
     development: defaultDevelopment,
-    ...options_
+    ...options_,
+    SourceMapGenerator
   })
   const regex = extnamesToRegex(extnames)
 
@@ -62,7 +64,15 @@ export function createLoader(options) {
       const value = await fs.readFile(url)
       const file = await process(new VFile({value, path: url}))
 
-      return {format: 'module', shortCircuit: true, source: String(file)}
+      return {
+        format: 'module',
+        shortCircuit: true,
+        source:
+          String(file) +
+          '\n//# sourceMappingURL=data:application/json;base64,' +
+          Buffer.from(JSON.stringify(file.map)).toString('base64') +
+          '\n'
+      }
     }
 
     return nextLoad(href, context)

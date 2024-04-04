@@ -44,12 +44,13 @@
   ],
   "dependencies": {
     "@mdx-js/mdx": "^3.0.0",
+    "source-map": "^0.7.0",
     "vfile": "^6.0.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "npm run test-coverage",
-    "test-api": "node --conditions development --loader=@mdx-js/node-loader test/index.js",
+    "test-api": "node --conditions development --enable-source-maps --loader=@mdx-js/node-loader test/index.js",
     "test-coverage": "c8 --100 --reporter lcov npm run test-api"
   },
   "xo": {
