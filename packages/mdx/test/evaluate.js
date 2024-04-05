@@ -1,22 +1,11 @@
-/**
- * @import {Fragment, Jsx, JsxDev} from '@mdx-js/mdx'
- */
-
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
 import {evaluate, evaluateSync, compile} from '@mdx-js/mdx'
 import * as provider from '@mdx-js/react'
 import {renderToStaticMarkup} from 'react-dom/server'
-import * as runtime_ from 'react/jsx-runtime'
-import * as devRuntime_ from 'react/jsx-dev-runtime'
+import * as runtime from 'react/jsx-runtime'
+import * as developmentRuntime from 'react/jsx-dev-runtime'
 import React from 'react'
-
-/** @type {{Fragment: Fragment, jsx: Jsx, jsxs: Jsx}} */
-// @ts-expect-error: the automatic react runtime is untyped.
-const runtime = runtime_
-/** @type {{Fragment: Fragment, jsxDEV: JsxDev}} */
-// @ts-expect-error: the automatic dev react runtime is untyped.
-const developmentRuntime = devRuntime_
 
 test('@mdx-js/mdx: evaluate', async function (t) {
   await t.test('should throw on missing `Fragment`', async function () {

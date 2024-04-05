@@ -1,7 +1,27 @@
 /**
- * @import {Fragment, Jsx, JsxDev} from 'hast-util-to-jsx-runtime'
  * @import {MDXComponents} from 'mdx/types.js'
  * @import {CompileOptions} from '../compile.js'
+ */
+
+/**
+ * @typedef {unknown} Fragment
+ */
+
+/**
+ * @callback Jsx
+ * @param {any} type
+ * @param {object} props
+ * @param {any} [key]
+ */
+
+/**
+ * @callback JsxDev
+ * @param {any} type
+ * @param {object} props
+ * @param {any} key
+ * @param {boolean} isStatic
+ * @param {object} [source]
+ * @param {object} [self]
  */
 
 /**

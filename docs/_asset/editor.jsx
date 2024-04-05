@@ -204,9 +204,7 @@ function Playground() {
           /** @type {MDXModule} */
           const result = await run(String(file), {
             Fragment,
-            // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
             jsx,
-            // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
             jsxs,
             baseUrl: window.location.href
           })
