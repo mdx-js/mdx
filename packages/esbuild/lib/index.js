@@ -43,6 +43,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
 import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
+import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
 import {VFileMessage} from 'vfile-message'
 
@@ -65,7 +66,10 @@ const name = '@mdx-js/esbuild'
  *   Plugin.
  */
 export function esbuild(options) {
-  const {extnames, process} = createFormatAwareProcessors(options || {})
+  const {extnames, process} = createFormatAwareProcessors({
+    ...options,
+    SourceMapGenerator
+  })
 
   return {name, setup}
 
@@ -96,7 +100,7 @@ export function esbuild(options) {
       /** @type {State} */
       const state = {doc: document, name, path: data.path}
       let file = new VFile({path: data.path, value: document})
-      /** @type {Value | undefined} */
+      /** @type {string | undefined} */
       let value
       /** @type {Array<VFileMessage>} */
       let messages = []
@@ -107,7 +111,11 @@ export function esbuild(options) {
 
       try {
         file = await process(file)
-        value = file.value
+        value =
+          String(file.value) +
+          '\n//# sourceMappingURL=data:application/json;base64,' +
+          Buffer.from(JSON.stringify(file.map)).toString('base64') +
+          '\n'
         messages = file.messages
       } catch (error_) {
         const cause = /** @type {VFileMessage | Error} */ (error_)

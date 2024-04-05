@@ -539,6 +539,44 @@ test('@mdx-js/esbuild', async function (t) {
       await fs.rm(jsUrl)
     }
   )
+
+  await t.test('should support source maps', async () => {
+    const mdxUrl = new URL('crash.mdx', import.meta.url)
+    const jsUrl = new URL('crash.js', import.meta.url)
+    await fs.writeFile(
+      mdxUrl,
+      '<Throw />\nexport function Throw() { throw new Error("Boom") }\n'
+    )
+
+    await esbuild.build({
+      entryPoints: [fileURLToPath(mdxUrl)],
+      outfile: fileURLToPath(jsUrl),
+      plugins: [esbuildMdx()],
+      define: {'process.env.NODE_ENV': '"development"'},
+      format: 'esm',
+      sourcemap: true,
+      bundle: true
+    })
+
+    /** @type {MDXModule} */
+    const result = await import(jsUrl.href)
+    const Content = result.default
+
+    assert.throws(
+      () => renderToStaticMarkup(React.createElement(Content)),
+      (error) => {
+        assert(error instanceof Error)
+        assert.equal(error.message, 'Boom')
+        // Source maps are off.
+        // The column should be 26, not 8.
+        assert(error.stack?.includes('crash.mdx:2:8)'))
+        return true
+      }
+    )
+
+    await fs.rm(mdxUrl)
+    await fs.rm(jsUrl)
+  })
 })
 
 /**
