@@ -91,7 +91,7 @@
     "remark-math": "^6.0.0",
     "remark-mdx-frontmatter": "^4.0.0",
     "remark-parse": "^11.0.0",
-    "remark-preset-wooorm": "^9.0.0",
+    "remark-preset-wooorm": "^10.0.0",
     "remark-squeeze-paragraphs": "^6.0.0",
     "remark-stringify": "^11.0.0",
     "remark-strip-badges": "^7.0.0",
