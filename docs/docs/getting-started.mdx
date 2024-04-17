@@ -352,7 +352,7 @@ To use more modern JavaScript features than what your users support,
   const viteConfig = defineConfig({
     plugins: [
       {enforce: 'pre', ...mdx(/* jsxImportSource: …, otherOptions… */)},
-      react()
+      react({include: /\.(jsx|js|mdx|md|tsx|ts)$/})
     ]
   })
   // …
