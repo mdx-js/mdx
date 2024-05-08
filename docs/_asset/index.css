@@ -1213,7 +1213,7 @@ details[open] {
 
 @media (min-width: 76em) {
   #markdown-for-thecomponent-era {
-    font-size: 6rem;
+    font-size: 5.9rem;
     line-height: calc(1em + (1 / 6 * 1ex));
     margin-block: calc(1 / 6 * (1em + 1ex));
   }
