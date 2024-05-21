@@ -318,9 +318,10 @@ So you *can* build incorrect HTML (which you shouldn’t):
 ```
 
 It’s not possible to wrap “blocks” if text and tags are on the same line but the
-corresponding tags are on different lines:
+corresponding opening and closing tags are in different blocks
+(so this is invalid!):
 
-```mdx
+```txt chrome=no
 Welcome! <a href="about.html">
 
 This is home of...
@@ -328,10 +329,11 @@ This is home of...
 # The Falcons!</a>
 ```
 
-That’s because to parse markdown, we first have to divide it into “blocks”.
+To parse markdown, we first have to divide it into “blocks”.
 So in this case two paragraphs and a heading.
-Leaving an opening `a` tag in the first paragraph and a stray closing `a` tag in
+Leaving an opening `a` tag in the first paragraph and a closing `a` tag in
 the heading.
+Which causes an error as it is misnested.
 
 ## Further reading
 
