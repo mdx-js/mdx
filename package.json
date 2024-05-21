@@ -39,10 +39,10 @@
     "c8": "^9.0.0",
     "copy-to-clipboard": "^3.0.0",
     "cross-env": "^7.0.0",
-    "cssnano": "^6.0.0",
+    "cssnano": "^7.0.0",
     "devlop": "^1.0.0",
     "dlv": "^1.0.0",
-    "esbuild": "^0.20.0",
+    "esbuild": "^0.21.0",
     "eslint-config-xo-react": "^0.27.0",
     "eslint-plugin-es": "^4.0.0",
     "eslint-plugin-react": "^7.0.0",
@@ -91,7 +91,7 @@
     "remark-math": "^6.0.0",
     "remark-mdx-frontmatter": "^4.0.0",
     "remark-parse": "^11.0.0",
-    "remark-preset-wooorm": "^9.0.0",
+    "remark-preset-wooorm": "^10.0.0",
     "remark-squeeze-paragraphs": "^6.0.0",
     "remark-stringify": "^11.0.0",
     "remark-strip-badges": "^7.0.0",
@@ -152,27 +152,8 @@
     "plugins": [
       "remark-preset-wooorm",
       [
-        "remark-preset-wooorm/node_modules/remark-gfm/index.js",
-        false
-      ],
-      "remark-gfm",
-      [
         "remark-lint-no-html",
         false
-      ],
-      [
-        "remark-lint-file-extension",
-        false
-      ],
-      [
-        "remark-lint-list-item-indent",
-        "space"
-      ],
-      [
-        "remark-stringify",
-        {
-          "listItemIndent": "one"
-        }
       ]
     ]
   },
