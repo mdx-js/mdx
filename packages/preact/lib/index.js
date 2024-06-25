@@ -1,7 +1,6 @@
 /**
- * @typedef {import('mdx/types.js').MDXComponents} MDXComponents
- * @typedef {import('preact').Component} Component
- * @typedef {import('preact').ComponentChildren} ComponentChildren
+ * @import {MDXComponents} from 'mdx/types.js'
+ * @import {Component, ComponentChildren, VNode} from 'preact'
  */
 
 /**
@@ -14,7 +13,7 @@
  *
  * @typedef Props
  *   Configuration for `MDXProvider`.
- * @property {ComponentChildren | null | undefined} [children]
+ * @property {ComponentChildren} [children]
  *   Children (optional).
  * @property {Readonly<MDXComponents> | MergeComponents | null | undefined} [components]
  *   Additional components to use or a function that creates them (optional).
@@ -54,7 +53,7 @@ export function useMDXComponents(components) {
  *
  * @param {Readonly<Props>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {VNode}
  *   Element.
  * @satisfies {Component}
  */

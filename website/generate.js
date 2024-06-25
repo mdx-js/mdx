@@ -1,12 +1,9 @@
 #!/usr/bin/env node
 /**
- * @typedef {import('hast').Element} Element
- * @typedef {import('hast').Properties} Properties
- * @typedef {import('hast').Root} Root
- * @typedef {import('mdx/types.js').MDXContent} MDXContent
- * @typedef {Exclude<import('vfile').Data['meta'], undefined>} Meta
- * @typedef {Exclude<import('vfile').Data['matter'], undefined>} Matter
- * @typedef {import('../docs/_component/sort.js').Item} Item
+ * @import {Element, Properties, Root} from 'hast'
+ * @import {MDXContent} from 'mdx/types.js'
+ * @import {DataMapMatter, DataMapMeta} from 'vfile'
+ * @import {Item} from '../docs/_component/sort.js'
  */
 
 /**
@@ -81,7 +78,7 @@ const allInfo = await pAll(
         config.ghBlob
       )
 
-      /** @type {{default: MDXContent, info?: Info, matter: Matter, meta: Meta, navExclude?: boolean | undefined, navSortSelf?: number | undefined}} */
+      /** @type {{default: MDXContent, info?: Info, matter: DataMapMatter, meta: DataMapMeta, navExclude?: boolean | undefined, navSortSelf?: number | undefined}} */
       const imported = await import(url.href)
       const {default: Content, info, ...data} = imported
       // Handle `author` differently.

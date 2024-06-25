@@ -1,10 +1,8 @@
 /**
- * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
- * @typedef {import('vfile').Compatible} Compatible
- * @typedef {import('vfile').VFile} VFile
- * @typedef {import('vfile-message').VFileMessage} VFileMessage
- * @typedef {import('webpack').Compiler} WebpackCompiler
- * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
+ * @import {CompileOptions} from '@mdx-js/mdx'
+ * @import {Compatible, VFile} from 'vfile'
+ * @import {VFileMessage} from 'vfile-message'
+ * @import {Compiler as WebpackCompiler, LoaderContext} from 'webpack'
  */
 
 /**
@@ -41,11 +39,11 @@ const cache = new WeakMap()
  * See `webpack.cjs`, which wraps this, because Webpack loaders must currently
  * be CommonJS.
  *
- * @this {LoaderContext}
+ * @this {LoaderContext<unknown>}
  *   Context.
  * @param {string} value
  *   Value.
- * @param {LoaderContext['callback']} callback
+ * @param {LoaderContext<unknown>['callback']} callback
  *   Callback.
  * @returns {undefined}
  *   Nothing.

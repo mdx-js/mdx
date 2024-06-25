@@ -1,23 +1,22 @@
 /**
- * @typedef {import('estree-jsx').Expression} Expression
- * @typedef {import('estree-jsx').Function} EstreeFunction
- * @typedef {import('estree-jsx').Identifier} Identifier
- * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
- * @typedef {import('estree-jsx').JSXElement} JSXElement
- * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
- * @typedef {import('estree-jsx').Node} Node
- * @typedef {import('estree-jsx').ObjectPattern} ObjectPattern
- * @typedef {import('estree-jsx').Program} Program
- * @typedef {import('estree-jsx').Property} Property
- * @typedef {import('estree-jsx').SpreadElement} SpreadElement
- * @typedef {import('estree-jsx').Statement} Statement
- * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
- *
- * @typedef {import('periscopic').Scope} PeriscopicScope
- *
- * @typedef {import('vfile').VFile} VFile
- *
- * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
+ * @import {
+      Expression,
+      Function as EstreeFunction,
+      Identifier,
+      ImportSpecifier,
+      JSXElement,
+      ModuleDeclaration,
+      Node,
+      ObjectPattern,
+      Program,
+      Property,
+      SpreadElement,
+      Statement,
+      VariableDeclarator
+ * } from 'estree-jsx'
+ * @import {Scope as PeriscopicScope} from 'periscopic'
+ * @import {VFile} from 'vfile'
+ * @import {ProcessorOptions} from '../core.js'
  */
 
 /**

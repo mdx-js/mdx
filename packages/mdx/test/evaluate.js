@@ -1,7 +1,5 @@
 /**
- * @typedef {import('@mdx-js/mdx').Fragment} Fragment
- * @typedef {import('@mdx-js/mdx').Jsx} Jsx
- * @typedef {import('@mdx-js/mdx').JsxDev} JsxDev
+ * @import {Fragment, Jsx, JsxDev} from '@mdx-js/mdx'
  */
 
 import assert from 'node:assert/strict'

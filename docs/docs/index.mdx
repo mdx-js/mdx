@@ -1,3 +1,12 @@
+{/**
+  * @import {Item} from '../_component/sort.js'
+  */}
+
+{/**
+  * @typedef Props
+  * @property {Item} navigationTree
+  */}
+
 import assert from 'node:assert/strict'
 import {NavigationGroup} from '../_component/nav.jsx'
 
@@ -17,11 +26,6 @@ Reading through these should give you a good understanding of MDX.
 
 {
   (function () {
-    /**
-     * @typedef {import('../_component/sort.js').Item} Item
-     */
-
-    /** @type {Item} */
     const navigationTree = props.navigationTree
     const category = navigationTree.children.find(function (item) {
       return item.name === '/docs/'

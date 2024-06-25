@@ -1,9 +1,7 @@
 /**
- * @typedef {import('estree-jsx').Program} Program
- *
- * @typedef {import('hast').Root} Root
- *
- * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
+ * @import {Program} from 'estree-jsx'
+ * @import {Root} from 'hast'
+ * @import {ProcessorOptions} from '../core.js'
  */
 
 import {toEstree} from 'hast-util-to-estree'

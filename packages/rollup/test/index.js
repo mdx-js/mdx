@@ -1,6 +1,6 @@
 /**
- * @typedef {import('mdx/types.js').MDXModule} MDXModule
- * @typedef {import('rollup').RollupOutput} RollupOutput
+ * @import {MDXModule} from 'mdx/types.js'
+ * @import {RollupOutput} from 'rollup'
  */
 
 import assert from 'node:assert/strict'

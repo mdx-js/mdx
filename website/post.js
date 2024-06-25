@@ -1,17 +1,15 @@
 /**
- * @typedef {import('node:fs').Stats} Stats
- * @typedef {import('hast').Root} Root
- * @typedef {Exclude<import('vfile').Data['meta'], undefined>} Meta
- * @typedef {Exclude<import('vfile').Data['matter'], undefined>} Matter
- * @typedef {import('xast-util-feed').Entry} Entry
+ * @import {Stats} from 'node:fs'
+ * @import {DataMapMatter, DataMapMeta} from 'vfile'
+ * @import {Entry} from 'xast-util-feed'
  */
 
 /**
  * @typedef Info
  *   Info.
- * @property {Readonly<Meta>} meta
+ * @property {Readonly<DataMapMeta>} meta
  *   Meta.
- * @property {Readonly<Matter>} matter
+ * @property {Readonly<DataMapMatter>} matter
  *   Matter.
  * @property {boolean | undefined} [navExclude=false]
  *   Whether to exclude from the navigation (default: `false`).

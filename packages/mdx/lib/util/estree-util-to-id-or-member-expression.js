@@ -1,9 +1,11 @@
 /**
- * @typedef {import('estree-jsx').Identifier} Identifier
- * @typedef {import('estree-jsx').JSXIdentifier} JSXIdentifier
- * @typedef {import('estree-jsx').JSXMemberExpression} JSXMemberExpression
- * @typedef {import('estree-jsx').Literal} Literal
- * @typedef {import('estree-jsx').MemberExpression} MemberExpression
+ * @import {
+      Identifier,
+      JSXIdentifier,
+      JSXMemberExpression,
+      Literal,
+      MemberExpression
+ * } from 'estree-jsx'
  */
 
 import {ok as assert} from 'devlop'

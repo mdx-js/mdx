@@ -1,7 +1,6 @@
 /**
- * @typedef {import('vfile').VFile} VFile
- * @typedef {import('vfile').Compatible} Compatible
- * @typedef {import('./core.js').ProcessorOptions} ProcessorOptions
+ * @import {Compatible, VFile} from 'vfile'
+ * @import {ProcessorOptions} from './core.js'
  */
 
 /**

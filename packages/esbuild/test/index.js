@@ -1,14 +1,10 @@
 /**
- * @typedef {import('esbuild').BuildFailure} BuildFailure
- * @typedef {import('esbuild').Plugin} Plugin
- * @typedef {import('hast').Root} Root
- * @typedef {import('mdx/types.js').MDXModule} MDXModule
- * @typedef {import('vfile').VFile} VFile
- */
-
-/**
+ * @import {BuildFailure, Plugin} from 'esbuild'
+ * @import {Root} from 'hast'
+ * @import {MDXModule} from 'mdx/types.js'
+ * @import {VFile} from 'vfile'
  * Augment node types:
- * @typedef {import('remark-mdx')}
+ * @import {} from 'remark-mdx'
  */
 
 import assert from 'node:assert/strict'

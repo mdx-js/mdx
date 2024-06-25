@@ -1,7 +1,6 @@
 /**
- * @typedef {import('mdx/types.js').MDXContent} MDXContent
- * @typedef {import('mdx/types.js').MDXModule} MDXModule
- * @typedef {import('vfile').Compatible} Compatible
+ * @import {MDXContent, MDXModule} from 'mdx/types.js'
+ * @import {Compatible} from 'vfile'
  */
 
 import fs from 'node:fs/promises'

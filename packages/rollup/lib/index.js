@@ -1,8 +1,8 @@
 /**
- * @typedef {import('@mdx-js/mdx/internal-create-format-aware-processors').FormatAwareProcessors} FormatAwareProcessors
- * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
- * @typedef {import('@rollup/pluginutils').FilterPattern} FilterPattern
- * @typedef {import('rollup').SourceDescription} SourceDescription
+ * @import {FormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
+ * @import {CompileOptions} from '@mdx-js/mdx'
+ * @import {FilterPattern} from '@rollup/pluginutils'
+ * @import {SourceDescription} from 'rollup'
  */
 
 /**

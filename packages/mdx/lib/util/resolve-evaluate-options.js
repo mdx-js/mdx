@@ -1,9 +1,7 @@
 /**
- * @typedef {import('hast-util-to-jsx-runtime').Fragment} Fragment
- * @typedef {import('hast-util-to-jsx-runtime').Jsx} Jsx
- * @typedef {import('hast-util-to-jsx-runtime').JsxDev} JsxDev
- * @typedef {import('mdx/types.js').MDXComponents} Components
- * @typedef {import('../compile.js').CompileOptions} CompileOptions
+ * @import {Fragment, Jsx, JsxDev} from 'hast-util-to-jsx-runtime'
+ * @import {MDXComponents} from 'mdx/types.js'
+ * @import {CompileOptions} from '../compile.js'
  */
 
 /**
@@ -42,7 +40,7 @@
  *
  * @callback UseMdxComponents
  *   Get components from context.
- * @returns {Components}
+ * @returns {MDXComponents}
  *   Current components.
  */
 

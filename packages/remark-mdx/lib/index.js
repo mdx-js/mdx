@@ -1,7 +1,7 @@
 /**
- * @typedef {import('mdast-util-mdx').ToMarkdownOptions} ToMarkdownOptions
- * @typedef {import('micromark-extension-mdxjs').Options} MicromarkOptions
- * @typedef {import('unified').Processor} Processor
+ * @import {ToMarkdownOptions} from 'mdast-util-mdx'
+ * @import {Options as MicromarkOptions} from 'micromark-extension-mdxjs'
+ * @import {Processor} from 'unified'
  */
 
 /**

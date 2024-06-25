@@ -1,5 +1,5 @@
 /**
- * @typedef {import('mdx/types.js').MDXModule} MDXModule
+ * @import {MDXModule} from 'mdx/types.js'
  */
 
 import assert from 'node:assert/strict'

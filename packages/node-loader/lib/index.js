@@ -1,12 +1,10 @@
 /**
- * @typedef {import('node:module').LoadHookContext} LoadHookContext
- * @typedef {import('node:module').LoadFnOutput} LoadFnOutput
- * @typedef {import('node:module').LoadHook} LoadHookType
- * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
+ * @import {LoadFnOutput, LoadHook, LoadHookContext} from 'node:module'
+ * @import {CompileOptions} from '@mdx-js/mdx'
  */
 
 /**
- * @typedef {Parameters<LoadHookType>[2]} NextLoad
+ * @typedef {Parameters<LoadHook>[2]} NextLoad
  *   Next.
  *
  * @typedef {Omit<CompileOptions, 'development'>} Options
@@ -55,7 +53,7 @@ export function createLoader(options) {
    *   Next or default `load` function.
    * @returns {Promise<LoadFnOutput>}
    *   Result.
-   * @satisfies {LoadHookType}
+   * @satisfies {LoadHook}
    */
   async function load(href, context, nextLoad) {
     const url = new URL(href)

@@ -1,6 +1,5 @@
 /**
- * @typedef {import('mdast').Root} Root
- * @typedef {import('mdast').RootContent} RootContent
+ * @import {Root, RootContent} from 'mdast'
  */
 
 import {collapseWhiteSpace} from 'collapse-white-space'

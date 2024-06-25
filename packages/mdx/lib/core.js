@@ -1,18 +1,16 @@
 /**
- * @typedef {import('estree-jsx').Program} Program
- * @typedef {import('hast-util-to-estree').ElementAttributeNameCase} ElementAttributeNameCase
- * @typedef {import('hast-util-to-estree').StylePropertyNameCase} StylePropertyNameCase
- * @typedef {import('mdast').Root} Root
- * @typedef {import('remark-rehype').Options} RemarkRehypeOptions
- * @typedef {typeof import('source-map').SourceMapGenerator} SourceMapGenerator
- * @typedef {import('unified').PluggableList} PluggableList
- * @typedef {import('unified').Processor<Root, Program, Program, Program, string>} Processor
+ * @import {Program} from 'estree-jsx'
+ * @import {ElementAttributeNameCase, StylePropertyNameCase} from 'hast-util-to-estree'
+ * @import {Root} from 'mdast'
+ * @import {Options as RemarkRehypeOptions} from 'remark-rehype'
+ * @import {SourceMapGenerator} from 'source-map'
+ * @import {PluggableList, Processor} from 'unified'
  */
 
 /**
  * @typedef ProcessorOptions
  *   Configuration for `createProcessor`.
- * @property {SourceMapGenerator | null | undefined} [SourceMapGenerator]
+ * @property {typeof SourceMapGenerator | null | undefined} [SourceMapGenerator]
  *   Add a source map (object form) as the `map` field on the resulting file
  *   (optional).
  * @property {URL | string | null | undefined} [baseUrl]
@@ -157,7 +155,7 @@ let warned = false
  *
  * @param {Readonly<ProcessorOptions> | null | undefined} [options]
  *   Configuration (optional).
- * @return {Processor}
+ * @return {Processor<Root, Program, Program, Program, string>}
  *   Processor.
  */
 export function createProcessor(options) {

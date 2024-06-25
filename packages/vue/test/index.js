@@ -1,8 +1,7 @@
 /**
- * @typedef {import('@mdx-js/mdx').Fragment} Fragment
- * @typedef {import('@mdx-js/mdx').Jsx} Jsx
- * @typedef {import('mdx/types.js').MDXModule} MDXModule
- * @typedef {import('vue').Component} AnyComponent
+ * @import {Fragment, Jsx} from '@mdx-js/mdx'
+ * @import {MDXModule} from 'mdx/types.js'
+ * @import {Component} from 'vue'
  */
 
 import assert from 'node:assert/strict'
@@ -138,7 +137,7 @@ async function evaluate(value) {
 }
 
 /**
- * @param {AnyComponent} root
+ * @param {Component} root
  *   Component.
  * @param {Record<string, unknown> | null | undefined} [rootProperties]
  *   Props.

@@ -1,5 +1,8 @@
 /**
- * @typedef {import('webpack').LoaderContext<unknown>} LoaderContext
+ * @import {LoaderContext} from 'webpack'
+ */
+
+/**
  * @typedef {import('./lib/index.js', {with: {'resolution-mode': 'import'}}).Options} Options
  */
 
@@ -14,7 +17,7 @@ module.exports = loader
  *
  * @todo once webpack supports ESM loaders, remove this wrapper.
  *
- * @this {LoaderContext}
+ * @this {LoaderContext<unknown>}
  *   Context.
  * @param {string} code
  *   Code.

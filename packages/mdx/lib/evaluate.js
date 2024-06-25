@@ -1,7 +1,7 @@
 /**
- * @typedef {import('mdx/types.js').MDXModule} MDXModule
- * @typedef {import('vfile').Compatible} Compatible
- * @typedef {import('./util/resolve-evaluate-options.js').EvaluateOptions} EvaluateOptions
+ * @import {MDXModule} from 'mdx/types.js'
+ * @import {Compatible} from 'vfile'
+ * @import {EvaluateOptions} from './util/resolve-evaluate-options.js'
  */
 
 import {resolveEvaluateOptions} from './util/resolve-evaluate-options.js'

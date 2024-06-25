@@ -1,10 +1,9 @@
 /**
- * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
- * @typedef {import('@wooorm/starry-night').Grammar} Grammar
- * @typedef {import('estree').Program} Program
- * @typedef {import('hast').ElementContent} ElementContent
- * @typedef {import('hast').Root} Root
- * @typedef {import('vfile').VFile} VFile
+ * @import {CompileOptions} from '@mdx-js/mdx'
+ * @import {Grammar} from '@wooorm/starry-night'
+ * @import {Program} from 'estree'
+ * @import {ElementContent, Root} from 'hast'
+ * @import {VFile} from 'vfile'
  */
 
 /**

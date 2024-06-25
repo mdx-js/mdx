@@ -1,7 +1,7 @@
 /**
- * @typedef {import('estree-jsx').Program} Program
- * @typedef {import('estree-util-build-jsx').Options} BuildJsxOptions
- * @typedef {import('vfile').VFile} VFile
+ * @import {Program} from 'estree-jsx'
+ * @import {Options as BuildJsxOptions} from 'estree-util-build-jsx'
+ * @import {VFile} from 'vfile'
  */
 
 /**

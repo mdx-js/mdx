@@ -2,20 +2,20 @@
 /* @jsxImportSource react */
 
 /**
- * @typedef {import('@wooorm/starry-night').Grammar} Grammar
- * @typedef {import('estree').Node} EstreeNode
- * @typedef {import('estree').Program} Program
- * @typedef {import('hast').Nodes} HastNodes
- * @typedef {import('hast').Root} HastRoot
- * @typedef {import('mdast').Nodes} MdastNodes
- * @typedef {import('mdast').Root} MdastRoot
- * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttribute} MdxJsxAttribute
- * @typedef {import('mdast-util-mdx-jsx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
- * @typedef {import('mdast-util-mdx-jsx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
- * @typedef {import('mdx/types.js').MDXModule} MDXModule
- * @typedef {import('react-error-boundary').FallbackProps} FallbackProperties
- * @typedef {import('unified').PluggableList} PluggableList
- * @typedef {import('unist').Node} UnistNode
+ * @import {Grammar} from '@wooorm/starry-night'
+ * @import {Node as EstreeNode, Program} from 'estree'
+ * @import {Nodes as HastNodes, Root as HastRoot} from 'hast'
+ * @import {Nodes as MdastNodes, Root as MdastRoot} from 'mdast'
+ * @import {
+    MdxJsxAttribute,
+    MdxJsxAttributeValueExpression,
+    MdxJsxExpressionAttribute
+ * } from 'mdast-util-mdx-jsx'
+ * @import {MDXModule} from 'mdx/types.js'
+ * @import {ReactNode} from 'react'
+ * @import {FallbackProps} from 'react-error-boundary'
+ * @import {PluggableList} from 'unified'
+ * @import {Node as UnistNode} from 'unist'
  */
 
 /**
@@ -35,7 +35,7 @@
  *   OK.
  * @property {true} ok
  *   Whether OK.
- * @property {JSX.Element} value
+ * @property {ReactNode} value
  *   Result.
  *
  * @typedef {EvalNok | EvalOk} EvalResult
@@ -315,7 +315,7 @@ function Playground() {
   const scope = formatMarkdown ? 'text.md' : 'source.mdx'
   // Cast to actual value.
   const compiledResult = /** @type {EvalResult | undefined} */ (evalResult)
-  /** @type {JSX.Element | undefined} */
+  /** @type {ReactNode | undefined} */
   let display
 
   if (compiledResult) {
@@ -579,9 +579,9 @@ function Playground() {
 
 /**
  *
- * @param {Readonly<FallbackProperties>} properties
+ * @param {Readonly<FallbackProps>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 function ErrorFallback(properties) {
@@ -601,7 +601,7 @@ function ErrorFallback(properties) {
 /**
  * @param {DisplayProperties} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 function DisplayError(properties) {

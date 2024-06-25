@@ -1,5 +1,6 @@
 /**
- * @typedef {import('./sort.js').Item} Item
+ * @import {ReactNode} from 'react'
+ * @import {Item} from './sort.js'
  */
 
 /**
@@ -34,7 +35,7 @@ export function NavigationSiteSkip() {
 /**
  * @param {Readonly<Properties>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 export function NavigationSite(properties) {

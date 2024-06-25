@@ -1,5 +1,5 @@
 /**
- * @typedef {import('react').ReactNode} ReactNode
+ * @import {ReactNode} from 'react'
  */
 
 /**
@@ -22,7 +22,7 @@ const known = new Set(['info', 'legacy', 'important'])
 /**
  * @param {Readonly<Properties>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 export function Note(properties) {

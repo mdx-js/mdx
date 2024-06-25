@@ -1,11 +1,11 @@
 /**
- * @typedef {import('react').ReactNode} ReactNode
- * @typedef {import('vfile').Data['meta']} DataMeta
- * @typedef {import('./sort.js').Item} Item
+ * @import {ReactNode} from 'react'
+ * @import {Data} from 'vfile'
+ * @import {Item} from './sort.js'
  */
 
 /**
- * @typedef {Exclude<DataMeta, undefined>} Meta
+ * @typedef {Exclude<Data['meta'], undefined>} Meta
  *
  * @typedef Properties
  *   Properties.
@@ -26,7 +26,7 @@ import {NavigationSite, NavigationSiteSkip} from './nav-site.jsx'
 /**
  * @param {Readonly<Properties>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 export function Home(properties) {
