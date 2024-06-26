@@ -1,8 +1,10 @@
 /**
- * @typedef {import('estree-jsx').Declaration} Declaration
- * @typedef {import('estree-jsx').MaybeNamedClassDeclaration} MaybeNamedClassDeclaration
- * @typedef {import('estree-jsx').MaybeNamedFunctionDeclaration} MaybeNamedFunctionDeclaration
- * @typedef {import('estree-jsx').Node} Node
+ * @import {
+      Declaration,
+      MaybeNamedClassDeclaration,
+      MaybeNamedFunctionDeclaration,
+      Node
+ * } from 'estree-jsx'
  */
 
 // Fix to show references to above types in VS Code.

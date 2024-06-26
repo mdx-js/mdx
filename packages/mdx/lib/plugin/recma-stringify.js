@@ -1,9 +1,8 @@
 /**
- * @typedef {import('estree-jsx').Program} Program
- * @typedef {import('unified').Processor<undefined, undefined, undefined, Program, string>} Processor
- * @typedef {import('vfile').VFile} VFile
- *
- * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
+ * @import {Program} from 'estree-jsx'
+ * @import {Plugin, Processor} from 'unified'
+ * @import {VFile} from 'vfile'
+ * @import {ProcessorOptions} from '../core.js'
  */
 
 import {jsx, toJs} from 'estree-util-to-js'
@@ -11,12 +10,15 @@ import {jsx, toJs} from 'estree-util-to-js'
 /**
  * Serialize an esast (estree) program to JavaScript.
  *
- * @type {import('unified').Plugin<[Readonly<ProcessorOptions>], Program, string>}
+ * @type {Plugin<[Readonly<ProcessorOptions>], Program, string>}
  */
 export function recmaStringify(options) {
-  // @ts-expect-error: TS is wrong about `this`.
   // eslint-disable-next-line unicorn/no-this-assignment
-  const self = /** @type {Processor} */ (this)
+  const self =
+    // @ts-expect-error: TS is wrong about `this`.
+    /** @type {Processor<undefined, undefined, undefined, Program, string>} */ (
+      this
+    )
   const {SourceMapGenerator} = options
 
   self.compiler = compiler

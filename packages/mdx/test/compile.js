@@ -1,10 +1,8 @@
 /**
- * @typedef {import('hast').Doctype} Doctype
- * @typedef {import('hast').Element} Element
- * @typedef {import('hast').Root} Root
- * @typedef {import('mdast').Root} MdastRoot
- * @typedef {import('mdx/types.js').MDXComponents} MDXComponents
- * @typedef {import('mdx/types.js').MDXModule} MDXModule
+ * @import {Doctype, Element, Root} from 'hast'
+ * @import {Root as MdastRoot} from 'mdast'
+ * @import {MDXComponents, MDXModule} from 'mdx/types.js'
+ * @import {ComponentProps, ReactNode} from 'react'
  */
 
 import assert from 'node:assert/strict'
@@ -315,7 +313,7 @@ test('@mdx-js/mdx: compile', async function (t) {
           React.createElement(await run(await compile('<X />')), {
             components: {
               /**
-               * @param {JSX.IntrinsicElements['span']} properties
+               * @param {ComponentProps<'span'>} properties
                *   Properties.
                */
               X(properties) {
@@ -338,7 +336,7 @@ test('@mdx-js/mdx: compile', async function (t) {
             components: {
               x: {
                 /**
-                 * @param {JSX.IntrinsicElements['span']} properties
+                 * @param {ComponentProps<'span'>} properties
                  *   Properties.
                  */
                 y(properties) {
@@ -369,9 +367,9 @@ test('@mdx-js/mdx: compile', async function (t) {
       )
 
       /**
-       * @param {JSX.IntrinsicElements['span']} properties
+       * @param {ComponentProps<'span'>} properties
        *   Properties.
-       * @returns {JSX.Element}
+       * @returns {ReactNode}
        *   Element.
        */
       function X(properties) {
@@ -379,9 +377,9 @@ test('@mdx-js/mdx: compile', async function (t) {
       }
 
       /**
-       * @param {JSX.IntrinsicElements['span']} properties
+       * @param {ComponentProps<'span'>} properties
        *   Properties.
-       * @returns {JSX.Element}
+       * @returns {ReactNode}
        *   Element.
        */
       function Y(properties) {
@@ -565,7 +563,7 @@ test('@mdx-js/mdx: compile', async function (t) {
           React.createElement(await run(await compile('a')), {
             components: {
               /**
-               * @param {JSX.IntrinsicElements['div'] & {components: MDXComponents}} properties
+               * @param {ComponentProps<'div'> & {components: MDXComponents}} properties
                *   Properties.
                */
               wrapper(properties) {
@@ -612,7 +610,7 @@ test('@mdx-js/mdx: compile', async function (t) {
             {
               components: {
                 /**
-                 * @param {JSX.IntrinsicElements['article'] & {components: MDXComponents}} properties
+                 * @param {ComponentProps<'article'> & {components: MDXComponents}} properties
                  *   Properties.
                  */
                 wrapper(properties) {

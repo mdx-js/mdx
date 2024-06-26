@@ -1,12 +1,12 @@
 /**
- * @typedef {import('./lib/util/resolve-evaluate-options.js').Fragment} Fragment
- * @typedef {import('./lib/util/resolve-evaluate-options.js').Jsx} Jsx
- * @typedef {import('./lib/util/resolve-evaluate-options.js').JsxDev} JsxDev
+ * @typedef {import('hast-util-to-jsx-runtime').Fragment} Fragment
+ * @typedef {import('hast-util-to-jsx-runtime').Jsx} Jsx
+ * @typedef {import('hast-util-to-jsx-runtime').JsxDev} JsxDev
  * @typedef {import('./lib/util/resolve-evaluate-options.js').UseMdxComponents} UseMdxComponents
  * @typedef {import('./lib/compile.js').CompileOptions} CompileOptions
  * @typedef {import('./lib/core.js').ProcessorOptions} ProcessorOptions
- * @typedef {import('./lib/evaluate.js').EvaluateOptions} EvaluateOptions
- * @typedef {import('./lib/run.js').RunOptions} RunOptions
+ * @typedef {import('./lib/util/resolve-evaluate-options.js').EvaluateOptions} EvaluateOptions
+ * @typedef {import('./lib/util/resolve-evaluate-options.js').RunOptions} RunOptions
  */
 
 export {compile, compileSync} from './lib/compile.js'

@@ -1,7 +1,6 @@
 /**
- * @typedef {import('mdx/types.js').MDXComponents} MDXComponents
- * @typedef {import('vue').Component<Props>} Provider
- * @typedef {import('vue').ComponentPublicInstance} ComponentPublicInstance
+ * @import {MDXComponents} from 'mdx/types.js'
+ * @import {Component, ComponentPublicInstance} from 'vue'
  */
 
 /**
@@ -16,7 +15,7 @@ import {Fragment, createVNode, inject, provide} from 'vue'
 /**
  * Provider for MDX context.
  *
- * @type {Provider}
+ * @type {Component<Props>}
  *   Provider.
  */
 export const MDXProvider = {

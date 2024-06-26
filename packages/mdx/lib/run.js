@@ -1,7 +1,6 @@
 /**
- * @typedef {import('mdx/types.js').MDXModule} MDXModule
- *
- * @typedef {import('./util/resolve-evaluate-options.js').RunOptions} RunOptions
+ * @import {MDXModule} from 'mdx/types.js'
+ * @import {RunOptions} from './util/resolve-evaluate-options.js'
  */
 
 /** @type {new (code: string, ...args: Array<unknown>) => Function} **/

@@ -1,10 +1,9 @@
 /**
- * @typedef {import('estree-jsx').Program} Program
- * @typedef {import('mdast').Root} Root
- * @typedef {import('unified').Processor<Root, Program, Program, Program, string>} Processor
- * @typedef {import('vfile').Compatible} Compatible
- * @typedef {import('vfile').VFile} VFile
- * @typedef {import('../compile.js').CompileOptions} CompileOptions
+ * @import {Program} from 'estree-jsx'
+ * @import {Root} from 'mdast'
+ * @import {Processor} from 'unified'
+ * @import {Compatible, VFile} from 'vfile'
+ * @import {CompileOptions} from '../compile.js'
  */
 
 /**
@@ -39,9 +38,9 @@ export function createFormatAwareProcessors(compileOptions) {
   const compileOptions_ = compileOptions || {}
   const mdExtensions = compileOptions_.mdExtensions || md
   const mdxExtensions = compileOptions_.mdxExtensions || mdx
-  /** @type {Processor} */
+  /** @type {Processor<Root, Program, Program, Program, string>} */
   let cachedMarkdown
-  /** @type {Processor} */
+  /** @type {Processor<Root, Program, Program, Program, string>} */
   let cachedMdx
 
   return {
@@ -72,7 +71,7 @@ export function createFormatAwareProcessors(compileOptions) {
    *
    * @param {Compatible} vfileCompatible
    *   MDX or markdown document.
-   * @return {{file: VFile, processor: Processor}}
+   * @return {{file: VFile, processor: Processor<Root, Program, Program, Program, string>}}
    *   File and corresponding processor.
    */
   function split(vfileCompatible) {

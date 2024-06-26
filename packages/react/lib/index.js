@@ -1,7 +1,6 @@
 /**
- * @typedef {import('mdx/types.js').MDXComponents} MDXComponents
- * @typedef {import('react').Component<{}, {}, unknown>} Component
- * @typedef {import('react').ReactNode} ReactNode
+ * @import {MDXComponents} from 'mdx/types.js'
+ * @import {Component, ReactElement, ReactNode} from 'react'
  */
 
 /**
@@ -59,7 +58,7 @@ export function useMDXComponents(components) {
  *
  * @param {Readonly<Props>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactElement}
  *   Element.
  * @satisfies {Component}
  */

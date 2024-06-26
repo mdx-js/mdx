@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * @typedef {import('hast').Root} Root
+ * @import {Root} from 'hast'
  */
 
 /**

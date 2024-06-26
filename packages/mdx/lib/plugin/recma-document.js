@@ -1,32 +1,32 @@
 /**
- * @typedef {import('estree-jsx').CallExpression} CallExpression
- * @typedef {import('estree-jsx').Directive} Directive
- * @typedef {import('estree-jsx').ExportAllDeclaration} ExportAllDeclaration
- * @typedef {import('estree-jsx').ExportDefaultDeclaration} ExportDefaultDeclaration
- * @typedef {import('estree-jsx').ExportNamedDeclaration} ExportNamedDeclaration
- * @typedef {import('estree-jsx').ExportSpecifier} ExportSpecifier
- * @typedef {import('estree-jsx').Expression} Expression
- * @typedef {import('estree-jsx').FunctionDeclaration} FunctionDeclaration
- * @typedef {import('estree-jsx').Identifier} Identifier
- * @typedef {import('estree-jsx').ImportDeclaration} ImportDeclaration
- * @typedef {import('estree-jsx').ImportDefaultSpecifier} ImportDefaultSpecifier
- * @typedef {import('estree-jsx').ImportExpression} ImportExpression
- * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
- * @typedef {import('estree-jsx').JSXElement} JSXElement
- * @typedef {import('estree-jsx').JSXFragment} JSXFragment
- * @typedef {import('estree-jsx').Literal} Literal
- * @typedef {import('estree-jsx').ModuleDeclaration} ModuleDeclaration
- * @typedef {import('estree-jsx').Node} Node
- * @typedef {import('estree-jsx').Program} Program
- * @typedef {import('estree-jsx').Property} Property
- * @typedef {import('estree-jsx').SimpleLiteral} SimpleLiteral
- * @typedef {import('estree-jsx').SpreadElement} SpreadElement
- * @typedef {import('estree-jsx').Statement} Statement
- * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
- *
- * @typedef {import('vfile').VFile} VFile
- *
- * @typedef {import('../core.js').ProcessorOptions} ProcessorOptions
+ * @import {
+      CallExpression,
+      Directive,
+      ExportAllDeclaration,
+      ExportDefaultDeclaration,
+      ExportNamedDeclaration,
+      ExportSpecifier,
+      Expression,
+      FunctionDeclaration,
+      Identifier,
+      ImportDeclaration,
+      ImportDefaultSpecifier,
+      ImportExpression,
+      ImportSpecifier,
+      JSXElement,
+      JSXFragment,
+      Literal,
+      ModuleDeclaration,
+      Node,
+      Program,
+      Property,
+      SimpleLiteral,
+      SpreadElement,
+      Statement,
+      VariableDeclarator
+ * } from 'estree-jsx'
+ * @import {VFile} from 'vfile'
+ * @import {ProcessorOptions} from '../core.js'
  */
 
 import {ok as assert} from 'devlop'

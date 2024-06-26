@@ -1,8 +1,10 @@
 /**
- * @typedef {import('estree-jsx').Declaration} Declaration
- * @typedef {import('estree-jsx').Expression} Expression
- * @typedef {import('estree-jsx').MaybeNamedClassDeclaration} MaybeNamedClassDeclaration
- * @typedef {import('estree-jsx').MaybeNamedFunctionDeclaration} MaybeNamedFunctionDeclaration
+ * @import {
+      Declaration,
+      Expression,
+      MaybeNamedClassDeclaration,
+      MaybeNamedFunctionDeclaration
+ * } from 'estree-jsx'
  */
 
 import {ok as assert} from 'devlop'

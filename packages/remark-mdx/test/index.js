@@ -1,8 +1,10 @@
 /**
- * @typedef {import('mdast').Nodes} Nodes
- * @typedef {import('mdast-util-mdx').MdxJsxAttribute} MdxJsxAttribute
- * @typedef {import('mdast-util-mdx').MdxJsxAttributeValueExpression} MdxJsxAttributeValueExpression
- * @typedef {import('mdast-util-mdx').MdxJsxExpressionAttribute} MdxJsxExpressionAttribute
+ * @import {Nodes} from 'mdast'
+ * @import {
+      MdxJsxAttribute,
+      MdxJsxAttributeValueExpression,
+      MdxJsxExpressionAttribute
+ * } from 'mdast-util-mdx'
  */
 
 import assert from 'node:assert/strict'

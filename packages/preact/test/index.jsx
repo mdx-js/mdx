@@ -1,8 +1,9 @@
-/* @jsxRuntime automatic @jsxImportSource preact */
+/* @jsxRuntime automatic */
+/* @jsxImportSource preact */
 
 /**
- * @typedef {import('@mdx-js/mdx').Fragment} Fragment
- * @typedef {import('@mdx-js/mdx').Jsx} Jsx
+ * @import {Fragment, Jsx} from '@mdx-js/mdx'
+ * @import {ComponentProps} from 'preact'
  */
 
 import assert from 'node:assert/strict'
@@ -36,7 +37,9 @@ test('@mdx-js/preact', async function (t) {
         render(
           <MDXProvider
             components={{
+              // @ts-expect-error TODO configure TypeScript project references
               h1(properties) {
+                // @ts-expect-error TODO configure TypeScript project references
                 return <h1 style={{color: 'tomato'}} {...properties} />
               }
             }}
@@ -60,11 +63,12 @@ test('@mdx-js/preact', async function (t) {
         <MDXProvider
           components={{
             /**
-             * @param {JSX.IntrinsicElements['div']} properties
+             * @param {ComponentProps<'div'>} properties
              *   Properties.
              * @returns
              *   Element.
              */
+            // @ts-expect-error TODO configure TypeScript project references
             wrapper(properties) {
               return <div id="layout" {...properties} />
             }
@@ -89,17 +93,23 @@ test('@mdx-js/preact', async function (t) {
         render(
           <MDXProvider
             components={{
+              // @ts-expect-error TODO configure TypeScript project references
               h1(properties) {
+                // @ts-expect-error TODO configure TypeScript project references
                 return <h1 style={{color: 'tomato'}} {...properties} />
               },
+              // @ts-expect-error TODO configure TypeScript project references
               h2(properties) {
+                // @ts-expect-error TODO configure TypeScript project references
                 return <h2 style={{color: 'rebeccapurple'}} {...properties} />
               }
             }}
           >
             <MDXProvider
               components={{
+                // @ts-expect-error TODO configure TypeScript project references
                 h2(properties) {
+                  // @ts-expect-error TODO configure TypeScript project references
                   return <h2 style={{color: 'papayawhip'}} {...properties} />
                 }
               }}
@@ -123,18 +133,24 @@ test('@mdx-js/preact', async function (t) {
       render(
         <MDXProvider
           components={{
+            // @ts-expect-error TODO configure TypeScript project references
             h1(properties) {
+              // @ts-expect-error TODO configure TypeScript project references
               return <h1 style={{color: 'tomato'}} {...properties} />
             },
+            // @ts-expect-error TODO configure TypeScript project references
             h2(properties) {
+              // @ts-expect-error TODO configure TypeScript project references
               return <h2 style={{color: 'rebeccapurple'}} {...properties} />
             }
           }}
         >
           <MDXProvider
+            // @ts-expect-error TODO configure TypeScript project references
             components={function () {
               return {
                 h2(properties) {
+                  // @ts-expect-error TODO configure TypeScript project references
                   return <h2 style={{color: 'papayawhip'}} {...properties} />
                 }
               }
@@ -160,7 +176,9 @@ test('@mdx-js/preact', async function (t) {
         render(
           <MDXProvider
             components={{
+              // @ts-expect-error TODO configure TypeScript project references
               h1(properties) {
+                // @ts-expect-error TODO configure TypeScript project references
                 return <h1 style={{color: 'tomato'}} {...properties} />
               }
             }}
@@ -187,16 +205,20 @@ test('@mdx-js/preact', async function (t) {
         render(
           <MDXProvider
             components={{
+              // @ts-expect-error TODO configure TypeScript project references
               h1(properties) {
+                // @ts-expect-error TODO configure TypeScript project references
                 return <h1 style={{color: 'tomato'}} {...properties} />
               }
             }}
           >
             <MDXProvider
               disableParentContext
+              // @ts-expect-error TODO configure TypeScript project references
               components={function () {
                 return {
                   h2(properties) {
+                    // @ts-expect-error TODO configure TypeScript project references
                     return <h2 style={{color: 'papayawhip'}} {...properties} />
                   }
                 }

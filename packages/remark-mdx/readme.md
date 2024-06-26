@@ -205,11 +205,15 @@ with `@types/mdast` by adding a reference:
 // Register MDX nodes in mdast:
 /// <reference types="remark-mdx" />
 
+/**
+ * @import {Root} from 'mdast'
+ */
+
 import {visit} from 'unist-util-visit'
 
 function myRemarkPlugin() {
   /**
-   * @param {import('mdast').Root} tree
+   * @param {Root} tree
    *   Tree.
    * @returns {undefined}
    *   Nothing.

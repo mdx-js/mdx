@@ -2,7 +2,7 @@
 /// <reference types="mdast-util-directive" />
 
 /**
- * @typedef {import('mdast').Root} MdastRoot
+ * @import {Root as MdastRoot} from 'mdast'
  */
 
 import assert from 'node:assert/strict'

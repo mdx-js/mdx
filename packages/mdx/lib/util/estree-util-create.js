@@ -1,5 +1,5 @@
 /**
- * @typedef {import('estree-jsx').Node} Node
+ * @import {Node} from 'estree-jsx'
  */
 
 // Fix to show references to above types in VS Code.

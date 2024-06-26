@@ -1,5 +1,5 @@
 /**
- * @typedef {import('estree-jsx').Expression} Expression
+ * @import {Expression} from 'estree-jsx'
  */
 
 import {ok as assert} from 'devlop'

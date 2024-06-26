@@ -1,6 +1,6 @@
 /**
- * @typedef {import('@mdx-js/mdx').Fragment} Fragment
- * @typedef {import('@mdx-js/mdx').Jsx} Jsx
+ * @import {Fragment, Jsx} from '@mdx-js/mdx'
+ * @import {ComponentProps} from 'react'
  */
 
 import assert from 'node:assert/strict'
@@ -59,7 +59,7 @@ test('@mdx-js/react', async function (t) {
         <MDXProvider
           components={{
             /**
-             * @param {JSX.IntrinsicElements['div']} properties
+             * @param {ComponentProps<'div'>} properties
              */
             wrapper(properties) {
               return <div id="layout" {...properties} />

@@ -2,9 +2,9 @@
 /// <reference types="rehype-infer-description-meta" />
 
 /**
- * @typedef {import('hast').ElementContent} ElementContent
- * @typedef {import('react').ReactNode} ReactNode
- * @typedef {import('./sort.js').Item} Item
+ * @import {ElementContent} from 'hast'
+ * @import {ReactNode} from 'react'
+ * @import {Item} from './sort.js'
  */
 
 /**
@@ -46,7 +46,7 @@ const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 /**
  * @param {Readonly<GroupProperties>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 export function NavigationGroup(properties) {
@@ -69,7 +69,7 @@ export function NavigationGroup(properties) {
 /**
  * @param {Readonly<ItemProperties>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 export function NavigationItem(properties) {

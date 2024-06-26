@@ -1,5 +1,6 @@
 /**
- * @typedef {import('./sort.js').Item} Item
+ * @import {ReactNode} from 'react'
+ * @import {Item} from './sort.js'
  */
 
 /**
@@ -29,7 +30,7 @@ const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 /**
  * @param {Readonly<EntryProperties>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 export function BlogEntry(properties) {
@@ -106,7 +107,7 @@ export function BlogEntry(properties) {
 /**
  * @param {Readonly<GroupProperties>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 export function BlogGroup(properties) {

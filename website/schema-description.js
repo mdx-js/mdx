@@ -1,5 +1,5 @@
 /**
- * @typedef {import('hast-util-sanitize').Schema} Schema
+ * @import {Schema} from 'hast-util-sanitize'
  */
 
 /**

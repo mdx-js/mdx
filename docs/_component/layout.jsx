@@ -1,6 +1,7 @@
 /**
- * @typedef {import('vfile').Data['meta']} DataMeta
- * @typedef {import('./sort.js').Item} Item
+ * @import {ReactNode} from 'react'
+ * @import {Data} from 'vfile'
+ * @import {Item} from './sort.js'
  */
 
 /**
@@ -10,11 +11,11 @@
  *   Name.
  * @property {Readonly<URL>} ghUrl
  *   GitHub URL.
- * @property {Readonly<DataMeta> | undefined} [meta]
+ * @property {Readonly<Data['meta']> | undefined} [meta]
  *   Meta.
  * @property {Readonly<Item>} navigationTree
  *   Navigation tree.
- * @property {JSX.Element} children
+ * @property {ReactNode} children
  *   Children.
  */
 
@@ -28,7 +29,7 @@ const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 /**
  * @param {Readonly<Properties>} properties
  *   Properties.
- * @returns {JSX.Element}
+ * @returns {ReactNode}
  *   Element.
  */
 export function Layout(properties) {

@@ -1,12 +1,12 @@
 /**
- * @typedef {import('@mdx-js/mdx').CompileOptions} CompileOptions
- * @typedef {import('esbuild').Message} Message
- * @typedef {import('esbuild').OnLoadArgs} OnLoadArgs
- * @typedef {import('esbuild').OnLoadResult} OnLoadResult
- * @typedef {import('esbuild').OnResolveArgs} OnResolveArgs
- * @typedef {import('esbuild').Plugin} Plugin
- * @typedef {import('esbuild').PluginBuild} PluginBuild
- * @typedef {import('vfile').Value} Value
+ * @import {CompileOptions} from '@mdx-js/mdx'
+ * @import {
+      Message,
+      OnLoadArgs,
+      OnLoadResult,
+      Plugin,
+      PluginBuild
+ * } from 'esbuild'
  */
 
 /**

@@ -1,5 +1,5 @@
 /**
- * @typedef {import('vfile').Data} Data
+ * @import {Data} from 'vfile'
  */
 
 /**

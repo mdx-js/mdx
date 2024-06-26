@@ -1,12 +1,14 @@
 /**
- * @typedef {import('estree-jsx').AssignmentProperty} AssignmentProperty
- * @typedef {import('estree-jsx').ExportSpecifier} ExportSpecifier
- * @typedef {import('estree-jsx').Expression} Expression
- * @typedef {import('estree-jsx').Identifier} Identifier
- * @typedef {import('estree-jsx').ImportDefaultSpecifier} ImportDefaultSpecifier
- * @typedef {import('estree-jsx').ImportNamespaceSpecifier} ImportNamespaceSpecifier
- * @typedef {import('estree-jsx').ImportSpecifier} ImportSpecifier
- * @typedef {import('estree-jsx').VariableDeclarator} VariableDeclarator
+ * @import {
+      AssignmentProperty,
+      ExportSpecifier,
+      Expression,
+      Identifier,
+      ImportDefaultSpecifier,
+      ImportNamespaceSpecifier,
+      ImportSpecifier,
+      VariableDeclarator
+ * } from 'estree-jsx'
  */
 
 import {create} from './estree-util-create.js'
