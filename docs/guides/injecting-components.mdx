@@ -78,7 +78,7 @@ changes when `providerImportSource: 'xxx'` is passed:
 +  const {wrapper: MDXLayout} = {..._provideComponents(), ...props.components}
    return MDXLayout
      ? _jsx(MDXLayout, {...props, children: _jsx(_createMdxContent, {...props})})
-     : _createMdxContent(props)
+     : _jsx(_createMdxContent, {...props})
 ```
 
 Observe that components have defaults (such as that `h1` will use `'h1'`) and
