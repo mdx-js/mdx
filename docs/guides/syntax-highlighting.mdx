@@ -150,13 +150,13 @@ the format of that meta string is, so it defaults to how markdown handles it:
 `meta` is ignored.
 
 But what if you want to access `meta` at runtime?
-That’s exactly what the remark plugin
-[`remark-mdx-code-meta`][remark-mdx-code-meta] does.
+That’s exactly what the rehype plugin
+[`rehype-mdx-code-props`][rehype-mdx-code-props] does.
 It lets you type JSX attributes in the `meta` part which you can access by
 with a component for `pre`.
 
-That plugin, like all remark plugins, can be passed as
-[`remarkPlugins` in `ProcessorOptions`][processor-options].
+That plugin, like all rehype plugins, can be passed as
+[`rehypePlugins` in `ProcessorOptions`][processor-options].
 More info on plugins is available in [§ Extending MDX][extend]
 
 [commonmark]: https://spec.commonmark.org/current/
@@ -167,7 +167,7 @@ More info on plugins is available in [§ Extending MDX][extend]
 
 [react-syntax-highlighter]: https://github.com/react-syntax-highlighter/react-syntax-highlighter
 
-[remark-mdx-code-meta]: https://github.com/remcohaszing/remark-mdx-code-meta
+[rehype-mdx-code-props]: https://github.com/remcohaszing/rehype-mdx-code-props
 
 [processor-options]: /packages/mdx/#processoroptions
 
