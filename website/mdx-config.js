@@ -1,6 +1,5 @@
 /**
  * @import {CompileOptions} from '@mdx-js/mdx'
- * @import {Grammar} from '@wooorm/starry-night'
  * @import {Program} from 'estree'
  * @import {ElementContent, Root} from 'hast'
  * @import {VFile} from 'vfile'
@@ -17,12 +16,11 @@
 
 import {pathToFileURL} from 'node:url'
 import {nodeTypes} from '@mdx-js/mdx'
-import {common, createStarryNight} from '@wooorm/starry-night'
+import {common} from '@wooorm/starry-night'
 import sourceMdx from '@wooorm/starry-night/source.mdx'
 import sourceTsx from '@wooorm/starry-night/source.tsx'
 import {valueToEstree} from 'estree-util-value-to-estree'
 import {h, s} from 'hastscript'
-import {toString} from 'hast-util-to-string'
 import {toText} from 'hast-util-to-text'
 import {analyze} from 'periscopic'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -32,6 +30,7 @@ import rehypeInferTitleMeta from 'rehype-infer-title-meta'
 import rehypeMinifyUrl from 'rehype-minify-url'
 import rehypeShiftHeading from 'rehype-shift-heading'
 import rehypeSlug from 'rehype-slug'
+import rehypeStarryNight from 'rehype-starry-night'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypeRaw from 'rehype-raw'
 import remarkFrontmatter from 'remark-frontmatter'
@@ -321,102 +320,6 @@ function rehypePrettyCodeBlocks() {
       }
 
       parent.children[index] = h('.frame.code-frame', children)
-    })
-  }
-}
-
-// See:
-// <https://github.com/wooorm/starry-night#example-integrate-with-unified-remark-and-rehype>.
-/**
- * @typedef Options
- *   Configuration (optional)
- * @property {Array<Grammar> | null | undefined} [grammars]
- *   Grammars to support (default: `common`).
- */
-
-/**
- * Highlight code with `starry-night`.
- *
- * @param {Readonly<Options> | null | undefined} options
- *   Configuration (optional).
- * @returns
- *   Transform.
- */
-function rehypeStarryNight(options) {
-  const settings = options || {}
-  const grammars = settings.grammars || common
-  const starryNightPromise = createStarryNight(grammars)
-  const prefix = 'language-'
-
-  /**
-   * Transform.
-   *
-   * @param {Root} tree
-   *   Tree.
-   * @returns {Promise<undefined>}
-   *   Nothing.
-   */
-  return async function (tree) {
-    const starryNight = await starryNightPromise
-
-    visit(tree, 'element', function (node, index, parent) {
-      if (!parent || typeof index !== 'number' || node.tagName !== 'pre') {
-        return
-      }
-
-      const head = node.children[0]
-
-      if (
-        !head ||
-        head.type !== 'element' ||
-        head.tagName !== 'code' ||
-        !head.properties
-      ) {
-        return
-      }
-
-      const classes = head.properties.className
-
-      if (!Array.isArray(classes)) return
-
-      const language = classes.find(function (d) {
-        return typeof d === 'string' && d.startsWith(prefix)
-      })
-
-      if (typeof language !== 'string') return
-
-      const name = language.slice(prefix.length)
-
-      const scope = starryNight.flagToScope(name)
-
-      // Maybe warn?
-      if (!scope) {
-        if (name !== 'txt') console.warn('Missing language: %s', name)
-        return
-      }
-
-      const fragment = starryNight.highlight(toString(head), scope)
-      // Cast because we don’t expect doctypes.
-      const children = /** @type {Array<ElementContent>} */ (fragment.children)
-
-      parent.children.splice(index, 1, {
-        type: 'element',
-        tagName: 'pre',
-        properties: {},
-        children: [
-          {
-            type: 'element',
-            tagName: 'code',
-            properties: {
-              className: [
-                'language-' +
-                  scope.replace(/^source\./, '').replaceAll('.', '-')
-              ]
-            },
-            children
-          }
-        ]
-      })
     })
   }
 }

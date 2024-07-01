@@ -81,6 +81,7 @@
     "rehype-remove-comments": "^6.0.0",
     "rehype-shift-heading": "^2.0.0",
     "rehype-slug": "^6.0.0",
+    "rehype-starry-night": "^2.0.0",
     "rehype-stringify": "^10.0.0",
     "remark-cli": "^12.0.0",
     "remark-directive": "^3.0.0",
