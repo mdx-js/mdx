@@ -1390,13 +1390,6 @@ test('@mdx-js/mdx: compile (JSX)', async function (t) {
   await t.test(
     'should not inject a provider for JSX in expressions',
     async function () {
-      console.log(
-        String(
-          await compile('{ <span /> }\n\nAnd also { <div /> }.', {
-            providerImportSource: '@mdx-js/react'
-          })
-        )
-      )
       assert.equal(
         String(
           await compile('{ <span /> }\n\nAnd also { <div /> }.', {
