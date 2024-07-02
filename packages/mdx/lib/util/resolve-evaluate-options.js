@@ -1,5 +1,4 @@
 /**
- * @import {Fragment, Jsx, JsxDev} from 'hast-util-to-jsx-runtime'
  * @import {MDXComponents} from 'mdx/types.js'
  * @import {CompileOptions} from '../compile.js'
  */
@@ -27,13 +26,13 @@
  *   this option can also be given at compile time in `CompileOptions`;
  *   you should pass this (likely at runtime), as you might get runtime errors
  *   when using `import.meta.url` / `import` / `export … from ` otherwise.
- * @property {Fragment} Fragment
+ * @property {unknown} Fragment
  *   Symbol to use for fragments (**required**).
- * @property {Jsx | null | undefined} [jsx]
+ * @property {unknown} [jsx]
  *   Function to generate an element with static children in production mode.
- * @property {JsxDev | null | undefined} [jsxDEV]
+ * @property {unknown} [jsxDEV]
  *   Function to generate an element in development mode.
- * @property {Jsx | null | undefined} [jsxs]
+ * @property {unknown} [jsxs]
  *   Function to generate an element with dynamic children in production mode.
  * @property {UseMdxComponents | null | undefined} [useMDXComponents]
  *   Function to get components from context.
