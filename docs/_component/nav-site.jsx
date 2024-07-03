@@ -43,7 +43,7 @@ export function NavigationSite(properties) {
 
   return (
     <nav className="navigation" aria-label="Site navigation">
-      <div id="banner">Ceasefire now! 🕊️</div>
+      <div id="banner">Release the Israeli hostages now! 🕊️</div>
       <a
         href="#start-of-content"
         id="start-of-navigation"
