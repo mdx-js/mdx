@@ -45,6 +45,7 @@
   "dependencies": {
     "@mdx-js/mdx": "^3.0.0",
     "source-map": "^0.7.0",
+    "vfile-reporter": "^8.0.0",
     "vfile": "^6.0.0"
   },
   "devDependencies": {},

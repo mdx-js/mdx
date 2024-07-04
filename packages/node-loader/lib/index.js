@@ -20,6 +20,7 @@ import fs from 'node:fs/promises'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
 import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
 import {SourceMapGenerator} from 'source-map'
+import {reporter} from 'vfile-reporter'
 import {VFile} from 'vfile'
 import {development as defaultDevelopment} from '#condition'
 
@@ -61,6 +62,11 @@ export function createLoader(options) {
     if (url.protocol === 'file:' && regex.test(url.pathname)) {
       const value = await fs.readFile(url)
       const file = await process(new VFile({value, path: url}))
+
+      /* c8 ignore next 3 -- hard to test. */
+      if (file.messages.length > 0) {
+        console.error(reporter(file))
+      }
 
       return {
         format: 'module',
