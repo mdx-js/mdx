@@ -10,9 +10,9 @@
  * @typedef {Omit<CompileOptions, 'development'>} Options
  *   Configuration.
  *
- *   Options are the same as [`compile` from `@mdx-js/mdx`][mdx-options]
- *   with the exception that the `development` option is supported based on how you
- *   configure webpack.
+ *   Options are the same as `compile` from `@mdx-js/mdx` with the
+ *   exception that the `development` option is supported based on
+ *   whether you run Node with `--conditions development`.
  *   You cannot pass it manually.
  */
 

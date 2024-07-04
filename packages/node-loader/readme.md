@@ -139,8 +139,8 @@ See [`load` in Node.js docs][node-load] for more info.
 Configuration (TypeScript type).
 
 Options are the same as [`CompileOptions` from `@mdx-js/mdx`][compile-options]
-with the exception that the `development` option is supported based on how you
-configure webpack.
+exception that the `development` option is supported based on whether you
+run Node with `--conditions development`.
 You cannot pass it manually.
 
 ## Types
