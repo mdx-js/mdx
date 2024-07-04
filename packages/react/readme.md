@@ -70,6 +70,10 @@ In browsers with [`esm.sh`][esmsh]:
 ## Use
 
 ```tsx
+/**
+ * @import {MDXComponents} from 'mdx/types.js'
+ */
+
 import {MDXProvider} from '@mdx-js/react'
 import Post from './post.mdx'
 // ^-- Assumes an integration is used to compile MDX to JS, such as
@@ -77,7 +81,7 @@ import Post from './post.mdx'
 // `@mdx-js/rollup`, and that it is configured with
 // `options.providerImportSource: '@mdx-js/react'`.
 
-/** @type {import('mdx/types.js').MDXComponents} */
+/** @type {MDXComponents} */
 const components = {
   em(properties) {
     return <i {...properties} />

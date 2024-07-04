@@ -297,7 +297,6 @@ pre code {
 }
 
 pre code,
-.hljs,
 .frame-body,
 .frame-tab-item-selected {
   background-color: #fafafa !important; /* Color from one-light */
@@ -583,7 +582,6 @@ button.success {
 
 .navigation .icon {
   display: block;
-  vertical-align: middle;
   width: auto;
   height: calc(1em + 1ex);
 }
@@ -658,9 +656,6 @@ button.success {
 
 .navigation-tertiary li + li {
   padding-inline-start: calc(0.5 * (1em + 1ex));
-}
-
-.nav-description {
 }
 
 .skip-to-navigation {
@@ -837,11 +832,13 @@ button.success {
   overflow-y: auto;
 }
 
-.frame-tab-bar + pre {
+.frame-tab-bar + pre,
+.frame-tab-bar + .highlight > pre {
   margin-block-start: 0;
 }
 
-.frame-tab-bar + pre code {
+.frame-tab-bar + pre code,
+.frame-tab-bar + .highlight > pre code {
   --squircle-radius: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -946,6 +943,55 @@ details[open] {
   padding: calc(1em + 1ex);
 }
 
+.rehype-twoslash-completion-deprecated {
+  opacity: 0.5;
+}
+
+.rehype-twoslash-popover-target {
+  cursor: default;
+}
+
+.highlight:is(:hover, :focus-within) .rehype-twoslash-popover-target {
+  background-color: var(--gray-2);
+}
+
+/* Wavy underline for errors. */
+.rehype-twoslash-error-target {
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 3" enable-background="new 0 0 6 3" height="3" width="6"><g fill="%23c94824"><polygon points="5.5,0 2.5,3 1.1,3 4.1,0"/><polygon points="4,0 6,2 6,0.6 5.4,0"/><polygon points="0,2 1,3 2.4,3 0,0.6"/></g></svg>');
+}
+
+/* The content that will be shown in the tooltip. */
+.rehype-twoslash-popover {
+  position: absolute;
+  max-width: calc(45 * (1em + 1ex));
+  padding: calc(0.5 * (1em + 1ex));
+  margin: 0;
+  background-color: var(--bg);
+  border: 1px solid var(--gray-2);
+  border-radius: 3px;
+}
+
+/* No padding if we have a padded code block (and perhaps more blocks) */
+.rehype-twoslash-popover:has(.rehype-twoslash-popover-code) {
+  padding: 0;
+}
+
+.rehype-twoslash-popover-code {
+  margin: 0;
+}
+
+.rehype-twoslash-popover-code > code {
+  mask-image: none;
+  border-radius: 0;
+}
+
+.rehype-twoslash-popover-description {
+  background-color: var(--bg);
+  padding: 0 1em;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --white: #f0f6fc;
@@ -1038,6 +1084,14 @@ details[open] {
     background-color: var(--gray-8);
   }
 
+  .highlight:is(:hover, :focus-within) .rehype-twoslash-popover-target {
+    background-color: var(--gray-5);
+  }
+
+  .rehype-twoslash-popover {
+    border-color: var(--gray-6);
+  }
+
   h6 {
     color: var(--gray-3);
   }
@@ -1062,7 +1116,6 @@ details[open] {
   }
 
   pre code,
-  .hljs,
   .frame-body,
   .frame-tab-item-selected,
   .frame-tab-item-dark.frame-tab-item-selected {
@@ -1228,23 +1281,6 @@ details[open] {
     width: calc(15 * (1em + 1ex));
     flex: 1;
     margin: 0 calc(1em + 1ex);
-  }
-}
-
-/* Fix a11y. */
-.hljs-built_in,
-.hljs-symbol {
-  color: hsl(24deg 92% 40%) !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  .hljs-section {
-    color: #488bef !important;
-  }
-
-  .hljs-built_in,
-  .hljs-symbol {
-    color: #ffa657 !important;
   }
 }
 

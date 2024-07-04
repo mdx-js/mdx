@@ -1,5 +1,7 @@
+/* eslint-disable unicorn/prefer-query-selector */
 /// <reference lib="dom" />
 
+import {computePosition, shift} from '@floating-ui/dom'
 import copyToClipboard from 'copy-to-clipboard'
 import {ok as assert} from 'devlop'
 
@@ -57,7 +59,35 @@ for (const copy of copies) {
   assert(copy instanceof HTMLButtonElement)
   copy.type = 'button'
   copy.replaceChildren(copyIcon.cloneNode(true))
-  copy.addEventListener('click', onclick)
+  copy.addEventListener('click', oncopyonclick)
+}
+
+const popoverTargets = /** @type {Array<HTMLElement>} */ (
+  Array.from(document.querySelectorAll('.rehype-twoslash-popover-target'))
+)
+
+for (const popoverTarget of popoverTargets) {
+  /** @type {NodeJS.Timeout | number} */
+  let timeout = 0
+
+  popoverTarget.addEventListener('click', function () {
+    popoverShow(popoverTarget)
+  })
+
+  popoverTarget.addEventListener('mouseenter', function () {
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      popoverShow(popoverTarget)
+    }, 300)
+  })
+
+  popoverTarget.addEventListener('mouseleave', function () {
+    clearTimeout(timeout)
+  })
+
+  if (popoverTarget.classList.contains('rehype-twoslash-autoshow')) {
+    popoverShow(popoverTarget)
+  }
 }
 
 /**
@@ -66,7 +96,7 @@ for (const copy of copies) {
  * @returns {undefined}
  *   Nothing.
  */
-function onclick() {
+function oncopyonclick() {
   assert(copyIcon)
   assert(copiedIcon)
   assert(this instanceof HTMLButtonElement)
@@ -83,4 +113,32 @@ function onclick() {
     this.classList.remove('success')
     this.replaceChildren(copyIcon.cloneNode(true))
   }, 2000)
+}
+
+/**
+ * @param {HTMLElement} popoverTarget
+ *   Popover target.
+ * @returns {undefined}
+ *   Nothing.
+ */
+function popoverShow(popoverTarget) {
+  const id = popoverTarget.dataset.popoverTarget
+  if (!id) return
+  const popover = document.getElementById(id)
+  if (!popover) return
+
+  popover.showPopover()
+
+  computePosition(popoverTarget, popover, {
+    placement: 'bottom',
+    middleware: [shift({padding: 5})]
+  }).then(
+    /**
+     * @param {{x: number, y: number}} value
+     */
+    function (value) {
+      popover.style.left = value.x + 'px'
+      popover.style.top = value.y + 'px'
+    }
+  )
 }

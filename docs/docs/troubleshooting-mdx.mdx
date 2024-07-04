@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-24'),
+  modified: new Date('2024-07-04'),
   published: new Date('2021-10-18')
 }
 export const navSortSelf = 5
@@ -127,13 +127,13 @@ for how to create plugins.
 
 The full error message in MDX 2 is as follows:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 Incorrect `format: 'detect'`: `createProcessor` can support either `md` or `mdx`; it does not support detecting the format
 ```
 
 The full error message in MDX 3 is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 Unexpected `format: 'detect'`, which is not supported by `createProcessor`, expected `'mdx'` or `'md'`
 ```
 
@@ -201,7 +201,7 @@ for examples on how to pass these values.
 
 The full error message in MDX is as follows:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 Unexpected missing `options.baseUrl` needed to support `export … from`, `import`, or `import.meta.url` when generating `function-body`
 ```
 
@@ -240,7 +240,7 @@ It occurs when the keywords `import` or `export` are found at the start of a
 line but they are not followed by valid JavaScript.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 import 1/1
 ```
 
@@ -259,7 +259,7 @@ It occurs when, after an `import` or `export` statement, more JavaScript is
 found.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 export const a = 1
 const b = 2
 ```
@@ -275,7 +275,7 @@ It was introduced in version 2.
 It occurs when there is an opening curly brace not followed by a closing brace.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 a { b
 ```
 
@@ -294,7 +294,7 @@ It was introduced in version 3.
 It occurs when containers with lazy lines are combined with expressions
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 * {1 +
 2}
 
@@ -305,7 +305,7 @@ An example is:
 The reason for this error is that the parser it likely points to a bug.
 Be explicit with your list items and block quotes:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 * {1 +
   2}
 
@@ -321,13 +321,13 @@ It occurs when there are matching curly braces that, when interpreting what’s
 inside them as JavaScript, results in a syntax error.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 a {const b = 'c'} d
 ```
 
 Another example:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 a {!} d
 ```
 
@@ -349,7 +349,7 @@ It occurs when there are matching curly braces that, and valid JavaScript is
 inside them, but there’s too much JavaScript.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 a {'b' 'c'} d
 ```
 
@@ -365,7 +365,7 @@ It was introduced in version 2.
 It occurs when there are multiple values spread into a JSX tag.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 <div {...a, ...b} />
 ```
 
@@ -385,7 +385,7 @@ They were introduced in version 2.
 They occur when something other than a spread is used in braces.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 <div {values} {/* comment */} {} />
 ```
 
@@ -404,7 +404,7 @@ They were introduced in MDX version 2.
 They occur when something unexpected was found in a JSX tag.
 Some examples are:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 <
 <.>
 </
@@ -441,7 +441,7 @@ It was introduced in version 2.
 It occurs when a closing tag is found but there are no open tags.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 </div>
 ```
 
@@ -455,7 +455,7 @@ It was introduced in version 3.
 It occurs when containers with lazy lines are combined with JSX.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 * <x
 y />
 
@@ -466,7 +466,7 @@ y />
 The reason for this error is that the parser it likely points to a bug.
 Be explicit with your list items and block quotes:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 * <x
   y />
 
@@ -481,7 +481,7 @@ It was introduced in version 2.
 It occurs when attributes are placed on closing tags.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 <h1>Text</h1 id="text">
 ```
 
@@ -495,7 +495,7 @@ It was introduced in version 2.
 It occurs when a closing tag is also marked as self-closing.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 <h1>Text</h1/>
 ```
 
@@ -511,7 +511,7 @@ It occurs when a closing tag is seen that does not match the expected opening
 tag.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 <a>Text</b>
 ```
 
@@ -527,7 +527,7 @@ It was introduced in version 2.
 It typically occurs when markdown and JSX are not interleaved correctly.
 An example is:
 
-```txt chrome=no
+```mdx-invalid chrome=no
 > <div>
 ```
 

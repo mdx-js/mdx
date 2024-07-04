@@ -14,7 +14,8 @@
  *   List of keys to exclude (optional).
  */
 
-import {pathToFileURL} from 'node:url'
+import assert from 'node:assert/strict'
+import {fileURLToPath, pathToFileURL} from 'node:url'
 import {nodeTypes} from '@mdx-js/mdx'
 import {common} from '@wooorm/starry-night'
 import sourceMdx from '@wooorm/starry-night/source.mdx'
@@ -28,11 +29,12 @@ import rehypeInferDescriptionMeta from 'rehype-infer-description-meta'
 import rehypeInferReadingTimeMeta from 'rehype-infer-reading-time-meta'
 import rehypeInferTitleMeta from 'rehype-infer-title-meta'
 import rehypeMinifyUrl from 'rehype-minify-url'
+import rehypePresetMinify from 'rehype-preset-minify'
+import rehypeRaw from 'rehype-raw'
 import rehypeShiftHeading from 'rehype-shift-heading'
 import rehypeSlug from 'rehype-slug'
 import rehypeStarryNight from 'rehype-starry-night'
-import rehypePresetMinify from 'rehype-preset-minify'
-import rehypeRaw from 'rehype-raw'
+import rehypeTwoslash from 'rehype-twoslash'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGemoji from 'remark-gemoji'
 import remarkGfm from 'remark-gfm'
@@ -42,7 +44,30 @@ import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs'
 import remarkStripBadges from 'remark-strip-badges'
 import remarkToc from 'remark-toc'
 import {visit} from 'unist-util-visit'
+import typescript from 'typescript'
 import {config} from '../docs/_config.js'
+
+const configPath = typescript.findConfigFile(
+  fileURLToPath(import.meta.url),
+  typescript.sys.fileExists,
+  'tsconfig.json'
+)
+assert(configPath)
+const commandLine = typescript.getParsedCommandLineOfConfigFile(
+  configPath,
+  undefined,
+  {
+    fileExists: typescript.sys.fileExists,
+    getCurrentDirectory: typescript.sys.getCurrentDirectory,
+    onUnRecoverableConfigFileDiagnostic(x) {
+      console.warn('Unrecoverable diagnostic', x)
+    },
+    readDirectory: typescript.sys.readDirectory,
+    readFile: typescript.sys.readFile,
+    useCaseSensitiveFileNames: typescript.sys.useCaseSensitiveFileNames
+  }
+)
+assert(commandLine)
 
 /** @type {Readonly<CompileOptions>} */
 const options = {
@@ -67,7 +92,14 @@ const options = {
         properties: {ariaLabel: 'Link to this section', className: ['anchor']}
       }
     ],
-    [rehypeStarryNight, {grammars: [...common, sourceMdx, sourceTsx]}],
+    [
+      rehypeStarryNight,
+      {
+        grammars: [...common, sourceMdx, sourceTsx],
+        plainText: ['mdx-invalid', 'txt']
+      }
+    ],
+    [rehypeTwoslash, {twoslash: {compilerOptions: commandLine.options}}],
     rehypePresetMinify,
     rehypeMinifyUrl
   ],
@@ -258,6 +290,14 @@ function rehypePrettyCodeBlocks() {
         }
       }
 
+      const className = Array.isArray(code.properties.className)
+        ? code.properties.className
+        : (code.properties.className = [])
+
+      if (metaProperties.twoslash === '') {
+        className.push('twoslash')
+      }
+
       if (metaProperties.chrome === 'no') {
         return
       }
@@ -265,9 +305,6 @@ function rehypePrettyCodeBlocks() {
       const textContent = toText(node)
       /** @type {Array<ElementContent>} */
       const children = [node]
-      const className = Array.isArray(code.properties.className)
-        ? code.properties.className
-        : []
       const lang = className.find(function (value) {
         return String(value).slice(0, 9) === 'language-'
       })
@@ -275,8 +312,7 @@ function rehypePrettyCodeBlocks() {
       const footer = []
       /** @type {Array<ElementContent>} */
       const header = []
-      const language =
-        metaProperties.language || (lang ? String(lang).slice(9) : undefined)
+      const language = lang ? String(lang).slice(9) : undefined
 
       // Not giant.
       if (textContent.length < 8192 && metaProperties.copy !== 'no') {

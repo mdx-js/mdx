@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-23'),
+  modified: new Date('2024-07-04'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 4
@@ -28,33 +28,34 @@ Vue, etc.)
 
 ## Syntax highlighting at compile time
 
-Use either [`rehype-highlight`][rehype-highlight]
-(`highlight.js`) or [`@mapbox/rehype-prism`][rehype-prism]
-(Prism) by doing something like this:
+Use for example [`rehype-starry-night`][rehype-starry-night] (`starry-night`),
+[`rehype-highlight`][rehype-highlight] (`lowlight`, `highlight.js`),
+or [`@mapbox/rehype-prism`][rehype-prism] (`refractor`, `prism`)
+by doing something like this:
 
-```tsx path="example.js"
+```js twoslash path="example.js"
+/// <reference types="node" />
+// ---cut---
 import {compile} from '@mdx-js/mdx'
-import rehypeHighlight from 'rehype-highlight'
+import rehypeStarryNight from 'rehype-starry-night'
 
 const code = `~~~js
 console.log(1)
 ~~~`
 
 console.log(
-  String(await compile(code, {rehypePlugins: [rehypeHighlight]}))
+  String(await compile(code, {rehypePlugins: [rehypeStarryNight]}))
 )
 ```
 
 <details>
   <summary>Expand equivalent JSX</summary>
 
-  ```tsx path="output.jsx"
+  ```jsx path="output.jsx"
   <>
     <pre>
-      <code className="hljs language-js">
-        <span className="hljs-variable language_">console</span>.
-        <span className="hljs-title function_">log</span>(
-        <span className="hljs-number">1</span>)
+      <code className="language-js">
+        <span className="pl-en">console</span>.<span className="pl-c1">log</span>(<span className="pl-c1">1</span>)
       </code>
     </pre>
   </>
@@ -62,24 +63,8 @@ console.log(
 </details>
 
 <Note type="important">
-  **Important**: If you chose `rehype-highlight`, then you should also use a
-  highlight.js theme somewhere on the page.
-  For example, to get GitHub Dark from cdnjs:
-
-  ```html
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
-  ```
-
-  {/* to do: once in a while, get the latest: <https://github.com/wooorm/lowlight#css> */}
-
-  If you chose `@mapbox/rehype-prism`, include something like this instead to
-  get Prism Dark:
-
-  ```html
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism-dark.min.css">
-  ```
-
-  {/* to do: once in a while, get the latest: <https://github.com/wooorm/refractor#css> */}
+  **Important**: you must likely also include CSS somewhere on the page.
+  See the documentation of the plugin you’re using for more information.
 </Note>
 
 ## Syntax highlighting at run time
@@ -88,11 +73,13 @@ Use for example
 [`react-syntax-highlighter`][react-syntax-highlighter],
 by doing something like this:
 
-```tsx path="example.jsx"
+{/* Note: `react-syntax-highlighter` doesn’t seem actively maintained so no twoslash to check this example. */}
+
+```jsx path="example.jsx"
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import Post from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-<Post components={{code}} />
+console.log(<Post components={{code}} />)
 
 function code({className, ...properties}) {
   const match = /language-(\w+)/.exec(className || '')
@@ -105,7 +92,7 @@ function code({className, ...properties}) {
 <details>
   <summary>Expand equivalent JSX</summary>
 
-  ```tsx path="output.jsx"
+  ```jsx path="output.jsx"
   <>
     <pre>
       <div
@@ -160,6 +147,8 @@ That plugin, like all rehype plugins, can be passed as
 More info on plugins is available in [§ Extending MDX][extend]
 
 [commonmark]: https://spec.commonmark.org/current/
+
+[rehype-starry-night]: https://github.com/rehypejs/rehype-starry-night
 
 [rehype-highlight]: https://github.com/rehypejs/rehype-highlight
 

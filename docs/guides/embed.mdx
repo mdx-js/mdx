@@ -2,7 +2,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-23'),
+  modified: new Date('2024-07-04'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 5
@@ -27,7 +27,7 @@ Vue, etc.)
 You can use [`@remark-embedder/core`][remark-embedder] by doing something like
 this:
 
-```tsx path="example.js"
+```js path="example.js"
 import {compile} from '@mdx-js/mdx'
 // Note: `@remark-embedder` is currently using faux-esm.
 import fauxRemarkEmbedder from '@remark-embedder/core'
@@ -60,7 +60,7 @@ console.log(
 <details>
   <summary>Expand equivalent JSX</summary>
 
-  ```tsx path="output.jsx"
+  ```jsx path="output.jsx"
   <>
     <p>Check out this video:</p>
     <iframe
@@ -92,7 +92,7 @@ Here’s a codepen, and some other blog post text.
 <details>
   <summary>Expand equivalent JSX</summary>
 
-  ```tsx path="output.jsx"
+  ```jsx path="output.jsx"
   <>
     <p>Here’s a codepen, and some other blog post text.</p>
     <CodePen codePenId="PNaGbb" />
@@ -110,23 +110,25 @@ Here’s a codepen, and some other blog post text.
 
 Then you can either pass all components:
 
-```tsx path="example.jsx"
+```jsx path="example.jsx"
 import * as embeds from 'mdx-embed'
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-<Example components={...embeds} />
+console.log(<Example components={...embeds} />)
 ```
 
 Or, if you’ve installed and configured [`@mdx-js/react`][mdx-react], you can
 also use `MDXEmbedProvider`:
 
-```tsx path="example.jsx"
+```jsx path="example.jsx"
 import {MDXEmbedProvider} from 'mdx-embed'
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-<MDXEmbedProvider>
-  <Example />
-</MDXEmbedProvider>
+console.log(
+  <MDXEmbedProvider>
+    <Example />
+  </MDXEmbedProvider>
+)
 ```
 
 [commonmark]: https://spec.commonmark.org/current/

@@ -57,7 +57,12 @@ npm install @mdx-js/loader
 Add something along these lines to your `webpack.config.js`:
 
 ```tsx
-/** @type {import('webpack').Configuration} */
+/**
+ * @import {Options} from '@mdx-js/loader'
+ * @import {Configuration} from 'webpack'
+ */
+
+/** @type {Configuration} */
 const webpackConfig = {
   module: {
     // …
@@ -68,7 +73,7 @@ const webpackConfig = {
         use: [
           {
             loader: '@mdx-js/loader',
-            /** @type {import('@mdx-js/loader').Options} */
+            /** @type {Options} */
             options: {/* jsxImportSource: …, otherOptions… */}
           }
         ]
@@ -111,7 +116,12 @@ If you use modern JavaScript features you might want to use Babel through
 [`babel-loader`][babel-loader] to compile to code that works in older browsers:
 
 ```tsx
-/** @type {import('webpack').Configuration} */
+/**
+ * @import {Options} from '@mdx-js/loader'
+ * @import {Configuration} from 'webpack'
+ */
+
+/** @type {Configuration} */
 const webpackConfig = {
   module: {
     // …
@@ -125,7 +135,7 @@ const webpackConfig = {
           {loader: 'babel-loader', options: {}},
           {
             loader: '@mdx-js/loader',
-            /** @type {import('@mdx-js/loader').Options} */
+            /** @type {Options} */
             options: {}
           }
         ]

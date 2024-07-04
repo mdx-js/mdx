@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-23'),
+  modified: new Date('2024-07-04'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 3
@@ -30,7 +30,10 @@ Say we have an MDX file like this:
 
 The above MDX with math can be transformed with the following module:
 
-```tsx path="example.js"
+```js twoslash path="example.js"
+// @filename: example.js
+/// <reference types="node" />
+// ---cut---
 import fs from 'node:fs/promises'
 import {compile} from '@mdx-js/mdx'
 import rehypeKatex from 'rehype-katex'
@@ -49,7 +52,7 @@ console.log(
 <details>
   <summary>Expand equivalent JSX</summary>
 
-  ```tsx path="output.jsx"
+  ```jsx path="output.jsx"
   <>
     <h1>
       <span className="katex">

@@ -2,7 +2,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-24'),
+  modified: new Date('2024-07-04'),
   published: new Date('2023-10-24')
 }
 export const navSortSelf = 7
@@ -25,19 +25,27 @@ as you can pass components to MDX:
 
 You can pass `Planet` and say a component used instead of the `h1`:
 
-```tsx path="example.jsx"
+```jsx twoslash path="example.jsx"
+// @filename: types.d.ts
+import type {} from 'mdx'
+// @filename: example.jsx
+/// <reference lib="dom" />
+/* @jsxImportSource react */
+// ---cut---
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-<Example
-  components={{
-    Planet() {
-      return 'Pluto'
-    },
-    h1(properties) {
-      return <h2 {...properties} />
-    }
-  }}
-/>
+console.log(
+  <Example
+    components={{
+      Planet() {
+        return 'Pluto'
+      },
+      h1(properties) {
+        return <h2 {...properties} />
+      }
+    }}
+  />
+)
 ```
 
 When you find yourself passing that `components` prop around a lot,
@@ -91,8 +99,15 @@ We can use this interface to inject components from a file.
 In that file,
 we need a `useMDXComponents` function that returns our components.
 
-```tsx path="mdx-components.js"
-/** @returns {import('mdx/types.js').MDXComponents} */
+```jsx twoslash path="mdx-components.js"
+// @filename: mdx-components.jsx
+/* @jsxImportSource react */
+// ---cut---
+/**
+ * @import {MDXComponents} from 'mdx/types.js'
+ */
+
+/** @returns {MDXComponents} */
 export function useMDXComponents() {
   return {
     Planet() {

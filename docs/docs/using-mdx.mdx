@@ -2,7 +2,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-23'),
+  modified: new Date('2024-07-04'),
   published: new Date('2021-09-30')
 }
 export const navSortSelf = 3
@@ -40,7 +40,7 @@ export function Thing() {
 That’s *roughly* turned into the following JavaScript.
 The below might help to form a mental model:
 
-```tsx path="output-outline.jsx"
+```jsx twoslash path="output-outline.jsx"
 /* @jsxRuntime automatic */
 /* @jsxImportSource react */
 
@@ -62,7 +62,8 @@ Some observations:
 
 The *actual* output is:
 
-```tsx path="output-actual.js"
+```js twoslash path="output-actual.js"
+// @noErrors
 import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from 'react/jsx-runtime'
 
 export function Thing() {
@@ -110,12 +111,18 @@ Take this file:
 
 It could be imported and used in a React app like so:
 
-```tsx path="example.js"
-import React from 'react'
-import ReactDom from 'react-dom'
+```jsx twoslash path="example.jsx"
+// @filename: types.d.ts
+import type {} from 'mdx'
+// @filename: example.jsx
+/// <reference lib="dom" />
+// ---cut---
+import {createRoot} from 'react-dom/client'
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-const root = ReactDom.createRoot(document.getElementById('root'))
+const container = document.getElementById('root')
+if (!container) throw new Error('Expected `root`')
+const root = createRoot(container)
 root.render(<Example />)
 ```
 
@@ -133,7 +140,15 @@ export function Thing() {
 
 It could be imported in the following ways:
 
-```tsx path="example.js"
+```js twoslash path="example.js"
+// @filename: types.d.ts
+declare module '*.mdx' {
+  export {MDXContent as default} from 'mdx/types';
+  export function Thing(): JSX.Element;
+}
+// @filename: example.js
+/// <reference types="node" />
+// ---cut---
 // A namespace import to get everything:
 import * as everything from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 console.log(everything) // {Thing: [Function: Thing], default: [Function: MDXContent]}
@@ -175,14 +190,20 @@ The current year is {props.year}
 
 This file could be used as:
 
-```tsx path="example.jsx"
+```jsx twoslash path="example.jsx"
+// @filename: types.d.ts
+import type {} from 'mdx'
+// @filename: example.jsx
+/// <reference lib="dom" />
+// ---cut---
+import React from 'react'
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
 // Use a `createElement` call:
-React.createElement(Example, {name: 'Venus', year: 2021})
+console.log(React.createElement(Example, {name: 'Venus', year: 2021}))
 
 // Use JSX:
-<Example name="Mars" year={2022} />
+console.log(<Example name="Mars" year={2022} />)
 ```
 
 ### Components
@@ -197,16 +218,24 @@ Take this example:
 
 It can be imported from JavaScript and passed components like so:
 
-```tsx path="example.jsx"
+```jsx twoslash path="example.jsx"
+// @filename: types.d.ts
+import type {} from 'mdx'
+// @filename: example.jsx
+/// <reference lib="dom" />
+/* @jsxImportSource react */
+// ---cut---
 import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-<Example
-  components={{
-    Planet() {
-      return <span style={{color: 'tomato'}}>Pluto</span>
-    }
-  }}
-/>
+console.log(
+  <Example
+    components={{
+      Planet() {
+        return <span style={{color: 'tomato'}}>Pluto</span>
+      }
+    }}
+  />
+)
 ```
 
 You don’t have to pass components.
@@ -239,31 +268,40 @@ import Contributing from './docs/contributing.mdx'
 
 Here are some other examples of passing components:
 
-```tsx path="example.jsx"
-<Example
-  components={{
-    // Map `h1` (`# heading`) to use `h2`s.
-    h1: 'h2',
-    // Rewrite `em`s (`*like so*`) to `i` with a goldenrod foreground color.
-    em(props) {
-      return <i style={{color: 'goldenrod'}} {...props} />
-    },
-    // Pass a layout (using the special `'wrapper'` key).
-    wrapper({components, ...rest}) {
-      return <main {...rest} />
-    },
-    // Pass a component.
-    Planet() {
-      return 'Neptune'
-    },
-    // This nested component can be used as `<theme.text>hi</theme.text>`
-    theme: {
-      text(props) {
-        return <span style={{color: 'grey'}} {...props} />
+```jsx twoslash path="example.jsx"
+// @filename: types.d.ts
+import type {} from 'mdx'
+// @filename: example.jsx
+/// <reference lib="dom" />
+/* @jsxImportSource react */
+import Example from './example.mdx'
+// ---cut---
+console.log(
+  <Example
+    components={{
+      // Map `h1` (`# heading`) to use `h2`s.
+      h1: 'h2',
+      // Rewrite `em`s (`*like so*`) to `i` with a goldenrod foreground color.
+      em(props) {
+        return <i style={{color: 'goldenrod'}} {...props} />
+      },
+      // Pass a layout (using the special `'wrapper'` key).
+      wrapper({components, ...rest}) {
+        return <main {...rest} />
+      },
+      // Pass a component.
+      Planet() {
+        return 'Neptune'
+      },
+      // This nested component can be used as `<theme.text>hi</theme.text>`
+      theme: {
+        text(props) {
+          return <span style={{color: 'grey'}} {...props} />
+        }
       }
-    }
-  }}
-/>
+    }}
+  />
+)
 ```
 
 The following keys can be passed in `components`:
@@ -276,9 +314,9 @@ The following keys can be passed in `components`:
   `<So />` or `<like.so />`, note that locally defined components take
   precedence)**‡**
 
-If you ever wondered what the rules are for whether a name in JSX (so `x` in
-`<x>`) is a literal tag name (like `h1`) or not (like `Component`), they are as
-follows:
+**‡** If you ever wondered what the rules are for whether a name in JSX (so `x`
+in `<x>`) is a literal tag name (like `h1`) or not (like `Component`), they are
+as follows:
 
 * If there’s a dot, it’s a member expression (`<a.b>` -> `h(a.b)`),
   which means that the `b` component is taken from object `a`
@@ -303,9 +341,7 @@ All the things.
 
 The layout can also be imported and *then* exported with an `export … from`:
 
-{/* Note: `language` because theme in VS Code is broken. */}
-
-```tsx language="mdx"
+```mdx
 export {Layout as default} from './components.js'
 ```
 
@@ -325,10 +361,18 @@ Take for example this file:
 
 Used like so:
 
-```tsx path="app.jsx"
+```jsx twoslash path="app.jsx"
+// @filename: components.d.ts
 import React from 'react'
-import ReactDom from 'react-dom'
-import {Heading, /* … */ Table} from './components/index.js'
+declare const Heading: {H1: React.ComponentType}
+declare const Table: React.ComponentType
+// @filename: types.d.ts
+import type {} from 'mdx'
+// @filename: example.jsx
+/// <reference lib="dom" />
+// ---cut---
+import {createRoot} from 'react-dom/client'
+import {Heading, /* … */ Table} from './components.js'
 import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
 
 const components = {
@@ -337,7 +381,9 @@ const components = {
   table: Table
 }
 
-const root = ReactDom.createRoot(document.getElementById('root'))
+const container = document.getElementById('root')
+if (!container) throw new Error('Expected `root`')
+const root = createRoot(container)
 root.render(<Post components={components} />)
 ```
 
@@ -378,18 +424,14 @@ Set it up like so:
 
 ```diff
 +import {MDXProvider} from '@mdx-js/react'
- import React from 'react'
- import ReactDom from 'react-dom'
+ import {createRoot} from 'react-dom/client'
  import {Heading, /* … */ Table} from './components/index.js'
  import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
+@@ -13,4 +14,8 @@ const components = {
 
- const components = {
-   h1: Heading.H1,
-   // …
-   table: Table
- }
-
- const root = ReactDom.createRoot(document.getElementById('root'))
+ const container = document.getElementById('root')
+ if (!container) throw new Error('Expected `root`')
+ const root = createRoot(container)
 -root.render(<Post components={components} />)
 +root.render(
 +  <MDXProvider components={components}>
@@ -418,14 +460,28 @@ Now you can remove the explicit and verbose component passing:
 When `MDXProvider`s are nested, their components are merged.
 Take this example:
 
-```tsx
-<>
+```jsx twoslash
+// @filename: types.d.ts
+import React from 'react'
+import type {MDXContent} from 'mdx/types.js'
+declare const Component1: React.ComponentType
+declare const Component2: React.ComponentType
+declare const Component3: React.ComponentType
+declare const Component4: React.ComponentType
+declare const Content: MDXContent
+// @filename: example.jsx
+/// <reference lib="dom" />
+import {MDXProvider} from '@mdx-js/react'
+import React from 'react'
+import {Component1, Component2, Component3, Component4, Content} from './types.js'
+// ---cut---
+console.log(
   <MDXProvider components={{h1: Component1, h2: Component2}}>
     <MDXProvider components={{h2: Component3, h3: Component4}}>
       <Content />
     </MDXProvider>
   </MDXProvider>
-</>
+)
 ```
 
 …which results in `h1`s using `Component1`, `h2`s using `Component3`, and `h3`s
@@ -436,8 +492,22 @@ It’s given the current context `components` and what it returns will be used
 instead.
 In this example the current context components are discarded:
 
-```tsx
-<>
+```jsx twoslash
+// @filename: types.d.ts
+import React from 'react'
+import type {MDXContent} from 'mdx/types.js'
+declare const Component1: React.ComponentType
+declare const Component2: React.ComponentType
+declare const Component3: React.ComponentType
+declare const Component4: React.ComponentType
+declare const Content: MDXContent
+// @filename: example.jsx
+/// <reference lib="dom" />
+import {MDXProvider} from '@mdx-js/react'
+import React from 'react'
+import {Component1, Component2, Component3, Component4, Content} from './types.js'
+// ---cut---
+console.log(
   <MDXProvider components={{h1: Component1, h2: Component2}}>
     <MDXProvider
       components={
@@ -449,7 +519,7 @@ In this example the current context components are discarded:
       <Content />
     </MDXProvider>
   </MDXProvider>
-</>
+)
 ```
 
 …which results in `h2`s using `Component3` and `h3`s using `Component4`.

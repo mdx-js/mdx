@@ -57,9 +57,13 @@ npm install @mdx-js/rollup
 Add something along these lines to your `rollup.config.js`:
 
 ```tsx
+/**
+ * @import {RollupOptions} from 'rollup'
+ */
+
 import mdx from '@mdx-js/rollup'
 
-/** @type {import('rollup').RollupOptions} */
+/** @type {RollupOptions} */
 const config = {
   // …
   plugins: [
@@ -119,10 +123,14 @@ If you use modern JavaScript features you might want to use Babel through
 [`@rollup/plugin-babel`][rollup-plugin-babel] to compile to code that works:
 
 ```tsx
+/**
+ * @import {RollupOptions} from 'rollup'
+ */
+
 import mdx from '@mdx-js/rollup'
 import {babel} from '@rollup/plugin-babel'
 
-/** @type {import('rollup').RollupOptions} */
+/** @type {RollupOptions} */
 const config = {
   // …
   plugins: [

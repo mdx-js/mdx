@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-01-19'),
+  modified: new Date('2024-07-04'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 4
@@ -117,7 +117,7 @@ Where to pass plugins is encoded in their name: remark plugins go in
 [`ProcessorOptions`][processor-options].
 Those fields expect lists of plugins and/or of `[plugin, options]`:
 
-```tsx
+```tsx twoslash
 import {compile} from '@mdx-js/mdx'
 import rehypeKatex from 'rehype-katex' // Render math with KaTeX.
 import remarkFrontmatter from 'remark-frontmatter' // YAML and such.

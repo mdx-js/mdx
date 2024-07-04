@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-23'),
+  modified: new Date('2024-07-04'),
   published: new Date('2021-11-13')
 }
 export const navSortSelf = 6
@@ -26,7 +26,7 @@ This is similar to what people sometimes use [`mdx-bundler`][mdx-bundler] or
 
 On the server:
 
-```tsx path="server.js"
+```js twoslash path="server.js"
 import {compile} from '@mdx-js/mdx'
 
 const code = String(await compile('# hi', {
@@ -38,12 +38,13 @@ const code = String(await compile('# hi', {
 
 On the client:
 
-```tsx path="client.js"
+```js twoslash path="client.js"
 import {run} from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
 
 const code = '' // To do: get `code` from server somehow.
 
+// @ts-expect-error: `runtime` types are currently broken.
 const {default: Content} = await run(code, {...runtime, baseUrl: import.meta.url})
 ```
 
@@ -66,20 +67,34 @@ and runs in one.
 Some frameworks let you write the server and client code in one file, such as
 Next.
 
-```tsx path="pages/hello.js"
+```js twoslash path="pages/hello.js"
+/**
+ * @import {MDXModule} from 'mdx/types.js'
+ * @import {Dispatch, SetStateAction} from 'react'
+ */
+
 import {compile, run} from '@mdx-js/mdx'
 import {Fragment, useEffect, useState} from 'react'
 import * as runtime from 'react/jsx-runtime'
 
+/**
+ * @param {{code: string}} props
+ * @returns {JSX.Element}
+ */
 export default function Page({code}) {
+  /** @type {[MDXModule | undefined, Dispatch<SetStateAction<MDXModule | undefined>>]} */
   const [mdxModule, setMdxModule] = useState()
   const Content = mdxModule ? mdxModule.default : Fragment
 
-  useEffect(function () {
-    ;(async function () {
-      setMdxModule(await run(code, {...runtime, baseUrl: import.meta.url}))
-    })()
-  }, [code])
+  useEffect(
+    function () {
+      ;(async function () {
+        // @ts-expect-error: `runtime` types are currently broken.
+        setMdxModule(await run(code, {...runtime, baseUrl: import.meta.url}))
+      })()
+    },
+    [code]
+  )
 
   return <Content />
 }
@@ -87,7 +102,7 @@ export default function Page({code}) {
 export async function getStaticProps() {
   const code = String(
     await compile('# hi', {
-      outputFormat: 'function-body',
+      outputFormat: 'function-body'
       /* …otherOptions */
     })
   )

@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-24'),
+  modified: new Date('2024-07-04'),
   published: new Date('2021-10-05')
 }
 export const navSortSelf = 2
@@ -160,7 +160,11 @@ to highlight code blocks on GitHub is maintained at
 
   …TypeScript should automatically pick it up:
 
-  ```tsx path="example.js"
+  ```js twoslash path="example.js"
+  // @filename: types.d.ts
+  import type {} from 'mdx'
+  // @filename: example.js
+  // ---cut---
   import Post from './post.mdx' // `Post` is now typed.
   ```
 </details>
@@ -177,7 +181,7 @@ This package also exports several useful types,
 such as `MDXComponents` which represents the `components` prop.
 You can import them like so:
 
-```tsx path="example.ts"
+```ts twoslash path="example.ts"
 import type {MDXComponents} from 'mdx/types.js'
 ```
 
@@ -209,7 +213,7 @@ and make sure processes can be killed when taking too long.
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="example.js"
+  ```js twoslash path="example.js"
   import mdx from '@mdx-js/esbuild'
   import esbuild from 'esbuild'
 
@@ -235,16 +239,20 @@ To use more modern JavaScript features than what your users support,
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="rollup.config.js"
+  ```js twoslash path="rollup.config.js"
+  /**
+   * @import {RollupOptions} from 'rollup'
+   */
+
   import mdx from '@mdx-js/rollup'
   import {babel} from '@rollup/plugin-babel'
 
-  /** @type {import('rollup').RollupOptions} */
+  /** @type {RollupOptions} */
   const config = {
     // …
     plugins: [
       // …
-      mdx({/* jsxImportSource: …, otherOptions… */})
+      mdx({/* jsxImportSource: …, otherOptions… */}),
       // Babel is optional:
       babel({
         // Also run on what used to be `.mdx` (but is now JS):
@@ -275,8 +283,13 @@ for more info.
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="webpack.config.js"
-  /** @type {import('webpack').Configuration} */
+  ```js twoslash path="webpack.config.js"
+  /**
+   * @import {Options} from '@mdx-js/loader'
+   * @import {Configuration} from 'webpack'
+   */
+
+  /** @type {Configuration} */
   const webpackConfig = {
     module: {
       // …
@@ -289,7 +302,7 @@ for more info.
             {loader: 'babel-loader', options: {}},
             {
               loader: '@mdx-js/loader',
-              /** @type {import('@mdx-js/loader').Options} */
+              /** @type {Options} */
               options: {/* jsxImportSource: …, otherOptions… */}
             }
           ]
@@ -321,7 +334,7 @@ for more info.
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="vite.config.js"
+  ```js twoslash path="vite.config.js"
   import mdx from '@mdx-js/rollup'
   import {defineConfig} from 'vite'
 
@@ -344,14 +357,18 @@ To use more modern JavaScript features than what your users support,
 [configure Vite’s `build.target`][vite-build-target].
 
 <Note type="info">
-  **Note**: If you also use `vitejs/vite-plugin-react`,
+  **Note**: If you also use `@vitejs/plugin-react`,
   you must force `@mdx-js/rollup` to run in the `pre` phase before it:
 
-  ```tsx path="vite.config.js"
+  ```js twoslash path="vite.config.js"
+  import mdx from '@mdx-js/rollup'
+  import react from '@vitejs/plugin-react'
+  import {defineConfig} from 'vite'
+  // ---cut---
   // …
   const viteConfig = defineConfig({
     plugins: [
-      {enforce: 'pre', ...mdx(/* jsxImportSource: …, otherOptions… */)},
+      {enforce: 'pre', ...mdx({/* jsxImportSource: …, otherOptions… */})},
       react({include: /\.(jsx|js|mdx|md|tsx|ts)$/})
     ]
   })
@@ -372,49 +389,157 @@ for more info.
 
   This plugin:
 
-  ```tsx path="plugin.js"
-  import path from 'node:path'
+  ```js twoslash path="plugin.js"
+  /**
+   * @import {ParseResult, ParserOptions} from '@babel/parser'
+   * @import {File} from '@babel/types'
+   * @import {Program} from 'estree'
+   * @import {Plugin} from 'unified'
+   */
+
   import parser from '@babel/parser'
   import {compileSync} from '@mdx-js/mdx'
   import estreeToBabel from 'estree-to-babel'
 
+  /**
+   * Plugin that tells Babel to use a different parser.
+   */
   export function babelPluginSyntaxMdx() {
-    // Tell Babel to use a different parser.
     return {parserOverride: babelParserWithMdx}
   }
 
-  // A Babel parser that parses MDX files with `@mdx-js/mdx` and passes any
-  // other things through to the normal Babel parser.
+  /**
+   * Parser that handles MDX with `@mdx-js/mdx` and passes other things through
+   * to the normal Babel parser.
+   *
+   * @param {string} value
+   * @param {ParserOptions} options
+   * @returns {ParseResult<File>}
+   */
   function babelParserWithMdx(value, options) {
-    if (options.sourceFileName && /\.mdx?$/.test(options.sourceFileName)) {
+    /** @type {string | undefined} */
+    // @ts-expect-error: babel changed the casing at some point and the types are out of date.
+    const filename = options.sourceFilename || options.sourceFileName
+
+    if (filename && /\.mdx?$/.test(filename)) {
       // Babel does not support async parsers, unfortunately.
-      return compileSync(
-        {value, path: options.sourceFileName},
-        // Tell `@mdx-js/mdx` to return a Babel tree instead of serialized JS.
-        {recmaPlugins: [recmaBabel], /* jsxImportSource: …, otherOptions… */}
-      ).result
+      const file = compileSync(
+        {value, path: options.sourceFilename},
+        {recmaPlugins: [recmaBabel] /* jsxImportSource: …, otherOptions… */}
+      )
+      return /** @type {ParseResult<File>} */ (file.result)
     }
 
     return parser.parse(value, options)
   }
 
-  // A “recma” plugin is a unified plugin that runs on the estree (used by
-  // `@mdx-js/mdx` and much of the JS ecosystem but not Babel).
-  // This plugin defines `'estree-to-babel'` as the compiler,
-  // which means that the resulting Babel tree is given back by `compileSync`.
+  /**
+   * A “recma” plugin is a unified plugin that runs on the estree (used by
+   * `@mdx-js/mdx` and much of the JS ecosystem but not Babel).
+   * This plugin defines `'estree-to-babel'` as the compiler,
+   * which means that the resulting Babel tree is given back by `compileSync`.
+   *
+   * @type {Plugin<[], Program, unknown>}
+   */
   function recmaBabel() {
-    this.compiler = estreeToBabel
+    // @ts-expect-error: `Program` is similar enough to a unist node.
+    this.compiler = compiler
+
+    /**
+     * @param {Program} tree
+     * @returns {unknown}
+     */
+    function compiler(tree) {
+      // @ts-expect-error TS2349: This expression *is* callable, `estreeToBabel` types are wrong.
+      return estreeToBabel(tree)
+    }
   }
   ```
 
   …can be used like so with the Babel API:
 
-  ```tsx path="example.js"
+  ```js twoslash path="example.js"
+  /// <reference types="node" />
+  // ---cut---
+  // @filename: plugin.js
+  /**
+   * @import {ParseResult, ParserOptions} from '@babel/parser'
+   * @import {File} from '@babel/types'
+   * @import {Program} from 'estree'
+   * @import {Plugin} from 'unified'
+   */
+
+  import parser from '@babel/parser'
+  import {compileSync} from '@mdx-js/mdx'
+  import estreeToBabel from 'estree-to-babel'
+
+  /**
+   * Plugin that tells Babel to use a different parser.
+   */
+  export function babelPluginSyntaxMdx() {
+    return {parserOverride: babelParserWithMdx}
+  }
+
+  /**
+   * Parser that handles MDX with `@mdx-js/mdx` and passes other things through
+   * to the normal Babel parser.
+   *
+   * @param {string} value
+   * @param {ParserOptions} options
+   * @returns {ParseResult<File>}
+   */
+  function babelParserWithMdx(value, options) {
+    /** @type {string | undefined} */
+    // @ts-expect-error: babel types are wrong.
+    const filename = options.sourceFilename || options.sourceFileName
+
+    if (filename && /\.mdx?$/.test(filename)) {
+      // Babel does not support async parsers, unfortunately.
+      const file = compileSync(
+        {value, path: options.sourceFilename},
+        {recmaPlugins: [recmaBabel] /* jsxImportSource: …, otherOptions… */}
+      )
+      return /** @type {ParseResult<File>} */ (file.result)
+    }
+
+    return parser.parse(value, options)
+  }
+
+  /**
+   * A “recma” plugin is a unified plugin that runs on the estree (used by
+   * `@mdx-js/mdx` and much of the JS ecosystem but not Babel).
+   * This plugin defines `'estree-to-babel'` as the compiler,
+   * which means that the resulting Babel tree is given back by `compileSync`.
+   *
+   * @type {Plugin<[], Program, unknown>}
+   */
+  function recmaBabel() {
+    // @ts-expect-error: `Program` is similar enough to a unist node.
+    this.compiler = compiler
+
+    /**
+     * @param {Program} tree
+     * @returns {unknown}
+     */
+    function compiler(tree) {
+      // @ts-expect-error TS2349: This expression *is* callable, `estreeToBabel` types are wrong.
+      return estreeToBabel(tree)
+    }
+  }
+  // @filename: example.js
+  // ---cut---
   import babel from '@babel/core'
   import {babelPluginSyntaxMdx} from './plugin.js'
 
+  const document = '# Hello, world!'
+
   // Note that a filename must be set for our plugin to know it’s MDX instead of JS.
-  await babel.transformAsync(file, {filename: 'example.mdx', plugins: [babelPluginSyntaxMdx]})
+  const result = await babel.transformAsync(document, {
+    filename: 'example.mdx',
+    plugins: [babelPluginSyntaxMdx]
+  })
+
+  console.log(result)
   ```
 </details>
 
@@ -460,7 +585,7 @@ See [`gatsby-plugin-mdx`][gatsby-plugin-mdx] on how to use MDX with Gatsby.
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="next.config.js"
+  ```js twoslash path="next.config.js"
   import nextMdx from '@next/mdx'
 
   const withMdx = nextMdx({
@@ -499,7 +624,7 @@ on how to use MDX with Parcel.
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="example.js"
+  ```js twoslash path="example.js"
   import {compile} from '@mdx-js/mdx'
 
   const js = String(await compile('# hi', {jsxImportSource: '@emotion/react', /* otherOptions… */}))
@@ -527,19 +652,27 @@ for more info.
   # Hi!
   ```
 
-  ```tsx path="example.js"
+  ```js twoslash path="example.js"
+  // @filename: types.d.ts
+  import type {} from 'mdx'
+  // @filename: example.js
+  // @errors: 2769 -- something with Ink/twoslash/react getting different versions of React?
+  // ---cut---
   import React from 'react'
   import {Text, render} from 'ink'
   import Content from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
 
-  const components = {
-    h1(properties) {
-      return React.createElement(Text, {bold: true, ...properties})
-    },
-    p: Text
-  }
-
-  render(React.createElement(Content, {components}))
+  render(
+    React.createElement(Content, {
+      components: {
+        h1(properties) {
+          // @ts-expect-error: `Ink` types don’t match w/ `exactOptionalPropertyTypes: true`
+          return React.createElement(Text, {bold: true, ...properties})
+        },
+        p: Text
+      }
+    })
+  )
   ```
 
   Can be used with:
@@ -563,7 +696,7 @@ info.
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="example.js"
+  ```js twoslash path="example.js"
   import {compile} from '@mdx-js/mdx'
 
   const js = String(await compile('# hi', {jsxImportSource: 'preact', /* otherOptions… */}))
@@ -593,53 +726,15 @@ for more info.
 
 #### Theme UI
 
-<details>
-  <summary>Expand example</summary>
-
-  Example w/o `@mdx-js/react`
-
-  ```tsx path="example.js"
-  import {base} from '@theme-ui/preset-base'
-  import {ThemeProvider, components} from 'theme-ui'
-  import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
-
-  <ThemeProvider theme={base}>
-    <Post components={components} />
-  </ThemeProvider>
-  ```
-
-  Example w/ `@mdx-js/react`
-
-  ```tsx path="example.js"
-  import {base} from '@theme-ui/preset-base'
-  import {ThemeProvider} from 'theme-ui'
-  import Post from './post.mdx' // Assumes an integration is used to compile MDX -> JS.
-
-  <ThemeProvider theme={base}>
-    <Post />
-  </ThemeProvider>
-  ```
-</details>
-
-[Theme UI][theme-ui] is a React-specific library that depends on context to
-access its effective components.
-You can install and configure [`@mdx-js/react`][mdx-react] to support context
-based component passing.
-
-See also [¶ Emotion][jsx-runtime-emotion],
-[¶ React][jsx-runtime-react],
-[¶ Rollup][bundler-rollup], and
-[¶ esbuild][bundler-esbuild],
-[¶ webpack][bundler-webpack],
-which you might be using,
-for more info.
+[Theme UI][theme-ui] has its own plugin to support MDX.
+See [`@theme-ui/mdx`][theme-ui-mdx] on how to use MDX with Theme UI.
 
 #### Svelte
 
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="example.js"
+  ```js twoslash path="example.js"
   import {compile} from '@mdx-js/mdx'
 
   const js = String(await compile('# hi', {jsxImportSource: 'svelte-jsx', /* otherOptions… */}))
@@ -660,7 +755,7 @@ for more info.
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="example.js"
+  ```js twoslash path="example.js"
   import {compile} from '@mdx-js/mdx'
 
   const js = String(await compile('# hi', {jsxImportSource: 'vue', /* otherOptions… */}))
@@ -681,7 +776,7 @@ for more info.
 <details>
   <summary>Expand example</summary>
 
-  ```tsx path="example.js"
+  ```js twoslash path="example.js"
   import {compile} from '@mdx-js/mdx'
 
   const js = String(await compile('# hi', {jsxImportSource: 'solid-js/h', /* otherOptions… */}))
@@ -763,6 +858,8 @@ See its readme on how to configure it.
 [svelte-jsx]: https://github.com/kenoxa/svelte-jsx
 
 [theme-ui]: https://theme-ui.com
+
+[theme-ui-mdx]: https://theme-ui.com/mdx
 
 [typescript]: https://www.typescriptlang.org
 
