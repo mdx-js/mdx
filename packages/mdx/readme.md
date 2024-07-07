@@ -1223,8 +1223,6 @@ abide by its terms.
 
 [unified]: https://github.com/unifiedjs/unified
 
-[core]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/lib/core.js#L65
-
 [micromark]: https://github.com/micromark/micromark
 
 [acorn]: https://github.com/acornjs/acorn
