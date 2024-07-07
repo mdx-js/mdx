@@ -1083,7 +1083,7 @@ what unified does: please read through the [`unifiedjs/unified`][unified] readme
 (the part until you hit the API section is required reading).
 
 `@mdx-js/mdx` is a unified pipeline — wrapped so that most folks don’t need to
-know about unified: [`core.js#L65`][core].
+know about unified, but can easily integrate their remark and rehype plugins.
 The processor goes through these steps:
 
 1. parse MDX (serialized markdown with embedded JSX, ESM, and expressions)
