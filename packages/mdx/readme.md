@@ -1083,7 +1083,7 @@ what unified does: please read through the [`unifiedjs/unified`][unified] readme
 (the part until you hit the API section is required reading).
 
 `@mdx-js/mdx` is a unified pipeline — wrapped so that most folks don’t need to
-know about unified: [`core.js#L65`][core].
+know about unified.
 The processor goes through these steps:
 
 1. parse MDX (serialized markdown with embedded JSX, ESM, and expressions)
@@ -1222,8 +1222,6 @@ abide by its terms.
 [use]: #use
 
 [unified]: https://github.com/unifiedjs/unified
-
-[core]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/lib/core.js#L65
 
 [micromark]: https://github.com/micromark/micromark
 
