@@ -206,6 +206,27 @@ console.log(React.createElement(Example, {name: 'Venus', year: 2021}))
 console.log(<Example name="Mars" year={2022} />)
 ```
 
+#### TypeScript: `Props` Type
+
+To declare a type for the `props` object, use the JSDoc `@typedef` tag:
+
+```mdx
+{/**
+  * @typedef Props
+  * @property {string} name
+  *   Who to greet. */}
+
+# Hello {props.name}
+```
+
+This will be used by [the MDX VS Code extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) to show JSDoc information and errors in IntelliSense hovers (see the [MDX Analyzer Props docs](https://github.com/mdx-js/mdx-analyzer#props) for more details):
+
+![Screenshot of MDX VS Code extension with `example.mdx` file open, showing mouse hovering over "name" in "props.name", with the IntelliSense hover card showing the details from the JSDoc type](https://github.com/mdx-js/mdx/assets/1935696/de2cdc80-099f-412a-80c1-422d320fb3d0)
+
+![Screenshot of MDX VS Code extension with `example.mdx` file open, showing mouse hovering over the red-underlined "nam" in "props.nam", with the IntelliSense hover card showing the error "Property 'nam' does not exist ..."](https://github.com/mdx-js/mdx/assets/1935696/ceb5612d-fb36-47b0-8ef5-415e1fa32684)
+
+![Screenshot of MDX VS Code extension with `example.tsx` file open, showing mouse hovering over the red-underlined "Example" in "<Example />", with the IntelliSense hover card showing the error "Property 'name' is missing ..."](https://github.com/mdx-js/mdx/assets/1935696/d510f1c8-6fe4-4527-8f6f-bd46bd737077)
+
 ### Components
 
 There is one special prop: `components`.
