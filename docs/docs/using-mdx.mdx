@@ -206,28 +206,12 @@ console.log(React.createElement(Example, {name: 'Venus', year: 2021}))
 console.log(<Example name="Mars" year={2022} />)
 ```
 
-#### TypeScript: `Props` Type
-
-To declare a type for the `props` object, use the JSDoc `@typedef` tag:
-
-```mdx
-{/**
-  * @typedef Props
-  * @property {string} name
-  *   Who to greet. */}
-
-# Hello {props.name}
-```
-
-This will be used by [the MDX VS Code extension][mdx-vscode-extension] to show
-JSDoc information and errors in IntelliSense hovers (see the
-[MDX Analyzer Props docs][mdx-analyzer-props-docs] for more details):
-
-![Screenshot of MDX VS Code extension with `example.mdx` file open, showing mouse hovering over “name” in “props.name”, with the IntelliSense hover card showing the details from the JSDoc type](https://github.com/mdx-js/mdx/assets/1935696/de2cdc80-099f-412a-80c1-422d320fb3d0)
-
-![Screenshot of MDX VS Code extension with `example.mdx` file open, showing mouse hovering over the red-underlined “nam” in “props.nam”, with the IntelliSense hover card showing the error “Property ‘nam’ does not exist ...”](https://github.com/mdx-js/mdx/assets/1935696/ceb5612d-fb36-47b0-8ef5-415e1fa32684)
-
-![Screenshot of MDX VS Code extension with `example.tsx` file open, showing mouse hovering over the red-underlined “Example” in “<Example />”, with the IntelliSense hover card showing the error “Property ‘name’ is missing ...”](https://github.com/mdx-js/mdx/assets/1935696/d510f1c8-6fe4-4527-8f6f-bd46bd737077)
+<Note type="info">
+  **Note**:
+  Users of [the MDX VS Code extension][mdx-vscode-extension] can add type
+  checking of `props` with a JSDoc comment.
+  See [`mdx-js/mdx-analyzer`][mdx-analyzer] for more info.
+</Note>
 
 ### Components
 
@@ -347,6 +331,13 @@ as follows:
   `h('a-b')`)
 * Otherwise, if it starts with a lowercase, it’s a literal (`<a>` -> `h('a')`)
 * Otherwise, it’s an identifier (`<A>` -> `h(A)`), which means a component `A`
+
+<Note type="info">
+  **Note**:
+  Users of [the MDX VS Code extension][mdx-vscode-extension] can add type
+  checking of provided and passed components with a JSDoc comment.
+  See [`mdx-js/mdx-analyzer`][mdx-analyzer] for more info.
+</Note>
 
 ### Layout
 
@@ -557,7 +548,7 @@ providers: pass components explicitly.
 
 [what]: /docs/what-is-mdx/
 
-[mdx-analyzer-props-docs]: https://github.com/mdx-js/mdx-analyzer#props
+[mdx-analyzer]: https://github.com/mdx-js/mdx-analyzer
 
 [mdx-react]: /packages/react/
 
