@@ -309,21 +309,79 @@ The following keys can be passed in `components`:
 * HTML equivalents for the things you write with markdown such as `h1` for
   `# heading` (see [§ Table of components][toc] for examples)
 * `wrapper`, which defines the layout (but a local layout takes precedence)
-* anything else that is a valid JavaScript identifier (`foo`,
-  `Quote`, `_`, `$x`, `a1`) for the things you write with JSX (like
+* anything else that is a valid JSX identifier (`foo`, `Quote`,
+  `custom-element`, `_`, `$x`, `a1`) for the things you write with JSX (like
   `<So />` or `<like.so />`, note that locally defined components take
   precedence)**‡**
 
-**‡** If you ever wondered what the rules are for whether a name in JSX (so `x`
-in `<x>`) is a literal tag name (like `h1`) or not (like `Component`), they are
-as follows:
+**‡** The rules for whether a name in JSX (so `x` in `<x>`) is a literal tag
+name (like `h1`) or not (like `Component`) are as follows:
 
-* If there’s a dot, it’s a member expression (`<a.b>` -> `h(a.b)`),
-  which means that the `b` component is taken from object `a`
-* Otherwise, if the name is not a valid identifier, it’s a literal (`<a-b>` ->
-  `h('a-b')`)
-* Otherwise, if it starts with a lowercase, it’s a literal (`<a>` -> `h('a')`)
-* Otherwise, it’s an identifier (`<A>` -> `h(A)`), which means a component `A`
+* if there’s a dot,
+  it’s a member expression (`<a.b>` → `h(a.b)`),
+  which means a reference to the key `b` taken from object `a`
+* otherwise,
+  if the name is not a valid JS identifier,
+  it’s a literal (`<a-b>` → `h('a-b')`)
+* otherwise,
+  if it starts with a lowercase,
+  it’s a literal (`<a>` → `h('a')`)
+* otherwise,
+  it’s a reference (`<A>` → `h(A)`)
+
+These keys in `components` and the difference between literal tag names and
+references is illustrated as follows.
+With the following MDX:
+
+```mdx path="example.mdx"
+* [markdown syntax](#alpha)
+* <a href="#bravo">JSX with a lowercase name</a>
+* <Link to="#charlie">JSX with a capitalized name</Link>
+```
+
+…passed some components:
+
+```jsx twoslash path="example.jsx"
+// @filename: types.d.ts
+import type {} from 'mdx'
+// @filename: example.jsx
+/// <reference lib="dom" />
+/* @jsxImportSource react */
+// ---cut---
+import Example from './example.mdx'
+
+console.log(
+  <Example
+    components={{
+      a(props) {
+        return <a {...props} style={{borderTop: '1px dotted', color: 'violet'}} />
+      },
+      Link(props) {
+        return <a href={props.to} children={props.children} style={{borderTop: '1px dashed', color: 'tomato'}} />
+      }
+    }}
+  />
+)
+```
+
+…we’d get:
+
+{
+  <div className="card">
+    <ul>
+      <li><a href="#alpha" style={{borderTop: '1px dotted', color: 'violet'}}>markdown syntax</a></li>
+      <li><a href="#bravo">JSX with a lowercase name</a></li>
+      <li><a href="#charlie" style={{borderTop: '1px dashed', color: 'tomato'}}>JSX with a capitalized name</a></li>
+    </ul>
+  </div>
+}
+
+Observe that the first link (`#alpha`) is dotted and violet.
+That’s because `a` is the HTML equivalent for the markdown syntax being used.
+The second link (`#bravo`) remains unchanged,
+because in JSX syntax `a` is a literal tag name.
+The third link (`#charlie`) is dashed and tomato,
+as in JSX syntax `Link` is a reference.
 
 ### Layout
 
