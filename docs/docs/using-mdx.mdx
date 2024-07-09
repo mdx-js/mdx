@@ -350,7 +350,7 @@ import type {} from 'mdx'
 // ---cut---
 import Example from './example.mdx'
 
-console.log(
+export default function Component() {
   <Example
     components={{
       a(props) {
@@ -361,27 +361,27 @@ console.log(
       }
     }}
   />
-)
+}
 ```
 
 …we’d get:
 
-{
-  <div className="card">
-    <ul>
-      <li><a href="#alpha" style={{borderTop: '1px dotted', color: 'violet'}}>markdown syntax</a></li>
-      <li><a href="#bravo">JSX with a lowercase name</a></li>
-      <li><a href="#charlie" style={{borderTop: '1px dashed', color: 'tomato'}}>JSX with a capitalized name</a></li>
-    </ul>
-  </div>
-}
+```jsx
+<ul>
+  <li><a href="#alpha" style={{borderTop: '1px dotted', color: 'violet'}}>markdown syntax</a></li>
+  <li><a href="#bravo">JSX with a lowercase name</a></li>
+  <li><a href="#charlie" style={{borderTop: '1px dashed', color: 'tomato'}}>JSX with a capitalized name</a></li>
+</ul>
+```
 
-Observe that the first link (`#alpha`) is dotted and violet.
-That’s because `a` is the HTML equivalent for the markdown syntax being used.
-The second link (`#bravo`) remains unchanged,
-because in JSX syntax `a` is a literal tag name.
-The third link (`#charlie`) is dashed and tomato,
-as in JSX syntax `Link` is a reference.
+Observe that:
+
+1. The first link (`#alpha`) is dotted and violet, because `a` is the HTML
+   equivalent for the markdown syntax `[]()`.
+2. The second link (`#bravo`) remains unchanged, because in JSX syntax `a` is a
+   literal tag name, which [MDX does not modify][mdx-no-literals-modification].
+3. The third link (`#charlie`) is dashed and tomato, because in this JSX syntax
+   `Link` is a reference to a component.
 
 ### Layout
 
@@ -591,6 +591,8 @@ providers: pass components explicitly.
 [start]: /docs/getting-started/
 
 [what]: /docs/what-is-mdx/
+
+[mdx-no-literals-modification]: https://github.com/mdx-js/mdx/issues/821
 
 [mdx-react]: /packages/react/
 
