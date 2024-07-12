@@ -1,3 +1,5 @@
+import {Note} from '../_component/note.jsx'
+
 export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
@@ -206,6 +208,13 @@ console.log(React.createElement(Example, {name: 'Venus', year: 2021}))
 console.log(<Example name="Mars" year={2022} />)
 ```
 
+<Note type="info">
+  **Note**:
+  Users of the MDX VS Code extension can add type
+  checking of `props` with a JSDoc comment.
+  See [`mdx-js/mdx-analyzer`][mdx-analyzer] for more info.
+</Note>
+
 ### Components
 
 There is one special prop: `components`.
@@ -382,6 +391,13 @@ The second link (`#bravo`) remains unchanged,
 because in JSX syntax `a` is a literal tag name.
 The third link (`#charlie`) is dashed and tomato,
 as in JSX syntax `Link` is a reference.
+
+<Note type="info">
+  **Note**:
+  Users of the MDX VS Code extension can add type
+  checking of provided and passed components with a JSDoc comment.
+  See [`mdx-js/mdx-analyzer`][mdx-analyzer] for more info.
+</Note>
 
 ### Layout
 
@@ -591,6 +607,8 @@ providers: pass components explicitly.
 [start]: /docs/getting-started/
 
 [what]: /docs/what-is-mdx/
+
+[mdx-analyzer]: https://github.com/mdx-js/mdx-analyzer
 
 [mdx-react]: /packages/react/
 
