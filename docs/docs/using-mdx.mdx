@@ -263,7 +263,7 @@ MDX using imported components!
 Because MDX files *are* components, they can also import each other:
 
 ```mdx path="example.mdx"
-import License from './license.mdx' // Assumes an integration is used to compile MDX -> JS.
+import License from './license.md' // Assumes an integration is used to compile markdown -> JS.
 import Contributing from './docs/contributing.mdx'
 
 # Hello world
@@ -468,7 +468,7 @@ cumbersome.
 Like so:
 
 ```mdx path="post.mdx"
-import License from './license.mdx' // Assumes an integration is used to compile MDX -> JS.
+import License from './license.md' // Assumes an integration is used to compile markdown -> JS.
 import Contributing from './docs/contributing.mdx'
 
 # Hello world
@@ -517,7 +517,7 @@ Set it up like so:
 Now you can remove the explicit and verbose component passing:
 
 ```diff
- import License from './license.mdx' // Assumes an integration is used to compile MDX -> JS.
+ import License from './license.md' // Assumes an integration is used to compile markdown -> JS.
  import Contributing from './docs/contributing.mdx'
 
  # Hello world
