@@ -816,7 +816,7 @@ MDX files can be imported in [Bun][] by using
 
   ```js twoslash path="bun-mdx.ts"
   import mdx from '@mdx-js/esbuild'
-  import { BunPlugin, plugin } from 'bun'
+  import {type BunPlugin, plugin} from 'bun'
 
   await plugin(mdx() as unknown as BunPlugin)
   ```
