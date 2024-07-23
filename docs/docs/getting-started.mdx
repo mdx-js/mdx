@@ -234,22 +234,9 @@ etc.) you use.
 To use more modern JavaScript features than what your users support,
 [configure esbuild’s `target`][esbuild-target].
 
-`@mdx-js/esbuild` can also be used with [Bun][]:
-
-<details>
-  <summary>Expand example</summary>
-
-  ```toml path="bunfig.toml"
-  preload = ["./bunMdxEsbuild.ts"]
-  ```
-
-  ```js twoslash path="bunMdxEsbuild.ts"
-  import {plugin} from 'bun'
-  import mdx from '@mdx-js/esbuild'
-
-  plugin(mdx())
-  ```
-</details>
+See also [¶ Bun][javascript-engines-bun],
+which you might be using,
+for more info.
 
 #### Rollup
 
