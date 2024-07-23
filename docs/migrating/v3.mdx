@@ -52,16 +52,9 @@ You will get a runtime error if these features are used in MDX without
 If you passed the `useDynamicImport` option before, remove it, the behavior
 is now the default.
 
-If you use `react/jsx-runtime`, you might get a TypeScript error (such as
-`Property 'Fragment' is missing in type`), because it is typed incorrectly.
-To remediate this, do:
-
 ```tsx
-import {type Fragment, type Jsx, run} from '@mdx-js/mdx'
-import * as runtime_ from 'react/jsx-runtime'
-
-// @ts-expect-error: the automatic react runtime is untyped.
-const runtime: {Fragment: Fragment; jsx: Jsx; jsxs: Jsx} = runtime_
+import {run} from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
 
 const result = await run('# hi', {...runtime, baseUrl: import.meta.url})
 ```

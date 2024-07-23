@@ -2,7 +2,6 @@
 /* @jsxImportSource preact */
 
 /**
- * @import {Fragment, Jsx} from '@mdx-js/mdx'
  * @import {ComponentProps} from 'preact'
  */
 
@@ -10,12 +9,8 @@ import assert from 'node:assert/strict'
 import {test} from 'node:test'
 import {evaluate} from '@mdx-js/mdx'
 import {MDXProvider, useMDXComponents} from '@mdx-js/preact'
-import * as runtime_ from 'preact/jsx-runtime'
+import * as runtime from 'preact/jsx-runtime'
 import {render} from 'preact-render-to-string'
-
-const runtime = /** @type {{Fragment: Fragment, jsx: Jsx, jsxs: Jsx}} */ (
-  runtime_
-)
 
 test('@mdx-js/preact', async function (t) {
   await t.test('should expose the public api', async function () {
