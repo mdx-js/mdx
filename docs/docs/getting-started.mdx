@@ -817,9 +817,23 @@ See its readme on how to configure it.
 
 #### Bun
 
-MDX files can be imported in Bun by using
+MDX files can be imported in [Bun][] by using
 [`@mdx-js/esbuild`][mdx-esbuild].
-See [the section above][bundler-esbuild] on how to configure it.
+
+<details>
+  <summary>Expand example</summary>
+
+  ```toml path="bunfig.toml"
+  preload = ["./bunMdxEsbuild.ts"]
+  ```
+
+  ```js twoslash path="bunMdxEsbuild.ts"
+  import {plugin} from 'bun'
+  import mdx from '@mdx-js/esbuild'
+
+  plugin(mdx())
+  ```
+</details>
 
 ## Further reading
 
