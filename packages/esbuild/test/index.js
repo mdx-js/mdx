@@ -1,9 +1,10 @@
+/* eslint-disable unicorn/prefer-structured-clone */
+
 /**
  * @import {BuildFailure, Plugin} from 'esbuild'
  * @import {Root} from 'hast'
  * @import {MDXModule} from 'mdx/types.js'
  * @import {VFile} from 'vfile'
- * Augment node types:
  * @import {} from 'remark-mdx'
  */
 
