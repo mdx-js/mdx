@@ -42,6 +42,7 @@
     "acorn": "^8.0.0",
     "ap-style-title-case": "^2.0.0",
     "autoprefixer": "^10.0.0",
+    "bun-types": "^1.0.0",
     "c8": "^10.0.0",
     "copy-to-clipboard": "^3.0.0",
     "cross-env": "^7.0.0",

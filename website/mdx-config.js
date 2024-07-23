@@ -19,6 +19,7 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 import {nodeTypes} from '@mdx-js/mdx'
 import {common} from '@wooorm/starry-night'
 import sourceMdx from '@wooorm/starry-night/source.mdx'
+import sourceToml from '@wooorm/starry-night/source.toml'
 import sourceTsx from '@wooorm/starry-night/source.tsx'
 import {valueToEstree} from 'estree-util-value-to-estree'
 import {h, s} from 'hastscript'
@@ -95,7 +96,7 @@ const options = {
     [
       rehypeStarryNight,
       {
-        grammars: [...common, sourceMdx, sourceTsx],
+        grammars: [...common, sourceMdx, sourceToml, sourceTsx],
         plainText: ['mdx-invalid', 'txt']
       }
     ],
