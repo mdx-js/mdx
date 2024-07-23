@@ -62,7 +62,7 @@ MDX is a language that’s compiled to JavaScript.
 The easiest way to get started is to use an integration for your bundler if you
 have one:
 
-* if you use **esbuild**,
+* if you use **esbuild** (or Bun),
   install and configure [`@mdx-js/esbuild`][mdx-esbuild]
 * if you use **Rollup** (or Vite),
   install and configure [`@mdx-js/rollup`][mdx-rollup]
@@ -233,6 +233,10 @@ etc.) you use.
 
 To use more modern JavaScript features than what your users support,
 [configure esbuild’s `target`][esbuild-target].
+
+See also [¶ Bun][javascript-engines-bun],
+which you might be using,
+for more info.
 
 #### Rollup
 
@@ -798,6 +802,26 @@ MDX files can be imported in Node by using
 [`@mdx-js/node-loader`][mdx-node-loader].
 See its readme on how to configure it.
 
+#### Bun
+
+MDX files can be imported in [Bun][] by using
+[`@mdx-js/esbuild`][mdx-esbuild].
+
+<details>
+  <summary>Expand example</summary>
+
+  ```toml path="bunfig.toml"
+  preload = ["./bun-mdx.ts"]
+  ```
+
+  ```js twoslash path="bun-mdx.ts"
+  import {plugin} from 'bun'
+  import mdx from '@mdx-js/esbuild'
+
+  plugin(mdx())
+  ```
+</details>
+
 ## Further reading
 
 * If you want to use MDX content in your project,
@@ -910,6 +934,10 @@ See its readme on how to configure it.
 [api-processor-options]: /packages/mdx/#processoroptions
 
 [build-system-vite]: #vite
+
+[bun]: https://bun.sh
+
+[javascript-engines-bun]: #bun
 
 [bundler-esbuild]: #esbuild
 
