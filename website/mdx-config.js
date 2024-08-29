@@ -21,10 +21,11 @@ import {common} from '@wooorm/starry-night'
 import sourceMdx from '@wooorm/starry-night/source.mdx'
 import sourceToml from '@wooorm/starry-night/source.toml'
 import sourceTsx from '@wooorm/starry-night/source.tsx'
+import {createVisitors} from 'estree-util-scope'
 import {valueToEstree} from 'estree-util-value-to-estree'
+import {walk} from 'estree-walker'
 import {h, s} from 'hastscript'
 import {toText} from 'hast-util-to-text'
-import {analyze} from 'periscopic'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeInferDescriptionMeta from 'rehype-infer-description-meta'
 import rehypeInferReadingTimeMeta from 'rehype-infer-reading-time-meta'
@@ -196,10 +197,26 @@ function recmaInjectMeta(options) {
    */
   return function (tree, file) {
     // Find everything that’s defined in the top-level scope.
-    const topScope = analyze(tree).scope.declarations
+    const visitors = createVisitors()
+    walk(tree, {
+      enter(node) {
+        visitors.enter(node)
+
+        if (
+          node.type === 'ArrowFunctionExpression' ||
+          node.type === 'FunctionDeclaration' ||
+          node.type === 'FunctionExpression'
+        ) {
+          this.skip()
+          visitors.exit(node) // Call the exit handler manually.
+        }
+      },
+      leave: visitors.exit
+    })
+    const topScope = visitors.scopes[0]
 
     // Exit if `meta` is already defined.
-    if (topScope.has('meta')) return
+    if (topScope.defined.includes('meta')) return
 
     // Treat as arbitrary object.
     const meta = /** @type {Record<string, unknown>} */ (file.data.meta || {})

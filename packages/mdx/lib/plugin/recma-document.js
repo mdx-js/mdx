@@ -30,8 +30,8 @@
  */
 
 import {ok as assert} from 'devlop'
+import {createVisitors} from 'estree-util-scope'
 import {walk} from 'estree-walker'
-import {analyze} from 'periscopic'
 import {positionFromEstree} from 'unist-util-position-from-estree'
 import {stringifyPosition} from 'unist-util-stringify-position'
 import {create} from '../util/estree-util-create.js'
@@ -433,9 +433,24 @@ export function recmaDocument(options) {
         // export var a = 1
         // ```
         if (node.declaration) {
-          exportedIdentifiers.push(
-            ...analyze(node.declaration).scope.declarations.keys()
-          )
+          const visitors = createVisitors()
+          // Walk the top-level scope.
+          walk(node, {
+            enter(node) {
+              visitors.enter(node)
+
+              if (
+                node.type === 'ArrowFunctionExpression' ||
+                node.type === 'FunctionDeclaration' ||
+                node.type === 'FunctionExpression'
+              ) {
+                this.skip()
+                visitors.exit(node)
+              }
+            },
+            leave: visitors.exit
+          })
+          exportedIdentifiers.push(...visitors.scopes[0].defined)
         }
 
         // ```tsx

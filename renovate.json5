@@ -1,13 +1,4 @@
 {
   extends: ['config:base', ':preserveSemverRanges'],
-  packageRules: [
-    {
-      enabled: false,
-      matchPackageNames: [
-        // `periscopic@4` does not work at all.
-        'periscopic'
-      ]
-    }
-  ],
   schedule: 'before 3am on Monday'
 }

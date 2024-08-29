@@ -6,7 +6,6 @@
       ImportSpecifier,
       JSXElement,
       ModuleDeclaration,
-      Node,
       ObjectPattern,
       Program,
       Property,
@@ -14,15 +13,12 @@
       Statement,
       VariableDeclarator
  * } from 'estree-jsx'
- * @import {Scope as PeriscopicScope} from 'periscopic'
+ * @import {Scope} from 'estree-util-scope'
  * @import {VFile} from 'vfile'
  * @import {ProcessorOptions} from '../core.js'
  */
 
 /**
- * @typedef {PeriscopicScope & {node: Node}} Scope
- *   Scope (with a `node`).
- *
  * @typedef StackEntry
  *   Entry.
  * @property {Array<string>} components
@@ -40,8 +36,8 @@
  */
 
 import {name as isIdentifierName} from 'estree-util-is-identifier-name'
+import {createVisitors} from 'estree-util-scope'
 import {walk} from 'estree-walker'
-import {analyze} from 'periscopic'
 import {stringifyPosition} from 'unist-util-stringify-position'
 import {positionFromEstree} from 'unist-util-position-from-estree'
 import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
@@ -75,21 +71,15 @@ export function recmaJsxRewrite(options) {
    *   Nothing.
    */
   return function (tree, file) {
-    // Find everything that’s defined in the top-level scope.
-    const scopeInfo = analyze(tree)
+    const visitors = createVisitors()
     /** @type {Array<StackEntry>} */
     const functionStack = []
     let importProvider = false
     let createErrorHelper = false
-    /** @type {Scope | undefined} */
-    let currentScope
 
     walk(tree, {
       enter(node) {
-        // Cast because we match `node`.
-        const newScope = /** @type {Scope | undefined} */ (
-          scopeInfo.map.get(node)
-        )
+        visitors.enter(node)
 
         if (
           node.type === 'FunctionDeclaration' ||
@@ -105,31 +95,26 @@ export function recmaJsxRewrite(options) {
             tags: []
           })
 
-          // MDXContent only ever contains MDXLayout
+          // `MDXContent` only ever contains `MDXLayout`.
           if (
             isNamedFunction(node, 'MDXContent') &&
-            newScope &&
-            !inScope(newScope, 'MDXLayout')
+            !inScope(visitors.scopes, 'MDXLayout')
           ) {
             functionStack[0].components.push('MDXLayout')
           }
         }
 
-        const functionScope = functionStack[0]
+        const functionInfo = functionStack[0]
+
         if (
-          !functionScope ||
-          (!isNamedFunction(functionScope.node, '_createMdxContent') &&
+          !functionInfo ||
+          (!isNamedFunction(functionInfo.node, '_createMdxContent') &&
             !providerImportSource)
         ) {
           return
         }
 
-        if (newScope) {
-          newScope.node = node
-          currentScope = newScope
-        }
-
-        if (currentScope && node.type === 'JSXElement') {
+        if (node.type === 'JSXElement') {
           let name = node.openingElement.name
 
           // `<x.y>`, `<Foo.Bar>`, `<x.y.z>`.
@@ -146,28 +131,22 @@ export function recmaJsxRewrite(options) {
             ids.unshift(name.name)
             const fullId = ids.join('.')
             const id = name.name
+            const isInScope = inScope(visitors.scopes, id)
 
-            const isInScope = inScope(currentScope, id)
-
-            if (!Object.hasOwn(functionScope.references, fullId)) {
-              // Cast because we match `node`.
-              const parentScope = /** @type {Scope | undefined} */ (
-                currentScope.parent
-              )
-              if (
-                !isInScope ||
+            if (
+              !Object.hasOwn(functionInfo.references, fullId) &&
+              (!isInScope ||
                 // If the parent scope is `_createMdxContent`, then this
                 // references a component we can add a check statement for.
-                (parentScope &&
-                  parentScope.node.type === 'FunctionDeclaration' &&
-                  isNamedFunction(parentScope.node, '_createMdxContent'))
-              ) {
-                functionScope.references[fullId] = {component: true, node}
-              }
+                (functionStack.length === 1 &&
+                  functionStack[0].node.type === 'FunctionDeclaration' &&
+                  isNamedFunction(functionStack[0].node, '_createMdxContent')))
+            ) {
+              functionInfo.references[fullId] = {component: true, node}
             }
 
-            if (!functionScope.objects.includes(id) && !isInScope) {
-              functionScope.objects.push(id)
+            if (!functionInfo.objects.includes(id) && !isInScope) {
+              functionInfo.objects.push(id)
             }
           }
           // `<xml:thing>`.
@@ -181,18 +160,18 @@ export function recmaJsxRewrite(options) {
           else if (isIdentifierName(name.name) && !/^[a-z]/.test(name.name)) {
             const id = name.name
 
-            if (!inScope(currentScope, id)) {
+            if (!inScope(visitors.scopes, id)) {
               // No need to add an error for an undefined layout — we use an
               // `if` later.
               if (
                 id !== 'MDXLayout' &&
-                !Object.hasOwn(functionScope.references, id)
+                !Object.hasOwn(functionInfo.references, id)
               ) {
-                functionScope.references[id] = {component: true, node}
+                functionInfo.references[id] = {component: true, node}
               }
 
-              if (!functionScope.components.includes(id)) {
-                functionScope.components.push(id)
+              if (!functionInfo.components.includes(id)) {
+                functionInfo.components.push(id)
               }
             }
           } else if (node.data && node.data._mdxExplicitJsx) {
@@ -202,18 +181,18 @@ export function recmaJsxRewrite(options) {
           } else {
             const id = name.name
 
-            if (!functionScope.tags.includes(id)) {
-              functionScope.tags.push(id)
+            if (!functionInfo.tags.includes(id)) {
+              functionInfo.tags.push(id)
             }
 
             /** @type {Array<number | string>} */
             let jsxIdExpression = ['_components', id]
             if (isIdentifierName(id) === false) {
               let invalidComponentName =
-                functionScope.idToInvalidComponentName.get(id)
+                functionInfo.idToInvalidComponentName.get(id)
               if (invalidComponentName === undefined) {
-                invalidComponentName = `_component${functionScope.idToInvalidComponentName.size}`
-                functionScope.idToInvalidComponentName.set(
+                invalidComponentName = `_component${functionInfo.idToInvalidComponentName.size}`
+                functionInfo.idToInvalidComponentName.set(
                   id,
                   invalidComponentName
                 )
@@ -233,6 +212,8 @@ export function recmaJsxRewrite(options) {
         }
       },
       leave(node) {
+        visitors.exit(node)
+
         /** @type {Array<Property | SpreadElement>} */
         const defaults = []
         /** @type {Array<string>} */
@@ -242,22 +223,17 @@ export function recmaJsxRewrite(options) {
         /** @type {Array<VariableDeclarator>} */
         const declarations = []
 
-        if (currentScope && currentScope.node === node) {
-          // Cast to patch our `node`.
-          currentScope = /** @type {Scope} */ (currentScope.parent)
-        }
-
         if (
           node.type === 'FunctionDeclaration' ||
           node.type === 'FunctionExpression' ||
           node.type === 'ArrowFunctionExpression'
         ) {
-          const scopeNode = node
-          const scope = functionStack[functionStack.length - 1]
+          const functionInfo = functionStack[functionStack.length - 1]
+
           /** @type {string} */
           let name
 
-          for (name of scope.tags.sort()) {
+          for (name of functionInfo.tags.sort()) {
             defaults.push({
               type: 'Property',
               kind: 'init',
@@ -271,9 +247,9 @@ export function recmaJsxRewrite(options) {
             })
           }
 
-          actual.push(...scope.components)
+          actual.push(...functionInfo.components)
 
-          for (name of scope.objects) {
+          for (name of functionInfo.objects) {
             // In some cases, a component is used directly (`<X>`) but it’s also
             // used as an object (`<X.Y>`).
             if (!actual.includes(name)) {
@@ -289,7 +265,7 @@ export function recmaJsxRewrite(options) {
           if (
             defaults.length > 0 ||
             actual.length > 0 ||
-            scope.idToInvalidComponentName.size > 0
+            functionInfo.idToInvalidComponentName.size > 0
           ) {
             if (providerImportSource) {
               importProvider = true
@@ -304,8 +280,8 @@ export function recmaJsxRewrite(options) {
             // Accept `components` as a prop if this is the `MDXContent` or
             // `_createMdxContent` function.
             if (
-              isNamedFunction(scope.node, 'MDXContent') ||
-              isNamedFunction(scope.node, '_createMdxContent')
+              isNamedFunction(functionInfo.node, 'MDXContent') ||
+              isNamedFunction(functionInfo.node, '_createMdxContent')
             ) {
               parameters.push(toIdOrMemberExpression(['props', 'components']))
             }
@@ -360,7 +336,7 @@ export function recmaJsxRewrite(options) {
               }
             }
 
-            if (scope.tags.length > 0) {
+            if (functionInfo.tags.length > 0) {
               declarations.push({
                 type: 'VariableDeclarator',
                 id: {type: 'Identifier', name: '_components'},
@@ -369,9 +345,9 @@ export function recmaJsxRewrite(options) {
               componentsInit = {type: 'Identifier', name: '_components'}
             }
 
-            if (isNamedFunction(scope.node, '_createMdxContent')) {
+            if (isNamedFunction(functionInfo.node, '_createMdxContent')) {
               for (const [id, componentName] of [
-                ...scope.idToInvalidComponentName
+                ...functionInfo.idToInvalidComponentName
               ].sort(function ([a], [b]) {
                 return a.localeCompare(b)
               })) {
@@ -418,27 +394,28 @@ export function recmaJsxRewrite(options) {
           let key
 
           // Add partials (so for `x.y.z` it’d generate `x` and `x.y` too).
-          for (key in scope.references) {
-            if (Object.hasOwn(scope.references, key)) {
+          for (key in functionInfo.references) {
+            if (Object.hasOwn(functionInfo.references, key)) {
               const parts = key.split('.')
               let index = 0
               while (++index < parts.length) {
                 const partial = parts.slice(0, index).join('.')
-                if (!Object.hasOwn(scope.references, partial)) {
-                  scope.references[partial] = {
+                if (!Object.hasOwn(functionInfo.references, partial)) {
+                  functionInfo.references[partial] = {
                     component: false,
-                    node: scope.references[key].node
+                    node: functionInfo.references[key].node
                   }
                 }
               }
             }
           }
 
-          const references = Object.keys(scope.references).sort()
+          const references = Object.keys(functionInfo.references).sort()
+
           let index = -1
           while (++index < references.length) {
             const id = references[index]
-            const info = scope.references[id]
+            const info = functionInfo.references[id]
             const place = stringifyPosition(positionFromEstree(info.node))
             /** @type {Array<Expression>} */
             const parameters = [
@@ -475,14 +452,14 @@ export function recmaJsxRewrite(options) {
 
           if (statements.length > 0) {
             // Arrow functions with an implied return:
-            if (scopeNode.body.type !== 'BlockStatement') {
-              scopeNode.body = {
+            if (node.body.type !== 'BlockStatement') {
+              node.body = {
                 type: 'BlockStatement',
-                body: [{type: 'ReturnStatement', argument: scopeNode.body}]
+                body: [{type: 'ReturnStatement', argument: node.body}]
               }
             }
 
-            scopeNode.body.body.unshift(...statements)
+            node.body.body.unshift(...statements)
           }
 
           functionStack.pop()
@@ -620,26 +597,22 @@ function isNamedFunction(node, name) {
 }
 
 /**
- * @param {Readonly<Scope>} scope
+ * @param {Array<Scope>} scopes
  *   Scope.
  * @param {string} id
  *   Identifier.
  * @returns {boolean}
  *   Whether `id` is in `scope`.
  */
-function inScope(scope, id) {
-  /** @type {Scope | undefined} */
-  let currentScope = scope
+function inScope(scopes, id) {
+  let index = scopes.length
 
-  while (currentScope) {
-    if (currentScope.declarations.has(id)) {
+  while (index--) {
+    const scope = scopes[index]
+
+    if (scope.defined.includes(id)) {
       return true
     }
-
-    // Cast to patch our `node`.
-    currentScope = /** @type {Scope | undefined} */ (
-      currentScope.parent || undefined
-    )
   }
 
   return false
