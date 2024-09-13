@@ -25,4 +25,3 @@ on:
   push:
     branches:
       - main
-      - puppies

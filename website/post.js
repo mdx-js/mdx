@@ -364,7 +364,7 @@ await pAll(
       console.log('OG image `%s`', info.meta.title)
     }
   }),
-  {concurrency: 6}
+  {concurrency: 4}
 )
 
 await browser.close()
