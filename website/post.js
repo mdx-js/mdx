@@ -158,6 +158,8 @@ await fs.writeFile(
 
 console.log('✔ `/rss.xml`')
 
+chromium.setGraphicsMode = false
+
 const browser = await puppeteer.launch(
   process.env.AWS_EXECUTION_ENV
     ? {
@@ -361,7 +363,8 @@ await pAll(
 
       console.log('OG image `%s`', info.meta.title)
     }
-  })
+  }),
+  {concurrency: 6}
 )
 
 await browser.close()
