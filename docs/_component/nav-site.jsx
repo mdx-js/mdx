@@ -58,6 +58,9 @@ export function NavigationSite(properties) {
           </h1>
         </a>
       </div>
+      <div className="navigation-search">
+        <div id="docsearch" />
+      </div>
       <NavigationGroup
         className="navigation-secondary"
         items={navigationTree.children}

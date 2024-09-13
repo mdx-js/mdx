@@ -194,7 +194,7 @@ await pAll(
       const file = await unified()
         .use(rehypeParse, {fragment: true})
         .use(rehypeDocument, {
-          css: ['/index.css'],
+          css: ['/index.css', 'https://esm.sh/@docsearch/css@3/dist/style.css'],
           // Idea: only include editor on playground? Use more editors.
           js: ['/index.js', '/editor.js'],
           language: 'en',

@@ -43,6 +43,30 @@
   --hl: var(--blue-5);
   --fg: var(--black);
   --bg: var(--white);
+
+  /* We manually add a blur on `::before` of the container, so no background needed. */
+  --docsearch-container-background: transparent !important;
+  --docsearch-footer-background: var(--white) !important;
+  --docsearch-footer-shadow: 0 -1px 0 0 var(--gray-2) !important;
+  --docsearch-highlight-color: var(--hl) !important;
+  --docsearch-hit-color: var(--gray-7) !important;
+  --docsearch-hit-shadow: inset 0 0 0 1px var(--gray-2) !important;
+  /* This is actually used in a `background` field so does not have to be a gradient. */
+  --docsearch-key-gradient: var(--gray-0) !important;
+  --docsearch-key-pressed-shadow: none !important;
+  --docsearch-key-shadow: inset 0 -1px 0 var(--gray-4) !important;
+  --docsearch-modal-background: var(--white) !important;
+  /* Card shadow: <https://github.com/unifiedjs/unifiedjs.github.io/blob/4de0391/asset/index.css#L399> */
+  --docsearch-modal-shadow: 0 0 0 0.2em rgb(3 102 214 / 0%),
+    0 13px 27px -5px rgb(50 50 93 / 25%), 0 8px 16px -8px rgb(0 0 0 / 30%),
+    0 -6px 16px -6px rgb(0 0 0 / 2.5%) !important;
+  /* Use the regular color: */
+  --docsearch-muted-color: var(--black) !important;
+  --docsearch-primary-color: var(--hl) !important;
+  --docsearch-searchbox-background: var(--white) !important;
+  --docsearch-searchbox-focus-background: var(--gray-0) !important;
+  --docsearch-searchbox-shadow: inset 0 0 0 2px var(--hl) !important;
+  --docsearch-text-color: var(--black) !important;
 }
 
 * {
@@ -526,7 +550,8 @@ button.success {
   padding-top: calc(2 * (1em + 1ex));
 }
 
-.navigation::before {
+.navigation::before,
+.DocSearch-Container::before {
   content: '';
   inset: 0;
   position: absolute;
@@ -536,6 +561,10 @@ button.success {
     hsl(39deg 97% 88% / 90%) 0%,
     hsl(39deg 97% 96% / 90%) 100%
   );
+}
+
+.DocSearch li {
+  margin: 0;
 }
 
 #banner {
@@ -564,7 +593,8 @@ button.success {
 
 /* Note that the `backdrop-filter` itself is applied in light mode. */
 @supports (backdrop-filter: blur(1ex)) {
-  .navigation::before {
+  .navigation::before,
+  .DocSearch-Container::before {
     backdrop-filter: saturate(200%) blur(1ex);
     background-image: radial-gradient(
       ellipse at 50% 0%,
@@ -574,8 +604,10 @@ button.success {
   }
 }
 
+.DocSearch-Modal,
 .navigation-primary,
 .navigation-secondary,
+.navigation-search,
 .navigation-tertiary {
   z-index: 3;
 }
@@ -597,11 +629,20 @@ button.success {
 
 .navigation-primary,
 .navigation-secondary,
+.navigation-search,
 .navigation-tertiary {
   margin: 0;
   padding: calc(0.5 * (1em + 1ex));
   display: flex;
   list-style-type: none;
+}
+
+.navigation-search {
+  padding: calc(0.25em + 0.25ex);
+}
+
+.DocSearch-Button {
+  margin: 0 !important;
 }
 
 .navigation-primary h1,
@@ -1009,6 +1050,8 @@ details[open] {
     --hl: var(--mdx-yellow);
     --fg: var(--white);
     --bg: var(--black);
+
+    --docsearch-key-gradient: #eaeef2 !important;
   }
 
   .navigation-secondary a {
@@ -1199,6 +1242,10 @@ details[open] {
 @media (min-width: 40em) {
   html {
     font-size: 1.125em;
+  }
+
+  .navigation-search {
+    padding: calc(0.3em + 0.3ex);
   }
 
   #markdown-for-thecomponent-era {

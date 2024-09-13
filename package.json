@@ -24,6 +24,8 @@
   "#": "note: `lz-string` is included because `@typescript/vfs` (through `twoslash`) types use it w/o marking it as a dep",
   "devDependencies": {
     "@babel/types": "^7.0.0",
+    "@docsearch/css": "^3.0.0",
+    "@docsearch/js": "^3.0.0",
     "@floating-ui/dom": "^1.0.0",
     "@next/mdx": "^14.0.0",
     "@node-loader/core": "^2.0.0",

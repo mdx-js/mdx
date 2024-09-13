@@ -1,10 +1,12 @@
 /* eslint-disable unicorn/prefer-query-selector */
 /// <reference lib="dom" />
 
+import docsearch_ from '@docsearch/js'
 import {computePosition, shift} from '@floating-ui/dom'
 import copyToClipboard from 'copy-to-clipboard'
 import {ok as assert} from 'devlop'
 
+// Squircles.
 if ('paintWorklet' in CSS) {
   // @ts-expect-error: TS doesn’t understand Houdini.
   CSS.paintWorklet.addModule(
@@ -12,6 +14,7 @@ if ('paintWorklet' in CSS) {
   )
 }
 
+// Copy buttons.
 const copies = Array.from(document.querySelectorAll('button.copy-button'))
 const copyTemplate = document.createElement('template')
 const copiedTemplate = document.createElement('template')
@@ -142,3 +145,16 @@ function popoverShow(popoverTarget) {
     }
   )
 }
+
+// Docsearch.
+// Note: types are wrong.
+const docsearch = /** @type {import('@docsearch/js')['default']} */ (
+  /** @type {unknown} */ (docsearch_)
+)
+
+docsearch({
+  appId: 'B0O9AAZ9L2',
+  apiKey: '71f38eae605e3e6d500368617e32c19f',
+  container: '#docsearch',
+  indexName: 'mdxjs'
+})
