@@ -16,6 +16,7 @@
 
 import assert from 'node:assert/strict'
 import {fileURLToPath, pathToFileURL} from 'node:url'
+import {createLoader} from '@mdx-js/node-loader'
 import {nodeTypes} from '@mdx-js/mdx'
 import {common} from '@wooorm/starry-night'
 import sourceMdx from '@wooorm/starry-night/source.mdx'
@@ -117,7 +118,9 @@ const options = {
   ]
 }
 
-export default options
+const {initialize, load} = createLoader(options)
+
+export {initialize, load}
 
 function link() {
   return s(

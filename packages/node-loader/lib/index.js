@@ -1,5 +1,6 @@
 /**
  * @import {LoadFnOutput, LoadHook, LoadHookContext} from 'node:module'
+ * @import {Process} from '@mdx-js/mdx/internal-create-format-aware-processors'
  * @import {CompileOptions} from '@mdx-js/mdx'
  */
 
@@ -14,6 +15,8 @@
  *   exception that the `development` option is supported based on
  *   whether you run Node with `--conditions development`.
  *   You cannot pass it manually.
+ *
+ * @typedef {[regex: RegExp, process: Process]} Settings
  */
 
 import fs from 'node:fs/promises'
@@ -27,21 +30,24 @@ import {development as defaultDevelopment} from '#condition'
 /**
  * Create Node.js hooks to handle markdown and MDX.
  *
- * @param {Readonly<Options> | null | undefined} [options]
+ * @param {Readonly<Options> | null | undefined} [loaderOptions]
  *   Configuration (optional).
  * @returns
  *   Node.js hooks.
  */
-export function createLoader(options) {
-  const options_ = options || {}
-  const {extnames, process} = createFormatAwareProcessors({
-    development: defaultDevelopment,
-    ...options_,
-    SourceMapGenerator
-  })
-  const regex = extnamesToRegex(extnames)
+export function createLoader(loaderOptions) {
+  /** @type {Settings} */
+  let settings = configure(loaderOptions || {})
 
-  return {load}
+  return {initialize, load}
+
+  /**
+   *
+   * @param {Readonly<Options> | null | undefined} options
+   */
+  async function initialize(options) {
+    settings = configure({...loaderOptions, ...options})
+  }
 
   /**
    * Load `file:` URLs to MD(X) files.
@@ -58,6 +64,7 @@ export function createLoader(options) {
    */
   async function load(href, context, nextLoad) {
     const url = new URL(href)
+    const [regex, process] = settings
 
     if (url.protocol === 'file:' && regex.test(url.pathname)) {
       const value = await fs.readFile(url)
@@ -81,4 +88,19 @@ export function createLoader(options) {
 
     return nextLoad(href, context)
   }
+}
+
+/**
+ * @param {Readonly<Options>} options
+ * @returns {Settings}
+ */
+function configure(options) {
+  const {extnames, process} = createFormatAwareProcessors({
+    development: defaultDevelopment,
+    ...options,
+    SourceMapGenerator
+  })
+  const regex = extnamesToRegex(extnames)
+
+  return [regex, process]
 }
