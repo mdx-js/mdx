@@ -651,6 +651,7 @@ function cleanUnistNode(node) {
     Array.isArray(node.attributes)
   ) {
     for (const attribute of node.attributes) {
+      removePosition(attribute, {force: true})
       cleanUnistNode(attribute)
     }
   }
