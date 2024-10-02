@@ -7,10 +7,12 @@
       ImportDefaultSpecifier,
       ImportNamespaceSpecifier,
       ImportSpecifier,
+      Literal,
       VariableDeclarator
  * } from 'estree-jsx'
  */
 
+import {ok as assert} from 'devlop'
 import {create} from './estree-util-create.js'
 
 /**
@@ -57,7 +59,7 @@ export function specifiersToDeclarations(specifiers, init) {
     id: {
       type: 'ObjectPattern',
       properties: otherSpecifiers.map(function (specifier) {
-        /** @type {Identifier} */
+        /** @type {Identifier | Literal} */
         let key =
           specifier.type === 'ImportSpecifier'
             ? specifier.imported
@@ -72,11 +74,18 @@ export function specifiersToDeclarations(specifiers, init) {
           key = specifier.local
         }
 
+        // To do: what to do about literals?
+        // `const { a: 'b' } = c()` does not work?
+        assert(value.type === 'Identifier')
+
         /** @type {AssignmentProperty} */
         const property = {
           type: 'Property',
           kind: 'init',
-          shorthand: key.name === value.name,
+          shorthand:
+            key.type === 'Identifier' &&
+            value.type === 'Identifier' &&
+            key.name === value.name,
           method: false,
           computed: false,
           key,

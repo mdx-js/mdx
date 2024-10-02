@@ -70,7 +70,7 @@ export function recmaDocument(options) {
    */
   return function (tree, file) {
     /** @type {Array<[string, string] | string>} */
-    const exportedIdentifiers = []
+    const exportedValues = []
     /** @type {Array<Directive | ModuleDeclaration | Statement>} */
     const replacement = []
     let exportAllCount = 0
@@ -163,7 +163,10 @@ export function recmaDocument(options) {
 
         // Remove `default` or `as default`, but not `default as`, specifier.
         child.specifiers = child.specifiers.filter(function (specifier) {
-          if (specifier.exported.name === 'default') {
+          if (
+            specifier.exported.type === 'Identifier' &&
+            specifier.exported.name === 'default'
+          ) {
             if (layout) {
               file.fail(
                 'Unexpected duplicate layout, expected a single layout (previous: ' +
@@ -185,7 +188,10 @@ export function recmaDocument(options) {
             const specifiers = []
 
             // Default as default / something else as default.
-            if (specifier.local.name === 'default') {
+            if (
+              specifier.local.type === 'Identifier' &&
+              specifier.local.name === 'default'
+            ) {
               specifiers.push({
                 type: 'ImportDefaultSpecifier',
                 local: {type: 'Identifier', name: 'MDXLayout'}
@@ -260,7 +266,7 @@ export function recmaDocument(options) {
       )
     }
 
-    exportedIdentifiers.push(['MDXContent', 'default'])
+    exportedValues.push(['MDXContent', 'default'])
 
     if (outputFormat === 'function-body') {
       replacement.push({
@@ -287,7 +293,7 @@ export function recmaDocument(options) {
                 }
               }
             ),
-            ...exportedIdentifiers.map(function (d) {
+            ...exportedValues.map(function (d) {
               /** @type {Property} */
               const property = {
                 type: 'Property',
@@ -450,7 +456,7 @@ export function recmaDocument(options) {
             },
             leave: visitors.exit
           })
-          exportedIdentifiers.push(...visitors.scopes[0].defined)
+          exportedValues.push(...visitors.scopes[0].defined)
         }
 
         // ```tsx
@@ -458,7 +464,14 @@ export function recmaDocument(options) {
         // export {a, b as c} from 'd'
         // ```
         for (child of node.specifiers) {
-          exportedIdentifiers.push(child.exported.name)
+          if (child.exported.type === 'Identifier') {
+            exportedValues.push(child.exported.name)
+            /* c8 ignore next 5 -- to do: <https://github.com/mdx-js/mdx/issues/2536> */
+          } else {
+            // Must be string.
+            assert(typeof child.exported.value === 'string')
+            exportedValues.push(child.exported.value)
+          }
         }
       }
 
@@ -532,17 +545,23 @@ export function recmaDocument(options) {
           replace = node.declaration
         } else {
           /** @type {Array<VariableDeclarator>} */
-          const declarators = node.specifiers
-            .filter(function (specifier) {
-              return specifier.local.name !== specifier.exported.name
-            })
-            .map(function (specifier) {
-              return {
+          const declarators = []
+
+          for (const specifier of node.specifiers) {
+            // `id` can only be an identifier,
+            // so we ignore literal.
+            if (
+              specifier.exported.type === 'Identifier' &&
+              specifier.local.type === 'Identifier' &&
+              specifier.local.name !== specifier.exported.name
+            ) {
+              declarators.push({
                 type: 'VariableDeclarator',
                 id: specifier.exported,
                 init: specifier.local
-              }
-            })
+              })
+            }
+          }
 
           if (declarators.length > 0) {
             replace = {
