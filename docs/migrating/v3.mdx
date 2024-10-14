@@ -57,11 +57,7 @@ If you use `react/jsx-runtime`, you might get a TypeScript error (such as
 To remediate this, do:
 
 ```tsx
-import {type Fragment, type Jsx, run} from '@mdx-js/mdx'
-import * as runtime_ from 'react/jsx-runtime'
-
-// @ts-expect-error: the automatic react runtime is untyped.
-const runtime: {Fragment: Fragment; jsx: Jsx; jsxs: Jsx} = runtime_
+import * as runtime from 'react/jsx-runtime'
 
 const result = await run('# hi', {...runtime, baseUrl: import.meta.url})
 ```

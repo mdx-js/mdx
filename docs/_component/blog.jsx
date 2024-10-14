@@ -67,7 +67,6 @@ export function BlogEntry(properties) {
       </h3>
       <div>
         {meta.descriptionHast ? (
-          // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
           toJsxRuntime(meta.descriptionHast, {Fragment, jsx, jsxs})
         ) : description ? (
           <p>{description}</p>

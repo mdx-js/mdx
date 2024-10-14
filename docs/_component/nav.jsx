@@ -104,7 +104,6 @@ export function NavigationItem(properties) {
           properties: {className: ['nav-description']},
           children
         },
-        // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
         {Fragment, jsx, jsxs}
       )
     } else {

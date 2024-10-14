@@ -44,7 +44,6 @@ import * as runtime from 'react/jsx-runtime'
 
 const code = '' // To do: get `code` from server somehow.
 
-// @ts-expect-error: `runtime` types are currently broken.
 const {default: Content} = await run(code, {...runtime, baseUrl: import.meta.url})
 ```
 
@@ -89,7 +88,6 @@ export default function Page({code}) {
   useEffect(
     function () {
       ;(async function () {
-        // @ts-expect-error: `runtime` types are currently broken.
         setMdxModule(await run(code, {...runtime, baseUrl: import.meta.url}))
       })()
     },

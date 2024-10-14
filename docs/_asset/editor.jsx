@@ -204,9 +204,7 @@ function Playground() {
           /** @type {MDXModule} */
           const result = await run(String(file), {
             Fragment,
-            // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
             jsx,
-            // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
             jsxs,
             baseUrl: window.location.href
           })
@@ -230,7 +228,6 @@ function Playground() {
                     JSON.stringify(ast, undefined, 2),
                     'source.json'
                   ),
-                  // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
                   {Fragment, jsx, jsxs}
                 )}
               </code>
@@ -244,9 +241,7 @@ function Playground() {
             <code>
               {toJsxRuntime(starryNight.highlight(String(file), 'source.js'), {
                 Fragment,
-                // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
                 jsx,
-                // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
                 jsxs
               })}
             </code>
@@ -339,9 +334,7 @@ function Playground() {
             <div className="playground-draw">
               {toJsxRuntime(starryNight.highlight(value, scope), {
                 Fragment,
-                // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
                 jsx,
-                // @ts-expect-error: to do: fix in `hast-util-to-jsx-runtime`.
                 jsxs
               })}
               {/* Trailing whitespace in a `textarea` is shown, but not in a `div`
