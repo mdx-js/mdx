@@ -55,7 +55,7 @@
     "eslint-config-xo-react": "^0.27.0",
     "eslint-plugin-es": "^4.0.0",
     "eslint-plugin-react": "^7.0.0",
-    "eslint-plugin-react-hooks": "^4.0.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
     "estree-to-babel": "^9.0.0",
     "estree-util-scope": "^1.0.0",
     "estree-util-value-to-estree": "^3.0.0",
