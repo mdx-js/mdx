@@ -1,3 +1,4 @@
+import type {Program as EstreeProgram} from 'estree'
 import type {Data as UnistData} from 'unist'
 
 interface EsastData extends UnistData {
@@ -61,5 +62,11 @@ declare module 'mdast-util-mdx-jsx' {
      * Registered by `@mdx-js/mdx/lib/types.d.ts`.
      */
     _mdxExplicitJsx?: boolean | null | undefined
+  }
+}
+
+declare module 'unified' {
+  interface CompileResultMap {
+    EstreeProgram: EstreeProgram
   }
 }

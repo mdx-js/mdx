@@ -662,9 +662,7 @@ function cleanUnistNode(node) {
  */
 function removeFromEstree(node) {
   delete node.loc
-  // @ts-expect-error: this field is added by acorn.
   delete node.start
-  // @ts-expect-error: this field is added by acorn.
   delete node.end
   delete node.range
 }

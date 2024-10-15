@@ -19,15 +19,15 @@ const emptyOptions = {}
  * Add support for MDX (JSX: `<Video id={123} />`, export/imports: `export {x}
  * from 'y'`; and expressions: `{1 + 1}`).
  *
+ * @this {Processor}
+ *   Processor.
  * @param {Readonly<Options> | null | undefined} [options]
  *   Configuration (optional).
  * @returns {undefined}
  *   Nothing.
  */
 export default function remarkMdx(options) {
-  // @ts-expect-error: TS is wrong about `this`.
-  // eslint-disable-next-line unicorn/no-this-assignment
-  const self = /** @type {Processor} */ (this)
+  const self = this
   const settings = options || emptyOptions
   const data = self.data()
 

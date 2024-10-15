@@ -1,5 +1,36 @@
 import type {Author} from './generate.js'
 
+// Register data on `estree`.
+declare module 'estree' {
+  interface BaseNode {
+    /**
+     * Field patched by `acorn`.
+     *
+     * Registered by types for the MDX website for the playground.
+     */
+    end?: number | undefined
+
+    /**
+     * Field patched by `acorn`.
+     *
+     * Registered by types for the MDX website for the playground.
+     */
+    start?: number | undefined
+  }
+}
+
+// Register data on hast.
+declare module 'hast' {
+  interface ElementData {
+    /**
+     * `meta` field available on `<code>` elements; added by `mdast-util-to-hast`.
+     *
+     * Registered by `website/types.d.ts` for the MDX website.
+     */
+    meta?: string | null | undefined
+  }
+}
+
 // Add custom data supported when `rehype-document` is added.
 declare module 'vfile' {
   interface DataMapMeta {
@@ -20,17 +51,5 @@ declare module 'vfile' {
 
   interface DataMap {
     meta: DataMapMeta
-  }
-}
-
-// Register data on hast.
-declare module 'hast' {
-  interface ElementData {
-    /**
-     * `meta` field available on `<code>` elements; added by `mdast-util-to-hast`.
-     *
-     * Registered by `website/types.d.ts` for the MDX website.
-     */
-    meta?: string | null | undefined
   }
 }

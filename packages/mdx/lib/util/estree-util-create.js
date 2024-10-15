@@ -15,8 +15,7 @@
  */
 export function create(from, to) {
   /** @type {Array<keyof Node>} */
-  // @ts-expect-error: `start`, `end`, `comments` are custom Acorn fields.
-  const fields = ['start', 'end', 'loc', 'range', 'comments']
+  const fields = ['start', 'end', 'loc', 'range']
   let index = -1
 
   while (++index < fields.length) {

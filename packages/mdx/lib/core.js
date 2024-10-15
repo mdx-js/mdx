@@ -5,6 +5,7 @@
  * @import {Options as RemarkRehypeOptions} from 'remark-rehype'
  * @import {SourceMapGenerator} from 'source-map'
  * @import {PluggableList, Processor} from 'unified'
+ * @import {Node} from 'unist'
  */
 
 /**
@@ -217,6 +218,8 @@ export function createProcessor(options) {
   }
 
   pipeline
+    // @ts-expect-error: `Program` is close enough to a `Node`,
+    // but type inference has trouble with it and bridges.
     .use(rehypeRecma, settings)
     .use(recmaDocument, settings)
     .use(recmaJsxRewrite, settings)
@@ -225,8 +228,10 @@ export function createProcessor(options) {
     pipeline.use(recmaJsxBuild, settings)
   }
 
+  // @ts-expect-error: `Program` is close enough to a `Node`,
+  // but type inference has trouble with it and bridges.
   pipeline.use(recmaStringify, settings).use(settings.recmaPlugins || [])
 
-  // @ts-expect-error: we added plugins with if-checks, which TS doesn’t get.
+  // @ts-expect-error: TS doesn’t get the plugins we added with if-statements.
   return pipeline
 }
