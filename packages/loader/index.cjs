@@ -1,9 +1,10 @@
 /**
  * @import {LoaderContext} from 'webpack'
+ * @import {Options as Options_} from './lib/index.js' with {'resolution-mode': 'import'}
  */
 
 /**
- * @typedef {import('./lib/index.js', {with: {'resolution-mode': 'import'}}).Options} Options
+ * @typedef {Options_} Options
  */
 
 'use strict'
