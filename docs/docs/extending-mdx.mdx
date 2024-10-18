@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2024-07-04'),
+  modified: new Date('2024-10-18'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 4
@@ -31,8 +31,8 @@ integrations:
 
 * Options passed to the compiler (see [¶ API in `@mdx-js/mdx`][api])
 * Plugins that hook into several stages of compilation (see [remark
-  plugins][remark-plugins], [rehype plugins][rehype-plugins], and the new
-  recma plugins)
+  plugins][remark-plugins], [rehype plugins][rehype-plugins], and
+  [recma plugins][recma-plugins])
 * Components passed, defined, or imported at runtime (see [§ Using MDX][use])
 
 Most of the time, these components and plugins are not coupled to MDX.
@@ -68,8 +68,9 @@ We’re compiling those here on this page.
 
 ### List of plugins
 
-See also the [list of remark plugins][remark-plugins] and
-[list of rehype plugins][rehype-plugins].
+See also the [list of remark plugins][remark-plugins],
+[list of rehype plugins][rehype-plugins], and
+[list of recma plugins][recma-plugins].
 
 * [`remcohaszing/recma-export-filepath`](https://github.com/remcohaszing/recma-export-filepath)
   — export the filepath
@@ -116,8 +117,10 @@ See also the [list of remark plugins][remark-plugins] and
 
 ## Using plugins
 
-Where to pass plugins is encoded in their name: remark plugins go in
-`remarkPlugins` and rehype plugins go in `rehypePlugins` of
+Where to pass plugins is encoded in their name:
+remark plugins go in `remarkPlugins`,
+rehype plugins go in `rehypePlugins`,
+and recma plugins go in `recmaPlugins` of
 [`ProcessorOptions`][processor-options].
 Those fields expect lists of plugins and/or of `[plugin, options]`:
 
@@ -155,8 +158,8 @@ await compile(file, {
 
 ## Creating plugins
 
-Creating a plugin for MDX is mostly the same as creating a plugin for remark
-or rehype.
+Creating a plugin for MDX is mostly the same as creating a plugin for remark,
+rehype, or recma.
 There are several guides and recipes on that in [§ Learn on
 `unifiedjs.com`][learn].
 
@@ -165,6 +168,8 @@ For the MDX specific parts of plugins, it’s recommended to read
 For info on the node types that represent MDX specific features, see
 [¶ Syntax tree in `remark-mdx`][syntax-tree] and use our interactive
 [§ Playground][playground].
+
+[recma-plugins]: https://github.com/mdx-js/recma/blob/main/doc/plugins.md#list-of-plugins
 
 [remark-plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins
 
