@@ -1,10 +1,9 @@
 .DS_Store
 coverage/
 node_modules/
-*.d.cts.map
 *.d.cts
-*.d.ts.map
 *.d.ts
+*.map
 *.tsbuildinfo
 /public/
 !/packages/mdx/lib/types.d.ts
