@@ -346,7 +346,7 @@ export function recmaDocument(options) {
             // `baseHref` at compile time here and statements are static
             // strings, we can do it now.
             try {
-              // To do: use `URL.canParse` next major.
+              // To do: next major: use `URL.canParse`.
               // eslint-disable-next-line no-new
               new URL(value)
               // Fine: a full URL.

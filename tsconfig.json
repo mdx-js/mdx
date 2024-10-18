@@ -10,7 +10,7 @@
     "lib": ["es2022"],
     "module": "node16",
     "moduleResolution": "node16",
-    // Needed for DocSearch for now: <https://github.com/mdx-js/mdx/issues/1776#issuecomment-2349294900>.
+    // To do: needed for DocSearch for now: <https://github.com/mdx-js/mdx/issues/1776#issuecomment-2349294900>.
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022"
