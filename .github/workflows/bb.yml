@@ -1,0 +1,13 @@
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: unifiedjs/beep-boop-beta@main
+        with:
+          repo-token: ${{secrets.GITHUB_TOKEN}}
+name: bb
+on:
+  issues:
+    types: [closed, edited, labeled, opened, reopened, unlabeled]
+  pull_request_target:
+    types: [closed, edited, labeled, opened, reopened, unlabeled]
