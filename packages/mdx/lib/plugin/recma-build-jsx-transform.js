@@ -1,48 +1,37 @@
 /**
  * @import {Program} from 'estree-jsx'
- * @import {Options as BuildJsxOptions} from 'estree-util-build-jsx'
- * @import {VFile} from 'vfile'
  */
 
 /**
- * @typedef ExtraOptions
- *   Configuration for internal plugin `recma-jsx-build`.
+ * @typedef Options
+ *   Configuration for internal plugin `recma-build-jsx-transform`.
  * @property {'function-body' | 'program' | null | undefined} [outputFormat='program']
  *   Whether to keep the import of the automatic runtime or get it from
  *   `arguments[0]` instead (default: `'program'`).
- *
- * @typedef {BuildJsxOptions & ExtraOptions} Options
- *   Options.
  */
 
-import {buildJsx} from 'estree-util-build-jsx'
 import {specifiersToDeclarations} from '../util/estree-util-specifiers-to-declarations.js'
 import {toIdOrMemberExpression} from '../util/estree-util-to-id-or-member-expression.js'
 
 /**
- * A plugin to build JSX into function calls.
- * `estree-util-build-jsx` does all the work for us!
+ * Plugin to change the tree after compiling JSX away.
  *
  * @param {Readonly<Options> | null | undefined} [options]
  *   Configuration (optional).
  * @returns
  *   Transform.
  */
-export function recmaJsxBuild(options) {
+export function recmaBuildJsxTransform(options) {
   /* c8 ignore next -- always given in `@mdx-js/mdx` */
-  const {development, outputFormat} = options || {}
+  const {outputFormat} = options || {}
 
   /**
    * @param {Program} tree
    *   Tree.
-   * @param {VFile} file
-   *   File.
    * @returns {undefined}
    *   Nothing.
    */
-  return function (tree, file) {
-    buildJsx(tree, {development, filePath: file.history[0]})
-
+  return function (tree) {
     // Remove the pragma comment that we injected ourselves as it is no longer
     // needed.
     if (tree.comments) {

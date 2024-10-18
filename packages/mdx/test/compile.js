@@ -1067,7 +1067,7 @@ test('@mdx-js/mdx: compile', async function (t) {
         const exception = /** @type {Error} */ (error)
         const match = /at Component \(([^)]+)\)/.exec(String(exception.stack))
         const actual = match?.[1].split(/\\|\//g).join('/') || ''
-        return (base.pathname + 'unknown.mdx:2:3').endsWith(actual)
+        return (base.pathname + 'unknown.js:2:3').endsWith(actual)
       }
     )
 

@@ -1,11 +1,10 @@
 /**
  * @import {Program} from 'estree-jsx'
- * @import {ElementAttributeNameCase, StylePropertyNameCase} from 'hast-util-to-estree'
  * @import {Root} from 'mdast'
+ * @import {Options as RehypeRecmaOptions} from 'rehype-recma'
  * @import {Options as RemarkRehypeOptions} from 'remark-rehype'
  * @import {SourceMapGenerator} from 'source-map'
  * @import {PluggableList, Processor} from 'unified'
- * @import {Node} from 'unist'
  */
 
 /**
@@ -24,7 +23,7 @@
  *   when using the webpack loader (`@mdx-js/loader`) or the Rollup integration
  *   (`@mdx-js/rollup`) through Vite, this is automatically inferred from how
  *   you configure those tools.
- * @property {ElementAttributeNameCase | null | undefined} [elementAttributeNameCase='react']
+ * @property {RehypeRecmaOptions['elementAttributeNameCase']} [elementAttributeNameCase='react']
  *   Casing to use for attribute names (default: `'react'`);
  *   HTML casing is for example `class`, `stroke-linecap`, `xml:lang`;
  *   React casing is for example `className`, `strokeLinecap`, `xmlLang`;
@@ -112,7 +111,7 @@
  *   nodes (see `nodeTypes`) are passed through;
  *   In particular, you might want to pass configuration for footnotes if your
  *   content is not in English.
- * @property {StylePropertyNameCase | null | undefined} [stylePropertyNameCase='dom']
+ * @property {RehypeRecmaOptions['stylePropertyNameCase']} [stylePropertyNameCase='dom']
  *   Casing to use for property names in `style` objects (default: `'dom'`);
  *   CSS casing is for example `background-color` and `-webkit-line-clamp`;
  *   DOM casing is for example `backgroundColor` and `WebkitLineClamp`;
@@ -125,15 +124,17 @@
  */
 
 import {unreachable} from 'devlop'
+import recmaBuildJsx from 'recma-build-jsx'
+import recmaJsx from 'recma-jsx'
+import recmaStringify from 'recma-stringify'
+import rehypeRecma from 'rehype-recma'
 import remarkMdx from 'remark-mdx'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import {unified} from 'unified'
+import {recmaBuildJsxTransform} from './plugin/recma-build-jsx-transform.js'
 import {recmaDocument} from './plugin/recma-document.js'
-import {recmaJsxBuild} from './plugin/recma-jsx-build.js'
 import {recmaJsxRewrite} from './plugin/recma-jsx-rewrite.js'
-import {recmaStringify} from './plugin/recma-stringify.js'
-import {rehypeRecma} from './plugin/rehype-recma.js'
 import {rehypeRemoveRaw} from './plugin/rehype-remove-raw.js'
 import {remarkMarkAndUnravel} from './plugin/remark-mark-and-unravel.js'
 import {nodeTypes} from './node-types.js'
@@ -225,12 +226,13 @@ export function createProcessor(options) {
     .use(recmaJsxRewrite, settings)
 
   if (!settings.jsx) {
-    pipeline.use(recmaJsxBuild, settings)
+    pipeline.use(recmaBuildJsx, settings).use(recmaBuildJsxTransform, settings)
   }
 
-  // @ts-expect-error: `Program` is close enough to a `Node`,
-  // but type inference has trouble with it and bridges.
-  pipeline.use(recmaStringify, settings).use(settings.recmaPlugins || [])
+  pipeline
+    .use(recmaJsx)
+    .use(recmaStringify, settings)
+    .use(settings.recmaPlugins || [])
 
   // @ts-expect-error: TS doesn’t get the plugins we added with if-statements.
   return pipeline

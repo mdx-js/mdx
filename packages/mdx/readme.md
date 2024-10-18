@@ -1134,7 +1134,7 @@ probably.
 Then we go to JavaScript: [esast][] (JS; an
 AST which is compatible with estree but looks a bit more like other unist ASTs).
 This transformation is done by
-[`syntax-tree/hast-util-to-estree`][hast-util-to-estree].
+[`rehype-recma`][rehype-recma].
 This is a new ecosystem that does not have utilities or plugins yet.
 But it’s where `@mdx-js/mdx` does its thing: where it adds imports/exports,
 where it compiles JSX away into `_jsx()` calls, and where it does the other cool
@@ -1239,7 +1239,7 @@ abide by its terms.
 
 [hast]: https://github.com/syntax-tree/hast
 
-[hast-util-to-estree]: https://github.com/syntax-tree/hast-util-to-estree
+[rehype-recma]: https://github.com/mdx-js/recma/tree/main/packages/rehype-recma
 
 [rehype-highlight]: https://github.com/rehypejs/rehype-highlight
 
