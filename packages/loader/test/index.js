@@ -15,9 +15,13 @@ const webpack = await promisify(webpackCallback)
 
 test('@mdx-js/loader', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('@mdx-js/loader')).sort(), [
-      'default'
-    ])
+    const keys = Object.keys(await import('@mdx-js/loader'))
+      .sort()
+      // To do: when Node 23 is the lowest baseline,
+      // drop this.
+      .filter((key) => key !== 'module.exports')
+
+    assert.deepEqual(keys, ['default'])
   })
 
   await t.test('should work', async function () {
