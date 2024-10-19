@@ -592,8 +592,8 @@ export function recmaDocument(options) {
    *   Functions.
    */
   function createMdxContent(content, outputFormat, hasInternalLayout) {
-    /** @type {JSXElement} */
-    const element = {
+    /** @type {Expression} */
+    let result = {
       type: 'JSXElement',
       openingElement: {
         type: 'JSXOpeningElement',
@@ -610,39 +610,15 @@ export function recmaDocument(options) {
         type: 'JSXClosingElement',
         name: {type: 'JSXIdentifier', name: 'MDXLayout'}
       },
-      children: [
-        {
-          type: 'JSXElement',
-          openingElement: {
-            type: 'JSXOpeningElement',
-            name: {type: 'JSXIdentifier', name: '_createMdxContent'},
-            attributes: [
-              {
-                type: 'JSXSpreadAttribute',
-                argument: {type: 'Identifier', name: 'props'}
-              }
-            ],
-            selfClosing: true
-          },
-          closingElement: null,
-          children: []
-        }
-      ]
+      children: [createMdxContentElement()]
     }
-
-    let result = /** @type {Expression} */ (element)
 
     if (!hasInternalLayout) {
       result = {
         type: 'ConditionalExpression',
         test: {type: 'Identifier', name: 'MDXLayout'},
         consequent: result,
-        alternate: {
-          type: 'CallExpression',
-          callee: {type: 'Identifier', name: '_createMdxContent'},
-          arguments: [{type: 'Identifier', name: 'props'}],
-          optional: false
-        }
+        alternate: createMdxContentElement()
       }
     }
 
@@ -723,6 +699,28 @@ export function recmaDocument(options) {
         ? {type: 'ExportDefaultDeclaration', declaration}
         : declaration
     ]
+  }
+}
+
+/**
+ * @returns {JSXElement}
+ */
+function createMdxContentElement() {
+  return {
+    type: 'JSXElement',
+    openingElement: {
+      type: 'JSXOpeningElement',
+      name: {type: 'JSXIdentifier', name: '_createMdxContent'},
+      attributes: [
+        {
+          type: 'JSXSpreadAttribute',
+          argument: {type: 'Identifier', name: 'props'}
+        }
+      ],
+      selfClosing: true
+    },
+    closingElement: null,
+    children: []
   }
 }
 
