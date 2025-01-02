@@ -37,9 +37,7 @@ test('@mdx-js/preact', async function (t) {
         render(
           <MDXProvider
             components={{
-              // @ts-expect-error: TODO configure TypeScript project references
               h1(properties) {
-                // @ts-expect-error: TODO configure TypeScript project references
                 return <h1 style={{color: 'tomato'}} {...properties} />
               }
             }}
@@ -68,7 +66,6 @@ test('@mdx-js/preact', async function (t) {
              * @returns
              *   Element.
              */
-            // @ts-expect-error: TODO configure TypeScript project references
             wrapper(properties) {
               return <div id="layout" {...properties} />
             }
@@ -93,23 +90,17 @@ test('@mdx-js/preact', async function (t) {
         render(
           <MDXProvider
             components={{
-              // @ts-expect-error: TODO configure TypeScript project references
               h1(properties) {
-                // @ts-expect-error: TODO configure TypeScript project references
                 return <h1 style={{color: 'tomato'}} {...properties} />
               },
-              // @ts-expect-error: TODO configure TypeScript project references
               h2(properties) {
-                // @ts-expect-error: TODO configure TypeScript project references
                 return <h2 style={{color: 'rebeccapurple'}} {...properties} />
               }
             }}
           >
             <MDXProvider
               components={{
-                // @ts-expect-error: TODO configure TypeScript project references
                 h2(properties) {
-                  // @ts-expect-error: TODO configure TypeScript project references
                   return <h2 style={{color: 'papayawhip'}} {...properties} />
                 }
               }}
@@ -133,24 +124,18 @@ test('@mdx-js/preact', async function (t) {
       render(
         <MDXProvider
           components={{
-            // @ts-expect-error: TODO configure TypeScript project references
             h1(properties) {
-              // @ts-expect-error: TODO configure TypeScript project references
               return <h1 style={{color: 'tomato'}} {...properties} />
             },
-            // @ts-expect-error: TODO configure TypeScript project references
             h2(properties) {
-              // @ts-expect-error: TODO configure TypeScript project references
               return <h2 style={{color: 'rebeccapurple'}} {...properties} />
             }
           }}
         >
           <MDXProvider
-            // @ts-expect-error: TODO configure TypeScript project references
             components={function () {
               return {
                 h2(properties) {
-                  // @ts-expect-error: TODO configure TypeScript project references
                   return <h2 style={{color: 'papayawhip'}} {...properties} />
                 }
               }
@@ -176,9 +161,7 @@ test('@mdx-js/preact', async function (t) {
         render(
           <MDXProvider
             components={{
-              // @ts-expect-error: TODO configure TypeScript project references
               h1(properties) {
-                // @ts-expect-error: TODO configure TypeScript project references
                 return <h1 style={{color: 'tomato'}} {...properties} />
               }
             }}
@@ -205,20 +188,16 @@ test('@mdx-js/preact', async function (t) {
         render(
           <MDXProvider
             components={{
-              // @ts-expect-error: TODO configure TypeScript project references
               h1(properties) {
-                // @ts-expect-error: TODO configure TypeScript project references
                 return <h1 style={{color: 'tomato'}} {...properties} />
               }
             }}
           >
             <MDXProvider
               disableParentContext
-              // @ts-expect-error: TODO configure TypeScript project references
               components={function () {
                 return {
                   h2(properties) {
-                    // @ts-expect-error: TODO configure TypeScript project references
                     return <h2 style={{color: 'papayawhip'}} {...properties} />
                   }
                 }

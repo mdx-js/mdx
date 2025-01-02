@@ -1,6 +1,8 @@
 /* @jsxRuntime automatic */
 /* @jsxImportSource react */
 
+/* eslint-disable unicorn/prefer-global-this */
+
 /**
  * @import {Grammar} from '@wooorm/starry-night'
  * @import {Node as EstreeNode, Program} from 'estree'
@@ -79,7 +81,6 @@ Below is an example of markdown in JSX.
 const grammars = [
   sourceCss,
   sourceJs,
-  // @ts-expect-error: TS is wrong: this is not a JSON file.
   sourceJson,
   sourceMdx,
   sourceTs,

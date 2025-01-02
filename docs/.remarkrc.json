@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    "remark-preset-wooorm",
+    ["remark-lint-no-html", false],
+    ["remark-validate-links", false]
+  ]
+}

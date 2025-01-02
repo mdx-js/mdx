@@ -675,7 +675,6 @@ for more info.
     React.createElement(Content, {
       components: {
         h1(properties) {
-          // @ts-expect-error: `Ink` types don’t match w/ `exactOptionalPropertyTypes: true`
           return React.createElement(Text, {bold: true, ...properties})
         },
         p: Text
