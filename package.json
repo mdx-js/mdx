@@ -81,7 +81,7 @@
     "preact": "^10.0.0",
     "preact-render-to-string": "^6.0.0",
     "prettier": "^3.0.0",
-    "puppeteer": "^23.0.0",
+    "puppeteer": "^24.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-error-boundary": "^5.0.0",

@@ -7,7 +7,9 @@ jobs:
       contents: read
       id-token: write
       pages: write
-    runs-on: ubuntu-latest
+    # To do: replace w/ `ubuntu-latest` when upstream is solved:
+    # <https://github.com/puppeteer/puppeteer/issues/12818>.
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
