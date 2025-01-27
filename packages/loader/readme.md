@@ -180,58 +180,58 @@ abide by its terms.
 
 [MIT][] © Compositor and [Vercel][]
 
-[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
-
-[build]: https://github.com/mdx-js/mdx/actions
-
-[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
-
-[coverage]: https://codecov.io/github/mdx-js/mdx
-
-[downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/loader.svg
-
-[downloads]: https://www.npmjs.com/package/@mdx-js/loader
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
-
-[backers-badge]: https://opencollective.com/unified/backers/badge.svg
-
-[collective]: https://opencollective.com/unified
-
-[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
-
-[chat]: https://github.com/mdx-js/mdx/discussions
-
-[npm]: https://docs.npmjs.com/cli/install
-
-[contribute]: https://mdxjs.com/community/contribute/
-
-[support]: https://mdxjs.com/community/support/
-
-[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
-
-[mit]: https://github.com/mdx-js/mdx/blob/main/packages/loader/license
-
-[vercel]: https://vercel.com
-
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-
-[security]: https://mdxjs.com/getting-started/#security
-
-[types]: https://mdxjs.com/getting-started/#types
-
-[webpack]: https://webpack.js.org
-
-[compile-options]: https://mdxjs.com/packages/mdx/#compileoptions
-
-[typescript]: https://www.typescriptlang.org
-
-[babel-loader]: https://webpack.js.org/loaders/babel-loader/
-
-[next]: https://mdxjs.com/getting-started/#nextjs
-
-[vue-cli]: https://mdxjs.com/getting-started/#vue-cli
-
 [api-mdx]: #mdx
 
 [api-options]: #options
+
+[babel-loader]: https://webpack.js.org/loaders/babel-loader/
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[build]: https://github.com/mdx-js/mdx/actions
+
+[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
+
+[chat]: https://github.com/mdx-js/mdx/discussions
+
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
+[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
+
+[collective]: https://opencollective.com/unified
+
+[compile-options]: https://mdxjs.com/packages/mdx/#compileoptions
+
+[contribute]: https://mdxjs.com/community/contribute/
+
+[coverage]: https://codecov.io/github/mdx-js/mdx
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
+
+[downloads]: https://www.npmjs.com/package/@mdx-js/loader
+
+[downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/loader.svg
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[mit]: https://github.com/mdx-js/mdx/blob/main/packages/loader/license
+
+[next]: https://mdxjs.com/getting-started/#nextjs
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[security]: https://mdxjs.com/getting-started/#security
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[support]: https://mdxjs.com/community/support/
+
+[types]: https://mdxjs.com/getting-started/#types
+
+[typescript]: https://www.typescriptlang.org
+
+[vercel]: https://vercel.com
+
+[vue-cli]: https://mdxjs.com/getting-started/#vue-cli
+
+[webpack]: https://webpack.js.org

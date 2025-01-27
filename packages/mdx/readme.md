@@ -183,7 +183,7 @@ console.error(reporter(file))
 
 Yields:
 
-```txt
+```text
   1:16-1:27  warning  Emphasis should use `*` as a marker  emphasis-marker  remark-lint
 
 ⚠ 1 warning
@@ -575,7 +575,7 @@ Configuration for `createProcessor` (TypeScript type).
 
   …running that would normally (production) yield:
 
-  ```txt
+  ```text
   Error: Expected component `NoteIcon` to be defined: you likely forgot to import, pass, or provide it.
       at _missingMdxReference (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:27:9)
       at _createMdxContent (eval at run (…/@mdx-js/mdx/lib/run.js:18:10), <anonymous>:15:20)
@@ -602,7 +602,7 @@ Configuration for `createProcessor` (TypeScript type).
 
   …and we’d run it again, we’d get:
 
-  ```txt
+  ```text
   Error: Expected component `NoteIcon` to be defined: you likely forgot to import, pass, or provide it.
   It’s referenced in your code at `1:9-1:21` in `example.mdx`
   provide it.
@@ -1171,109 +1171,7 @@ abide by its terms.
 
 [MIT][] © Compositor and [Vercel][]
 
-[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
-
-[build]: https://github.com/mdx-js/mdx/actions
-
-[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
-
-[coverage]: https://codecov.io/github/mdx-js/mdx
-
-[downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/mdx.svg
-
-[downloads]: https://www.npmjs.com/package/@mdx-js/mdx
-
-[size-badge]: https://img.shields.io/bundlejs/size/@mdx-js/mdx
-
-[size]: https://bundlejs.com/?q=@mdx-js/mdx
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
-
-[backers-badge]: https://opencollective.com/unified/backers/badge.svg
-
-[collective]: https://opencollective.com/unified
-
-[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
-
-[chat]: https://github.com/mdx-js/mdx/discussions
-
-[npm]: https://docs.npmjs.com/cli/install
-
-[contribute]: https://mdxjs.com/community/contribute/
-
-[support]: https://mdxjs.com/community/support/
-
-[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
-
-[mit]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/license
-
-[vercel]: https://vercel.com
-
-[source-map]: https://github.com/mozilla/source-map
-
-[vfile]: https://github.com/vfile/vfile
-
-[remark-plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins
-
-[rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
-
-[mdx-syntax]: https://mdxjs.com/docs/what-is-mdx/#mdx-syntax
-
-[use]: #use
-
-[unified]: https://github.com/unifiedjs/unified
-
-[micromark]: https://github.com/micromark/micromark
-
 [acorn]: https://github.com/acornjs/acorn
-
-[micromark-extension-mdxjs]: https://github.com/micromark/micromark-extension-mdxjs
-
-[mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
-
-[mdast-util-mdx]: https://github.com/syntax-tree/mdast-util-mdx
-
-[mdast]: https://github.com/syntax-tree/mdast
-
-[mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
-
-[hast]: https://github.com/syntax-tree/hast
-
-[rehype-recma]: https://github.com/mdx-js/recma/tree/main/packages/rehype-recma
-
-[rehype-highlight]: https://github.com/rehypejs/rehype-highlight
-
-[rehype-katex]: https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex
-
-[esast]: https://github.com/syntax-tree/esast
-
-[astring]: https://github.com/davidbonnet/astring
-
-[integrations]: https://mdxjs.com/getting-started/#integrations
-
-[using-mdx]: https://mdxjs.com/docs/using-mdx/
-
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-
-[esmsh]: https://esm.sh
-
-[types]: https://mdxjs.com/getting-started/#types
-
-[security]: https://mdxjs.com/getting-started/#security
-
-[typescript]: https://www.typescriptlang.org
-
-[mdx-types-components]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L65
-
-[mdx-types-module]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L101
-
-[remark-rehype-options]: https://github.com/remarkjs/remark-rehype#options
-
-[unified-pluggable-list]: https://github.com/unifiedjs/unified#pluggablelist
-
-[unified-processor]: https://github.com/unifiedjs/unified#processor
-
-[vfile-compatible]: https://github.com/vfile/vfile#compatible
 
 [api-compile]: #compilefile-options
 
@@ -1306,3 +1204,105 @@ abide by its terms.
 [api-run-sync]: #runsynccode-options
 
 [api-use-mdx-components]: #usemdxcomponents
+
+[astring]: https://github.com/davidbonnet/astring
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[build]: https://github.com/mdx-js/mdx/actions
+
+[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
+
+[chat]: https://github.com/mdx-js/mdx/discussions
+
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
+[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
+
+[collective]: https://opencollective.com/unified
+
+[contribute]: https://mdxjs.com/community/contribute/
+
+[coverage]: https://codecov.io/github/mdx-js/mdx
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
+
+[downloads]: https://www.npmjs.com/package/@mdx-js/mdx
+
+[downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/mdx.svg
+
+[esast]: https://github.com/syntax-tree/esast
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
+[hast]: https://github.com/syntax-tree/hast
+
+[integrations]: https://mdxjs.com/getting-started/#integrations
+
+[mdast]: https://github.com/syntax-tree/mdast
+
+[mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
+
+[mdast-util-mdx]: https://github.com/syntax-tree/mdast-util-mdx
+
+[mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
+
+[mdx-syntax]: https://mdxjs.com/docs/what-is-mdx/#mdx-syntax
+
+[mdx-types-components]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L65
+
+[mdx-types-module]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L101
+
+[micromark]: https://github.com/micromark/micromark
+
+[micromark-extension-mdxjs]: https://github.com/micromark/micromark-extension-mdxjs
+
+[mit]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/license
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[rehype-highlight]: https://github.com/rehypejs/rehype-highlight
+
+[rehype-katex]: https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex
+
+[rehype-plugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins
+
+[rehype-recma]: https://github.com/mdx-js/recma/tree/main/packages/rehype-recma
+
+[remark-plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins
+
+[remark-rehype-options]: https://github.com/remarkjs/remark-rehype#options
+
+[security]: https://mdxjs.com/getting-started/#security
+
+[size]: https://bundlejs.com/?q=@mdx-js/mdx
+
+[size-badge]: https://img.shields.io/bundlejs/size/@mdx-js/mdx
+
+[source-map]: https://github.com/mozilla/source-map
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[support]: https://mdxjs.com/community/support/
+
+[types]: https://mdxjs.com/getting-started/#types
+
+[typescript]: https://www.typescriptlang.org
+
+[unified]: https://github.com/unifiedjs/unified
+
+[unified-pluggable-list]: https://github.com/unifiedjs/unified#pluggablelist
+
+[unified-processor]: https://github.com/unifiedjs/unified#processor
+
+[use]: #use
+
+[using-mdx]: https://mdxjs.com/docs/using-mdx/
+
+[vercel]: https://vercel.com
+
+[vfile]: https://github.com/vfile/vfile
+
+[vfile-compatible]: https://github.com/vfile/vfile#compatible

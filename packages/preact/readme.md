@@ -206,60 +206,6 @@ abide by its terms.
 
 [MIT][] © Compositor and [Vercel][]
 
-[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
-
-[build]: https://github.com/mdx-js/mdx/actions
-
-[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
-
-[coverage]: https://codecov.io/github/mdx-js/mdx
-
-[downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/preact.svg
-
-[downloads]: https://www.npmjs.com/package/@mdx-js/preact
-
-[size-badge]: https://img.shields.io/bundlejs/size/@mdx-js/preact
-
-[size]: https://bundlejs.com/?q=@mdx-js/preact
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
-
-[backers-badge]: https://opencollective.com/unified/backers/badge.svg
-
-[collective]: https://opencollective.com/unified
-
-[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
-
-[chat]: https://github.com/mdx-js/mdx/discussions
-
-[npm]: https://docs.npmjs.com/cli/install
-
-[contribute]: https://mdxjs.com/community/contribute/
-
-[support]: https://mdxjs.com/community/support/
-
-[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
-
-[mit]: https://github.com/mdx-js/mdx/blob/main/packages/preact/license
-
-[vercel]: https://vercel.com
-
-[start-preact]: https://mdxjs.com/getting-started/#preact
-
-[use-provider]: https://mdxjs.com/docs/using-mdx/#mdx-provider
-
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-
-[esmsh]: https://esm.sh
-
-[security]: https://mdxjs.com/getting-started/#security
-
-[typescript]: https://www.typescriptlang.org
-
-[mdx-types-components]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L65
-
-[preact-component-children]: https://github.com/preactjs/preact/blob/main/src/index.d.ts#L53
-
 [api-mdx-provider]: #mdxproviderproperties
 
 [api-merge-components]: #mergecomponents
@@ -267,3 +213,57 @@ abide by its terms.
 [api-props]: #props
 
 [api-use-mdx-components]: #usemdxcomponentscomponents
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[build]: https://github.com/mdx-js/mdx/actions
+
+[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
+
+[chat]: https://github.com/mdx-js/mdx/discussions
+
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
+[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
+
+[collective]: https://opencollective.com/unified
+
+[contribute]: https://mdxjs.com/community/contribute/
+
+[coverage]: https://codecov.io/github/mdx-js/mdx
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
+
+[downloads]: https://www.npmjs.com/package/@mdx-js/preact
+
+[downloads-badge]: https://img.shields.io/npm/dm/@mdx-js/preact.svg
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
+[mdx-types-components]: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/HEAD/types/mdx/types.d.ts#L65
+
+[mit]: https://github.com/mdx-js/mdx/blob/main/packages/preact/license
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[preact-component-children]: https://github.com/preactjs/preact/blob/main/src/index.d.ts#L53
+
+[security]: https://mdxjs.com/getting-started/#security
+
+[size]: https://bundlejs.com/?q=@mdx-js/preact
+
+[size-badge]: https://img.shields.io/bundlejs/size/@mdx-js/preact
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[start-preact]: https://mdxjs.com/getting-started/#preact
+
+[support]: https://mdxjs.com/community/support/
+
+[typescript]: https://www.typescriptlang.org
+
+[use-provider]: https://mdxjs.com/docs/using-mdx/#mdx-provider
+
+[vercel]: https://vercel.com

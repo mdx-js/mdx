@@ -132,36 +132,36 @@ See [§ Sponsor][sponsor] on our site for how to help financially.
 
 [MIT][] © Compositor and [Vercel][]
 
-[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
 
 [build]: https://github.com/mdx-js/mdx/actions
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
-
-[coverage]: https://codecov.io/github/mdx-js/mdx
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
-
-[backers-badge]: https://opencollective.com/unified/backers/badge.svg
-
-[collective]: https://opencollective.com/unified
-
-[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
 
 [chat]: https://github.com/mdx-js/mdx/discussions
 
-[security]: https://mdxjs.com/getting-started/#security
-
-[contribute]: https://mdxjs.com/community/contribute/
-
-[support]: https://mdxjs.com/community/support/
-
-[sponsor]: https://mdxjs.com/community/sponsor/
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 
 [coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
 
-[website]: https://mdxjs.com
+[collective]: https://opencollective.com/unified
+
+[contribute]: https://mdxjs.com/community/contribute/
+
+[coverage]: https://codecov.io/github/mdx-js/mdx
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
 
 [mit]: license
 
+[security]: https://mdxjs.com/getting-started/#security
+
+[sponsor]: https://mdxjs.com/community/sponsor/
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[support]: https://mdxjs.com/community/support/
+
 [vercel]: https://vercel.com
+
+[website]: https://mdxjs.com

@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2024-10-18'),
+  modified: new Date('2025-01-27'),
   published: new Date('2021-10-05')
 }
 export const navSortSelf = 2
@@ -835,15 +835,29 @@ MDX files can be imported in [Bun][] by using
 * If you’re getting errors integrating MDX,
   see [§ Troubleshooting MDX][trouble] or [§ Support][support]
 
+[api-evaluate]: /packages/mdx/#evaluatefile-options
+
+[api-processor-options]: /packages/mdx/#processoroptions
+
 [astro]: https://astro.build/
 
 [astro-framework-components]: https://docs.astro.build/en/core-concepts/framework-components/
 
 [astro-mdx]: https://docs.astro.build/en/guides/integrations-guide/mdx/
 
-[definitely-typed-react]: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/react
+[build-system-vite]: #vite
+
+[bun]: https://bun.sh
+
+[bundler-esbuild]: #esbuild
+
+[bundler-rollup]: #rollup
+
+[bundler-webpack]: #webpack
 
 [definitely-typed-mdx]: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mdx
+
+[definitely-typed-react]: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/react
 
 [docusaurus]: https://docusaurus.io
 
@@ -855,103 +869,15 @@ MDX files can be imported in [Bun][] by using
 
 [esbuild-target]: https://esbuild.github.io/api/#target
 
-[ink]: https://github.com/vadimdemedes/ink
-
 [gatsby]: https://www.gatsbyjs.com
 
 [gatsby-plugin-mdx]: https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/
 
 [github-gist-esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[markdown-tm-language]: https://github.com/wooorm/markdown-tm-language
-
-[mdx-intellij-plugin]: https://github.com/JetBrains/intellij-plugins/tree/master/mdx
-
-[mdx-sublime]: https://github.com/jonsuh/mdx-sublime
-
-[mdxjs-rs]: https://github.com/wooorm/mdxjs-rs
-
-[next]: https://nextjs.org
-
-[next-configuring-mdx]: https://nextjs.org/docs/pages/building-your-application/configuring/mdx
-
-[next-mdx]: https://github.com/vercel/next.js/tree/canary/packages/next-mdx
-
-[node-js]: https://nodejs.org
-
-[parcel]: https://parceljs.org
-
-[parcel-mdx]: https://parceljs.org/languages/mdx/
-
-[parcel-transformer-mdx]: https://github.com/EasyWebApp/Parcel-transformer-MDX
-
-[rollup]: https://rollupjs.org
-
-[svelte-jsx]: https://github.com/kenoxa/svelte-jsx
-
-[theme-ui]: https://theme-ui.com
-
-[theme-ui-mdx]: https://theme-ui.com/mdx
-
-[typescript]: https://www.typescriptlang.org
-
-[vim-mdx-js]: https://github.com/jxnblk/vim-mdx-js
-
-[vite]: https://vitejs.dev
-
-[vite-build-target]: https://vitejs.dev/guide/build.html#browser-compatibility
-
-[vm2]: https://github.com/patriksimek/vm2
-
-[mdx-analyzer]: https://github.com/mdx-js/mdx-analyzer
-
-[webpack]: https://webpack.js.org
-
-[support]: /community/support/
-
-[trouble]: /docs/troubleshooting-mdx/
-
-[use]: /docs/using-mdx/
-
-[what]: /docs/what-is-mdx/
-
-[mdx-esbuild]: /packages/esbuild/
-
-[mdx-loader]: /packages/loader/
-
-[mdx-loader-babel]: /packages/loader/#combine-with-babel
-
-[mdx-mdx]: /packages/mdx/
-
-[mdx-node-loader]: /packages/node-loader/
-
-[mdx-preact]: /packages/preact/
-
-[mdx-react]: /packages/react/
-
-[mdx-rollup]: /packages/rollup/
-
-[mdx-rollup-babel]: /packages/rollup/#combine-with-babel
-
-[mdx-vue]: /packages/vue/
-
-[table-of-components]: /table-of-components/
-
-[api-evaluate]: /packages/mdx/#evaluatefile-options
-
-[api-processor-options]: /packages/mdx/#processoroptions
-
-[build-system-vite]: #vite
-
-[bun]: https://bun.sh
+[ink]: https://github.com/vadimdemedes/ink
 
 [javascript-engines-bun]: #bun
-
-[bundler-esbuild]: #esbuild
-
-[bundler-rollup]: #rollup
-
-[bundler-webpack]: #webpack
 
 [js-engine-node]: #nodejs
 
@@ -971,4 +897,78 @@ MDX files can be imported in [Bun][] by using
 
 [jsx-runtime-vue]: #vue
 
+[markdown-tm-language]: https://github.com/wooorm/markdown-tm-language
+
+[mdx-analyzer]: https://github.com/mdx-js/mdx-analyzer
+
+[mdx-esbuild]: /packages/esbuild/
+
+[mdx-intellij-plugin]: https://github.com/JetBrains/intellij-plugins/tree/master/mdx
+
+[mdx-loader]: /packages/loader/
+
+[mdx-loader-babel]: /packages/loader/#combine-with-babel
+
+[mdx-mdx]: /packages/mdx/
+
+[mdx-node-loader]: /packages/node-loader/
+
+[mdx-preact]: /packages/preact/
+
+[mdx-react]: /packages/react/
+
+[mdx-rollup]: /packages/rollup/
+
+[mdx-rollup-babel]: /packages/rollup/#combine-with-babel
+
+[mdx-sublime]: https://github.com/jonsuh/mdx-sublime
+
+[mdx-vue]: /packages/vue/
+
+[mdxjs-rs]: https://github.com/wooorm/mdxjs-rs
+
+[next]: https://nextjs.org
+
+[next-configuring-mdx]: https://nextjs.org/docs/pages/building-your-application/configuring/mdx
+
+[next-mdx]: https://github.com/vercel/next.js/tree/canary/packages/next-mdx
+
+[node-js]: https://nodejs.org
+
+[parcel]: https://parceljs.org
+
+[parcel-mdx]: https://parceljs.org/languages/mdx/
+
+[parcel-transformer-mdx]: https://github.com/EasyWebApp/Parcel-transformer-MDX
+
+[rollup]: https://rollupjs.org
+
 [site-generator-next]: #nextjs
+
+[support]: /community/support/
+
+[svelte-jsx]: https://github.com/kenoxa/svelte-jsx
+
+[table-of-components]: /table-of-components/
+
+[theme-ui]: https://theme-ui.com
+
+[theme-ui-mdx]: https://theme-ui.com/mdx
+
+[trouble]: /docs/troubleshooting-mdx/
+
+[typescript]: https://www.typescriptlang.org
+
+[use]: /docs/using-mdx/
+
+[vim-mdx-js]: https://github.com/jxnblk/vim-mdx-js
+
+[vite]: https://vitejs.dev
+
+[vite-build-target]: https://vitejs.dev/guide/build.html#browser-compatibility
+
+[vm2]: https://github.com/patriksimek/vm2
+
+[webpack]: https://webpack.js.org
+
+[what]: /docs/what-is-mdx/

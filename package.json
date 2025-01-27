@@ -111,7 +111,7 @@
     "remark-math": "^6.0.0",
     "remark-mdx-frontmatter": "^5.0.0",
     "remark-parse": "^11.0.0",
-    "remark-preset-wooorm": "^10.0.0",
+    "remark-preset-wooorm": "^11.0.0",
     "remark-squeeze-paragraphs": "^6.0.0",
     "remark-stringify": "^11.0.0",
     "remark-strip-badges": "^7.0.0",
@@ -144,7 +144,7 @@
     "docs-js-editor": "esbuild --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/editor.js --target=es2020 docs/_asset/editor.jsx",
     "docs-post": "node website/post.js",
     "docs-prep": "node website/prep.js && npm run docs-js && npm run docs-css",
-    "format": "remark . --frail --output --quiet && remark . --ext mdx --frail --output --quiet --use remark-mdx && prettier . --log-level warn --write && xo --fix",
+    "format": "remark --frail --output --quiet -- . && remark --ext mdx --frail --output --quiet --use remark-mdx -- . && prettier . --log-level warn --write && xo --fix",
     "test": "npm run build && npm run format && npm run test-coverage",
     "test-api": "npm run test-api --workspaces --if-present",
     "test-coverage": "npm run test-coverage --workspaces --if-present"

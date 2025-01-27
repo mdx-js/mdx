@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2024-07-04'),
+  modified: new Date('2025-01-27'),
   published: new Date('2021-10-18')
 }
 export const navSortSelf = 5
@@ -23,7 +23,7 @@ This article goes through several common problems and errors that might occur
 when using MDX. {/* more */}
 To understand how the MDX format works, we recommend that you start with
 [§ What is MDX][what].
-How to use [our packages](/packages/) is documented in their readmes.
+How to use [our packages][packages] is documented in their readmes.
 To migrate to the latest MDX, see [§ Migrating from v1 to v2][migation-v2].
 
 ## Contents
@@ -98,14 +98,14 @@ one short-term solution is to use a bundler to make a CJS version.
 ## Problems using MDX
 
 Problems that occur when using MDX typically relate to the APIs of
-[our packages](/packages/) and how to use them.
+[our packages][packages] and how to use them.
 Please see the documentation of the packages, functions, and options you are
 using for more info and examples.
 
 ### `` `options.renderer` is no longer supported ``
 
-This error is thrown by [`@mdx-js/loader`](/packages/loader/), our webpack
-loader.
+This error is thrown by [`@mdx-js/loader`][loader],
+our webpack loader.
 It was introduced in version 2 to help with migration.
 
 The `renderer` option allowed arbitrary text to be injected before each compiled
@@ -137,7 +137,7 @@ The full error message in MDX 3 is:
 Unexpected `format: 'detect'`, which is not supported by `createProcessor`, expected `'mdx'` or `'md'`
 ```
 
-This error is thrown by [`@mdx-js/mdx`](/packages/mdx/), our core compiler.
+This error is thrown by [`@mdx-js/mdx`][mdx], our core compiler.
 It was introduced in version 2 when the `format` option was introduced.
 
 The `format` option, when configured with `'detect'`, allows inferring whether a
@@ -151,7 +151,7 @@ To detect the format of passed files, please either use `compile` from
 
 ### `` Missing `pragma` in classic runtime with `pragmaImportSource` ``
 
-This error is thrown by [`@mdx-js/mdx`](/packages/mdx/), our core compiler.
+This error is thrown by [`@mdx-js/mdx`][mdx], our core compiler.
 It was introduced in version 2 when the `jsxRuntime`, `pragma`, and
 `pragmaImportSource` options were introduced.
 
@@ -182,8 +182,8 @@ considering removing support for the classic JSX runtime.
 
 ### `` Expected `jsxs` given to `evaluate` ``
 
-These errors are thrown by [`@mdx-js/mdx`](/packages/loader/), our core
-compiler.
+These errors are thrown by [`@mdx-js/mdx`][loader],
+our core compiler.
 They were introduced in version 2 when `evaluate` (and `evaluateSync`) were
 introduced.
 
@@ -228,7 +228,7 @@ Errors typically fall in these three categories:
   — Escape these (`\<`, `\{`) if you mean them as plain text instead of JS(X)
 * **Incorrect interleaving**
   — See the rules in
-  [¶ Interleaving in § What is MDX?](/docs/what-is-mdx/#interleaving)
+  [¶ Interleaving in § What is MDX?][interleaving]
 * **Broken JavaScript**
   — Make sure the JavaScript you write is valid
 
@@ -534,10 +534,18 @@ An example is:
 The reason for this error is that a markdown construct ends while there are
 still tags open.
 See the rules on
-[¶ Interleaving in § What is MDX?](/docs/what-is-mdx/#interleaving)
+[¶ Interleaving in § What is MDX?][interleaving]
 
 [contribute]: /community/contribute/
 
-[what]: /docs/what-is-mdx/
+[interleaving]: /docs/what-is-mdx/#interleaving
+
+[loader]: /packages/loader/
+
+[mdx]: /packages/mdx/
 
 [migation-v2]: /migrating/v2/
+
+[packages]: /packages/
+
+[what]: /docs/what-is-mdx/

@@ -99,7 +99,7 @@ const options = {
       rehypeStarryNight,
       {
         grammars: [...common, sourceMdx, sourceToml, sourceTsx],
-        plainText: ['mdx-invalid', 'txt']
+        plainText: ['mdx-invalid', 'text']
       }
     ],
     [rehypeTwoslash, {twoslash: {compilerOptions: commandLine.options}}],
@@ -269,7 +269,7 @@ function rehypePrettyCodeBlocks() {
     md: 'Markdown',
     mdx: 'MDX',
     sh: 'Shell',
-    txt: 'Plain text',
+    text: 'Plain text',
     ts: 'TypeScript',
     tsx: 'TypeScript'
   }

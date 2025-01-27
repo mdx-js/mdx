@@ -4,7 +4,7 @@ export const info = {
   author: [
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2024-07-04'),
+  modified: new Date('2025-01-27'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 3
@@ -78,7 +78,7 @@ console.log(
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
   ```
 
-  To get the latest link to the stylesheet, go to [`katex docs`][katex docs].
+  To get the latest link to the stylesheet, go to [`katex docs`][katex-browser].
 
   {/* to do: once in a while, get the latest. */}
 </Note>
@@ -92,14 +92,14 @@ console.log(
 
 [commonmark]: https://spec.commonmark.org/current/
 
-[remark-math]: https://github.com/remarkjs/remark-math/tree/main/packages/remark-math
+[extend]: /docs/extending-mdx/
+
+[katex-browser]: https://katex.org/docs/browser#loading-as-global
+
+[processor-options]: /packages/mdx/#processoroptions
 
 [rehype-katex]: https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex
 
 [rehype-mathjax]: https://github.com/remarkjs/remark-math/tree/main/packages/rehype-mathjax
 
-[processor-options]: /packages/mdx/#processoroptions
-
-[extend]: /docs/extending-mdx/
-
-[katex docs]: https://katex.org/docs/browser#loading-as-global
+[remark-math]: https://github.com/remarkjs/remark-math/tree/main/packages/remark-math

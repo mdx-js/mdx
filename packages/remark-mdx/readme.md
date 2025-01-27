@@ -253,59 +253,43 @@ abide by its terms.
 
 [MIT][] © [Titus Wormer][author]
 
-[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
+[acorn-options]: https://github.com/acornjs/acorn/blob/520547b/acorn/src/acorn.d.ts#L578
 
-[build]: https://github.com/mdx-js/mdx/actions
+[api-options]: #options
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
-
-[coverage]: https://codecov.io/github/mdx-js/mdx
-
-[downloads-badge]: https://img.shields.io/npm/dm/remark-mdx.svg
-
-[downloads]: https://www.npmjs.com/package/remark-mdx
-
-[size-badge]: https://img.shields.io/bundlephobia/minzip/remark-mdx.svg
-
-[size]: https://bundlephobia.com/result?p=remark-mdx
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
-
-[backers-badge]: https://opencollective.com/unified/backers/badge.svg
-
-[collective]: https://opencollective.com/unified
-
-[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
-
-[chat]: https://github.com/mdx-js/mdx/discussions
-
-[npm]: https://docs.npmjs.com/cli/install
-
-[contribute]: https://mdxjs.com/community/contribute/
-
-[support]: https://mdxjs.com/community/support/
-
-[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
-
-[mit]: https://github.com/mdx-js/mdx/blob/main/packages/remark-mdx/license
+[api-remark-mdx]: #unifieduseremarkmdx-options
 
 [author]: https://wooorm.com
 
-[integrations]: https://mdxjs.com/getting-started/#integrations
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[build]: https://github.com/mdx-js/mdx/actions
+
+[build-badge]: https://github.com/mdx-js/mdx/workflows/main/badge.svg
+
+[chat]: https://github.com/mdx-js/mdx/discussions
+
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
+[coc]: https://github.com/mdx-js/.github/blob/main/code-of-conduct.md
+
+[collective]: https://opencollective.com/unified
+
+[contribute]: https://mdxjs.com/community/contribute/
+
+[coverage]: https://codecov.io/github/mdx-js/mdx
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
+
+[downloads]: https://www.npmjs.com/package/remark-mdx
+
+[downloads-badge]: https://img.shields.io/npm/dm/remark-mdx.svg
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [esmsh]: https://esm.sh
 
-[security]: https://mdxjs.com/getting-started/#security
-
-[typescript]: https://www.typescriptlang.org
-
-[unified]: https://github.com/unifiedjs/unified
-
-[remark]: https://github.com/remarkjs/remark
-
-[remark-rehype]: https://github.com/remarkjs/remark-rehype
+[integrations]: https://mdxjs.com/getting-started/#integrations
 
 [mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
 
@@ -313,8 +297,24 @@ abide by its terms.
 
 [mdx]: https://mdxjs.com/packages/mdx/
 
-[acorn-options]: https://github.com/acornjs/acorn/blob/520547b/acorn/src/acorn.d.ts#L578
+[mit]: https://github.com/mdx-js/mdx/blob/main/packages/remark-mdx/license
 
-[api-options]: #options
+[npm]: https://docs.npmjs.com/cli/install
 
-[api-remark-mdx]: #unifieduseremarkmdx-options
+[remark]: https://github.com/remarkjs/remark
+
+[remark-rehype]: https://github.com/remarkjs/remark-rehype
+
+[security]: https://mdxjs.com/getting-started/#security
+
+[size]: https://bundlephobia.com/result?p=remark-mdx
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/remark-mdx.svg
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[support]: https://mdxjs.com/community/support/
+
+[typescript]: https://www.typescriptlang.org
+
+[unified]: https://github.com/unifiedjs/unified

@@ -6,7 +6,7 @@ export const info = {
     {github: 'johno', name: 'John Otander', twitter: '4lpine'},
     {github: 'wooorm', name: 'Titus Wormer', twitter: 'wooorm'}
   ],
-  modified: new Date('2023-10-24'),
+  modified: new Date('2025-01-27'),
   published: new Date('2017-12-23'),
   schemaOrg: {
     "@context": "https://schema.org",
@@ -73,7 +73,7 @@ This makes writing long-form content with components a blast. {/* more */}
     It was followed by a warm spring which caused
     flood conditions in many of the nearby rivers.
 
-    <Chart year={year} color="#fcb32c" />
+    <Chart color="#fcb32c" year={year} />
     ```
   </div>
 
@@ -81,7 +81,7 @@ This makes writing long-form content with components a blast. {/* more */}
     It gets compiled to JavaScript that you can use in any framework that
     supports JSX:
 
-    {/* lint disable */}
+    {/* lint disable no-multiple-toplevel-headings */}
 
     <div className="home-preview">
       # Last year’s snowfall
@@ -90,10 +90,10 @@ This makes writing long-form content with components a blast. {/* more */}
       It was followed by a warm spring which caused flood conditions in many of
       the nearby rivers.
 
-      <Chart year={year} color="#fcb32c" />
+      <Chart color="#fcb32c" year={year} />
     </div>
 
-    {/* lint enable */}
+    {/* lint enable no-multiple-toplevel-headings */}
   </div>
 </div>
 
@@ -128,12 +128,12 @@ You’re using React, Preact, or Vue.
 >
 > — [**@dan\_abramov**][quote]
 
-[quote]: https://twitter.com/dan_abramov/status/1286411354996449281
-
-[what]: /docs/what-is-mdx/
-
-[v3]: /blog/v3/
+[getting-started]: /docs/getting-started/
 
 [playground]: /playground/
 
-[getting-started]: /docs/getting-started/
+[quote]: https://twitter.com/dan_abramov/status/1286411354996449281
+
+[v3]: /blog/v3/
+
+[what]: /docs/what-is-mdx/
