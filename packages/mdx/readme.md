@@ -905,9 +905,8 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `recmaPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
-  — list of recma plugins;
-  this is a new ecosystem, currently in beta, to transform [esast][] trees
-  (JavaScript)
+  — list of [recma plugins](https://github.com/mdx-js/recma#readme)
+  to apply to the final Javascript syntax tree about to be output.
 
   <details><summary>Expand example</summary>
 
@@ -919,9 +918,16 @@ Configuration for `createProcessor` (TypeScript type).
 
   </details>
 
+* `recmaJsxPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
+  optional)
+  — list of [recma plugins](https://github.com/mdx-js/recma#readme)
+  to apply to the Javascript-with-JSX syntax tree before JSX tags are
+  rewritten to vanilla JS.
+
 * `rehypePlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
-  — list of [rehype plugins][rehype-plugins]
+  — list of [rehype plugins][rehype-plugins] to apply to the HTML-with-JSX
+  syntax tree just before conversion to Javascript-with-JSX.
 
   <details><summary>Expand example</summary>
 
@@ -942,7 +948,9 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `remarkPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
-  — list of [remark plugins][remark-plugins]
+  — list of [remark plugins][remark-plugins] to apply to the
+  markdown-with-JSX (aka MDX) syntax tree just before conversion to
+  HTML-with-JSX.
 
   <details><summary>Expand example</summary>
 
@@ -960,10 +968,10 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `remarkRehypeOptions` ([`Options` from
   `remark-rehype`][remark-rehype-options], optional)
-  — options to pass through to `remark-rehype`;
-  the option `allowDangerousHtml` will always be set to `true` and the MDX
-  nodes (see [`nodeTypes`][api-node-types]) are passed through;
-  In particular, you might want to pass configuration for footnotes if your
+  — options to pass to `remark-rehype`, which converts markdown-with-JSX to
+  HTML-with-JSX; the option `allowDangerousHtml` will always be set to `true`
+  and MDX nodes (see [`nodeTypes`][api-node-types]) are passed through;
+  in particular, you might want to pass configuration for footnotes if your
   content is not in English
 
   <details><summary>Expand example</summary>
@@ -1135,10 +1143,10 @@ Then we go to JavaScript: [esast][] (JS; an
 AST which is compatible with estree but looks a bit more like other unist ASTs).
 This transformation is done by
 [`rehype-recma`][rehype-recma].
-This is a new ecosystem that does not have utilities or plugins yet.
+This is a new ecosystem that does not have many utilities or plugins yet.
 But it’s where `@mdx-js/mdx` does its thing: where it adds imports/exports,
-where it compiles JSX away into `_jsx()` calls, and where it does the other cool
-things that it provides.
+where it compiles JSX away into `_jsx()` calls, and where it does the other
+cool things that it provides.
 
 Finally, The output is serialized JavaScript.
 That final step is done by [astring][], a
