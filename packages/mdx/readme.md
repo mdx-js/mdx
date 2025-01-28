@@ -905,8 +905,8 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `recmaPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
-  — list of [recma plugins](https://github.com/mdx-js/recma#readme)
-  to apply to the final Javascript syntax tree about to be output.
+  — list of [recma plugins][recma] to apply to the final Javascript syntax
+  tree about to be output.
 
   <details><summary>Expand example</summary>
 
@@ -920,9 +920,8 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `recmaJsxPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
-  — list of [recma plugins](https://github.com/mdx-js/recma#readme)
-  to apply to the Javascript-with-JSX syntax tree before JSX tags are
-  rewritten to vanilla JS.
+  — list of [recma plugins][recma] to apply to the Javascript-with-JSX syntax
+  tree before JSX tags are rewritten to vanilla JS.
 
 * `rehypePlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
@@ -1270,6 +1269,8 @@ abide by its terms.
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/license
 
 [npm]: https://docs.npmjs.com/cli/install
+
+[recma]: https://github.com/mdx-js/recma#readme
 
 [rehype-highlight]: https://github.com/rehypejs/rehype-highlight
 
