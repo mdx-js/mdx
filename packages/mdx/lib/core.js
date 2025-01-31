@@ -98,19 +98,23 @@
  *   without arguments to get an object of components (`MDXComponents` from
  *   `mdx/types.js`).
  * @property {PluggableList | null | undefined} [recmaPlugins]
- *   List of recma plugins (optional);
- *   this is a new ecosystem, currently in beta, to transform esast trees
- *   (JavaScript)
+ *   List of [recma plugins](https://github.com/mdx-js/recma#readme) (optional)
+ *   to apply to the final Javascript syntax tree about to be output
+ *   (with JSX exceptions if `jsx: true` is set).
  * @property {PluggableList | null | undefined} [remarkPlugins]
- *   List of remark plugins (optional).
+ *   List of [remark plugins](https://github.com/remarkjs/remark#readme)
+ *   (optional) to apply to the parsed markdown tree (with MDX extensions)
+ *   just before conversion to HTML.
  * @property {PluggableList | null | undefined} [rehypePlugins]
- *   List of rehype plugins (optional).
+ *   List of [rehype plugins](https://github.com/rehypejs/rehype#readme)
+ *   (optional) to apply to the HTML tree (with MDX extensions) just before
+ *   conversion to Javascript.
  * @property {Readonly<RemarkRehypeOptions> | null | undefined} [remarkRehypeOptions]
- *   Options to pass through to `remark-rehype` (optional);
- *   the option `allowDangerousHtml` will always be set to `true` and the MDX
- *   nodes (see `nodeTypes`) are passed through;
- *   In particular, you might want to pass configuration for footnotes if your
- *   content is not in English.
+ *   Options to pass to `remark-rehype` (optional) to control conversion of
+ *   markdown to HTML; the option `allowDangerousHtml` will always be
+ *   overridden to `true`, and MDX extension nodes (see `nodeTypes`) are always
+ *   passed through. In particular, you might want to adjust footnote
+ *   configuration here if your content is not in English.
  * @property {RehypeRecmaOptions['stylePropertyNameCase']} [stylePropertyNameCase='dom']
  *   Casing to use for property names in `style` objects (default: `'dom'`);
  *   CSS casing is for example `background-color` and `-webkit-line-clamp`;

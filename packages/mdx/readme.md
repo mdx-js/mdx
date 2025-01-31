@@ -905,9 +905,8 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `recmaPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
-  — list of recma plugins;
-  this is a new ecosystem, currently in beta, to transform [esast][] trees
-  (JavaScript)
+  — list of [recma plugins][recma] to apply to the final Javascript syntax
+  tree about to be output.
 
   <details><summary>Expand example</summary>
 
@@ -921,7 +920,8 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `rehypePlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
-  — list of [rehype plugins][rehype-plugins]
+  — list of [rehype plugins][rehype-plugins] to apply to the HTML syntax tree
+  (with MDX extensions) just before conversion to Javascript.
 
   <details><summary>Expand example</summary>
 
@@ -942,7 +942,8 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `remarkPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
-  — list of [remark plugins][remark-plugins]
+  — list of [remark plugins][remark-plugins] to apply to the
+  markdown syntax tree (with MDX extensions) just before conversion to HTML.
 
   <details><summary>Expand example</summary>
 
@@ -960,11 +961,11 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `remarkRehypeOptions` ([`Options` from
   `remark-rehype`][remark-rehype-options], optional)
-  — options to pass through to `remark-rehype`;
-  the option `allowDangerousHtml` will always be set to `true` and the MDX
-  nodes (see [`nodeTypes`][api-node-types]) are passed through;
-  In particular, you might want to pass configuration for footnotes if your
-  content is not in English
+  — options to pass to `remark-rehype` to control conversion of markdown
+  to HTML; the option `allowDangerousHtml` will always be overriden to `true`,
+  and MDX extension nodes (see [`nodeTypes`][api-node-types]) are always
+  passed through. in particular, you might want to adjust footnote
+  configuration if your content is not in English
 
   <details><summary>Expand example</summary>
 
@@ -1262,6 +1263,8 @@ abide by its terms.
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/license
 
 [npm]: https://docs.npmjs.com/cli/install
+
+[recma]: https://github.com/mdx-js/recma#readme
 
 [rehype-highlight]: https://github.com/rehypejs/rehype-highlight
 
