@@ -99,25 +99,22 @@
  *   `mdx/types.js`).
  * @property {PluggableList | null | undefined} [recmaPlugins]
  *   List of [recma plugins](https://github.com/mdx-js/recma#readme) (optional)
- *   to apply to the final Javascript syntax tree about to be output. Unless
- *   `jsx: true` is set, these plugins see vanilla JS with JSX rewritten.
- * @property {PluggableList | null | undefined} [recmaJsxPlugins]
- *   List of [recma plugins](https://github.com/mdx-js/recma#readme) (optional)
- *   to apply to the Javascript-with-JSX tree before JSX tags are rewritten.
+ *   to apply to the final Javascript syntax tree about to be output
+ *   (with JSX exceptions if `jsx: true` is set).
  * @property {PluggableList | null | undefined} [remarkPlugins]
  *   List of [remark plugins](https://github.com/remarkjs/remark#readme)
- *   (optional) to apply to the parsed markdown-with-JSX (aka MDX) tree just
- *   before conversion to HTML-with-JSX.
+ *   (optional) to apply to the parsed markdown tree (with MDX extensions)
+ *   just before conversion to HTML.
  * @property {PluggableList | null | undefined} [rehypePlugins]
  *   List of [rehype plugins](https://github.com/rehypejs/rehype#readme)
- *   (optional) to apply to the HTML-with-JSX tree just before conversion to
- *   Javascript-with-JSX.
+ *   (optional) to apply to the HTML tree (with MDX extensions) just before
+ *   conversion to Javascript.
  * @property {Readonly<RemarkRehypeOptions> | null | undefined} [remarkRehypeOptions]
- *   Options to pass to `remark-rehype`, which converts
- *   markdown-with-JSX to HTML-with-JSX (optional); the option
- *   `allowDangerousHtml` will always be set to `true` and MDX nodes
- *   (see `nodeTypes`) are passed through; in particular, you might want to
- *   pass configuration for footnotes if your content is not in English.
+ *   Options to pass to `remark-rehype` (optional) to control conversion of
+ *   markdown to HTML; the option `allowDangerousHtml` will always be
+ *   overridden to `true`, and MDX extension nodes (see `nodeTypes`) are always
+ *   passed through. In particular, you might want to adjust footnote
+ *   configuration here if your content is not in English.
  * @property {RehypeRecmaOptions['stylePropertyNameCase']} [stylePropertyNameCase='dom']
  *   Casing to use for property names in `style` objects (default: `'dom'`);
  *   CSS casing is for example `background-color` and `-webkit-line-clamp`;
@@ -222,7 +219,6 @@ export function createProcessor(options) {
     .use(settings.rehypePlugins || [])
 
   if (settings.format === 'md') {
-    // Should this come before rehypePlugins?
     pipeline.use(rehypeRemoveRaw)
   }
 
@@ -238,9 +234,8 @@ export function createProcessor(options) {
   }
 
   pipeline
-    .use(settings.recmaJsxPlugins || [])
     .use(recmaJsx)
-    .use(recmaStringify, settings) // Move recmaStringify after recmaPlugins?
+    .use(recmaStringify, settings)
     .use(settings.recmaPlugins || [])
 
   // @ts-expect-error: TS doesn’t get the plugins we added with if-statements.
