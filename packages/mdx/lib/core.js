@@ -98,19 +98,17 @@
  *   without arguments to get an object of components (`MDXComponents` from
  *   `mdx/types.js`).
  * @property {PluggableList | null | undefined} [recmaPlugins]
- *   List of recma plugins (optional);
- *   this is a new ecosystem, currently in beta, to transform esast trees
- *   (JavaScript)
+ *   List of recma plugins (optional).
  * @property {PluggableList | null | undefined} [remarkPlugins]
  *   List of remark plugins (optional).
  * @property {PluggableList | null | undefined} [rehypePlugins]
  *   List of rehype plugins (optional).
  * @property {Readonly<RemarkRehypeOptions> | null | undefined} [remarkRehypeOptions]
- *   Options to pass through to `remark-rehype` (optional);
+ *   Options to pass to `remark-rehype` (optional);
+ *   in particular, you might want to pass configuration for footnotes if your
+ *   content is not in English;
  *   the option `allowDangerousHtml` will always be set to `true` and the MDX
- *   nodes (see `nodeTypes`) are passed through;
- *   In particular, you might want to pass configuration for footnotes if your
- *   content is not in English.
+ *   nodes (see `nodeTypes`) are passed through.
  * @property {RehypeRecmaOptions['stylePropertyNameCase']} [stylePropertyNameCase='dom']
  *   Casing to use for property names in `style` objects (default: `'dom'`);
  *   CSS casing is for example `background-color` and `-webkit-line-clamp`;

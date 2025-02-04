@@ -34,7 +34,7 @@ declare module 'estree' {
 
   interface Comment {
     /**
-     * Extra unist data passed added by `recma-document`.
+     * Extra unist data added by `recma-document`.
      *
      * Registered by `@mdx-js/mdx/lib/types.d.ts`.
      */

@@ -905,9 +905,7 @@ Configuration for `createProcessor` (TypeScript type).
 
 * `recmaPlugins` ([`PluggableList` from `unified`][unified-pluggable-list],
   optional)
-  — list of recma plugins;
-  this is a new ecosystem, currently in beta, to transform [esast][] trees
-  (JavaScript)
+  — list of [recma plugins][recma-plugins]
 
   <details><summary>Expand example</summary>
 
@@ -961,10 +959,10 @@ Configuration for `createProcessor` (TypeScript type).
 * `remarkRehypeOptions` ([`Options` from
   `remark-rehype`][remark-rehype-options], optional)
   — options to pass through to `remark-rehype`;
+  in particular, you might want to pass configuration for footnotes if your
+  content is not in English;
   the option `allowDangerousHtml` will always be set to `true` and the MDX
-  nodes (see [`nodeTypes`][api-node-types]) are passed through;
-  In particular, you might want to pass configuration for footnotes if your
-  content is not in English
+  nodes (see [`nodeTypes`][api-node-types]) are passed through.
 
   <details><summary>Expand example</summary>
 
@@ -1096,8 +1094,10 @@ The processor goes through these steps:
 7. transform through recma (JS ecosystem)
 8. serialize esast as JavaScript
 
-The *input* is MDX (serialized markdown with embedded JSX, ESM, and
-expressions).
+The *input* is MDX.
+That’s serialized markdown with embedded JSX, ESM, and expressions.
+In the case of JSX,
+the tags are *intertwined* with markdown.
 The markdown is parsed with [`micromark/micromark`][micromark] and the embedded
 JS with one of its extensions
 [`micromark/micromark-extension-mdxjs`][micromark-extension-mdxjs] (which in
@@ -1116,7 +1116,7 @@ respectively.
 After markdown, we go to [hast][] (HTML).
 This transformation is done by
 [`syntax-tree/mdast-util-to-hast`][mdast-util-to-hast].
-Wait, why, what is HTML needed?
+Wait, what, why is HTML needed?
 Part of the reason is that we care about HTML semantics: we want to know that
 something is an `<a>`, not whether it’s a link with a resource (`[text](url)`)
 or a reference to a defined link definition (`[text][id]\n\n[id]: url`).
@@ -1135,8 +1135,9 @@ Then we go to JavaScript: [esast][] (JS; an
 AST which is compatible with estree but looks a bit more like other unist ASTs).
 This transformation is done by
 [`rehype-recma`][rehype-recma].
-This is a new ecosystem that does not have utilities or plugins yet.
-But it’s where `@mdx-js/mdx` does its thing: where it adds imports/exports,
+This is a newer ecosystem.
+There are some [recma plugins][recma-plugins] already.
+It’s where `@mdx-js/mdx` does its thing: where it adds imports/exports,
 where it compiles JSX away into `_jsx()` calls, and where it does the other cool
 things that it provides.
 
@@ -1262,6 +1263,8 @@ abide by its terms.
 [mit]: https://github.com/mdx-js/mdx/blob/main/packages/mdx/license
 
 [npm]: https://docs.npmjs.com/cli/install
+
+[recma-plugins]: https://github.com/mdx-js/recma/blob/main/doc/plugins.md#list-of-plugins
 
 [rehype-highlight]: https://github.com/rehypejs/rehype-highlight
 
