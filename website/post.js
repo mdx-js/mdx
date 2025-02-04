@@ -222,10 +222,6 @@ await pAll(
                 }
 
                 .og-root {
-                  /* Twitter seems to cut 1em off the size in the height,
-                    * compared to facebook. So this’ll look a bit big on FB
-                    * but the assumption is that most folks will share on
-                    * twitter */
                   height: calc(100vh - calc(2 * (1em + 1ex)));
                   display: flex;
                   flex-flow: column;

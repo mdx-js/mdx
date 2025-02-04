@@ -17,7 +17,6 @@ import {config} from '../_config.js'
 import {GitHub} from './icon/github.jsx'
 import {Mdx} from './icon/mdx.jsx'
 import {OpenCollective} from './icon/open-collective.jsx'
-import {Twitter} from './icon/twitter.jsx'
 import {NavigationGroup} from './nav.jsx'
 
 export function NavigationSiteSkip() {
@@ -70,11 +69,6 @@ export function NavigationSite(properties) {
         <li>
           <a href={config.gh.href}>
             <GitHub />
-          </a>
-        </li>
-        <li className="navigation-show-big">
-          <a href={config.twitter.href}>
-            <Twitter />
           </a>
         </li>
         <li className="navigation-show-big">

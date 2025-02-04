@@ -13,8 +13,6 @@
  *   GitHub handle (optional).
  * @property {string} name
  *   Name.
- * @property {string | undefined} [twitter]
- *   Twitter handle (optional).
  * @property {string | undefined} [url]
  *   URL (optional).
  *
@@ -23,8 +21,6 @@
  * @property {Array<Readonly<Author>> | Readonly<Author> | undefined} [author]
  *   Author(s) (optional);
  *   note: mutable because `isArray` casts to any.
- * @property {string | undefined} [authorTwitter]
- *   Primary twitter handle (optional).
  * @property {Date | undefined} [published]
  *   Published date (optional).
  * @property {Date | undefined} [modified]
@@ -87,10 +83,6 @@ const allInfo = await pAll(
       const authorNames = authors.map(function (d) {
         return d.name
       })
-
-      if (authors[0] && authors[0].twitter) {
-        restInfo.authorTwitter = authors[0].twitter
-      }
 
       const abbreviatedAuthors =
         authorNames.length > 3
@@ -242,8 +234,6 @@ await pAll(
           separator: ' | ',
           siteAuthor: config.author,
           siteTags: config.tags,
-          siteTwitter: '@' + config.twitter.pathname.slice(1),
-          twitter: true,
           type: 'article'
         })
         .use(rehypeLazyCss, [

@@ -28,10 +28,6 @@ export function FootSite() {
             </small>
             <br />
             <small>
-              Updates on <a href={config.twitter.href}>Twitter</a>
-            </small>
-            <br />
-            <small>
               Updates as <a href="/rss.xml">RSS feed</a>
             </small>
             <br />

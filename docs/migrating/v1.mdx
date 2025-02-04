@@ -2,7 +2,7 @@ import {Note} from '../_component/note.jsx'
 
 export const info = {
   author: [
-    {github: 'johno', name: 'John Otander', twitter: '4lpine'}
+    {github: 'johno', name: 'John Otander'}
   ],
   modified: new Date('2025-01-27'),
   published: new Date('2019-04-04')
@@ -47,7 +47,7 @@ inspired by
 This ensures that transpiled JSX is more readable and that JSX blocks use the
 same component as its markdown counterpart.
 It also allows MDXProvider to provide global component scope like a `Youtube`
-or `Twitter` component.
+component.
 
 The pragma implementation will also cause JSX HTML elements to be rendered with
 the component mapping passed to MDXProvider.

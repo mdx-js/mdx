@@ -14,8 +14,7 @@ export const config = {
   output: new URL('public/', git),
   site,
   tags: ['mdx', 'markdown', 'jsx', 'oss', 'react'],
-  title: 'MDX',
-  twitter: new URL('https://twitter.com/mdx_js')
+  title: 'MDX'
 }
 
 /** @type {Record<string, string>} */

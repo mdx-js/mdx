@@ -144,9 +144,7 @@ export function Layout(properties) {
   const creditsList = metaAuthors.map(function (d, i) {
     const href = d.github
       ? 'https://github.com/' + d.github
-      : d.twitter
-        ? 'https://twitter.com/' + d.twitter
-        : d.url || undefined
+      : d.url || undefined
     return (
       <span key={d.name}>
         {i ? ', ' : ''}
