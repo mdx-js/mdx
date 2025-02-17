@@ -56,7 +56,7 @@
     "cssnano": "^7.0.0",
     "devlop": "^1.0.0",
     "dlv": "^1.0.0",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.0",
     "eslint-config-xo-react": "^0.27.0",
     "eslint-plugin-es": "^4.0.0",
     "eslint-plugin-react": "^7.0.0",
