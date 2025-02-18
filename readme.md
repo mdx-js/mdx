@@ -1,8 +1,4 @@
-<p align="center">
-  <a href="https://mdxjs.com">
-    <img alt="MDX" src="https://mdx-logo.now.sh" width="60" />
-  </a>
-</p>
+[![MDX][githubusercontent-logo]][website]
 
 # Markdown for the component era
 
@@ -151,6 +147,8 @@ See [§ Sponsor][sponsor] on our site for how to help financially.
 [coverage]: https://codecov.io/github/mdx-js/mdx
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/mdx-js/mdx/main.svg
+
+[githubusercontent-logo]: https://raw.githubusercontent.com/mdx-js/.github/5a63e56/image/cover.svg?sanitize=true
 
 [mit]: license
 
