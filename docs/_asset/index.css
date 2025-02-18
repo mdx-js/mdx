@@ -1,7 +1,9 @@
 :root {
-  --sans: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', helvetica,
-    arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  --mono: 'San Francisco Mono', 'Monaco', 'Consolas', 'Lucida Console',
+  --sans:
+    system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', helvetica, arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --mono:
+    'San Francisco Mono', 'Monaco', 'Consolas', 'Lucida Console',
     'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
   --white: #fff;
   --black: #1b1f24;
@@ -57,9 +59,9 @@
   --docsearch-key-shadow: inset 0 -1px 0 var(--gray-4) !important;
   --docsearch-modal-background: var(--white) !important;
   /* Card shadow: <https://github.com/unifiedjs/unifiedjs.github.io/blob/4de0391/asset/index.css#L399> */
-  --docsearch-modal-shadow: 0 0 0 0.2em rgb(3 102 214 / 0%),
-    0 13px 27px -5px rgb(50 50 93 / 25%), 0 8px 16px -8px rgb(0 0 0 / 30%),
-    0 -6px 16px -6px rgb(0 0 0 / 2.5%) !important;
+  --docsearch-modal-shadow:
+    0 0 0 0.2em rgb(3 102 214 / 0%), 0 13px 27px -5px rgb(50 50 93 / 25%),
+    0 8px 16px -8px rgb(0 0 0 / 30%), 0 -6px 16px -6px rgb(0 0 0 / 2.5%) !important;
   /* Use the regular color: */
   --docsearch-muted-color: var(--black) !important;
   --docsearch-primary-color: var(--hl) !important;
