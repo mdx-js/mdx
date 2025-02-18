@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://mdxjs.com">
-    <img alt="MDX" src="https://mdx-logo.now.sh" width="60" />
+    <img alt="MDX" src="https://raw.githubusercontent.com/mdx-js/.github/5a63e56/image/cover.svg" />
   </a>
 </p>
 
