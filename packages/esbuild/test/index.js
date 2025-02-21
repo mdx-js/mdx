@@ -570,6 +570,36 @@ test('@mdx-js/esbuild', async function (t) {
     await fs.rm(mdxUrl)
     await fs.rm(jsUrl)
   })
+
+  await t.test('should use esbuild "jsx" loader for JSX output', async () => {
+    const mdxUrl = new URL('esbuild.mdx', import.meta.url)
+    const jsUrl = new URL('esbuild.js', import.meta.url)
+    await fs.writeFile(
+      mdxUrl,
+      'export function Message() { return <>World!</> }\n\n# Hello, <Message />'
+    )
+
+    await esbuild.build({
+      entryPoints: [fileURLToPath(mdxUrl)],
+      outfile: fileURLToPath(jsUrl),
+      plugins: [esbuildMdx({jsx: true})],
+      define: {'process.env.NODE_ENV': '"development"'},
+      format: 'esm',
+      bundle: true
+    })
+
+    /** @type {MDXModule} */
+    const result = await import(jsUrl.href + '#' + Math.random())
+    const Content = result.default
+
+    assert.equal(
+      renderToStaticMarkup(React.createElement(Content)),
+      '<h1>Hello, World!</h1>'
+    )
+
+    await fs.rm(mdxUrl)
+    await fs.rm(jsUrl)
+  })
 })
 
 /**
