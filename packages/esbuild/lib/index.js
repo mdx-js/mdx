@@ -142,7 +142,7 @@ export function esbuild(options) {
       return {
         contents: value || '',
         errors,
-        loader: options.jsx ? 'jsx' : 'js',
+        loader: options?.jsx ? 'jsx' : 'js',
         resolveDir: path.resolve(file.cwd, file.dirname),
         warnings
       }
