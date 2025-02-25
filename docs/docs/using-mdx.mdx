@@ -146,7 +146,7 @@ It could be imported in the following ways:
 // @filename: types.d.ts
 declare module '*.mdx' {
   export {MDXContent as default} from 'mdx/types';
-  export function Thing(): JSX.Element;
+  export function Thing(): unknown;
 }
 // @filename: example.js
 /// <reference types="node" />

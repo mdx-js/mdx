@@ -123,7 +123,7 @@ Provider for MDX context.
 
 ##### Returns
 
-Element (`JSX.Element`).
+Element (`VNode`).
 
 ### `useMDXComponents(components?)`
 

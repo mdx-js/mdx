@@ -69,7 +69,7 @@ Next.
 ```js twoslash path="pages/hello.js"
 /**
  * @import {MDXModule} from 'mdx/types.js'
- * @import {Dispatch, JSX, SetStateAction} from 'react'
+ * @import {Dispatch, ReactElement, SetStateAction} from 'react'
  */
 
 import {compile, run} from '@mdx-js/mdx'
@@ -78,7 +78,7 @@ import * as runtime from 'react/jsx-runtime'
 
 /**
  * @param {{code: string}} props
- * @returns {JSX.Element}
+ * @returns {ReactElement}
  */
 export default function Page({code}) {
   /** @type {[MDXModule | undefined, Dispatch<SetStateAction<MDXModule | undefined>>]} */

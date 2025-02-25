@@ -127,7 +127,7 @@ Provider for MDX context.
 
 ##### Returns
 
-Element (`JSX.Element`).
+Element (`ReactElement`).
 
 ### `useMDXComponents(components?)`
 
