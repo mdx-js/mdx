@@ -66,10 +66,8 @@ const name = '@mdx-js/esbuild'
  *   Plugin.
  */
 export function esbuild(options) {
-  const {extnames, process} = createFormatAwareProcessors({
-    ...options,
-    SourceMapGenerator
-  })
+  const settings = {...options, SourceMapGenerator};
+  const {extnames, process} = createFormatAwareProcessors(settings)
 
   return {name, setup}
 
@@ -142,6 +140,7 @@ export function esbuild(options) {
       return {
         contents: value || '',
         errors,
+        loader: settings.jsx ? 'jsx' : 'js',
         resolveDir: path.resolve(file.cwd, file.dirname),
         warnings
       }
