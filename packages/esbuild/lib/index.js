@@ -66,7 +66,7 @@ const name = '@mdx-js/esbuild'
  *   Plugin.
  */
 export function esbuild(options) {
-  const settings = {...options, SourceMapGenerator};
+  const settings = {...options, SourceMapGenerator}
   const {extnames, process} = createFormatAwareProcessors(settings)
 
   return {name, setup}
