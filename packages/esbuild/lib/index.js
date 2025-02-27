@@ -1,6 +1,7 @@
 /**
  * @import {CompileOptions} from '@mdx-js/mdx'
  * @import {
+      Location,
       Message,
       OnLoadArgs,
       OnLoadResult,
@@ -116,15 +117,15 @@ export function esbuild(options) {
           '\n'
         messages = file.messages
       } catch (error_) {
-        const cause = /** @type {VFileMessage | Error} */ (error_)
+        const place = typeof error_.reason === 'string' && error_.place
         const message =
-          'reason' in cause
-            ? cause
-            : new VFileMessage('Cannot process MDX file with esbuild', {
-                cause,
-                ruleId: 'process-error',
-                source: '@mdx-js/esbuild'
-              })
+          new VFileMessage(
+            `Cannot process MDX file with esbuild:\n  ${error_}`, {
+            cause: error_,
+            place,
+            ruleId: 'process-error',
+            source: '@mdx-js/esbuild'
+          })
         message.fatal = true
         messages.push(message)
       }
@@ -157,42 +158,51 @@ export function esbuild(options) {
  *   ESBuild message.
  */
 function vfileMessageToEsbuild(state, message) {
-  const place = message.place
-  const start = place ? ('start' in place ? place.start : place) : undefined
-  const end = place && 'end' in place ? place.end : undefined
-  let length = 0
-  let lineStart = 0
-  let line = 0
-  let column = 0
-
-  if (start && start.offset !== undefined) {
-    line = start.line
-    column = start.column - 1
-    lineStart = start.offset - column
-    length = 1
-
-    if (end && end.offset !== undefined) {
-      length = end.offset - start.offset
-    }
+  /** @type {Location} */
+  let location = {
+    column: 0,
+    file: state.path,
+    length: 0,
+    line: 0,
+    lineText: '',
+    namespace: 'file',
+    suggestion: '',
   }
 
-  eol.lastIndex = lineStart
+  const place = message.place
+  const start = place ? ('start' in place ? place.start : place) : undefined
+  if (start) {
+    location.column = start.column - 1
+    location.line = start.line
+    location.length = 1
 
-  const match = eol.exec(state.doc)
-  const lineEnd = match ? match.index : state.doc.length
+    const end = place && 'end' in place ? place.end : undefined
+    if (end) {
+      if (end.offset >= start.offset) {
+        location.length = end.offset - start.offset;
+      } else if (end.line == start.line) {
+        location.length = end.column - start.column;
+      }
+
+      const maxLength = state.doc.length - (start.offset || 0)
+      location.length = Math.min(location.length, maxLength)
+    }
+
+    if (start.offset !== undefined) {
+      eol.lastIndex = start.offset
+      const match = eol.exec(state.doc)
+      const lineStart = start.offset - (start.column - 1)
+      const lineEnd = match ? match.index : state.doc.length
+      location.lineText = state.doc.slice(lineStart, lineEnd)
+
+      location.length = Math.min(location.length, lineEnd - (start.offset || 0))
+    }
+  }
 
   return {
     detail: message,
     id: '',
-    location: {
-      column,
-      file: state.path,
-      length: Math.min(length, lineEnd),
-      line,
-      lineText: state.doc.slice(lineStart, lineEnd),
-      namespace: 'file',
-      suggestion: ''
-    },
+    location,
     notes: [],
     pluginName: state.name,
     text: message.reason

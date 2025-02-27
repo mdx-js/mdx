@@ -231,7 +231,7 @@ test('@mdx-js/esbuild', async function (t) {
         },
         notes: [],
         pluginName: '@mdx-js/esbuild',
-        text: 'Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)'
+        text: 'Cannot process MDX file with esbuild:\n  1:12: Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)'
       })
     }
 
@@ -271,7 +271,7 @@ test('@mdx-js/esbuild', async function (t) {
             location: {
               column: 20,
               file: 'test/esbuild.mdx',
-              length: 1,
+              length: 0,
               line: 3,
               lineText: '# Hello, <Message />',
               namespace: 'file',
@@ -290,7 +290,7 @@ test('@mdx-js/esbuild', async function (t) {
               file: 'test/esbuild.mdx',
               length: 0,
               line: 0,
-              lineText: 'export function Message() { return <>World!</> }',
+              lineText: '',
               namespace: 'file',
               suggestion: ''
             },
@@ -305,7 +305,7 @@ test('@mdx-js/esbuild', async function (t) {
               file: 'test/esbuild.mdx',
               length: 0,
               line: 0,
-              lineText: 'export function Message() { return <>World!</> }',
+              lineText: '',
               namespace: 'file',
               suggestion: ''
             },
@@ -439,19 +439,15 @@ test('@mdx-js/esbuild', async function (t) {
       /** @type {BuildFailure} */
       const result = JSON.parse(JSON.stringify(error))
 
-      for (const message of [...result.errors, ...result.warnings]) {
-        message.text = message.text.split('\n')[0]
-      }
-
       assert.deepEqual(result, {
         errors: [
           {
             detail: {
               cause: {},
               fatal: true,
-              message: 'Cannot process MDX file with esbuild',
+              message: 'Cannot process MDX file with esbuild:\n  Error: Something went wrong',
               name: '1:1',
-              reason: 'Cannot process MDX file with esbuild',
+              reason: 'Cannot process MDX file with esbuild:\n  Error: Something went wrong',
               ruleId: 'process-error',
               source: '@mdx-js/esbuild'
             },
@@ -461,13 +457,13 @@ test('@mdx-js/esbuild', async function (t) {
               file: 'test/esbuild.mdx',
               length: 0,
               line: 0,
-              lineText: '# hi',
+              lineText: '',
               namespace: 'file',
               suggestion: ''
             },
             notes: [],
             pluginName: '@mdx-js/esbuild',
-            text: 'Cannot process MDX file with esbuild'
+            text: 'Cannot process MDX file with esbuild:\n  Error: Something went wrong'
           }
         ],
         warnings: []
