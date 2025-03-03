@@ -117,11 +117,12 @@ export function esbuild(options) {
           '\n'
         messages = file.messages
       } catch (error_) {
+        const cause = /** @type (VFileMessage | Error) */ (error_)
         const message =
           new VFileMessage(
             `Cannot process MDX file with esbuild:\n  ${error_}`, {
-            cause: error_,
-            place: ('reason' in error_ && error_.place) || undefined,
+            cause,
+            place: ('reason' in cause && cause.place) || undefined,
             ruleId: 'process-error',
             source: '@mdx-js/esbuild'
           })
@@ -175,15 +176,16 @@ function vfileMessageToEsbuild(state, message) {
     location.line = start.line
     location.length = 1
 
-    if (place && place.end) {
-      if (start.offset >= 0 && place.end.offset >= 0) {
-        location.length = place.end.offset - start.offset;
-      } else if (place.end.line === start.line) {
-        location.length = place.end.column - start.column;
+    const end = place && 'end' in place ? place.end : undefined
+    if (end) {
+      if (start.offset !== undefined && end.offset !== undefined) {
+        location.length = end.offset - start.offset;
+      } else if (end.line === start.line) {
+        location.length = end.column - start.column;
       }
     }
 
-    if (start.offset >= 0) {
+    if (start.offset !== undefined) {
       eol.lastIndex = start.offset
       const match = eol.exec(state.doc)
       const lineStart = start.offset - (start.column - 1)
