@@ -231,7 +231,8 @@ test('@mdx-js/esbuild', async function (t) {
         },
         notes: [],
         pluginName: '@mdx-js/esbuild',
-        text: 'Cannot process MDX file with esbuild:\n  1:12: Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)'
+        text:
+          'Cannot process MDX file with esbuild:\n  1:12: Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)'
       })
     }
 
@@ -365,7 +366,7 @@ test('@mdx-js/esbuild', async function (t) {
               file: 'test/esbuild.mdx',
               length: 11,
               line: 3,
-              lineText: '# Hello, <Message />',
+              lineText: '',  // Not available when place.offset is deleted
               namespace: 'file',
               suggestion: ''
             },
@@ -414,7 +415,7 @@ test('@mdx-js/esbuild', async function (t) {
         file.message('3', tree)
         file.message('4', esm)
         file.message('5', text)
-        file.message('6', jsx)
+        delete file.message('6', jsx).place.start.offset
         file.message('7', head.position.end).fatal = true // End of heading
       }
     }
