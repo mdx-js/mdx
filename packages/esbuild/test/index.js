@@ -416,7 +416,9 @@ test('@mdx-js/esbuild', async function (t) {
         file.message('4', esm)
         file.message('5', text)
         const m6 = file.message('6', jsx)
-        if (m6.place && 'start' in m6.place) delete m6.place.start.offset
+        assert(m6.place)
+        assert('start' in m6.place)
+        delete m6.place.start.offset
         file.message('7', head.position.end).fatal = true // End of heading
       }
     }
