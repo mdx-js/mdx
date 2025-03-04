@@ -449,9 +449,9 @@ test('@mdx-js/esbuild', async function (t) {
             detail: {
               cause: {},
               fatal: true,
-              message: 'Cannot process MDX file with esbuild:\n  Error: Something went wrong',
+              message: 'Cannot process MDX file with esbuild',
               name: '1:1',
-              reason: 'Cannot process MDX file with esbuild:\n  Error: Something went wrong',
+              reason: 'Cannot process MDX file with esbuild',
               ruleId: 'process-error',
               source: '@mdx-js/esbuild'
             },

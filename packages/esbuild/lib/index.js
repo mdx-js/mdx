@@ -117,12 +117,11 @@ export function esbuild(options) {
           '\n'
         messages = file.messages
       } catch (error_) {
-        const cause = /** @type (VFileMessage | Error) */ (error_)
         const message =
           new VFileMessage(
-            `Cannot process MDX file with esbuild:\n  ${error_}`, {
-            cause,
-            place: 'reason' in cause ? cause.place : undefined,
+            `Cannot process MDX file with esbuild`, {
+            cause: /** @type (VFileMessage | Error) */ (error_),
+            place: error_ instanceof VFileMessage ? error_.place : undefined,
             ruleId: 'process-error',
             source: '@mdx-js/esbuild'
           })
@@ -198,12 +197,20 @@ function vfileMessageToEsbuild(state, message) {
     location.length = Math.min(location.length, maxLength)
   }
 
+  /** @type {Error} */
+  var exc = message
+  var text = message.reason
+  while (exc.cause instanceof Error) {
+    exc = exc.cause
+    text = `${text}:\n  ${exc}`
+  }
+
   return {
     detail: message,
     id: '',
     location,
     notes: [],
     pluginName: state.name,
-    text: message.reason
+    text,
   }
 }
