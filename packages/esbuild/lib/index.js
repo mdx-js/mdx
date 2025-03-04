@@ -122,7 +122,7 @@ export function esbuild(options) {
           new VFileMessage(
             `Cannot process MDX file with esbuild:\n  ${error_}`, {
             cause,
-            place: ('reason' in cause && cause.place) || undefined,
+            place: 'reason' in cause ? cause.place : undefined,
             ruleId: 'process-error',
             source: '@mdx-js/esbuild'
           })
