@@ -366,7 +366,7 @@ test('@mdx-js/esbuild', async function (t) {
               file: 'test/esbuild.mdx',
               length: 11,
               line: 3,
-              lineText: '',  // Not available when place.offset is deleted
+              lineText: '',
               namespace: 'file',
               suggestion: ''
             },
