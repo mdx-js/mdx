@@ -231,8 +231,7 @@ test('@mdx-js/esbuild', async function (t) {
         },
         notes: [],
         pluginName: '@mdx-js/esbuild',
-        text:
-          'Cannot process MDX file with esbuild:\n  1:12: Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)'
+        text: 'Cannot process MDX file with esbuild:\n  1:12: Unexpected character `/` (U+002F) before local name, expected a character that can start a name, such as a letter, `$`, or `_` (note: to create a link in MDX, use `[text](url)`)'
       })
     }
 

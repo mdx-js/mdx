@@ -118,14 +118,15 @@ export function esbuild(options) {
         messages = file.messages
       } catch (error_) {
         const cause = /** @type {VFileMessage | Error} */ (error_)
-        const message =
-          new VFileMessage(
-            'Cannot process MDX file with esbuild', {
+        const message = new VFileMessage(
+          'Cannot process MDX file with esbuild',
+          {
             cause,
             place: 'reason' in cause ? cause.place : undefined,
             ruleId: 'process-error',
             source: '@mdx-js/esbuild'
-          })
+          }
+        )
         message.fatal = true
         messages.push(message)
       }
@@ -159,14 +160,14 @@ export function esbuild(options) {
  */
 function vfileMessageToEsbuild(state, message) {
   /** @type {Location} */
-  let location = {
+  const location = {
     column: 0,
     file: state.path,
     length: 0,
     line: 0,
     lineText: '',
     namespace: 'file',
-    suggestion: '',
+    suggestion: ''
   }
 
   const place = message.place
@@ -179,9 +180,9 @@ function vfileMessageToEsbuild(state, message) {
     const end = place && 'end' in place ? place.end : undefined
     if (end) {
       if (start.offset !== undefined && end.offset !== undefined) {
-        location.length = end.offset - start.offset;
+        location.length = end.offset - start.offset
       } else if (end.line === start.line) {
-        location.length = end.column - start.column;
+        location.length = end.column - start.column
       }
     }
 
@@ -199,8 +200,8 @@ function vfileMessageToEsbuild(state, message) {
   }
 
   /** @type {Error} */
-  var exc = message
-  var text = message.reason
+  let exc = message
+  let text = message.reason
   while (exc.cause instanceof Error) {
     exc = exc.cause
     text = `${text}:\n  ${exc}`
@@ -212,6 +213,6 @@ function vfileMessageToEsbuild(state, message) {
     location,
     notes: [],
     pluginName: state.name,
-    text,
+    text
   }
 }
