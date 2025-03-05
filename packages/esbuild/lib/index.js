@@ -199,12 +199,9 @@ function vfileMessageToEsbuild(state, message) {
     location.length = Math.min(location.length, maxLength)
   }
 
-  /** @type {Error} */
-  let exc = message
   let text = message.reason
-  while (exc.cause instanceof Error) {
-    exc = exc.cause
-    text = `${text}:\n  ${exc}`
+  if (message.cause) {
+    text = `${text}:\n  ${message.cause}`
   }
 
   return {
