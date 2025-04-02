@@ -1,5 +1,4 @@
 /**
- * @import {Fragment, Jsx} from '@mdx-js/mdx'
  * @import {MDXModule} from 'mdx/types.js'
  * @import {Component} from 'vue'
  */
@@ -8,17 +7,9 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import {compile, run} from '@mdx-js/mdx'
 import {MDXProvider, useMDXComponents} from '@mdx-js/vue'
-import * as runtime_ from 'vue/jsx-runtime'
+import serverRenderer from '@vue/server-renderer'
+import * as runtime from 'vue/jsx-runtime'
 import * as vue from 'vue'
-
-const runtime = /** @type {{Fragment: Fragment, jsx: Jsx, jsxs: Jsx}} */ (
-  /** @type {unknown} */ (runtime_)
-)
-
-// Note: a regular import would be nice but that completely messes up the JSX types.
-const name = '@vue/server-renderer'
-/** @type {{default: {renderToString(node: unknown): string}}} */
-const {default: serverRenderer} = await import(name)
 
 test('@mdx-js/vue', async function (t) {
   await t.test('should expose the public api', async function () {
@@ -133,7 +124,10 @@ async function evaluate(value) {
     outputFormat: 'function-body',
     providerImportSource: '#'
   })
-  return run(file, {...runtime, useMDXComponents})
+  return run(file, {
+    ...runtime,
+    useMDXComponents
+  })
 }
 
 /**
