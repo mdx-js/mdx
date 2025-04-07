@@ -112,6 +112,7 @@ export function recmaDocument(options) {
             local: {type: 'Identifier', name: pragma.split('.')[0]}
           }
         ],
+        attributes: [],
         source: {type: 'Literal', value: pragmaImportSource}
       })
     }
@@ -215,6 +216,7 @@ export function recmaDocument(options) {
             const declaration = {
               type: 'ImportDeclaration',
               specifiers,
+              attributes: [],
               source: from
             }
             create(specifier, declaration)

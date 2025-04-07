@@ -252,6 +252,7 @@ function recmaInjectMeta(options) {
         ]
       },
       source: undefined,
+      attributes: [],
       specifiers: []
     })
   }

@@ -580,6 +580,7 @@ function createImportProvider(providerImportSource, outputFormat) {
     : {
         type: 'ImportDeclaration',
         specifiers,
+        attributes: [],
         source: {type: 'Literal', value: providerImportSource}
       }
 }
