@@ -61,7 +61,7 @@
     "eslint-plugin-es": "^4.0.0",
     "eslint-plugin-react": "^7.0.0",
     "eslint-plugin-react-hooks": "^5.0.0",
-    "estree-to-babel": "^10.0.0",
+    "estree-to-babel": "^11.0.0",
     "estree-util-scope": "^1.0.0",
     "estree-util-value-to-estree": "^3.0.0",
     "estree-walker": "^3.0.0",
