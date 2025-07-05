@@ -131,7 +131,7 @@
     "xast-util-feed": "^2.0.0",
     "xast-util-sitemap": "^2.0.0",
     "xast-util-to-xml": "^4.0.0",
-    "xo": "^0.60.0"
+    "xo": "^1.0.0"
   },
   "scripts": {
     "build": "tsc --build --clean && tsc --build && type-coverage",
