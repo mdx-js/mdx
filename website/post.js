@@ -158,6 +158,10 @@ await fs.writeFile(
 
 console.log('✔ `/rss.xml`')
 
+await fs.writeFile(new URL('CNAME', config.output), config.site.host + '\n')
+
+console.log('✔ `/CNAME`')
+
 chromium.setGraphicsMode = false
 
 const browser = await puppeteer.launch(
