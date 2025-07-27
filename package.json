@@ -73,7 +73,7 @@
     "hast-util-to-jsx-runtime": "^2.0.0",
     "hast-util-to-text": "^4.0.0",
     "hastscript": "^9.0.0",
-    "ink": "^5.0.0",
+    "ink": "^6.0.0",
     "lz-string": "^1.0.0",
     "p-all": "^5.0.0",
     "postcss": "^8.0.0",
