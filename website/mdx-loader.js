@@ -55,7 +55,7 @@ const configPath = typescript.findConfigFile(
   typescript.sys.fileExists,
   'tsconfig.json'
 )
-assert(configPath)
+assert.ok(configPath)
 const commandLine = typescript.getParsedCommandLineOfConfigFile(
   configPath,
   undefined,
@@ -70,7 +70,7 @@ const commandLine = typescript.getParsedCommandLineOfConfigFile(
     useCaseSensitiveFileNames: typescript.sys.useCaseSensitiveFileNames
   }
 )
-assert(commandLine)
+assert.ok(commandLine)
 
 /** @type {Readonly<CompileOptions>} */
 const options = {

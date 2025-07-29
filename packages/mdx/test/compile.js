@@ -1058,6 +1058,7 @@ test('@mdx-js/mdx: compile', async function (t) {
 
     file.value +=
       '\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,' +
+      // eslint-disable-next-line no-restricted-globals
       btoa(JSON.stringify(file.map)) +
       '\n'
 
@@ -1152,7 +1153,7 @@ test('@mdx-js/mdx: compile', async function (t) {
       )
 
       const get = result.get
-      assert(typeof get === 'function')
+      assert.ok(typeof get === 'function')
       assert.equal(await get(), 3.14)
     }
   )

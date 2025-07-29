@@ -40,6 +40,7 @@
  */
 
 import assert from 'node:assert'
+import {Buffer} from 'node:buffer'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
@@ -137,7 +138,7 @@ export function esbuild(options) {
       }
 
       // Safety check: the file has a path, so there has to be a `dirname`.
-      assert(file.dirname, 'expected `dirname` to be defined')
+      assert.ok(file.dirname, 'expected `dirname` to be defined')
 
       return {
         contents: value || '',

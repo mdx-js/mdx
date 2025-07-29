@@ -275,7 +275,7 @@ function rehypeLazyCss(styles) {
    */
   return function (tree) {
     const head = select('head', tree)
-    assert(head)
+    assert.ok(head)
     /** @type {Array<Element>} */
     const enabled = []
     /** @type {Array<Element>} */

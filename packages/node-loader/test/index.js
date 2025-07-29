@@ -86,11 +86,11 @@ test('@mdx-js/node-loader', async function (t) {
     assert.throws(
       () => renderToStaticMarkup(React.createElement(Content)),
       (error) => {
-        assert(error instanceof Error)
+        assert.ok(error instanceof Error)
         assert.equal(error.message, 'Boom')
         // Source maps are off.
         // The column should be 26, not 8.
-        assert(error.stack?.includes('crash.mdx:2:8)'))
+        assert.ok(error.stack?.includes('crash.mdx:2:8)'))
         return true
       }
     )

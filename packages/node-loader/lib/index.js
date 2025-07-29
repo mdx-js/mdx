@@ -19,6 +19,7 @@
  * @typedef {[regex: RegExp, process: Process]} Settings
  */
 
+import {Buffer} from 'node:buffer'
 import fs from 'node:fs/promises'
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
 import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'

@@ -81,8 +81,8 @@ const entries = await pAll(
     })
     // Sort.
     .sort(function (a, b) {
-      assert(a.info.meta.published)
-      assert(b.info.meta.published)
+      assert.ok(a.info.meta.published)
+      assert.ok(b.info.meta.published)
       return (
         new Date(b.info.meta.published).valueOf() -
         new Date(a.info.meta.published).valueOf()
@@ -99,7 +99,7 @@ const entries = await pAll(
         const buf = await fs.readFile(new URL('index.html', url))
         const tree = fromHtml(buf)
         const body = select('.body', tree)
-        assert(body)
+        assert.ok(body)
         const clean = sanitize(body, {
           ...defaultSchema,
           attributes: {
@@ -169,7 +169,6 @@ const browser = await puppeteer.launch(
     ? {
         // See: <https://github.com/Sparticuz/chromium/issues/85#issuecomment-1527692751>
         args: [...chromium.args, '--disable-gpu'],
-        defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath(),
         headless: true
       }

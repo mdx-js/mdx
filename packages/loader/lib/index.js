@@ -90,8 +90,6 @@ export function loader(value, callback) {
     function (file) {
       callback(
         undefined,
-        // @ts-expect-error: seems to be `@types/node` bug that suddenly started
-        // to error.
         Buffer.from(file.value),
         // @ts-expect-error: `webpack` is not compiled with `exactOptionalPropertyTypes`,
         // so it does not allow `sourceRoot` in `file.map` to be `undefined` here.

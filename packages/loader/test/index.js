@@ -47,7 +47,7 @@ test('@mdx-js/loader', async function (t) {
       }
     })
 
-    assert(result)
+    assert.ok(result)
     assert.ok(!result.hasErrors())
 
     // One for ESM loading CJS, one for webpack.
@@ -100,7 +100,7 @@ test('@mdx-js/loader', async function (t) {
         }
       })
 
-      assert(result)
+      assert.ok(result)
       assert.ok(!result.hasErrors())
 
       const output = String(await fs.readFile(jsUrl))
@@ -136,7 +136,7 @@ test('@mdx-js/loader', async function (t) {
       }
     })
 
-    assert(result)
+    assert.ok(result)
     const errors = result.toJson().errors || []
     const error = errors[0]
 
@@ -177,7 +177,7 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
         }
       })
 
-      assert(result)
+      assert.ok(result)
       assert.ok(!result.hasErrors())
 
       const output = String(await fs.readFile(jsUrl))
@@ -220,7 +220,7 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
       }
     })
 
-    assert(result)
+    assert.ok(result)
     const errors = result.toJson().errors || []
     const error = errors[0]
 

@@ -392,22 +392,22 @@ test('@mdx-js/esbuild', async function (t) {
         const esm = tree.children[0] // Export
         const eol = tree.children[1] // EOL between both, no position.
         const head = tree.children[2] // Heading
-        assert(esm)
-        assert(esm.type === 'mdxjsEsm')
-        assert(eol)
-        assert(eol.type === 'text')
-        assert(!eol.position)
-        assert(head)
-        assert(head.type === 'element')
-        assert(head.position)
+        assert.ok(esm)
+        assert.ok(esm.type === 'mdxjsEsm')
+        assert.ok(eol)
+        assert.ok(eol.type === 'text')
+        assert.ok(!eol.position)
+        assert.ok(head)
+        assert.ok(head.type === 'element')
+        assert.ok(head.position)
 
         const text = head.children[0] // Text in heading
         const jsx = head.children[1] // JSX in heading
 
-        assert(text)
-        assert(text.type === 'text')
-        assert(jsx)
-        assert(jsx.type === 'mdxJsxTextElement')
+        assert.ok(text)
+        assert.ok(text.type === 'text')
+        assert.ok(jsx)
+        assert.ok(jsx.type === 'mdxJsxTextElement')
 
         file.message('1')
         file.message('2', eol)
@@ -415,8 +415,8 @@ test('@mdx-js/esbuild', async function (t) {
         file.message('4', esm)
         file.message('5', text)
         const m6 = file.message('6', jsx)
-        assert(m6.place)
-        assert('start' in m6.place)
+        assert.ok(m6.place)
+        assert.ok('start' in m6.place)
         delete m6.place.start.offset
         file.message('7', head.position.end).fatal = true // End of heading
       }
@@ -448,6 +448,7 @@ test('@mdx-js/esbuild', async function (t) {
             detail: {
               cause: {},
               fatal: true,
+              file: '',
               message: 'Cannot process MDX file with esbuild',
               name: '1:1',
               reason: 'Cannot process MDX file with esbuild',
@@ -557,11 +558,11 @@ test('@mdx-js/esbuild', async function (t) {
     assert.throws(
       () => renderToStaticMarkup(React.createElement(Content)),
       (error) => {
-        assert(error instanceof Error)
+        assert.ok(error instanceof Error)
         assert.equal(error.message, 'Boom')
         // Source maps are off.
         // The column should be 26, not 8.
-        assert(error.stack?.includes('crash.mdx:2:8)'))
+        assert.ok(error.stack?.includes('crash.mdx:2:8)'))
         return true
       }
     )
