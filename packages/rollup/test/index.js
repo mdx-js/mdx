@@ -101,4 +101,27 @@ test('@mdx-js/rollup', async function (t) {
     assert.doesNotMatch(code, /jsxs?\(/)
     assert.match(code, /jsxDEV\(/)
   })
+
+  await t.test('should handle query parameters in vite', async () => {
+    const result = /** @type {Array<RollupOutput>} */ (
+      await build({
+        build: {
+          lib: {
+            entry:
+              fileURLToPath(new URL('vite-entry.mdx', import.meta.url)) +
+              '?query=param',
+            name: 'query'
+          },
+          write: false
+        },
+        logLevel: 'silent',
+        plugins: [rollupMdx()]
+      })
+    )
+
+    const code = result[0].output[0].code
+
+    assert.match(code, /Hello Vite/)
+    assert.match(code, /jsxs?\(/)
+  })
 })
