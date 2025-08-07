@@ -32,8 +32,8 @@
  *   Callback called by Rollup and Vite to transform.
  * @param {string} value
  *   File contents.
- * @param {string} path
- *   File path.
+ * @param {string} id
+ *   Module ID.
  * @returns {Promise<SourceDescription | undefined>}
  *   Result.
  *
@@ -53,7 +53,6 @@
  */
 
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
-import {extnamesToRegex} from '@mdx-js/mdx/internal-extnames-to-regex'
 import {createFilter} from '@rollup/pluginutils'
 import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
@@ -70,8 +69,6 @@ export function rollup(options) {
   const {exclude, include, ...rest} = options || {}
   /** @type {FormatAwareProcessors} */
   let formatAwareProcessors
-  /** @type {RegExp} */
-  let extnameRegex
   const filter = createFilter(include, exclude)
 
   return {
@@ -82,20 +79,23 @@ export function rollup(options) {
         development: env.mode === 'development',
         ...rest
       })
-      extnameRegex = extnamesToRegex(formatAwareProcessors.extnames)
     },
-    async transform(value, path) {
+    async transform(value, id) {
       if (!formatAwareProcessors) {
         formatAwareProcessors = createFormatAwareProcessors({
           SourceMapGenerator,
           ...rest
         })
-        extnameRegex = extnamesToRegex(formatAwareProcessors.extnames)
       }
 
+      const [path] = id.split('?')
       const file = new VFile({path, value})
 
-      if (file.extname && filter(file.path) && extnameRegex.test(file.path)) {
+      if (
+        file.extname &&
+        filter(file.path) &&
+        formatAwareProcessors.extnames.includes(file.extname)
+      ) {
         const compiled = await formatAwareProcessors.process(file)
         const code = String(compiled.value)
         /** @type {SourceDescription} */
