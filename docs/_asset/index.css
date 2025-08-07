@@ -85,6 +85,7 @@ html {
   font-family: var(--sans);
   font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   line-height: calc(1em + 1ex);
+  overflow-x: hidden;
 }
 
 button,
@@ -590,7 +591,17 @@ button.success {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  padding-inline: calc(1em + 1ex);
+  padding-inline: calc(0.8em + 0.8ex);
+  box-sizing: border-box;
+}
+
+@media (max-width: 64em) {
+  .full-bleed table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
 }
 
 /* Note that the `backdrop-filter` itself is applied in light mode. */
