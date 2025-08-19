@@ -125,7 +125,7 @@
     "vfile": "^6.0.0",
     "vfile-matter": "^5.0.0",
     "vfile-message": "^4.0.0",
-    "vite": "^6.0.0",
+    "vite": "^7.0.0",
     "vue": "^3.0.0",
     "webpack": "^5.0.0",
     "xast-util-feed": "^2.0.0",
