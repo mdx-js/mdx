@@ -43,7 +43,7 @@
     "@types/react-dom": "^19.0.0",
     "@types/ungap__structured-clone": "^1.0.0",
     "@ungap/structured-clone": "^1.0.0",
-    "@vitejs/plugin-react": "^4.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
     "@vue/server-renderer": "^3.0.0",
     "@wooorm/starry-night": "^3.0.0",
     "acorn": "^8.0.0",
