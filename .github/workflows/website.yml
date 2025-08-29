@@ -11,13 +11,13 @@ jobs:
     # <https://github.com/puppeteer/puppeteer/issues/12818>.
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           node-version: node
       - run: npm ci
       - run: npm run docs
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: public
       - uses: actions/deploy-pages@v4
