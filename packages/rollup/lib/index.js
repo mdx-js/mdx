@@ -99,12 +99,7 @@ export function rollup(options) {
         const compiled = await formatAwareProcessors.process(file)
         const code = String(compiled.value)
         /** @type {SourceDescription} */
-        const result = {
-          code,
-          // @ts-expect-error: `rollup` is not compiled with `exactOptionalPropertyTypes`,
-          // so it does not allow `sourceRoot` in `file.map` to be `undefined` here.
-          map: compiled.map
-        }
+        const result = {code, map: compiled.map}
         return result
       }
     }
