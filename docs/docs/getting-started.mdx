@@ -172,7 +172,16 @@ Our packages are typed with [TypeScript][].
 For types to work,
 the `JSX` namespace must be typed.
 This is done by installing and using the types of your framework,
-such as [`@types/react`][definitely-typed-react].
+such as [`@types/react`][definitely-typed-react],
+then augmenting the `mdx/types.js` module.
+
+```ts twoslash path="example.ts"
+import * as React from 'react'
+
+declare module 'mdx/types.js' {
+  export import JSX = React.JSX
+}
+```
 
 To enable types for imported `.mdx`, `.md`, etc.,
 install and use [`@types/mdx`][definitely-typed-mdx].
