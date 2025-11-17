@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - node: lts/hydrogen
+          - node: lts/iron
             os: ubuntu-latest
         node:
           - node
