@@ -715,7 +715,6 @@ export function recmaDocument(options) {
             {
               type: 'ReturnStatement',
               // Cast because TS doesn’t think `JSXFragment` is an expression.
-              // eslint-disable-next-line object-shorthand
               argument: /** @type {Expression} */ (argument)
             }
           ]
