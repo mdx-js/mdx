@@ -32,7 +32,7 @@
     "@docsearch/css": "^3.0.0",
     "@docsearch/js": "^3.0.0",
     "@floating-ui/dom": "^1.0.0",
-    "@next/mdx": "^15.0.0",
+    "@next/mdx": "^16.0.0",
     "@node-loader/core": "^2.0.0",
     "@rollup/plugin-babel": "^6.0.0",
     "@sparticuz/chromium": "^138.0.0",
