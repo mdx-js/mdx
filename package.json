@@ -75,6 +75,7 @@
     "hastscript": "^9.0.0",
     "ink": "^6.0.0",
     "lz-string": "^1.0.0",
+    "mdxlint": "^1.0.0",
     "p-all": "^5.0.0",
     "postcss": "^8.0.0",
     "postcss-cli": "^11.0.0",
@@ -144,7 +145,7 @@
     "docs-js-editor": "esbuild --bundle --conditions=browser,production --define:process.env.NODE_ENV=\\\"production\\\" --log-level=warning --minify --outfile=public/editor.js --target=es2020 docs/_asset/editor.jsx",
     "docs-post": "node website/post.js",
     "docs-prep": "node website/prep.js && npm run docs-js && npm run docs-css",
-    "format": "remark --frail --output --quiet -- . && remark --ext mdx --frail --output --quiet --use remark-mdx -- . && prettier . --log-level warn --write && xo --fix",
+    "format": "remark --frail --output --quiet -- . && mdxlint --frail --output --quiet -- . && prettier . --log-level warn --write && xo --fix",
     "test": "npm run build && npm run format && npm run test-coverage",
     "test-api": "npm run test-api --workspaces --if-present",
     "test-coverage": "npm run test-coverage --workspaces --if-present"
@@ -168,6 +169,11 @@
     "tabWidth": 2,
     "trailingComma": "none",
     "useTabs": false
+  },
+  "mdxlint": {
+    "plugins": [
+      "./docs/.remarkrc.js"
+    ]
   },
   "remarkConfig": {
     "plugins": [
