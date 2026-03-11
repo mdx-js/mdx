@@ -29,6 +29,7 @@ See [§ Using MDX][use] when you’re all set up and ready to use MDX.
 * [Integrations](#integrations)
   * [Bundlers](#bundlers)
   * [Build systems](#build-systems)
+  * [Linters](#linters)
   * [Compilers](#compilers)
   * [Site generators](#site-generators)
   * [JSX runtimes](#jsx-runtimes)
@@ -391,6 +392,17 @@ To use more modern JavaScript features than what your users support,
 See also [¶ Rollup][bundler-rollup] which is used in Vite and see
 [¶ Vue][jsx-runtime-vue] if you’re using that,
 for more info.
+
+### Linters
+
+#### ESLint
+
+You can lint your MDX code with [ESLint][] using [`eslint-mdx`][eslint-mdx].
+
+#### mdxlint
+
+You can lint your MDX code with [`remark-lint`][remark-lint] and other
+[remark plugins][] using [`mdxlint`][mdxlint].
 
 ### Compilers
 
@@ -878,6 +890,10 @@ MDX files can be imported in [Bun][] by using
 
 [esbuild-target]: https://esbuild.github.io/api/#target
 
+[eslint]: https://eslint.org
+
+[eslint-mdx]: https://github.com/mdx-js/eslint-mdx
+
 [gatsby]: https://www.gatsbyjs.com
 
 [gatsby-plugin-mdx]: https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/
@@ -936,6 +952,8 @@ MDX files can be imported in [Bun][] by using
 
 [mdxjs-rs]: https://github.com/wooorm/mdxjs-rs
 
+[mdxlint]: https://github.com/remcohaszing/mdxlint
+
 [next]: https://nextjs.org
 
 [next-configuring-mdx]: https://nextjs.org/docs/pages/building-your-application/configuring/mdx
@@ -949,6 +967,10 @@ MDX files can be imported in [Bun][] by using
 [parcel-mdx]: https://parceljs.org/languages/mdx/
 
 [parcel-transformer-mdx]: https://github.com/EasyWebApp/Parcel-transformer-MDX
+
+[remark plugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md
+
+[remark-lint]: https://github.com/remarkjs/remark-lint
 
 [rollup]: https://rollupjs.org
 
