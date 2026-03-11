@@ -52,6 +52,10 @@ import {Layout} from '../docs/_component/layout.jsx'
 import {config} from '../docs/_config.js'
 import {schema} from './schema-description.js'
 
+import {register} from 'node:module'
+
+register('./mdx-loader.js', import.meta.url)
+
 const listFormat = new Intl.ListFormat('en')
 
 const filePaths = await globby(['**/*.{md,mdx}', '!_component/*'], {
