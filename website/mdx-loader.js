@@ -22,9 +22,7 @@ import {common} from '@wooorm/starry-night'
 import sourceMdx from '@wooorm/starry-night/source.mdx'
 import sourceToml from '@wooorm/starry-night/source.toml'
 import sourceTsx from '@wooorm/starry-night/source.tsx'
-import {createVisitors} from 'estree-util-scope'
 import {valueToEstree} from 'estree-util-value-to-estree'
-import {walk} from 'estree-walker'
 import {h, s} from 'hastscript'
 import {toText} from 'hast-util-to-text'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -46,6 +44,7 @@ import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import remarkSqueezeParagraphs from 'remark-squeeze-paragraphs'
 import remarkStripBadges from 'remark-strip-badges'
 import remarkToc from 'remark-toc'
+import {define} from 'unist-util-mdx-define'
 import {visit} from 'unist-util-visit'
 import typescript from 'typescript'
 import {config} from '../docs/_config.js'
@@ -199,29 +198,6 @@ function recmaInjectMeta(options) {
    *   Nothing.
    */
   return function (tree, file) {
-    // Find everything that’s defined in the top-level scope.
-    const visitors = createVisitors()
-    walk(tree, {
-      enter(node) {
-        visitors.enter(node)
-
-        if (
-          node.type === 'ArrowFunctionExpression' ||
-          node.type === 'FunctionDeclaration' ||
-          node.type === 'FunctionExpression'
-        ) {
-          this.skip()
-          visitors.exit(node) // Call the exit handler manually.
-        }
-      },
-      leave: visitors.exit
-    })
-    const topScope = visitors.scopes[0]
-
-    // Exit if `meta` is already defined.
-    if (topScope.defined.includes('meta')) return
-
-    // Treat as arbitrary object.
     const meta = /** @type {Record<string, unknown>} */ (file.data.meta || {})
     /** @type {Record<string, unknown>} */
     const value = {}
@@ -238,23 +214,12 @@ function recmaInjectMeta(options) {
       }
     }
 
-    tree.body.unshift({
-      type: 'ExportNamedDeclaration',
-      declaration: {
-        type: 'VariableDeclaration',
-        kind: 'const',
-        declarations: [
-          {
-            type: 'VariableDeclarator',
-            id: {type: 'Identifier', name: 'meta'},
-            init: valueToEstree(value, {instanceAsObject: true})
-          }
-        ]
-      },
-      source: undefined,
-      attributes: [],
-      specifiers: []
-    })
+    define(
+      tree,
+      file,
+      {meta: valueToEstree(value, {instanceAsObject: true})},
+      {conflict: 'skip'}
+    )
   }
 }
 
