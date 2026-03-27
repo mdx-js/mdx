@@ -1,15 +1,13 @@
 /**
  * @import {FormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
  * @import {CompileOptions} from '@mdx-js/mdx'
+ * @import {FilterPattern} from '@rollup/pluginutils'
  * @import * as vite from 'vite'
  */
 
 /**
  * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} ApplicableOptions
  *   Applicable compile configuration.
- *
- * @typedef {string | RegExp | Array<string | RegExp>} FilterPattern
- *   A Rollup filter pattern.
  *
  * @typedef ExtraOptions
  *   Extra configuration.
@@ -28,6 +26,7 @@
  */
 
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
+import {createFilter} from '@rollup/pluginutils'
 import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
 
@@ -43,6 +42,7 @@ export function rollup(options) {
   const {exclude, include, ...rest} = options || {}
   /** @type {FormatAwareProcessors} */
   let formatAwareProcessors
+  const filter = createFilter(include, exclude)
 
   /** @type {vite.Plugin<never>} */
   const plugin = {
@@ -54,32 +54,25 @@ export function rollup(options) {
         ...rest
       })
     },
-    transform: {
-      filter: {
-        id: {
-          include: /** @type {FilterPattern} */ (include),
-          exclude: /** @type {FilterPattern} */ (exclude)
-        }
-      },
-      async handler(value, id) {
-        if (!formatAwareProcessors) {
-          formatAwareProcessors = createFormatAwareProcessors({
-            SourceMapGenerator,
-            ...rest
-          })
-        }
+    async transform(value, id) {
+      if (!formatAwareProcessors) {
+        formatAwareProcessors = createFormatAwareProcessors({
+          SourceMapGenerator,
+          ...rest
+        })
+      }
 
-        const [path] = id.split('?')
-        const file = new VFile({path, value})
+      const [path] = id.split('?')
+      const file = new VFile({path, value})
 
-        if (
-          file.extname &&
-          formatAwareProcessors.extnames.includes(file.extname)
-        ) {
-          const compiled = await formatAwareProcessors.process(file)
-          const code = String(compiled.value)
-          return {code, map: compiled.map}
-        }
+      if (
+        file.extname &&
+        filter(id) &&
+        formatAwareProcessors.extnames.includes(file.extname)
+      ) {
+        const compiled = await formatAwareProcessors.process(file)
+        const code = String(compiled.value)
+        return {code, map: compiled.map}
       }
     }
   }

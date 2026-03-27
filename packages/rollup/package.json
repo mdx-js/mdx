@@ -39,12 +39,14 @@
   ],
   "dependencies": {
     "@mdx-js/mdx": "^3.0.0",
+    "@rollup/pluginutils": "^5.0.0",
     "source-map": "^0.7.0",
     "vfile": "^6.0.0"
   },
-  "devDependencies": {
-    "rollup": "^4.0.0"
+  "peerDependencies": {
+    "rollup": ">=2"
   },
+  "devDependencies": {},
   "scripts": {
     "test": "npm run test-coverage",
     "test-api": "node --conditions development test/index.js",
