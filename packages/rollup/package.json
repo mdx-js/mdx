@@ -10,7 +10,12 @@
     "preact",
     "react",
     "remark",
+    "rolldown",
+    "rolldown-plugin",
     "rollup",
+    "rollup-plugin",
+    "vite",
+    "vite-plugin",
     "vue"
   ],
   "homepage": "https://mdxjs.com",
@@ -37,6 +42,21 @@
     "index.d.ts",
     "index.js"
   ],
+  "compatiblePackages": {
+    "schemaVersion": 1,
+    "rolldown": {
+      "type": "compatible",
+      "versions": "*"
+    },
+    "rollup": {
+      "type": "compatible",
+      "versions": ">=2.0.0"
+    },
+    "vite": {
+      "type": "compatible",
+      "versions": ">=2.0.0"
+    }
+  },
   "dependencies": {
     "@mdx-js/mdx": "^3.0.0",
     "@rollup/pluginutils": "^5.0.0",
