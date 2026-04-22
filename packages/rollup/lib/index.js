@@ -1,13 +1,15 @@
 /**
  * @import {FormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
  * @import {CompileOptions} from '@mdx-js/mdx'
- * @import {FilterPattern} from '@rollup/pluginutils'
- * @import {SourceDescription} from 'rollup'
+ * @import * as vite from 'vite'
  */
 
 /**
  * @typedef {Omit<CompileOptions, 'SourceMapGenerator'>} ApplicableOptions
  *   Applicable compile configuration.
+ *
+ * @typedef {string | RegExp | Array<string | RegExp>} FilterPattern
+ *   A Rollup filter pattern.
  *
  * @typedef ExtraOptions
  *   Extra configuration.
@@ -23,37 +25,9 @@
  *   Plugin that is compatible with both Rollup and Vite.
  * @property {string} name
  *   The name of the plugin
- * @property {ViteConfig} config
- *   Function used by Vite to set additional configuration options.
- * @property {Transform} transform
- *   Function to transform the source content.
- *
- * @callback Transform
- *   Callback called by Rollup and Vite to transform.
- * @param {string} value
- *   File contents.
- * @param {string} id
- *   Module ID.
- * @returns {Promise<SourceDescription | undefined>}
- *   Result.
- *
- * @callback ViteConfig
- *   Callback called by Vite to set additional configuration options.
- * @param {unknown} config
- *   Configuration object (unused).
- * @param {ViteEnv} env
- *   Environment variables.
- * @returns {undefined}
- *   Nothing.
- *
- * @typedef ViteEnv
- *   Environment variables used by Vite.
- * @property {string} mode
- *   Mode.
  */
 
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
-import {createFilter} from '@rollup/pluginutils'
 import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
 
@@ -69,9 +43,9 @@ export function rollup(options) {
   const {exclude, include, ...rest} = options || {}
   /** @type {FormatAwareProcessors} */
   let formatAwareProcessors
-  const filter = createFilter(include, exclude)
 
-  return {
+  /** @type {vite.Plugin<never>} */
+  const plugin = {
     name: '@mdx-js/rollup',
     config(config, env) {
       formatAwareProcessors = createFormatAwareProcessors({
@@ -80,28 +54,35 @@ export function rollup(options) {
         ...rest
       })
     },
-    async transform(value, id) {
-      if (!formatAwareProcessors) {
-        formatAwareProcessors = createFormatAwareProcessors({
-          SourceMapGenerator,
-          ...rest
-        })
-      }
+    transform: {
+      filter: {
+        id: {
+          include: /** @type {FilterPattern} */ (include),
+          exclude: /** @type {FilterPattern} */ (exclude)
+        }
+      },
+      async handler(value, id) {
+        if (!formatAwareProcessors) {
+          formatAwareProcessors = createFormatAwareProcessors({
+            SourceMapGenerator,
+            ...rest
+          })
+        }
 
-      const [path] = id.split('?')
-      const file = new VFile({path, value})
+        const [path] = id.split('?')
+        const file = new VFile({path, value})
 
-      if (
-        file.extname &&
-        filter(file.path) &&
-        formatAwareProcessors.extnames.includes(file.extname)
-      ) {
-        const compiled = await formatAwareProcessors.process(file)
-        const code = String(compiled.value)
-        /** @type {SourceDescription} */
-        const result = {code, map: compiled.map}
-        return result
+        if (
+          file.extname &&
+          formatAwareProcessors.extnames.includes(file.extname)
+        ) {
+          const compiled = await formatAwareProcessors.process(file)
+          const code = String(compiled.value)
+          return {code, map: compiled.map}
+        }
       }
     }
   }
+
+  return plugin
 }
