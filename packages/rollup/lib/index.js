@@ -2,7 +2,7 @@
  * @import {FormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
  * @import {CompileOptions} from '@mdx-js/mdx'
  * @import {FilterPattern} from '@rollup/pluginutils'
- * @import {SourceDescription} from 'rollup'
+ * @import * as vite from 'vite'
  */
 
 /**
@@ -23,33 +23,6 @@
  *   Plugin that is compatible with both Rollup and Vite.
  * @property {string} name
  *   The name of the plugin
- * @property {ViteConfig} config
- *   Function used by Vite to set additional configuration options.
- * @property {Transform} transform
- *   Function to transform the source content.
- *
- * @callback Transform
- *   Callback called by Rollup and Vite to transform.
- * @param {string} value
- *   File contents.
- * @param {string} id
- *   Module ID.
- * @returns {Promise<SourceDescription | undefined>}
- *   Result.
- *
- * @callback ViteConfig
- *   Callback called by Vite to set additional configuration options.
- * @param {unknown} config
- *   Configuration object (unused).
- * @param {ViteEnv} env
- *   Environment variables.
- * @returns {undefined}
- *   Nothing.
- *
- * @typedef ViteEnv
- *   Environment variables used by Vite.
- * @property {string} mode
- *   Mode.
  */
 
 import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
@@ -71,7 +44,8 @@ export function rollup(options) {
   let formatAwareProcessors
   const filter = createFilter(include, exclude)
 
-  return {
+  /** @type {vite.Plugin<never>} */
+  const plugin = {
     name: '@mdx-js/rollup',
     config(config, env) {
       formatAwareProcessors = createFormatAwareProcessors({
@@ -93,15 +67,15 @@ export function rollup(options) {
 
       if (
         file.extname &&
-        filter(file.path) &&
+        filter(id) &&
         formatAwareProcessors.extnames.includes(file.extname)
       ) {
         const compiled = await formatAwareProcessors.process(file)
         const code = String(compiled.value)
-        /** @type {SourceDescription} */
-        const result = {code, map: compiled.map}
-        return result
+        return {code, map: compiled.map}
       }
     }
   }
+
+  return plugin
 }
