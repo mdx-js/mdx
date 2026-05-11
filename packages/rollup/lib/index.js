@@ -98,9 +98,7 @@ export function rollup(options) {
       ) {
         const compiled = await formatAwareProcessors.process(file)
         const code = String(compiled.value)
-        /** @type {SourceDescription} */
-        const result = {code, map: compiled.map}
-        return result
+        return {code, map: compiled.map}
       }
     }
   }
