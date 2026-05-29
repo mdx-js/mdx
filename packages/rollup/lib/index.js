@@ -88,7 +88,12 @@ export function rollup(options) {
         })
       }
 
-      const [path] = id.split('?')
+      const [path, query] = id.split('?')
+
+      if (query === 'raw' || query === 'url') {
+        return
+      }
+
       const file = new VFile({path, value})
 
       if (
