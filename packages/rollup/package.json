@@ -63,10 +63,6 @@
     "source-map": "^0.7.0",
     "vfile": "^6.0.0"
   },
-  "peerDependencies": {
-    "rollup": ">=2"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "npm run test-coverage",
     "test-api": "node --conditions development test/index.js",
