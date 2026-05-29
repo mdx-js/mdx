@@ -44,7 +44,7 @@ export function rollup(options) {
   let formatAwareProcessors
   const filter = createFilter(include, exclude)
 
-  /** @type {vite.Plugin} */
+  /** @type {vite.Plugin<unknown>} */
   const plugin = {
     name: '@mdx-js/rollup',
     config(config, env) {
