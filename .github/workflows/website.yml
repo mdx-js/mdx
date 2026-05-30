@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: lts/*
       - run: npm ci
+      - run: npx puppeteer browsers install chrome
       - run: npm run docs
       - uses: actions/upload-pages-artifact@v4
         with:
