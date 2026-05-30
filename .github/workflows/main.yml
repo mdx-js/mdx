@@ -5,10 +5,10 @@ jobs:
     name: test / ${{matrix.os}} / ${{matrix.node}}
     runs-on: ${{matrix.os}}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           cache: npm
           node-version: ${{matrix.node}}
@@ -30,16 +30,16 @@ jobs:
     name: full build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           cache: npm
           node-version: lts/*
       - run: npm ci
       - run: npm test
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v6
 name: main
 on:
   - pull_request

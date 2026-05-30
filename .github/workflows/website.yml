@@ -11,17 +11,17 @@ jobs:
     # <https://github.com/puppeteer/puppeteer/issues/12818>.
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: lts/*
       - run: npm ci
       - run: npx puppeteer browsers install chrome
       - run: npm run docs
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: public
-      - uses: actions/deploy-pages@v4
+      - uses: actions/deploy-pages@v5
         id: deployment
 name: website
 on:
