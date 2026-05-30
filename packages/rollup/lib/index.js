@@ -71,6 +71,47 @@ export function rollup(options) {
         formatAwareProcessors.extnames.includes(file.extname)
       ) {
         const compiled = await formatAwareProcessors.process(file)
+
+        for (const message of compiled.messages) {
+          /** @type {vite.Rollup.RollupLog} */
+          const log = {
+            message: message.message,
+            cause: message
+          }
+
+          if (
+            message.line !== undefined &&
+            message.line !== null &&
+            message.column !== undefined &&
+            message.column !== null
+          ) {
+            log.loc = {
+              file: file.path,
+              line: message.line,
+              column: message.column
+            }
+          }
+
+          if (message.source || message.ruleId) {
+            let pluginCode = message.source || ''
+            if (message.ruleId) {
+              if (pluginCode) {
+                pluginCode += ':'
+              }
+
+              pluginCode += message.ruleId
+            }
+
+            log.pluginCode = pluginCode
+          }
+
+          if (message.fatal === undefined || message.fatal === null) {
+            this.info(log)
+          } else {
+            this.warn(log)
+          }
+        }
+
         const code = String(compiled.value)
         return {code, map: compiled.map}
       }

@@ -1,6 +1,7 @@
 /**
  * @import {MDXModule} from 'mdx/types.js'
- * @import {RollupOutput} from 'rollup'
+ * @import {RollupOutput, RollupLog} from 'rollup'
+ * @import {VFileMessage} from 'vfile-message'
  */
 
 import assert from 'node:assert/strict'
@@ -123,5 +124,101 @@ test('@mdx-js/rollup', async function (t) {
 
     assert.match(code, /Hello Vite/)
     assert.match(code, /jsxs?\(/)
+  })
+
+  await t.test('should log vfile messages', async () => {
+    /** @type {VFileMessage | undefined} */
+    let info
+    /** @type {VFileMessage | undefined} */
+    let withRuleId
+    /** @type {VFileMessage | undefined} */
+    let withSource
+    /** @type {VFileMessage | undefined} */
+    let withSourceAndRuleId
+    /** @type {RollupLog[]} */
+    const logs = []
+    const input = fileURLToPath(new URL('vite-entry.mdx', import.meta.url))
+
+    await rollup({
+      external: ['react/jsx-runtime'],
+      input,
+      onLog(level, log) {
+        logs.push(
+          /** @type {RollupLog} */ (
+            // Strip symbol keys
+            Object.fromEntries(Object.entries(log))
+          )
+        )
+      },
+      plugins: [
+        rollupMdx({
+          remarkPlugins: [
+            () => (ast, file) => {
+              info = file.info('info with location', ast)
+              withSource = file.message('warning with source', {
+                source: 'source'
+              })
+              withRuleId = file.message('warning with ruleId', {
+                ruleId: 'rule-id'
+              })
+              withSourceAndRuleId = file.message(
+                'warning with source and ruleId',
+                {
+                  source: 'source',
+                  ruleId: 'rule-id'
+                }
+              )
+            }
+          ]
+        })
+      ]
+    })
+
+    assert.deepEqual(logs, [
+      {
+        cause: info,
+        code: 'PLUGIN_LOG',
+        hook: 'transform',
+        id: input,
+        loc: {
+          column: 1,
+          file: input,
+          line: 1
+        },
+        message:
+          '[plugin @mdx-js/rollup] test/vite-entry.mdx (1:1): info with location',
+        plugin: '@mdx-js/rollup'
+      },
+      {
+        cause: withSource,
+        code: 'PLUGIN_WARNING',
+        hook: 'transform',
+        id: input,
+        message:
+          '[plugin @mdx-js/rollup] test/vite-entry.mdx: warning with source',
+        plugin: '@mdx-js/rollup',
+        pluginCode: 'source'
+      },
+      {
+        cause: withRuleId,
+        code: 'PLUGIN_WARNING',
+        hook: 'transform',
+        id: input,
+        message:
+          '[plugin @mdx-js/rollup] test/vite-entry.mdx: warning with ruleId',
+        plugin: '@mdx-js/rollup',
+        pluginCode: 'rule-id'
+      },
+      {
+        cause: withSourceAndRuleId,
+        code: 'PLUGIN_WARNING',
+        hook: 'transform',
+        id: input,
+        message:
+          '[plugin @mdx-js/rollup] test/vite-entry.mdx: warning with source and ruleId',
+        plugin: '@mdx-js/rollup',
+        pluginCode: 'source:rule-id'
+      }
+    ])
   })
 })
