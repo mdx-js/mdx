@@ -1,4 +1,5 @@
 /**
+ * @import {Root} from 'mdast'
  * @import {MDXModule} from 'mdx/types.js'
  * @import {RollupOutput, RollupLog} from 'rollup'
  * @import {VFileMessage} from 'vfile-message'
@@ -153,22 +154,26 @@ test('@mdx-js/rollup', async function (t) {
       plugins: [
         rollupMdx({
           remarkPlugins: [
-            () => (ast, file) => {
-              info = file.info('info with location', ast)
-              withSource = file.message('warning with source', {
-                source: 'source'
-              })
-              withRuleId = file.message('warning with ruleId', {
-                ruleId: 'rule-id'
-              })
-              withSourceAndRuleId = file.message(
-                'warning with source and ruleId',
-                {
-                  source: 'source',
+            () =>
+              /**
+               * @param {Root} ast
+               */
+              (ast, file) => {
+                info = file.info('info with location', ast)
+                withSource = file.message('warning with source', {
+                  source: 'source'
+                })
+                withRuleId = file.message('warning with ruleId', {
                   ruleId: 'rule-id'
-                }
-              )
-            }
+                })
+                withSourceAndRuleId = file.message(
+                  'warning with source and ruleId',
+                  {
+                    source: 'source',
+                    ruleId: 'rule-id'
+                  }
+                )
+              }
           ]
         })
       ]
