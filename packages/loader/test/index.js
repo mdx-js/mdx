@@ -258,7 +258,7 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
                   remarkPlugins: [
                     () =>
                       /**
-                       * @type {Root}
+                       * @param {Root} ast
                        */
                       (ast, file) => {
                         file.info('info with position', ast)
