@@ -85,9 +85,42 @@ export function loader(value, callback) {
 
   const context = this.context
   const filePath = this.resourcePath
+  const logger = this.getLogger()
 
   process({value, path: filePath}).then(
     function (file) {
+      for (const message of file.messages) {
+        let log = filePath
+        if (message.line) {
+          log += ':' + message.line
+
+          if (message.column) {
+            log += ':' + message.column
+          }
+        }
+
+        log += ' '
+        if (message.source) {
+          log += message.source
+
+          if (message.ruleId) {
+            log += ':' + message.ruleId
+          }
+
+          log += ' '
+        } else if (message.ruleId) {
+          log += message.ruleId + ' '
+        }
+
+        log += message.message
+
+        if (message.fatal === undefined || message.fatal === null) {
+          logger.info(log)
+        } else {
+          logger.warn(log)
+        }
+      }
+
       callback(
         undefined,
         Buffer.from(file.value),
