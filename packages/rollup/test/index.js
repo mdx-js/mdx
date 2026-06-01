@@ -124,4 +124,50 @@ test('@mdx-js/rollup', async function (t) {
     assert.match(code, /Hello Vite/)
     assert.match(code, /jsxs?\(/)
   })
+
+  await t.test('should support the ?raw query', async () => {
+    const result = /** @type {Array<RollupOutput>} */ (
+      await build({
+        build: {
+          lib: {
+            entry:
+              fileURLToPath(new URL('vite-entry.mdx?raw', import.meta.url)) +
+              '?raw',
+            name: 'query'
+          },
+          write: false
+        },
+        logLevel: 'silent',
+        plugins: [rollupMdx()]
+      })
+    )
+
+    const code = result[0].output[0].code
+
+    assert.match(code, /# Hello Vite/)
+    assert.doesNotMatch(code, /jsxs/)
+  })
+
+  await t.test('should support the ?url query', async () => {
+    const result = /** @type {Array<RollupOutput>} */ (
+      await build({
+        build: {
+          lib: {
+            entry:
+              fileURLToPath(new URL('vite-entry.mdx?url', import.meta.url)) +
+              '?url',
+            name: 'query'
+          },
+          write: false
+        },
+        logLevel: 'silent',
+        plugins: [rollupMdx()]
+      })
+    )
+
+    const code = result[0].output[0].code
+
+    assert.match(code, /data:text\/mdx;base64/)
+    assert.doesNotMatch(code, /jsxs/)
+  })
 })
