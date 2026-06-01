@@ -2,6 +2,7 @@
  * @import {FormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aware-processors'
  * @import {CompileOptions} from '@mdx-js/mdx'
  * @import {FilterPattern} from '@rollup/pluginutils'
+ * @import {VFileMessage} from 'vfile-message'
  * @import * as vite from 'vite'
  */
 
@@ -29,6 +30,50 @@ import {createFormatAwareProcessors} from '@mdx-js/mdx/internal-create-format-aw
 import {createFilter} from '@rollup/pluginutils'
 import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
+
+/**
+ * Turn a vfile message into a Rollup log.
+ *
+ * @param {VFileMessage} message
+ *   Message.
+ * @returns {vite.Rollup.RollupLog}
+ *   Log.
+ */
+function vfileToRollup(message) {
+  /** @type {vite.Rollup.RollupLog} */
+  const log = {
+    message: message.reason,
+    cause: message
+  }
+
+  if (
+    message.line !== undefined &&
+    message.line !== null &&
+    message.column !== undefined &&
+    message.column !== null
+  ) {
+    log.loc = {
+      file: message.file,
+      line: message.line,
+      column: message.column
+    }
+  }
+
+  if (message.source || message.ruleId) {
+    let pluginCode = message.source || ''
+    if (message.ruleId) {
+      if (pluginCode) {
+        pluginCode += ':'
+      }
+
+      pluginCode += message.ruleId
+    }
+
+    log.pluginCode = pluginCode
+  }
+
+  return log
+}
 
 /**
  * Plugin to compile MDX w/ rollup.
@@ -71,6 +116,15 @@ export function rollup(options) {
         formatAwareProcessors.extnames.includes(file.extname)
       ) {
         const compiled = await formatAwareProcessors.process(file)
+
+        for (const message of compiled.messages) {
+          if (message.fatal === undefined || message.fatal === null) {
+            this.info(vfileToRollup(message))
+          } else {
+            this.warn(vfileToRollup(message))
+          }
+        }
+
         const code = String(compiled.value)
         return {code, map: compiled.map}
       }
