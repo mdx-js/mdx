@@ -45,10 +45,10 @@ We’re compiling those here on this page.
 
 ### List of components
 
-* [`PaulieScanlon/mdx-embed`](https://github.com/PaulieScanlon/mdx-embed)
+* [`mdx-embed`](https://github.com/PaulieScanlon/mdx-embed)
   — React components for embedding 3rd party content, integrates w/
   MDX provider
-* [`system-ui/theme-ui`](https://github.com/system-ui/theme-ui)
+* [`theme-ui`](https://github.com/system-ui/theme-ui)
   — React components for building consistent apps, integrates w/ MDX provider
 
 {/*
@@ -56,7 +56,7 @@ We’re compiling those here on this page.
   * You can use this template:
   *
   * ```markdown
-  * * [`user/project`](https://github.com/user/project)
+  * * [`package`](https://github.com/user/project)
   *   — somewhat short description of the project
   * ```
   */}
@@ -68,54 +68,64 @@ We’re compiling those here on this page.
 
 ### List of plugins
 
-See also the [list of remark plugins][remark-plugins],
-[list of rehype plugins][rehype-plugins], and
-[list of recma plugins][recma-plugins].
+#### MDX-specific remark plugins
 
-* [`remcohaszing/recma-export-filepath`](https://github.com/remcohaszing/recma-export-filepath)
-  — export the filepath
-* [`ipikuka/recma-mdx-change-props`](https://github.com/ipikuka/recma-mdx-change-props)
-  — changes the param as `_props` in the `_createMdxContent` function
-* [`domdomegg/recma-mdx-displayname`](https://github.com/domdomegg/recma-mdx-displayname)
-  — add a `displayName` to `MDXContent` components, to enable switching
-  on them in production
-* [`ipikuka/recma-mdx-escape-missing-components`](https://github.com/ipikuka/recma-mdx-escape-missing-components)
-  — set a default value of `() => null` for missing components instead of
-  throwing an error
-* [`remcohaszing/recma-mdx-is-mdx-component`](https://github.com/remcohaszing/recma-mdx-is-mdx-component)
-  — add an `isMdxComponent` field on MDX components
-* [`remcohaszing/recma-nextjs-static-props`](https://github.com/remcohaszing/recma-nextjs-static-props)
-  — generate [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
-  exposing top level identifiers in Next.js
-* [`remcohaszing/recma-module-to-function`](https://github.com/remcohaszing/recma-module-to-function)
-  — convert a module into a function body
-* [`remcohaszing/rehype-mdx-code-props`](https://github.com/remcohaszing/rehype-mdx-code-props)
-  — interpret the code `meta` field as JSX props
-* [`remcohaszing/rehype-mdx-import-media`](https://github.com/remcohaszing/rehype-mdx-import-media)
-  — change media sources to JavaScript imports
-* [`remcohaszing/rehype-mdx-title`](https://github.com/remcohaszing/rehype-mdx-title)
-  — expose the page title as a string
-* [`boning-w/rehype-mdx-toc`](https://github.com/boning-w/rehype-mdx-toc)
-  — export the table of contents data into MDX module
-* [`re-xyr/remark-directive-mdx`](https://github.com/re-xyr/remark-directive-mdx)
+* [`remark-directive-mdx`](https://github.com/re-xyr/remark-directive-mdx)
   — transform Markdown directives (`:directive[]`) to JSX elements
-* [`pangelani/remark-mdx-chartjs`](https://github.com/pangelani/remark-mdx-chartjs)
+* [`remark-mdx-chartjs`](https://github.com/pangelani/remark-mdx-chartjs)
   — replace fenced code blocks with charts using [`react-chartjs-2`](https://react-chartjs-2.js.org/).
-* [`remcohaszing/remark-mdx-frontmatter`](https://github.com/remcohaszing/remark-mdx-frontmatter)
+* [`remark-mdx-frontmatter`](https://github.com/remcohaszing/remark-mdx-frontmatter)
   — change frontmatter (YAML) metadata to exports
-* [`goodproblems/remark-mdx-math-enhanced`](https://github.com/goodproblems/remark-mdx-math-enhanced)
+* [`remark-mdx-math-enhanced`](https://github.com/goodproblems/remark-mdx-math-enhanced)
   — enhance math with JavaScript inside it
-* [`ipikuka/remark-mdx-remove-esm`](https://github.com/ipikuka/remark-mdx-remove-esm)
+* [`remark-mdx-remove-esm`](https://github.com/ipikuka/remark-mdx-remove-esm)
   — remove import and/or export statements (mdxjsEsm)
-* [`ipikuka/remark-mdx-remove-expressions`](https://github.com/ipikuka/remark-mdx-remove-expressions)
+* [`remark-mdx-remove-expressions`](https://github.com/ipikuka/remark-mdx-remove-expressions)
   — remove MDX expressions within curlybraces {} in MDX content
 
+See also the [list of remark plugins][remark-plugins].
+
+#### MDX-specific rehype plugins
+
+* [`rehype-mdx-code-props`](https://github.com/remcohaszing/rehype-mdx-code-props)
+  — interpret the code `meta` field as JSX props
+* [`rehype-mdx-import-media`](https://github.com/remcohaszing/rehype-mdx-import-media)
+  — change media sources to JavaScript imports
+* [`rehype-mdx-title`](https://github.com/remcohaszing/rehype-mdx-title)
+  — expose the page title as a string
+* [`rehype-mdx-toc`](https://github.com/boning-w/rehype-mdx-toc)
+  — export the table of contents data into MDX module
+
+See also the [list of rehype plugins][rehype-plugins].
+
+#### MDX-specific recma plugins
+
+* [`recma-export-filepath`](https://github.com/remcohaszing/recma-export-filepath)
+  — export the filepath
+* [`recma-mdx-change-props`](https://github.com/ipikuka/recma-mdx-change-props)
+  — changes the param as `_props` in the `_createMdxContent` function
+* [`recma-mdx-displayname`](https://github.com/domdomegg/recma-mdx-displayname)
+  — add a `displayName` to `MDXContent` components, to enable switching
+  on them in production
+* [`recma-mdx-escape-missing-components`](https://github.com/ipikuka/recma-mdx-escape-missing-components)
+  — set a default value of `() => null` for missing components instead of
+  throwing an error
+* [`recma-mdx-is-mdx-component`](https://github.com/remcohaszing/recma-mdx-is-mdx-component)
+  — add an `isMdxComponent` field on MDX components
+* [`recma-nextjs-static-props`](https://github.com/remcohaszing/recma-nextjs-static-props)
+  — generate [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
+  exposing top level identifiers in Next.js
+* [`recma-module-to-function`](https://github.com/remcohaszing/recma-module-to-function)
+  — convert a module into a function body
+
+See also the [list of recma plugins][recma-plugins].
+
 {/*
-  * Please use alpha sorting on **project** name!
+  * Please use alpha sorting on **package** name!
   * You can use this template:
   *
   * ```markdown
-  * * [`user/project`](https://github.com/user/project)
+  * * [`package`](https://github.com/user/project)
   *   — somewhat short description of the project
   * ```
   */}
