@@ -125,7 +125,7 @@ test('@mdx-js/rollup', async function (t) {
     assert.match(code, /jsxs?\(/)
   })
 
-  await t.test('should support the ?raw query', async () => {
+  await t.test('should support the `?raw` query', async () => {
     const result = /** @type {Array<RollupOutput>} */ (
       await build({
         build: {
