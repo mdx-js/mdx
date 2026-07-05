@@ -62,7 +62,14 @@ export function rollup(options) {
         })
       }
 
-      const [path] = id.split('?')
+      const [path, query] = id.split('?')
+
+      // Special case for Vite.
+      // <https://github.com/vitejs/vite/issues/22417>
+      if (query === 'raw' || query === 'url') {
+        return
+      }
+
       const file = new VFile({path, value})
 
       if (
