@@ -32,50 +32,6 @@ import {SourceMapGenerator} from 'source-map'
 import {VFile} from 'vfile'
 
 /**
- * Turn a vfile message into a Rollup log.
- *
- * @param {VFileMessage} message
- *   Message.
- * @returns {vite.Rollup.RollupLog}
- *   Log.
- */
-function vfileToRollup(message) {
-  /** @type {vite.Rollup.RollupLog} */
-  const log = {
-    message: message.reason,
-    cause: message
-  }
-
-  if (
-    message.line !== undefined &&
-    message.line !== null &&
-    message.column !== undefined &&
-    message.column !== null
-  ) {
-    log.loc = {
-      file: message.file,
-      line: message.line,
-      column: message.column
-    }
-  }
-
-  if (message.source || message.ruleId) {
-    let pluginCode = message.source || ''
-    if (message.ruleId) {
-      if (pluginCode) {
-        pluginCode += ':'
-      }
-
-      pluginCode += message.ruleId
-    }
-
-    log.pluginCode = pluginCode
-  }
-
-  return log
-}
-
-/**
  * Plugin to compile MDX w/ rollup.
  *
  * @param {Readonly<Options> | null | undefined} [options]
@@ -139,4 +95,48 @@ export function rollup(options) {
   }
 
   return plugin
+}
+
+/**
+ * Turn a vfile message into a Rollup log.
+ *
+ * @param {VFileMessage} message
+ *   Message.
+ * @returns {vite.Rollup.RollupLog}
+ *   Log.
+ */
+function vfileToRollup(message) {
+  /** @type {vite.Rollup.RollupLog} */
+  const log = {
+    message: message.reason,
+    cause: message
+  }
+
+  if (
+    message.line !== undefined &&
+    message.line !== null &&
+    message.column !== undefined &&
+    message.column !== null
+  ) {
+    log.loc = {
+      file: message.file,
+      line: message.line,
+      column: message.column
+    }
+  }
+
+  if (message.source || message.ruleId) {
+    let pluginCode = message.source || ''
+    if (message.ruleId) {
+      if (pluginCode) {
+        pluginCode += ':'
+      }
+
+      pluginCode += message.ruleId
+    }
+
+    log.pluginCode = pluginCode
+  }
+
+  return log
 }
