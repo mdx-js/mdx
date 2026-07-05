@@ -131,7 +131,7 @@ test('@mdx-js/rollup', async function (t) {
         build: {
           lib: {
             entry:
-              fileURLToPath(new URL('vite-entry.mdx?raw', import.meta.url)) +
+              fileURLToPath(new URL('vite-entry.mdx', import.meta.url)) +
               '?raw',
             name: 'query'
           },
@@ -154,7 +154,7 @@ test('@mdx-js/rollup', async function (t) {
         build: {
           lib: {
             entry:
-              fileURLToPath(new URL('vite-entry.mdx?url', import.meta.url)) +
+              fileURLToPath(new URL('vite-entry.mdx', import.meta.url)) +
               '?url',
             name: 'query'
           },
