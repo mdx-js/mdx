@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.0.0",
-    "@docsearch/css": "^3.0.0",
+    "@docsearch/css": "^4.0.0",
     "@docsearch/js": "^3.0.0",
     "@floating-ui/dom": "^1.0.0",
     "@next/mdx": "^15.0.0",
