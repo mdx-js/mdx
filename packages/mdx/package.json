@@ -62,7 +62,7 @@
     "remark-mdx": "^3.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.0.0",
-    "source-map": "^0.7.0",
+    "source-map": "^0.8.0",
     "unified": "^11.0.0",
     "unist-util-position-from-estree": "^2.0.0",
     "unist-util-stringify-position": "^4.0.0",
