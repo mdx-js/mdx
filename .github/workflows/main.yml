@@ -39,7 +39,7 @@ jobs:
           node-version: lts/*
       - run: npm ci
       - run: npm test
-      - uses: codecov/codecov-action@v6
+      - uses: codecov/codecov-action@v7
 name: main
 on:
   - pull_request
