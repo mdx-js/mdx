@@ -1,4 +1,6 @@
 /**
+ * @import {Options} from '@mdx-js/loader'
+ * @import {Root} from 'mdast'
  * @import {MDXContent} from 'mdx/types.js'
  */
 
@@ -228,5 +230,86 @@ webpack.mdx:1:22: Unexpected end of file in expression, expected a corresponding
 
     await fs.rm(mdxUrl)
     await fs.rm(new URL('webpack.cjs', folderUrl))
+  })
+
+  await t.test('should log messages', async () => {
+    const folderUrl = new URL('./', import.meta.url)
+    const mdxUrl = new URL('webpack.mdx', import.meta.url)
+    const mdxPath = fileURLToPath(mdxUrl)
+
+    await fs.writeFile(
+      mdxUrl,
+      'export function Message() { return <>World!</> }\n\n# Hello, <Message />'
+    )
+
+    const result = await webpack({
+      // @ts-expect-error: webpack types do not include `context`, which does work.
+      context: fileURLToPath(folderUrl),
+      entry: './webpack.mdx',
+      mode: 'none',
+      module: {
+        rules: [
+          {
+            test: /\.mdx$/,
+            use: [
+              {
+                loader: '@mdx-js/loader',
+                options: /** @satisfies {Options} */ ({
+                  remarkPlugins: [
+                    () =>
+                      /**
+                       * @param {Root} ast
+                       */
+                      (ast, file) => {
+                        file.info('info with position', ast)
+                        file.info('info with source', {source: 'source'})
+                        file.message('warning with ruleId', {ruleId: 'rule-id'})
+                        file.message('warning with source and ruleId', {
+                          source: 'source',
+                          ruleId: 'rule-id'
+                        })
+                      }
+                  ]
+                })
+              }
+            ]
+          }
+        ]
+      },
+      output: {
+        filename: 'webpack.cjs',
+        libraryTarget: 'commonjs',
+        path: fileURLToPath(folderUrl)
+      }
+    })
+
+    await fs.rm(mdxUrl)
+    await fs.rm(new URL('webpack.cjs', folderUrl))
+
+    assert(result)
+    const {logging} = result.toJson({logging: 'info'})
+    assert(logging)
+    const entries = Object.values(logging)[0].entries.map((entry) => ({
+      type: entry.type,
+      message: entry.message
+    }))
+    assert.deepEqual(entries, [
+      {
+        type: 'info',
+        message: mdxPath + ':1:1 info with position'
+      },
+      {
+        type: 'info',
+        message: mdxPath + ' source info with source'
+      },
+      {
+        type: 'warn',
+        message: mdxPath + ' rule-id warning with ruleId'
+      },
+      {
+        type: 'warn',
+        message: mdxPath + ' source:rule-id warning with source and ruleId'
+      }
+    ])
   })
 })

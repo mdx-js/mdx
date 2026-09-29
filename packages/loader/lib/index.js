@@ -85,9 +85,18 @@ export function loader(value, callback) {
 
   const context = this.context
   const filePath = this.resourcePath
+  const logger = this.getLogger()
 
   process({value, path: filePath}).then(
     function (file) {
+      for (const message of file.messages) {
+        if (message.fatal === undefined || message.fatal === null) {
+          logger.info(toLogLine(message))
+        } else {
+          logger.warn(toLogLine(message))
+        }
+      }
+
       callback(
         undefined,
         Buffer.from(file.value),
@@ -133,4 +142,38 @@ function getOptionsHash(options) {
   }
 
   return hash.digest('hex').slice(0, 16)
+}
+
+/**
+ * Turn a vfile message into a log line.
+ *
+ * @param {VFileMessage} message
+ *   The vfile message
+ * @returns {string}
+ *   Log line
+ */
+function toLogLine(message) {
+  let log = message.file ?? ''
+  if (message.line) {
+    log += ':' + message.line
+
+    if (message.column) {
+      log += ':' + message.column
+    }
+  }
+
+  log += ' '
+  if (message.source) {
+    log += message.source
+
+    if (message.ruleId) {
+      log += ':' + message.ruleId
+    }
+
+    log += ' '
+  } else if (message.ruleId) {
+    log += message.ruleId + ' '
+  }
+
+  return log + message.reason
 }
