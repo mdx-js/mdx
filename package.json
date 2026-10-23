@@ -28,7 +28,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@babel/types": "^7.0.0",
+    "@babel/types": "^8.0.0",
     "@docsearch/css": "^3.0.0",
     "@docsearch/js": "^3.0.0",
     "@floating-ui/dom": "^1.0.0",
